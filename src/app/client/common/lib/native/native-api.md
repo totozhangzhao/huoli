@@ -256,9 +256,10 @@ __method__
 
 __params__
 
+* `type`   String 指定按钮类型，例如：'phone', 'order', 'share'等。
 * `action` String 控制按钮显⽰与隐藏，当 action == 'show' 的时候展⽰，当 action == 'hide' 的时候隐藏。
-* `icon`   String 更新btn的icon, 如果没有找到icon则显⽰text字段,text字段默认为空.
-* `text`   String 更新btn上的⽂文字,如果同时出现icon字段,则优先处理icon字段,找不到相关字符时再处理text字段
+* `icon`   String 按钮图片，图片的base64编码，如果没有找到icon则显⽰text字段，text字段默认为空。
+* `text`   String 按钮文字，没有 icon 字段时使用。
 * `data`   Object btn上附属的数据,在⽤用户点击后传给⻚⾯内的js回调。
 
 
