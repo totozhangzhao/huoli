@@ -1,12 +1,13 @@
-var path = require("path");
+var webpack = require("webpack");
+var path    = require("path");
 
 module.exports = {
   resolve: {
     root: __dirname + "/src",
     alias: {
-      "underscore" : __dirname + "/src/com/mobile/lib/underscore/underscore.js",
-      "backbone"   : __dirname + "/src/com/mobile/lib/backbone/backbone.js",
-      "jquery"     : __dirname + "/src/com/mobile/lib/jquery/jquery.js"
+      "underscore": __dirname + "/src/com/mobile/lib/underscore/underscore.js",
+      "backbone"  : __dirname + "/src/com/mobile/lib/backbone/backbone.js",
+      "jquery"    : __dirname + "/src/com/mobile/lib/jquery/jquery.js"
     }
   },
   entry: {
@@ -26,6 +27,14 @@ module.exports = {
       { test: /\.css$/, loader: "style!css" }
     ]
   },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      output: {
+        comments: false
+      }
+    })
+  ],
+  // devtool: "source-map",
   useMemoryFs: true,
   progress: true
 };

@@ -1,6 +1,7 @@
-var Backbone = require("backbone");
-var storage = require("app/client/test/common/native/storage.js");
+var Backbone  = require("backbone");
+var storage   = require("app/client/test/common/native/storage.js");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
+var $         = require("jquery");
 
 var handleError = function(err) {
     window.alert("出错了！[code:"+err.code+"]: " + err.message);
@@ -9,10 +10,15 @@ var handleError = function(err) {
 var AppView = Backbone.View.extend({
   el: "body",
   events: {
-    "click .js-alert": "alert",
-    "click .js-storage-set": "setStorage",
-    "click .js-storage-get": "getStorage",
+    "click .js-showUserAgent": "showUserAgent",
+    "click .js-alert"        : "alert",
+    "click .js-storage-set"  : "setStorage",
+    "click .js-storage-get"  : "getStorage",
     "click .js-getDeviceInfo": "getDeviceInfo"
+  },
+  showUserAgent: function() {
+    var ua = window.navigator.userAgent;
+    $("#echo").text(ua);
   },
   alert: function() {
     NativeAPI.invoke(

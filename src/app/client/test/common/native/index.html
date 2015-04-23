@@ -11,13 +11,18 @@
       height: 32px;
       margin: 0 0 6px 0;
     }
+    #echo {
+      word-wrap: break-word;
+    }
   </style>
 </head>
 <body>
+  <button class="js-showUserAgent">window.navigator.userAgent</button>
   <button class="js-alert">Native alert</button>
   <button class="js-storage-set">Native storage set</button>
   <button class="js-storage-get">Native storage get</button>
   <button class="js-getDeviceInfo">Native getDeviceInfo</button>
+  <p id="echo"></p>
   <script src="bundle.native-test.js"></script>
 </body>
 </html>
