@@ -39,22 +39,22 @@ __result__
 2 常量，表示点击了其他关闭方式
 
 
-→ {method: ‘confirm’, params: { title: 'test', message: 'hello world', yes_btn_text: '是的', no_btn_text: '不是' }, id: 1}
-← {__result__ {value: 0, YES:1, NO: 0, CLOSE: 2}, id: 1}
+JS -> Native: {method: "confirm", params: { title: "test", message: "hello world", yes_btn_text: "是的", no_btn_text: "不是" }, id: 1}
+Native -> JS: {__result__ {value: 0, YES:1, NO: 0, CLOSE: 2}, id: 1}
 
 ```JavaScript
 // invoke 方法是对 sendToNative 的封装
 NativeAPI.invoke(
-  'confirm',
+  "confirm",
   {
-    title: '提示',
-    message: ‘msg’,
-    yes_btn_text: '拨打电话',
-    no_btn_text: '取消'
+    title: "提示",
+    message: "msg",
+    yes_btn_text: "拨打电话",
+    no_btn_text: "取消"
   },
   function (err, data) {
     if (data.value === data.YES) {
-      alert(‘确认’);
+      alert("确认");
     }
   }
 );
@@ -83,20 +83,20 @@ CLOSE Number
 1 常量
 
 
-→ {method: ‘alert’, params: { title: 123, message: ‘msg’, btn_text: ‘是的’ }, id: 1}
-← {__result__ {value: 0, YES:0, CLOSE: 1}, id: 1}
+JS -> Native: {method: "alert", params: { title: 123, message: "msg", btn_text: "是的" }, id: 1}
+Native -> JS: {__result__ {value: 0, YES:0, CLOSE: 1}, id: 1}
 
 ```JavaScript
 NativeAPI.invoke(
-  'alert',
+  "alert",
   {
-    title: '提示',
-    message: '你确定吗?'
-    btn_text: '确定'
+    title: "提示",
+    message: "你确定吗?"
+    btn_text: "确定"
   },
   function (err, data) {
     if (data.value === data.YES) {
-      alert(‘确认’);
+      alert("确认");
     }
   }
 );
@@ -115,7 +115,7 @@ __method__
 __params__
 
 * `url` String url有可能是相对的,如果是相对路径的话就根据当前webView的url进⾏计算
-* `control` Object 可选 包含一个控件的配置。例如显⽰搜索框: control: { type: 'searchBox', text: '关键字', placeholder: '搜索' }
+* `control` Object 可选 包含一个控件的配置。例如显⽰搜索框: control: { type: "searchBox", text: "关键字", placeholder: "搜索" }
 * `controls` Array controls是一个数组, 包含若干个control配置
 注意:
 control和controls两个都是可选的. 当两个字段同时出现时 controls 覆盖 control。
@@ -142,7 +142,7 @@ __method__
 
 * `back`
 
-→ {method: ‘back’, params:null}
+JS -> Native: {method: "back", params:null}
 
 ### webViewCallback
 
@@ -156,7 +156,7 @@ __params__
 
 * `url` String url有可能是相对的,如果是相对路径的话就根据当前webView的url进⾏计算
 
-→ {method: ‘webViewCallback’, params: {url: '/index.html' }}
+JS -> Native: {method: "webViewCallback", params: {url: "/index.html" }}
 
 ### getUserInfo
 
@@ -256,8 +256,8 @@ __method__
 
 __params__
 
-* `type`   String 指定按钮类型，例如：'phone', 'order', 'share'等。
-* `action` String 控制按钮显⽰与隐藏，当 action == 'show' 的时候展⽰，当 action == 'hide' 的时候隐藏。
+* `type`   String 指定按钮类型，例如："phone", "order", "share"等。
+* `action` String 控制按钮显⽰与隐藏，当 action == "show" 的时候展⽰，当 action == "hide" 的时候隐藏。
 * `icon`   String 按钮图片，图片的base64编码，如果没有找到icon则显⽰text字段，text字段默认为空。
 * `text`   String 按钮文字，没有 icon 字段时使用。
 * `data`   Object btn上附属的数据,在⽤用户点击后传给⻚⾯内的js回调。
@@ -267,7 +267,7 @@ __params__
 
 * 描述：清除设备内遗留的app cache
 
-→ {method: ‘clearAppCache’, params: null }
+JS -> Native: {method: "clearAppCache", params: null }
 
 ## 由 JavaScript 提供的方法
 
@@ -281,9 +281,10 @@ __method__
 
 __result__
 
-* `preventDefault` Number 0 表⽰执⾏默认⾏为(在 Android 上表⽰⽴刻关闭当前界⾯)，1 表⽰阻⽌止默认⾏为。
+* `preventDefault` Boolean false 表⽰执⾏默认⾏为(在 Android 上表⽰⽴刻关闭当前界⾯)，true 表⽰阻⽌止默认⾏为。
 
-→ {method: ‘back’, params:null, id: 1} ← {__result__ {preventDefault: 0 }, id: 1}
+JS -> Native: {method: "back", params:null, id: 1}
+Native -> JS: {result: {preventDefault: false}, id: 1}
 
 ### headerRightBtnClick
 
@@ -293,7 +294,5 @@ __params__
 
 * 客户端可以根据各⾃场景⾃定义
 
-→ {method: ‘headerRightBtnClick’, params: null}
-→ {method: ‘headerRightBtnClick’, params: { 'foo': 'bar'}}
-
-
+JS -> Native: {method: "headerRightBtnClick", params: null}
+JS -> Native: {method: "headerRightBtnClick", params: { "foo": "bar"}}

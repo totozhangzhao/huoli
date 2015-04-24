@@ -10,11 +10,32 @@ var handleError = function(err) {
 var AppView = Backbone.View.extend({
   el: "body",
   events: {
+    "click .js-js-back"      : "doJSBack",
+    "click .js-native-back"  : "doNativeBack",
     "click .js-showUserAgent": "showUserAgent",
     "click .js-alert"        : "alert",
     "click .js-storage-set"  : "setStorage",
     "click .js-storage-get"  : "getStorage",
     "click .js-getDeviceInfo": "getDeviceInfo"
+  },
+  initialize: function() {
+    this.jsBackFlag = false;
+  },
+  doJSBack: function() {
+
+    var backObj = {
+      preventDefault: this.jsBackFlag
+    };
+    
+    NativeAPI.registerHandler("back", function(params, callback) {
+      callback(null, backObj);
+    });
+
+    $("#echo").text(JSON.stringify(backObj));
+    this.jsBackFlag = !this.jsBackFlag;
+  },
+  doNativeBack: function() {
+    NativeAPI.invoke("back");
   },
   showUserAgent: function() {
     var ua = window.navigator.userAgent;

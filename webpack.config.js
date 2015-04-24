@@ -12,7 +12,7 @@ module.exports = {
   },
   entry: {
     "/com/mobile/widget/scratch-card/test/bundle.scratch-card": __dirname + "/src/com/mobile/widget/scratch-card/test/test.js",
-    "/app/client/test/common/native/bundle.native-test": __dirname + "/src/app/client/test/common/native/native-test.js",
+    "/app/client/test/common/native/bundle.native-test": __dirname + "/src/app/client/test/common/native/native-test.js"
   },
   output: {
     // publicPath: "./build/",
