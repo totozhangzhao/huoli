@@ -4,7 +4,7 @@ var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var $         = require("jquery");
 
 var handleError = function(err) {
-    window.alert("出错了！[code:"+err.code+"]: " + err.message);
+  window.alert("出错了！[code:" + err.code + "]: " + err.message);
 };
 
 var AppView = Backbone.View.extend({
@@ -22,7 +22,6 @@ var AppView = Backbone.View.extend({
     this.jsBackFlag = false;
   },
   doJSBack: function() {
-
     var backObj = {
       preventDefault: this.jsBackFlag
     };
