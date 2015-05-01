@@ -8,15 +8,15 @@ module.exports = {
       "jquery"    : __dirname + "/src/com/mobile/lib/jquery/jquery.js",
       "underscore": __dirname + "/src/com/mobile/lib/underscore/underscore.js",
       "backbone"  : __dirname + "/src/com/mobile/lib/backbone/backbone.js",
-      "swipe"     : __dirname + "/src/com/mobile/lib/swipe/swipe.js",
       "jsonrpc"   : __dirname + "/src/com/mobile/lib/jsonrpc/jsonrpc.js"
     }
   },
   entry: {
-    "/com/mobile/widget/scratch-card/test/bundle.scratch-card": __dirname + "/src/com/mobile/widget/scratch-card/test/test.js",
-    "/com/mobile/widget/swipe-page/test/bundle.swipe-page": __dirname + "/src/com/mobile/widget/swipe-page/test/test.js",
-    "/app/client/test/common/native/bundle.native-test": __dirname + "/src/app/client/test/common/native/native-test.js",
-    "/app/client/test/common/jsonrpc/bundle.jsonrpc-test": __dirname + "/src/app/client/test/common/jsonrpc/jsonrpc-test.js"
+    "/com/mobile/widget/swiper-full-page/test/main.bundle": __dirname + "/src/com/mobile/widget/swiper-full-page/test/main.entry.js",
+    "/com/mobile/widget/scratch-card/test/scratch-card.bundle": __dirname + "/src/com/mobile/widget/scratch-card/test/scratch-card.entry.js",
+    "/com/mobile/widget/swipe-page/test/swipe-page.bundle": __dirname + "/src/com/mobile/widget/swipe-page/test/swipe-page.entry.js",
+    "/app/client/test/common/jsonrpc/jsonrpc-test.bundle": __dirname + "/src/app/client/test/common/jsonrpc/jsonrpc-test.entry.js",
+    "/app/client/test/common/native/native-test.bundle": __dirname + "/src/app/client/test/common/native/native-test.entry.js"
   },
   output: {
     // publicPath: "./build/",

@@ -1,0 +1,27 @@
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+#main-panel {
+  background: #666666;
+  width: 100%;
+  height: 100%;
+}
+
+.panel-one {
+  background-color: #FFBA00;
+}
+.panel-two {
+  background-color: #3E2E3B;
+}
+.panel-three {
+  background-color: #22AB73;
+}
+.panel-four {
+  background-color: #F36164;
+}
+.panel-five {
+  background-color: #FF8A00;
+}
+
