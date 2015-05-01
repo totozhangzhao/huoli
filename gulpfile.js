@@ -17,6 +17,7 @@ var notify       = require("gulp-notify");
 var del          = require("del");
 var runSequence  = require("run-sequence");
 var gutil        = require("gulp-util");
+var through2     = require("through2");
 var webpack      = require("webpack");
 
 var config = {
@@ -51,10 +52,12 @@ gulp.task("html", function() {
 gulp.task("styles", function() {
   return gulp.src(config.src + "**/*.css")
     .pipe(autoprefixer({ browsers: ["last 2 version"] }))
-    .pipe(minifycss())
+    // .pipe(minifycss())
     .pipe(gulp.dest(config.dest))
     // .pipe(notify({ message: "Styles task complete" }));
 });
+
+var webpackBuilder = require("./builder/webpack/index.js");
 
 // Scripts
 gulp.task("js:lint", function() {
@@ -65,6 +68,24 @@ gulp.task("js:lint", function() {
     .on("error", function(err) {
       this.emit("end");
     })
+    // .pipe(through2(function(chunk, enc, callback) {
+    //   var self = this;
+    //   var compiler = webpack( require("./webpack.config") );
+
+    //   compiler.run(function(err, stats) {
+    //     if (err) {
+    //       throw new gutil.PluginError("webpack", err);
+    //     }
+        
+    //     gutil.log("[webpack]", stats.toString({
+    //       reason: false
+    //     }));
+
+    //   });
+    //   self.push(chunk);
+    //   callback();
+    // }));
+    // .pipe(webpackBuilder());
     // .pipe(uglify())
     // .pipe(gulp.dest(config.dest))
     // .pipe(notify({ message: "Scripts task complete" }));

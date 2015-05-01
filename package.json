@@ -24,6 +24,10 @@
     "gulp-util": "^3.0.4",
     "jshint-stylish": "^1.0.1",
     "run-sequence": "^1.0.2",
+    "through2": "^0.6.5",
     "webpack": "^1.8.4"
+  },
+  "dependencies": {
+    "through-gulp": "^0.3.8"
   }
 }
