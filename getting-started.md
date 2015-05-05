@@ -3,7 +3,9 @@
 ## 安装 host 切换工具
 
 >127.0.0.1 baoyide.com
+
 >127.0.0.1 mall.rsscc.cn
+
 >192.168.10.1 gitlab.huoli.com
 
 ## 安装 git
