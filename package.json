@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "http://gitlab.huoli.com/front-end/fe-space.git"
   },
   "devDependencies": {
     "del": "^1.1.1",
