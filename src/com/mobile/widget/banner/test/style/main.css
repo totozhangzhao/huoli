@@ -1,0 +1,18 @@
+.swiper-slide img {
+  width: 100%;
+  max-width: 100%;
+}
+
+.swiper-pagination-bullet-active {
+  background: #FFFFFF !important;
+}
+
+.swiper-pagination-bullet {
+  width: 4px;
+  height: 4px;
+}
+/*.swiper-pagination-bullet{
+  background: #FFFFFF;
+  opacity: 1;
+}
+*/

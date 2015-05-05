@@ -1,12 +1,17 @@
-// PLUGIN_NAME: sample
+"use strict";
+
 var webpack = require("webpack");
-var through = require('through-gulp');
+var through = require('through2');
 var gutil   = require("gulp-util");
 
-function sample() {
-  var stream = through(function(file, encoding, callback) {
-    var self = this;
-    var compiler = webpack( require("../../webpack.config") );
+module.exports = function(webpackConfig) {
+  var lastFile = null;
+
+  return through.obj(function (file, encoding, callback) {
+    this.push(file);
+    callback();
+  }, function (callback) {
+    var compiler = webpack(webpackConfig);
 
     compiler.run(function(err, stats) {
       if (err) {
@@ -17,12 +22,7 @@ function sample() {
         reason: false
       }));
 
-      self.push(file);
-      callback();
+      return callback();
     });
   });
-
-  return stream;
 };
-
-module.exports = sample;

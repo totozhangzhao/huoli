@@ -14,7 +14,7 @@
  */
 (function () {
     'use strict';
-    var $ = window.jQuery = require("jquery");
+    var $ = require("jquery");
     /*===========================
     Swiper
     ===========================*/
@@ -207,19 +207,8 @@
         
         // Classname
         s.classNames = [];
-        /*=========================
-          Dom Library and plugins
-          ===========================*/
-        var $;
-        if (typeof Dom7 === 'undefined') {
-            $ = window.Dom7 || window.Zepto || window.jQuery;
-        }
-        else {
-            $ = Dom7;
-        }
-        if (!$) return;
         
-        // Export it to Swiper instance
+        // Export Dom library and plugins to Swiper instance
         s.$ = $;
         /*=========================
           Preparation - Define Container, Wrapper and Pagination
@@ -3067,13 +3056,8 @@
         }
     }
     // Required DOM Plugins
-    var domLib;
-    if (typeof Dom7 === 'undefined') {
-        domLib = window.Dom7 || window.Zepto || window.jQuery;
-    }
-    else {
-        domLib = Dom7;
-    }
+    var domLib = $
+
     if (domLib) {
         if (!('transitionEnd' in domLib.fn)) {
             domLib.fn.transitionEnd = function (callback) {
@@ -3122,16 +3106,5 @@
 
     window.Swiper = Swiper;
 })();
-/*===========================
-Swiper AMD Export
-===========================*/
-if (typeof(module) !== 'undefined')
-{
-    module.exports = window.Swiper;
-}
-else if (typeof define === 'function' && define.amd) {
-    define([], function () {
-        'use strict';
-        return window.Swiper;
-    });
-}
+
+module.exports = window.Swiper;

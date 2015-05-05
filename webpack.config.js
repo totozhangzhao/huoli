@@ -12,6 +12,8 @@ module.exports = {
     }
   },
   entry: {
+    "vendor": ["jquery", "underscore", "backbone"],
+    "/com/mobile/widget/banner/test/main.bundle": __dirname + "/src/com/mobile/widget/banner/test/main.entry.js",
     "/com/mobile/widget/swiper-full-page/test/main.bundle": __dirname + "/src/com/mobile/widget/swiper-full-page/test/main.entry.js",
     "/com/mobile/widget/scratch-card/test/scratch-card.bundle": __dirname + "/src/com/mobile/widget/scratch-card/test/scratch-card.entry.js",
     "/com/mobile/widget/swipe-page/test/swipe-page.bundle": __dirname + "/src/com/mobile/widget/swipe-page/test/swipe-page.entry.js",
@@ -37,9 +39,9 @@ module.exports = {
         comments: false
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin("vendor/vendor-jq.js")
+    new webpack.optimize.CommonsChunkPlugin("vendor", "vendor/vendor-jq.js")
   ],
-  devtool: "source-map",
+  // devtool: "source-map",
   useMemoryFs: true,
   progress: true
 };

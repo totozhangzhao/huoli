@@ -17,14 +17,11 @@ var notify       = require("gulp-notify");
 var del          = require("del");
 var runSequence  = require("run-sequence");
 var gutil        = require("gulp-util");
-var through2     = require("through2");
-var webpack      = require("webpack");
 
 var config = {
   src : "./src/",
   dest: "./dest/"
 };
-
 
 // HTML
 gulp.task("html", function() {
@@ -52,9 +49,14 @@ gulp.task("html", function() {
 gulp.task("styles", function() {
   return gulp.src(config.src + "**/*.css")
     .pipe(autoprefixer({ browsers: ["last 2 version"] }))
-    // .pipe(minifycss())
+    .pipe(minifycss())
     .pipe(gulp.dest(config.dest))
-    // .pipe(notify({ message: "Styles task complete" }));
+});
+
+// Images
+gulp.task("images", function() {
+  return gulp.src(config.src + "**/*.+(jpg|jpeg|png)")
+    .pipe(gulp.dest(config.dest));
 });
 
 var webpackBuilder = require("./builder/webpack/index.js");
@@ -68,44 +70,14 @@ gulp.task("js:lint", function() {
     .on("error", function(err) {
       this.emit("end");
     })
-    // .pipe(through2(function(chunk, enc, callback) {
-    //   var self = this;
-    //   var compiler = webpack( require("./webpack.config") );
-
-    //   compiler.run(function(err, stats) {
-    //     if (err) {
-    //       throw new gutil.PluginError("webpack", err);
-    //     }
-        
-    //     gutil.log("[webpack]", stats.toString({
-    //       reason: false
-    //     }));
-
-    //   });
-    //   self.push(chunk);
-    //   callback();
-    // }));
-    // .pipe(webpackBuilder());
     // .pipe(uglify())
     // .pipe(gulp.dest(config.dest))
-    // .pipe(notify({ message: "Scripts task complete" }));
+    // .pipe(notify({ message: "Scripts task complete!" }));
 });
 
-// Webpack
-gulp.task("js:bundle", function(callback) {
-  var compiler = webpack( require("./webpack.config") );
-
-  compiler.run(function(err, stats) {
-    if (err) {
-      throw new gutil.PluginError("webpack", err);
-    }
-    
-    gutil.log("[webpack]", stats.toString({
-      reason: false
-    }));
-
-    callback();
-  });
+gulp.task("js:bundle", function() {
+  return gulp.src("")
+    .pipe(webpackBuilder( require("./webpack.config") ));
 });
 
 gulp.task("js", function() {
@@ -118,7 +90,7 @@ gulp.task("clean", function(cb) {
 });
 
 gulp.task("build", function() {
-  runSequence(["html", "styles", "js"]);
+  runSequence(["html", "styles", "images", "js"]);
 });
 
 // Watch
@@ -130,7 +102,10 @@ gulp.task("watch", function() {
   // CSS
   gulp.watch(config.src + "**/*.css", ["styles"]);
 
+  // Images
+  gulp.watch(config.src + "**/*.css", ["images"]);
+
   // JavaScript
-  gulp.watch(config.src + "**/*.js", ["js"]);
+  gulp.watch(config.src + "**/*.js", ["js:lint"]);
 
 });

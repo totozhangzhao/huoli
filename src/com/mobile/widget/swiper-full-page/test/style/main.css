@@ -5,8 +5,90 @@ html, body {
 
 #main-panel {
   background: #666666;
+/*  position: absolute;
+  top: 0;
+  left: 0;*/
   width: 100%;
   height: 100%;
+}
+
+.center-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 226px;
+  height: 226px;
+  margin: -113px 0 0 -113px;
+  line-height: 200px;
+  font-size: 156px;
+  text-align: center;
+  color: #FFFFFF;
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  opacity: 0;
+}
+
+.panel.active .fade-in {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.drop-up-arrow {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 50%;
+  bottom: 2%;
+  margin-left: -30px;
+}
+
+.drop-up-arrow .icon {
+  display: block;
+  background: url(/fe/com/mobile/widget/swiper-full-page/image/drop-up-arrow.png) no-repeat;
+  width: 60px;
+  height: 60px;
+  -webkit-background-size: contain;
+  opacity: 0;
+}
+
+@keyframes dropUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0,8px,0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(0,-8px,0);
+  }
+}
+
+.panel.active .drop-up-arrow .icon {
+  -webkit-animation: dropUp 2s ease .3s infinite;
+          animation: dropUp 2s ease .3s infinite;
 }
 
 .panel-one {
@@ -25,3 +107,68 @@ html, body {
   background-color: #FF8A00;
 }
 
+.tips-alert {
+  display: none
+}
+
+@media only screen and (orientation: landscape) {
+  .tips-alert {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.9);
+    color: #fff;
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+    line-height: 34px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    pointer-events: auto;
+    z-index: 101;
+  }
+
+  .tips-alert p {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .rotate-iphone {
+    width: 80px;
+    height: 80px;
+    background: url(/fe/com/mobile/widget/swiper-full-page/image/landspace-hint.png) no-repeat center top;
+    background-size: contain;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -40px;
+    margin-top: -80px;
+  }
+
+  .rotate-iphone {
+    -webkit-animation: rotate-ip 1.5s infinite ease-in;
+    animation: rotate-ip 1.5s infinite ease-in;
+  }
+
+  @-webkit-keyframes rotate-ip {
+    0% {
+      -webkit-transform: rotate(0);
+      transform: rotate(0);
+    }
+
+    50% {
+      -webkit-transform: rotate(-90deg);
+      transform: rotate(-90deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(0);
+      transform: rotate(0);
+    }
+  }
+}
