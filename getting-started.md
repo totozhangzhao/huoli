@@ -30,11 +30,6 @@ server {
     set $vary 'Accept-Encoding';
     set $cache_control 'no-cache, public, must-revalidate';
 
-    if ($http_user_agent ~ "MSIE [1-6]\.") {
-        set $vary 'User-Agent';
-        set $cache_control 'public, must-revalidate';
-    }
-
     add_header Vary $vary;
     add_header Expires -1;
     add_header Cache-Control  $cache_control;
