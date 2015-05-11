@@ -7,16 +7,18 @@
  */
 
 // Load plugins
-var gulp         = require("gulp");
-var autoprefixer = require("gulp-autoprefixer");
-var minifyHTML   = require("gulp-minify-html");
-var minifycss    = require("gulp-minify-css");
-var jshint       = require("gulp-jshint");
-var uglify       = require("gulp-uglify");
-var notify       = require("gulp-notify");
-var del          = require("del");
-var runSequence  = require("run-sequence");
-var gutil        = require("gulp-util");
+var gulp           = require("gulp");
+var autoprefixer   = require("gulp-autoprefixer");
+var minifyHTML     = require("gulp-minify-html");
+var minifycss      = require("gulp-minify-css");
+var jshint         = require("gulp-jshint");
+var uglify         = require("gulp-uglify");
+var notify         = require("gulp-notify");
+var del            = require("del");
+var runSequence    = require("run-sequence");
+var gutil          = require("gulp-util");
+var webpackBuilder = require("./builder/webpack/index.js");
+var versionRef     = require("./builder/html/versionRef.js");
 
 var config = {
   src : "./src/",
@@ -42,6 +44,7 @@ gulp.task("html", function() {
 
   return gulp.src(config.src + "**/*.html")
     .pipe(minifyHTML(options))
+    .pipe(versionRef())
     .pipe(gulp.dest(config.dest));
 });
 
@@ -55,11 +58,9 @@ gulp.task("styles", function() {
 
 // Images
 gulp.task("images", function() {
-  return gulp.src(config.src + "**/*.+(jpg|jpeg|png)")
+  return gulp.src(config.src + "**/*.+(jpg|jpeg|png|gif)")
     .pipe(gulp.dest(config.dest));
 });
-
-var webpackBuilder = require("./builder/webpack/index.js");
 
 // Scripts
 gulp.task("js:lint", function() {
@@ -77,7 +78,9 @@ gulp.task("js:lint", function() {
 
 gulp.task("js:bundle", function() {
   return gulp.src("")
-    .pipe(webpackBuilder( require("./webpack.config") ));
+    .pipe(webpackBuilder(require("./webpack.config"), {
+      build: true
+    }));
 });
 
 gulp.task("js", function() {
@@ -90,7 +93,7 @@ gulp.task("clean", function(cb) {
 });
 
 gulp.task("build", function() {
-  runSequence(["html", "styles", "images", "js"]);
+  runSequence("clean", ["html", "styles", "images", "js"]);
 });
 
 // Watch

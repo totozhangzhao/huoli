@@ -4,13 +4,17 @@ var webpack = require("webpack");
 var through = require('through2');
 var gutil   = require("gulp-util");
 
-module.exports = function(webpackConfig) {
+module.exports = function(webpackConfig, options) {
   var lastFile = null;
 
   return through.obj(function (file, encoding, callback) {
     this.push(file);
     callback();
   }, function (callback) {
+    if (options.build) {
+      delete webpackConfig.devtool;
+    }
+    
     var compiler = webpack(webpackConfig);
 
     compiler.run(function(err, stats) {

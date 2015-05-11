@@ -41,7 +41,7 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin("vendor", "vendor/vendor-jq.js")
   ],
-  // devtool: "source-map",
+  devtool: "source-map",
   useMemoryFs: true,
   progress: true
 };

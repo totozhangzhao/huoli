@@ -1,8 +1,10 @@
 # NativeAPI
 
+
 ## 简介
 
 NativeAPI 用于 JavaScript 与 Native Code 双向通信。
+
 
 ## 创建过程
 
@@ -10,11 +12,14 @@ NativeAPI 用于 JavaScript 与 Native Code 双向通信。
 2. Native Code 向 WebView 添加全局的 NativeAPI 对象，此对象应当包含 `sendToNative` 方法，JavaScript 通过调用此方法向 Native 发送消息。
 3. WebView 中的 JavaScript 在 NativeAPI 对象上注册 `sendToJavaScript` 方法，Native 通过调用此方法此方法向 JavaScript 发送消息。
 
+
 ## 消息格式
 
 [JSON-RPC 2.0](http://www.jsonrpc.org/specification)
 
+
 ## 由 Native 提供的方法
+
 
 ### confirm
 
@@ -38,7 +43,6 @@ __result__
 1 常量，表示点击了YES
 2 常量，表示点击了其他关闭方式
 
-
 JS -> Native: {method: "confirm", params: { title: "test", message: "hello world", yes_btn_text: "是的", no_btn_text: "不是" }, id: 1}
 Native -> JS: {__result__ {value: 0, YES:1, NO: 0, CLOSE: 2}, id: 1}
 
@@ -59,6 +63,7 @@ NativeAPI.invoke(
   }
 );
 ```
+
 
 ### alert
 
@@ -82,7 +87,6 @@ YES Number
 CLOSE Number
 1 常量
 
-
 JS -> Native: {method: "alert", params: { title: 123, message: "msg", btn_text: "是的" }, id: 1}
 Native -> JS: {__result__ {value: 0, YES:0, CLOSE: 1}, id: 1}
 
@@ -102,11 +106,12 @@ NativeAPI.invoke(
 );
 ```
 
+
 ### createWebView
 
 * 描述：
 根据提供的 URL 打开一个新的WebView，顶栏默认有一个返回按钮。createWebView 根据参数决定是否显⽰搜索框等。
-注意: 如果control为空, 那么webview应该默认带一个title控件, 并且这个title控件的text为空, 以备后续updateTitle接⼝使⽤用. 
+注意: 如果control为空, 那么webview应该默认带一个title控件, 并且这个title控件的text为空, 以备后续updateTitle接⼝使⽤. 
 
 __method__
 
@@ -120,29 +125,17 @@ __params__
 注意:
 control和controls两个都是可选的. 当两个字段同时出现时 controls 覆盖 control。
 
-### headerRightBtn
-
-* 描述：顶栏右侧按钮, 点击后调⽤用js的headerRightBtnClick⽅法, 后续可以通过updateHeaderRightBtn接⼝来更新这个按钮 
-
-__method__
-
-* `headerRightBtn`
-
-__params__
-
-* `icon` String 标⽰btn所使⽤用的icon图标,如果找不到指定的icon图标的情况下使⽤用text字段。icon和text字段同时存在时优先处理icon字段。 
-* `text` String 标⽰btn上的⽂文字。
-* `data` Object 可选 这是一个任意的json对象,后续如果⽤用户点击按钮时,将这个参数传给headerRightBtnClick。
 
 ### back
 
-* 描述：当JS调⽤用Native的back时，Native需要调⽤用JS的back接⼝，然后根据JS的back接⼝的返回逻辑进⾏操作。
+* 描述：当JS调⽤Native的back时，Native需要调⽤JS的back接⼝，然后根据JS的back接⼝的返回逻辑进⾏操作。
 
 __method__
 
 * `back`
 
 JS -> Native: {method: "back", params:null}
+
 
 ### webViewCallback
 
@@ -158,9 +151,10 @@ __params__
 
 JS -> Native: {method: "webViewCallback", params: {url: "/index.html" }}
 
+
 ### getUserInfo
 
-* 描述：获取当前的⽤用户信息,如果⽤用户未登录,则返回错误。
+* 描述：获取当前的⽤户信息,如果⽤户未登录,则返回错误。
 
 __method__
 
@@ -168,8 +162,10 @@ __method__
 
 __result__
 
-* `username` String ⽤用户名
-* `user_id` String ⽤用户ID
+* `phone` String ⽤户电话
+* `userid` String ⽤户ID
+* `uid` String 
+* `authcode` String 
 
 __error__
 
@@ -188,13 +184,12 @@ __method__
 
 __result__
 
-* `env`        String test|simulation|online
-* `customerId` String 用于识别 APP 的自定义的标识
-* `token`      String 该字段包含⽤用户的登录信息，后端 API 可以通过将此字段兑换成 sessionId 之类的数据用于校验⽤用户登录状态。
-* `userId`     String
-* `mac`        String
-* `imei`       String
-* `deviceId`   String 设备id，主要⽤用于实现推送⺫⽬目的，iOS 由系统提供，Android 上是由⼩米 SDK 提供。
+* `imei`    String 移动设备国际识别码
+* `p`       String 用于识别 APP 的自定义的标识
+* `uuid`    String 该字段包含⽤户的登录信息，后端 API 可以通过将此字段兑换成 sessionId 之类的数据用于校验⽤户登录状态。
+* `channel` String 例如：appstore
+* `name`    String 例如：gtgj
+* `version` String APP 版本
 
 
 ### makePhoneCall
@@ -260,7 +255,7 @@ __params__
 * `action` String 控制按钮显⽰与隐藏，当 action == "show" 的时候展⽰，当 action == "hide" 的时候隐藏。
 * `icon`   String 按钮图片，图片的base64编码，如果没有找到icon则显⽰text字段，text字段默认为空。
 * `text`   String 按钮文字，没有 icon 字段时使用。
-* `data`   Object btn上附属的数据,在⽤用户点击后传给⻚⾯内的js回调。
+* `data`   Object btn上附属的数据,在⽤户点击后传给⻚⾯内的js回调。
 
 
 ### clearAppCache
@@ -269,11 +264,13 @@ __params__
 
 JS -> Native: {method: "clearAppCache", params: null }
 
+
 ## 由 JavaScript 提供的方法
+
 
 ### back
 
-* 描述：当 WebView 的顶栏上的返回按钮被点击，或 android 下⽤用户点击系统⾃带返回按钮时，需要由 APP 调⽤ JS 的这个接⼝，根据 JS 返回的值来决定相关⾏为，如果该接⼝执⾏异常，则执⾏默认⾏为（关闭当前 WebView）。
+* 描述：当 WebView 的顶栏上的返回按钮被点击，或 android 下⽤户点击系统⾃带返回按钮时，需要由 APP 调⽤ JS 的这个接⼝，根据 JS 返回的值来决定相关⾏为，如果该接⼝执⾏异常，则执⾏默认⾏为（关闭当前 WebView）。
 
 __method__
 
@@ -285,6 +282,7 @@ __result__
 
 JS -> Native: {method: "back", params:null, id: 1}
 Native -> JS: {result: {preventDefault: false}, id: 1}
+
 
 ### headerRightBtnClick
 

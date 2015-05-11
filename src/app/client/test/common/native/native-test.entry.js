@@ -3,8 +3,15 @@ var storage   = require("app/client/test/common/native/storage.js");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var $         = require("jquery");
 
+var echo = function(text) {
+  $("#echo")
+    .hide()
+    .text(text)
+    .fadeIn();
+};
+
 var handleError = function(err) {
-  window.alert("出错了！[code:" + err.code + "]: " + err.message);
+  echo("出错了！[code:" + err.code + "]: " + err.message);
 };
 
 var AppView = Backbone.View.extend({
@@ -16,10 +23,16 @@ var AppView = Backbone.View.extend({
     "click .js-alert"        : "alert",
     "click .js-storage-set"  : "setStorage",
     "click .js-storage-get"  : "getStorage",
-    "click .js-getDeviceInfo": "getDeviceInfo"
+    "click .js-getDeviceInfo": "getDeviceInfo",
+    "click .js-getUserInfo"  : "getUserInfo",
+    "click .js-login"        : "login"
   },
   initialize: function() {
     this.jsBackFlag = false;
+
+    NativeAPI.registerHandler("loginCompleted", function() {
+      echo("JavaScript loginCompleted");
+    });
   },
   doJSBack: function() {
     var backObj = {
@@ -28,9 +41,13 @@ var AppView = Backbone.View.extend({
     
     NativeAPI.registerHandler("back", function(params, callback) {
       callback(null, backObj);
+
+      NativeAPI.invoke('webViewCallback', {
+        url: "http://mall.rsscc.cn/fe/app/client/test/common/native/index.html?auth=true"
+      });
     });
 
-    $("#echo").text(JSON.stringify(backObj));
+    echo(JSON.stringify(backObj));
     this.jsBackFlag = !this.jsBackFlag;
   },
   doNativeBack: function() {
@@ -38,7 +55,7 @@ var AppView = Backbone.View.extend({
   },
   showUserAgent: function() {
     var ua = window.navigator.userAgent;
-    $("#echo").text(ua);
+    echo(ua);
   },
   alert: function() {
     NativeAPI.invoke(
@@ -53,13 +70,13 @@ var AppView = Backbone.View.extend({
         }
         switch (data.value) {
           case data.YES:
-            window.alert("你点了确定按钮");
+            echo("你点了确定按钮");
             break;
           case data.CLOSE:
-            window.alert("你使用其他方式关闭了弹窗");
+            echo("你使用其他方式关闭了弹窗");
             break;
           default:
-            window.alert("未知动作，返回code是[" + data.value + "]");
+            echo("未知动作，返回code是[" + data.value + "]");
         }
       }
     );
@@ -70,26 +87,49 @@ var AppView = Backbone.View.extend({
     };
 
     storage.set("test", data, function() {
-      window.alert("storage set test");
+      echo("storage set test");
     });
   },
   getStorage: function() {
     storage.get("test", function(data) {
-      window.alert(JSON.stringify(data));
+      echo(JSON.stringify(data));
     });
   },
   getDeviceInfo: function() {
-    NativeAPI.invoke(
-      "getDeviceInfo",
-      null,
-      function(err, data) {
-        if (err) {
-          return handleError(err);
-        }
-
-        window.alert(JSON.stringify(data));
+    NativeAPI.invoke("getDeviceInfo", null, function(err, data) {
+      if (err) {
+        return handleError(err);
       }
-    );
+
+      echo(JSON.stringify(data));
+    });
+  },
+  getUserInfo: function() {
+    NativeAPI.invoke("getUserInfo", null, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      if (!data.authcode) {
+        NativeAPI.invoke("login", null, function(data) {
+          if (err) {
+            return handleError(err);
+          }
+
+          echo("login callback: " + JSON.stringify(data));
+        });
+      }
+      echo(JSON.stringify(data));
+    });
+  },
+  login: function() {
+    NativeAPI.invoke("login", null, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo("login callback: " + JSON.stringify(data));
+    });
   }
 });
 

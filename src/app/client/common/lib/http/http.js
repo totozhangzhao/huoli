@@ -24,11 +24,11 @@ BasicRequest.prototype.request = function(type, headers, query, data, callback) 
   }
 
   $.ajax({
-    type: type,
-    url: config.url + (query || ""),
-    data: data,
+    type    : type,
+    url     : config.url + (query || ""),
+    data    : data,
     dataType: "text",
-    headers: headers
+    headers : headers
   })
     .done(function(data) {
       defer.resolve(data);

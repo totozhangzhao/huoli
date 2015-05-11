@@ -28,7 +28,7 @@ var callbackWraper = function(callback) {
 
     switch (data.type) {
       case "success":
-        callback(null, data.payload.success);
+        callback(null, data.payload.result);
         break;
       case "error":
         callback(data.payload.error);
@@ -40,9 +40,10 @@ var callbackWraper = function(callback) {
 };
 
 var sendPost = function(method, params, callback) {
-  var data = jsonrpc.request(idGenerator(), method, params);
-  var cb   = callbackWraper(callback);
-  basicRequest.request("POST", null, null, data, cb);
+  var data    = jsonrpc.request(idGenerator(), method, params);
+  var dataStr = JSON.stringify(data);
+  var cb      = callbackWraper(callback);
+  basicRequest.request("POST", null, null, dataStr, cb);
 };
 
 var handleError = function(err) {
@@ -56,11 +57,12 @@ var AppView = Backbone.View.extend({
     "click .js-post-request" : "postRequest"
   },
   initialize: function() {
-    var requestObj = jsonrpc.request("123", "update", {list: [1, 2, 3]});
-    console.log(requestObj);
+    // var requestObj = jsonrpc.request("123", "update", {list: [1, 2, 3]});
+    // console.log(requestObj);
+    // console.log(JSON.stringify(requestObj));
 
-    var data = jsonrpc.parse(JSON.stringify(requestObj));
-    console.log(data);
+    // var data = jsonrpc.parse(JSON.stringify(requestObj));
+    // console.log(data);
   },
   showUserAgent: function() {
     var ua = window.navigator.userAgent;
@@ -68,8 +70,8 @@ var AppView = Backbone.View.extend({
   },
   postRequest: function() {
     var data = {
-      userId: "1615BBAAF41ABDC59CFA7EBE8C643919",
-      token : "52617950743134537162574f30614f6352615657472f2b6f"
+      uid: "20daa468fe010000b",
+      ua : "372306073653696/3B2E0AA8F64DC5332854C1C208B4DC27"
     };
 
     sendPost("getUserInfo", data, function(err, data) {
