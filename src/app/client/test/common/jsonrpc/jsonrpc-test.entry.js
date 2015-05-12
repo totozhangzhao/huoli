@@ -1,7 +1,9 @@
 var Backbone = require("backbone");
 var jsonrpc  = require("jsonrpc");
-var $        = require("jquery");
+var _        = require("underscore");
 var BasicRequest = require("app/client/common/lib/http/http.js").BasicRequest;
+var echo        = require("app/client/test/common/native/util.js").echo;
+var handleError = require("app/client/test/common/native/util.js").handleError;
 
 var basicRequest = new BasicRequest({
   url: "/bmall/rest/"
@@ -26,6 +28,9 @@ var callbackWraper = function(callback) {
 
     data = jsonrpc.parse(data);
 
+    // test
+    window.console.log(JSON.stringify(data));
+
     switch (data.type) {
       case "success":
         callback(null, data.payload.result);
@@ -46,15 +51,19 @@ var sendPost = function(method, params, callback) {
   basicRequest.request("POST", null, null, dataStr, cb);
 };
 
-var handleError = function(err) {
-  window.alert("出错了！[code:" + err.code + "]: " + err.message);
+var userData = {
+  uid: "20daa468fe010000b",
+  ua : "372306073653696/3B2E0AA8F64DC5332854C1C208B4DC27"
 };
 
 var AppView = Backbone.View.extend({
   el: "body",
   events: {
-    "click .js-showUserAgent": "showUserAgent",
-    "click .js-post-request" : "postRequest"
+    "click .js-getUserInfo"  : "getUserInfo",
+    "click .js-createOrder"  : "createOrder",
+    "click .js-orderList"    : "orderList",
+    "click .js-orderDetail"  : "orderDetail",
+    "click .js-productDetail": "productDetail"
   },
   initialize: function() {
     // var requestObj = jsonrpc.request("123", "update", {list: [1, 2, 3]});
@@ -64,22 +73,53 @@ var AppView = Backbone.View.extend({
     // var data = jsonrpc.parse(JSON.stringify(requestObj));
     // console.log(data);
   },
-  showUserAgent: function() {
-    var ua = window.navigator.userAgent;
-    $("#echo").text(ua);
-  },
-  postRequest: function() {
-    var data = {
-      uid: "20daa468fe010000b",
-      ua : "372306073653696/3B2E0AA8F64DC5332854C1C208B4DC27"
-    };
-
-    sendPost("getUserInfo", data, function(err, data) {
+  getUserInfo: function() {
+    sendPost("getUserInfo", userData, function(err, data) {
       if (err) {
         return handleError(err);
       }
 
-      window.alert(JSON.stringify(data));
+      echo(JSON.stringify(data));
+    });
+  },
+  createOrder: function() {
+    var params = _.extend(userData, {
+      productid: 1
+    });
+
+    sendPost("createOrder", params, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
+    });
+  },
+  orderList: function() {
+    sendPost("orderList", userData, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
+    });
+  },
+  orderDetail: function() {
+    sendPost("orderDetail", userData, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
+    });
+  },
+  productDetail: function() {
+    sendPost("productDetail", userData, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
     });
   }
 });

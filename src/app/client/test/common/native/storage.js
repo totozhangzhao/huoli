@@ -1,16 +1,5 @@
-var NativeAPI = require("app/client/common/lib/native/native-api.js");
-var $         = require("jquery");
-
-var echo = function(text) {
-  $("#echo")
-    .hide()
-    .text(text)
-    .fadeIn();
-};
-
-var handleError = function(err) {
-    echo("出错了！[code:"+err.code+"]: " + err.message);
-};
+var NativeAPI   = require("app/client/common/lib/native/native-api.js");
+var handleError = require("app/client/test/common/native/util.js").handleError;
 
 exports.get = function(key, callback) {
   NativeAPI.invoke("storage", {

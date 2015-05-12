@@ -1,24 +1,17 @@
 var Backbone  = require("backbone");
 var storage   = require("app/client/test/common/native/storage.js");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
-var $         = require("jquery");
-
-var echo = function(text) {
-  $("#echo")
-    .hide()
-    .text(text)
-    .fadeIn();
-};
-
-var handleError = function(err) {
-  echo("出错了！[code:" + err.code + "]: " + err.message);
-};
+var echo        = require("app/client/test/common/native/util.js").echo;
+var handleError = require("app/client/test/common/native/util.js").handleError;
 
 var AppView = Backbone.View.extend({
   el: "body",
   events: {
-    "click .js-js-back"      : "doJSBack",
-    "click .js-native-back"  : "doNativeBack",
+    "click .js-native-back"     : "doNativeBack",
+    "click .js-native-back-text": "doNativeBackText",
+    "click .js-updateHeaderRightBtn"    : "rightButton",
+    "click .js-updateHeaderRightBtnIcon": "rightButtonIcon",
+    "click .js-createWebView": "newPage",
     "click .js-showUserAgent": "showUserAgent",
     "click .js-alert"        : "alert",
     "click .js-storage-set"  : "setStorage",
@@ -28,30 +21,63 @@ var AppView = Backbone.View.extend({
     "click .js-login"        : "login"
   },
   initialize: function() {
-    this.jsBackFlag = false;
-
     NativeAPI.registerHandler("loginCompleted", function() {
       echo("JavaScript loginCompleted");
     });
   },
-  doJSBack: function() {
-    var backObj = {
-      preventDefault: this.jsBackFlag
-    };
-    
-    NativeAPI.registerHandler("back", function(params, callback) {
-      callback(null, backObj);
-
-      NativeAPI.invoke('webViewCallback', {
-        url: "http://mall.rsscc.cn/fe/app/client/test/common/native/index.html?auth=true"
-      });
-    });
-
-    echo(JSON.stringify(backObj));
-    this.jsBackFlag = !this.jsBackFlag;
-  },
   doNativeBack: function() {
     NativeAPI.invoke("back");
+  },
+  doNativeBackText: function() {
+    NativeAPI.registerHandler("back", function(params, callback) {
+      echo("from javascript back...");
+
+      setTimeout(function() {
+        callback(null, {
+          preventDefault: false
+        });
+      }, 2000);
+    });
+
+    NativeAPI.invoke("back");
+  },
+  rightButton: function() {
+    NativeAPI.invoke("updateHeaderRightBtn", {
+      action: "show",
+      text: "订单",
+      data: {
+        list: [1, 2, 3]
+      }
+    });
+
+    NativeAPI.registerHandler("headerRightBtnClick", function(data) {
+      echo(JSON.stringify(data));
+    });
+  },
+  rightButtonIcon: function() {
+    NativeAPI.invoke("updateHeaderRightBtn", {
+      action: "show",
+      icon: require("app/client/test/common/native/image/icon.js").rightButtonIcon,
+      text: "卡通",
+      data: {
+        list: [1, 2, 3]
+      }
+    });
+
+    NativeAPI.registerHandler("headerRightBtnClick", function(data) {
+      echo(JSON.stringify(data));
+    });
+  },
+  newPage: function() {
+    NativeAPI.invoke("createWebView", {
+      url: window.location.origin + "/fe/app/client/test/common/native/native-b.html",
+      controls: [
+        {
+          type: "title",
+          text: "Native B ~"
+        }
+      ]
+    });
   },
   showUserAgent: function() {
     var ua = window.navigator.userAgent;

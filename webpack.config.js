@@ -1,5 +1,18 @@
 var webpack = require("webpack");
 var path    = require("path");
+var _       = require("underscore");
+
+var pathList = require("./webpack-builder/entry.js");
+var entry    = {};
+
+pathList.forEach(function(devPath) {
+  var key = "/" + devPath.replace(/\.entry\.js/, ".bundle");
+  entry[key] = __dirname + "/src/" + devPath;
+});
+
+_.extend(entry, {
+  "vendor": ["jquery", "underscore", "backbone"]
+});
 
 module.exports = {
   resolve: {
@@ -11,15 +24,17 @@ module.exports = {
       "jsonrpc"   : __dirname + "/src/com/mobile/lib/jsonrpc/jsonrpc.js"
     }
   },
-  entry: {
-    "vendor": ["jquery", "underscore", "backbone"],
-    "/com/mobile/widget/banner/test/main.bundle": __dirname + "/src/com/mobile/widget/banner/test/main.entry.js",
-    "/com/mobile/widget/swiper-full-page/test/main.bundle": __dirname + "/src/com/mobile/widget/swiper-full-page/test/main.entry.js",
-    "/com/mobile/widget/scratch-card/test/scratch-card.bundle": __dirname + "/src/com/mobile/widget/scratch-card/test/scratch-card.entry.js",
-    "/com/mobile/widget/swipe-page/test/swipe-page.bundle": __dirname + "/src/com/mobile/widget/swipe-page/test/swipe-page.entry.js",
-    "/app/client/test/common/jsonrpc/jsonrpc-test.bundle": __dirname + "/src/app/client/test/common/jsonrpc/jsonrpc-test.entry.js",
-    "/app/client/test/common/native/native-test.bundle": __dirname + "/src/app/client/test/common/native/native-test.entry.js"
-  },
+  entry: entry,
+  // entry: {
+  //   "vendor": ["jquery", "underscore", "backbone"],
+  //   "/com/mobile/widget/banner/test/main.bundle": __dirname + "/src/com/mobile/widget/banner/test/main.entry.js",
+  //   "/com/mobile/widget/swiper-full-page/test/main.bundle": __dirname + "/src/com/mobile/widget/swiper-full-page/test/main.entry.js",
+  //   "/com/mobile/widget/scratch-card/test/scratch-card.bundle": __dirname + "/src/com/mobile/widget/scratch-card/test/scratch-card.entry.js",
+  //   "/com/mobile/widget/swipe-page/test/swipe-page.bundle": __dirname + "/src/com/mobile/widget/swipe-page/test/swipe-page.entry.js",
+  //   "/app/client/test/common/jsonrpc/jsonrpc-test.bundle": __dirname + "/src/app/client/test/common/jsonrpc/jsonrpc-test.entry.js",
+  //   "/app/client/test/common/native/native-b.bundle": __dirname + "/src/app/client/test/common/native/native-b.entry.js",
+  //   "/app/client/test/common/native/native-test.bundle": __dirname + "/src/app/client/test/common/native/native-test.entry.js"
+  // },
   output: {
     // publicPath: "./build/",
     // filename: "bundle.js"

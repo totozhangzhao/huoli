@@ -13,7 +13,7 @@ module.exports = function(options) {
     }
 
     var addVersion = file.contents.toString().replace(
-      /(\.[js|css|png|jpg|jpeg])/g,
+      /(\.(js|css|png|jpg|jpeg))/g,
       function(match, $1) {
         var now = Date.now() / 1000;
         var expire = (options && options.expire) || 1;
