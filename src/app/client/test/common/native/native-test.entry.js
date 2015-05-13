@@ -18,6 +18,7 @@ var AppView = Backbone.View.extend({
     "click .js-storage-get"  : "getStorage",
     "click .js-getDeviceInfo": "getDeviceInfo",
     "click .js-getUserInfo"  : "getUserInfo",
+    "click .js-updateTitle"  : "updateTitle",
     "click .js-login"        : "login"
   },
   initialize: function() {
@@ -146,6 +147,11 @@ var AppView = Backbone.View.extend({
         });
       }
       echo(JSON.stringify(data));
+    });
+  },
+  updateTitle: function() {
+    NativeAPI.invoke("updateTitle", {
+      text: "New Title"
     });
   },
   login: function() {
