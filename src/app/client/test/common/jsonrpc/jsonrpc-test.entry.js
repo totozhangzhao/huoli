@@ -51,7 +51,7 @@ var sendPost = function(method, params, callback) {
   basicRequest.request("POST", null, null, dataStr, cb);
 };
 
-var userData = {
+var USER_DATA = {
   uid: "20daa468fe010000b",
   ua : "372306073653696/3B2E0AA8F64DC5332854C1C208B4DC27"
 };
@@ -74,7 +74,7 @@ var AppView = Backbone.View.extend({
     // console.log(data);
   },
   getUserInfo: function() {
-    sendPost("getUserInfo", userData, function(err, data) {
+    sendPost("getUserInfo", USER_DATA, function(err, data) {
       if (err) {
         return handleError(err);
       }
@@ -83,8 +83,8 @@ var AppView = Backbone.View.extend({
     });
   },
   createOrder: function() {
-    var params = _.extend(userData, {
-      productid: 1
+    var params = _.extend({}, USER_DATA, {
+      productid: 2
     });
 
     sendPost("createOrder", params, function(err, data) {
@@ -96,7 +96,7 @@ var AppView = Backbone.View.extend({
     });
   },
   orderList: function() {
-    sendPost("orderList", userData, function(err, data) {
+    sendPost("orderList", USER_DATA, function(err, data) {
       if (err) {
         return handleError(err);
       }
@@ -105,7 +105,11 @@ var AppView = Backbone.View.extend({
     });
   },
   orderDetail: function() {
-    sendPost("orderDetail", userData, function(err, data) {
+    var params = _.extend({}, USER_DATA, {
+      orderid: "4314115865750"
+    });
+
+    sendPost("orderDetail", params, function(err, data) {
       if (err) {
         return handleError(err);
       }
@@ -114,7 +118,11 @@ var AppView = Backbone.View.extend({
     });
   },
   productDetail: function() {
-    sendPost("productDetail", userData, function(err, data) {
+    var params = _.extend({}, USER_DATA, {
+      productid: 2
+    });
+
+    sendPost("productDetail", params, function(err, data) {
       if (err) {
         return handleError(err);
       }
