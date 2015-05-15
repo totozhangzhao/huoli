@@ -148,7 +148,7 @@ iframe {
   border: 0 none;
 }
 img {
-  display: inline-block;
+  display: block;
 }
 ul,
 ol,

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1, width=device-width">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1" media="(device-height: 568px)">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection"content="telephone=no">
+	<title>积分兑换记录</title>
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/common/style/global.css">
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
+</head>
+<body>
+	<section class="exchange-record-box">
+		<ul id="order-list" class="record-bar">
+			<!--
+			<li class="record-area">
+				<a href="javascript:;" class="clearfix">
+					<div class="record-pic-bar fl">
+						<img src="https://dl.rsscc.cn/guanggao/img/mall/chit-5.png" / class="record-pic chit-pic">
+					</div>
+					<div class="record-text-bar fl">
+						<p class="record-text-tit">快滴打车代金券</p>
+						<p class="record-text-det">成功兑换1份</p>
+						<p class="record-text-time num-font">2015年1月2日</p>
+					</div>
+					<span class="enter-btn fr"></span>
+					<p class="record-need-integral fr"><span class="num-color">1000</span>分</p>
+				</a>
+			</li>
+			-->
+		</ul>
+	</section>
+
+<script type="text/template" id="tmpl-record">
+	<% _.each(orderList, function(item) { %>
+			<li class="record-area">
+				<a href="javascript:;" class="clearfix">
+					<div class="record-pic-bar fl">
+						<img src="<%= item.img %>" / class="record-pic chit-pic">
+					</div>
+					<div class="record-text-bar fl">
+						<p class="record-text-tit"><%= item.title %></p>
+						<p class="record-text-det">成功兑换1份</p>
+						<p class="record-text-time num-font"><%= item.createtime %></p>
+					</div>
+					<span class="enter-btn fr"></span>
+					<p class="record-need-integral fr"><span class="num-color"><%= item.pprice %></span>分</p>
+				</a>
+			</li>
+	<% }) %>
+</script>
+
+<script src="/fe/vendor/vendor-jq.js"></script>
+<script src="/fe/app/client/mall/js/list-page/exchange-record.bundle.js"></script>
+</body>
+</html>

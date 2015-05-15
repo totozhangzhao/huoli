@@ -49,6 +49,12 @@ var AppView = Backbone.View.extend({
       data: {
         list: [1, 2, 3]
       }
+    }, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
     });
 
     NativeAPI.registerHandler("headerRightBtnClick", function(data) {
@@ -63,6 +69,12 @@ var AppView = Backbone.View.extend({
       data: {
         list: [1, 2, 3]
       }
+    }, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
     });
 
     NativeAPI.registerHandler("headerRightBtnClick", function(data) {

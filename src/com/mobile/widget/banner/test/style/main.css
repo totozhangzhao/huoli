@@ -1,4 +1,9 @@
+.swiper-container {
+  width: 100%;
+}
+
 .swiper-slide img {
+  display: inline-block;
   width: 100%;
   max-width: 100%;
 }
@@ -11,8 +16,3 @@
   width: 4px;
   height: 4px;
 }
-/*.swiper-pagination-bullet{
-  background: #FFFFFF;
-  opacity: 1;
-}
-*/

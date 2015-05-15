@@ -1,0 +1,47 @@
+.banner {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+}
+.banner img {
+  width: 100%;
+  max-width: 100%;
+  vertical-align: top;
+}
+.banner-box {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+.banner-pics {
+  overflow: hidden;
+  position: relative;
+}
+.banner-pics .banner-item {
+  float:left;
+  width:100%;
+  position: relative;
+}
+.banner-indexs {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 8px;
+  font-size: 0;
+  overflow: hidden;
+}
+.banner-indexs i {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  opacity: 0.2;
+  background-color: #000000;
+  background-clip: padding-box;
+  border-radius: 2px;
+  margin: 0 4px;
+}
+.banner-indexs i.active {
+  background-color: #FFFFFF;
+  opacity: 0.7;
+}
