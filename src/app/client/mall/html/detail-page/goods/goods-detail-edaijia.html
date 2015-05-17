@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection"content="telephone=no">
 	<title>商品详情</title>
-	<link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/common/style/global.css">
 	<link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
 </head>
 <body>
@@ -63,39 +63,42 @@
 
 		<!-- 弹窗start -->
 
-		<div class="flip-box flip-box-step">
+		<div class="js-exchange-prompt flip-box flip-box-step">
 			<p class="flip-info">是否确认兑换？</p>
-			<a href="javascript:;" class="exchange-button exchange-yes forbidden-color">暂不兑换</a>
-			<a href="javascript:;" class="exchange-button exchange-no allow-color">确认兑换</a>
+			<a href="javascript:;" class="js-cancel  exchange-button exchange-yes forbidden-color">暂不兑换</a>
+			<a href="javascript:;" class="js-confirm exchange-button exchange-no allow-color">确认兑换</a>
 		</div>
-		<div class="flip-box flip-box-succ">
+		<div class="js-success-prompt flip-box flip-box-succ">
 			<p class="flip-info">兑换成功</p>
-			<p class="flip-tip">恭喜你，兑换成功<span class="flip-goods">xxx</span><span class="flip-goods-count num-font">2</span>份</p>
-			<a href="javascript:;" class="exchange-button flip-go-check allow-color">查看订单</a>
+			<p class="js-message flip-tip"><!-- 恭喜你，兑换成功<span class="flip-goods">xxx</span><span class="flip-goods-count num-font">2</span>份 --></p>
+			<a href="javascript:;" class="js-goto-order-detail exchange-button flip-go-check allow-color">查看订单</a>
 		</div>
-		<div class="flip-box flip-box-succ">
+		<div class="js-fail-prompt flip-box flip-box-succ">
 			<p class="flip-info">兑换失败</p>
-			<p class="flip-tip">对不起，xxxxxxxxxxxxxx</p>
-			<a href="javascript:;" class="exchange-button flip-go-check allow-color">查看订单</a>
+			<p class="js-message flip-tip"><!-- 对不起，xxxxxxxxxxxxxx --></p>
+			<a href="javascript:;" class="js-close exchange-button flip-go-check allow-color">确认</a>
 		</div>
 
 		<!-- 弹窗end -->
 
 		<!-- 灰色半透明背景start -->
 
-		<div class="common-shadow"></div>
+		<div class="js-shade common-shadow"></div>
 
 		<!-- 灰色半透明背景end -->
 
 		<div class="time-bar">
 			<div class="time-area">
 				<div class="scoring-bar fl"><span class="scoring-num num-font">1000</span>分</div>
-				<!-- <a href="javascript:;" class="operate-btn allow-color fr">立即兑换</a> -->
-				<div class="count-down fr">
+				<a class="js-exchange-button operate-btn fr" style="display: none;">请稍候</a>
+				<div class="count-down fr" style="display: none;">
 					<span class="time-num num-font">1</span>天<span class="time-num num-font">23</span>小时<span class="time-num num-font">13</span>分钟<span class="time-num num-font">59</span>秒开始
 				</div> 
 			</div> 
 		</div> 
 	</section>
+
+<script src="/fe/vendor/vendor-jq.js"></script>
+<script src="/fe/app/client/mall/js/detail-page/goods-detail.bundle.js"></script>
 </body>
 </html>

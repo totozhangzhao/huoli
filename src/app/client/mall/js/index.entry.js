@@ -73,7 +73,7 @@ var AppView = Backbone.View.extend({
         });
       },
       userCreditsInfo: ["deviceInfo", "userInfo", function(next, results) {
-        var params = _.extend(results.userInfo, {
+        var params = _.extend({}, results.userInfo, {
           from: results.deviceInfo.name
         });
 
@@ -99,13 +99,22 @@ var AppView = Backbone.View.extend({
   },
   createNewPage: function(e) {
     e.preventDefault();
+    
+    var $cur = $(e.currentTarget);
+
+    var url = $cur.prop("href");
+
+    if ( $cur.data() ) {
+      url = url.indexOf("?") >= 0 ? url : url + "?";
+      url = url + $.param( $cur.data() );
+    }
 
     NativeAPI.invoke("createWebView", {
-      url: e.currentTarget.href,
+      url: url,
       controls: [
         {
           type: "title",
-          text: $(e.currentTarget).data("title")
+          text: $cur.data("title")
         }
       ]
     });

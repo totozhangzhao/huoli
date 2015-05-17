@@ -107,6 +107,14 @@ body {
   margin-left: -1px;
   margin-top: -1px;
 }
+.border-right {
+  border-right: 1px solid #f3f3f3;
+  margin-left: -2px;
+}
+.border-bottom {
+  border-bottom: 1px solid #f3f3f3;
+  margin-top: -2px;
+}
 .text-bar {
   width: 100%;
   padding-top: 6px;
@@ -532,6 +540,9 @@ p {
 }
 
 /* widget - start */
+.flip-tip {
+  padding: 0 16px;
+}
 .block {
   display: block;
   overflow: hidden;

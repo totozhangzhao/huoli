@@ -46,6 +46,7 @@ module.exports = {
   },
   module: {
     loaders: [
+      // { test: /\.tpl$/, loader: "./webpack-builder/loader/tpl-loader/tpl-loader" },
       { test: /\.css$/, loader: "style!css" }
     ]
   },

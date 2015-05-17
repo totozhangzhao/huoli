@@ -53,7 +53,7 @@ var AppView = Backbone.View.extend({
         });
       },
       orderList: ["deviceInfo", "userInfo", function(next, results) {
-        var params = _.extend(results.userInfo, {
+        var params = _.extend({}, results.userInfo, {
           from: results.deviceInfo.name
         });
 

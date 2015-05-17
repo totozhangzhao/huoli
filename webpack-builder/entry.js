@@ -2,6 +2,7 @@ module.exports = [
   "app/client/mall/js/index.entry.js",
   "app/client/mall/js/list-page/exchange-record.entry.js",
   "app/client/mall/js/detail-page/order-detail.entry.js",
+  "app/client/mall/js/detail-page/goods-detail.entry.js",
 
   "app/client/test/common/jsonrpc/jsonrpc-test.entry.js",
   "app/client/test/common/native/native-b.entry.js",
