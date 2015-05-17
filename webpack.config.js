@@ -21,6 +21,7 @@ module.exports = {
       "jquery"    : __dirname + "/src/com/mobile/lib/jquery/jquery.js",
       "underscore": __dirname + "/src/com/mobile/lib/underscore/underscore.js",
       "backbone"  : __dirname + "/src/com/mobile/lib/backbone/backbone.js",
+      "async"     : __dirname + "/src/com/mobile/lib/async/async.js",
       "jsonrpc"   : __dirname + "/src/com/mobile/lib/jsonrpc/jsonrpc.js"
     }
   },
@@ -49,11 +50,11 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      output: {
-        comments: false
-      }
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   output: {
+    //     comments: false
+    //   }
+    // }),
     new webpack.optimize.CommonsChunkPlugin("vendor", "vendor/vendor-jq.js")
   ],
   devtool: "source-map",

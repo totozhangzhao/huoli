@@ -298,7 +298,7 @@ p {
   margin-left: 12px;
 }
 .user-flow {
-  width: 172px;
+  width: 210px;
   margin: 10px auto;
 }
 .count-down {
@@ -397,16 +397,17 @@ p {
   background: #f3f3f3;
 }
 .order-goods-box {
-  padding: 0 10px 236px;
+  padding-bottom: 236px;
 }
 .order-goods-bar {
-  padding-top: 10px;
+  padding: 10px 10px 0;
   height: 75px;
   border-bottom: 1px solid #f3f3f3;
 }
 .chit-pic {
   width: 64px;
   height: 64px;
+  border-radius: 4px;
 }
 .order-goods-text {
   padding-left: 71px;
@@ -416,21 +417,29 @@ p {
   text-align: right;
 }
 .exchange-code-bar {
-  height: 86px;
-  line-height: 86px;
+  padding: 12px 10px;
   border-bottom: 1px solid #f3f3f3;
+  position: relative;
 }
 .exchange-code {
-  font-size: 18px;
-  padding: 10px 15px;
-  margin-top: 24px;
-  line-height: 18px;
   text-align: center;
-  background: #feb220;
+  font-size: 18px;
+  padding: 8px 10px;
   color: #fff;
+}
+.exchange-code-word {
+  background: #feb220;
+  padding: 10px;
   border-radius: 3px; 
+  display: inline-block;
+}
+.copy-code {
+  font-size: 10px;
+  color: #ccc;
+  text-align: center;
 }
 .use-method {
+  padding: 0 10px;
   color: #333;
 }
 .use-method-tit {
@@ -523,6 +532,11 @@ p {
 }
 
 /* widget - start */
+.block {
+  display: block;
+  overflow: hidden;
+}
+
 .banner {
   position: relative;
   text-align: center;
@@ -575,7 +589,7 @@ p {
   display: block;
   z-index: 101;
   position: fixed;
-  top: 55%;
+  top: 51%;
   left: 50%;
   width: 320px;
   margin-left: -160px;

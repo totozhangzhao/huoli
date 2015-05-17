@@ -13,6 +13,9 @@ var sendPost = requestAPI.createSendPost({
 
 var AppView = Backbone.View.extend({
   el: "body",
+  events: {
+    "click .js-order-item": "gotoOrderDetail"
+  },
   initialize: function() {
     NativeAPI.invoke("updateTitle", {
       text: "积分兑换记录"
@@ -69,18 +72,28 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      var tmpl = $("#tmpl-record").html();
-      var compiled = _.template(tmpl);
-
+      var compiled = _.template( $("#tmpl-record").html() );
       var tmplData = {
         orderList: results.orderList
       };
-
-      console.log(tmplData);
       
       $("#order-list").html( compiled(tmplData) );
     });
   },
+  gotoOrderDetail: function(e) {
+    var $cur = $(e.currentTarget);
+
+    NativeAPI.invoke("createWebView", {
+      url: "/fe/app/client/mall/html/detail-page/order-detail.html" +
+        "?orderid=" + $cur.data("id"),
+      controls: [
+        {
+          type: "title",
+          text: "订单详情"
+        }
+      ]
+    });
+  }
 });
 
 new AppView(); 

@@ -4,8 +4,8 @@ var _         = require("underscore");
 var async     = require("async");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var requestAPI = require("app/client/mall/js/lib/request.js");
-var Swipe = require("com/mobile/lib/swipe/swipe.js");
 var toast = require("com/mobile/widget/toast/toast.js");
+var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -14,36 +14,14 @@ var sendPost = requestAPI.createSendPost({
 
 var AppView = Backbone.View.extend({
   el: "body",
-  events: {
-    "click .js-new-page": "createNewPage"
-  },
   initialize: function() {
-    var $SwipeBox = $("#top-banner .js-banner-box");
-    var $index    = $("#top-banner .js-banner-index");
-
-    new Swipe($SwipeBox.get(0), {
-      startSlide: 0,
-      speed: 400,
-      auto: 3000,
-      continuous: true,
-      disableScroll: false,
-      stopPropagation: false,
-      callback: function(index) {
-        $index
-          .removeClass("active")
-            .eq(index)
-            .addClass("active");
-      },
-      transitionEnd: function() {}
-    });
-
     NativeAPI.invoke("updateTitle", {
-      text: "积分商城"
+      text: "订单详情"
     });
 
-    this.mallGetUserInfo();
+    this.mallOrderDetail();
   },
-  mallGetUserInfo: function() {
+  mallOrderDetail: function() {
     async.auto({
       deviceInfo: function(next) {
         NativeAPI.invoke("getDeviceInfo", null, function(err, data) {
@@ -72,12 +50,13 @@ var AppView = Backbone.View.extend({
           next(null, data);
         });
       },
-      userCreditsInfo: ["deviceInfo", "userInfo", function(next, results) {
+      orderDetail: ["deviceInfo", "userInfo", function(next, results) {
         var params = _.extend(results.userInfo, {
-          from: results.deviceInfo.name
+          from: results.deviceInfo.name,
+          orderid: parseUrl().orderid
         });
 
-        sendPost("getUserInfo", params, function(err, data) {
+        sendPost("orderDetail", params, function(err, data) {
           if (err) {
             next(err);
             return;
@@ -92,22 +71,12 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      var credits = results.userCreditsInfo.points;
-
-      $(".js-credits").text(credits);
-    });
-  },
-  createNewPage: function(e) {
-    e.preventDefault();
-
-    NativeAPI.invoke("createWebView", {
-      url: e.currentTarget.href,
-      controls: [
-        {
-          type: "title",
-          text: $(e.currentTarget).data("title")
-        }
-      ]
+      var compiled = _.template( $("#tmpl-order-detail").html() );
+      var tmplData = {
+        orderDetail: results.orderDetail
+      };
+      
+      $("#order-detail-container").html( compiled(tmplData) );
     });
   }
 });

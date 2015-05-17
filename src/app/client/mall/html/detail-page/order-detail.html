@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1, width=device-width">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1" media="(device-height: 568px)">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection"content="telephone=no">
+	<title>订单详情</title>
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/common/style/global.css">
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
+</head>
+<body>
+	<section id="order-detail-container" class="order-box">
+	</section>
+
+<script type="text/template" id="tmpl-order-detail">
+	<div class="order-nav clearfix">
+		<p class="order-num-bar fl">订单号：<span class="order-num num-font"><%= orderDetail.orderid %></span></p>
+		<p class="order-time fr">成交时间：<span class="num-font"><%= orderDetail.createtime %></span></p>
+	</div>
+	<div class="order-goods-box">
+		<div class="order-goods-bar">
+			<img src="<%= orderDetail.img %>" class="chit-pic fl" />
+			<p class="order-goods-text pic-tit"><%= orderDetail.title %></p>
+			<p class="order-goods-text pic-detail"><%= orderDetail.desc %></p>
+			<p class="order-goods-text actually-pay">
+				实付：<span class="exchange-num num-color"><%= orderDetail.pprice %></span>分
+			</p>
+		</div>
+		<div class="exchange-code-bar clearfix">
+			<p class="exchange-code">
+				<span class="exchange-code-word num-font"><%= orderDetail.ecode %></span>
+				<p class="copy-code">长按可复制</p>
+			</p>
+		</div>
+		<div class="use-method">
+			<h5 class="use-method-tit">如何使用券／码？</h5>
+			<div class="use-method-text"><%= orderDetail.note %></div>
+		</div>
+	</div>
+	<div class="copyright-bar">
+		<fieldset class="filed-box">
+			<legend>&nbsp;注意事项&nbsp;</legend>
+		</fieldset>
+		<p class="filed-text">
+			商品兑换流程请仔细参照商品详情页的“兑换流程”、“兑换日期”、“使用范围”进行操作，除商品本身不能正常兑换外（如商品过期、兑换流程操作失误、仅限新用户兑换），所有商品一经兑换一律不退还积分。
+		</p>
+		<p class="copyright-p">本积分商城活动由高铁管家提供，与设备生产商<span class="group-name">Apple Ine.</span>公司无关</p>
+	</div>
+</script>
+
+<script src="/fe/vendor/vendor-jq.js"></script>
+<script src="/fe/app/client/mall/js/detail-page/order-detail.bundle.js"></script>
+</body>
+</html>

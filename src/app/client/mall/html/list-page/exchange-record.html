@@ -35,7 +35,7 @@
 
 <script type="text/template" id="tmpl-record">
 	<% _.each(orderList, function(item) { %>
-			<li class="record-area">
+			<li class="js-order-item record-area" data-id="<%= item.orderid %>">
 				<a href="javascript:;" class="clearfix">
 					<div class="record-pic-bar fl">
 						<img src="<%= item.img %>" / class="record-pic chit-pic">
