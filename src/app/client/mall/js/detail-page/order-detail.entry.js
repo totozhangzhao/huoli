@@ -1,6 +1,6 @@
 var $         = require("jquery");
 var Backbone  = require("backbone");
-var _         = require("underscore");
+var _         = require("lodash");
 var async     = require("async");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var requestAPI = require("app/client/mall/js/lib/request.js");
@@ -71,7 +71,8 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      var compiled = _.template( $("#tmpl-order-detail").html() );
+      var compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
+      // var compiled = _.template( $("#tmpl-order-detail").html() );
       var tmplData = {
         orderDetail: results.orderDetail
       };

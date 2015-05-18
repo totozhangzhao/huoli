@@ -1,6 +1,6 @@
 var $         = require("jquery");
 var Backbone  = require("backbone");
-var _         = require("underscore");
+var _         = require("lodash");
 var async     = require("async");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var requestAPI = require("app/client/mall/js/lib/request.js");
@@ -102,7 +102,7 @@ var AppView = Backbone.View.extend({
             self.exchange({
               type: data.type,
               thirdparturl: data.thirdparturl || ""
-            })
+            });
           })
           .on("click", ".js-cancel", function() {
             self.$el.$promptBoard.hide();
