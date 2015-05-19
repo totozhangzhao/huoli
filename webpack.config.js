@@ -41,11 +41,12 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      output: {
-        comments: false
-      }
-    }),
+    // add it in build task
+    // new webpack.optimize.UglifyJsPlugin({
+    //   output: {
+    //     comments: false
+    //   }
+    // }),
     new webpack.optimize.CommonsChunkPlugin("vendor", "vendor/vendor-jq.js")
   ],
   devtool: "source-map",

@@ -1,11 +1,12 @@
-var $         = require("jquery");
-var Backbone  = require("backbone");
-var _         = require("lodash");
-var async     = require("async");
-var NativeAPI = require("app/client/common/lib/native/native-api.js");
+var $          = require("jquery");
+var Backbone   = require("backbone");
+var _          = require("lodash");
+var async      = require("async");
+var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var requestAPI = require("app/client/mall/js/lib/request.js");
-var toast = require("com/mobile/widget/toast/toast.js");
-var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
+var toast      = require("com/mobile/widget/toast/toast.js");
+var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
+var getSystem  = require("com/mobile/lib/util/util.js").getMobileSystem;
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -18,11 +19,8 @@ var USER_INFO   = {};
 var AppView = Backbone.View.extend({
   el: "body",
   initialize: function() {
-    NativeAPI.invoke("updateTitle", {
-      text: "商品详情"
-    });
-
     this.$el.$shade          = $(".js-shade");
+    this.$el.$loginPrompt    = $(".js-login-prompt");
     this.$el.$exchangeButton = $(".js-exchange-button");
     this.$el.$promptBoard    = $(".js-exchange-prompt");
     this.$el.$promptSuccess  = $(".js-success-prompt");
@@ -53,10 +51,8 @@ var AppView = Backbone.View.extend({
             return;
           }
 
-          if (_.isObject(data) && !data.authcode) {
-            NativeAPI.invoke("login", null, function() {});
-            return;
-          }
+          data.authcode = data.authcode || "";
+          data.userid   = data.userid || "";
 
           next(null, data);
         });
@@ -86,15 +82,46 @@ var AppView = Backbone.View.extend({
       }
 
       var data = results.productDetail;
+
+      self.updateNativeView(data.title);
+
+      $("<img>", {
+        src: data.img,
+        alt: ""
+      })
+        .appendTo("#main-img");
+
+      $("#goods-desc").html(data.desc || "");
+
+      self.fixTpl();
+      
       var buttonClass = "forbidden-color";
 
-      // 0: 正常兑换; 1: 已结束; 2: 未开始; 3: 已兑完; 4: 今日已兑完。
+      // 0: 正常兑换;
+      // 1: 已结束;
+      // 2: 未开始;
+      // 3: 已兑完;
+      // 4: 今日已兑完。
       if ( String(results.productDetail.stat) === "0" ) {
         buttonClass = "allow-color";
 
         self.$el.$exchangeButton.on("click", function() {
-          self.$el.$shade.show();
-          self.$el.$promptBoard.show();
+          if (USER_INFO.authcode) {
+            self.$el.$shade.show();
+            self.$el.$promptBoard.show();
+          } else {
+            self.$el.$shade.show();
+            self.$el.$loginPrompt
+              .on("click", ".js-confirm", function() {
+                window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
+                  window.btoa(unescape(encodeURIComponent( window.location.href )));
+              })
+              .on("click", ".js-cancel", function() {
+                self.$el.$loginPrompt.hide();
+                self.$el.$shade.hide();
+              })
+              .show();            
+          }
         });
 
         self.$el.$promptBoard
@@ -116,9 +143,16 @@ var AppView = Backbone.View.extend({
         .show();
     });
   },
+  fixTpl: function() {
+    var crTpl = require("app/client/mall/tpl/copyright.tpl");
+
+    $("#copyright").html(crTpl({
+      system: getSystem()
+    }));
+  },
   exchange: function(options) {
 
-    // type：类型    
+    // type：兑换类型    
     // 1--直接调用创建订单接口      
     // 2--转入输入手机号页面（预留）      
     // 3--转入输入地址页面（预留）   
@@ -164,6 +198,26 @@ var AppView = Backbone.View.extend({
         .end()
         .show();
     });
+  },
+  updateNativeView: function(title) {
+    NativeAPI.invoke("updateTitle", {
+      text: title
+    });
+
+    // NativeAPI.invoke("updateHeaderRightBtn", {
+    //   action: "show",
+    //   icon: require("app/client/mall/image/share-icon.js"),
+    //   text: "分享"
+    // }, function(err) {
+    //   if (err) {
+    //     toast(err.message);
+    //     return;
+    //   }
+    // });
+
+    // NativeAPI.registerHandler("headerRightBtnClick", function() {
+    //   window.location.href = "gtgj://start?type=share";
+    // });
   }
 });
 
