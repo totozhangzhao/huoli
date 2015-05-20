@@ -54,6 +54,7 @@ var AppView = Backbone.View.extend({
     this.$el.$shade       = $(".js-shade");
     this.$el.$loginPrompt = $(".js-login-prompt");
 
+    this.fixTpl();
     this.mallGetUserInfo();
   },
   mallGetUserInfo: function() {
@@ -103,8 +104,6 @@ var AppView = Backbone.View.extend({
       }] 
     }, function(err, results) {
       if (err) {
-        self.fixTpl();
-
         if (err === "notLogin") {
           self.$el.$shade.show();
           self.$el.$loginPrompt
@@ -131,8 +130,6 @@ var AppView = Backbone.View.extend({
         .show()
         .find(".js-points")
         .text(points);
-
-      self.fixTpl();
     });
   },
   fixTpl: function() {

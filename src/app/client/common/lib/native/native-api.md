@@ -152,6 +152,21 @@ __params__
 JS -> Native: {method: "webViewCallback", params: {url: "/index.html" }}
 
 
+### login
+
+* 描述：启动客户端登录界面，如果登录成功，应返回原来的 WebView，并调用 JS 的 loginCompleted 接口。
+
+__method__
+
+* `login`
+
+__params__
+
+* 不带参数，根据客户端⾃定义。
+
+JS -> Native: {method: "login", params:null}
+
+
 ### getUserInfo
 
 * 描述：获取当前的⽤户信息,如果⽤户未登录,则返回错误。
@@ -282,6 +297,15 @@ __result__
 
 JS -> Native: {method: "back", params:null, id: 1}
 Native -> JS: {result: {preventDefault: false}, id: 1}
+
+
+### loginCompleted
+
+* 描述：当调用客户端登录接口，并登录成功后，由客户端调用 JS 端的这个接口。
+
+__params__
+
+* 客户端可以根据各⾃场景⾃定义
 
 
 ### headerRightBtnClick
