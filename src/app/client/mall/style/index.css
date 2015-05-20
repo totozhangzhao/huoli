@@ -568,6 +568,20 @@ p {
   background: url(https://dl.rsscc.cn/guanggao/img/mall/icon/arrow-icon.png) no-repeat;
   background-size: cover;
 }
+.exchange-empty-box {
+  max-width: 750px;
+  margin: 0 auto;
+  display: none;
+}
+.exchange-empty-pic {
+  width: 104px;
+  height: 104px;
+  margin: 128px auto 36px;
+}
+.exchange-empty-text {
+  text-align: center;
+  padding-bottom: 30px;
+}
 
 /* exchange-record end */
 #xunlei_com_thunder_helper_plugin_d462f475-c18e-46be-bd10-327458d045bd {

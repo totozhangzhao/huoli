@@ -18,6 +18,9 @@ var USER_INFO   = {};
 
 var AppView = Backbone.View.extend({
   el: "body",
+  events: {
+    "click #goods-desc a": "createNewPage"
+  },
   initialize: function() {
     this.$el.$shade          = $(".js-shade");
     this.$el.$loginPrompt    = $(".js-login-prompt");
@@ -27,6 +30,27 @@ var AppView = Backbone.View.extend({
     this.$el.$promptFail     = $(".js-fail-prompt");
     
     this.mallOrderDetail();
+  },
+  createNewPage: function(e) {
+    e.preventDefault();
+    
+    var $cur = $(e.currentTarget);
+    var url = $cur.prop("href");
+
+    if ( $cur.data() ) {
+      url = url.indexOf("?") >= 0 ? url : url + "?";
+      url = url + $.param( $cur.data() );
+    }
+
+    NativeAPI.invoke("createWebView", {
+      url: url,
+      controls: [
+        {
+          type: "title",
+          text: $cur.data("title") || ""
+        }
+      ]
+    });
   },
   mallOrderDetail: function() {
     var self = this;

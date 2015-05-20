@@ -6,6 +6,7 @@ var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var requestAPI = require("app/client/mall/js/lib/request.js");
 var Swipe      = require("com/mobile/lib/swipe/swipe.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
+var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var getSystem  = require("com/mobile/lib/util/util.js").getMobileSystem;
 
 // method, params, callback
@@ -19,6 +20,14 @@ var AppView = Backbone.View.extend({
     "click .js-new-page": "createNewPage"
   },
   initialize: function() {
+    var versionInfo = parseUrl().p || "";
+    var numStr = versionInfo.slice( versionInfo.indexOf("gtgj,") ).split(",")[1];
+
+    if ( parseFloat(numStr) < 3.1 ) {
+      window.location.href = "https://dl.rsscc.cn/guanggao/upgrade/upgrade.html";
+      return;
+    }
+
     var $SwipeBox = $("#top-banner .js-banner-box");
     var $index    = $("#top-banner .js-banner-index");
 

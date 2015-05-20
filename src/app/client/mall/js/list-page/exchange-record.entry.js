@@ -72,12 +72,20 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      var compiled = _.template( $("#tmpl-record").html() );
+      var $orderList = $("#order-list");
+
+      if (!Array.isArray(results.orderList) || results.orderList.length === 0) {
+        $orderList.hide();
+        $("#empty-record-hint").show();
+        return;
+      }
+
+      var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
       var tmplData = {
         orderList: results.orderList
       };
       
-      $("#order-list").html( compiled(tmplData) );
+      $orderList.html( compiled(tmplData) );
     });
   },
   gotoOrderDetail: function(e) {
