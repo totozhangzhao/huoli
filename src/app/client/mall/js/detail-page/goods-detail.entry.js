@@ -92,9 +92,10 @@ var AppView = Backbone.View.extend({
         .appendTo("#main-img");
 
       $("#goods-desc").html(data.desc || "");
+      $(".js-points").text(data.pprice);
 
       self.fixTpl();
-      
+
       var buttonClass = "forbidden-color";
 
       // 0: 正常兑换;

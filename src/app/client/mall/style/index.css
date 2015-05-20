@@ -417,6 +417,7 @@ p {
 }
 .flip-tip {
   font-size: 12px;
+  padding: 0 16px;
 }
 .flip-go-check {
   margin-top: 15px;
@@ -574,9 +575,6 @@ p {
 }
 
 /* widget - start */
-.flip-tip {
-  padding: 0 16px;
-}
 .block {
   display: block;
   overflow: hidden;
