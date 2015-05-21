@@ -82,25 +82,33 @@ __params__
 
 __result__
 
-YES Number
-0 常量
-CLOSE Number
-1 常量
+* `YES` Number 常量 1
+* `CLOSE` Number 常量 0
+* `value` Number 1 或者 0
 
 JS -> Native: {method: "alert", params: { title: 123, message: "msg", btn_text: "是的" }, id: 1}
 Native -> JS: {__result__ {value: 0, YES:0, CLOSE: 1}, id: 1}
 
 ```JavaScript
 NativeAPI.invoke(
-  "alert",
-  {
-    title: "提示",
-    message: "你确定吗?"
-    btn_text: "确定"
+  "alert", {
+    title: "这是标题",
+    message: "这是消息",
+    btn_text: "确定按钮"
   },
-  function (err, data) {
-    if (data.value === data.YES) {
-      alert("确认");
+  function(err, data) {
+    if (err) {
+      return handleError(err);
+    }
+    switch (data.value) {
+      case data.YES:
+        echo("你点了确定按钮");
+        break;
+      case data.CLOSE:
+        echo("你使用其他方式关闭了弹窗");
+        break;
+      default:
+        echo("未知动作，返回code是[" + data.value + "]");
     }
   }
 );
@@ -278,6 +286,120 @@ __params__
 * 描述：清除设备内遗留的app cache
 
 JS -> Native: {method: "clearAppCache", params: null }
+
+
+### isSupported
+
+* 描述：查询 API 可用性。
+
+__method__
+
+* `isSupported`
+
+__params__
+
+* `method` String 需要查询的方法
+
+__result__
+
+* `value` Boolean true 支持，false 不支持。
+
+
+### selectContact
+
+* 描述：选择联系人 (使用手机本身的联系人界面)。
+
+__method__
+
+* `selectContact`
+
+__result__
+
+* `name`  String 名字
+* `phone` String 电话号码
+
+
+### sendSMS
+
+* 描述：发送短信
+
+__method__
+
+* `sendSMS`
+
+__params__
+
+* `phone` String
+* `message` String
+
+__result__
+
+* `value` Boolean true 成功，false 不成功。
+
+
+### getCurrentPosition
+
+* 描述：获取当前位置
+
+__method__
+
+* `getCurrentPosition`
+
+__result__
+
+* `latitude`  The latitude as a decimal number
+* `longitude` The longitude as a decimal number
+* `accuracy`  The accuracy of position
+* `heading`   The heading as degrees clockwise from North
+* `speed`     The speed in meters per second
+* `timestamp` The date/time of the response
+
+
+### scanBarcode
+
+* 描述：使用摄像头扫描二维码。
+
+__method__
+
+* `scanBarcode`
+
+__result__
+
+* `value` String 扫描得到的字符串
+
+
+### sharePage
+
+* 描述：使用客户端分享功能。
+
+__method__
+
+* `sharePage`
+
+__params__
+
+* `title`
+* `desc`
+* `link`
+* `imgUrl`
+
+__result__
+
+* `value` Boolean true 成功，false 不成功。
+
+
+### trackEvent
+
+* 描述：客户端统计。自定义事件记录。
+
+__method__
+
+* `trackEvent`
+
+__params__
+
+* `event` String 记录事件名
+* `attrs` String 统计字符串(JSON String)
 
 
 ## 由 JavaScript 提供的方法

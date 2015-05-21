@@ -24,7 +24,7 @@ var AppView = Backbone.View.extend({
     var numStr = versionInfo.slice( versionInfo.indexOf("gtgj,") ).split(",")[1];
 
     if ( parseFloat(numStr) < 3.1 ) {
-      window.location.href = "https://dl.rsscc.cn/guanggao/upgrade/upgrade.html";
+      window.location.href = "http://cdn.rsscc.cn/guanggao/upgrade/upgrade.html";
       return;
     }
 

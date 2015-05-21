@@ -3,6 +3,10 @@ var _        = require("lodash");
 var requestAPI = require("app/client/mall/js/lib/request.js");
 var echo        = require("app/client/test/common/native/util.js").echo;
 var handleError = require("app/client/test/common/native/util.js").handleError;
+var jsonrpc  = require("jsonrpc");
+
+// test
+window.jsonrpc = jsonrpc;
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
