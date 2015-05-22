@@ -177,18 +177,24 @@ JS -> Native: {method: "login", params:null}
 
 ### getUserInfo
 
-* 描述：获取当前的⽤户信息,如果⽤户未登录,则返回错误。
+* 描述：获取当前的⽤户信息。可以传appName参数，如'gtgj' 代表 高铁管家的用户信息，'hbgj'代表航班管家的用户信息。如果没有该参数，则返回该客户端默认的用户信息。如果⽤户未登录，则返回错误。
 
 __method__
 
 * `getUserInfo`
 
+__params__
+
+* `appName` String "gtgj"代表高铁管家，"hbgj"代表航班管家。
+
 __result__
 
 * `phone` String ⽤户电话
-* `userid` String ⽤户ID
 * `uid` String 
+* `userid` String ⽤户ID
 * `authcode` String 
+* `hbuserid`   String 过渡期参数，下一版本统一用 userid。
+* `hbauthcode` String 过渡期参数，下一版本统一用 authcode。
 
 __error__
 
@@ -401,6 +407,52 @@ __params__
 * `event` String 记录事件名
 * `attrs` String 统计字符串(JSON String)
 
+
+### startPay
+
+* 描述：js调用startPay方法，将支付参数传递给app，app支付完成后调用js的startPay提供的callback(仅告之支付交互层面上的成功/失败，web需要自己查询支付结果)，js在callback中继续完成后续的交互处理(如支付流程需要authcode，可以通过getUserInfo获取authcode，支付接口调用不再涉及authcode传输)。
+
+__method__
+
+* `startPay`
+
+__params__
+
+* `quitpaymsg` String 退出时候的提示
+* `title` String 支付标题
+* `price` String 商品价格
+* `orderid` String 订单号
+* `productdesc` String 商品描述
+* `url` String 显示订单基本信息的Wap页面
+* `subdesc` String 商品详情描述
+
+__reslut__
+* `SUCC` 常量，表示客户端支付流程完成
+* `FAIL` 常量，表示客户端支付流程中断
+* `value` SUCC/FAIL 成功或失败
+
+```JavaScript
+NativeAPI.invoke("startPay", {
+  quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“个人中心->其他订单”完成支付。确认退出吗？, ",
+  title: "商城订单",
+  price: "145",
+  orderid: "150513188189022",
+  productdesc: "接机订单支付",
+  subdesc: "专车接送",
+  url: "http://jp.rsscc.com/Fmall/rest/client/v4/pay.htm?orderid=150513188189022"
+}, function(err, data) {
+  switch (data.value) {
+    case data.SUCC:
+      alert(“支付成功， 跳转详情”);
+      break;
+    case data.FAIL:
+      alert(“支付失败”);
+      break;
+    default:
+      alert(“支付异常”);
+  }
+});
+```
 
 ## 由 JavaScript 提供的方法
 
