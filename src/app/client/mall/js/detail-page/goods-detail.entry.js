@@ -14,7 +14,11 @@ var sendPost = requestAPI.createSendPost({
 });
 
 var DEVICE_INFO = {};
-var USER_INFO   = {};
+var USER_INFO = {
+  uid: "",
+  userid: "",
+  authcode: ""
+};
 
 var AppView = Backbone.View.extend({
   el: "body",
@@ -70,9 +74,12 @@ var AppView = Backbone.View.extend({
       },
       userInfo: function(next) {
         NativeAPI.invoke("getUserInfo", null, function(err, data) {
-          if (err) {
-            next(err);
+          if ( err && (String(err.code) === "-32001") ) {
+            next(null, USER_INFO);
             return;
+          } else if (err) {
+            next(err);
+            return;            
           }
 
           data.authcode = data.authcode || "";
@@ -80,93 +87,93 @@ var AppView = Backbone.View.extend({
 
           next(null, data);
         });
-      },
-      productDetail: ["deviceInfo", "userInfo", function(next, results) {
-        DEVICE_INFO = results.deviceInfo;
-        USER_INFO   = results.userInfo;
-
-        var params = _.extend({}, results.userInfo, {
-          from: results.deviceInfo.name,
-          productid: parseUrl().productid
-        });
-
-        sendPost("productDetail", params, function(err, data) {
-          if (err) {
-            next(err);
-            return;
-          }
-
-          next(null, data);
-        });
-      }] 
+      }
     }, function(err, results) {
       if (err) {
         toast(err.message, 1500);
         return;
       }
 
-      var data = results.productDetail;
+      DEVICE_INFO = results.deviceInfo;
+      USER_INFO   = results.userInfo;
 
-      self.updateNativeView(data.title);
+      var params = _.extend({}, USER_INFO, {
+        from: DEVICE_INFO.name,
+        productid: parseUrl().productid
+      });
 
-      $("<img>", {
-        src: data.img,
-        alt: ""
-      })
-        .appendTo("#main-img");
+      sendPost("productDetail", params, function(err, data) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
 
-      $("#goods-desc").html(data.desc || "");
-      $(".js-points").text(data.pprice);
-
-      self.fixTpl();
-
-      var buttonClass = "forbidden-color";
-
-      // 0: 正常兑换;
-      // 1: 已结束;
-      // 2: 未开始;
-      // 3: 已兑完;
-      // 4: 今日已兑完。
-      if ( String(results.productDetail.stat) === "0" ) {
-        buttonClass = "allow-color";
-
-        self.$el.$exchangeButton.on("click", function() {
-          if (USER_INFO.authcode) {
-            self.$el.$shade.show();
-            self.$el.$promptBoard.show();
-          } else {
-            self.$el.$shade.show();
-            self.$el.$loginPrompt
-              .on("click", ".js-confirm", function() {
-                window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
-                  window.btoa(unescape(encodeURIComponent( window.location.href )));
-              })
-              .on("click", ".js-cancel", function() {
-                self.$el.$loginPrompt.hide();
-                self.$el.$shade.hide();
-              })
-              .show();            
-          }
-        });
-
-        self.$el.$promptBoard
-          .on("click", ".js-confirm", function() {
-            self.exchange({
-              type: data.type,
-              thirdparturl: data.thirdparturl || ""
-            });
-          })
-          .on("click", ".js-cancel", function() {
-            self.$el.$promptBoard.hide();
-            self.$el.$shade.hide();
-          });
-      }
-
-      self.$el.$exchangeButton
-        .text(data.button)
-        .addClass(buttonClass)
-        .show();
+        self.renderMainPanel(data);
+      });
     });
+  },
+  renderMainPanel: function(data) {
+    var self = this;
+
+    this.updateNativeView(data.title);
+
+    $("<img>", {
+      src: data.img,
+      alt: ""
+    })
+      .appendTo("#main-img");
+
+    $("#goods-desc").html(data.desc || "");
+    $(".js-points").text(data.pprice);
+
+    this.fixTpl();
+
+    var buttonClass = "forbidden-color";
+
+    // 0: 正常兑换;
+    // 1: 已结束;
+    // 2: 未开始;
+    // 3: 已兑完;
+    // 4: 今日已兑完。
+    if ( String(data.stat) === "0" ) {
+      buttonClass = "allow-color";
+
+      this.$el.$exchangeButton.on("click", function() {
+        if (USER_INFO.authcode) {
+          self.$el.$shade.show();
+          self.$el.$promptBoard.show();
+        } else {
+          self.$el.$shade.show();
+          self.$el.$loginPrompt
+            .on("click", ".js-confirm", function() {
+              window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
+                window.btoa(unescape(encodeURIComponent( window.location.href )));
+            })
+            .on("click", ".js-cancel", function() {
+              self.$el.$loginPrompt.hide();
+              self.$el.$shade.hide();
+            })
+            .show();            
+        }
+      });
+
+      this.$el.$promptBoard
+        .on("click", ".js-confirm", function() {
+          self.exchange({
+            type: data.type,
+            thirdparturl: data.thirdparturl || ""
+          });
+        })
+        .on("click", ".js-cancel", function() {
+          self.$el.$promptBoard.hide();
+          self.$el.$shade.hide();
+        });
+    }
+
+    this.$el.$exchangeButton
+      .text(data.button)
+      .addClass(buttonClass)
+      .show();
   },
   fixTpl: function() {
     var crTpl = require("app/client/mall/tpl/copyright.tpl");
