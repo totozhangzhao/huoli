@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1, width=device-width">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1" media="(device-height: 568px)">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection"content="telephone=no">
+  <title>积分商城</title>
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/common/style/global.css">
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
+</head>
+<body>
+  <section class="info-box">
+    <div id="index-points-bar" class="tit-bar clearfix" style="display: none;">
+      <div class="info-record-bar fr">
+        <a data-title="积分兑换记录" class="js-new-page fl" href="html/list-page/exchange-record.html"><span class="record-icon"></span>兑换记录</a>
+      </div>
+      <p class="cur-bar fl">当前积分：<span class="js-points num-color">--</span>分</p>
+    </div>
+    <section id="top-banner" class="banner">
+      <div class="js-banner-box banner-box">
+        <ul class="banner-pics">
+          <li class="banner-item">
+            <a data-productid="1000001" data-title="商品详情" class="js-new-page" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-banner-newchr.png" alt="">
+            </a>
+          </li>
+          <li class="banner-item">
+            <a data-productid="1000002" data-title="商品详情" class="js-new-page" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-banner-oldchr.png" alt="">
+            </a>
+          </li>
+          <li class="banner-item">
+            <a data-productid="1000004" data-title="商品详情" class="js-new-page" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-banner-lyan.png" alt="">
+            </a>
+          </li>
+          <li class="banner-item">
+            <a data-productid="1000018" data-title="商品详情" class="js-new-page" href="https://jp.rsscc.com/promotion/coupon/newhands/index?auth=optional&hbgjparam=1&from=gtgj_jfsc">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-banner-hangbanguanjia.png" alt="">
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="banner-indexs">
+        <i class="js-banner-index active"></i>
+        <i class="js-banner-index"></i>
+        <i class="js-banner-index"></i>
+        <i class="js-banner-index"></i>
+      </div>
+    </section>
+    <div class="goods-bar">
+      <h5 class="goods-h"><span class="hot-icon"></span>热门兑换</h5>
+      <ul class="goods-area clearfix">
+        <li class="goods-area-son fl">
+          <a data-productid="1000001" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">高铁红包<span class="state-icon new-user"></span></p>
+              <p class="text-bar-p pic-detail"><span class="num-font">0</span>积分领红包赶快来抢</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">0</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-envelope5.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000002" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">高铁红包<span class="state-icon old-user"></span></p>
+              <p class="text-bar-p pic-detail">我带红包去旅行</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">1000</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-envelope5old.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000018" data-title="商品详情" class="js-new-page block" href="https://jp.rsscc.com/promotion/coupon/newhands/index?auth=optional&hbgjparam=1&from=gtgj_jfsc">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">航班管家<span class="state-icon"></span></p>
+              <p class="text-bar-p pic-detail">特价再减50元</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">0</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-hangbanguanjia.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000006" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit"><span class="num-font">e</span>代驾<span class="state-icon"></span></p>
+              <p class="text-bar-p pic-detail">“驾”给我吧！</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">1000</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-edaijia.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000004" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">连咖啡<span class="state-icon"></span></p>
+              <p class="text-bar-p pic-detail">再忙，也得喝咖啡</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">200</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-lyancafe.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000003" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">伙力私厨饭局<span class="state-icon state-grab"></span></p>
+              <p class="text-bar-p pic-detail">吃货的创意旅行，约吗？</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">0</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-huoli.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000005" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">一号专车<span class="state-icon"></span></p>
+              <p class="text-bar-p pic-detail">在路上世界是你的</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">200</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-1haozhuanche.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000019" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">顺丰优选<span class="state-icon"></span></p>
+              <p class="text-bar-p pic-detail">生鲜美食随时兑</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">1000</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-sfbeat.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000012" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit"><span class="num-font">B</span>字号进口食品<span class="state-icon state-grab"></span></p>
+              <p class="text-bar-p pic-detail">进口零食大礼包快来抢</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">1000</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-bzihao.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000009" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">一号店<span class="state-icon"></span></p>
+              <p class="text-bar-p pic-detail">10元抵用券来袭</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">500</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-1haodian.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000007" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">京东阅读<span class="state-icon month-card"></span></p>
+              <p class="text-bar-p pic-detail">推广全民阅读兑换不限量</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">500</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-jdmonth.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000008" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">京东阅读<span class="state-icon quarter-card"></span></p>
+              <p class="text-bar-p pic-detail">推广全民阅读兑换不限量</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">2000</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-jdquarter.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000013" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">贝贝特卖<span class="state-icon"></span></p>
+              <p class="text-bar-p pic-detail">关爱你的宝贝</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">500</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-beibei.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000011" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">抠电影<span class="state-icon"></span></p>
+              <p class="text-bar-p pic-detail">约电影，观影有TA陪</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">200</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-komovie.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000010" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">宝驾租车<span class="state-icon"></span></p>
+              <p class="text-bar-p pic-detail">包个车，去转转</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">100</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-baojia-20.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000017" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">58汽车陪练<span class="state-icon"></span></p>
+              <p class="text-bar-p pic-detail">最好的汽车陪练服务</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">500</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-58peilian.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000015" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">阿姨帮<span class="state-icon state-grab"></span></p>
+              <p class="text-bar-p pic-detail">保洁券50元</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">500</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-ayibang-50.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <li class="goods-area-son fl">
+          <a data-productid="1000014" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">阿姨帮<span class="state-icon"></span></p>
+              <p class="text-bar-p pic-detail">保洁券25元</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">200</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-ayibang-25.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        <!--
+        <li class="goods-area-son border-right fl">
+          <a data-productid="1000016" data-title="商品详情" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <div class="text-bar">
+              <p class="text-bar-p pic-tit">无忧保姆网<span class="state-icon"></span></p>
+              <p class="text-bar-p pic-detail">找保姆无忧</p>
+              <p class="text-bar-p pic-value"><span class="exchange-num num-color">2000</span>分</p>
+            </div>
+            <div class="pic-bar">
+              <img src="http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-wuyoubaomu.png" class="goods-pic" >
+            </div>
+          </a>
+        </li>
+        -->
+      </ul>
+    </div>
+
+    <div id="copyright">
+      <!-- // -->
+    </div>
+
+    <!-- 弹窗start -->
+
+    <div class="js-login-prompt login-flip-box">
+      <h5 class="login-flip-h">提&nbsp;&nbsp;&nbsp;示</h5>
+      <p class="login-flip-text">您尚未登录，这会影响积分兑换及使用哦，即刻登录优惠尽享！</p>
+      <div class="login-btn-box">
+        <a class="js-cancel login-no forbidden-color">逛逛再说</a>
+        <a class="js-confirm login-yes allow-color">即刻登录</a>
+      </div>
+    </div>
+
+    <!-- 弹窗end -->
+
+    <!-- 灰色半透明背景start -->
+
+    <div class="js-shade common-shadow"></div>
+
+    <!-- 灰色半透明背景end -->
+  </section>
+
+<script src="/fe/vendor/vendor-jq.js"></script>
+<script src="/fe/app/client/mall/js/index.bundle.js"></script>
+</body>
+</html>

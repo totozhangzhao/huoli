@@ -13,6 +13,14 @@ module.exports = function(webpackConfig, options) {
   }, function (callback) {
     if (options.build) {
       delete webpackConfig.devtool;
+
+      webpackConfig.plugins.push(
+        new webpack.optimize.UglifyJsPlugin({
+          output: {
+            comments: false
+          }
+        })
+      );
     }
     
     var compiler = webpack(webpackConfig);

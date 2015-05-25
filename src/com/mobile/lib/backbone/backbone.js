@@ -7,7 +7,7 @@
 
 (function(root, factory) {
   var $ = require('jquery');
-  var _ = require('underscore');
+  var _ = require('lodash');
   
   factory(root, exports, _, $);
 }(this, function(root, Backbone, _, $) {

@@ -11,6 +11,8 @@
     "url": "http://gitlab.huoli.com/front-end/fe-space.git"
   },
   "devDependencies": {
+    "autoprefixer-loader": "^1.2.0",
+    "css-loader": "^0.12.1",
     "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.1.0",
@@ -23,8 +25,12 @@
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.4",
     "jshint-stylish": "^1.0.1",
+    "lodash": "^3.8.0",
+    "raw-loader": "^0.5.1",
     "run-sequence": "^1.0.2",
+    "style-loader": "^0.12.2",
     "through2": "^0.6.5",
+    "tpl-loader": "^0.2.1",
     "underscore": "^1.8.3",
     "webpack": "^1.8.4"
   }

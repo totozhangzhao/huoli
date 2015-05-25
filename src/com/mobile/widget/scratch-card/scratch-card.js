@@ -1,5 +1,5 @@
 var Backbone = require("backbone");
-var _ = require("underscore");
+var _ = require("lodash");
 
 /**
  * # 刮刮卡 canvas

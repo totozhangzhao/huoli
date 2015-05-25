@@ -82,25 +82,33 @@ __params__
 
 __result__
 
-YES Number
-0 常量
-CLOSE Number
-1 常量
+* `YES` Number 常量 1
+* `CLOSE` Number 常量 0
+* `value` Number 1 或者 0
 
 JS -> Native: {method: "alert", params: { title: 123, message: "msg", btn_text: "是的" }, id: 1}
 Native -> JS: {__result__ {value: 0, YES:0, CLOSE: 1}, id: 1}
 
 ```JavaScript
 NativeAPI.invoke(
-  "alert",
-  {
-    title: "提示",
-    message: "你确定吗?"
-    btn_text: "确定"
+  "alert", {
+    title: "这是标题",
+    message: "这是消息",
+    btn_text: "确定按钮"
   },
-  function (err, data) {
-    if (data.value === data.YES) {
-      alert("确认");
+  function(err, data) {
+    if (err) {
+      return handleError(err);
+    }
+    switch (data.value) {
+      case data.YES:
+        echo("你点了确定按钮");
+        break;
+      case data.CLOSE:
+        echo("你使用其他方式关闭了弹窗");
+        break;
+      default:
+        echo("未知动作，返回code是[" + data.value + "]");
     }
   }
 );
@@ -152,20 +160,41 @@ __params__
 JS -> Native: {method: "webViewCallback", params: {url: "/index.html" }}
 
 
+### login
+
+* 描述：启动客户端登录界面，如果登录成功，应返回原来的 WebView，并调用 JS 的 loginCompleted 接口。
+
+__method__
+
+* `login`
+
+__params__
+
+* 不带参数，根据客户端⾃定义。
+
+JS -> Native: {method: "login", params:null}
+
+
 ### getUserInfo
 
-* 描述：获取当前的⽤户信息,如果⽤户未登录,则返回错误。
+* 描述：获取当前的⽤户信息。可以传appName参数，如'gtgj' 代表 高铁管家的用户信息，'hbgj'代表航班管家的用户信息。如果没有该参数，则返回该客户端默认的用户信息。如果⽤户未登录，则返回错误。
 
 __method__
 
 * `getUserInfo`
 
+__params__
+
+* `appName` String "gtgj"代表高铁管家，"hbgj"代表航班管家。
+
 __result__
 
 * `phone` String ⽤户电话
-* `userid` String ⽤户ID
 * `uid` String 
+* `userid` String ⽤户ID
 * `authcode` String 
+* `hbuserid`   String 过渡期参数，下一版本统一用 userid。
+* `hbauthcode` String 过渡期参数，下一版本统一用 authcode。
 
 __error__
 
@@ -265,6 +294,166 @@ __params__
 JS -> Native: {method: "clearAppCache", params: null }
 
 
+### isSupported
+
+* 描述：查询 API 可用性。
+
+__method__
+
+* `isSupported`
+
+__params__
+
+* `method` String 需要查询的方法
+
+__result__
+
+* `value` Boolean true 支持，false 不支持。
+
+
+### selectContact
+
+* 描述：选择联系人 (使用手机本身的联系人界面)。
+
+__method__
+
+* `selectContact`
+
+__result__
+
+* `name`  String 名字
+* `phone` String 电话号码
+
+
+### sendSMS
+
+* 描述：发送短信
+
+__method__
+
+* `sendSMS`
+
+__params__
+
+* `phone` String
+* `message` String
+
+__result__
+
+* `value` Boolean true 成功，false 不成功。
+
+
+### getCurrentPosition
+
+* 描述：获取当前位置
+
+__method__
+
+* `getCurrentPosition`
+
+__result__
+
+* `latitude`  The latitude as a decimal number
+* `longitude` The longitude as a decimal number
+* `accuracy`  The accuracy of position
+* `heading`   The heading as degrees clockwise from North
+* `speed`     The speed in meters per second
+* `timestamp` The date/time of the response
+
+
+### scanBarcode
+
+* 描述：使用摄像头扫描二维码。
+
+__method__
+
+* `scanBarcode`
+
+__result__
+
+* `value` String 扫描得到的字符串
+
+
+### sharePage
+
+* 描述：使用客户端分享功能。
+
+__method__
+
+* `sharePage`
+
+__params__
+
+* `title`
+* `desc`
+* `link`
+* `imgUrl`
+
+__result__
+
+* `value` Boolean true 成功，false 不成功。
+
+
+### trackEvent
+
+* 描述：客户端统计。自定义事件记录。
+
+__method__
+
+* `trackEvent`
+
+__params__
+
+* `event` String 记录事件名
+* `attrs` String 统计字符串(JSON String)
+
+
+### startPay
+
+* 描述：js调用startPay方法，将支付参数传递给app，app支付完成后调用js的startPay提供的callback(仅告之支付交互层面上的成功/失败，web需要自己查询支付结果)，js在callback中继续完成后续的交互处理(如支付流程需要authcode，可以通过getUserInfo获取authcode，支付接口调用不再涉及authcode传输)。
+
+__method__
+
+* `startPay`
+
+__params__
+
+* `quitpaymsg` String 退出时候的提示
+* `title` String 支付标题
+* `price` String 商品价格
+* `orderid` String 订单号
+* `productdesc` String 商品描述
+* `url` String 显示订单基本信息的Wap页面
+* `subdesc` String 商品详情描述
+
+__reslut__
+* `SUCC` 常量，表示客户端支付流程完成
+* `FAIL` 常量，表示客户端支付流程中断
+* `value` SUCC/FAIL 成功或失败
+
+```JavaScript
+NativeAPI.invoke("startPay", {
+  quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“个人中心->其他订单”完成支付。确认退出吗？, ",
+  title: "商城订单",
+  price: "145",
+  orderid: "150513188189022",
+  productdesc: "接机订单支付",
+  subdesc: "专车接送",
+  url: "http://jp.rsscc.com/Fmall/rest/client/v4/pay.htm?orderid=150513188189022"
+}, function(err, data) {
+  switch (data.value) {
+    case data.SUCC:
+      alert(“支付成功， 跳转详情”);
+      break;
+    case data.FAIL:
+      alert(“支付失败”);
+      break;
+    default:
+      alert(“支付异常”);
+  }
+});
+```
+
 ## 由 JavaScript 提供的方法
 
 
@@ -282,6 +471,15 @@ __result__
 
 JS -> Native: {method: "back", params:null, id: 1}
 Native -> JS: {result: {preventDefault: false}, id: 1}
+
+
+### loginCompleted
+
+* 描述：当调用客户端登录接口，并登录成功后，由客户端调用 JS 端的这个接口。
+
+__params__
+
+* 客户端可以根据各⾃场景⾃定义
 
 
 ### headerRightBtnClick

@@ -18,7 +18,7 @@ var del            = require("del");
 var runSequence    = require("run-sequence");
 var gutil          = require("gulp-util");
 var webpackBuilder = require("./builder/webpack/index.js");
-var versionRef     = require("./builder/html/versionRef.js");
+var versionRef     = require("./builder/version/versionRef.js");
 
 var config = {
   src : "./src/",
@@ -53,6 +53,7 @@ gulp.task("styles", function() {
   return gulp.src(config.src + "**/*.css")
     .pipe(autoprefixer({ browsers: ["last 2 version"] }))
     .pipe(minifycss())
+    .pipe(versionRef())
     .pipe(gulp.dest(config.dest))
 });
 
@@ -85,6 +86,10 @@ gulp.task("js:bundle", function() {
 
 gulp.task("js", function() {
   runSequence("js:lint", "js:bundle");
+});
+
+gulp.task("static", function() {
+  runSequence(["html", "styles", "images"]);
 });
 
 // Clean

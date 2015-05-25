@@ -1,8 +1,12 @@
 var Backbone  = require("backbone");
+var _         = require("lodash");
 var storage   = require("app/client/test/common/native/storage.js");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var echo        = require("app/client/test/common/native/util.js").echo;
 var handleError = require("app/client/test/common/native/util.js").handleError;
+
+// nInvoke("myFunc", {a: 1}, function(err, data) { console.log(err); console.log(data); });
+window.nInvoke = _.bind(NativeAPI.invoke, NativeAPI);
 
 var AppView = Backbone.View.extend({
   el: "body",
@@ -49,6 +53,12 @@ var AppView = Backbone.View.extend({
       data: {
         list: [1, 2, 3]
       }
+    }, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
     });
 
     NativeAPI.registerHandler("headerRightBtnClick", function(data) {
@@ -63,6 +73,12 @@ var AppView = Backbone.View.extend({
       data: {
         list: [1, 2, 3]
       }
+    }, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
     });
 
     NativeAPI.registerHandler("headerRightBtnClick", function(data) {
