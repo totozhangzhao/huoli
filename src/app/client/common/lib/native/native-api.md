@@ -454,6 +454,7 @@ NativeAPI.invoke("startPay", {
 });
 ```
 
+
 ## 由 JavaScript 提供的方法
 
 
@@ -471,15 +472,6 @@ __result__
 
 JS -> Native: {method: "back", params:null, id: 1}
 Native -> JS: {result: {preventDefault: false}, id: 1}
-
-
-### loginCompleted
-
-* 描述：当调用客户端登录接口，并登录成功后，由客户端调用 JS 端的这个接口。
-
-__params__
-
-* 客户端可以根据各⾃场景⾃定义
 
 
 ### headerRightBtnClick
