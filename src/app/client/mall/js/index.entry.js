@@ -51,14 +51,14 @@ var AppView = Backbone.View.extend({
       text: "积分商城"
     });
 
-    this.$el.$shade       = $(".js-shade");
-    this.$el.$loginPrompt = $(".js-login-prompt");
+    // this.$el.$shade       = $(".js-shade");
+    // this.$el.$loginPrompt = $(".js-login-prompt");
 
     this.fixTpl();
     this.mallGetUserInfo();
   },
   mallGetUserInfo: function() {
-    var self = this;
+    // var self = this;
 
     async.auto({
       deviceInfo: function(next) {
@@ -105,17 +105,17 @@ var AppView = Backbone.View.extend({
     }, function(err, results) {
       if (err) {
         if (err === "notLogin") {
-          self.$el.$shade.show();
-          self.$el.$loginPrompt
-            .on("click", ".js-confirm", function() {
-              window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
-                window.btoa(unescape(encodeURIComponent( window.location.href )));
-            })
-            .on("click", ".js-cancel", function() {
-              self.$el.$loginPrompt.hide();
-              self.$el.$shade.hide();
-            })
-            .show();
+          // self.$el.$shade.show();
+          // self.$el.$loginPrompt
+          //   .on("click", ".js-confirm", function() {
+          //     window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
+          //       window.btoa(unescape(encodeURIComponent( window.location.href )));
+          //   })
+          //   .on("click", ".js-cancel", function() {
+          //     self.$el.$loginPrompt.hide();
+          //     self.$el.$shade.hide();
+          //   })
+          //   .show();
 
           return;
         }
