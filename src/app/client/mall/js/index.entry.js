@@ -14,6 +14,12 @@ var sendPost = requestAPI.createSendPost({
   url: "/bmall/rest/"
 });
 
+var USER_INFO = {
+  uid: "",
+  userid: "",
+  authcode: ""
+};
+
 var AppView = Backbone.View.extend({
   el: "body",
   events: {
@@ -54,7 +60,7 @@ var AppView = Backbone.View.extend({
     // this.$el.$shade       = $(".js-shade");
     // this.$el.$loginPrompt = $(".js-login-prompt");
 
-    this.fixTpl();
+    this.mallMainProductList();
     this.mallGetUserInfo();
   },
   mallGetUserInfo: function() {
@@ -81,7 +87,10 @@ var AppView = Backbone.View.extend({
           }
 
           if (_.isObject(data) && !data.authcode) {
-            next("notLogin");
+            next({
+              "message": "未登录",
+              "code": -32001
+            });
             return;
           }
 
@@ -104,7 +113,7 @@ var AppView = Backbone.View.extend({
       }] 
     }, function(err, results) {
       if (err) {
-        if (err === "notLogin") {
+        if ( String(err.code) === "-32001" ) {
           // self.$el.$shade.show();
           // self.$el.$loginPrompt
           //   .on("click", ".js-confirm", function() {
@@ -130,6 +139,53 @@ var AppView = Backbone.View.extend({
         .show()
         .find(".js-points")
         .text(points);
+    });
+  },
+  mallMainProductList: function() {
+    var self = this;
+
+    async.waterfall([
+      function(next) {
+        sendPost("mainProductList", USER_INFO, function(err, data) {
+          next(err, data);
+        });        
+      }
+    ], function(err, result) {
+      self.fixTpl();
+
+      if ( err && (String(err.code) !== "-32001") ) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      var goodsTpl = require("app/client/mall/tpl/mainGoodsList.tpl");
+
+      // stateicon 的具体种类
+      //
+      // 新用户 "new-user"
+      // 老用户 "old-user"
+      // 抢兑 "state-grab"
+      // 月卡 "month-card"
+      // 季卡 "quarter-card"
+      //
+      // [{
+      //   "productid": "1000010",
+      //   "title": "伙力",
+      //   "detail": "吃货的创意旅行，约吗？",
+      //   "stateicon": "state-grab",
+      //   "pprice": 0,
+      //   "img": ""
+      // }, {
+      //   "productid": "1000010",
+      //   "title": "高铁红包",
+      //   "detail": "我带红包去旅行",
+      //   "stateicon": "old-user",
+      //   "pprice": 1000,
+      //   "img": ""
+      // }]
+      $("#goods-block").html(goodsTpl({
+        goodsList: result
+      }));
     });
   },
   fixTpl: function() {

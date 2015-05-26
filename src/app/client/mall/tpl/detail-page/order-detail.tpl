@@ -22,4 +22,4 @@
     <div class="use-method-text"><%= orderDetail.note %></div>
   </div>
 </div>
-<div id="copyright"></div>
+<div id="copyright" class="copyright-block"></div>
