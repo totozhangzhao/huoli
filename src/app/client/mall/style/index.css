@@ -1,21 +1,34 @@
 body,html {
   height: 100%;
 }
+
 body {
   font-family: 'Microsoft Yahei';
   font-size: 16px;
   background: #FFF;
   color: #666;
 }
+input,
+button {
+  outline: none;
+  border: none 0;
+}
+button {
+  background: none;
+}
 .color-a {
   color: blue;
+}
+.bold-tit {
+  font-weight: bold;
 }
 .info-box, 
 .active-box, 
 .order-box,
 .integral-box,
 .exchange-record-box,
-.integral-list-box {
+.integral-list-box,
+.pay-box {
   max-width: 750px;
   margin: 0 auto;
   min-height: 100%;
@@ -77,10 +90,10 @@ body {
 .banner-pic img {
   width: 100%;
 }
-/*.goods-bar {
-  padding-bottom: 232px;
+.goods-bar {
+  padding-bottom: 211px;
 }
-*/
+
 .goods-copyright-fix {
   padding-bottom: 61px;
 }
@@ -216,17 +229,23 @@ body {
   height: 66px;
   margin: 0 auto;
 }
-.copyright-bar {
+.copyright-block {
   width: 100%;
+  height: 211px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.copyright-bar {
+  background: #f3f3f3;
+  width: 100%;
+  height: 100%;
   line-height: 30px;
   text-align: center;
-  font-size: 10px;
   color: #999;
-  background: #f3f3f3;
+  font-size: 10px;
   padding: 20px 0;
-  /*position: absolute;*/
-  left: 0;
-  bottom: 0; 
+  box-sizing: border-box;
 }
 .filed-box {
   width: 200px; 
@@ -255,10 +274,9 @@ p {
 .active-pic-bar img {
   width: 100%;
 }
-/*.active-bar {
-  padding-bottom: 302px;
+.active-bar {
+  padding-bottom: 272px;
 }
-*/
 .active-area {
   padding: 12px 16px 5px;
 }
@@ -283,6 +301,9 @@ p {
   line-height: 18px;
   padding: 0 2px;
   border-radius: 2px;
+}
+.text-red {
+  color: #f00;
 }
 .border-color {
   border-color: #4889db;  
@@ -411,7 +432,7 @@ p {
 .exchange-button {
   display: inline-block;
   border-radius: 3px;
-  padding: 6px 10px;
+  padding: 4px 12px;
   margin: 40px 10px;
   color: #fff;
 }
@@ -427,7 +448,13 @@ p {
   height: 24px;
   color: #4889db;
 }
-
+.group-introduce {
+  padding-top: 20px;
+  padding-bottom: 5px;
+} 
+.group-introduce-bar {
+  margin-top: 20px;
+}
 /* goods-detail end */
 
 /* order-detail start */
@@ -440,7 +467,7 @@ p {
   background: #f3f3f3;
 }
 .order-goods-box {
-  padding-bottom: 20px;
+  padding-bottom: 231px;
 }
 .order-goods-bar {
   padding: 10px 10px 0;
@@ -499,7 +526,8 @@ p {
 /*.integral-box-son {
   padding-bottom: 232px;
 }
-*/.integral-bar {
+*/
+.integral-bar {
   color: #333;
   padding: 0 10px;
 }
@@ -584,9 +612,112 @@ p {
 }
 
 /* exchange-record end */
-#xunlei_com_thunder_helper_plugin_d462f475-c18e-46be-bd10-327458d045bd {
-  display: none;
+
+/* pay-heshidai start */
+
+.insert-bar {
+  width: 90%;
+  margin: 24px auto 0;
 }
+.pay-box {
+  background: #f3f3f3;
+}
+.pay-pic-bar img {
+  width: 100%;
+}
+.insert-bar-son {
+  height: 72px;
+}
+.authcode-insert-bar {
+  height: 68px;
+}
+.insert-bar-son .common-text {
+  font-size: 12px;
+  height: 26px;
+  line-height: 26px;
+}
+.common-insert-area,
+.authcode-insert-area,
+.authcode-get-area {
+  height: 30px;
+  padding: 8px 0;
+  background: #fff;
+  border-radius: 4px;
+}
+.authcode-insert-area,
+.authcode-get-area {
+  padding: 6px 0;
+}
+.authcode-insert-area  {
+  width: 56%;
+}
+.authcode-get-area {
+  width: 40%;
+  text-align: center;
+  line-height: 30px;
+}
+.insert-icon {
+  width: 13px;
+  height: 30px;
+  vertical-align: middle;
+  margin: 0 15px;
+  display: inline-block;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/insert-icon.png) no-repeat 0 4px;
+  background-size: 51px 21px;
+}
+.psw-icon {
+  background-position: -19px 2px;
+}
+.re-psw-icon {
+  background-position: -38px 2px;
+}
+.common-insert {
+  width: 70%;
+  padding: 7px 0 7px 10px ;
+  height:16px;
+  line-height: 16px;
+  border-left: 1px solid #ccc;
+  border-radius: 0;
+}
+.authcode-insert {
+  width: 70%;
+  height: 16px;
+  line-height: 16px;
+  padding: 7px 0 7px 25px;
+}
+.insert-tit {
+  padding-left: 55px;
+}
+.insert-bar-son .authcode-tit {
+  padding-left: 25px;
+}
+.disable-color {
+  background: #ccc;
+}
+.able-color {
+  background: #feb220;
+
+}
+.disable-color .authcode-get {
+  color: #999;
+}
+.able-color .authcode-get {
+  color: #fff;
+}
+.to-receive-bar {
+  padding-bottom: 40px;
+}
+.to-receive {
+  width: 100%;
+  height: 42px;
+  line-height: 42px;
+  text-align: center;
+  border-radius: 4px;
+  color: #fff;
+  background: #feb220;
+}
+
+/* pay-heshidai end */
 
 /* widget - start */
 .block {
