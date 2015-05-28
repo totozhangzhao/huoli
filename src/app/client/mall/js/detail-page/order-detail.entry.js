@@ -55,7 +55,7 @@ var AppView = Backbone.View.extend({
       },
       orderDetail: ["deviceInfo", "userInfo", function(next, results) {
         var params = _.extend({}, results.userInfo, {
-          from: results.deviceInfo.name,
+          p: results.deviceInfo.p,
           orderid: parseUrl().orderid
         });
 

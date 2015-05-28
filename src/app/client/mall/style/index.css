@@ -16,6 +16,12 @@ button {
 button {
   background: none;
 }
+.error-tip {
+  display: none;
+}
+.error-tip.active {
+  display: block;
+}
 .color-a {
   color: blue;
 }
@@ -119,18 +125,10 @@ button {
 }
 .goods-area-son {
   width: 50%;
-  border-left: 1px solid #f3f3f3;
-  border-top: 1px solid #f3f3f3;
-  margin-left: -1px;
-  margin-top: -1px;
-}
-.border-right {
   border-right: 1px solid #f3f3f3;
-  margin-left: -2px;
-}
-.border-bottom {
   border-bottom: 1px solid #f3f3f3;
-  margin-top: -2px;
+  margin-left: -1px;
+  margin-bottom: -1px;
 }
 .text-bar {
   width: 100%;
@@ -565,8 +563,8 @@ p {
 .integral-list-area {
   height: 84px;
   padding: 0 10px;
-  border-top: 1px solid #ccc;
-  margin-top: -1px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: -1px;
 }
 .record-pic-bar,
 .list-pic-bar {
@@ -637,15 +635,13 @@ p {
   line-height: 26px;
 }
 .common-insert-area,
-.authcode-insert-area,
-.authcode-get-area {
+.authcode-insert-area {
   height: 30px;
   padding: 8px 0;
   background: #fff;
   border-radius: 4px;
 }
-.authcode-insert-area,
-.authcode-get-area {
+.authcode-insert-area {
   padding: 6px 0;
 }
 .authcode-insert-area  {
@@ -653,11 +649,16 @@ p {
 }
 .authcode-get-area {
   width: 40%;
+}
+.authcode-get {
+  width: 100%;
+  height: 42px;
   text-align: center;
-  line-height: 30px;
+  line-height: 42px;
+  border-radius: 4px;
 }
 .insert-icon {
-  width: 13px;
+  width: 15px;
   height: 30px;
   vertical-align: middle;
   margin: 0 15px;
@@ -666,10 +667,10 @@ p {
   background-size: 51px 21px;
 }
 .psw-icon {
-  background-position: -19px 2px;
+  background-position: -18px 2px;
 }
 .re-psw-icon {
-  background-position: -38px 2px;
+  background-position: -36px 2px;
 }
 .common-insert {
   width: 70%;
@@ -694,14 +695,15 @@ p {
 .disable-color {
   background: #ccc;
 }
-.able-color {
+.able-color, .authcode-get.active {
   background: #feb220;
 
 }
-.disable-color .authcode-get {
+.authcode-get {
+  background: #ccc;
   color: #999;
 }
-.able-color .authcode-get {
+.authcode-get.active {
   color: #fff;
 }
 .to-receive-bar {
@@ -720,6 +722,13 @@ p {
 /* pay-heshidai end */
 
 /* widget - start */
+.bb-panel {
+  display: none;
+}
+.bb-panel.active {
+  display: block;
+}
+
 .block {
   display: block;
   overflow: hidden;

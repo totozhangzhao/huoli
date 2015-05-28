@@ -33,8 +33,8 @@ BasicRequest.prototype.request = function(type, headers, query, data, callback) 
     .done(function(data) {
       defer.resolve(data);
     })
-    .fail(function(err) {
-      defer.reject(err);
+    .fail(function() {
+      defer.reject(new Error("网络异常"));
     });
 
   return defer.promise();

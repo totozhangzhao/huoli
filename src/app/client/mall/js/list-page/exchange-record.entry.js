@@ -54,7 +54,7 @@ var AppView = Backbone.View.extend({
       },
       orderList: ["deviceInfo", "userInfo", function(next, results) {
         var params = _.extend({}, results.userInfo, {
-          from: results.deviceInfo.name
+          p: results.deviceInfo.p
         });
 
         sendPost("orderList", params, function(err, data) {
