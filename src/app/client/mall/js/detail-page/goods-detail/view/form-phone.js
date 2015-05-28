@@ -38,8 +38,10 @@ var AppView = Backbone.View.extend({
   initialize: function() {
     this.$el.$shade         = $("#form-phone .js-shade");
     this.$el.$successPrompt = $("#form-phone .js-success-prompt");
-    this.$el.$phoneInput    = $("#form-phone .form-phone-num");
     this.$el.$sendCaptcha   = $("#form-phone .js-captcha");
+    this.$el.$phoneInput    = $("#form-phone .form-phone-num");
+    this.$el.$passwordInput = $("#form-phone .form-password");
+    this.$el.$captchaInput  = $("#form-phone .form-captcha");
   },
   inputInput: function(e) {
     $(e.currentTarget)
@@ -188,9 +190,9 @@ var AppView = Backbone.View.extend({
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: parseUrl().productid,
-          cphone  : self.$el.find(".form-phone-num").value,
-          passwd  : self.$el.find(".form-password").value,
-          identify: self.$el.find(".form-captcha").value
+          cphone  : self.$el.$phoneInput.val(),
+          passwd  : self.$el.$passwordInput.val(),
+          identify: self.$el.$captchaInput.val()
         });
 
         sendPost("createPhoneUser", params, function(err, data) {
@@ -269,8 +271,12 @@ var AppView = Backbone.View.extend({
       var phoneNum = result.userInfo.phone || "";
 
       if (phoneNum) {
-        self.$el.$phoneInput.val(phoneNum);
-        self.$el.$sendCaptcha.addClass("active");
+        self.$el.$phoneInput
+          .val(phoneNum)
+          .trigger("blur");
+
+        self.$el.$sendCaptcha
+          .addClass("active");
       }
     });
   },
@@ -279,7 +285,11 @@ var AppView = Backbone.View.extend({
       text: title
     });
   },
-  init: function() {
+  init: function(options) {
+    if (options.previousView !== "goods-detail") {
+      NativeAPI.invoke("back");
+      return;
+    }
     this.updateNativeView("现金券兑换");
     this.renderMainPanel();
   }

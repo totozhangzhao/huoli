@@ -18,6 +18,7 @@ module.exports = Backbone.Router.extend({
   initialize: function() {
     this.bbViews = {};
     this.$panel = $(".bb-panel");
+    this.previousView = "";
   },
   "default": function() {
     this.switchTo("goods-detail");
@@ -39,7 +40,10 @@ module.exports = Backbone.Router.extend({
       bbViews[action]        = bbViews[action] || new ViewDic[action]();
       bbViews[action].router = this;
       bbViews[action].cache  = cache;
-      bbViews[action].init();
+      bbViews[action].init({
+        previousView: this.previousView
+      });
+      this.previousView = action;
     }
   },
   switchTo: function(panelId) {
