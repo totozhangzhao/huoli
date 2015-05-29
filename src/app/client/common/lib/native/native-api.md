@@ -308,7 +308,7 @@ __params__
 
 __result__
 
-* `value` Boolean true 支持，false 不支持。
+* `value` Boolean true 支持，false 不支持。由于历史原因，isSupported 方法目前返回value:"1/0"。
 
 
 ### selectContact
@@ -427,9 +427,10 @@ __params__
 * `subdesc` String 商品详情描述
 
 __reslut__
-* `SUCC` 常量，表示客户端支付流程完成
-* `FAIL` 常量，表示客户端支付流程中断
-* `value` SUCC/FAIL 成功或失败
+* `SUCC`   常量，表示客户端支付流程完成
+* `FAIL`   常量，表示客户端支付流程中断
+* `CANCEL` 常量，表示客户端操作取消支付（高铁管家3.3开始支持）
+* `value`  SUCC/FAIL/CANCEL
 
 ```JavaScript
 NativeAPI.invoke("startPay", {
@@ -443,13 +444,16 @@ NativeAPI.invoke("startPay", {
 }, function(err, data) {
   switch (data.value) {
     case data.SUCC:
-      alert(“支付成功， 跳转详情”);
+      alert("支付成功， 跳转详情");
       break;
     case data.FAIL:
-      alert(“支付失败”);
+      alert("支付失败");
+      break;
+    case data.CANCEL:
+      alert("您取消了支付");
       break;
     default:
-      alert(“支付异常”);
+      alert("支付异常");
   }
 });
 ```
