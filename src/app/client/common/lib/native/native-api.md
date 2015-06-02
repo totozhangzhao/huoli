@@ -67,8 +67,7 @@ NativeAPI.invoke(
 
 ### alert
 
-* 描述：
-Native 版的 window.alert，只有一个「确定」按钮。
+* 描述：Native 版的 window.alert，只有一个「确定」按钮。
 
 __method__
 
@@ -115,10 +114,18 @@ NativeAPI.invoke(
 ```
 
 
+### close
+
+* 描述：关闭当前 WebView。
+
+__method__
+
+* `close`
+
+
 ### createWebView
 
-* 描述：
-根据提供的 URL 打开一个新的WebView，顶栏默认有一个返回按钮。createWebView 根据参数决定是否显⽰搜索框等。
+* 描述：根据提供的 URL 打开一个新的WebView，顶栏默认有一个返回按钮。createWebView 根据参数决定是否显⽰搜索框等。
 注意: 如果control为空, 那么webview应该默认带一个title控件, 并且这个title控件的text为空, 以备后续updateTitle接⼝使⽤. 
 
 __method__
