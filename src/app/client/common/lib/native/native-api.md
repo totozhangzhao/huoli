@@ -162,7 +162,7 @@ JS -> Native: {method: "webViewCallback", params: {url: "/index.html" }}
 
 ### login
 
-* 描述：启动客户端登录界面，如果登录成功，应返回原来的 WebView，并调用 JS 的 loginCompleted 接口。
+* 描述：启动客户端登录界面，如果登录成功，应返回原来的 WebView。
 
 __method__
 
@@ -171,6 +171,22 @@ __method__
 __params__
 
 * 不带参数，根据客户端⾃定义。
+
+__reslut__
+* `SUCC`   常量，表示客户端支付流程完成
+* `FAIL`   常量，表示客户端支付流程中断
+* `value`  SUCC/FAIL/CANCEL。目前返回的是succ:"0/1",SUCCESS:"1",FAIL:"0"。
+
+```JavaScript
+NativeAPI.invoke("login", null, function(err, data) {
+  if (err) {
+    return handleError(err);
+  }
+
+  echo("login callback: " + JSON.stringify(data));
+});
+```
+
 
 JS -> Native: {method: "login", params:null}
 

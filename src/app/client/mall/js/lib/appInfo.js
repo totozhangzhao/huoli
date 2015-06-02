@@ -27,8 +27,12 @@ exports.getUserData = (function() {
   // memorization
   var userData = {};
 
-  return function(callback) {
-    if (userData.deviceInfo && userData.userInfo) {
+  return function(callback, opitons) {
+    opitons = opitons || {};
+
+    var reset = opitons.reset || false;
+
+    if ( (userData.deviceInfo && userData.userInfo) && !reset ) {
       callback(null, userData);
       return;
     }

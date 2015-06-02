@@ -8,6 +8,9 @@ var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var getSystem  = require("com/mobile/lib/util/util.js").getMobileSystem;
+var updatePage = require("app/client/mall/js/lib/page-action.js").update;
+var widget     = require("app/client/mall/js/lib/widget.js");
+// var storage    = require("app/client/mall/js/lib/storage.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -28,28 +31,11 @@ var AppView = Backbone.View.extend({
     this.$el.$promptFail     = $("#goods-detail .js-fail-prompt");
     
     this.title = "";
+    this.userDataOpitons = { reset: false };
     this.mallOrderDetail();
   },
   createNewPage: function(e) {
-    e.preventDefault();
-    
-    var $cur = $(e.currentTarget);
-    var url = $cur.prop("href");
-
-    if ( $cur.data() ) {
-      url = url.indexOf("?") >= 0 ? url : url + "?";
-      url = url + $.param( $cur.data() );
-    }
-
-    NativeAPI.invoke("createWebView", {
-      url: url,
-      controls: [
-        {
-          type: "title",
-          text: $cur.data("title") || ""
-        }
-      ]
-    });
+    widget.createAView(e);
   },
   mallOrderDetail: function() {
     var self = this;
@@ -85,8 +71,6 @@ var AppView = Backbone.View.extend({
     });
   },
   renderMainPanel: function(productInfo) {
-    var self = this;
-
     this.cache.productInfo = productInfo;
     this.title = productInfo.title;
     this.updateNativeView(productInfo.title);
@@ -101,66 +85,106 @@ var AppView = Backbone.View.extend({
     $(".js-points").text(productInfo.pprice);
 
     this.fixTpl();
-
+    this.handlePrompt(productInfo);
+  },
+  handlePrompt: function(productInfo) {
+    var self = this;
     var buttonClass = "forbidden-color";
+
+    var exchangeHandler = function() {
+      async.waterfall([
+        function(next) {
+          appInfo.getUserData(function(err, userData) {
+            if (err) {
+              toast(err.message, 1500);
+              return;
+            }
+
+            next(null, userData);
+          }, { reset: true });
+        }
+      ], function(err, result) {
+        self.userDataOpitons.reset = false;
+
+        if (result.userInfo.authcode) {
+          self.$el.$shade.show();
+          self.$el.$promptBoard.show();
+        } else {
+          self.$el.$shade.show();
+          self.$el.$loginPrompt
+            .one("click", ".js-confirm", function() {
+              self.$el.$loginPrompt.hide();
+              self.$el.$shade.hide();
+              self.loginApp();
+            })
+            .one("click", ".js-cancel", function() {
+              self.$el.$loginPrompt.hide();
+              self.$el.$shade.hide();
+            })
+            .show();            
+        }
+      });
+    };
+
+    // 0: 正常兑换;
+    // 1: 已结束;
+    // 2: 未开始;
+    // 3: 已兑完;
+    // 4: 今日已兑完。
+    if ( String(productInfo.stat) === "0" ) {
+      buttonClass = "allow-color";
+
+      this.$el.$exchangeButton.on("click", exchangeHandler);
+
+      this.$el.$promptBoard
+        .on("click", ".js-confirm", function() {
+          self.exchange({
+            type: productInfo.type,
+            thirdparturl: productInfo.thirdparturl || ""
+          });
+        })
+        .on("click", ".js-cancel", function() {
+          self.$el.$promptBoard.hide();
+          self.$el.$shade.hide();
+        })
+        .find(".js-title")
+          .text(productInfo.confirm);
+    }
+
+    this.$el.$exchangeButton
+      .text(productInfo.button)
+      .addClass(buttonClass)
+      .show();
+
+  },
+  loginApp: function() {
+    var self = this;
 
     async.waterfall([
       function(next) {
-        appInfo.getUserData(function(err, userproductInfo) {
-          if (err) {
-            toast(err.message, 1500);
-            return;
-          }
 
-          next(null, userproductInfo);
+        // window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
+        //   window.btoa(unescape(encodeURIComponent( window.location.href )));
+
+        NativeAPI.invoke("login", null, function(err, data) {
+          next(err, data);
         });
       }
-    ], function(err, result) {
+    ], function(err) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
 
-      // 0: 正常兑换;
-      // 1: 已结束;
-      // 2: 未开始;
-      // 3: 已兑完;
-      // 4: 今日已兑完。
-      if ( String(productInfo.stat) === "0" ) {
-        buttonClass = "allow-color";
-
-        self.$el.$exchangeButton.on("click", function() {
-          if (result.userInfo.authcode) {
-            self.$el.$shade.show();
-            self.$el.$promptBoard.show();
-          } else {
-            self.$el.$shade.show();
-            self.$el.$loginPrompt
-              .on("click", ".js-confirm", function() {
-                window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
-                  window.btoa(unescape(encodeURIComponent( window.location.href )));
-              })
-              .on("click", ".js-cancel", function() {
-                self.$el.$loginPrompt.hide();
-                self.$el.$shade.hide();
-              })
-              .show();            
-          }
-        });
-
-        self.$el.$promptBoard
-          .on("click", ".js-confirm", function() {
-            self.exchange({
-              type: productInfo.type,
-              thirdparturl: productInfo.thirdparturl || ""
-            });
-          })
-          .on("click", ".js-cancel", function() {
-            self.$el.$promptBoard.hide();
-            self.$el.$shade.hide();
-          });
-      }
-
-      self.$el.$exchangeButton
-        .text(productInfo.button)
-        .addClass(buttonClass)
-        .show();
+        self.userDataOpitons.reset = true;
+        self.updateIndexPage();
+    });
+  },
+  updateIndexPage: function() {
+    updatePage({
+      isUpdate: true,
+      url: window.location.origin + "/fe/app/client/mall/index.html" +
+        "#_t=" + (new Date().getTime())
     });
   },
   fixTpl: function() {
@@ -188,7 +212,9 @@ var AppView = Backbone.View.extend({
         this.router.switchTo("form-phone");
         break;
       case "9":
-        window.location.href = options.thirdparturl;
+        this.gotoNewView({
+          url: options.thirdparturl
+        });
         break;
     }
   },
@@ -232,34 +258,34 @@ var AppView = Backbone.View.extend({
 
       self.$el.$promptSuccess
         .one("click", ".js-goto-order-detail", function() {
-          window.location.href = "/fe/app/client/mall/html/detail-page/order-detail.html" +
-            "?orderid=" + result.orderid;
+          self.gotoNewView({
+            url: window.location.origin +
+              "/fe/app/client/mall/html/detail-page/order-detail.html" +
+              "?orderid=" + result.orderid
+          });
         })
         .find(".js-message")
           .html(result.message)
         .end()
         .show();
+
+      self.updateIndexPage();
     });
+  },
+  hidePrompt: function() {
+    var $el = this.$el;
+
+    $el.find(".js-prompt").hide();
+    $el.find(".js-shade").hide();
+  },
+  gotoNewView: function(options) {
+    this.hidePrompt();
+    widget.createNewView(options);
   },
   updateNativeView: function(title) {
     NativeAPI.invoke("updateTitle", {
       text: title
     });
-
-    // NativeAPI.invoke("updateHeaderRightBtn", {
-    //   action: "show",
-    //   icon: require("app/client/mall/image/share-icon.js"),
-    //   text: "分享"
-    // }, function(err) {
-    //   if (err) {
-    //     toast(err.message);
-    //     return;
-    //   }
-    // });
-
-    // NativeAPI.registerHandler("headerRightBtnClick", function() {
-    //   window.location.href = "gtgj://start?type=share";
-    // });
   },
   init: function() {
     if (this.title) {

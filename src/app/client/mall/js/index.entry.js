@@ -4,21 +4,19 @@ var _          = require("lodash");
 var async      = require("async");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var requestAPI = require("app/client/mall/js/lib/request.js");
+var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var Swipe      = require("com/mobile/lib/swipe/swipe.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var getSystem  = require("com/mobile/lib/util/util.js").getMobileSystem;
+var updatePage = require("app/client/mall/js/lib/page-action.js").update;
+var storage    = require("app/client/mall/js/lib/storage.js");
+var widget     = require("app/client/mall/js/lib/widget.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
   url: "/bmall/rest/"
 });
-
-var USER_INFO = {
-  uid: "",
-  userid: "",
-  authcode: ""
-};
 
 var AppView = Backbone.View.extend({
   el: "body",
@@ -28,11 +26,17 @@ var AppView = Backbone.View.extend({
   initialize: function() {
     var versionInfo = parseUrl().p || "";
     var numStr = versionInfo.slice( versionInfo.indexOf("gtgj,") ).split(",")[1];
+    var version = parseFloat(numStr);
 
-    if ( parseFloat(numStr) < 3.1 ) {
+    // 不支持 3.1 之前的版本
+    if ( version < 3.1 ) {
       window.location.href = "http://cdn.rsscc.cn/guanggao/upgrade/upgrade.html";
       return;
     }
+
+    storage.set("mallInfo", {
+      version: version
+    }, function() {});
 
     var $SwipeBox = $("#top-banner .js-banner-box");
     var $index    = $("#top-banner .js-banner-index");
@@ -57,49 +61,47 @@ var AppView = Backbone.View.extend({
       text: "积分商城"
     });
 
-    // this.$el.$shade       = $(".js-shade");
-    // this.$el.$loginPrompt = $(".js-login-prompt");
-
     this.mallMainProductList();
     this.mallGetUserInfo();
+
+    var self = this;
+
+    $(window).on("hashchange", function() {
+      self.mallGetUserInfo({ reset: true });
+    });
   },
-  mallGetUserInfo: function() {
-    // var self = this;
-
-    async.auto({
-      deviceInfo: function(next) {
-        NativeAPI.invoke("getDeviceInfo", null, function(err, data) {
-          if (err) {
-            next(null, {
-              name: "gtgj"
-            });
-            return;
-          }
-
-          next(null, data);
-        });
-      },
-      userInfo: function(next) {
-        NativeAPI.invoke("getUserInfo", null, function(err, data) {
+  mallGetUserInfo: function(options) {
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
           if (err) {
             next(err);
             return;
           }
 
-          if (_.isObject(data) && !data.authcode) {
-            next({
-              "message": "未登录",
-              "code": -32001
-            });
-            return;
-          }
-
-          next(null, data);
+          next(null, userData);
+        }, options || {});
+      },
+      function(userData, next) {
+        storage.get("mallInfo", function(data) {
+          next(null, userData, data);
         });
       },
-      userPointsInfo: ["deviceInfo", "userInfo", function(next, results) {
-        var params = _.extend({}, results.userInfo, {
-          p: results.deviceInfo.p
+      function(userData, data, next) {
+        if (userData.userInfo.authcode) {
+          data.isLogin = true;
+          storage.set("mallInfo", data, function() {
+            next(null, userData);
+          });
+        } else {
+          data.isLogin = false;
+          storage.set("mallInfo", data, function() {});
+          return;
+        }
+      },
+      function(userData, next) {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p
         });
 
         sendPost("getUserInfo", params, function(err, data) {
@@ -110,35 +112,23 @@ var AppView = Backbone.View.extend({
 
           next(null, data);
         });
-      }] 
-    }, function(err, results) {
+      }
+    ], function(err, result) {
       if (err) {
-        if ( String(err.code) === "-32001" ) {
-          // self.$el.$shade.show();
-          // self.$el.$loginPrompt
-          //   .on("click", ".js-confirm", function() {
-          //     window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
-          //       window.btoa(unescape(encodeURIComponent( window.location.href )));
-          //   })
-          //   .on("click", ".js-cancel", function() {
-          //     self.$el.$loginPrompt.hide();
-          //     self.$el.$shade.hide();
-          //   })
-          //   .show();
-
-          return;
-        }
-
         toast(err.message, 1500);
         return;
       }
 
-      var points = results.userPointsInfo.points;
+      var points = result.points;
 
       $("#index-points-bar")
         .show()
         .find(".js-points")
-        .text(points);
+          .text(points);
+
+      updatePage({
+        isUpdate: false
+      });
     });
   },
   mallMainProductList: function() {
@@ -146,14 +136,28 @@ var AppView = Backbone.View.extend({
 
     async.waterfall([
       function(next) {
-        sendPost("mainProductList", USER_INFO, function(err, data) {
+        appInfo.getUserData(function(err, userData) {
+          if (err) {
+            next(err);
+            return;
+          }
+
+          next(null, userData);
+        });
+      },
+      function(userData, next) {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p
+        });
+
+        sendPost("mainProductList", params, function(err, data) {
           next(err, data);
         });        
       }
     ], function(err, result) {
       self.fixTpl();
 
-      if ( err && (String(err.code) !== "-32001") ) {
+      if (err) {
         toast(err.message, 1500);
         return;
       }
@@ -196,25 +200,7 @@ var AppView = Backbone.View.extend({
     }));
   },
   createNewPage: function(e) {
-    e.preventDefault();
-    
-    var $cur = $(e.currentTarget);
-    var url = $cur.prop("href");
-
-    if ( $cur.data() ) {
-      url = url.indexOf("?") >= 0 ? url : url + "?";
-      url = url + $.param( $cur.data() );
-    }
-
-    NativeAPI.invoke("createWebView", {
-      url: url,
-      controls: [
-        {
-          type: "title",
-          text: $cur.data("title")
-        }
-      ]
-    });
+    widget.createAView(e);
   }
 });
 

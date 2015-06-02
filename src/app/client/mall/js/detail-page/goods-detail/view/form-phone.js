@@ -7,6 +7,7 @@ var requestAPI = require("app/client/mall/js/lib/request.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var appInfo    = require("app/client/mall/js/lib/appInfo.js");
+var widget     = require("app/client/mall/js/lib/widget.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -225,25 +226,7 @@ var AppView = Backbone.View.extend({
     this.$el.$successPrompt.hide();
   },
   createNewPage: function(e) {
-    e.preventDefault();
-    
-    var $cur = $(e.currentTarget);
-    var url = $cur.prop("href");
-
-    if ( $cur.data() ) {
-      url = url.indexOf("?") >= 0 ? url : url + "?";
-      url = url + $.param( $cur.data() );
-    }
-
-    NativeAPI.invoke("createWebView", {
-      url: url,
-      controls: [
-        {
-          type: "title",
-          text: $cur.data("title") || ""
-        }
-      ]
-    });
+    widget.createAView(e);
   },
   renderMainPanel: function() {
     var self = this;

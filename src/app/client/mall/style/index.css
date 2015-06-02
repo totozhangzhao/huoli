@@ -169,20 +169,20 @@ button {
   vertical-align: middle;
 }
 .state-limit {
-  width: 36px;
-  height: 16px;
+  width: 29px;
+  height: 14px;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/limit-icon.png) no-repeat;
   background-size: cover;
 }
 .state-out {
-  width: 36px;
-  height: 16px;
+  width: 29px;
+  height: 14px;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/out-icon.png) no-repeat;
   background-size: cover;
 }
 .state-prize {
-  width: 36px;
-  height: 16px;
+  width: 29px;
+  height: 14px;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/prize-icon.png) no-repeat;
   background-size: cover;
 }
@@ -214,6 +214,54 @@ button {
   width: 29px;
   height: 14px;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/quarter-card.png) no-repeat;
+  background-size: cover;
+}
+.user-v1 {
+  width: 40px;
+  height: 14px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/user-v1.png) no-repeat;
+  background-size: cover;
+}
+.user-v2 {
+  width: 40px;
+  height: 14px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/user-v2.png) no-repeat;
+  background-size: cover;
+}
+.user-v3 {
+  width: 40px;
+  height: 14px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/user-v3.png) no-repeat;
+  background-size: cover;
+}
+.user-v4 {
+  width: 40px;
+  height: 14px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/user-v4.png) no-repeat;
+  background-size: cover;
+}
+.user-v5 {
+  width: 40px;
+  height: 14px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/user-v5.png) no-repeat;
+  background-size: cover;
+}
+.user-v6 {
+  width: 40px;
+  height: 14px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/user-v6.png) no-repeat;
+  background-size: cover;
+}
+.user-v7 {
+  width: 40px;
+  height: 14px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/user-v7.png) no-repeat;
+  background-size: cover;
+}
+.user-v8 {
+  width: 40px;
+  height: 14px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/user-v8.png) no-repeat;
   background-size: cover;
 }
 .pic-tit {
@@ -426,12 +474,17 @@ p {
 }
 .flip-info {
   margin-top: 30px;
+  padding: 0 10px;
+}
+.flip-info-bar {
+  height: 48px;
+  margin-bottom: 16px;
 }
 .exchange-button {
   display: inline-block;
   border-radius: 3px;
   padding: 4px 12px;
-  margin: 40px 10px;
+  margin: 0 10px;
   color: #fff;
 }
 .flip-tip {
@@ -574,6 +627,14 @@ p {
 .list-text-bar {
   margin-left: 10px;
   margin-top: 10px;
+}
+.record-text-bar {
+  width: 70%;
+}
+.record-text-tit {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .record-text-det, .record-text-time {
   font-size: 14px; 
