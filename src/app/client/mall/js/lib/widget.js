@@ -2,10 +2,15 @@ var $          = require("jquery");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 
 exports.createAView = function(e) {
-  e.preventDefault();
-  
   var $cur = $(e.currentTarget);
   var url = $cur.prop("href");
+
+  // <a href="tel:+6494461709">61709</a>
+  if ( url.indexOf(":") !== -1 && !/http/.test(url) ) {
+    return true;
+  }
+
+  e.preventDefault();  
 
   if ( $cur.data() ) {
     url = url.indexOf("?") >= 0 ? url : url + "?";
