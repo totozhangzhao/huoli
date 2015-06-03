@@ -12,6 +12,7 @@ var getSystem  = require("com/mobile/lib/util/util.js").getMobileSystem;
 var updatePage = require("app/client/mall/js/lib/page-action.js").update;
 var storage    = require("app/client/mall/js/lib/storage.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
+var echo       = require("com/mobile/lib/echo/echo.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -37,25 +38,6 @@ var AppView = Backbone.View.extend({
     storage.set("mallInfo", {
       version: version
     }, function() {});
-
-    var $SwipeBox = $("#top-banner .js-banner-box");
-    var $index    = $("#top-banner .js-banner-index");
-
-    new Swipe($SwipeBox.get(0), {
-      startSlide: 0,
-      speed: 400,
-      auto: 3000,
-      continuous: true,
-      disableScroll: false,
-      stopPropagation: false,
-      callback: function(index) {
-        $index
-          .removeClass("active")
-            .eq(index)
-            .addClass("active");
-      },
-      transitionEnd: function() {}
-    });
 
     NativeAPI.invoke("updateTitle", {
       text: "积分商城"
@@ -190,6 +172,38 @@ var AppView = Backbone.View.extend({
       $("#goods-block").html(goodsTpl({
         goodsList: result
       }));
+
+      self.loadImage();
+      self.initBanner();
+    });
+  },
+  loadImage: function() {
+    echo.init({
+      offset: 100,
+      throttle: 250,
+      unload: false,
+      delayIndex: 4,
+      callback: function() {}
+    });
+  },
+  initBanner: function() {
+    var $SwipeBox = $("#top-banner .js-banner-box");
+    var $index    = $("#top-banner .js-banner-index");
+
+    new Swipe($SwipeBox.get(0), {
+      startSlide: 0,
+      speed: 400,
+      auto: 3000,
+      continuous: true,
+      disableScroll: false,
+      stopPropagation: false,
+      callback: function(index) {
+        $index
+          .removeClass("active")
+            .eq(index)
+            .addClass("active");
+      },
+      transitionEnd: function() {}
     });
   },
   fixTpl: function() {
