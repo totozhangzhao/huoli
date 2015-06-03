@@ -179,7 +179,7 @@ var AppView = Backbone.View.extend({
   },
   loadImage: function() {
     echo.init({
-      offset: 100,
+      offset: 250,
       throttle: 250,
       unload: false,
       delayIndex: 4,

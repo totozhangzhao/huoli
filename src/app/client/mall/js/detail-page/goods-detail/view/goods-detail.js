@@ -138,10 +138,7 @@ var AppView = Backbone.View.extend({
 
       this.$el.$promptBoard
         .on("click", ".js-confirm", function() {
-          self.exchange({
-            type: productInfo.type,
-            thirdparturl: productInfo.thirdparturl || ""
-          });
+          self.exchange(productInfo);
         })
         .on("click", ".js-cancel", function() {
           self.$el.$promptBoard.hide();
@@ -194,17 +191,17 @@ var AppView = Backbone.View.extend({
       system: getSystem()
     }));
   },
-  exchange: function(options) {
+  exchange: function(productInfo) {
 
     // type：兑换类型    
     // 1--直接调用创建订单接口      
     // 2--转入输入手机号页面（预留）      
     // 3--转入输入地址页面（预留）   
     // 9--点击跳转第三方链接（ thirdparturl ）
-    switch ( String(options.type) ) {
+    switch ( String(productInfo.type) ) {
       case "1":
         this.$el.$promptBoard.hide();
-        this.mallCreateOrder();
+        this.mallCreateOrder(productInfo);
         break;
       case "2":
         this.$el.$shade.hide();
@@ -213,12 +210,12 @@ var AppView = Backbone.View.extend({
         break;
       case "9":
         this.gotoNewView({
-          url: options.thirdparturl
+          url: productInfo.thirdparturl
         });
         break;
     }
   },
-  mallCreateOrder: function() {
+  mallCreateOrder: function(productInfo) {
     var self = this;
 
     async.waterfall([
@@ -256,16 +253,60 @@ var AppView = Backbone.View.extend({
         return;
       }
 
+      self.handleCreateOrder(result, productInfo);
+    });
+  },
+  handleCreateOrder: function(orderInfo, productInfo) {
+    var self = this;
+
+    async.waterfall([
+      function(next) {
+        if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
+
+          // quitpaymsg  String 退出时候的提示
+          // title       String 支付标题
+          // price       String 商品价格
+          // orderid     String 订单号
+          // productdesc String 商品描述
+          // url         String 显示订单基本信息的Wap页面
+          // subdesc     String 商品详情描述
+          var payParams = {
+            quitpaymsg: "退出时候的提示",
+            title: "支付标题",
+            price: productInfo.mprice,
+            orderid: orderInfo.payorderid,
+            productdesc: "商品描述",
+            url: "",
+            subdesc: "商品详情描述"
+          };
+
+          NativeAPI.invoke("startPay", payParams, function(err, payData) {
+            next(err, payData);
+          });
+        } else {
+          next(null, null);
+        }
+      }
+    ], function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        self.hidePrompt();
+        return;
+      }
+
+      console.log(JSON.stringify(result));
+      
+      self.$el.$shade.show();
       self.$el.$promptSuccess
         .one("click", ".js-goto-order-detail", function() {
           self.gotoNewView({
             url: window.location.origin +
               "/fe/app/client/mall/html/detail-page/order-detail.html" +
-              "?orderid=" + result.orderid
+              "?orderid=" + orderInfo.orderid
           });
         })
         .find(".js-message")
-          .html(result.message)
+          .html(orderInfo.message)
         .end()
         .show();
 
