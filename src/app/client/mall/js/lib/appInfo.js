@@ -39,7 +39,9 @@ exports.getUserData = (function() {
 
     async.auto({
       deviceInfo: function(next) {
+        // window.alert("deviceInfo start");
         NativeAPI.invoke("getDeviceInfo", null, function(err, data) {
+          // window.alert("deviceInfo response");
           if (err) {
             next(null, DEVICE_INFO);
             return;
@@ -49,12 +51,14 @@ exports.getUserData = (function() {
         });
       },
       userInfo: function(next) {
+        // window.alert("getUserInfo start");
         NativeAPI.invoke("getUserInfo", null, function(err, data) {
+          // window.alert("getUserInfo response");
           if ( err && (String(err.code) === "-32001") ) {
             next(null, USER_INFO);
             return;
           } else if (err) {
-            next(err);
+            next(null, USER_INFO);
             return;            
           }
 

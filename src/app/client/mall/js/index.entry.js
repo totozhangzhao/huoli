@@ -35,6 +35,8 @@ var AppView = Backbone.View.extend({
       return;
     }
 
+    this.initBanner();
+
     storage.set("mallInfo", {
       version: version
     }, function() {});
@@ -44,7 +46,6 @@ var AppView = Backbone.View.extend({
     });
 
     this.mallMainProductList();
-    this.mallGetUserInfo();
 
     var self = this;
 
@@ -81,6 +82,13 @@ var AppView = Backbone.View.extend({
           return;
         }
       },
+      // function(userData, next) {
+      //   if (userData.userInfo.authcode) {
+      //     next(null, userData);
+      //   } else {
+      //     return;
+      //   }
+      // },
       function(userData, next) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p
@@ -174,7 +182,7 @@ var AppView = Backbone.View.extend({
       }));
 
       self.loadImage();
-      self.initBanner();
+      self.mallGetUserInfo();
     });
   },
   loadImage: function() {
