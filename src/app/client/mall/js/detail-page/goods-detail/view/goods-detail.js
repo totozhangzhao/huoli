@@ -293,8 +293,6 @@ var AppView = Backbone.View.extend({
         self.hidePrompt();
         return;
       }
-
-      console.log(JSON.stringify(result));
       
       self.$el.$shade.show();
       self.$el.$promptSuccess

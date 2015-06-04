@@ -20,9 +20,6 @@ var callbackWraper = function(callback) {
 
     data = jsonrpc.parse(data);
 
-    // test
-    window.console.log(JSON.stringify(data));
-
     switch (data.type) {
       case "success":
         callback(null, data.payload.result);

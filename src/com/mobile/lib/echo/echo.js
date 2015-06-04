@@ -43,13 +43,10 @@
       return;
     }
     clearTimeout(poll);
-    var dd = delayGenerator();
-    console.log(dd);
-
     poll = setTimeout(function(){
       echo.render();
       poll = null;
-    }, dd);
+    }, delayGenerator());
   };
 
   echo.init = function (opts) {
