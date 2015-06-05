@@ -12,8 +12,8 @@
   <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
 </head>
 <body>
-  <section class="active-box">
-    <div id="main-img" class="active-pic-bar">
+  <section id="goods-detail" class="bb-panel active-box">
+    <div id="goods-main-img" class="active-pic-bar">
       <!-- // -->
     </div>
 
@@ -27,7 +27,7 @@
 
     <!-- 弹窗start -->
 
-    <div class="js-login-prompt login-flip-box">
+    <div class="js-login-prompt js-prompt login-flip-box">
       <h5 class="login-flip-h">提&nbsp;&nbsp;&nbsp;示</h5>
       <p class="login-flip-text login-flip-text-no">您尚未登录，登录后即可兑换！</p>
       <div class="login-btn-box">
@@ -35,17 +35,19 @@
         <a class="js-confirm login-yes allow-color">&nbsp;确&nbsp;&nbsp;定&nbsp;</a>
       </div>
     </div>
-    <div class="js-exchange-prompt flip-box flip-box-step">
-      <p class="flip-info">是否确认兑换？</p>
+    <div class="js-exchange-prompt js-prompt flip-box flip-box-step">
+      <div class="flip-info-bar">
+        <p class="js-title flip-info">是否确认兑换？</p>
+      </div>
       <a class="js-cancel  exchange-button exchange-yes forbidden-color">暂不兑换</a>
       <a class="js-confirm exchange-button exchange-no allow-color">确认兑换</a>
     </div>
-    <div class="js-success-prompt flip-box flip-box-succ">
+    <div class="js-success-prompt js-prompt flip-box flip-box-succ">
       <p class="flip-info">兑换成功</p>
-      <p class="js-message flip-tip"><!-- 恭喜你，兑换成功<span class="flip-goods">xxx</span><span class="flip-goods-count num-font">2</span>份 --></p>
+      <p class="js-message flip-tip"><!-- 恭喜你，兑换成功 --></p>
       <a class="js-goto-order-detail exchange-button flip-go-check allow-color">查看订单</a>
     </div>
-    <div class="js-fail-prompt flip-box flip-box-succ">
+    <div class="js-fail-prompt js-prompt flip-box flip-box-succ">
       <p class="flip-info">兑换失败</p>
       <p class="js-message flip-tip"><!-- 对不起，xxxxxxxxxxxxxx --></p>
       <a class="js-close exchange-button flip-go-check allow-color">确认</a>
@@ -68,6 +70,67 @@
         </div> 
       </div> 
     </div> 
+  </section>
+
+  <section id="form-phone" class="bb-panel pay-box">
+    <div id="form-phone-main-image" class="pay-pic-bar">
+      <!-- // -->
+    </div>
+    <div class="insert-bar">
+      <div class="form-block insert-bar-son">
+        <div class="common-insert-area">
+          <span class="insert-icon username-icon"></span>
+          <input type="text" placeholder="请输入手机号" data-check-method="checkPhoneNum" class="form-input form-phone-num common-insert" />
+        </div>
+        <p class="js-error-tip error-tip insert-tit common-text text-red">请输入正确的手机号</p>
+        <!-- 此手机号已注册，请输入密码 -->
+      </div>
+      <div class="form-block insert-bar-son">
+        <div class="common-insert-area">
+          <span class="insert-icon re-psw-icon"></span>
+          <input type="password" placeholder="请设置好6-20位的密码" data-check-method="checkPassword" class="form-input form-password common-insert" />
+        </div>
+        <p class="js-error-tip error-tip insert-tit common-text text-red">密码应为6-20位</p>
+      </div>
+      <!--
+      <div class="form-block insert-bar-son">
+        <div class="common-insert-area">
+          <span class="insert-icon re-psw-icon"></span>
+          <input type="password" placeholder="请再次输入密码" class="form-input form-password2 common-insert" />
+        </div>
+        <p class="js-error-tip error-tip insert-tit common-text text-red">密码错误</p>
+      </div>
+      -->
+      <div class="form-block insert-bar-son authcode-insert-bar clearfix">
+        <div class="authcode-insert-area fl">
+          <input type="text" placeholder="请输入验证码" data-check-method="checkCaptche" class="form-input form-captcha authcode-insert" />
+        </div>
+        <div class="authcode-get-area fr">
+          <button data-timeout="90" class="js-captcha authcode-get">获取验证码</button>
+        </div>
+        <p class="js-error-tip error-tip insert-tit  authcode-tit common-text text-red fl">请输入验证码</p>
+      </div>
+      <div class="to-receive-bar">
+        <button id="submit" class="to-receive">马上领取</button>
+      </div>
+    </div>
+
+    <!-- 弹窗start -->
+
+    <div class="js-success-prompt js-prompt flip-box flip-box-succ">
+      <p class="flip-info">兑换成功</p>
+      <p class="js-message flip-tip"><!-- 成功领取<span class="flip-goods">向上金服</span><span class="flip-goods-count num-font">50</span>元现金券 --></p>
+      <a class="js-goto-order-detail exchange-button flip-go-check forbidden-color">查看订单</a>
+      <a class="js-goto-url exchange-button flip-go-check able-color">立即使用</a>
+    </div>
+
+    <!-- 弹窗end -->
+
+    <!-- 灰色半透明背景start -->
+
+    <div class="js-shade common-shadow"></div>
+
+    <!-- 灰色半透明背景end -->
   </section>
 
 <script src="/fe/vendor/vendor-jq.js"></script>

@@ -11,7 +11,7 @@
         <p class="text-bar-p pic-value"><span class="exchange-num num-color"><%= item.pprice %></span>分</p>
       </div>
       <div class="pic-bar">
-        <img src="<%= item.img %>" class="goods-pic" >
+        <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= item.img %>" class="goods-pic" >
       </div>
     </a>
   </li>

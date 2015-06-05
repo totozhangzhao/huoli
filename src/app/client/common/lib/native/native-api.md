@@ -67,8 +67,7 @@ NativeAPI.invoke(
 
 ### alert
 
-* 描述：
-Native 版的 window.alert，只有一个「确定」按钮。
+* 描述：Native 版的 window.alert，只有一个「确定」按钮。
 
 __method__
 
@@ -115,10 +114,18 @@ NativeAPI.invoke(
 ```
 
 
+### close
+
+* 描述：关闭当前 WebView。
+
+__method__
+
+* `close`
+
+
 ### createWebView
 
-* 描述：
-根据提供的 URL 打开一个新的WebView，顶栏默认有一个返回按钮。createWebView 根据参数决定是否显⽰搜索框等。
+* 描述：根据提供的 URL 打开一个新的WebView，顶栏默认有一个返回按钮。createWebView 根据参数决定是否显⽰搜索框等。
 注意: 如果control为空, 那么webview应该默认带一个title控件, 并且这个title控件的text为空, 以备后续updateTitle接⼝使⽤. 
 
 __method__
@@ -162,7 +169,7 @@ JS -> Native: {method: "webViewCallback", params: {url: "/index.html" }}
 
 ### login
 
-* 描述：启动客户端登录界面，如果登录成功，应返回原来的 WebView，并调用 JS 的 loginCompleted 接口。
+* 描述：启动客户端登录界面，如果登录成功，应返回原来的 WebView。
 
 __method__
 
@@ -171,6 +178,22 @@ __method__
 __params__
 
 * 不带参数，根据客户端⾃定义。
+
+__reslut__
+* `SUCC`   常量，表示客户端支付流程完成
+* `FAIL`   常量，表示客户端支付流程中断
+* `value`  SUCC/FAIL/CANCEL。目前返回的是succ:"0/1",SUCCESS:"1",FAIL:"0"。
+
+```JavaScript
+NativeAPI.invoke("login", null, function(err, data) {
+  if (err) {
+    return handleError(err);
+  }
+
+  echo("login callback: " + JSON.stringify(data));
+});
+```
+
 
 JS -> Native: {method: "login", params:null}
 
@@ -308,7 +331,7 @@ __params__
 
 __result__
 
-* `value` Boolean true 支持，false 不支持。
+* `value` Boolean true 支持，false 不支持。由于历史原因，isSupported 方法目前返回value:"1/0"。
 
 
 ### selectContact
@@ -427,9 +450,10 @@ __params__
 * `subdesc` String 商品详情描述
 
 __reslut__
-* `SUCC` 常量，表示客户端支付流程完成
-* `FAIL` 常量，表示客户端支付流程中断
-* `value` SUCC/FAIL 成功或失败
+* `SUCC`   常量，表示客户端支付流程完成
+* `FAIL`   常量，表示客户端支付流程中断
+* `CANCEL` 常量，表示客户端操作取消支付（高铁管家3.3开始支持）
+* `value`  SUCC/FAIL/CANCEL
 
 ```JavaScript
 NativeAPI.invoke("startPay", {
@@ -443,13 +467,16 @@ NativeAPI.invoke("startPay", {
 }, function(err, data) {
   switch (data.value) {
     case data.SUCC:
-      alert(“支付成功， 跳转详情”);
+      alert("支付成功， 跳转详情");
       break;
     case data.FAIL:
-      alert(“支付失败”);
+      alert("支付失败");
+      break;
+    case data.CANCEL:
+      alert("您取消了支付");
       break;
     default:
-      alert(“支付异常”);
+      alert("支付异常");
   }
 });
 ```

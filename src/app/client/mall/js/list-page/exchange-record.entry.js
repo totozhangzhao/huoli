@@ -1,10 +1,11 @@
-var $         = require("jquery");
-var Backbone  = require("backbone");
-var _         = require("lodash");
-var async     = require("async");
-var NativeAPI = require("app/client/common/lib/native/native-api.js");
+var $          = require("jquery");
+var Backbone   = require("backbone");
+var _          = require("lodash");
+var async      = require("async");
+var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var requestAPI = require("app/client/mall/js/lib/request.js");
-var toast = require("com/mobile/widget/toast/toast.js");
+var toast      = require("com/mobile/widget/toast/toast.js");
+var widget     = require("app/client/mall/js/lib/widget.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -54,7 +55,7 @@ var AppView = Backbone.View.extend({
       },
       orderList: ["deviceInfo", "userInfo", function(next, results) {
         var params = _.extend({}, results.userInfo, {
-          from: results.deviceInfo.name
+          p: results.deviceInfo.p
         });
 
         sendPost("orderList", params, function(err, data) {
@@ -91,15 +92,10 @@ var AppView = Backbone.View.extend({
   gotoOrderDetail: function(e) {
     var $cur = $(e.currentTarget);
 
-    NativeAPI.invoke("createWebView", {
+    widget.createNewView({
       url: "/fe/app/client/mall/html/detail-page/order-detail.html" +
         "?orderid=" + $cur.data("id"),
-      controls: [
-        {
-          type: "title",
-          text: "订单详情"
-        }
-      ]
+      title: "订单详情"
     });
   }
 });

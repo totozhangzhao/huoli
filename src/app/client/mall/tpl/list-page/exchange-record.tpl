@@ -8,10 +8,9 @@
         <div class="record-text-bar fl">
           <p class="record-text-tit"><%= item.title %></p>
           <p class="record-text-det">成功兑换1份</p>
-          <p class="record-text-time num-font"><%= item.createtime %></p>
+          <p class="record-text-time num-font clearfix"><span class="fl"><%= item.createtime %></span><span class="fr"><b class="num-color"><%= item.pprice %></b>分</span></p>
         </div>
         <span class="enter-btn fr"></span>
-        <p class="record-need-integral fr"><span class="num-color"><%= item.pprice %></span>分</p>
       </a>
     </li>
 <% }) %>

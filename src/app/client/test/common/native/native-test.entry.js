@@ -1,5 +1,6 @@
-var Backbone  = require("backbone");
+var $         = require("jquery");
 var _         = require("lodash");
+var Backbone  = require("backbone");
 var storage   = require("app/client/test/common/native/storage.js");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var echo        = require("app/client/test/common/native/util.js").echo;
@@ -12,26 +13,50 @@ var AppView = Backbone.View.extend({
   el: "body",
   events: {
     "click .js-native-back"     : "doNativeBack",
+    "click .js-native-close"     : "doNativeClose",
     "click .js-native-back-text": "doNativeBackText",
+    "click .js-createWebView"   : "newPage",
+    "click .js-hashchange-page" : "newPageHash",
+    "click .js-showUserAgent"   : "showUserAgent",
+    "click .js-alert"           : "alert",
+    "click .js-storage-set"     : "setStorage",
+    "click .js-storage-get"     : "getStorage",
+    "click .js-getDeviceInfo"   : "getDeviceInfo",
+    "click .js-getUserInfo"     : "getUserInfo",
+    "click .js-updateTitle"     : "updateTitle",
+    "click .js-login"           : "login",
     "click .js-updateHeaderRightBtn"    : "rightButton",
-    "click .js-updateHeaderRightBtnIcon": "rightButtonIcon",
-    "click .js-createWebView": "newPage",
-    "click .js-showUserAgent": "showUserAgent",
-    "click .js-alert"        : "alert",
-    "click .js-storage-set"  : "setStorage",
-    "click .js-storage-get"  : "getStorage",
-    "click .js-getDeviceInfo": "getDeviceInfo",
-    "click .js-getUserInfo"  : "getUserInfo",
-    "click .js-updateTitle"  : "updateTitle",
-    "click .js-login"        : "login"
+    "click .js-updateHeaderRightBtnIcon": "rightButtonIcon"
   },
   initialize: function() {
+    this.jsBackFlag = false;
+
     NativeAPI.registerHandler("loginCompleted", function() {
       echo("JavaScript loginCompleted");
+    });
+
+    $(window).on("hashchange", function() {
+      echo("index page: " + window.location.hash);
     });
   },
   doNativeBack: function() {
     NativeAPI.invoke("back");
+  },
+  doNativeClose: function() {
+    var backObj = {
+      preventDefault: this.jsBackFlag
+    };
+    
+    NativeAPI.registerHandler("back", function(params, callback) {
+      callback(null, backObj);
+
+      if (backObj.preventDefault) {      
+        NativeAPI.invoke("close");
+      }
+    });
+
+    echo(JSON.stringify(backObj));
+    this.jsBackFlag = !this.jsBackFlag;
   },
   doNativeBackText: function() {
     NativeAPI.registerHandler("back", function(params, callback) {
@@ -92,6 +117,17 @@ var AppView = Backbone.View.extend({
         {
           type: "title",
           text: "Native B ~"
+        }
+      ]
+    });
+  },
+  newPageHash: function() {
+    NativeAPI.invoke("createWebView", {
+      url: window.location.origin + "/fe/app/client/test/common/native/native-hashchange.html",
+      controls: [
+        {
+          type: "title",
+          text: "Native hash"
         }
       ]
     });
