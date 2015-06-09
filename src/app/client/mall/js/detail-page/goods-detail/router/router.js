@@ -1,11 +1,14 @@
-var $        = require("jquery");
-var Backbone = require("backbone");
+var $         = require("jquery");
+var Backbone  = require("backbone");
+var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var GoodsView = require("app/client/mall/js/detail-page/goods-detail/view/goods-detail.js");
 var OrderView = require("app/client/mall/js/detail-page/goods-detail/view/form-phone.js");
+var interlayerView = require("app/client/mall/js/detail-page/goods-detail/view/interlayer.js");
 
 var ViewDic = {
   "goods-detail": GoodsView,
-  "form-phone"  : OrderView
+  "form-phone"  : OrderView,
+  "interlayer"  : interlayerView
 };
 
 var cache = {};
@@ -21,7 +24,11 @@ module.exports = Backbone.Router.extend({
     this.previousView = "";
   },
   "default": function() {
-    this.switchTo("goods-detail");
+    if ( parseUrl().productid.length === 8 ) {
+      this.switchTo("interlayer");
+    } else {
+      this.switchTo("goods-detail");
+    }
   },
 
   // Dispatch pannels

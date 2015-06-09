@@ -8,6 +8,7 @@ var AppView = Backbone.View.extend({
   el: "body",
   events: {
     "click .js-js-back": "doJSBack",
+    "click .js-native-close" : "doNativeClose",
     "click .js-js-back-hashchange": "doJSBackHashchange",
     "click .js-hashchange"   : "changeHash",
     "click .js-storage-set"  : "setStorage",
@@ -32,6 +33,22 @@ var AppView = Backbone.View.extend({
         NativeAPI.invoke("webViewCallback", {
           url: window.location.origin + "/fe/app/client/test/common/native/native-c.html"
         });
+      }
+    });
+
+    echo(JSON.stringify(backObj));
+    this.jsBackFlag = !this.jsBackFlag;
+  },
+  doNativeClose: function() {
+    var backObj = {
+      preventDefault: this.jsBackFlag
+    };
+    
+    NativeAPI.registerHandler("back", function(params, callback) {
+      callback(null, backObj);
+
+      if (backObj.preventDefault) {      
+        NativeAPI.invoke("close");
       }
     });
 

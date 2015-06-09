@@ -32,5 +32,9 @@ exports.createNewView = function(options) {
         text: options.title || ""
       }
     ]
+  }, function(err) {
+    if ( err && (err.code === -32603) ) {
+      window.location.href = options.url;
+    }
   });
 };

@@ -13,19 +13,20 @@ var AppView = Backbone.View.extend({
   el: "body",
   events: {
     "click .js-native-back"     : "doNativeBack",
-    "click .js-native-close"     : "doNativeClose",
+    "click .js-native-close"    : "doNativeClose",
     "click .js-native-back-text": "doNativeBackText",
     "click .js-createWebView"   : "newPage",
     "click .js-hashchange-page" : "newPageHash",
     "click .js-showUserAgent"   : "showUserAgent",
     "click .js-alert"           : "alert",
+    "click .js-share"           : "share",
     "click .js-storage-set"     : "setStorage",
     "click .js-storage-get"     : "getStorage",
     "click .js-getDeviceInfo"   : "getDeviceInfo",
     "click .js-getUserInfo"     : "getUserInfo",
     "click .js-updateTitle"     : "updateTitle",
     "click .js-login"           : "login",
-    "click .js-updateHeaderRightBtn"    : "rightButton",
+    "click .js-updateHeaderRightBtnText": "rightButtonText",
     "click .js-updateHeaderRightBtnIcon": "rightButtonIcon"
   },
   initialize: function() {
@@ -37,6 +38,25 @@ var AppView = Backbone.View.extend({
 
     $(window).on("hashchange", function() {
       echo("index page: " + window.location.hash);
+    });
+  },
+  share: function() {
+
+    // title
+    // desc
+    // link
+    // imgUrl
+    NativeAPI.invoke("sharePage", {
+      title: "NativeAPI测试页",
+      desc: "测试 Native 与 JavaScript 之间的接口",
+      link: window.location.origin + "/fe/app/client/test/common/native/native-test.entry.js",
+      imgUrl: "http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-envelope5.png"
+    }, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
     });
   },
   doNativeBack: function() {
@@ -71,10 +91,12 @@ var AppView = Backbone.View.extend({
 
     NativeAPI.invoke("back");
   },
-  rightButton: function() {
+  rightButtonText: function() {
+    var self = this;
+
     NativeAPI.invoke("updateHeaderRightBtn", {
       action: "show",
-      text: "订单",
+      text: "分享",
       data: {
         list: [1, 2, 3]
       }
@@ -88,13 +110,16 @@ var AppView = Backbone.View.extend({
 
     NativeAPI.registerHandler("headerRightBtnClick", function(data) {
       echo(JSON.stringify(data));
+      self.share();
     });
   },
   rightButtonIcon: function() {
+    var self = this;
+
     NativeAPI.invoke("updateHeaderRightBtn", {
       action: "show",
-      icon: require("app/client/test/common/native/image/icon.js").rightButtonIcon,
-      text: "卡通",
+      icon: require("app/client/mall/image/share-icon.js"),
+      text: "分享",
       data: {
         list: [1, 2, 3]
       }
@@ -108,6 +133,7 @@ var AppView = Backbone.View.extend({
 
     NativeAPI.registerHandler("headerRightBtnClick", function(data) {
       echo(JSON.stringify(data));
+      self.share();
     });
   },
   newPage: function() {

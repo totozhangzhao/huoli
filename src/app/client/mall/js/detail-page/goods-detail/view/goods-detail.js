@@ -32,12 +32,12 @@ var AppView = Backbone.View.extend({
     
     this.title = "";
     this.userDataOpitons = { reset: false };
-    this.mallOrderDetail();
+    this.mallGoodsDetail();
   },
   createNewPage: function(e) {
     widget.createAView(e);
   },
-  mallOrderDetail: function() {
+  mallGoodsDetail: function() {
     var self = this;
 
     async.waterfall([
@@ -101,7 +101,7 @@ var AppView = Backbone.View.extend({
             }
 
             next(null, userData);
-          }, { reset: true });
+          }, self.userDataOpitons);
         }
       ], function(err, result) {
         self.userDataOpitons.reset = false;
@@ -286,14 +286,41 @@ var AppView = Backbone.View.extend({
         } else {
           next(null, null);
         }
+      },
+      function(payData, next) {
+        if (!payData) {
+          next(null, null);
+          return;
+        }
+
+        switch (payData.value) {
+          case payData.SUCC:
+            toast("支付成功", 1500);
+            break;
+          case payData.FAIL:
+            toast("支付失败", 1500);
+            break;
+          case payData.CANCEL:
+            toast("您取消了支付", 1500);
+            break;
+          default:
+            toast("支付异常", 1500);
+        }
+
+        if (payData.value !== payData.SUCC) {
+          self.hidePrompt();
+          return;
+        } else {
+          next(null, null);
+        }
       }
-    ], function(err, result) {
+    ], function(err) {
       if (err) {
         toast(err.message, 1500);
         self.hidePrompt();
         return;
       }
-      
+
       self.$el.$shade.show();
       self.$el.$promptSuccess
         .one("click", ".js-goto-order-detail", function() {

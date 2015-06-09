@@ -5,8 +5,8 @@ module.exports = [
   "app/client/mall/js/detail-page/goods-detail.entry.js",
 
   "app/client/test/common/jsonrpc/jsonrpc-test.entry.js",
-  "app/client/test/common/native/native-b.entry.js",
   "app/client/test/common/native/native-test.entry.js",
+  "app/client/test/common/native/native-test2.entry.js",
 
   "com/mobile/widget/banner/test/main.entry.js",
   "com/mobile/widget/banner-com/test/main.entry.js",

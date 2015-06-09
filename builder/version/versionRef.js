@@ -16,7 +16,7 @@ module.exports = function(options) {
       return callback(new gutil.PluginError("html-version-ref", "doesn\"t support Streams"));
     }
 
-    var regChangeFilename = /(\.(js|css))/g;
+    var regChangeFilename = /(\.(bundle.js|css))/g;
     var regAddParam       = /(\.(png|jpg|jpeg|gif))/g;
     var fileContent       = file.contents.toString();
 
