@@ -11,7 +11,7 @@ pathList.forEach(function(devPath) {
 });
 
 _.extend(entry, {
-  "vendor": ["jquery", "backbone"]
+  "vendor": ["jquery", "lodash", "backbone"]
 });
 
 module.exports = {
