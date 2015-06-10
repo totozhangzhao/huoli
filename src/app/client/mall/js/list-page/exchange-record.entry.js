@@ -5,7 +5,9 @@ var async      = require("async");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var requestAPI = require("app/client/mall/js/lib/request.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
+var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
+var echo       = require("com/mobile/lib/echo/echo.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -25,37 +27,22 @@ var AppView = Backbone.View.extend({
     this.mallOrderList();
   },
   mallOrderList: function() {
-    async.auto({
-      deviceInfo: function(next) {
-        NativeAPI.invoke("getDeviceInfo", null, function(err, data) {
+    var self = this;
+
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
           if (err) {
-            next(null, {
-              name: "gtgj"
-            });
+            toast(err.message, 1500);
             return;
           }
 
-          next(null, data);
+          next(null, userData);
         });
       },
-      userInfo: function(next) {
-        NativeAPI.invoke("getUserInfo", null, function(err, data) {
-          if (err) {
-            next(err);
-            return;
-          }
-
-          if (_.isObject(data) && !data.authcode) {
-            NativeAPI.invoke("login", null, function() {});
-            return;
-          }
-
-          next(null, data);
-        });
-      },
-      orderList: ["deviceInfo", "userInfo", function(next, results) {
-        var params = _.extend({}, results.userInfo, {
-          p: results.deviceInfo.p
+      function(userData, next) {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p
         });
 
         sendPost("orderList", params, function(err, data) {
@@ -66,8 +53,8 @@ var AppView = Backbone.View.extend({
 
           next(null, data);
         });
-      }] 
-    }, function(err, results) {
+      }
+    ], function(err, result) {
       if (err) {
         toast(err.message, 1500);
         return;
@@ -75,7 +62,7 @@ var AppView = Backbone.View.extend({
 
       var $orderList = $("#order-list");
 
-      if (!Array.isArray(results.orderList) || results.orderList.length === 0) {
+      if (!Array.isArray(result) || result.length === 0) {
         $orderList.hide();
         $("#empty-record-hint").show();
         return;
@@ -83,10 +70,20 @@ var AppView = Backbone.View.extend({
 
       var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
       var tmplData = {
-        orderList: results.orderList
+        orderList: result
       };
       
       $orderList.html( compiled(tmplData) );
+      self.loadImage();
+    });
+  },
+  loadImage: function() {
+    echo.init({
+      offset: 250,
+      throttle: 250,
+      unload: false,
+      delayIndex: 4,
+      callback: function() {}
     });
   },
   gotoOrderDetail: function(e) {
@@ -100,4 +97,4 @@ var AppView = Backbone.View.extend({
   }
 });
 
-new AppView(); 
+new AppView();

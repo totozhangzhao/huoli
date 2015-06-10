@@ -3,7 +3,7 @@
     <li class="js-order-item record-area" data-id="<%= item.orderid %>">
       <a href="javascript:;" class="clearfix">
         <div class="record-pic-bar fl">
-          <img src="<%= item.img %>" / class="record-pic chit-pic">
+          <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= item.img %>" class="record-pic chit-pic">
         </div>
         <div class="record-text-bar fl">
           <p class="record-text-tit"><%= item.title %></p>

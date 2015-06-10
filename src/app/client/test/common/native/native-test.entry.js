@@ -49,7 +49,7 @@ var AppView = Backbone.View.extend({
     NativeAPI.invoke("sharePage", {
       title: "NativeAPI测试页",
       desc: "测试 Native 与 JavaScript 之间的接口",
-      link: window.location.origin + "/fe/app/client/test/common/native/native-test.entry.js",
+      link: "http://mall.rsscc.cn/fe/app/client/test/common/native/index.html",
       imgUrl: "http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-envelope5.png"
     }, function(err, data) {
       if (err) {

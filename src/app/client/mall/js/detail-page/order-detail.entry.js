@@ -5,6 +5,7 @@ var async      = require("async");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var requestAPI = require("app/client/mall/js/lib/request.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
+var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var getSystem  = require("com/mobile/lib/util/util.js").getMobileSystem;
 
@@ -25,37 +26,20 @@ var AppView = Backbone.View.extend({
   mallOrderDetail: function() {
     var self = this;
 
-    async.auto({
-      deviceInfo: function(next) {
-        NativeAPI.invoke("getDeviceInfo", null, function(err, data) {
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
           if (err) {
-            next(null, {
-              name: "gtgj"
-            });
+            toast(err.message, 1500);
             return;
           }
 
-          next(null, data);
+          next(null, userData);
         });
       },
-      userInfo: function(next) {
-        NativeAPI.invoke("getUserInfo", null, function(err, data) {
-          if (err) {
-            next(err);
-            return;
-          }
-
-          if (_.isObject(data) && !data.authcode) {
-            NativeAPI.invoke("login", null, function() {});
-            return;
-          }
-
-          next(null, data);
-        });
-      },
-      orderDetail: ["deviceInfo", "userInfo", function(next, results) {
-        var params = _.extend({}, results.userInfo, {
-          p: results.deviceInfo.p,
+      function(userData, next) {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p,
           orderid: parseUrl().orderid
         });
 
@@ -67,17 +51,17 @@ var AppView = Backbone.View.extend({
 
           next(null, data);
         });
-      }] 
-    }, function(err, results) {
+      }
+    ], function(err, result) {
       if (err) {
         toast(err.message, 1500);
         return;
       }
 
       var compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
-      // var compiled = _.template( $("#tmpl-order-detail").html() );
+
       var tmplData = {
-        orderDetail: results.orderDetail,
+        orderDetail: result
       };
       
       $("#order-detail-container").html( compiled(tmplData) );
