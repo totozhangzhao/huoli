@@ -5,6 +5,7 @@ var storage   = require("app/client/test/common/native/storage.js");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var echo        = require("app/client/test/common/native/util.js").echo;
 var handleError = require("app/client/test/common/native/util.js").handleError;
+var loadScript  = require("com/mobile/lib/load-script/load-script.js");
 
 // nInvoke("myFunc", {a: 1}, function(err, data) { console.log(err); console.log(data); });
 window.nInvoke = _.bind(NativeAPI.invoke, NativeAPI);
@@ -39,6 +40,10 @@ var AppView = Backbone.View.extend({
     $(window).on("hashchange", function() {
       echo("index page: " + window.location.hash);
     });
+
+    if ( $("#__wechat_share").length !== 0 ) {
+      loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
+    }
   },
   share: function() {
 

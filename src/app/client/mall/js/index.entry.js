@@ -25,33 +25,56 @@ var AppView = Backbone.View.extend({
     "click .js-new-page": "createNewPage"
   },
   initialize: function() {
-    var versionInfo = parseUrl().p || "";
-    var numStr = versionInfo.slice( versionInfo.indexOf("gtgj,") ).split(",")[1];
-    var version = parseFloat(numStr);
+    var self = this;
 
     // 不支持 3.1 之前的版本
-    if ( version < 3.1 ) {
+    if ( this.getVersion(parseUrl().p || "") < 3.1 ) {
       window.location.href = "http://cdn.rsscc.cn/guanggao/upgrade/upgrade.html";
       return;
     }
 
     this.initBanner();
 
-    storage.set("mallInfo", {
-      version: version
-    }, function() {});
-
     NativeAPI.invoke("updateTitle", {
       text: "积分商城"
     });
 
-    this.mallMainProductList();
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
+          if (err) {
+            next(err);
+            return;
+          }
 
-    var self = this;
+          next(null, userData);
+        });
+      },
+      function(userData, next) {
+        var version = self.getVersion(userData.deviceInfo.p);
 
-    $(window).on("hashchange", function() {
-      self.mallGetUserInfo({ reset: true });
+        storage.set("mallInfo", {
+          version: version
+        }, function() {
+          next(null, userData);
+        });
+      }
+    ], function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      self.mallMainProductList(result);
+
+      $(window).on("hashchange", function() {
+        self.mallGetUserInfo({ reset: true });
+      });
     });
+  },
+  getVersion: function(versionInfo) {
+    var numStr = versionInfo.slice( versionInfo.indexOf("gtgj,") ).split(",")[1];
+    return parseFloat(numStr);
   },
   mallGetUserInfo: function(options) {
     async.waterfall([
@@ -121,21 +144,11 @@ var AppView = Backbone.View.extend({
       });
     });
   },
-  mallMainProductList: function() {
+  mallMainProductList: function(userData) {
     var self = this;
 
     async.waterfall([
       function(next) {
-        appInfo.getUserData(function(err, userData) {
-          if (err) {
-            next(err);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      function(userData, next) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p
         });

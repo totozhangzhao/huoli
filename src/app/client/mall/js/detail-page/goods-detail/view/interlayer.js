@@ -1,3 +1,4 @@
+var $          = require("jquery");
 var Backbone   = require("backbone");
 var _          = require("lodash");
 var async      = require("async");
@@ -7,6 +8,7 @@ var toast      = require("com/mobile/widget/toast/toast.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
+var loadScript = require("com/mobile/lib/load-script/load-script.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -20,6 +22,10 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
     this.mallInterlayer();
+
+    if ( $("#__wechat_share").length !== 0 ) {
+      loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
+    }
   },
   createNewPage: function(e) {
     widget.createAView(e);
