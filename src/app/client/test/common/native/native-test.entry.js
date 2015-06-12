@@ -14,6 +14,8 @@ var AppView = Backbone.View.extend({
   el: "body",
   events: {
     "click .js-native-back"     : "doNativeBack",
+    "click .js-selectContact"   : "selectContact",
+    "click .js-setOrientation"  : "setOrientation",
     "click .js-native-close"    : "doNativeClose",
     "click .js-native-back-text": "doNativeBackText",
     "click .js-createWebView"   : "newPage",
@@ -44,6 +46,40 @@ var AppView = Backbone.View.extend({
     if ( $("#__wechat_share").length !== 0 ) {
       loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
     }
+  },
+  selectContact: function() {
+    var params = {
+      maxNum: 0
+    };
+
+    echo(JSON.stringify(params));
+
+    NativeAPI.invoke("selectContact", params, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
+    });
+  },
+  setOrientation: function() {
+
+    // portrait（强制竖屏），默认
+    // auto（跟随手机旋转）
+    // landscape（强制横屏）
+    var params = {
+      orientation: "landscape"
+    };
+
+    echo(JSON.stringify(params));
+
+    NativeAPI.invoke("setOrientation", params, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
+    });
   },
   share: function() {
 

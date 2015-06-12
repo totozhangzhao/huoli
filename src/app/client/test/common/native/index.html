@@ -11,18 +11,23 @@
   <style>
     button {
       display: block;
-      width: 300px;
-      height: 32px;
-      margin: 0 0 6px 0;
-      font-size: 14px;
+      width: 256px;
+      height: 40px;
+      margin: 0 auto 6px auto;
+      font-size: 12px;
     }
     #echo {
       word-wrap: break-word;
+      min-height: 100px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
+  <p id="echo">nInvoke("myFunc", {a: 1}, function(err, data) { console.log(err); console.log(data); });</p>
   <button class="js-showUserAgent">window.navigator.userAgent</button>
+  <button class="js-selectContact">N selectContact</button>
+  <button class="js-setOrientation">N setOrientation</button>
   <button class="js-createWebView">N createWebView</button>
   <button class="js-hashchange-page">N hashchange page</button>
   <button class="js-native-close">Native close</button>
@@ -38,7 +43,6 @@
   <button class="js-login">Native login</button>
   <button class="js-updateHeaderRightBtnText">N updateHeaderRightBtn Text</button>
   <button class="js-updateHeaderRightBtnIcon">N updateHeaderRightBtn Icon</button>
-  <p id="echo">nInvoke("myFunc", {a: 1}, function(err, data) { console.log(err); console.log(data); });</p>
   <div id="__wechat_share" style="display:none;">
     <div id="__wechat_title">NativeAPI测试页</div>
     <div id="__wechat_desc">测试 Native 与 JavaScript 之间的接口</div>

@@ -1,10 +1,15 @@
 var $ = require("jquery");
 
 exports.echo = function(text) {
-  $("#echo")
-    .hide()
-    .text(text)
-    .fadeIn();
+  var $echo = $("#echo");
+
+  $echo
+    .css("opacity", 0)
+    .text(text);
+
+  setTimeout(function() {
+    $echo.css("opacity", 1);
+  }, 300);
 };
 
 exports.handleError = function(err) {
