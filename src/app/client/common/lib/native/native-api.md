@@ -342,10 +342,28 @@ __method__
 
 * `selectContact`
 
+__params__
+
+* `maxNum` Number 表示选择联系人的数量上限，默认为1（即单选），0 则表示不设上限。
+
 __result__
 
 * `name`  String 名字
 * `phone` String 电话号码
+* `contacts` Array 以数组形式返回联系人信息。原本的 `name` 和 `phone` 字段，则为数组中第一个联系人的信息（即兼容单选）。
+
+
+### setOrientation
+
+* 描述：用来设定 webView 的显示方向。
+
+__method__
+
+* `setOrientation`
+
+__params__
+
+* `orientation` String 默认值为 `portrait`（强制竖屏），其他值包括 `auto`（跟随手机旋转），`landscape`（强制横屏）。
 
 
 ### sendSMS
