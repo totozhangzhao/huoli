@@ -16,7 +16,7 @@ var sendPost = requestAPI.createSendPost({
 });
 
 var AppView = Backbone.View.extend({
-  el: "body",
+  el: "#order-detail-container",
   events: {
     "click a": "createNewPage",
     "click #pay-button": "payOrder"

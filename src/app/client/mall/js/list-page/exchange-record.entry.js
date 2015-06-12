@@ -15,7 +15,7 @@ var sendPost = requestAPI.createSendPost({
 });
 
 var AppView = Backbone.View.extend({
-  el: "body",
+  el: "#order-list",
   events: {
     "click .js-order-item": "gotoOrderDetail"
   },

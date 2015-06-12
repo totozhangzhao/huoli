@@ -20,7 +20,7 @@ var sendPost = requestAPI.createSendPost({
 });
 
 var AppView = Backbone.View.extend({
-  el: "body",
+  el: "#main",
   events: {
     "click .js-new-page": "createNewPage"
   },
