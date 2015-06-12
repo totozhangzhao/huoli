@@ -36,7 +36,7 @@
     <h5 class="use-method-tit">如何使用券/码？</h5>
     <%= orderDetail.note %>
   </div>
-  <div id="copyright" class="copyright-block">
+  <div id="copyright" class="copyright-block <%= orderDetail.needpay ? "goods-copyright-fix" : "" %> ">
     <!-- // -->
   </div>
   <% if (orderDetail.needpay) { %>

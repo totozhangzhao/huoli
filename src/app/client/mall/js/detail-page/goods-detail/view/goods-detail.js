@@ -276,66 +276,50 @@ var AppView = Backbone.View.extend({
             price: productInfo.mprice,
             orderid: orderInfo.payorderid,
             productdesc: orderInfo.paydesc,
-            url: "/bmall/payview.do?orderid=" + orderInfo.orderid,
+            url: window.location.origin + "/bmall/payview.do?orderid=" + orderInfo.orderid,
             subdesc: orderInfo.paysubdesc
           };
 
           NativeAPI.invoke("startPay", payParams, function(err, payData) {
             next(err, payData);
           });
-        } else {
-          next(null, null);
-        }
-      },
-      function(payData, next) {
-        if (!payData) {
-          next(null, null);
-          return;
-        }
 
-        switch (payData.value) {
-          case payData.SUCC:
-            toast("支付成功", 1500);
-            break;
-          case payData.FAIL:
-            toast("支付失败", 1500);
-            break;
-          case payData.CANCEL:
-            toast("您取消了支付", 1500);
-            break;
-          default:
-            toast("支付异常", 1500);
-        }
-
-        if (payData.value !== payData.SUCC) {
-          self.hidePrompt();
-          return;
+          _.defer(function() {
+            self.hidePrompt();
+          }, 300);
         } else {
           next(null, null);
         }
       }
-    ], function(err) {
+    ], function(err, result) {
       if (err) {
         toast(err.message, 1500);
-        self.hidePrompt();
         return;
       }
 
-      self.$el.$shade.show();
-      self.$el.$promptSuccess
-        .one("click", ".js-goto-order-detail", function() {
-          self.gotoNewView({
-            url: window.location.origin +
-              "/fe/app/client/mall/html/detail-page/order-detail.html" +
-              "?orderid=" + orderInfo.orderid
-          });
-        })
-        .find(".js-message")
-          .html(orderInfo.message)
-        .end()
-        .show();
-
       self.updateIndexPage();
+
+      if (result) {
+        self.gotoNewView({
+          url: window.location.origin +
+            "/fe/app/client/mall/html/detail-page/order-detail.html" +
+            "?orderid=" + orderInfo.orderid
+        });
+      } else {
+        self.$el.$shade.show();
+        self.$el.$promptSuccess
+          .one("click", ".js-goto-order-detail", function() {
+            self.gotoNewView({
+              url: window.location.origin +
+                "/fe/app/client/mall/html/detail-page/order-detail.html" +
+                "?orderid=" + orderInfo.orderid
+            });
+          })
+          .find(".js-message")
+            .html(orderInfo.message)
+          .end()
+          .show();
+      }
     });
   },
   hidePrompt: function() {

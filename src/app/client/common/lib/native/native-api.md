@@ -497,8 +497,8 @@ __result__
 
 * `preventDefault` Boolean false 表⽰执⾏默认⾏为(在 Android 上表⽰⽴刻关闭当前界⾯)，true 表⽰阻⽌止默认⾏为。
 
-JS -> Native: {method: "back", params:null, id: 1}
-Native -> JS: {result: {preventDefault: false}, id: 1}
+Native -> JS: {method: "back", params:null, id: 1}
+JS -> Native: {result: {preventDefault: false}, id: 1}
 
 
 ### headerRightBtnClick
@@ -509,5 +509,5 @@ __params__
 
 * 客户端可以根据各⾃场景⾃定义
 
-JS -> Native: {method: "headerRightBtnClick", params: null}
-JS -> Native: {method: "headerRightBtnClick", params: { "foo": "bar"}}
+Native -> JS: {method: "headerRightBtnClick", params: null}
+Native -> JS: {method: "headerRightBtnClick", params: { "foo": "bar"}}

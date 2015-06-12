@@ -19,7 +19,7 @@ var AppView = Backbone.View.extend({
   el: "body",
   events: {
     "click a": "createNewPage",
-    "click .pay-button": "payOrder"
+    "click #pay-button": "payOrder"
   },
   initialize: function() {
     NativeAPI.invoke("updateTitle", {
@@ -28,17 +28,26 @@ var AppView = Backbone.View.extend({
 
     this.orderDetail = {};
     this.mallOrderDetail();
+    this.isPaying = false;
   },
   createNewPage: function(e) {
     widget.createAView(e);
   },
   payOrder: function() {
+    var self = this;
+
+    if (this.isPaying) {
+      return;
+    }
+
     var orderDetail = this.orderDetail;
 
     if (!orderDetail.needpay) {
       toast("此订单不是需要支付的状态", 1500);
       return;
     }
+
+    this.isPaying = true;
 
     async.waterfall([
       function(next) {
@@ -59,7 +68,7 @@ var AppView = Backbone.View.extend({
         // needpay: 是否需要支付，1: 需要，0: 不需要
         // payprice: 支付价格
         // payorderid: 支付订单ID
-        if (String(orderDetail.paystatus) === "0" && orderDetail.payorderid) {
+        if (orderDetail.needpay) {
 
           // quitpaymsg  String 退出时候的提示
           // title       String 支付标题
@@ -109,10 +118,12 @@ var AppView = Backbone.View.extend({
           next(null, null);
           return;
         } else {
+          self.isPaying = false;
           return;
         }
       }
     ], function() {
+      self.isPaying = false;
       window.location.reload();
     });
   },

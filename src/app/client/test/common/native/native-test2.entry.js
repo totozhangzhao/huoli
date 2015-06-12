@@ -7,7 +7,7 @@ var $         = require("jquery");
 var AppView = Backbone.View.extend({
   el: "body",
   events: {
-    "click .js-js-back": "doJSBack",
+    "click .js-js-back"      : "doJSBack",
     "click .js-native-close" : "doNativeClose",
     "click .js-js-back-hashchange": "doJSBackHashchange",
     "click .js-hashchange"   : "changeHash",

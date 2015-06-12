@@ -28,7 +28,7 @@ var AppView = Backbone.View.extend({
     var self = this;
 
     // 不支持 3.1 之前的版本
-    if ( this.getVersion(parseUrl().p || "") < 3.1 ) {
+    if ( this.getVersion(parseUrl().p) < 3.1 ) {
       window.location.href = "http://cdn.rsscc.cn/guanggao/upgrade/upgrade.html";
       return;
     }
@@ -73,6 +73,7 @@ var AppView = Backbone.View.extend({
     });
   },
   getVersion: function(versionInfo) {
+    versionInfo = versionInfo || "";
     var numStr = versionInfo.slice( versionInfo.indexOf("gtgj,") ).split(",")[1];
     return parseFloat(numStr);
   },

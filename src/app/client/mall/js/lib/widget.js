@@ -5,6 +5,10 @@ exports.createAView = function(e) {
   var $cur = $(e.currentTarget);
   var url = $cur.prop("href");
 
+  if (url === "" || url === null || url === undefined) {
+    return true;
+  }
+
   // <a href="tel:+6494461709">61709</a>
   if ( url.indexOf(":") !== -1 && !/http/.test(url) ) {
     return true;
