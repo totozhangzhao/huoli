@@ -82,7 +82,7 @@ var AppView = Backbone.View.extend({
       .appendTo("#goods-main-img");
 
     $("#goods-desc").html(productInfo.desc || "");
-    $(".js-points").text(productInfo.pprice);
+    $(".js-points").html(productInfo.pprice);
 
     this.fixTpl();
     this.handlePrompt(productInfo);

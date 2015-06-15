@@ -8,7 +8,7 @@
       <div class="text-bar">
         <p class="text-bar-p pic-tit"><%= item.title %><span class="state-icon <%= item.stateicon %>"></span></p>
         <p class="text-bar-p pic-detail"><%= item.detail %></p>
-        <p class="text-bar-p pic-value"><span class="exchange-num num-color"><%= item.pprice %></span>分</p>
+        <p class="text-bar-p pic-value"><%= item.pprice %></p>
       </div>
       <div class="pic-bar">
         <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= item.img %>" class="goods-pic" >

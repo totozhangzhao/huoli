@@ -1,4 +1,4 @@
-var $          = require("jquery");
+// var $          = require("jquery");
 var Backbone   = require("backbone");
 var _          = require("lodash");
 var async      = require("async");
@@ -9,6 +9,7 @@ var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var loadScript = require("com/mobile/lib/load-script/load-script.js");
+var shareUtil  = require("com/mobile/widget/wechat/util.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -23,7 +24,7 @@ var AppView = Backbone.View.extend({
   initialize: function() {
     this.mallInterlayer();
 
-    if ( $("#__wechat_share").length !== 0 ) {
+    if ( shareUtil.hasShareInfo() ) {
       loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
     }
   },
@@ -67,6 +68,42 @@ var AppView = Backbone.View.extend({
     this.title = tplProductInfo.title;
     this.updateNativeView(tplProductInfo.title);
     this.$el.html(tplProductInfo.tpl || "");
+
+    if ( shareUtil.hasShareInfo() ) {
+      this.setShareButton();
+    }
+  },
+  setShareButton: function() {
+    var self = this;
+
+    NativeAPI.invoke("updateHeaderRightBtn", {
+      action: "show",
+      text: "分享"
+    }, function(err) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+    });
+
+    NativeAPI.registerHandler("headerRightBtnClick", function() {
+      self.shareFromApp();
+    });
+  },
+  shareFromApp: function() {
+    var shareInfo = shareUtil.getShareInfo();
+
+    NativeAPI.invoke("sharePage", {
+      title: shareInfo.title,
+      desc: shareInfo.desc,
+      link: shareInfo.link,
+      imgUrl: shareInfo.imgUrl
+    }, function(err) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+    });
   },
   updateNativeView: function(title) {
     NativeAPI.invoke("updateTitle", {

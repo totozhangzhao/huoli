@@ -1,6 +1,7 @@
 var $     = require("jquery");
 var jsSHA = require("com/mobile/lib/sha1/sha1.js");
 var wx    = require("com/mobile/lib/wechat/jweixin-1.0.0.js");
+var shareUtil = require("com/mobile/widget/wechat/util.js");
 
 var Wechat = function() {};
 
@@ -57,36 +58,17 @@ Wechat.prototype = {
       jsApiList: ["checkJsApi", "onMenuShareTimeline", "onMenuShareAppMessage", "onMenuShareQQ", "onMenuShareWeibo", "hideMenuItems", "showMenuItems", "hideAllNonBaseMenuItem", "showAllNonBaseMenuItem", "translateVoice", "startRecord", "stopRecord", "onRecordEnd", "playVoice", "pauseVoice", "stopVoice", "uploadVoice", "downloadVoice", "chooseImage", "previewImage", "uploadImage", "downloadImage", "getNetworkType", "openLocation", "getLocation", "hideOptionMenu", "showOptionMenu", "closeWindow", "scanQRCode", "chooseWXPay", "openProductSpecificView", "addCard", "chooseCard", "openCard"]
     });
   },
-  shareData: function() {
-    var qs = function(o) {
-      return document.querySelector(o);
-    };
-
-    var data = {
-      title : qs("#__wechat_title") && qs("#__wechat_title").textContent,
-      desc  : qs("#__wechat_desc")  && qs("#__wechat_desc").textContent,
-      link  : qs("#__wechat_link")  && qs("#__wechat_link").textContent,
-      imgUrl: qs("#__wechat_img")   && qs("#__wechat_img").textContent
-    };
-
-    return {
-      title : data.title  || document.title,
-      desc  : data.desc   || "",
-      link  : data.link   || window.location.href,
-      imgUrl: data.imgUrl || ""
-    };
-  },
   shareQQ: function() {
-    wx.onMenuShareQQ(this.shareData());
+    wx.onMenuShareQQ(shareUtil.getShareInfo());
   },
   shareTimeline: function() {
-    wx.onMenuShareTimeline(this.shareData());
+    wx.onMenuShareTimeline(shareUtil.getShareInfo());
   },
   shareAppMessage: function() {
-    wx.onMenuShareAppMessage(this.shareData());
+    wx.onMenuShareAppMessage(shareUtil.getShareInfo());
   },
   shareWeibo: function() {
-    wx.onMenuShareWeibo(this.shareData());
+    wx.onMenuShareWeibo(shareUtil.getShareInfo());
   },
   debug: function() {
     var urlQ = function(s) {

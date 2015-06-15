@@ -35,7 +35,7 @@ button {
 .exchange-record-box,
 .integral-list-box,
 .pay-box,
-.enter-box {
+.interlayer {
   max-width: 750px;
   margin: 0 auto;
   min-height: 100%;
@@ -905,7 +905,7 @@ p {
 
 /* yuetu tuiguang start */
 
-.enter-box {
+.interlayer {
   background: #000;
 }
 .enter-tit {
@@ -916,23 +916,23 @@ p {
   text-align:center; 
   margin:20px 0;
 }
-.enter-box .common-text {
+.interlayer .common-text {
   padding: 0 10px;
   color:#fff;
 }
-.enter-box .gtgj-logo {
+.interlayer .gtgj-logo {
   width:100px; 
   margin:40px auto;
 }
-.enter-box .privilege-pic {
+.interlayer .privilege-pic {
   width:154px; 
   margin:0 auto 20px;
 }
-.enter-box .privilege5-pic {
+.interlayer .privilege5-pic {
   width:80%; 
   margin:30px auto;
 }
-.enter-box .privilege5-pic2 {
+.interlayer .privilege5-pic2 {
   margin:10px auto;
 }
 .enter-tip-text {
@@ -945,11 +945,11 @@ p {
   line-height: 24px;
 }
 
-.enter-box .enter-arrow {
+.interlayer .enter-arrow {
   width:10px; 
   margin:20px auto 0;
 }
-.enter-box .enter-arrow2 {
+.interlayer .enter-arrow2 {
   margin:5px auto 0;
 }
 .enter-btn-box {
