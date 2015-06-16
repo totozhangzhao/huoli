@@ -37,11 +37,9 @@ exports.getUserData = (function() {
       return;
     }
 
-    async.auto({
-      deviceInfo: function(next) {
-        // window.alert("deviceInfo start");
+    async.waterfall([
+      function(next) {
         NativeAPI.invoke("getDeviceInfo", null, function(err, data) {
-          // window.alert("deviceInfo response");
           if (err) {
             next(null, DEVICE_INFO);
             return;
@@ -50,15 +48,24 @@ exports.getUserData = (function() {
           next(null, data);
         });
       },
-      userInfo: function(next) {
-        // window.alert("getUserInfo start");
-        NativeAPI.invoke("getUserInfo", null, function(err, data) {
-          // window.alert("getUserInfo response");
+      function(deviceInfo, next) {
+        var params = {
+          appName: deviceInfo.name
+        };
+
+        NativeAPI.invoke("getUserInfo", params, function(err, data) {
           if ( err && (String(err.code) === "-32001") ) {
-            next(null, USER_INFO);
+            next(null, {
+              deviceInfo: deviceInfo,
+              userInfo: USER_INFO
+            });
             return;
           } else if (err) {
-            next(null, USER_INFO);
+            window.console.log(JSON.stringify(err));
+            next(null, {
+              deviceInfo: deviceInfo,
+              userInfo: USER_INFO
+            });
             return;            
           }
 
@@ -66,18 +73,19 @@ exports.getUserData = (function() {
           data.userid   = data.userid   || "";
           data.authcode = data.authcode || "";
 
-          next(null, data);
+          next(null, {
+            deviceInfo: deviceInfo,
+            userInfo: data
+          });
         });
       }
-    }, function(err, results) {
+    ], function(err, result) {
       if (err) {
         callback(err);
         return;
       }
 
-      userData.deviceInfo = results.deviceInfo;
-      userData.userInfo   = results.userInfo;
-
+      userData = result;
       callback(null, userData);
     });
   };
