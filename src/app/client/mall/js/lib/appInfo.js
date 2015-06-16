@@ -25,15 +25,15 @@ exports.getUserData = (function() {
   };
 
   // memorization
-  var userData = {};
+  var userDataStore = {};
 
   return function(callback, opitons) {
     opitons = opitons || {};
 
     var reset = opitons.reset || false;
 
-    if ( (userData.deviceInfo && userData.userInfo) && !reset ) {
-      callback(null, userData);
+    if ( (userDataStore.deviceInfo && userDataStore.userInfo) && !reset ) {
+      callback(null, userDataStore);
       return;
     }
 
@@ -78,6 +78,21 @@ exports.getUserData = (function() {
             userInfo: data
           });
         });
+      },
+      function(userData, next) {
+        if (userData.deviceInfo.name === "hbgj") {
+          userData.userInfo.hbauthcode = userData.userInfo.authcode;
+          userData.userInfo.hbuserid   = userData.userInfo.userid;
+          next(null, userData);
+        } else {
+          NativeAPI.invoke("getUserInfo", {
+            appName: "hbgj"
+          }, function(err, data) {
+            userData.userInfo.hbauthcode = data.authcode;
+            userData.userInfo.hbuserid   = data.userid;
+            next(null, userData);
+          });
+        }
       }
     ], function(err, result) {
       if (err) {
@@ -85,9 +100,9 @@ exports.getUserData = (function() {
         return;
       }
 
-      userData.deviceInfo = result.deviceInfo;
-      userData.userInfo   = result.userInfo;
-      callback(null, userData);
+      userDataStore.deviceInfo = result.deviceInfo;
+      userDataStore.userInfo   = result.userInfo;
+      callback(null, userDataStore);
     });
   };
 }());

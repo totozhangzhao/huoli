@@ -93,35 +93,35 @@ var AppView = Backbone.View.extend({
         } else {
           next(null, null);
         }
-      },
-      function(payData, next) {
-        if (!payData) {
-          next(null, null);
-          return;
-        }
-
-        switch (payData.value) {
-          case payData.SUCC:
-            toast("支付成功", 1500);
-            break;
-          case payData.FAIL:
-            toast("支付失败", 1500);
-            break;
-          case payData.CANCEL:
-            toast("您取消了支付", 1500);
-            break;
-          default:
-            toast("支付异常", 1500);
-        }
-
-        if (payData.value === payData.SUCC) {
-          next(null, null);
-          return;
-        } else {
-          self.isPaying = false;
-          return;
-        }
       }
+      // function(payData, next) {
+      //   if (!payData) {
+      //     next(null, null);
+      //     return;
+      //   }
+
+      //   switch (payData.value) {
+      //     case payData.SUCC:
+      //       toast("支付成功", 1500);
+      //       break;
+      //     case payData.FAIL:
+      //       toast("支付失败", 1500);
+      //       break;
+      //     case payData.CANCEL:
+      //       toast("您取消了支付", 1500);
+      //       break;
+      //     default:
+      //       toast("支付异常", 1500);
+      //   }
+
+      //   if (payData.value === payData.SUCC) {
+      //     next(null, null);
+      //     return;
+      //   } else {
+      //     self.isPaying = false;
+      //     return;
+      //   }
+      // }
     ], function() {
       self.isPaying = false;
       window.location.reload();
