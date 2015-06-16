@@ -85,7 +85,8 @@ exports.getUserData = (function() {
         return;
       }
 
-      userData = result;
+      userData.deviceInfo = result.deviceInfo;
+      userData.userInfo   = result.userInfo;
       callback(null, userData);
     });
   };

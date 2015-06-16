@@ -364,7 +364,8 @@ p {
   line-height: 20px;
 }
 .time-bar,
-.order-pay-bar {
+.order-pay-bar,
+.goods-pay-bar {
   width: 100%;
   height: 60px;
   line-height: 60px;
@@ -375,7 +376,8 @@ p {
   bottom: 0; 
 }
 .time-area,
-.order-pay-area {
+.order-pay-bar .order-pay-area,
+.goods-pay-bar .goods-pay-area {
   height: 100%;
 }
 .scoring-bar {
@@ -389,7 +391,8 @@ p {
   margin-right: 10px;
 }
 .operate-btn,
-.order-pay-btn {
+.order-pay-bar .order-pay-btn,
+.goods-pay-bar .goods-pay-btn {
   padding: 10px 15px;
   font-size: 18px;
   line-height: 18px;
