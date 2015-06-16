@@ -466,8 +466,10 @@ __params__
 * `productdesc` String 商品描述
 * `url` String 显示订单基本信息的Wap页面
 * `subdesc` String 商品详情描述
+* `canceltype` String 取消等待支付结果的跳转类型：0代表跳转机票订单，1代表跳转酒店订单，2代表跳转其他订单，-1代表不做跳转(默认为-1)
 
 __reslut__
+
 * `SUCC`   常量，表示客户端支付流程完成
 * `FAIL`   常量，表示客户端支付流程中断
 * `CANCEL` 常量，表示客户端操作取消支付（高铁管家3.3开始支持）
@@ -481,7 +483,8 @@ NativeAPI.invoke("startPay", {
   orderid: "150513188189022",
   productdesc: "接机订单支付",
   subdesc: "专车接送",
-  url: "http://jp.rsscc.com/Fmall/rest/client/v4/pay.htm?orderid=150513188189022"
+  url: "http://jp.rsscc.com/Fmall/rest/client/v4/pay.htm?orderid=150513188189022",
+  canceltype: -1
 }, function(err, data) {
   switch (data.value) {
     case data.SUCC:
@@ -498,6 +501,26 @@ NativeAPI.invoke("startPay", {
   }
 });
 ```
+
+### loading
+
+* 描述：加载中样式的提示框。
+
+__method__
+
+* `loading`
+
+__params__
+
+* `show` Number 1 显示，0 隐藏
+* `text` String 显示的文字
+
+__result__
+
+* `SUCC`   常量，正常显示
+* `FAIL`   常量，显示失败
+* `CANCEL` 常量，点了返回键
+* `value`  SUCC/FAIL/CANCEL
 
 
 ## 由 JavaScript 提供的方法
