@@ -8,11 +8,12 @@ var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var Swipe      = require("com/mobile/lib/swipe/swipe.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var getSystem  = require("com/mobile/lib/util/util.js").getMobileSystem;
+var Util       = require("com/mobile/lib/util/util.js");
 var updatePage = require("app/client/mall/js/lib/page-action.js").update;
 var storage    = require("app/client/mall/js/lib/storage.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var echo       = require("com/mobile/lib/echo/echo.js");
+var mallUitl   = require("app/client/mall/js/lib/util.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -29,7 +30,7 @@ var AppView = Backbone.View.extend({
 
     // 不支持 3.1 之前的版本
     if ( this.getVersion(parseUrl().p) < 3.1 ) {
-      window.location.href = "http://cdn.rsscc.cn/guanggao/upgrade/upgrade.html";
+      window.location.href = mallUitl.getUpgradeUrl();
       return;
     }
 
@@ -48,7 +49,7 @@ var AppView = Backbone.View.extend({
           }
 
           next(null, userData);
-        });
+        }, { reset: true });
       },
       function(userData, next) {
         var version = self.getVersion(userData.deviceInfo.p);
@@ -91,6 +92,7 @@ var AppView = Backbone.View.extend({
       },
       function(userData, next) {
         storage.get("mallInfo", function(data) {
+          data = Util.isObject(data) ? data : {};
           next(null, userData, data);
         });
       },
@@ -106,13 +108,6 @@ var AppView = Backbone.View.extend({
           return;
         }
       },
-      // function(userData, next) {
-      //   if (userData.userInfo.authcode) {
-      //     next(null, userData);
-      //   } else {
-      //     return;
-      //   }
-      // },
       function(userData, next) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p
@@ -232,7 +227,7 @@ var AppView = Backbone.View.extend({
     var crTpl = require("app/client/mall/tpl/copyright.tpl");
 
     $("#copyright").html(crTpl({
-      system: getSystem()
+      system: Util.getMobileSystem()
     }));
   },
   createNewPage: function(e) {

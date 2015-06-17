@@ -7,10 +7,11 @@ var requestAPI = require("app/client/mall/js/lib/request.js");
 var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var getSystem  = require("com/mobile/lib/util/util.js").getMobileSystem;
+var Util       = require("com/mobile/lib/util/util.js");
 var updatePage = require("app/client/mall/js/lib/page-action.js").update;
 var widget     = require("app/client/mall/js/lib/widget.js");
 // var storage    = require("app/client/mall/js/lib/storage.js");
+var mallUitl   = require("app/client/mall/js/lib/util.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -188,7 +189,7 @@ var AppView = Backbone.View.extend({
     var crTpl = require("app/client/mall/tpl/copyright.tpl");
 
     $("#copyright").html(crTpl({
-      system: getSystem()
+      system: Util.getMobileSystem()
     }));
   },
   exchange: function(productInfo) {
@@ -245,6 +246,11 @@ var AppView = Backbone.View.extend({
           .one("click", ".js-close", function() {
             self.$el.$promptFail.hide();
             self.$el.$shade.hide();
+
+            // version 3.1 未实现 startPay 接口
+            if (err.code === -99) {
+              window.location.href = mallUitl.getUpgradeUrl();
+            }
           })
           .find(".js-message")
             .html(err.message)

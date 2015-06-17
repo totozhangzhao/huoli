@@ -7,7 +7,7 @@ var requestAPI = require("app/client/mall/js/lib/request.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
 var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var getSystem  = require("com/mobile/lib/util/util.js").getMobileSystem;
+var Util       = require("com/mobile/lib/util/util.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 
 // method, params, callback
@@ -178,7 +178,7 @@ var AppView = Backbone.View.extend({
     var crTpl = require("app/client/mall/tpl/copyright.tpl");
 
     $("#copyright").html(crTpl({
-      system: getSystem()
+      system: Util.getMobileSystem()
     }));
   }
 });
