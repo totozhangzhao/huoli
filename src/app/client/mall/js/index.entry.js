@@ -14,6 +14,7 @@ var storage    = require("app/client/mall/js/lib/storage.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var echo       = require("com/mobile/lib/echo/echo.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
+var IScroll    = require("com/mobile/lib/iscroll/iscroll.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -192,6 +193,41 @@ var AppView = Backbone.View.extend({
 
       self.loadImage();
       self.mallGetUserInfo();
+      self.pageScroll();
+    });
+  },
+  pageScroll: function() {
+    var scrollElem = new IScroll("#index-wrapper", {
+      click: true
+    });
+    
+    var yStartFromZero = false;
+
+    var pullDownEl = $(".pull-down")[0];
+
+    scrollElem.on("scrollStart", function() {
+      pullDownEl.querySelector(".pull-down-text").innerHTML = "下拉刷新...";
+      if (scrollElem.y === 0) {
+        yStartFromZero = true;
+      }
+      setTimeout(function() {
+        pullDownEl.querySelector(".pull-down-text").innerHTML = "松手即可刷新...";
+      }, 600);
+    });
+
+    scrollElem.on("scroll", function() {
+      console.log("scroll");
+    });
+
+    scrollElem.on("scrollEnd", function() {
+      if (yStartFromZero && scrollElem.directionY === -1) {
+        scrollElem._execEvent("pullToRefresh");
+      }
+      yStartFromZero = false;
+    });
+
+    scrollElem.on("pullToRefresh", function() {
+      window.location.reload();
     });
   },
   loadImage: function() {

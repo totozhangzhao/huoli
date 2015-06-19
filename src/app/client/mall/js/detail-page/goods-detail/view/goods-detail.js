@@ -306,11 +306,17 @@ var AppView = Backbone.View.extend({
       self.updateIndexPage();
 
       if (result) {
-        self.gotoNewView({
-          url: window.location.origin +
+        var orderDetailUrl = window.location.origin +
             "/fe/app/client/mall/html/detail-page/order-detail.html" +
-            "?orderid=" + orderInfo.orderid
-        });
+            "?orderid=" + orderInfo.orderid;
+
+        if (false) {
+          self.gotoNewView({
+            url: orderDetailUrl
+          });
+        } else {
+          window.location.href = orderDetailUrl;
+        }
       } else {
         self.$el.$shade.show();
         self.$el.$promptSuccess

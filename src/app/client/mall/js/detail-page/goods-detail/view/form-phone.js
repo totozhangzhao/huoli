@@ -30,8 +30,8 @@ var AppView = Backbone.View.extend({
   el: "#form-phone",
   events: {
     "click #submit"        : "createOrder",
-    "input .form-input": "inputInput",
-    "blur  .form-input": "blurInput",
+    "input .form-input"    : "inputInput",
+    "blur  .form-input"    : "blurInput",
     "input .form-phone-num": "inputPhoneNum",
     "click .js-captcha"   : "sendCaptcha",
     "click .js-use-url"   : "showOrder"

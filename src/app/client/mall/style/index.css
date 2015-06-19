@@ -1075,3 +1075,26 @@ p {
   word-break: break-all;
 }
 /* widget - end */
+
+/* pull to refresh - start */
+#index-wrapper {
+  width: 100%;
+  height: 100%;
+}
+.pull-down {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  position: absolute;
+  top: -40px;
+  left: 0;
+  text-align: center;
+  color: #B6B6CD;
+}
+.pull-down img {
+  width: 36px;
+  height: 42px;
+  display: inline-block;
+  vertical-align: middle;
+}
+/* pull to refresh - end   */

@@ -69,6 +69,7 @@
     unload = !!opts.unload;
     callback = opts.callback || callback;
     echo.render();
+    root.addEventListener('touchmove', debounceOrThrottle, false);
     root.addEventListener('scroll', debounceOrThrottle, false);
     root.addEventListener('load', debounceOrThrottle, false);
   };

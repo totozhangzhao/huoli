@@ -180,22 +180,10 @@ __params__
 * 不带参数，根据客户端⾃定义。
 
 __reslut__
-* `SUCC`   常量，表示客户端支付流程完成
-* `FAIL`   常量，表示客户端支付流程中断
-* `value`  SUCC/FAIL/CANCEL。目前返回的是succ:"0/1",SUCCESS:"1",FAIL:"0"。
-
-```JavaScript
-NativeAPI.invoke("login", null, function(err, data) {
-  if (err) {
-    return handleError(err);
-  }
-
-  echo("login callback: " + JSON.stringify(data));
-});
-```
-
-
-JS -> Native: {method: "login", params:null}
+* `SUCC`   常量，表示登录流程完成
+* `FAIL`   常量，表示登录流程中断
+* `CANCEL` 常量，表示用户在登录过程中作了取消操作
+* `value`  它的值应该是 SUCC/FAIL/CANCEL 其中之一，用来判断成功/失败等状态。
 
 
 ### getUserInfo
@@ -425,11 +413,12 @@ __method__
 
 __params__
 
-* `title`
-* `desc`
-* `link`
-* `imgUrl`
-
+* `title`  String 分享块标题
+* `desc`   String 分享块描述
+* `link`   String 分享块链接
+* `imgUrl` String 分享块图片
+* `type`   String 分享类型；支持 `weixin` `weibo` `pengyouquan` `sms` `email`；如果是 `all` 表示想要分享到所有，此参数为空或不传此参数时，效果应等同于 `all`。
+  
 __result__
 
 * `value` Boolean true 成功，false 不成功。
@@ -470,10 +459,11 @@ __params__
 
 __reslut__
 
-* `SUCC`   常量，表示客户端支付流程完成
-* `FAIL`   常量，表示客户端支付流程中断
-* `CANCEL` 常量，表示客户端操作取消支付（高铁管家3.3开始支持）
-* `value`  SUCC/FAIL/CANCEL
+* `SUCC`    常量，表示支付成功
+* `FAIL`    常量，表示支付失败
+* `CANCEL`  常量，表示用户取消了支付（高铁管家3.3开始支持）
+* `PENDING` 常量，表示目前为支付待确认状态，由于第三方支付结果可能需要等待较长的时间，未知状态时可以返回 PENDING
+* `value`   SUCC/FAIL/CANCEL/PENDING
 
 ```JavaScript
 NativeAPI.invoke("startPay", {
@@ -495,6 +485,9 @@ NativeAPI.invoke("startPay", {
       break;
     case data.CANCEL:
       alert("您取消了支付");
+      break;
+    case data.PENDING:
+      alert("目前为支付待确认状态");
       break;
     default:
       alert("支付异常");
@@ -537,6 +530,8 @@ __method__
 __result__
 
 * `preventDefault` Boolean false 表⽰执⾏默认⾏为(在 Android 上表⽰⽴刻关闭当前界⾯)，true 表⽰阻⽌止默认⾏为。
+
+流程说明：点返回按钮——N 调用 J 的 back——J 返回给 N {preventDefault: true/false}——N 根据 preventDefault 值决定是否执行返回操作。
 
 Native -> JS: {method: "back", params:null, id: 1}
 JS -> Native: {result: {preventDefault: false}, id: 1}

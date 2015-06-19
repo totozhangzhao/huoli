@@ -1,5 +1,5 @@
 {
-  "predef": ["-Promise", "require", "exports", "module", "define", "console", "unescape"],
+  "predef": ["-Promise", "require", "exports", "module", "define", "unescape"],
   "curly": false,
   "undef": true,
   "eqeqeq": true,
