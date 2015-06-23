@@ -1078,7 +1078,7 @@ p {
   color: #333;
 }
 .pay-order-detail-box .order-exchange-bar {
-  padding: 20px 8%;
+  padding: 20px 5%;
 }
 .pay-order-detail-box .order-exchange-code {
   padding: 15px;
@@ -1088,7 +1088,7 @@ p {
   color: #999;
 }
 .pay-order-detail-box .order-exchange-area {
-  width: 66%;
+  width: 70%;
 }
 .pay-order-detail-box .order-exchange-text {
   font-size: 12px;
@@ -1097,9 +1097,9 @@ p {
 .pay-order-detail-box .effective-area {
   height: 36px;
   font-size: 12px;
-  padding-left: 20px;
+  padding-left: 15px;
   position: absolute;
-  right: 10px;
+  right: 15px;
   top: 50%;
   margin-top: -18px;
   border-left: 1px solid #ccc;
@@ -1150,6 +1150,12 @@ p {
 .pay-order-detail-box .user-info {
   margin-right: 5px;
   color: #111;
+}
+.pay-order-detail-box .big-font {
+  font-size: 16px;
+}
+.pay-order-detail-box .bigger-font {
+  font-size: 18px;
 }
 /* pay-order-detail 2.0 end */
 
