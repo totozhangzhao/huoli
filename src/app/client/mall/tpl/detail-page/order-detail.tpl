@@ -9,6 +9,7 @@
     <!-- <span class="trade-status trade-status-confirm">交易待确认</span> -->
     <!-- <span class="trade-status trade-status-waiting">等待付款..</span> -->
   </div>
+  
   <div class="order-detail-bar">
     <p class="order-detail-info">订单编号：<span class="order-detail-num fr"><%= orderDetail.orderid %></span></p>
     <p class="order-detail-info">成交时间：<span class="order-detail-num fr"><%= orderDetail.createtime %></span></p>

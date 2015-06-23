@@ -1004,6 +1004,9 @@ p {
 .pay-order-detail-box .pay-status-bar {
   padding-bottom: 272px;
 }
+.pay-order-detail-box .pay-after-bar {
+  padding-bottom: 212px;
+}
 .pay-order-detail-box .goods-detail {
   height: 80px;
   padding: 10px 10px 0;
