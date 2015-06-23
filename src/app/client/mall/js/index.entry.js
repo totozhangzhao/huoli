@@ -75,8 +75,16 @@ var AppView = Backbone.View.extend({
     });
   },
   getVersion: function(versionInfo) {
+    
+    //
+    // Pro:
+    // "appstorepro,ios,8.3,gtgjpro,3.3,iPhone7.2,0"
+    //
+    // Normal:
+    // "appstorepro,ios,8.3,gtgj,3.3,iPhone7.2,0"
+    //
     versionInfo = versionInfo || "";
-    var numStr = versionInfo.slice( versionInfo.indexOf("gtgj,") ).split(",")[1];
+    var numStr = versionInfo.split(",")[4];
     return parseFloat(numStr);
   },
   mallGetUserInfo: function(options) {
