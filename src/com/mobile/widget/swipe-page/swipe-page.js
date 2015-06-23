@@ -86,8 +86,6 @@ exports.vertical = Backbone.View.extend({
         case "Y":
           this.move = curY;
           this.transY($cur, curY);
-          console.log($preSibling[0]);
-          console.log($nextSibling[0]);
           $preSibling[0] && this.transY($preSibling, curY - clientHeight);
           $nextSibling[0] && this.transY($nextSibling, curY + clientHeight);
           break;

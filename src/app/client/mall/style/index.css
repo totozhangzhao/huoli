@@ -35,7 +35,8 @@ button {
 .exchange-record-box,
 .integral-list-box,
 .pay-box,
-.interlayer {
+.interlayer,
+.pay-order-detail-box {
   max-width: 750px;
   margin: 0 auto;
   min-height: 100%;
@@ -992,6 +993,162 @@ p {
 }
 
 /* yuetu tuiguang end */
+
+/* pay-order-detail 2.0 start */
+
+.pay-order-detail-box {
+  min-height: 100%;
+  background: #f3f3f3;
+  font-size: 14px;
+}
+.pay-order-detail-box .pay-status-bar {
+  padding-bottom: 272px;
+}
+.pay-order-detail-box .goods-detail {
+  height: 80px;
+  padding: 10px 10px 0;
+  position: relative;
+  background: #fff;
+}
+.pay-order-detail-box .goods-show-pic {
+  width: 70px;
+  height: 70px;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+.pay-order-detail-box .trade-status {
+  width: 77px;
+  height: 22px;
+  line-height: 22px;
+  text-align: right;
+  padding-right: 7px;
+  font-size: 12px;
+  color: #fff;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/pay-status-sprite.png) no-repeat;
+  background-size: 350px 350px;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+}
+.pay-order-detail-box .trade-status-succ {
+  background-position: -94px 0;
+}
+.pay-order-detail-box .trade-status-fail {
+  background-position: -188px 0;
+}
+.pay-order-detail-box .trade-status-waiting {
+  background-position: 0 0;
+}
+.pay-order-detail-box .trade-status-confirm {
+  background-position: 0 -32px;
+}
+.pay-order-detail-box .goods-detail p {
+  width: 70%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pay-order-detail-box .goods-name {
+  font-size: 16px;
+  color: #111;
+}
+.pay-order-detail-box .goods-price {
+  font-family: 'Arial';
+  font-size: 20px;
+  line-height: 20px;
+  margin-top: 8px;
+  color: #f90;
+}
+.pay-order-detail-box .order-detail-info {
+  padding: 0 10px;
+  height: 36px;
+  line-height: 36px;
+  color: #999;
+  border-top: 1px solid #f3f3f3;
+  background: #fff;
+  box-sizing: border-box;
+}
+.pay-order-detail-box .order-detail-info:last-child {
+  border-bottom: 1px solid #f3f3f3;
+}
+.pay-order-detail-box .order-detail-num {
+  color: #333;
+}
+.pay-order-detail-box .order-exchange-bar {
+  padding: 20px 8%;
+}
+.pay-order-detail-box .order-exchange-code {
+  padding: 15px;
+  position: relative;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #999;
+}
+.pay-order-detail-box .order-exchange-area {
+  width: 66%;
+}
+.pay-order-detail-box .order-exchange-text {
+  font-size: 12px;
+  line-height: 20px;
+}
+.pay-order-detail-box .effective-area {
+  height: 36px;
+  font-size: 12px;
+  padding-left: 20px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -18px;
+  border-left: 1px solid #ccc;
+}
+.pay-order-detail-box .arc-border {
+  width: 6px;
+  height: 12px;
+  position: absolute;
+  top: 50%;
+  margin-top: -6px;
+}
+.pay-order-detail-box .arc-border-left {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/order-bg-leftcircle.png) no-repeat;
+  background-size: 6px 12px;
+  left: -1px;
+}
+.pay-order-detail-box .arc-border-right {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/order-bg-rightcircle.png) no-repeat;
+  background-size: 6px 12px;
+  right: -1px;
+}
+.pay-order-detail-box .pic-border {
+  width: 100%;
+  height: 3px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/order-bg-address-boder.png) repeat-x;
+  position: absolute;
+  left: 0;
+}
+.pay-order-detail-box .pic-border-top {
+  top: -1px;
+}
+.pay-order-detail-box .pic-border-bottom {
+  bottom: -1px;
+}
+.pay-order-detail-box .number-color {
+  color: #f90;
+}
+.pay-order-detail-box .common-text {
+  line-height: 24px;
+}
+.pay-order-detail-box .use-method {
+  padding: 10px 10px 15px;
+  background: #fff;
+}
+.order-address-bar .order-exchange-area {
+  width: 100%;
+}
+.pay-order-detail-box .user-info {
+  margin-right: 5px;
+  color: #111;
+}
+/* pay-order-detail 2.0 end */
 
 /* widget - start */
 .bb-panel {

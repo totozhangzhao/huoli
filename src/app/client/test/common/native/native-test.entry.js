@@ -24,6 +24,7 @@ var AppView = Backbone.View.extend({
     "click .js-showUserAgent"   : "showUserAgent",
     "click .js-alert"           : "alert",
     "click .js-share"           : "share",
+    "click .js-scanBarcode"     : "scanBarcode",
     "click .js-storage-set"     : "setStorage",
     "click .js-storage-get"     : "getStorage",
     "click .js-getDeviceInfo"   : "getDeviceInfo",
@@ -94,6 +95,15 @@ var AppView = Backbone.View.extend({
       link: window.location.href,
       imgUrl: "http://cdn.rsscc.cn/guanggao/img/mall/h1-index-goods-envelope5.png"
     }, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
+    });
+  },
+  scanBarcode: function() {
+    NativeAPI.invoke("scanBarcode", null, function(err, data) {
       if (err) {
         return handleError(err);
       }
