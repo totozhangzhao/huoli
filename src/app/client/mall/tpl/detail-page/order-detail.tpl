@@ -1,4 +1,4 @@
-<div class="pay-status-bar">
+<div class="<%= orderDetail.needpay ? "pay-status-bar" : "pay-after-bar" %>">
   <div class="goods-detail">
     <img src="<%= orderDetail.img %>" class="goods-show-pic fl">
     <p class="goods-name"><%= orderDetail.title %></p>
@@ -14,12 +14,12 @@
     <p class="order-detail-info">成交时间：<span class="order-detail-num fr"><%= orderDetail.createtime %></span></p>
   </div>
 
-  <% if ( String(orderDetail.msgtpl) === "1" || String(orderDetail.msgtpl) === "2" ) { %>
+  <% if ( orderDetail.msg && (String(orderDetail.msgtpl) === "1" || String(orderDetail.msgtpl) === "2") ) { %>
   <!-- 兑换码 start -->
   <div class="order-exchange-bar">
     <div class="order-exchange-code">
       <div class="order-exchange-area">
-        <!-- // -->
+        <%= orderDetail.msg %>
       </div>
       <div class="effective-area">
         <p>有效期至：</p>
@@ -30,7 +30,7 @@
     </div>
   </div>
   <!-- 兑换码 end -->
-  <% } else if ( String(orderDetail.msgtpl) === "3" ) { %>
+  <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "3") ) { %>
   <!-- 地址 start -->
   <div class="order-exchange-bar order-address-bar">
     <div class="order-exchange-code">
