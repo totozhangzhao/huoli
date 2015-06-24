@@ -9,7 +9,6 @@ var Swipe      = require("com/mobile/lib/swipe/swipe.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var Util       = require("com/mobile/lib/util/util.js");
-var updatePage = require("app/client/mall/js/lib/page-action.js").update;
 var storage    = require("app/client/mall/js/lib/storage.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var echo       = require("com/mobile/lib/echo/echo.js");
@@ -28,9 +27,10 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
     var self = this;
+    var version = this.getVersion(parseUrl().p);
 
     // 不支持 3.1 之前的版本
-    if ( this.getVersion(parseUrl().p) < 3.1 ) {
+    if (version < 3.1) {
       window.location.href = mallUitl.getUpgradeUrl();
       return;
     }
@@ -53,10 +53,11 @@ var AppView = Backbone.View.extend({
         }, { reset: true });
       },
       function(userData, next) {
-        var version = self.getVersion(userData.deviceInfo.p);
+        version = self.getVersion(userData.deviceInfo.p);
 
         storage.set("mallInfo", {
-          version: version
+          version: version,
+          indexPageUrl: window.location.href
         }, function() {
           next(null, userData);
         });
@@ -68,10 +69,6 @@ var AppView = Backbone.View.extend({
       }
 
       self.mallMainProductList(result);
-
-      $(window).on("hashchange", function() {
-        self.mallGetUserInfo({ reset: true });
-      });
     });
   },
   getVersion: function(versionInfo) {
@@ -143,10 +140,6 @@ var AppView = Backbone.View.extend({
         .show()
         .find(".js-points")
           .text(points);
-
-      updatePage({
-        isUpdate: false
-      });
     });
   },
   mallMainProductList: function(userData) {

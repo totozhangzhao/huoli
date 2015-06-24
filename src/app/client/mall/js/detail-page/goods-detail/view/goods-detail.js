@@ -6,11 +6,9 @@ var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var requestAPI = require("app/client/mall/js/lib/request.js");
 var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
-var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
+var UrlUtil    = require("com/mobile/lib/url/url.js");
 var Util       = require("com/mobile/lib/util/util.js");
-var updatePage = require("app/client/mall/js/lib/page-action.js").update;
 var widget     = require("app/client/mall/js/lib/widget.js");
-// var storage    = require("app/client/mall/js/lib/storage.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
 
 // method, params, callback
@@ -55,7 +53,7 @@ var AppView = Backbone.View.extend({
       function(userData, next) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: parseUrl().productid
+          productid: UrlUtil.parseUrlSearch().productid
         });
 
         sendPost("productDetail", params, function(err, data) {
@@ -175,14 +173,6 @@ var AppView = Backbone.View.extend({
         }
 
         self.userDataOpitons.reset = true;
-        self.updateIndexPage();
-    });
-  },
-  updateIndexPage: function() {
-    updatePage({
-      isUpdate: true,
-      url: window.location.origin + "/fe/app/client/mall/index.html" +
-        "#_t=" + (new Date().getTime())
     });
   },
   fixTpl: function() {
@@ -233,7 +223,7 @@ var AppView = Backbone.View.extend({
       function(userData, next) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: parseUrl().productid
+          productid: UrlUtil.parseUrlSearch().productid
         });
 
         sendPost("createOrder", params, function(err, data) {
@@ -302,8 +292,6 @@ var AppView = Backbone.View.extend({
         toast(err.message, 1500);
         return;
       }
-
-      self.updateIndexPage();
 
       if (result) {
         var orderDetailUrl = window.location.origin +

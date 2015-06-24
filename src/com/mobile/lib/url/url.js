@@ -7,3 +7,17 @@ exports.parseUrlSearch = function() {
   });
   return result;
 };
+
+exports.addTimestampToUrl = function(url) {
+  var timestamp = new Date().getTime();
+
+  if ( url.split("#")[1] ) {
+    url = url.indexOf("&_t") !== -1 ?
+        url.replace(/_t=\d*/, "_t=" + timestamp) :
+        url + "&_t=" + timestamp;
+  } else {
+    url = url + "#&_t=" + timestamp;
+  }
+
+  return url;
+};

@@ -519,6 +519,22 @@ __result__
 ## 由 JavaScript 提供的方法
 
 
+### resume
+
+* 描述：有上一个 webview 返回当前 webview 时候触发。例如：从 c.html 所在的 webview 返回 b.html 所在的 webview 时，在 b.html 所在的 Webview 上 Native 应调用 JS 的 resume 方法，所传参数 prevUrl 为 a.html，nextUrl 为 c.html。
+
+__method__
+
+* `resume`
+
+__params__
+
+* `prevUrl` String 当前 webview 为基准，前一个 webview 的 URL（没有就为空）。
+* `nextUrl` String 当前 webview 为基准，后一个 webview 的 URL。
+
+Native -> JS: {method: "resume", params: {prevUrl: "a.html", nextUrl: "c.html"}}
+
+
 ### back
 
 * 描述：当 WebView 的顶栏上的返回按钮被点击，或 android 下⽤户点击系统⾃带返回按钮时，需要由 APP 调⽤ JS 的这个接⼝，根据 JS 返回的值来决定相关⾏为，如果该接⼝执⾏异常，则执⾏默认⾏为（关闭当前 WebView）。

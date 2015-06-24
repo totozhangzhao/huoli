@@ -1070,6 +1070,7 @@ p {
   border-top: 1px solid #f3f3f3;
   background: #fff;
   box-sizing: border-box;
+  color: #333;
 }
 .pay-order-detail-box .order-detail-info:last-child {
   border-bottom: 1px solid #f3f3f3;
@@ -1138,7 +1139,8 @@ p {
   color: #f90;
 }
 .pay-order-detail-box .common-text {
-  line-height: 24px;
+  font-size: 12px;
+  line-height: 20px;
 }
 .pay-order-detail-box .use-method {
   padding: 10px 10px 15px;

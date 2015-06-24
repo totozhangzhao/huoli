@@ -91,7 +91,8 @@ var AppView = Backbone.View.extend({
 
     widget.createNewView({
       url: "/fe/app/client/mall/html/detail-page/order-detail.html" +
-        "?orderid=" + $cur.data("id"),
+        "?orderid=" + $cur.data("id") +
+        "&from=order-list-page",
       title: "订单详情"
     });
   }

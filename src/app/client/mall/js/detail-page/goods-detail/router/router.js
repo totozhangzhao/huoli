@@ -54,7 +54,7 @@ module.exports = Backbone.Router.extend({
     }
   },
   switchTo: function(panelId) {
-    this.navigate("#/" + panelId, {
+    this.navigate(panelId, {
       trigger: true
     });
   }
