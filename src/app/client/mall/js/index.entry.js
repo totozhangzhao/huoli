@@ -170,7 +170,7 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      var goodsTpl = require("app/client/mall/tpl/mainGoodsList.tpl");
+      var goodsTpl = require("app/client/mall/tpl/main-goods-list.tpl");
 
       // stateicon 的具体种类
       //
