@@ -2,7 +2,6 @@ var $          = require("jquery");
 var Backbone   = require("backbone");
 var _          = require("lodash");
 var async      = require("async");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var requestAPI = require("app/client/mall/js/lib/request.js");
 var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var Swipe      = require("com/mobile/lib/swipe/swipe.js");
@@ -34,11 +33,6 @@ var AppView = Backbone.View.extend({
       window.location.href = mallUitl.getUpgradeUrl();
       return;
     }
-
-
-    NativeAPI.invoke("updateTitle", {
-      text: "积分商城"
-    });
 
     this.initBanner();
     this.mallMainProductList();
@@ -128,9 +122,13 @@ var AppView = Backbone.View.extend({
       //   "pprice": 1000,
       //   "img": ""
       // }]
-      $("#goods-block").html(goodsTpl({
-        goodsList: result
-      }));
+      $("#goods-block")
+        .find(".js-goods")
+        .html(goodsTpl({
+          goodsList: result
+        }))
+        .end()
+        .show();
 
       self.loadImage();
       // self.pageScroll();
@@ -242,23 +240,42 @@ var AppView = Backbone.View.extend({
     });
   },
   initBanner: function() {
-    var $SwipeBox = $("#top-banner .js-banner-box");
-    var $index    = $("#top-banner .js-banner-index");
+    async.waterfall([
+      function(next) {
+        sendPost("getBanners", null, function(err, data) {
+          next(err, data);
+        });        
+      }
+    ], function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
 
-    new Swipe($SwipeBox.get(0), {
-      startSlide: 0,
-      speed: 400,
-      auto: 3000,
-      continuous: true,
-      disableScroll: false,
-      stopPropagation: false,
-      callback: function(index) {
-        $index
-          .removeClass("active")
-            .eq(index)
-            .addClass("active");
-      },
-      transitionEnd: function() {}
+      var bannerTpl = require("app/client/mall/tpl/main-banner.tpl");
+
+      $("#top-banner").html(bannerTpl({
+        bannerList: result
+      }));
+
+      var $SwipeBox = $("#top-banner .js-banner-box");
+      var $index    = $("#top-banner .js-banner-index");
+
+      new Swipe($SwipeBox.get(0), {
+        startSlide: 0,
+        speed: 400,
+        auto: 3000,
+        continuous: true,
+        disableScroll: false,
+        stopPropagation: false,
+        callback: function(index) {
+          $index
+            .removeClass("active")
+              .eq(index)
+              .addClass("active");
+        },
+        transitionEnd: function() {}
+      });
     });
   },
   fixTpl: function() {

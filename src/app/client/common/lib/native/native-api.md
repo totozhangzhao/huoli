@@ -134,11 +134,22 @@ __method__
 
 __params__
 
-* `url` String url有可能是相对的,如果是相对路径的话就根据当前webView的url进⾏计算
-* `control` Object 可选 包含一个控件的配置。例如显⽰搜索框: control: { type: "searchBox", text: "关键字", placeholder: "搜索" }
-* `controls` Array controls是一个数组, 包含若干个control配置
+* `url` String url有可能是相对的,如果是相对路径的话就根据当前 webView 的 url 进⾏计算
+* `controls` Array controls是一个数组，元素中 `type: title` 表示要设置的是标题，`text: "Native Page 2"` 为具体文本。
 注意:
-control和controls两个都是可选的. 当两个字段同时出现时 controls 覆盖 control。
+controls 为可选参数
+
+```JavaScript
+NativeAPI.invoke("createWebView", {
+  url: window.location.origin + "xxx",
+  controls: [
+    {
+      type: "title",
+      text: "Native Page 2"
+    }
+  ]
+});
+```
 
 
 ### back
@@ -300,7 +311,7 @@ __params__
 
 ### clearAppCache
 
-* 描述：清除设备内遗留的app cache
+* 描述：清除设备内遗留的 [application cache](http://www.html5rocks.com/zh/tutorials/appcache/beginner/)
 
 JS -> Native: {method: "clearAppCache", params: null }
 

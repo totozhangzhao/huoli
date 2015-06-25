@@ -3,6 +3,9 @@ var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var echo      = require("app/client/test/common/native/util.js").echo;
 var storage   = require("app/client/test/common/native/storage.js");
 var $         = require("jquery");
+var _         = require("lodash");
+
+window.nInvoke = _.bind(NativeAPI.invoke, NativeAPI);
 
 var AppView = Backbone.View.extend({
   el: "body",
