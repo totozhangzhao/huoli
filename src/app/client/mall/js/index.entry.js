@@ -35,11 +35,13 @@ var AppView = Backbone.View.extend({
       return;
     }
 
-    this.initBanner();
 
     NativeAPI.invoke("updateTitle", {
       text: "积分商城"
     });
+
+    this.initBanner();
+    this.mallMainProductList();
 
     async.waterfall([
       function(next) {
@@ -68,7 +70,7 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      self.mallMainProductList(result);
+      self.mallGetUserInfo({ userData: result });
     });
   },
   getVersion: function(versionInfo) {
@@ -84,74 +86,12 @@ var AppView = Backbone.View.extend({
     var numStr = versionInfo.split(",")[4];
     return parseFloat(numStr);
   },
-  mallGetUserInfo: function(options) {
-    async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
-          if (err) {
-            next(err);
-            return;
-          }
-
-          next(null, userData);
-        }, options || {});
-      },
-      function(userData, next) {
-        storage.get("mallInfo", function(data) {
-          data = Util.isObject(data) ? data : {};
-          next(null, userData, data);
-        });
-      },
-      function(userData, data, next) {
-        if (userData.userInfo.authcode) {
-          data.isLogin = true;
-          storage.set("mallInfo", data, function() {
-            next(null, userData);
-          });
-        } else {
-          data.isLogin = false;
-          storage.set("mallInfo", data, function() {});
-          return;
-        }
-      },
-      function(userData, next) {
-        var params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p
-        });
-
-        sendPost("getUserInfo", params, function(err, data) {
-          if (err) {
-            next(err);
-            return;
-          }
-
-          next(null, data);
-        });
-      }
-    ], function(err, result) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      var points = result.points;
-
-      $("#index-points-bar")
-        .show()
-        .find(".js-points")
-          .text(points);
-    });
-  },
-  mallMainProductList: function(userData) {
+  mallMainProductList: function() {
     var self = this;
 
     async.waterfall([
       function(next) {
-        var params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p
-        });
-
-        sendPost("mainProductList", params, function(err, data) {
+        sendPost("mainProductList", null, function(err, data) {
           next(err, data);
         });        
       }
@@ -193,8 +133,69 @@ var AppView = Backbone.View.extend({
       }));
 
       self.loadImage();
-      self.mallGetUserInfo();
       // self.pageScroll();
+    });
+  },
+  mallGetUserInfo: function(options) {
+    async.waterfall([
+      function(next) {
+        if (options.userData) {
+          next(null, options.userData);
+        } else {
+          appInfo.getUserData(function(err, userData) {
+            if (err) {
+              next(err);
+              return;
+            }
+
+            next(null, userData);
+          }, options || {});          
+        }
+      },
+      function(userData, next) {
+        storage.get("mallInfo", function(data) {
+          data = Util.isObject(data) ? data : {};
+          next(null, userData, data);
+        });
+      },
+      function(userData, data, next) {
+        if (userData.userInfo.authcode) {
+          data.loginOnIndex = true;
+          storage.set("mallInfo", data, function() {
+            next(null, userData);
+          });
+        } else {
+          data.loginOnIndex = false;
+          storage.set("mallInfo", data, function() {});
+          return;
+        }
+      },
+      function(userData, next) {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p
+        });
+
+        sendPost("getUserInfo", params, function(err, data) {
+          if (err) {
+            next(err);
+            return;
+          }
+
+          next(null, data);
+        });
+      }
+    ], function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      var points = result.points;
+
+      $("#index-points-bar")
+        .show()
+        .find(".js-points")
+          .text(points);
     });
   },
   // pageScroll: function() {

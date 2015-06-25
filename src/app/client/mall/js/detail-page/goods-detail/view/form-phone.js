@@ -8,6 +8,7 @@ var toast      = require("com/mobile/widget/toast/toast.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
+var pageAction = require("app/client/mall/js/lib/page-action.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -270,11 +271,12 @@ var AppView = Backbone.View.extend({
   },
   init: function(options) {
     if (options.previousView !== "goods-detail") {
-      NativeAPI.invoke("back");
+      NativeAPI.invoke("close");
       return;
     }
     this.updateNativeView("现金券兑换");
     this.renderMainPanel();
+    pageAction.setClose();
   }
 });
 

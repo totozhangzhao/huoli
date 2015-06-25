@@ -1,3 +1,4 @@
+// Modified
 /*! echo.js v1.7.0 | (c) 2015 @toddmotto | https://github.com/toddmotto/echo */
 (function (root, factory) {
   module.exports = factory(root);

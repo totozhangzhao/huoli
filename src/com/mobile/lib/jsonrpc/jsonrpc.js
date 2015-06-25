@@ -1,3 +1,5 @@
+// Modified
+// 
 // **Github:** https://github.com/teambition/jsonrpc-lite
 //
 // http://www.jsonrpc.org/specification
@@ -280,7 +282,7 @@
   }
 
   function checkParams(params) {
-    if (params === void 0) return null;
+    if (params === null || params === void 0) return null;
     if (isArray(params) || isObject(params)) {
       // ensure params can be stringify.
       try {
