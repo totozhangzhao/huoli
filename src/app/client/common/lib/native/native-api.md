@@ -123,6 +123,15 @@ __method__
 * `close`
 
 
+### closeAll
+
+* 描述：关闭所有 WebView。
+
+__method__
+
+* `closeAll`
+
+
 ### createWebView
 
 * 描述：根据提供的 URL 打开一个新的WebView，顶栏默认有一个返回按钮。createWebView 根据参数决定是否显⽰搜索框等。

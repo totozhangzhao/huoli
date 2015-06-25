@@ -1,0 +1,18 @@
+button {
+  display: block;
+  width: 256px;
+  height: 40px;
+  margin: 0 auto 6px auto;
+  font-size: 12px;
+}
+.board {
+  background-color: #000000;
+}
+#echo {
+  color: #CFCFCF;
+  box-sizing: border-box;
+  padding: 10px;
+  word-wrap: break-word;
+  min-height: 100px;
+  font-size: 14px;
+}

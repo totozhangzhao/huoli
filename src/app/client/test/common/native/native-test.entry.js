@@ -41,6 +41,10 @@ var AppView = Backbone.View.extend({
       echo("JavaScript loginCompleted");
     });
 
+    NativeAPI.registerHandler("resume", function() {
+      echo("JavaScript resume");
+    });
+
     $(window).on("hashchange", function() {
       echo("index page: " + window.location.hash);
     });

@@ -8,26 +8,15 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection"content="telephone=no">
   <title>NativeAPI Test B</title>
-  <style>
-    button {
-      display: block;
-      width: 256px;
-      height: 40px;
-      margin: 0 auto 6px auto;
-      font-size: 12px;
-    }
-    #echo {
-      word-wrap: break-word;
-      min-height: 100px;
-      font-size: 14px;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/test/common/native/style/common.css">
 </head>
 <body>
+  <div class="board">
+    <p id="echo">nInvoke("myFunc", {a: 1}, function(err, data) { console.log(err); console.log(data); });</p>
+  </div>
   <button class="js-js-back">JavaScript back</button>
   <button class="js-storage-set">Native storage set</button>
   <button class="js-storage-get">Native storage get</button>
-  <p id="echo"></p>
   <script src="/fe/vendor/vendor-mvc.bundle.js"></script>
   <script src="native-test2.bundle.js"></script>
 </body>
