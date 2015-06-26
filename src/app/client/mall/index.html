@@ -12,12 +12,19 @@
   <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
 </head>
 <body>
-  <section id="main" class="info-box">
-    <!--
-    <div class="pull-down">
-      <img src="/fe/pull-down.gif" alt=""><span class="pull-down-text">下拉刷新</span>
-    </div>
-    -->
+<div id="index-wrapper">
+  <section id="main" class="info-box">    
+    <section id="pull-down" data-pull-down-offset="55">
+      <img data-echo="http://cdn.rsscc.cn/guanggao/img/mall/pull-to-refresh.gif" src="/fe/com/mobile/image/grey.gif" alt="">
+      <div class="text-block">
+        <p class="line-one">想要什么 马上兑换</p>
+        <p class="line-two" 
+          data-init-text="下拉更新..." 
+          data-loading-text="更新中..."
+          data-exec-text="松手更新..."
+        >松手更新...</p>
+      </div>
+    </section>
     <div id="index-points-bar" class="tit-bar clearfix" style="display: none;">
       <div class="info-record-bar fr">
         <a data-title="积分兑换记录" class="js-new-page fl" href="html/list-page/exchange-record.html"><span class="record-icon"></span>兑换记录</a>
@@ -57,6 +64,7 @@
 
     <!-- 灰色半透明背景end -->
   </section>
+</div>
 
 <script src="/fe/vendor/vendor-mvc.bundle.js"></script>
 <script src="/fe/app/client/mall/js/index.bundle.js"></script>

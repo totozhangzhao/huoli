@@ -17,7 +17,7 @@ var AppView = Backbone.View.extend({
     "click .js-native-back"     : "doNativeBack",
     "click .js-selectContact"   : "selectContact",
     "click .js-setOrientation"  : "setOrientation",
-    "click .js-native-close"    : "doNativeClose",
+    "click .js-close"    : "doNativeClose",
     "click .js-native-back-text": "doNativeBackText",
     "click .js-createWebView"   : "newPage",
     "click .js-hashchange-page" : "newPageHash",

@@ -3,6 +3,7 @@ var Backbone   = require("backbone");
 var _          = require("lodash");
 var async      = require("async");
 var requestAPI = require("app/client/mall/js/lib/request.js");
+var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var Swipe      = require("com/mobile/lib/swipe/swipe.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
@@ -12,7 +13,7 @@ var storage    = require("app/client/mall/js/lib/storage.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var echo       = require("com/mobile/lib/echo/echo.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
-// var IScroll    = require("com/mobile/lib/iscroll/iscroll.js");
+var IScroll    = require("com/mobile/lib/iscroll/iscroll-probe.js");
 
 // method, params, callback
 var sendPost = requestAPI.createSendPost({
@@ -33,6 +34,9 @@ var AppView = Backbone.View.extend({
       window.location.href = mallUitl.getUpgradeUrl();
       return;
     }
+
+    this.mainScroller;
+    this.$el.$pionts = $("#index-points-bar");
 
     this.initBanner();
     this.mallMainProductList();
@@ -65,6 +69,70 @@ var AppView = Backbone.View.extend({
       }
 
       self.mallGetUserInfo({ userData: result });
+    });
+  },
+  mallCheckin: function() {
+    var self = this;
+    var doCheckin = function() {
+      async.waterfall([
+        function(next) {
+          appInfo.getUserData(function(err, userData) {
+            if (err) {
+              next(err);
+              return;
+            }
+
+            next(null, userData);
+          });
+        },
+        function(userData, next) {
+          var params = _.extend({}, userData.userInfo, {
+            p: userData.deviceInfo.p
+          });
+
+          sendPost("checkin", params, function(err, data) {
+            if (err) {
+              next(err);
+              return;
+            }
+
+            next(null, data);
+          });
+        }
+      ], function(err, result) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
+
+        toast(result.msg, 1500);
+
+        self.$el.$pionts
+          .show()
+          .find(".js-points")
+            .text(result.point)
+            .addClass("animaion-blink");
+
+        setTimeout(function() {
+          self.$el.$pionts
+            .find(".js-points")
+            .removeClass("animaion-blink");
+        }, 2000);
+      });
+    };
+
+    NativeAPI.invoke("updateHeaderRightBtn", {
+      action: "show",
+      text: "签到"
+    }, function(err) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+    });
+
+    NativeAPI.registerHandler("headerRightBtnClick", function() {
+      doCheckin();
     });
   },
   getVersion: function(versionInfo) {
@@ -131,10 +199,12 @@ var AppView = Backbone.View.extend({
         .show();
 
       self.loadImage();
-      // self.pageScroll();
+      self.pageScroll();
     });
   },
   mallGetUserInfo: function(options) {
+    var self = this;
+    
     async.waterfall([
       function(next) {
         if (options.userData) {
@@ -187,49 +257,74 @@ var AppView = Backbone.View.extend({
         toast(err.message, 1500);
         return;
       }
-
       var points = result.points;
 
       $("#index-points-bar")
         .show()
         .find(".js-points")
           .text(points);
+      
+      self.pageScroll();
+      // self.mallCheckin();
     });
   },
-  // pageScroll: function() {
-  //   var scrollElem = new IScroll("#index-wrapper", {
-  //     click: true
-  //   });
+  pageScroll: function() {
+    if (this.mainScroller) {
+      this.mainScroller.refresh();
+    } else {
+      this.initScroll();
+    }
+  },
+  initScroll: function() {
+    var scroller = this.mainScroller = new IScroll("#index-wrapper", {
+      useTransition: false,
+      probeType: 2,
+      click: true
+    });
     
-  //   var yStartFromZero = false;
+    var $pullDownEl = $("#pull-down");
+    var pullDownOffset = $pullDownEl.data("pullDownOffset");
+    var $text = $pullDownEl.find(".line-two");
+    var textObj = $text.data();
+    var yStartFromZero = false;
+    var pullActionFlag = false;
 
-  //   var pullDownEl = $(".pull-down")[0];
+    scroller.on("scrollStart", function() {
+      if (scroller.y === 0) {
+        $text.text(textObj.initText);
+        yStartFromZero = true;
+      }
+    });
 
-  //   scrollElem.on("scrollStart", function() {
-  //     pullDownEl.querySelector(".pull-down-text").innerHTML = "下拉刷新...";
-  //     if (scrollElem.y === 0) {
-  //       yStartFromZero = true;
-  //     }
-  //     setTimeout(function() {
-  //       pullDownEl.querySelector(".pull-down-text").innerHTML = "松手即可刷新...";
-  //     }, 600);
-  //   });
+    scroller.on("scroll", function() {
+      if (this.y > pullDownOffset) {
+        $text.text(textObj.execText);
+        pullActionFlag = true;
+        $pullDownEl.addClass("loading");
+      } else {
+        $text.text(textObj.initText);
+        pullActionFlag = false;
+        $pullDownEl.removeClass("loading");
+      }
+    });
 
-  //   scrollElem.on("scroll", function() {
-  //     console.log("scroll");
-  //   });
+    scroller.on("scrollEnd", function() {
+      if (yStartFromZero && pullActionFlag) {
+        scroller._execEvent("pullToRefresh");
+        $text.text(textObj.loadingText);
+      } else {
+        $text.text(textObj.initText);
+        yStartFromZero = false;
+      }
+      this.refresh();
+    });
 
-  //   scrollElem.on("scrollEnd", function() {
-  //     if (yStartFromZero && scrollElem.directionY === -1) {
-  //       scrollElem._execEvent("pullToRefresh");
-  //     }
-  //     yStartFromZero = false;
-  //   });
-
-  //   scrollElem.on("pullToRefresh", function() {
-  //     window.location.reload();
-  //   });
-  // },
+    scroller.on("pullToRefresh", function() {
+      setTimeout(function() {
+        window.location.reload();
+      }, 1000);
+    });
+  },
   loadImage: function() {
     echo.init({
       offset: 250,

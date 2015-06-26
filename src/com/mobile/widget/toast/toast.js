@@ -15,10 +15,10 @@ module.exports = (function() {
       }, timeout);
     }
 
-    // $("body").append($tip);
-
     return {
       setMessage: function(message, timeout) {
+        timeout = (timeout !== void 0) ? timeout : 1500;
+
         $tip.html("<span>" + message + "</span>");
         if (timeout) {
           clearTimeout(hideTipTimer);
