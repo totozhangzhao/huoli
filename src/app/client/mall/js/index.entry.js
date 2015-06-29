@@ -2,7 +2,6 @@ var $          = require("jquery");
 var Backbone   = require("backbone");
 var _          = require("lodash");
 var async      = require("async");
-var requestAPI = require("app/client/mall/js/lib/request.js");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var Swipe      = require("com/mobile/lib/swipe/swipe.js");
@@ -14,11 +13,7 @@ var widget     = require("app/client/mall/js/lib/widget.js");
 var echo       = require("com/mobile/lib/echo/echo.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
 var IScroll    = require("com/mobile/lib/iscroll/iscroll-probe.js");
-
-// method, params, callback
-var sendPost = requestAPI.createSendPost({
-  url: "/bmall/rest/"
-});
+var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 
 var AppView = Backbone.View.extend({
   el: "#main",
@@ -275,12 +270,25 @@ var AppView = Backbone.View.extend({
       this.initScroll();
     }
   },
-  initScroll: function() {
-    var scroller = this.mainScroller = new IScroll("#index-wrapper", {
+  getIScrollConfig: function() {
+    var config = {
       useTransition: false,
       probeType: 2,
       click: true
-    });
+    };
+
+    var ua = window.navigator.userAgent;
+
+    // Click event fires twice on some Android Device
+    if ( /Huawei/.test(ua) && /Android 4/.test(ua) ) {
+      config.click = false;
+      config.tap = true;
+    }
+
+    return config;
+  },
+  initScroll: function() {
+    var scroller = this.mainScroller = new IScroll("#index-wrapper", this.getIScrollConfig());
     
     var $pullDownEl = $("#pull-down");
     var pullDownOffset = $pullDownEl.data("pullDownOffset");

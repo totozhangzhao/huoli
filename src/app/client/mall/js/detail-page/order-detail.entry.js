@@ -3,17 +3,12 @@ var _          = require("lodash");
 var Backbone   = require("backbone");
 var async      = require("async");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-var requestAPI = require("app/client/mall/js/lib/request.js");
+var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var toast      = require("com/mobile/widget/toast/toast.js");
 var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var Util       = require("com/mobile/lib/util/util.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
-
-// method, params, callback
-var sendPost = requestAPI.createSendPost({
-  url: "/bmall/rest/"
-});
 
 var AppView = Backbone.View.extend({
   el: "#order-detail-container",

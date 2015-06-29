@@ -3,11 +3,8 @@
 // Thanks to:
 //  - http://www.nczonline.net/blog/2009/05/05/http-cookies-explained/
 //  - http://developer.yahoo.com/yui/3/cookie/
-var Cookie = exports;
-
 var decode = decodeURIComponent;
 var encode = encodeURIComponent;
-
 
 /**
  * Returns the cookie value for the given name.
@@ -25,7 +22,7 @@ var encode = encodeURIComponent;
  *     if the cookie doesn't exist. If the converter is specified, returns
  *     the value returned from the converter.
  */
-Cookie.get = function(name, options) {
+exports.get = function(name, options) {
   validateCookieName(name);
 
   if (typeof options === 'function') {
@@ -56,7 +53,7 @@ Cookie.get = function(name, options) {
  *
  * @return {string} The created cookie string.
  */
-Cookie.set = function(name, value, options) {
+exports.set = function(name, value, options) {
   validateCookieName(name);
 
   options = options || {};
@@ -112,7 +109,7 @@ Cookie.set = function(name, value, options) {
  *
  * @return {string} The created cookie string.
  */
-Cookie.remove = function(name, options) {
+exports.remove = function(name, options) {
   options = options || {};
   options.expires = new Date(0);
   return this.set(name, '', options);
