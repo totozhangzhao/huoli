@@ -52,6 +52,13 @@ exports.getUserData = (function() {
           });
         },
         function(deviceInfo, next) {
+
+          // 兼容 pro 版本
+          if ( /pro/.test(deviceInfo.name) ) {
+            deviceInfo.__name = deviceInfo.name;
+            deviceInfo.name = deviceInfo.name.repalce(/pro/, "");
+          }
+
           var params = {
             appName: deviceInfo.name
           };

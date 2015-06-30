@@ -70,6 +70,7 @@ var AppView = Backbone.View.extend({
       
       $orderList.html( compiled(tmplData) );
       self.loadImage();
+      self.setUpdatePage();
     });
   },
   loadImage: function() {
@@ -79,6 +80,11 @@ var AppView = Backbone.View.extend({
       unload: false,
       delayIndex: 4,
       callback: function() {}
+    });
+  },
+  setUpdatePage: function() {
+    NativeAPI.registerHandler("resume", function() {
+      window.location.reload();
     });
   },
   gotoOrderDetail: function(e) {

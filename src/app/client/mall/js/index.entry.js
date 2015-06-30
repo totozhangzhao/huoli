@@ -148,7 +148,7 @@ var AppView = Backbone.View.extend({
 
     async.waterfall([
       function(next) {
-        sendPost("mainProductList", null, function(err, data) {
+        sendPost("newProductMain", null, function(err, data) {
           next(err, data);
         });        
       }
@@ -162,35 +162,10 @@ var AppView = Backbone.View.extend({
 
       var goodsTpl = require("app/client/mall/tpl/main-goods-list.tpl");
 
-      // stateicon 的具体种类
-      //
-      // 新用户 "new-user"
-      // 老用户 "old-user"
-      // 抢兑 "state-grab"
-      // 月卡 "month-card"
-      // 季卡 "quarter-card"
-      //
-      // [{
-      //   "productid": "1000010",
-      //   "title": "伙力",
-      //   "detail": "吃货的创意旅行，约吗？",
-      //   "stateicon": "state-grab",
-      //   "pprice": 0,
-      //   "img": ""
-      // }, {
-      //   "productid": "1000010",
-      //   "title": "高铁红包",
-      //   "detail": "我带红包去旅行",
-      //   "stateicon": "old-user",
-      //   "pprice": 1000,
-      //   "img": ""
-      // }]
       $("#goods-block")
-        .find(".js-goods")
         .html(goodsTpl({
           goodsList: result
         }))
-        .end()
         .show();
 
       self.loadImage();
@@ -260,7 +235,7 @@ var AppView = Backbone.View.extend({
           .text(points);
       
       self.pageScroll();
-      // self.mallCheckin();
+      self.mallCheckin();
     });
   },
   pageScroll: function() {

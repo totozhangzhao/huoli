@@ -9,11 +9,11 @@
   <meta name="format-detection"content="telephone=no">
   <title>积分商城</title>
   <link rel="stylesheet" type="text/css" href="/fe/app/client/common/style/global.css">
-  <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/home-page.css">
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
 </head>
 <body>
 <div id="index-wrapper">
-  <section id="main" class="home-page-box">    
+  <section id="main" class="info-box">    
     <section id="pull-down" data-pull-down-offset="55">
       <img data-echo="http://cdn.rsscc.cn/guanggao/img/mall/pull-to-refresh.gif" src="/fe/com/mobile/image/grey.gif" alt="">
       <div class="text-block">
@@ -25,20 +25,44 @@
         >松手更新...</p>
       </div>
     </section>
+    <div id="index-points-bar" class="tit-bar clearfix" style="display: none;">
+      <div class="info-record-bar fr">
+        <a data-title="积分兑换记录" class="js-new-page fl" href="html/list-page/exchange-record.html"><span class="record-icon"></span>兑换记录</a>
+      </div>
+      <p class="cur-bar fl">当前积分：<span class="js-points num-color">--</span></p>
+    </div>
     <section id="top-banner" class="banner">
       <!-- // -->
     </section>
-    <nav id="index-points-bar" class="home-nav border-b clearfix" style="display: none;">
-      <a data-title="积分兑换记录" class="js-new-page home-record-btn fr" href="html/list-page/exchange-record.html">兑换纪录</a>
-      <p class="fl">当前积分：<span class="js-points orange-color num-font">--</span></p>
-    </nav>
-    <div id="goods-block" class="home-goods-bar" style="display: none;">
-      <!-- // -->
+    <div id="goods-block" class="goods-bar" style="display: none;">
+      <h5 class="goods-h"><span class="hot-icon"></span>热门兑换</h5>
+      <ul class="js-goods goods-area clearfix">
+        <!-- // -->
+      </ul>
     </div>
 
     <div id="copyright" class="copyright-block">
       <!-- // -->
     </div>
+
+    <!-- 弹窗start -->
+
+    <div class="js-login-prompt login-flip-box">
+      <h5 class="login-flip-h">提&nbsp;&nbsp;&nbsp;示</h5>
+      <p class="login-flip-text">您尚未登录，这会影响积分兑换及使用哦，即刻登录优惠尽享！</p>
+      <div class="login-btn-box">
+        <a class="js-cancel login-no forbidden-color">逛逛再说</a>
+        <a class="js-confirm login-yes allow-color">即刻登录</a>
+      </div>
+    </div>
+
+    <!-- 弹窗end -->
+
+    <!-- 灰色半透明背景start -->
+
+    <div class="js-shade common-shadow"></div>
+
+    <!-- 灰色半透明背景end -->
   </section>
 </div>
 

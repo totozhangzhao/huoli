@@ -5,7 +5,7 @@ exports.echo = function(text) {
 
   $echo
     .css("opacity", 0)
-    .text(text);
+    .text(String(text));
 
   setTimeout(function() {
     $echo.css("opacity", 1);

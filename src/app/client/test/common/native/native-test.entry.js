@@ -1,12 +1,13 @@
-var $         = require("jquery");
-var _         = require("lodash");
-var Backbone  = require("backbone");
-var storage   = require("app/client/test/common/native/storage.js");
-var NativeAPI = require("app/client/common/lib/native/native-api.js");
+var $           = require("jquery");
+var _           = require("lodash");
+var Backbone    = require("backbone");
+var storage     = require("app/client/test/common/native/storage.js");
+var NativeAPI   = require("app/client/common/lib/native/native-api.js");
 var echo        = require("app/client/test/common/native/util.js").echo;
 var handleError = require("app/client/test/common/native/util.js").handleError;
 var loadScript  = require("com/mobile/lib/load-script/load-script.js");
 var shareUtil   = require("com/mobile/widget/wechat/util.js");
+var cookie      = require("com/mobile/lib/cookie/cookie.js");
 
 // nInvoke("myFunc", {a: 1}, function(err, data) { console.log(err); console.log(data); });
 window.nInvoke = _.bind(NativeAPI.invoke, NativeAPI);
@@ -14,10 +15,11 @@ window.nInvoke = _.bind(NativeAPI.invoke, NativeAPI);
 var AppView = Backbone.View.extend({
   el: "body",
   events: {
+    "click .js-appname-cookie"  : "showAppNameFromCookie",
     "click .js-native-back"     : "doNativeBack",
     "click .js-selectContact"   : "selectContact",
     "click .js-setOrientation"  : "setOrientation",
-    "click .js-close"    : "doNativeClose",
+    "click .js-close"           : "doNativeClose",
     "click .js-native-back-text": "doNativeBackText",
     "click .js-createWebView"   : "newPage",
     "click .js-hashchange-page" : "newPageHash",
@@ -29,6 +31,8 @@ var AppView = Backbone.View.extend({
     "click .js-storage-get"     : "getStorage",
     "click .js-getDeviceInfo"   : "getDeviceInfo",
     "click .js-getUserInfo"     : "getUserInfo",
+    "click .js-getHBUserInfo"   : "getHBUserInfo",
+    "click .js-getGTUserInfo"   : "getUsGTerInfo",
     "click .js-updateTitle"     : "updateTitle",
     "click .js-login"           : "login",
     "click .js-updateHeaderRightBtnText": "rightButtonText",
@@ -52,6 +56,9 @@ var AppView = Backbone.View.extend({
     if ( shareUtil.hasShareInfo() ) {
       loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
     }
+  },
+  showAppNameFromCookie: function() {
+    echo( cookie.get("appName") );
   },
   selectContact: function() {
     var params = {
@@ -266,7 +273,55 @@ var AppView = Backbone.View.extend({
     });
   },
   getUserInfo: function() {
-    NativeAPI.invoke("getUserInfo", null, function(err, data) {
+    var params = {
+      appName: "hbgj"
+    };
+
+    NativeAPI.invoke("getUserInfo", params, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      if (!data.authcode) {
+        NativeAPI.invoke("login", null, function(data) {
+          if (err) {
+            return handleError(err);
+          }
+
+          echo("login callback: " + JSON.stringify(data));
+        });
+      }
+      echo(JSON.stringify(data));
+    });
+  },
+  getHBUserInfo: function() {
+    var params = {
+      appName: "hbgj"
+    };
+
+    NativeAPI.invoke("getUserInfo", params, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      if (!data.authcode) {
+        NativeAPI.invoke("login", null, function(data) {
+          if (err) {
+            return handleError(err);
+          }
+
+          echo("login callback: " + JSON.stringify(data));
+        });
+      }
+      echo(JSON.stringify(data));
+    });
+  },
+  getGTUserInfo: function() {
+    var params = {
+      appName: "gtgj"
+    };
+
+    NativeAPI.invoke("getUserInfo", params, function(err, data) {
       if (err) {
         return handleError(err);
       }
