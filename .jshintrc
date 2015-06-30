@@ -21,7 +21,7 @@
   "plusplus": false,
   "undef": true,
   "strict": false,
-  "trailing": true,
+  "trailing": false,
   "unused": true,
   "asi": false,
   "boss": true,

@@ -114,79 +114,99 @@ img {
   background: #f3f3f3;
   padding-bottom: 211px;
 }
+.home-show-area {
+  padding-top: 3px;
+}
 .home-recommend,
 .home-limit,
 .home-hot {
   background: #fff;
-  margin-top: 6px;
+  margin-top: 3px;
   box-sizing: border-box;
 }
-.home-hot {
-  margin-top: 3px;
-}
-.home-recommend {
+.home-big-bar {
   width: 44%;
   height: 187px;
   position: relative;
 }
-.home-limit,
-.home-hot {
+.home-small-bar {
   width: 55%;
   height: 92px;
 }
-.home-recommend a {
-  position: relative;
-  height: 100%;
-  display: block;
+.home-common-tit {
+  height: 21px;
 }
-.home-recommend .home-pic-bar {
-  position: absolute;
-  left: 50%;
-  bottom: 9px;
-  margin-left: -50px;
-}
-.home-recommend-tit {
-  width: 80px;
+.home-common-tit-icon {
+  width: 20px;
   height: 20px;
+  margin-right: 5px;
+}
+.home-recommend .home-common-tit {
+  color: #4d9eeb;
+}
+.home-recommend .home-value-common .home-value-p {
+  background: #4d9eeb;
+} 
+.home-recommend .home-value-common .home-value-icon {
+  border-left: 10px solid #4d9eeb;
+} 
+.home-hot .home-value-common .home-value-p {
+  background: #ffbe46;
+} 
+.home-hot .home-value-common .home-value-icon {
+  border-left: 10px solid #ffbe46;
+} 
+.home-limit .home-value-common .home-value-p {
+  background: #ff6533;
+} 
+.home-limit .home-value-common .home-value-icon {
+  border-left: 10px solid #ff6533;
+} 
+.home-recommend .home-common-tit-icon {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -45px -87px;
   background-size: 312px 280px;
 }
-.home-hot-tit {
-  width: 82px;
-  height: 20px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -217px -87px;
+.home-hot .home-common-tit {
+  color: #ffbe46;
+}
+.home-hot .home-common-tit-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -99px -85px;
   background-size: 312px 280px;
 }
-.home-limit-tit {
-  width: 80px;
-  height: 20px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -130px -87px;
+.home-limit .home-common-tit {
+  color: #ff6533;
+}
+.home-limit .home-common-tit-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -71px -87px;
   background-size: 312px 280px;
+}
+.home-recommend a,
+.home-hot a,
+.home-limit a {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.home-big-pic-bar {
+  position: absolute;
+  left: 50%;
+  bottom: 9px;
+  margin-left: -60px;
 }
 .home-show-text-bar {
   width: 70%;
-  padding-top: 6px;
+  padding-top: 4px;
   padding-left: 10px;
 }
 .home-show-pic-bar {
   width: 45%;
-  margin-top: 20px;
-}
-.home-show-pic-bar .home-goods-pic {
-  width: 78px;
-} 
-.home-hot .home-goods-pic,
-.home-limit .home-goods-pic {
   position: absolute;
   right: 6%;
   bottom: 15px;
 }
-.home-hot a,
-.home-limit a {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: block;
+.home-small-goods-pic{
+  width: 78px;
 }
 .home-goods-dt {
   margin: 10px 0;
@@ -227,14 +247,19 @@ img {
   font-size: 12px;
   color: #999;
   line-height: 16px;
-  margin-bottom: 4px;
 }
-.home-recommend .home-pic-detail {
+.home-big-pic-detail {
+  width: 95%;
+  font-size: 12px;
+  color: #999;
+  line-height: 16px;
   margin: 4px 0 5px 0;
 }
-.home-limit .home-pic-detail,
-.home-hot .home-pic-detail {
+.home-small-pic-detail {
   width: 60%;
+  font-size: 12px;
+  color: #999;
+  line-height: 16px;
   margin: 4px 0 5px 0;
   max-height: 32px;
   overflow: hidden;
@@ -258,7 +283,7 @@ img {
   height: 16px;
 }
 .home-value-money .home-value-p {
-  background: #88c4f0;
+  background: #4d9eeb;
 }
 .home-value-end .home-value-p {
   background: #ccc;
@@ -271,13 +296,14 @@ img {
 }
 .home-value-icon {
   border: 8px dashed transparent;
+  border-left: 10px dashed transparent;
   position: relative;
 }
 .home-value-icon:after {
   display: block;
   content: '';
   position: absolute;
-  left: -8px; 
+  left: -10px; 
   top: -2px;
   width: 3px;
   height: 3px;
@@ -285,22 +311,26 @@ img {
   border-radius: 50%;
 } 
 .home-value-point-money .home-value-icon {
-  border-left: 8px solid #ff6533;
+  border-left: 10px solid #ff6533;
 }
 .home-value-money .home-value-icon {
-  border-left: 8px solid #88c4f0;
+  border-left: 10px solid #4d9eeb;
 }
 .home-value-point .home-value-icon {
-  border-left: 8px solid #ffbe46;
+  border-left: 10px solid #ffbe46;
 }
 .home-value-end .home-value-icon {
-  border-left: 8px solid #ccc;
+  border-left: 10px solid #ccc;
 }
 .home-value {
   font-size: 10px;
 }
 .home-goods-pic {
   width: 100px;
+  margin: 0 auto;
+}
+.home-big-goods-pic {
+  width: 120px;
   margin: 0 auto;
 }
 .home-pic-bar {
@@ -506,7 +536,6 @@ img {
   border-radius: 2px;
 }
 
-
 /* widget - start */
 .bb-panel {
   display: none;
@@ -649,4 +678,3 @@ img {
   font-size: 12px;
 }
 /* pull to refresh - end   */
-
