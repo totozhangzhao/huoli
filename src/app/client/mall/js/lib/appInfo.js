@@ -56,7 +56,7 @@ exports.getUserData = (function() {
           // 兼容 pro 版本
           if ( /pro/.test(deviceInfo.name) ) {
             deviceInfo.__name = deviceInfo.name;
-            deviceInfo.name = deviceInfo.name.repalce(/pro/, "");
+            deviceInfo.name = deviceInfo.name.replace(/pro/, "");
           }
 
           var params = {

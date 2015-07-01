@@ -235,7 +235,15 @@ var AppView = Backbone.View.extend({
           .text(points);
       
       self.pageScroll();
-      self.mallCheckin();
+
+      // fix a bug on Android
+      if (Util.getMobileSystem() === "Android") {
+        setTimeout(function() {
+          self.mallCheckin();
+        }, 1500);
+      } else {
+       self.mallCheckin();
+      }
     });
   },
   pageScroll: function() {
@@ -251,14 +259,6 @@ var AppView = Backbone.View.extend({
       probeType: 2,
       click: true
     };
-
-    var ua = window.navigator.userAgent;
-
-    // Click event fires twice on some Android Device
-    if ( /Huawei/.test(ua) && /Android 4/.test(ua) ) {
-      config.click = false;
-      config.tap = true;
-    }
 
     return config;
   },
