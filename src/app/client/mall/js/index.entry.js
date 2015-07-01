@@ -33,9 +33,6 @@ var AppView = Backbone.View.extend({
     this.mainScroller;
     this.$el.$pionts = $("#index-points-bar");
 
-    this.initBanner();
-    this.mallMainProductList();
-
     async.waterfall([
       function(next) {
         appInfo.getUserData(function(err, userData) {
@@ -62,8 +59,10 @@ var AppView = Backbone.View.extend({
         toast(err.message, 1500);
         return;
       }
-
+      
+      self.initBanner();
       self.mallGetUserInfo({ userData: result });
+      self.mallMainProductList();
     });
   },
   mallCheckin: function() {
