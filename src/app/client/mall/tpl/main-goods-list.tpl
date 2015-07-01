@@ -19,7 +19,7 @@
               <b class="home-value-icon fl"></b>
             </div>
           </div>
-          <div class="home-pic-bar">
+          <div class="home-big-pic-bar">
             <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= item.img %>" class="home-big-goods-pic" >
           </div>
         </a>
