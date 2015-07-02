@@ -213,7 +213,7 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      if (!result.pionts) {
+      if (!result.points) {
         return;
       }
 

@@ -48,6 +48,7 @@ exports.getUserData = (function() {
     var reset = opitons.reset || false;
 
     if ( checkUserData(userDataStore) && !reset ) {
+      // window.alert("from closure - userid: " + userDataStore.userInfo.userid);
       callback(null, userDataStore);
       return;
     }
@@ -146,6 +147,7 @@ exports.getUserData = (function() {
           userDataStore.userInfo   = result.userInfo;
         }
 
+        // window.alert("from native api - userid: " + result.userInfo.userid);
         callback(null, result);
       });
     };
@@ -155,6 +157,7 @@ exports.getUserData = (function() {
         data = Util.isObject(data) ? data : {};
         if ( checkUserData(data) ) {
           userDataStore = data;
+          // window.alert("from storage - userid: " + data.userInfo.userid);
           callback(null, data);
         } else {
           getAppData();
