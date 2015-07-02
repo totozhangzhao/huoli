@@ -47,7 +47,7 @@ exports.getUserData = (function() {
 
     var reset = opitons.reset || false;
 
-    if ( (userDataStore.deviceInfo && userDataStore.userInfo) && !reset ) {
+    if ( checkUserData(userDataStore) && !reset ) {
       callback(null, userDataStore);
       return;
     }
@@ -153,7 +153,8 @@ exports.getUserData = (function() {
     if ( !reset ) {
       storage.get("userDataStore", function(data) {
         data = Util.isObject(data) ? data : {};
-        if (data.deviceInfo && data.userInfo) {
+        if ( checkUserData(data) ) {
+          userDataStore = data;
           callback(null, data);
         } else {
           getAppData();
