@@ -29,6 +29,19 @@ exports.getUserData = (function() {
   // memorization
   var userDataStore = {};
 
+  var checkUserData = function(userData) {
+    if (userData &&
+      userData.userInfo &&
+      userData.userInfo.uid &&
+      userData.userInfo.userid &&
+      userData.userInfo.authcode
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return function(callback, opitons) {
     opitons = opitons || {};
 
@@ -114,9 +127,13 @@ exports.getUserData = (function() {
           }
         },
         function(userData, next) {
-          storage.set("userDataStore", userData, function() {
+          if ( checkUserData(userData) ) {
+            storage.set("userDataStore", userData, function() {
+              next(null, userData);
+            });
+          } else {
             next(null, userData);
-          });
+          }
         }
       ], function(err, result) {
         if (err) {
@@ -124,9 +141,12 @@ exports.getUserData = (function() {
           return;
         }
 
-        userDataStore.deviceInfo = result.deviceInfo;
-        userDataStore.userInfo   = result.userInfo;
-        callback(null, userDataStore);
+        if ( checkUserData(result) ) {
+          userDataStore.deviceInfo = result.deviceInfo;
+          userDataStore.userInfo   = result.userInfo;
+        }
+
+        callback(null, result);
       });
     };
 

@@ -76,7 +76,9 @@ var AppView = Backbone.View.extend({
       text: "分享"
     }, function(err) {
       if (err) {
-        toast(err.message, 1500);
+
+        // 此页面有可能被分享出去，不能在外部(如微信)弹出 Internal error
+        window.console.log(err.message, 1500);
         return;
       }
     });
@@ -95,7 +97,7 @@ var AppView = Backbone.View.extend({
       imgUrl: shareInfo.imgUrl
     }, function(err) {
       if (err) {
-        toast(err.message, 1500);
+        window.console.log(err.message, 1500);
         return;
       }
     });

@@ -1161,6 +1161,46 @@ p {
 }
 /* pay-order-detail 2.0 end */
 
+.yunyue-box,
+.sign-secondary-box {
+  position: relative;
+}
+.yunyue-btn {
+  width: 76%;
+  height: 46px;
+  line-height: 46px;
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  margin-left: -38%;
+  font-size: 20px;
+  border-radius: 5px;
+  background: -moz-linear-gradient(top, #f39 0%, #f36 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f39), color-stop(100%,#f36));
+  background: -webkit-linear-gradient(top, #f39 0%,#f36 100%);
+  background: -o-linear-gradient(top, #f39 0%,#f36 100%);
+  background: -ms-linear-gradient(top, #f39 0%,#f36 100%);
+  background: linear-gradient(to bottom, #f39 0%,#f36 100%);
+  text-shadow: 0px 1px 3px  #fff;
+}
+.go-sign-btn {
+  width: 76%; 
+  height: 36px; 
+  line-height: 36px; 
+  font-size: 18px; 
+  color: #fff; 
+  background: #f33; 
+  margin: 20px auto; 
+  text-align: center; 
+  border-radius: 5px; 
+  position: absolute; 
+  left: 50%; 
+  bottom: 0; 
+  margin-left: -38%;
+}
+
 /* widget - start */
 .bb-panel {
   display: none;
