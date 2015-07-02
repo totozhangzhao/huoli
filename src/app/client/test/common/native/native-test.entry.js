@@ -35,6 +35,7 @@ var AppView = Backbone.View.extend({
     "click .js-getGTUserInfo"   : "getUsGTerInfo",
     "click .js-updateTitle"     : "updateTitle",
     "click .js-login"           : "login",
+    "click .js-getCurrentPosition"      : "getCurrentPosition",
     "click .js-updateHeaderRightBtnText": "rightButtonText",
     "click .js-updateHeaderRightBtnIcon": "rightButtonIcon"
   },
@@ -350,6 +351,15 @@ var AppView = Backbone.View.extend({
       }
 
       echo("login callback: " + JSON.stringify(data));
+    });
+  },
+  getCurrentPosition: function() {
+    NativeAPI.invoke("getCurrentPosition", null, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
     });
   }
 });
