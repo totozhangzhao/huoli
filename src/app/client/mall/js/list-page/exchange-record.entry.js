@@ -15,11 +15,22 @@ var AppView = Backbone.View.extend({
     "click .js-order-item": "gotoOrderDetail"
   },
   initialize: function() {
+    var self = this;
+
     NativeAPI.invoke("updateTitle", {
       text: "积分兑换记录"
     });
 
+    this.$el.$emptyHint = $("#empty-record-hint");
+    this.$el.$emptyHint
+      .on("click", function() {
+        self.refreshPage();
+      });
+
     this.mallOrderList();
+  },
+  refreshPage: function() {
+    window.location.reload();
   },
   mallOrderList: function() {
     var self = this;
@@ -59,7 +70,7 @@ var AppView = Backbone.View.extend({
 
       if (!Array.isArray(result) || result.length === 0) {
         $orderList.hide();
-        $("#empty-record-hint").show();
+        self.$el.$emptyHint.show();
         return;
       }
 
