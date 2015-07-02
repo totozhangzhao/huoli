@@ -9,6 +9,7 @@ var appInfo    = require("app/client/mall/js/lib/appInfo.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var Util       = require("com/mobile/lib/util/util.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
+var mallUitl   = require("app/client/mall/js/lib/util.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-detail-container",
@@ -46,6 +47,11 @@ var AppView = Backbone.View.extend({
 
     async.waterfall([
       function(next) {
+        var payUrl = window.location.origin + "/bmall/payview.do?orderid=" + orderDetail.orderid;
+
+        if ( mallUitl.isHangban() ) {
+          payUrl = window.location.origin + "/bmall/hbpayview.do?orderid=" + orderDetail.orderid;
+        }
 
         // orderid: 订单ID
         // createtime: 创建时间
@@ -78,7 +84,7 @@ var AppView = Backbone.View.extend({
             price: orderDetail.payprice,
             orderid: orderDetail.payorderid,
             productdesc: orderDetail.title,
-            url: window.location.origin + "/bmall/payview.do?orderid=" + orderDetail.orderid,
+            url: payUrl,
             subdesc: orderDetail.shotdesc
           };
 

@@ -18,6 +18,10 @@ NativeAPI 用于 JavaScript 与 Native Code 双向通信。
 [JSON-RPC 2.0](http://www.jsonrpc.org/specification)
 
 
+## 接口约定
+
+`params` 为 0、1、123 之类数字时，类型全部用 String（即使用 "0"、"1"、"123" 这样的字符串）。
+
 ## 由 Native 提供的方法
 
 
@@ -352,7 +356,7 @@ __method__
 
 __params__
 
-* `maxNum` Number 表示选择联系人的数量上限，默认为1（即单选），0 则表示不设上限。
+* `maxNum` String 表示选择联系人的数量上限，默认为1（即单选），0 则表示不设上限。
 
 __result__
 
@@ -525,7 +529,7 @@ __method__
 
 __params__
 
-* `show` Number 1 显示，0 隐藏
+* `show` String 1 显示，0 隐藏
 * `text` String 显示的文字
 
 __result__

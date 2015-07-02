@@ -62,7 +62,7 @@ var AppView = Backbone.View.extend({
   },
   selectContact: function() {
     var params = {
-      maxNum: 0
+      maxNum: "0"
     };
 
     echo(JSON.stringify(params));

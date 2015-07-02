@@ -235,13 +235,16 @@ var AppView = Backbone.View.extend({
       
       self.pageScroll();
 
-      // fix a bug on Android
-      if (Util.getMobileSystem() === "Android") {
-        setTimeout(function() {
-          self.mallCheckin();
-        }, 1500);
-      } else {
-       self.mallCheckin();
+      if ( !mallUitl.isHangban() ) {
+
+        // fix a bug on Android
+        if (Util.getMobileSystem() === "Android") {
+          setTimeout(function() {
+            self.mallCheckin();
+          }, 1500);
+        } else {
+         self.mallCheckin();
+        }
       }
     });
   },

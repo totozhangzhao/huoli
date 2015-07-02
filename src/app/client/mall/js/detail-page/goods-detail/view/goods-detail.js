@@ -253,6 +253,11 @@ var AppView = Backbone.View.extend({
     async.waterfall([
       function(next) {
         if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
+          var payUrl = window.location.origin + "/bmall/payview.do?orderid=" + orderInfo.orderid;
+
+          if ( mallUitl.isHangban() ) {
+            payUrl = window.location.origin + "/bmall/hbpayview.do?orderid=" + orderInfo.orderid;
+          }
 
           // quitpaymsg  String 退出时候的提示
           // title       String 支付标题
@@ -267,7 +272,7 @@ var AppView = Backbone.View.extend({
             price: productInfo.mprice,
             orderid: orderInfo.payorderid,
             productdesc: orderInfo.paydesc,
-            url: window.location.origin + "/bmall/payview.do?orderid=" + orderInfo.orderid,
+            url: payUrl,
             subdesc: orderInfo.paysubdesc
           };
 
