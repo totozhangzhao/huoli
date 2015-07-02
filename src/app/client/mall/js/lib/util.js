@@ -1,7 +1,7 @@
 var parseUrl = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var cookie   = require("com/mobile/lib/cookie/cookie.js");
 
-exports.getAppName = function() {
+exports.getAppName = (function() {
   var name = "gtgj";
 
   var urlName    = parseUrl().appName;
@@ -14,9 +14,11 @@ exports.getAppName = function() {
   if (cookieName) {
     name = cookieName;
   }
-
-  return name;
-};
+  
+  return function() {
+    return name;
+  };
+}());
 
 exports.isHangban = function() {
   var flag = /hbgj/i.test(exports.getAppName());

@@ -186,46 +186,37 @@ var AppView = Backbone.View.extend({
             }
 
             next(null, userData);
-          }, options || {});          
+          }, options || {});
         }
       },
       function(userData, next) {
-        storage.get("mallInfo", function(data) {
-          data = Util.isObject(data) ? data : {};
-          next(null, userData, data);
-        });
-      },
-      function(userData, data, next) {
-        if (userData.userInfo.authcode) {
-          data.loginOnIndex = true;
-          storage.set("mallInfo", data, function() {
-            next(null, userData);
+        if (userData.userInfo && userData.userInfo.userid) {
+          var params = _.extend({}, userData.userInfo, {
+            p: userData.deviceInfo.p
+          });
+
+          sendPost("getUserInfo", params, function(err, data) {
+            if (err) {
+              next(err);
+              return;
+            }
+
+            next(null, data);
           });
         } else {
-          data.loginOnIndex = false;
-          storage.set("mallInfo", data, function() {});
-          return;
+          next(null, {});
         }
-      },
-      function(userData, next) {
-        var params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p
-        });
-
-        sendPost("getUserInfo", params, function(err, data) {
-          if (err) {
-            next(err);
-            return;
-          }
-
-          next(null, data);
-        });
       }
     ], function(err, result) {
       if (err) {
         toast(err.message, 1500);
         return;
       }
+
+      if (!result.pionts) {
+        return;
+      }
+
       var points = result.points;
 
       $("#index-points-bar")
