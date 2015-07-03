@@ -592,7 +592,7 @@ Native -> JS: {method: "resume", params: {prevUrl: "a.html", nextUrl: "c.html"}}
 
 ## back
 
-* 描述：当 WebView 的顶栏上的返回按钮被点击，或 android 下⽤户点击系统⾃带返回按钮时，需要由 APP 调⽤ JS 的这个接⼝，根据 JS 返回的值来决定相关⾏为，如果该接⼝执⾏异常，则执⾏默认⾏为（关闭当前 WebView）。
+* 描述：当 WebView 的顶栏上的返回按钮被点击，或 android 下⽤户点击系统⾃带返回按钮时，需要由 APP 调⽤ JS 的这个接⼝，根据 JS 返回的值来决定相关⾏为，如果调用此接⼝返回 error，则执⾏默认⾏为（关闭当前 WebView）。
 
 __method__
 

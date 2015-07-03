@@ -1,3 +1,5 @@
+var cookie   = require("com/mobile/lib/cookie/cookie.js");
+
 (function(root, factory) {
   if (typeof exports === "object" && typeof module !== "undefined") {
     factory(root, exports);
@@ -137,6 +139,15 @@
       window.NativeAPI.sendToNative = function(message) {
         buffer.push(message);
       };
+
+
+      var appName = cookie.get("appName");
+
+      if ( /hbgj/i.test(appName) ) {
+        window.location.href = "openetjs://start?type=nativeapi";
+      } else if ( /gtgj/i.test(appName) ) {
+        window.location.href = "gtgj://start?type=nativeapi";
+      }
     })();
   }
 

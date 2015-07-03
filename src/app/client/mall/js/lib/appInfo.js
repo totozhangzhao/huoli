@@ -93,6 +93,7 @@ exports.getUserData = (function() {
               return;            
             }
 
+            data = Util.isObject(data) ? data : {};
             data.uid      = data.uid      || "";
             data.userid   = data.userid   || "";
             data.authcode = data.authcode || "";
@@ -121,6 +122,7 @@ exports.getUserData = (function() {
                 return;            
               }
 
+              data = Util.isObject(data) ? data : {};
               userData.userInfo.hbauthcode = data.authcode;
               userData.userInfo.hbuserid   = data.userid;
               next(null, userData);

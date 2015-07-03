@@ -213,11 +213,11 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      if (!result.points) {
+      var points = result.points;
+
+      if (points === "" || points === null || points === undefined) {
         return;
       }
-
-      var points = result.points;
 
       $("#index-points-bar")
         .show()
@@ -240,10 +240,12 @@ var AppView = Backbone.View.extend({
     });
   },
   pageScroll: function() {
-    if (this.mainScroller) {
-      this.mainScroller.refresh();
-    } else {
-      this.initScroll();
+    if (Util.getMobileSystem() === "iOS") {
+      if (this.mainScroller) {
+        this.mainScroller.refresh();
+      } else {
+        this.initScroll();
+      }
     }
   },
   getIScrollConfig: function() {
