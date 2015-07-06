@@ -27,6 +27,18 @@ NativeAPI 用于 JavaScript 与 Native Code 双向通信。
 
 ---------------------------------------
 
+## 使用 Scheme URL 注入 Native 部分
+
+```JavaScript
+if ( /hbgj/i.test(appName) ) {
+  window.location.href = "openetjs://start?type=nativeapi";
+} else if ( /gtgj/i.test(appName) ) {
+  window.location.href = "gtgj://start?type=nativeapi";
+}
+```
+
+---------------------------------------
+
 ## 由 Native 提供的方法
 
 

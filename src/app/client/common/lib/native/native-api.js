@@ -1,16 +1,15 @@
-var cookie   = require("com/mobile/lib/cookie/cookie.js");
-
 (function(root, factory) {
   if (typeof exports === "object" && typeof module !== "undefined") {
-    factory(root, exports);
+    var cookie = require("com/mobile/lib/cookie/cookie.js");
+    factory(root, exports, cookie);
   } else if (typeof define === "function" && define.amd) {
-    define("exports", function(exports) {
-      root.NBridge = factory(root, exports);
+    define(["com/mobile/lib/cookie/cookie.js", "exports"], function(cookie, exports) {
+      root.NBridge = factory(root, exports, cookie);
     });
   } else {
-    root.NBridge = factory(root, {});
+    root.NBridge = factory(root, {}, root.cookie);
   }
-}(this, function(root, NBridge) {
+}(this, function(root, NBridge, cookie) {
   var JSON_RPC_ERROR = {
     PARSE_ERROR: {
       code: -32700,
@@ -127,7 +126,7 @@ var cookie   = require("com/mobile/lib/cookie/cookie.js");
       var timer = setTimeout(function() {
         buffer.forEach(handleInternalError);
         window.NativeAPI.sendToNative = handleInternalError;
-      }, 3000);
+      }, 10000);
 
       document.addEventListener("WebViewJavascriptBridgeReady", function() {
         clearTimeout(timer);
@@ -140,13 +139,14 @@ var cookie   = require("com/mobile/lib/cookie/cookie.js");
         buffer.push(message);
       };
 
+      if (cookie) {
+        var appName = cookie.get("appName");
 
-      var appName = cookie.get("appName");
-
-      if ( /hbgj/i.test(appName) ) {
-        window.location.href = "openetjs://start?type=nativeapi";
-      } else if ( /gtgj/i.test(appName) ) {
-        window.location.href = "gtgj://start?type=nativeapi";
+        if ( /hbgj/i.test(appName) ) {
+          window.location.href = "openetjs://start?type=nativeapi";
+        } else if ( /gtgj/i.test(appName) ) {
+          window.location.href = "gtgj://start?type=nativeapi";
+        }
       }
     })();
   }

@@ -65,70 +65,6 @@ var AppView = Backbone.View.extend({
       self.mallMainProductList();
     });
   },
-  mallCheckin: function() {
-    var self = this;
-    var doCheckin = function() {
-      async.waterfall([
-        function(next) {
-          appInfo.getUserData(function(err, userData) {
-            if (err) {
-              next(err);
-              return;
-            }
-
-            next(null, userData);
-          });
-        },
-        function(userData, next) {
-          var params = _.extend({}, userData.userInfo, {
-            p: userData.deviceInfo.p
-          });
-
-          sendPost("checkin", params, function(err, data) {
-            if (err) {
-              next(err);
-              return;
-            }
-
-            next(null, data);
-          });
-        }
-      ], function(err, result) {
-        if (err) {
-          toast(err.message, 1500);
-          return;
-        }
-
-        toast(result.msg, 1500);
-
-        self.$el.$pionts
-          .show()
-          .find(".js-points")
-            .text(result.point)
-            .addClass("animaion-blink");
-
-        setTimeout(function() {
-          self.$el.$pionts
-            .find(".js-points")
-            .removeClass("animaion-blink");
-        }, 2000);
-      });
-    };
-
-    NativeAPI.invoke("updateHeaderRightBtn", {
-      action: "show",
-      text: "签到"
-    }, function(err) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-    });
-
-    NativeAPI.registerHandler("headerRightBtnClick", function() {
-      doCheckin();
-    });
-  },
   getVersion: function(versionInfo) {
     
     //
@@ -173,7 +109,8 @@ var AppView = Backbone.View.extend({
   },
   mallGetUserInfo: function(options) {
     var self = this;
-    
+    var options = options || {};
+
     async.waterfall([
       function(next) {
         if (options.userData) {
@@ -203,6 +140,8 @@ var AppView = Backbone.View.extend({
 
             next(null, data);
           });
+        } else {
+          next(null, {});
         }
       }
     ], function(err, result) {
@@ -211,14 +150,19 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      $("#index-points-bar")
-        .show()
-        .find(".js-points")
-          .text(result.points);
-      
-      self.pageScroll();
+      if (result &&
+          typeof result.points !== "undefined" &&
+          result.points !== null
+      ) {
+        $("#index-points-bar")
+          .show()
+          .find(".js-points")
+            .text(result.points);
+        
+        self.pageScroll();
+      }
 
-      if ( !mallUitl.isHangban() ) {
+      if (!options.rightButtonReady) { 
 
         // fix a bug on Android
         if (Util.getMobileSystem() === "Android") {
@@ -226,9 +170,103 @@ var AppView = Backbone.View.extend({
             self.mallCheckin();
           }, 1500);
         } else {
-         self.mallCheckin();
+          self.mallCheckin();
         }
       }
+    });
+  },
+  mallCheckin: function() {
+    var self = this;
+    var doCheckin = function() {
+      async.waterfall([
+        function(next) {
+          appInfo.getUserData(function(err, userData) {
+            if (err) {
+              next(err);
+              return;
+            }
+
+            next(null, userData);
+          });
+        },
+        function(userData, next) {
+          if (userData.userInfo && userData.userInfo.userid) {
+            var params = _.extend({}, userData.userInfo, {
+              p: userData.deviceInfo.p
+            });
+
+            sendPost("checkin", params, function(err, data) {
+              if (err) {
+                next(err);
+                return;
+              }
+
+              next(null, data);
+            });
+          } else {
+            self.loginApp();
+          }
+        }
+      ], function(err, result) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
+
+        toast(result.msg, 1500);
+
+        self.$el.$pionts
+          .show()
+          .find(".js-points")
+            .text(result.point)
+            .addClass("animaion-blink");
+
+        setTimeout(function() {
+          self.$el.$pionts
+            .find(".js-points")
+            .removeClass("animaion-blink");
+        }, 2000);
+      });
+    };
+
+    NativeAPI.invoke("updateHeaderRightBtn", {
+      action: "show",
+      text: "签到"
+    }, function(err) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+    });
+
+    NativeAPI.registerHandler("headerRightBtnClick", function() {
+      doCheckin();
+    });
+  },
+  loginApp: function() {
+    var self = this;
+
+    async.waterfall([
+      function(next) {
+
+        // window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
+        //   window.btoa(unescape(encodeURIComponent( window.location.href )));
+
+        NativeAPI.invoke("login", null, function(err, data) {
+          next(err, data);
+        });
+      }
+    ], function(err) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
+
+        setTimeout(function() {
+          self.mallGetUserInfo({
+            rightButtonReady: true
+          });
+        }, 500);
     });
   },
   pageScroll: function() {
