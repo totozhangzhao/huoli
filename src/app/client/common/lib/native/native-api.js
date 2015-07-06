@@ -126,7 +126,7 @@
       var timer = setTimeout(function() {
         buffer.forEach(handleInternalError);
         window.NativeAPI.sendToNative = handleInternalError;
-      }, 10000);
+      }, 3000);
 
       document.addEventListener("WebViewJavascriptBridgeReady", function() {
         clearTimeout(timer);

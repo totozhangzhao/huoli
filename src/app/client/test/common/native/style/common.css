@@ -5,8 +5,16 @@ button {
   margin: 0 auto 6px auto;
   font-size: 12px;
 }
+.mall-input {
+  display: block;
+  width: 256px;
+  height: 40px;
+  margin: 0 auto 6px auto;
+  padding: 0 0 0 10px;
+}
 .board {
   background-color: #000000;
+  margin: 10px;
 }
 #echo {
   color: #CFCFCF;

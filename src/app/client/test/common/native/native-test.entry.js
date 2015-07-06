@@ -37,7 +37,8 @@ var AppView = Backbone.View.extend({
     "click .js-login"           : "login",
     "click .js-getCurrentPosition"      : "getCurrentPosition",
     "click .js-updateHeaderRightBtnText": "rightButtonText",
-    "click .js-updateHeaderRightBtnIcon": "rightButtonIcon"
+    "click .js-updateHeaderRightBtnIcon": "rightButtonIcon",
+    "click .js-goods-detail": "gotoGoods"
   },
   initialize: function() {
     this.jsBackFlag = false;
@@ -57,6 +58,29 @@ var AppView = Backbone.View.extend({
     if ( shareUtil.hasShareInfo() ) {
       loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
     }
+  },
+  gotoGoods: function() {
+    var id = $("#goods-detail-input").val();
+
+    if (id === "" || typeof id === "undefined" || id === null) {
+      return;
+    }
+
+    var url = "/fe/app/client/mall/html/detail-page/goods-detail.html?productid=" + id;
+
+    NativeAPI.invoke("createWebView", {
+      url: url,
+      controls: [
+        {
+          type: "title",
+          text: "商品详情"
+        }
+      ]
+    }, function(err) {
+      if ( err && (err.code === -32603) ) {
+        window.location.href = url;
+      }
+    });
   },
   showAppNameFromCookie: function() {
     echo( cookie.get("appName") );
