@@ -168,6 +168,17 @@ exports.getUserData = (function() {
       return;
     }
 
-    getAppData();
+    async.waterfall([
+      function(next) {
+        storage.set("userDataStore", {
+          deviceInfo: DEVICE_INFO,
+          userInfo: USER_INFO
+        }, function() {
+          next(null);
+        });
+      }
+    ], function() {
+      getAppData();
+    });
   };
 }());

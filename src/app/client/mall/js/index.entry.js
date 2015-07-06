@@ -203,8 +203,6 @@ var AppView = Backbone.View.extend({
 
             next(null, data);
           });
-        } else {
-          next(null, {});
         }
       }
     ], function(err, result) {
@@ -213,16 +211,10 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      var points = result.points;
-
-      if (points === "" || points === null || points === undefined) {
-        return;
-      }
-
       $("#index-points-bar")
         .show()
         .find(".js-points")
-          .text(points);
+          .text(result.points);
       
       self.pageScroll();
 
