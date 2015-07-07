@@ -11,6 +11,7 @@ button {
   height: 40px;
   margin: 0 auto 6px auto;
   padding: 0 0 0 10px;
+  box-sizing: border-box;
 }
 .board {
   background-color: #000000;
