@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1, width=device-width">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1" media="(device-height: 568px)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection"content="telephone=no">
+  <title>级联下拉框</title>
+  <style>
+    select {
+      outline: none;
+      border: none 0;
+      -webkit-appearance: none;
+      margin: 0;
+      padding: 0;
+      font-size: 1em;
+    }
+    select[disabled] {
+      color: #ccc;
+    }
+    .border-l {
+      border-image:url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+      border-width: 0px 0px 0px 1px;
+    }
+    .border-r {
+      border-image:url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+      border-width: 0px 1px 0px 0px;
+    }
+    .border-t {
+      border-image:url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
+      border-width: 1px 0px 0px 0px;
+    }
+    .border-b {
+      border-image:url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
+      border-width: 0px 0px 1px 0px;
+    }
+    .address-option-bar {
+      height: 42px;
+      line-height: 42px;
+      background: #fff;
+      padding: 0 10px;
+      position: relative;
+    }
+    .address-option-area {
+      width: 28%;
+      height: 20px;
+      line-height: 20px;
+      margin-top: 14px;
+      position: absolute;
+    }
+    .address-option-area:nth-child(1) {
+      left: 10px;
+      top: 0;
+    }
+    .address-option-area:nth-child(2) {
+      left: 50%;
+      top: 0;
+      margin-left: -14%;
+    }
+    .address-option-area:nth-child(3) {
+      right: 10px;
+      top: 0;
+    }
+    .address-option-se {
+      height: 20px; 
+      line-height: 20px; 
+      background: #fff;
+      padding-right: 10%;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <section class="address-page-box">
+    <div id="select-box" class="address-option-bar border-b">
+      <div class="address-option-area border-r">
+        <select data-name="province" data-default-text="请选择：省" class="js-select address-option-se">
+          <!-- // -->
+        </select>
+      </div>
+      <div class="address-option-area border-r">
+        <select data-name="city" data-for="province" data-default-text="请选择：市" class="js-select address-option-se">
+          <!-- // -->
+        </select>
+      </div>
+      <div class="address-option-area">
+        <select data-name="region" data-for="city" data-default-text="请选择：区" class="js-select address-option-se">
+          <!-- // -->
+        </select>
+      </div>
+    </div>
+  </section>
+  <script src="/fe/vendor/vendor-mvc.bundle.js"></script>
+  <script src="/fe/com/mobile/widget/select/test/select.bundle.js"></script>
+</body>
+</html>

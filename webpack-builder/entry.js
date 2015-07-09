@@ -10,6 +10,7 @@ module.exports = [
   "app/client/test/common/native/native-test2.entry.js",
 
   "com/mobile/widget/wechat/wechat.entry.js",
+  "com/mobile/widget/select/test/select.entry.js",
   "com/mobile/widget/banner/test/main.entry.js",
   "com/mobile/widget/banner-com/test/main.entry.js",
   "com/mobile/widget/swiper-full-page/test/main.entry.js",
