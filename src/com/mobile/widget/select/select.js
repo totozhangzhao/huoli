@@ -16,7 +16,7 @@ exports.MultiLevel = Backbone.View.extend({
   selectOption: function(e) {
     var self = this;
     var $cur = $(e.currentTarget);
-    var $next = this.$el.$select.filter("[data-for='" + $cur.data("name") + "']");
+    var $next = this.getNextSelect($cur);
     var val = $cur.val().trim();
 
     if (val) {
@@ -31,10 +31,20 @@ exports.MultiLevel = Backbone.View.extend({
         }
       ], function(err, result) {
         self.addOption($next, result);
+        if ( self.getNextSelect($next) ) {
+          $next.trigger("change");
+        }
       });
     } else {
       this.addOption($next);
+      if ( self.getNextSelect($next) ) {
+        $next.trigger("change");
+      }
     }
+  },
+  getNextSelect: function($curSelect) {
+    var $next = this.$el.$select.filter("[data-for='" + $curSelect.data("name") + "']");
+    return $next;
   },
   addOption: function($select, data) {
     var defaultObj = {
