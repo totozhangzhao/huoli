@@ -43,8 +43,7 @@ exports.MultiLevel = Backbone.View.extend({
     }
   },
   getNextSelect: function($curSelect) {
-    var $next = this.$el.$select.filter("[data-for='" + $curSelect.data("name") + "']");
-    return $next;
+    return this.$el.$select.filter("[data-for='" + $curSelect.data("name") + "']");
   },
   addOption: function($select, data) {
     var defaultObj = {
@@ -52,7 +51,7 @@ exports.MultiLevel = Backbone.View.extend({
       name: $select.data("default-text") || "请选择"
     };
 
-    if (Array.isArray(data)) {
+    if ( Array.isArray(data) ) {
       data.unshift(defaultObj);
     } else {
       data = [defaultObj];

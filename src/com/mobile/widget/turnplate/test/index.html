@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1, width=device-width">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1" media="(device-height: 568px)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection"content="telephone=no">
+  <title>HTML5抽奖大转盘</title>
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/common/style/global.css">
+  <link rel="stylesheet" type="text/css" href="/fe/com/mobile/widget/turnplate/test/style/index.css">
+</head>
+<body style="background: #e62d2d; overflow-x: hidden;">
+  <img src="image/turnplate-success.png" id="shan-img" style="display:none;" />
+  <img src="image/turnplate-fail.png" id="sorry-img" style="display:none;" />
+  <div class="banner">
+    <div class="turnplate" style="background-image: url(image/turnplate-bg.png); background-size: 100% 100%;">
+      <canvas class="item" id="wheelcanvas" width="422px" height="422px"></canvas>
+      <img class="pointer" src="image/turnplate-pointer.png" />
+    </div>
+  </div>
+  <script src="/fe/vendor/vendor-mvc.bundle.js"></script>
+  <script src="turnplate.bundle.js"></script>
+</body>
+</html>
