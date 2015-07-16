@@ -17,9 +17,13 @@ exports.update = function(options) {
 };
 
 // hashchange 的情况下还是会页面后退，而非关闭 WebView。
-exports.setClose = function() {
+exports.setClose = function(options) {
+  var options = options || { preventDefault: true };
+
   NativeAPI.registerHandler("back", function(params, callback) {
-    callback(null, { preventDefault: true });
-    NativeAPI.invoke("close");
+    callback(null, { preventDefault: options.preventDefault });
+    if (options.preventDefault) {
+      NativeAPI.invoke("close");
+    }
   });
 };

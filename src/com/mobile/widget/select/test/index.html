@@ -8,6 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection"content="telephone=no">
   <title>级联下拉框</title>
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/common/style/global.css">
   <style>
     select {
       outline: none;
@@ -79,17 +80,17 @@
   <section class="address-page-box">
     <div id="select-box" class="address-option-bar border-b">
       <div class="address-option-area border-r">
-        <select data-name="province" data-default-text="请选择：省" class="js-select address-option-se">
+        <select name="province" data-default-text="请选择：省" class="js-select address-option-se">
           <!-- // -->
         </select>
       </div>
       <div class="address-option-area border-r">
-        <select data-name="city" data-for="province" data-default-text="请选择：市" class="js-select address-option-se">
+        <select name="city" data-for="province" data-default-text="请选择：市" class="js-select address-option-se">
           <!-- // -->
         </select>
       </div>
       <div class="address-option-area">
-        <select data-name="region" data-for="city" data-default-text="请选择：区/县" class="js-select address-option-se">
+        <select name="region" data-for="city" data-default-text="请选择：区/县" class="js-select address-option-se">
           <!-- // -->
         </select>
       </div>

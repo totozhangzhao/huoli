@@ -3,15 +3,23 @@ var Backbone  = require("backbone");
 var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var GoodsView = require("app/client/mall/js/detail-page/goods-detail/view/goods-detail.js");
 var OrderView = require("app/client/mall/js/detail-page/goods-detail/view/form-phone.js");
-var interlayerView = require("app/client/mall/js/detail-page/goods-detail/view/interlayer.js");
+var InterlayerView = require("app/client/mall/js/detail-page/goods-detail/view/interlayer.js");
+var AddAddressView = require("app/client/mall/js/detail-page/goods-detail/view/address-add.js");
+var ConfirmAddressView = require("app/client/mall/js/detail-page/goods-detail/view/address-confirm.js");
+var AddressListView = require("app/client/mall/js/detail-page/goods-detail/view/address-list.js");
 
 var ViewDic = {
   "goods-detail": GoodsView,
   "form-phone"  : OrderView,
-  "interlayer"  : interlayerView
+  "interlayer"  : InterlayerView,
+  "address-add" : AddAddressView,
+  "address-confirm": ConfirmAddressView,
+  "address-list": AddressListView
 };
 
 var cache = {};
+var model = {};
+var collection = {};
 
 module.exports = Backbone.Router.extend({
   routes: {
@@ -41,17 +49,22 @@ module.exports = Backbone.Router.extend({
           .addClass("active");
 
     var bbViews = this.bbViews;
-    var CurView = ViewDic[action];
 
-    if (CurView) {
-      bbViews[action]        = bbViews[action] || new ViewDic[action]();
-      bbViews[action].router = this;
-      bbViews[action].cache  = cache;
-      bbViews[action].init({
-        previousView: this.previousView
-      });
-      this.previousView = action;
+    if ( !ViewDic[action] ) {
+      window.console.log("-- [Backbone View] not found! action: " + action + " --");
+      this.switchTo("goods-detail");
+      return;
     }
+
+    bbViews[action]        = bbViews[action] || new ViewDic[action]();
+    bbViews[action].router = this;
+    bbViews[action].cache  = cache;
+    bbViews[action].model  = model;
+    bbViews[action].collection  = collection;
+    bbViews[action].resume({
+      previousView: this.previousView
+    });
+    this.previousView = action;
   },
   switchTo: function(panelId) {
     this.navigate(panelId, {

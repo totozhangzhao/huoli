@@ -36,8 +36,7 @@
   <div class="order-exchange-bar order-address-bar">
     <div class="order-exchange-code">
       <div class="order-exchange-area">
-        <p class="order-exchange-text">收货人：<span class="user-info">XXX</span>联系电话：<span class="user-info">XXXXXXXXXXX</span></p> 
-        <p class="order-exchange-text">收货地址：XXXXXXXXXXXXX</p>
+        <%= orderDetail.msg %>
       </div>
       <b class="arc-border arc-border-left"></b>
       <b class="arc-border arc-border-right"></b>

@@ -1,6 +1,6 @@
 var MultiLevel = require("com/mobile/widget/select/select.js").MultiLevel;
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var province   = require("app/client/mall/data/region.js").province;
+var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var $          = require("jquery");
 
 MultiLevel.prototype.initSelect = function($select) {

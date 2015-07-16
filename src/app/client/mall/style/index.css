@@ -16,17 +16,91 @@ button {
 button {
   background: none;
 }
+select {
+  outline: none; 
+  border: none 0;
+  -webkit-appearance: none; 
+  margin: 0;
+  padding: 0;
+}
+textarea {
+  outline: none;
+  border: none 0;
+  resize: none;
+}
+option {
+  text-align: center;
+}
 .error-tip {
   display: none;
 }
 .error-tip.active {
   display: block;
 }
+/* 加粗 */
+.bold-tit {
+  font-weight: bold;
+}
+/* 蓝色 */
 .color-a {
   color: blue;
 }
-.bold-tit {
-  font-weight: bold;
+/* 橙色 */
+.orange-color {
+  color: #f90;
+}
+/* 数字和字母字体 */
+.num-font {
+  font-family: 'Arial';
+}
+.num-color {
+  font-family: 'Arial';
+  font-size: 16px;
+  color: #f90;
+}
+/* 边框 */
+.border { 
+  position: relative; 
+}
+.border:after { 
+  content: ''; 
+  display:block; 
+  position: absolute; 
+  width: 100%; 
+  left: 0px; 
+  bottom: 0px;
+  height: 1px; 
+  background-color: #ccc; 
+  -webkit-transform: scaleY(0.5); 
+  transform: scaleY(0.5);
+}
+.border:before { 
+  content: ''; 
+  display:block; 
+  position: absolute; 
+  width: 100%; 
+  left: 0px; 
+  top: 0px;
+  height: 1px; 
+  background-color: #ccc; 
+  -webkit-transform: scaleY(0.5); 
+  transform: scaleY(0.5);
+}
+.border-l {
+  border-image:url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  border-width: 0px 0px 0px 1px;
+}
+.border-r {
+  border-image:url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  border-width: 0px 1px 0px 0px;
+}
+.border-t {
+  border-image:url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
+  border-width: 1px 0px 0px 0px;
+}
+.border-b {
+  border-image:url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
+  border-width: 0px 0px 1px 0px;
 }
 .info-box, 
 .active-box, 
@@ -36,137 +110,310 @@ button {
 .integral-list-box,
 .pay-box,
 .interlayer,
-.pay-order-detail-box {
+.pay-order-detail-box,
+.address-page-box {
   max-width: 750px;
   margin: 0 auto;
   min-height: 100%;
   position: relative;
 }
-.tit-bar {
-  font-size: 14px;
-  line-height: 40px;
-}
-.tit-bar a {
-  color: #666;
-}
-.info-record-bar a {
-  padding-right: 10px;
-}
-.record-icon {
-  width: 9px; 
-  height: 12px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 3px;
-  margin-top: -4px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -26px -88px;
-  background-size: 312px 280px;
-}
-.cur-bar {
-  width: 44%;
-  margin-left: 10px;
-  /*text-align: center;*/
-}
-
-.num-font {
-  font-family: 'Arial';
-}
-.num-color {
-  font-family: 'Arial';
-  font-size: 16px;
-  color: #f90;
-}
-/*.sign-bar {
-  width: 28%;
-}*/
-/*.sign-bar a {
-  padding-right: 10px;
-}*/
-.sign-icon {
-  width: 12px; 
-  height: 12px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 3px;
-  margin-top: -4px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/sign-icon.png) no-repeat;
-  background-size: cover;
-}
-.banner-bar {
-  width: 100%;
-}
-.banner-pic img {
-  width: 100%;
-}
-.goods-bar {
-  padding-bottom: 211px;
-}
-
 .goods-copyright-fix {
-  padding-bottom: 61px;
+  margin-bottom: 60px;
 }
-.goods-area {
-  border-bottom: 1px solid #f3f3f3;
+.copyright-block {
+  width: 100%;
+  height: 231px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
-.goods-h {
- font-size: 16px;
- height:34px;
- line-height:34px;
- padding-left: 10px;
- background: #f3f3f3;
+.copyright-bar {
+  background: #f3f3f3;
+  width: 100%;
+  height: 100%; 
+  line-height: 30px;
+  text-align: center;
+  color: #999;
+  font-size: 10px;
+  padding: 18px 0;
 }
-.hot-icon {
-  width: 16px;
-  height: 16px;
-  margin-right: 3px;
-  margin-top: -4px;
-  display: inline-block;
-  vertical-align: middle;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat 0 -87px;
+.filed-box {
+  width: 200px; 
+  font-size: 14px;
+  margin: 0 auto; 
+  text-align: center; 
+  border-top: 1px solid #ccc;
+}
+.filed-text {
+  width: 266px;
+  margin: 5px auto; 
+  padding: 5px 10px; 
+  line-height: 22px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.group-name {
+  font-family: 'Arial';
+}
+
+/* index start */
+
+.home-page-box {
+  max-width: 750px;
+  margin: 0 auto;
+  min-height: 100%;
+  position: relative;
+  font-size: 14px;
+}
+.home-banner-bar,
+.home-banner-pic,
+.home-banner-pic img {
+  width: 100%;
+}
+.home-nav {
+  padding: 0 10px;
+  height: 40px;
+  line-height: 40px;
+  background: #fff;
+}
+.home-nav .home-record-btn {
+  height: 22px;
+  line-height: 22px;
+  padding: 0 10px;
+  margin-top: 9px;
+  border-radius: 10px;
+  color: #fff;
+  background: #4d9eeb;
+}
+.home-goods-bar {
+  background: #f3f3f3;
+  /*padding-bottom: 211px;*/
+  padding-bottom: 231px;
+}
+.home-goods-bar .num-color {
+  font-size: 12px;
+  color: #FFF;
+}
+.home-show-area {
+  padding-top: 3px;
+}
+.home-recommend,
+.home-limit,
+.home-hot {
+  background: #fff;
+  margin-top: 3px;
+}
+.home-big-bar {
+  width: 44%;
+  height: 187px;
+  position: relative;
+}
+.home-small-bar {
+  width: 55%;
+  height: 92px;
+}
+.home-common-tit {
+  height: 21px;
+}
+.home-common-tit-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.home-recommend .home-common-tit {
+  color: #4d9eeb;
+}
+.home-recommend .home-value-common .home-value-p {
+  background: #4d9eeb;
+} 
+.home-recommend .home-value-common .home-value-icon {
+  border-left: 10px solid #4d9eeb;
+} 
+.home-hot .home-value-common .home-value-p {
+  background: #ffbe46;
+} 
+.home-hot .home-value-common .home-value-icon {
+  border-left: 10px solid #ffbe46;
+} 
+.home-limit .home-value-common .home-value-p {
+  background: #ff6533;
+} 
+.home-limit .home-value-common .home-value-icon {
+  border-left: 10px solid #ff6533;
+} 
+.home-recommend .home-common-tit-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -45px -87px;
   background-size: 312px 280px;
 }
-.goods-area-son {
-  width: 50%;
-  border-right: 1px solid #f3f3f3;
-  border-bottom: 1px solid #f3f3f3;
-  margin-left: -1px;
-  margin-bottom: -1px;
+.home-hot .home-common-tit {
+  color: #ffbe46;
 }
-.text-bar {
+.home-hot .home-common-tit-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -99px -85px;
+  background-size: 312px 280px;
+}
+.home-limit .home-common-tit {
+  color: #ff6533;
+}
+.home-limit .home-common-tit-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -71px -87px;
+  background-size: 312px 280px;
+}
+.home-recommend a,
+.home-hot a,
+.home-limit a {
+  position: relative;
   width: 100%;
-  padding-top: 6px;
-  color: #333;
+  height: 100%;
+  display: block;
 }
-.text-bar-p {
-  width: 148px;
-  height: 16px;
-  line-height: 16px;
+.home-big-pic-bar {
+  position: absolute;
+  left: 50%;
+  bottom: 9px;
+  margin-left: -60px;
+}
+.home-show-text-bar {
+  width: 70%;
+  padding-top: 4px;
   padding-left: 10px;
+}
+.home-show-pic-bar {
+  width: 45%;
+  position: absolute;
+  right: 4%;
+  bottom: 15px;
+}
+.home-small-goods-pic{
+  width: 86px;
+}
+.home-goods-dt {
+  margin: 10px 0;
+}
+.home-filed-box {
+  width: 150px; 
+  font-size: 16px;
+  color: #999;
+  margin: 0 auto; 
+  text-align: center; 
+  border-top: 1px solid #ccc;
+}
+.home-goods-area-son {
+  width: 49.5%;
+  height: 141px;
+  margin-bottom: 3px;
+  background: #fff;
+}
+.home-goods-area-son:nth-of-type(odd) {
+  float: left;
+  border-image:url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  border-width: 0px 1px 0px 0px;
+}
+.home-goods-area-son:nth-of-type(even) {
+  float: right;
+  border-image:url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  border-width: 0px 0px 0px 1px;
+}
+.home-text-bar {
+  width: 100%;
+  padding-top: 4px;
+  padding-left: 10px;
+}
+.home-pic-detail {
+  width: 95%;
+  font-size: 12px;
+  color: #999;
+  line-height: 16px;
+  margin-bottom: 3px;
+}
+.home-big-pic-detail {
+  width: 95%;
+  font-size: 12px;
+  color: #999;
+  line-height: 16px;
+  margin: 4px 0 5px 0;
+}
+.home-small-pic-detail {
+  width: 60%;
+  font-size: 12px;
+  color: #999;
+  line-height: 16px;
+  margin: 4px 0 5px 0;
+  max-height: 32px;
+  overflow: hidden;
+}
+.home-text-bar-p {
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.pic-value {
+.home-value-common {
   font-size: 12px;
-  line-height: 14px;
-} 
-.pic-detail {
-  width: 95%;
-  font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   height: 16px;
   line-height: 16px;
-  margin:2px 0;
-}
-/*.for-free {
-  width: 40px;
-  text-align: center;
   color: #fff;
-  margin-left: 10px;
-  background: #f00;
-}*/
+}
+.home-value-p {
+  padding-left: 4px;
+  padding-right: 8px;
+  min-width: 24px;
+  height: 16px;
+}
+.home-value-money .home-value-p {
+  background: #4d9eeb;
+}
+.home-value-end .home-value-p {
+  background: #ccc;
+}
+.home-value-point .home-value-p {
+  background: #ffbe46;
+}
+.home-value-point-money .home-value-p {
+  background: #ff6533;
+}
+.home-value-icon {
+  border: 8px dashed transparent;
+  border-left: 10px dashed transparent;
+  position: relative;
+}
+.home-value-icon:after {
+  display: block;
+  content: '';
+  position: absolute;
+  left: -10px; 
+  top: -2px;
+  width: 3px;
+  height: 3px;
+  background: #fff;
+  border-radius: 50%;
+} 
+.home-value-point-money .home-value-icon {
+  border-left: 10px solid #ff6533;
+}
+.home-value-money .home-value-icon {
+  border-left: 10px solid #4d9eeb;
+}
+.home-value-point .home-value-icon {
+  border-left: 10px solid #ffbe46;
+}
+.home-value-end .home-value-icon {
+  border-left: 10px solid #ccc;
+}
+.home-value {
+  font-size: 10px;
+}
+.home-goods-pic {
+  width: 100px;
+  margin: 0 auto;
+}
+.home-big-goods-pic {
+  width: 120px;
+  margin: 0 auto;
+}
+.home-pic-bar {
+  padding: 12px 0 4px;
+}
 .state-icon {
   margin-left: 8px;
   margin-top: -3px;
@@ -269,53 +516,8 @@ button {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -50px -58px;
   background-size: 312px 280px;
 }
-.pic-tit {
-  font-size: 14px;
-}
-.pic-bar {
-  padding: 8px 0;
-}
-.goods-pic {
-  width: 103px;
-  height: 66px;
-  margin: 0 auto;
-}
-.copyright-block {
-  width: 100%;
-  height: 211px;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-}
-.copyright-bar {
-  background: #f3f3f3;
-  width: 100%;
-  height: 100%;
-  line-height: 30px;
-  text-align: center;
-  color: #999;
-  font-size: 10px;
-  padding: 20px 0;
-  box-sizing: border-box;
-}
-.filed-box {
-  width: 200px; 
-  font-size: 14px;
-  margin: 0 auto; 
-  text-align: center; 
-  border-top: 1px solid #ccc;
-}
-.filed-text {
-  width: 266px;
-  margin: 5px auto; 
-  padding: 5px 10px; 
-  line-height: 22px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.group-name {
-  font-family: 'Arial';
-}
+
+/* index end */
 
 /* goods-detail start */
 
@@ -327,7 +529,8 @@ p {
   width: 100%;
 }
 .active-bar {
-  padding-bottom: 272px;
+  /*padding-bottom: 272px;*/
+  padding-bottom: 292px;
 }
 .active-area {
   padding: 12px 16px 5px;
@@ -436,7 +639,8 @@ p {
   display: none;
 }
 .flip-box, 
-.login-flip-box {
+.login-flip-box,
+.del-tip-box {
   width: 80%;
   height: 150px;
   text-align: center;
@@ -449,6 +653,9 @@ p {
   margin-top: -75px;
   z-index: 6;
   display: none;
+}
+.del-tip-box {
+  display: block;
 }
 .login-flip-h {
   font-size: 18px;
@@ -478,9 +685,13 @@ p {
   margin: 0 8px;
   border-radius: 2px;
 }
-.flip-info {
+.flip-info,
+.del-info {
   margin-top: 30px;
   padding: 0 10px;
+}
+.del-info {
+  margin-bottom: 30px;
 }
 .flip-info-bar {
   height: 48px;
@@ -492,6 +703,13 @@ p {
   padding: 4px 12px;
   margin: 0 10px;
   color: #fff;
+}
+.del-common-button {
+  display: inline-block;
+  border-radius: 3px;
+  margin: 0 10px;
+  color: #fff;
+  padding: 4px 28px;
 }
 .flip-tip {
   font-size: 12px;
@@ -524,11 +742,10 @@ p {
 }
 .order-goods-box {
   font-size: 14px;
-  padding-bottom: 272px;
+  padding-bottom: 292px;
 }
 .order-goods-bar {
-  padding: 10px 10px 0;
-  height: 75px;
+  padding: 10px;
   background: #fff;
 }
 .order-goods-bar a {
@@ -822,7 +1039,6 @@ p {
 }
 .common-insert-area,
 .authcode-insert-area {
-  height: 30px;
   padding: 8px 0;
   background: #fff;
   border-radius: 4px;
@@ -835,6 +1051,7 @@ p {
 }
 .authcode-get-area {
   width: 40%;
+  border-radius: 4px;
 }
 .authcode-get {
   width: 100%;
@@ -861,16 +1078,14 @@ p {
 .common-insert {
   width: 70%;
   padding: 7px 0 7px 10px ;
-  height:16px;
   line-height: 16px;
   border-left: 1px solid #ccc;
   border-radius: 0;
 }
 .authcode-insert {
-  width: 70%;
-  height: 16px;
+  width: 100%;
   line-height: 16px;
-  padding: 7px 0 7px 25px;
+  padding: 7px 0 0 25px;
 }
 .insert-tit {
   padding-left: 55px;
@@ -1002,14 +1217,13 @@ p {
   font-size: 14px;
 }
 .pay-order-detail-box .pay-status-bar {
-  padding-bottom: 272px;
+  padding-bottom: 293px;
 }
 .pay-order-detail-box .pay-after-bar {
-  padding-bottom: 212px;
+  padding-bottom: 232px;
 }
 .pay-order-detail-box .goods-detail {
-  height: 80px;
-  padding: 10px 10px 0;
+  padding: 10px;
   position: relative;
   background: #fff;
 }
@@ -1069,7 +1283,6 @@ p {
   color: #999;
   border-top: 1px solid #f3f3f3;
   background: #fff;
-  box-sizing: border-box;
   color: #333;
 }
 .pay-order-detail-box .order-detail-info:last-child {
@@ -1200,6 +1413,275 @@ p {
   bottom: 0; 
   margin-left: -38%;
 }
+
+/* address page start */
+
+.address-page-box {
+  color: #666;
+  background: #f3f3f3;
+}
+.address-username-bar,
+.address-usertel-bar,
+.address-option-bar {
+  height: 42px;
+  line-height: 42px;
+  background: #fff;
+  padding: 0 10px;
+  position: relative;
+}
+@media only screen and (max-width:374px){
+  .address-option-area {
+    width: 100%;
+    padding: 0 10px;
+    position: relative;
+  }
+  .address-option-bar .border-l {
+    border-width: 0;
+  }
+  .address-option-bar {
+    height: 126px;
+    padding: 0;
+    color: #666;
+    background: #fff;
+  }
+  .address-option-se {
+    width: 100%;
+    color: #666;
+    background: #fff;
+  }
+  .address-choice-icon {
+    width: 13px;
+    height: 7px;
+    background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -145px -120px;
+    background-size: 312px 280px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -3px;
+  }
+  .address-se-la {
+    padding-left: 0;
+  }
+}
+@media only screen and (min-width:375px){
+  .address-option-bar {
+    display: flex;
+    display: -webkit-flex;
+  }
+  .address-option-area {
+    flex: 1;
+    -webkit-flex: 1;
+    position: relative;
+  }
+  .address-option-se {
+    color: #666;
+    background: #fff;
+  }
+  .address-option-bar .border-b {
+    border-width: 0;
+  }
+  .address-choice-icon {
+    width: 13px;
+    height: 7px;
+    background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -145px -120px;
+    background-size: 312px 280px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -3px;
+  }
+  .address-choice-icon3 {
+    width: 13px;
+    height: 7px;
+    background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -145px -120px;
+    background-size: 312px 280px;
+    position: absolute;
+    right: -2px;
+    top: 50%;
+    margin-top: -3px;
+  }
+  .address-se-la {
+    padding-left: 6px;
+  }
+  .address-se-la1 {
+    padding-left: 0;
+  }
+}
+.address-option-se[disabled] {
+  color: #ccc;
+}
+.address-detail-bar {
+  line-height: 42px;
+  background: #fff;
+  padding: 0 10px;
+}
+.address-detail-insert {
+  width: 66%;
+  height: 63px;
+  padding: 9px 8px;
+}
+.address-username-insert,
+.address-usertel-insert {
+  width: 70%;
+}
+.address-foot-box {
+  width: 100%;
+  height: 40px;
+  margin-top: 20px;
+}
+.address-foot-btn {
+  width: 90%;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
+  display: block;
+  margin: 0 auto ;
+}
+.address-foot-box .forbidden-color {
+  color: #999;
+}
+.address-exist-fatherbar {
+  padding-bottom: 40px;
+}
+.address-exist-bar {
+  font-size: 14px;
+  line-height: 34px;
+}
+.address-exist-area {
+  padding: 4px 10px 0;
+  margin-bottom: 10px;
+  position: relative;
+  background: #fff;
+}
+.confirm-order .address-exist-area {
+  padding: 10px;
+}
+.address-exist-info {
+  font-size: 16px;
+  color: #111;
+}
+.address-exist-username {
+  width: 35%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.address-exist-usertel {
+  margin-left: 5px;
+}
+.address-exist-nameicon {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -99px -120px;
+  background-size: 312px 280px;
+  display: inline-block;
+}
+.address-exist-telicon {
+  width: 11px;
+  height: 17px;
+  margin-right: 10px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -124px -120px;
+  background-size: 312px 280px;
+  display: inline-block;
+  position: relative;
+  left: 0;
+  top: 2px;
+}
+.address-exist-text {
+  line-height: 24px;
+  padding-bottom: 6px;
+}
+.address-page-box .pay-order-box {
+  margin-top: 10px;
+  position: relative;
+}
+.address-page-box .order-goods-text {
+   font-size: 14px;
+   font-family: 'Arial';
+}
+.address-page-box .pic-detail {
+  height: 40px;
+  max-height: 40px;
+  line-height: 20px;
+  font-size: 16px;
+  overflow: hidden;
+  color: #111;
+}
+.address-page-box .pic-detail-tip {
+  margin-top: 4px;
+}
+.address-page-box .actually-pay {
+  font-size: 16px;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+.address-control-bar {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+}
+.address-set-area {
+  height: 100%;
+}
+.address-radio-group {
+  position: relative;
+  height: 14px;
+}
+.address-custom-common {
+  width: 13px;
+  height: 13px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -69px -146px;
+  background-size: 312px 280px;
+}
+.address-radio-group input[type="radio"]:checked + .address-custom-common {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -46px -146px;
+  background-size: 312px 280px;
+}
+.address-set-inp {
+  position: absolute;
+  left: 0;
+  top: 0; 
+  opacity: 0.01;
+}
+.address-set-default {
+  margin-left: 20px;
+}
+.address-edit-area {
+  position: absolute;
+  right: 70px;
+  top: 0;
+}
+.address-delete-area {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.address-edit-icon {
+  width: 13px;
+  height: 13px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -23px -146px;
+  background-size: 312px 280px;
+  margin-right: 6px;
+  display: inline-block;
+}
+.address-delete-icon {
+  width: 13px;
+  height: 13px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat 0 -146px;
+  background-size: 312px 280px;
+  margin-right: 6px;
+  display: inline-block;
+}
+/* address page end */
 
 /* widget - start */
 .bb-panel {

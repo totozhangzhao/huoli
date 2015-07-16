@@ -6,7 +6,7 @@ var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var toast      = require("com/mobile/widget/toast/toast.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var appInfo    = require("app/client/mall/js/lib/appInfo.js");
+var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
 
@@ -39,6 +39,15 @@ var AppView = Backbone.View.extend({
     this.$el.$phoneInput    = $("#form-phone .form-phone-num");
     this.$el.$passwordInput = $("#form-phone .form-password");
     this.$el.$captchaInput  = $("#form-phone .form-captcha");
+  },
+  resume: function(options) {
+    if (options.previousView !== "goods-detail") {
+      NativeAPI.invoke("close");
+      return;
+    }
+    this.updateNativeView("现金券兑换");
+    this.renderMainPanel();
+    pageAction.setClose();
   },
   inputInput: function(e) {
     $(e.currentTarget)
@@ -263,15 +272,6 @@ var AppView = Backbone.View.extend({
     NativeAPI.invoke("updateTitle", {
       text: title
     });
-  },
-  init: function(options) {
-    if (options.previousView !== "goods-detail") {
-      NativeAPI.invoke("close");
-      return;
-    }
-    this.updateNativeView("现金券兑换");
-    this.renderMainPanel();
-    pageAction.setClose();
   }
 });
 

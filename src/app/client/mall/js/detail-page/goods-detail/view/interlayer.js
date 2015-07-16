@@ -6,7 +6,7 @@ var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var toast      = require("com/mobile/widget/toast/toast.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var appInfo    = require("app/client/mall/js/lib/appInfo.js");
+var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var loadScript = require("com/mobile/lib/load-script/load-script.js");
 var shareUtil  = require("com/mobile/widget/wechat/util.js");
@@ -21,6 +21,11 @@ var AppView = Backbone.View.extend({
 
     if ( shareUtil.hasShareInfo() ) {
       loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
+    }
+  },
+  resume: function() {
+    if (this.title) {
+      this.updateNativeView(this.title);
     }
   },
   createNewPage: function(e) {
@@ -106,11 +111,6 @@ var AppView = Backbone.View.extend({
     NativeAPI.invoke("updateTitle", {
       text: title
     });
-  },
-  init: function() {
-    if (this.title) {
-      this.updateNativeView(this.title);
-    }
   }
 });
 

@@ -4,12 +4,13 @@ var _          = require("lodash");
 var async      = require("async");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var appInfo    = require("app/client/mall/js/lib/appInfo.js");
+var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var toast      = require("com/mobile/widget/toast/toast.js");
 var UrlUtil    = require("com/mobile/lib/url/url.js");
 var Util       = require("com/mobile/lib/util/util.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
+var addressUtil = require("app/client/mall/js/lib/address-util.js");
 
 var AppView = Backbone.View.extend({
   el: "#goods-detail",
@@ -27,6 +28,11 @@ var AppView = Backbone.View.extend({
     this.title = "";
     this.userDataOpitons = { reset: false };
     this.mallGoodsDetail();
+  },
+  resume: function() {
+    if (this.title) {
+      this.updateNativeView(this.title);
+    }
   },
   createNewPage: function(e) {
     widget.createAView(e);
@@ -190,9 +196,12 @@ var AppView = Backbone.View.extend({
         this.mallCreateOrder(productInfo);
         break;
       case "2":
-        this.$el.$shade.hide();
-        this.$el.$promptBoard.hide();
+        this.hidePrompt();
         this.router.switchTo("form-phone");
+        break;
+      case "3":
+        this.hidePrompt();
+        this.gotoAddress();
         break;
       case "9":
         this.gotoNewView({
@@ -200,6 +209,31 @@ var AppView = Backbone.View.extend({
         });
         break;
     }
+  },
+  gotoAddress: function() {
+    var self = this;
+
+    addressUtil.getList(function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      var AddressList = require("app/client/mall/js/detail-page/goods-detail/collection/address-list.js");
+      var addressList = new AddressList();
+
+      if (result.length > 0) {
+        addressList.add(result);
+      }
+      
+      self.collection.addressList = addressList;
+
+      if (result.length === 0) {
+        self.router.switchTo("address-add");
+      } else {
+        self.router.switchTo("address-confirm");
+      }
+    });
   },
   mallCreateOrder: function(productInfo) {
     var self = this;
@@ -293,26 +327,20 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      if (result) {
-        var orderDetailUrl = window.location.origin +
-            "/fe/app/client/mall/html/detail-page/order-detail.html" +
-            "?orderid=" + orderInfo.orderid;
+      var orderDetailUrl = window.location.origin +
+          "/fe/app/client/mall/html/detail-page/order-detail.html" +
+          "?orderid=" + orderInfo.orderid;
 
-        if (false) {
-          self.gotoNewView({
-            url: orderDetailUrl
-          });
-        } else {
-          window.location.href = orderDetailUrl;
-        }
+      if (result) {
+        self.gotoNewView({
+          url: orderDetailUrl
+        });
       } else {
         self.$el.$shade.show();
         self.$el.$promptSuccess
           .one("click", ".js-goto-order-detail", function() {
             self.gotoNewView({
-              url: window.location.origin +
-                "/fe/app/client/mall/html/detail-page/order-detail.html" +
-                "?orderid=" + orderInfo.orderid
+              url: orderDetailUrl
             });
           })
           .find(".js-message")
@@ -336,11 +364,6 @@ var AppView = Backbone.View.extend({
     NativeAPI.invoke("updateTitle", {
       text: title
     });
-  },
-  init: function() {
-    if (this.title) {
-      this.updateNativeView(this.title);
-    }
   }
 });
 

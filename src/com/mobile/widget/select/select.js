@@ -43,7 +43,7 @@ exports.MultiLevel = Backbone.View.extend({
     }
   },
   getNextSelect: function($curSelect) {
-    return this.$el.$select.filter("[data-for='" + $curSelect.data("name") + "']");
+    return this.$el.$select.filter("[data-for='" + $curSelect.prop("name") + "']");
   },
   addOption: function($select, data) {
     var defaultObj = {
