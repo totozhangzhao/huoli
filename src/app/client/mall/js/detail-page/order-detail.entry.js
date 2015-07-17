@@ -4,7 +4,8 @@ var Backbone   = require("backbone");
 var async      = require("async");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast      = require("com/mobile/widget/toast/toast.js");
+var toast      = require("com/mobile/widget/hint/hint.js").toast;
+var hint       = require("com/mobile/widget/hint/hint.js");
 var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var Util       = require("com/mobile/lib/util/util.js");
@@ -35,6 +36,8 @@ var AppView = Backbone.View.extend({
     if (this.isPaying) {
       return;
     }
+
+    hint.showLoading();
 
     var orderDetail = this.orderDetail;
 
@@ -125,6 +128,7 @@ var AppView = Backbone.View.extend({
       // }
     ], function() {
       self.isPaying = false;
+      // hint.hideLoading();
       window.location.reload();
     });
   },

@@ -5,7 +5,8 @@ var async      = require("async");
 var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast      = require("com/mobile/widget/toast/toast.js");
+var toast      = require("com/mobile/widget/hint/hint.js").toast;
+var hint       = require("com/mobile/widget/hint/hint.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
 var UrlUtil    = require("com/mobile/lib/url/url.js");
@@ -29,12 +30,12 @@ var AppView = Backbone.View.extend({
 
     pageAction.setClose();
 
-    var selectedId = this.cache.curAddressId;
+    var curAddressId = this.cache.curAddressId;
     var addressList = this.collection.addressList;
     
-    if (selectedId) {
+    if (curAddressId) {
       this.cache.curAddressId = null;
-      this.curAddress = addressList.get(selectedId).toJSON();
+      this.curAddress = addressList.get(curAddressId).toJSON();
     } else if (addressList.length > 0) {
       this.curAddress = addressList.at(0).toJSON();
     }
@@ -53,6 +54,7 @@ var AppView = Backbone.View.extend({
     this.router.switchTo("address-list");
   },
   confirmOrder: function() {
+    hint.showLoading();
     this.mallCreateOrder(this.cache.productInfo);
   },
   mallCreateOrder: function(productInfo) {
@@ -136,6 +138,8 @@ var AppView = Backbone.View.extend({
       widget.createNewView({
         url: orderDetailUrl
       });
+
+      hint.hideLoading();
     });
   },
   updateNativeView: function(title) {

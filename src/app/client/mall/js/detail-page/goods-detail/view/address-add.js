@@ -7,7 +7,8 @@ var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var MultiLevel = require("com/mobile/widget/select/select.js").MultiLevel;
 var province   = require("app/client/mall/data/region.js").province;
-var toast      = require("com/mobile/widget/toast/toast.js");
+var toast      = require("com/mobile/widget/hint/hint.js").toast;
+var hint       = require("com/mobile/widget/hint/hint.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 // var pageAction = require("app/client/mall/js/lib/page-action.js");
@@ -27,6 +28,8 @@ var AppView = Backbone.View.extend({
       pageAction.setClose();
       return;
     }
+
+    hint.showLoading();
 
     var action = this.cache.addressAction;
     var addressList = this.collection.addressList;
@@ -54,6 +57,8 @@ var AppView = Backbone.View.extend({
     this.$el.html(addressTpl({
       addressInfo: addressInfo
     }));
+
+    hint.hideLoading();
   },
   initSelectWidget: function() {
     MultiLevel.prototype.initSelect = function($select) {

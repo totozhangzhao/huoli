@@ -5,7 +5,8 @@ var async      = require("async");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var toast      = require("com/mobile/widget/toast/toast.js");
+var toast      = require("com/mobile/widget/hint/hint.js").toast;
+var hint       = require("com/mobile/widget/hint/hint.js");
 var UrlUtil    = require("com/mobile/lib/url/url.js");
 var Util       = require("com/mobile/lib/util/util.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
@@ -238,6 +239,8 @@ var AppView = Backbone.View.extend({
   mallCreateOrder: function(productInfo) {
     var self = this;
 
+    hint.showLoading();
+
     async.waterfall([
       function(next) {
         appInfo.getUserData(function(err, userData) {
@@ -261,6 +264,8 @@ var AppView = Backbone.View.extend({
       }
     ], function(err, result) {
       if (err) {
+        hint.hideLoading();
+
         self.$el.$promptFail
           .one("click", ".js-close", function() {
             self.$el.$promptFail.hide();
@@ -348,6 +353,8 @@ var AppView = Backbone.View.extend({
           .end()
           .show();
       }
+
+      hint.hideLoading();
     });
   },
   hidePrompt: function() {

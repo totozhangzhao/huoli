@@ -4,7 +4,8 @@ var _          = require("lodash");
 var async      = require("async");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast      = require("com/mobile/widget/toast/toast.js");
+var toast      = require("com/mobile/widget/hint/hint.js").toast;
+var hint       = require("com/mobile/widget/hint/hint.js");
 var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var echo       = require("com/mobile/lib/echo/echo.js");
@@ -16,6 +17,8 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
     var self = this;
+
+    hint.showLoading();
 
     NativeAPI.invoke("updateTitle", {
       text: "积分兑换记录"
@@ -71,17 +74,18 @@ var AppView = Backbone.View.extend({
       if (!Array.isArray(result) || result.length === 0) {
         $orderList.hide();
         self.$el.$emptyHint.show();
-        return;
+      } else {
+        var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
+        var tmplData = {
+          orderList: result
+        };
+        
+        $orderList.html( compiled(tmplData) );
+        self.loadImage();
+        self.setUpdatePage();
       }
-
-      var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
-      var tmplData = {
-        orderList: result
-      };
-      
-      $orderList.html( compiled(tmplData) );
-      self.loadImage();
-      self.setUpdatePage();
+    
+      hint.hideLoading();
     });
   },
   loadImage: function() {

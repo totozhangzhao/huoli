@@ -1,7 +1,7 @@
 var sendPost = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var async    = require("async");
 var appInfo  = require("app/client/mall/js/lib/app-info.js");
-var toast    = require("com/mobile/widget/toast/toast.js");
+var toast    = require("com/mobile/widget/hint/hint.js").toast;
 var _        = require("lodash");
 
 exports.getList = function(callback) {

@@ -24,7 +24,7 @@ hbuserid: 航班用户id
 </div>
 <div id="select-widget" class="address-option-bar border-b">
   <div class="address-option-area border-b">
-    <label class="address-se-la">
+    <label class="address-se-la address-se-la1">
       <select name="province" data-default-text="请选择：省" class="js-select address-option-se">
         <!-- // -->
       </select>

@@ -1,7 +1,8 @@
 var $          = require("jquery");
 var Backbone   = require("backbone");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-var toast      = require("com/mobile/widget/toast/toast.js");
+var toast      = require("com/mobile/widget/hint/hint.js").toast;
+var hint       = require("com/mobile/widget/hint/hint.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 
@@ -24,6 +25,8 @@ var AppView = Backbone.View.extend({
       pageAction.setClose();
       return;
     }
+
+    hint.showLoading();
 
     pageAction.setClose({
       preventDefault: false
@@ -48,6 +51,8 @@ var AppView = Backbone.View.extend({
     this.$el.html(addressListTpl({
       addressList: addressList
     }));
+
+    hint.hideLoading();
   },
   gotoConfirmPage: function(e) {
     var $cur = $(e.currentTarget);
@@ -55,16 +60,22 @@ var AppView = Backbone.View.extend({
     this.router.switchTo("address-confirm");
   },
   setDefaultAddress: function() {
+    hint.showLoading();
+
     var id = this.$el
       .find(".js-default-address:checked")
       .closest(".js-item")
       .data("addressid");
+
+    this.cache.curAddressId = id;
 
     addressUtil.setDefault(id, function(err) {
       if (err) {
         toast(err.message, 1500);
         return;
       }
+
+      hint.hideLoading();
     });
   },
   addAddress: function() {
@@ -81,6 +92,8 @@ var AppView = Backbone.View.extend({
     this.router.switchTo("address-add");
   },
   removeAddress: function(e) {
+    hint.showLoading();
+
     var $cur = $(e.currentTarget);
     var $item = $cur.closest(".js-item");
     var addressId = $item.data("addressid");
@@ -90,6 +103,8 @@ var AppView = Backbone.View.extend({
         toast(err.message, 1500);
         return;
       }
+
+      hint.hideLoading();
 
       if (result !== void 0) {
         $item.remove();
