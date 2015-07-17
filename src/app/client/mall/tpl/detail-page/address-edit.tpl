@@ -1,15 +1,3 @@
-<!-- 
-addressid: 地址id
-userid: 用户id
-province: 省份
-city: 城市
-pphone: 电话
-address: 地址
-name:姓名
-postcode: 邮编
-area: 区/县
-hbuserid: 航班用户id
- -->
 <div class="address-username-bar border-b">
   <label>收货人：</label>
   <input name="name" type="text" placeholder="请输入中文姓名" class="address-username-insert" 
@@ -24,7 +12,7 @@ hbuserid: 航班用户id
 </div>
 <div id="select-widget" class="address-option-bar border-b">
   <div class="address-option-area border-b">
-    <label class="address-se-la address-se-la1">
+    <label class="address-se-la">
       <select name="province" data-default-text="请选择：省" class="js-select address-option-se">
         <!-- // -->
       </select>
@@ -45,7 +33,7 @@ hbuserid: 航班用户id
         <!-- // -->
       </select>
     </label>
-    <b class="address-choice-icon address-choice-icon3"></b>
+    <b class="address-choice-icon"></b>
   </div>
 </div>
 <div class="address-detail-bar border-b">

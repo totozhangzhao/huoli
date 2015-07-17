@@ -34,6 +34,8 @@ var AppView = Backbone.View.extend({
     if (this.title) {
       this.updateNativeView(this.title);
     }
+
+    hint.hideLoading();
   },
   createNewPage: function(e) {
     widget.createAView(e);

@@ -42,7 +42,7 @@ var AppView = Backbone.View.extend({
       var selectedId = this.cache.curAddressId;
       this.cache.curAddressId = null;
       this.curAddress = addressList.get(selectedId).toJSON();
-    } else if (addressList.length > 0) {
+    } else if (addressList && addressList.length > 0) {
       this.curAddress = addressList.at(0).toJSON();
     }
 

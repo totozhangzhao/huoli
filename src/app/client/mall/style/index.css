@@ -1515,7 +1515,7 @@ p {
     top: 50%;
     margin-top: -3px;
   }
-  .address-choice-icon3 {
+  .address-option-area:nth-child(3) .address-choice-icon {
     width: 13px;
     height: 7px;
     background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -145px -120px;
@@ -1528,7 +1528,7 @@ p {
   .address-se-la {
     padding-left: 6px;
   }
-  .address-se-la1 {
+  .address-option-area:nth-child(1) .address-se-la {
     padding-left: 0;
   }
 }
