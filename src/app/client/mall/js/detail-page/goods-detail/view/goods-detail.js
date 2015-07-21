@@ -216,6 +216,8 @@ var AppView = Backbone.View.extend({
   gotoAddress: function() {
     var self = this;
 
+    hint.showLoading();
+
     addressUtil.getList(function(err, result) {
       if (err) {
         toast(err.message, 1500);
@@ -230,6 +232,7 @@ var AppView = Backbone.View.extend({
       }
       
       self.collection.addressList = addressList;
+      hint.hideLoading();
 
       if (result.length === 0) {
         self.router.switchTo("address-add");

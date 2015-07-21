@@ -9,18 +9,7 @@ var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
-
-var validator = {
-  checkPhoneNum: function(phoneNum) {
-    return /^1[34578]\d{9}$/.test(phoneNum);
-  },
-  checkPassword: function(passwd) {
-    return /^.{6,20}$/.test(passwd);
-  },
-  checkCaptche: function(captche) {
-    return /^.{1,}$/.test(captche);
-  }
-};
+var validator  = require("app/client/mall/js/lib/validator.js");
 
 var AppView = Backbone.View.extend({
   el: "#form-phone",

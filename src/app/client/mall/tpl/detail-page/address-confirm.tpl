@@ -9,7 +9,7 @@
           <b class="address-exist-telicon"></b><span class="num-font"><%= addressInfo.pphone || "" %></span>
         </p>
       </div>
-      <p class="address-exist-text num-font"><%= addressInfo.address || "" %></p>
+      <p class="address-exist-text num-font"><%= addressInfo.province.name + " " + addressInfo.city.name + " " + addressInfo.area.name + " " + addressInfo.address || "" %></p>
     </li>
   </ul>
   <div class="order-goods-bar pay-order-box clearfix">

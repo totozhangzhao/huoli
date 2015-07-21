@@ -1,5 +1,5 @@
 var MultiLevel = require("com/mobile/widget/select/select.js").MultiLevel;
-var province   = require("app/client/mall/data/region.js").province;
+var getProvince   = require("app/client/mall/js/lib/province.js").getProvince;
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var $          = require("jquery");
 
@@ -7,7 +7,7 @@ MultiLevel.prototype.initSelect = function($select) {
   var self = this;
   $select.each(function(index, item) {
     if (index === 0) {
-      self.addOption( $(item), province );
+      self.addOption( $(item), getProvince() );
     } else {
       self.addOption( $(item) );
     }

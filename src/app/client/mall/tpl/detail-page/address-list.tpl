@@ -13,7 +13,7 @@
             <b class="address-exist-telicon"></b><span class="num-font"><%= addressInfo.pphone || "" %></span>
           </p>
         </div>
-        <p class="address-exist-text num-font border-b"><%= addressInfo.address || "" %></p>
+        <p class="address-exist-text num-font border-b"><%= addressInfo.province.name + " " + addressInfo.city.name + " " + addressInfo.area.name + " " + addressInfo.address || "" %></p>
       </div>
       <div class="address-control-bar">
         <p class="address-set-area">

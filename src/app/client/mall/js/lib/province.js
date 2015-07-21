@@ -1,4 +1,6 @@
-exports.province = [
+var _ = require("lodash");
+
+var province = [
   {
     id: "110000",
     name: "北京"
@@ -94,3 +96,7 @@ exports.province = [
     name: "新疆"
   }
 ];
+
+exports.getProvince = function() {
+  return _.clone(province, true);
+};

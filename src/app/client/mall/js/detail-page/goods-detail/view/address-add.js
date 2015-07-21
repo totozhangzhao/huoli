@@ -6,11 +6,12 @@ var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var MultiLevel = require("com/mobile/widget/select/select.js").MultiLevel;
-var province   = require("app/client/mall/data/region.js").province;
 var toast      = require("com/mobile/widget/hint/hint.js").toast;
 var hint       = require("com/mobile/widget/hint/hint.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
+var validator  = require("app/client/mall/js/lib/validator.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
+var getProvince = require("app/client/mall/js/lib/province.js").getProvince;
 // var pageAction = require("app/client/mall/js/lib/page-action.js");
 
 var AppView = Backbone.View.extend({
@@ -47,7 +48,6 @@ var AppView = Backbone.View.extend({
     }
 
     this.initView(this.curAddress);
-    this.initSelectWidget();
     this.$el.$inputs = this.$el.find("[name]");
     this.$el.$submit = $("#save-address");
   },
@@ -58,38 +58,103 @@ var AppView = Backbone.View.extend({
       addressInfo: addressInfo
     }));
 
-    hint.hideLoading();
+    this.initSelectWidget();
   },
   initSelectWidget: function() {
-    MultiLevel.prototype.initSelect = function($select) {
-      var self = this;
-      $select.each(function(index, item) {
-        if (index === 0) {
-          self.addOption( $(item), province.slice(0) );
-        } else {
-          self.addOption( $(item) );
+    var initMultiLevel = function(regionData) {
+      MultiLevel.prototype.initSelect = function($select) {
+        var self = this;
+
+        if (regionData) {
+          $select.each(function(index, item) {
+            self.addOption( $(item), regionData[item.name] );
+          });
+        } else {        
+          $select.each(function(index, item) {
+            if (index === 0) {
+              self.addOption( $(item), getProvince() );
+            } else {
+              self.addOption( $(item) );
+            }
+          });
         }
-      });
-    };
-
-    MultiLevel.prototype.getResult = function(options, callback) {
-      var params = {
-        id: options.id 
       };
-      sendPost("getRegion", params, function(err, data) {
-        callback(err, data);
+
+      MultiLevel.prototype.getResult = function(options, callback) {
+        var params = {
+          id: options.id 
+        };
+        sendPost("getRegion", params, function(err, data) {
+          callback(err, data);
+        });
+      };
+
+      new MultiLevel({
+        el: "#select-widget"
       });
+
+      hint.hideLoading();
     };
 
-    new MultiLevel({
-      el: "#select-widget"
+    this.initSelectedRegion(initMultiLevel);
+  },
+  initSelectedRegion: function(callback) {
+    var curAddress = this.curAddress;
+
+    if (!curAddress.province || !curAddress.city || !curAddress.area) {
+      return callback(null);
+    }
+
+    var setSelected = function(list, id) {
+      for (var i = 0, len = list.length; i < len; i += 1) {
+        if (list[i].id === id) {
+          list[i].selected = true;
+          return list;
+        }
+      }
+      return list;
+    };
+
+    async.auto({
+      province: function(next) {
+        next(null, setSelected(getProvince(), curAddress.province.id));
+      },
+      city: function(next) {
+        var params = {
+          id: curAddress.province.id
+        };
+        sendPost("getRegion", params, function(err, data) {
+          next(err, setSelected(data, curAddress.city.id));
+        });
+      },
+      area: function(next) {
+        var params = {
+          id: curAddress.city.id
+        };
+        sendPost("getRegion", params, function(err, data) {
+          next(err, setSelected(data, curAddress.area.id));
+        });
+      }
+    }, function(err, results) {
+      callback(results);
     });
   },
   checkInputs: function() {
     var $items = this.$el.$inputs;
+    var defaultHint = "请填写完整的地址信息";
 
     for (var i = 0, len = $items.length; i < len; i += 1) {
-      if ( $items.eq(i).val() === "" ) {
+      var $curInput = $items.eq(i);
+      var curValue = $curInput.val();
+      var method = $curInput.data("checkMethod");
+
+      if ( method && !validator[method](curValue) ) {
+        toast($curInput.data("errorMessage") || defaultHint, 1500);
+        return false;
+      }
+
+      if ( curValue === "" ) {
+        toast(defaultHint, 1500);
         return false;
       }
     }
@@ -102,7 +167,6 @@ var AppView = Backbone.View.extend({
     var inputError = !this.checkInputs();
 
     if (inputError) {
-      toast("请填写完整的地址信息", 1500);
       return;
     }
 
@@ -122,29 +186,22 @@ var AppView = Backbone.View.extend({
       function(userData, next) {
         var $form = self.$el;
 
-        // TODO: form.values()
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           postcode: "",
           name: $form.find("[name=name]").val(),
           pphone: $form.find("[name=pphone]").val(),
           address: $form.find("[name=address]").val(),
-          province: $form.find("[name=province] :selected").text(),
-          city: $form.find("[name=city] :selected").text(),
-          area: $form.find("[name=area] :selected").text()
+          province: {
+            id: $form.find("[name=province]").val()
+          },
+          city: {
+            id: $form.find("[name=city]").val()
+          },
+          area: {
+            id: $form.find("[name=area]").val()
+          }
         });
-
-        // userid: 用户id
-        // authcode: token
-        // uid: 设备id
-        // addressid: 地址id
-        // province: 省份
-        // city: 城市
-        // pphone: 电话
-        // address: 地址
-        // area: 区/县
-        // name: 姓名
-        // postcode: 邮编
 
         var method = "newAddress";
 
@@ -154,16 +211,11 @@ var AppView = Backbone.View.extend({
         }
 
         sendPost(method, params, function(err, data) {
-          next(err, userData, data);
+          next(err, data);
         });
       },
-      function(userData, saveData, next) {
-        var params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p,
-          addressid: saveData.addressid
-        });
-
-        sendPost("setDefAddr", params, function(err, data) {
+      function(saveData, next) {
+        addressUtil.setDefault(saveData.addressid, function(err, data) {
           next(err, data);
         });
       },

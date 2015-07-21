@@ -7,6 +7,8 @@
 <div class="address-usertel-bar border-b">
   <label>联系电话：</label>
   <input name="pphone" type="text" placeholder="请输入收货人手机号码" class="address-usertel-insert"
+    data-check-method="checkPhoneNum"
+    data-error-message="请输入正确的手机号"
     value="<%= addressInfo.pphone || "" %>"
   >
 </div>

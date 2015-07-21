@@ -17,6 +17,11 @@ exports.MultiLevel = Backbone.View.extend({
     var self = this;
     var $cur = $(e.currentTarget);
     var $next = this.getNextSelect($cur);
+
+    if ( $next.length === 0 ) {
+      return;
+    }
+
     var val = $cur.val().trim();
 
     if (val) {
@@ -25,21 +30,18 @@ exports.MultiLevel = Backbone.View.extend({
           var options = {
             id: val
           };
+
           self.getResult(options, function(err, data) {
             next(null, data);
           });
         }
       ], function(err, result) {
         self.addOption($next, result);
-        if ( self.getNextSelect($next) ) {
-          $next.trigger("change");
-        }
+        $next.trigger("change");
       });
     } else {
       this.addOption($next);
-      if ( self.getNextSelect($next) ) {
-        $next.trigger("change");
-      }
+      $next.trigger("change");
     }
   },
   getNextSelect: function($curSelect) {
@@ -65,12 +67,9 @@ exports.MultiLevel = Backbone.View.extend({
       .html(html);
   },
   createOption: function(data) {
-    var html = "";
-
-    $.each(data, function(index, item) {
-      html += "<option value='" + item.id + "'>" + item.name + "</option>";
+    var optionTmpl = require("com/mobile/widget/select/tpl/option.tpl");
+    return optionTmpl({
+      list: data
     });
-
-    return html;
   }
 });
