@@ -1,4 +1,3 @@
-<ul class="record-bar">
 <% _.each(orderList, function(item) { %>
   <li class="js-order-item record-area" data-id="<%= item.orderid %>">
     <a class="clearfix">
@@ -18,4 +17,3 @@
     </a>
   </li>
 <% }) %>
-</ul>

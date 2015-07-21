@@ -18,6 +18,9 @@ var AppView = Backbone.View.extend({
   initialize: function() {
     var self = this;
 
+    this.loadingMore = false;
+    this.$el.$listBox = this.$el.find(".js-container");
+
     hint.showLoading();
 
     NativeAPI.invoke("updateTitle", {
@@ -32,17 +35,90 @@ var AppView = Backbone.View.extend({
 
     this.mallOrderList();
   },
+  initLoadingMore: function() {
+    var self = this;
+
+    $(window).on("scroll", function() {
+      if (self.loadingMore) {
+        return;
+      }
+
+      if ( $(window).scrollTop() + $(window).height() > $(document).height() - 100 ) {
+        self.loadMore();
+      }
+    });
+  },
   refreshPage: function() {
     window.location.reload();
   },
+  loadMore: function() {
+    var $listBox = this.$el.$listBox;
+    var lastOrderId = $listBox
+        .find(".js-order-item")
+          .last()
+          .data("id");
+
+    var renderView = function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      if (Array.isArray(result) && result.length > 0) {
+        var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
+        var tmplData = {
+          orderList: result
+        };
+        
+        $listBox.append( compiled(tmplData) );
+      }
+    };
+
+    this.getOrderList({
+      lastOrderId: lastOrderId
+    }, renderView);
+  },
   mallOrderList: function() {
     var self = this;
+
+    var renderView = function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      if (!Array.isArray(result) || result.length === 0) {
+        self.$el.$listBox.hide();
+        self.$el.$emptyHint.show();
+      } else {
+        var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
+        var tmplData = {
+          orderList: result
+        };
+        
+        self.$el.$listBox.html( compiled(tmplData) );
+        self.loadImage();
+        self.setUpdatePage();
+      }
+    
+      hint.hideLoading();
+      self.initLoadingMore();
+    };
+
+    this.getOrderList(null, renderView);
+  },
+  getOrderList: function(options, callback) {
+    var self = this;
+    var options = options || {};
+
+    this.loadingMore = true;
 
     async.waterfall([
       function(next) {
         appInfo.getUserData(function(err, userData) {
           if (err) {
             toast(err.message, 1500);
+            self.loadingMore = false;
             return;
           }
 
@@ -51,7 +127,8 @@ var AppView = Backbone.View.extend({
       },
       function(userData, next) {
         var params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p
+          p: userData.deviceInfo.p,
+          last: options.lastOrderId || ""
         });
 
         sendPost("orderList", params, function(err, data) {
@@ -64,28 +141,8 @@ var AppView = Backbone.View.extend({
         });
       }
     ], function(err, result) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      var $orderList = $("#order-list");
-
-      if (!Array.isArray(result) || result.length === 0) {
-        $orderList.hide();
-        self.$el.$emptyHint.show();
-      } else {
-        var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
-        var tmplData = {
-          orderList: result
-        };
-        
-        $orderList.html( compiled(tmplData) );
-        self.loadImage();
-        self.setUpdatePage();
-      }
-    
-      hint.hideLoading();
+      self.loadingMore = false;
+      callback(err, result);
     });
   },
   loadImage: function() {
