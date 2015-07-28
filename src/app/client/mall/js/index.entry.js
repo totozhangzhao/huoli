@@ -18,7 +18,8 @@ var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var AppView = Backbone.View.extend({
   el: "#main",
   events: {
-    "click .js-new-page": "createNewPage"
+    "click .js-new-page": "createNewPage",
+    "click .js-get-url" : "handleGetUrl"
   },
   initialize: function() {
     var self = this;
@@ -64,6 +65,41 @@ var AppView = Backbone.View.extend({
       self.mallGetUserInfo({ userData: result });
       self.mallMainProductList();
     });
+  },
+  handleGetUrl: function(e) {
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
+          if (err) {
+            next(err);
+            return;
+          }
+
+          next(null, userData);
+        });
+      },
+      function(userData, next) {
+        var params = _.extend({}, userData.userInfo, userData.deviceInfo, {
+          productid: $(e.currentTarget).data("productid")
+        });
+
+        sendPost("getUrl", params, function(err, data) {
+          next(err, data);
+        });
+      }
+    ], function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      widget.createNewView({
+        url: result.url
+      });
+    });
+  },
+  createNewPage: function(e) {
+    widget.createAView(e);
   },
   getVersion: function(versionInfo) {
     
@@ -391,9 +427,6 @@ var AppView = Backbone.View.extend({
     $("#copyright").html(crTpl({
       system: Util.getMobileSystem()
     }));
-  },
-  createNewPage: function(e) {
-    widget.createAView(e);
   }
 });
 

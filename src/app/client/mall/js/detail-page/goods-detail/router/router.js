@@ -32,8 +32,10 @@ module.exports = Backbone.Router.extend({
     this.previousView = "";
   },
   "default": function() {
-    if ( parseUrl().productid.length === 8 ) {
-      this.switchTo("interlayer");
+    var view = parseUrl().view;
+    
+    if (view in ViewDic) {
+      this.switchTo(view);
     } else {
       this.switchTo("goods-detail");
     }

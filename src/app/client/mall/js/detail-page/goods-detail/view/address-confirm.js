@@ -64,7 +64,7 @@ var AppView = Backbone.View.extend({
       function(next) {
         appInfo.getUserData(function(err, userData) {
           if (err) {
-            toast(err.message, 1500);
+            next(err);
             return;
           }
 

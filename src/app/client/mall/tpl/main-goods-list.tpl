@@ -79,11 +79,15 @@
       </dt>
       <% _.each(group.products, function(item) { %>
         <dd class="home-goods-area-son border fl">
-            <% if (item.url) { %>
-            <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
-            <% } else { %>
+          <% if ( String(item.action) === "0" ) { %>
             <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
-            <% } %>
+          <% } else if ( String(item.action) === "1" ) { %>
+            <a data-view="interlayer" data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+          <% } else if ( String(item.action) === "2" ) { %>
+            <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
+          <% } else if ( String(item.action) === "3" ) { %>
+            <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
+          <% } %>
             <div class="home-text-bar">
               <p class="home-text-bar-p home-pic-tit"><%= item.title %><span class="state-icon <%= item.stateicon %> "></span></p>
               <p class="home-text-bar-p home-pic-detail"><%= item.detail %></p>
