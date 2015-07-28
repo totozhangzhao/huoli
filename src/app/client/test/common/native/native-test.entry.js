@@ -24,6 +24,7 @@ var AppView = Backbone.View.extend({
     "click .js-createWebView"   : "newPage",
     "click .js-hashchange-page" : "newPageHash",
     "click .js-showUserAgent"   : "showUserAgent",
+    "click .js-confirm"         : "confirm",
     "click .js-alert"           : "alert",
     "click .js-share"           : "share",
     "click .js-scanBarcode"     : "scanBarcode",
@@ -249,6 +250,34 @@ var AppView = Backbone.View.extend({
   showUserAgent: function() {
     var ua = window.navigator.userAgent;
     echo(ua);
+  },
+  confirm: function() {
+    NativeAPI.invoke(
+      "confirm", {
+        title: "提示",
+        message: "message",
+        yes_btn_text: "~确定~",
+        no_btn_text: "~取消~"
+      },
+      function(err, data) {
+        if (err) {
+          return handleError(err);
+        }
+        switch (data.value) {
+          case data.YES:
+            echo("你点了确定按钮");
+            break;
+          case data.NO:
+            echo("你点了取消按钮");
+            break;
+          case data.CLOSE:
+            echo("你使用其他方式关闭了弹窗");
+            break;
+          default:
+            echo("未知动作，返回code是[" + data.value + "]");
+        }
+      }
+    );
   },
   alert: function() {
     NativeAPI.invoke(

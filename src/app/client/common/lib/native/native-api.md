@@ -60,9 +60,10 @@ __params__
 
 __result__
 
-0 常量，表示点击了NO
-1 常量，表示点击了YES
-2 常量，表示点击了其他关闭方式
+* `YES` Number 常量 1
+* `NO` Number 常量 0
+* `CLOSE` Number 常量 2
+* `value` Number 0/1/2
 
 JS -> Native: {method: "confirm", params: { title: "test", message: "hello world", yes_btn_text: "是的", no_btn_text: "不是" }, id: 1}
 Native -> JS: {__result__ {value: 0, YES:1, NO: 0, CLOSE: 2}, id: 1}
@@ -70,16 +71,28 @@ Native -> JS: {__result__ {value: 0, YES:1, NO: 0, CLOSE: 2}, id: 1}
 ```JavaScript
 // invoke 方法是对 sendToNative 的封装
 NativeAPI.invoke(
-  "confirm",
-  {
+  "confirm", {
     title: "提示",
-    message: "msg",
-    yes_btn_text: "拨打电话",
-    no_btn_text: "取消"
+    message: "message",
+    yes_btn_text: "~确定~",
+    no_btn_text: "~取消~"
   },
-  function (err, data) {
-    if (data.value === data.YES) {
-      alert("确认");
+  function(err, data) {
+    if (err) {
+      return handleError(err);
+    }
+    switch (data.value) {
+      case data.YES:
+        echo("你点了确定按钮");
+        break;
+      case data.NO:
+        echo("你点了取消按钮");
+        break;
+      case data.CLOSE:
+        echo("你使用其他方式关闭了弹窗");
+        break;
+      default:
+        echo("未知动作，返回code是[" + data.value + "]");
     }
   }
 );
