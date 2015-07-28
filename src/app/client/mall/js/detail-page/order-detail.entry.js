@@ -16,7 +16,8 @@ var AppView = Backbone.View.extend({
   el: "#order-detail-container",
   events: {
     "click a": "createNewPage",
-    "click #pay-button": "payOrder"
+    "click #address-box": "gotoExpressInfoView",
+    "click #pay-button" : "payOrder"
   },
   initialize: function() {
     NativeAPI.invoke("updateTitle", {
@@ -27,8 +28,71 @@ var AppView = Backbone.View.extend({
     this.mallOrderDetail();
     this.isPaying = false;
   },
+  gotoExpressInfoView: function() {
+    var expressInfo = this.orderDetail.express;
+
+    if (!expressInfo) {
+      return;
+    }
+
+    var url = "/fe/app/client/mall/html/detail-page/express-info.html" +
+      "?tracking="  + expressInfo.tracking +
+      "&company="   + encodeURIComponent(expressInfo.company) +
+      "&companyid=" + expressInfo.companyid;
+
+    widget.createNewView({
+      url: url
+    });
+  },
   createNewPage: function(e) {
     widget.createAView(e);
+  },
+  mallOrderDetail: function() {
+    var self = this;
+
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
+          if (err) {
+            toast(err.message, 1500);
+            return;
+          }
+
+          next(null, userData);
+        });
+      },
+      function(userData, next) {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p,
+          orderid: parseUrl().orderid
+        });
+
+        sendPost("orderNewDetail", params, function(err, data) {
+          if (err) {
+            next(err);
+            return;
+          }
+
+          next(null, data);
+        });
+      }
+    ], function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      self.orderDetail = result;
+
+      var compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
+      var tmplData = {
+        orderDetail: self.orderDetail
+      };
+      
+      $("#order-detail-container").html( compiled(tmplData) );
+
+      self.fixTpl();
+    });
   },
   payOrder: function() {
     var self = this;
@@ -130,53 +194,6 @@ var AppView = Backbone.View.extend({
       self.isPaying = false;
       // hint.hideLoading();
       window.location.reload();
-    });
-  },
-  mallOrderDetail: function() {
-    var self = this;
-
-    async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
-          if (err) {
-            toast(err.message, 1500);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      function(userData, next) {
-        var params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p,
-          orderid: parseUrl().orderid
-        });
-
-        sendPost("orderNewDetail", params, function(err, data) {
-          if (err) {
-            next(err);
-            return;
-          }
-
-          next(null, data);
-        });
-      }
-    ], function(err, result) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      self.orderDetail = result;
-
-      var compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
-      var tmplData = {
-        orderDetail: self.orderDetail
-      };
-      
-      $("#order-detail-container").html( compiled(tmplData) );
-
-      self.fixTpl();
     });
   },
   fixTpl: function() {

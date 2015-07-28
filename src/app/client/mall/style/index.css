@@ -130,7 +130,8 @@ option {
 .pay-box,
 .interlayer,
 .pay-order-detail-box,
-.address-page-box {
+.address-page-box,
+.delivery-box {
   max-width: 750px;
   margin: 0 auto;
   min-height: 100%;
@@ -717,6 +718,7 @@ p {
   margin-bottom: 16px;
 }
 .exchange-button {
+  min-width: 88px;
   display: inline-block;
   border-radius: 3px;
   padding: 4px 12px;
@@ -1333,6 +1335,29 @@ p {
   font-size: 12px;
   line-height: 20px;
 }
+.pay-order-detail-box .order-address-area {
+  margin-bottom: 5px;
+}
+.pay-order-detail-box .order-address-area .order-exchange-text:last-child {
+  width: 75%;
+}
+.pay-order-detail-box .logistics-info {
+  margin-right: 8px;
+  color: #2d6dbe;
+}
+.pay-order-detail-box .order-address-area + .order-exchange-text {
+  position: relative;
+}
+.pay-order-detail-box .order-address-enter {
+  width: 8px;
+  height: 14px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -7px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png?a=b) no-repeat -170px -120px;
+  background-size: 312px 280px;
+}
 .pay-order-detail-box .effective-area {
   height: 36px;
   font-size: 12px;
@@ -1388,8 +1413,10 @@ p {
   width: 100%;
 }
 .pay-order-detail-box .user-info {
-  margin-right: 5px;
   color: #111;
+}
+.pay-order-detail-box .user-info:nth-child(1) {
+    margin-right: 20px;
 }
 .pay-order-detail-box .big-font {
   font-size: 16px;
@@ -1707,6 +1734,128 @@ p {
   display: inline-block;
 }
 /* address page end */
+
+/* delivery-box start */
+
+.delivery-nav {
+  height: 40px;
+  line-height: 40px;
+}
+.delivery-info {
+  height: 100%;
+  text-align: center;
+  color: #fff;
+}
+.delivery-info:nth-child(1) {
+  width: 40%;
+  background: #88cdfe;
+}
+.delivery-info:nth-child(2) {
+  width: 60%;
+  background: #67baf7;
+}
+.delivery-status {
+  position: relative;
+}
+.delivery-status:nth-child(even) {
+  background: #f6f6f6;
+}
+.delivery-status:nth-child(odd) {
+  background: #eee;
+}
+.delivery-time-pos {
+  padding: 18px;
+  height: 100%;
+}
+.delivery-time-pos:nth-child(1) {
+  width: 40%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.delivery-time-pos:nth-child(1) div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -20px;
+}
+.delivery-time-pos:nth-child(2) {
+  width: 60%;
+  font-size: 14px;
+  line-height: 24px;
+}
+.delivery-time-pos p {
+  text-align: center;
+}
+.delivery-time-pos p:nth-child(1) {
+  font-size: 12px;
+}
+.delivery-line {
+  width: 3px;
+  height: 100%;
+  background: #ccc;
+  position: absolute;
+  left: 40%;
+  top: 0;
+}
+.delivery-line-finish {
+  width: 3px;
+  height: 50%;
+  background: #ccc;
+  position: absolute;
+  left: 40%;
+  top: 0;
+  top: 0;
+}
+.delivery-status:nth-child(1) .delivery-line {
+  height: 50%;
+  top: 50%;
+}
+.delivery-roll {
+  width: 10px;
+  height: 10px;
+  background: #67baf7;
+  border-radius: 50%;
+  position: absolute;
+  left: 40%;
+  top: 50%;
+  margin-left: -5px;
+  margin-top: -5px;
+}
+.delivery-status:nth-child(1) .delivery-roll {
+  top: 0;
+}
+.delivery-line-finish .delivery-roll {
+  width: 0;
+}
+.delivery-bg {
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-left: -7px;
+  margin-top: -8px;
+}
+.delivery-status:nth-child(1) .delivery-bg {
+  top: 0;
+}
+.delivery-line-finish .delivery-bg {
+  width: 18px;
+  height: 18px;
+  top: 100%;
+  margin-left: -8px;
+  margin-top: -9px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png?a=b) no-repeat -93px -147px;
+  background-size: 312px 280px;
+}
+
+/* delivery-box end */
 
 /* widget - start */
 .bb-panel {

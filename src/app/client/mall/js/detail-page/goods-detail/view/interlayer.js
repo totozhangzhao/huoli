@@ -18,10 +18,6 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
     this.mallInterlayer();
-
-    if ( shareUtil.hasShareInfo() ) {
-      loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
-    }
   },
   resume: function() {
     if (this.title) {
@@ -61,17 +57,16 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      self.renderMainPanel(result);
-    });
-  },
-  renderMainPanel: function(tplProductInfo) {
-    this.title = tplProductInfo.title;
-    this.updateNativeView(tplProductInfo.title);
-    this.$el.html(tplProductInfo.tpl || "");
+      self.title = result.title;
+      window.document.title = result.title || window.document.title;
+      self.updateNativeView(result.title);
+      self.$el.html(result.tpl || "");
 
-    if ( shareUtil.hasShareInfo() ) {
-      this.setShareButton();
-    }
+      if ( shareUtil.hasShareInfo() ) {
+        self.setShareButton();
+        loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
+      }
+    });
   },
   setShareButton: function() {
     var self = this;

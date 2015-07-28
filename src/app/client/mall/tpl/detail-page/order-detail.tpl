@@ -35,7 +35,7 @@
   <!-- 地址 start -->
   <div class="order-exchange-bar order-address-bar">
     <div class="order-exchange-code">
-      <div class="order-exchange-area">
+      <div id="address-box" class="order-exchange-area">
         <%= orderDetail.msg %>
       </div>
       <b class="arc-border arc-border-left"></b>
