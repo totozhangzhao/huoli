@@ -54,6 +54,9 @@ exports.MultiLevel = Backbone.View.extend({
     };
 
     if ( Array.isArray(data) ) {
+      if (data.length === 1) {
+        data[0].selected = true;
+      }
       data.unshift(defaultObj);
     } else {
       data = [defaultObj];
