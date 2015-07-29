@@ -54,19 +54,15 @@ exports.MultiLevel = Backbone.View.extend({
     };
 
     if ( Array.isArray(data) ) {
+      if (data.length === 1) {
+        data[0].selected = true;
+      }
       data.unshift(defaultObj);
     } else {
       data = [defaultObj];
     }
 
     var disabled = data.length === 1 ? true : false;
-
-    // 除默认值外，只有一项时，默认选中。如：北京、天津、上海、重庆默认选中
-    if (data.length === 2) {
-      data[0].selected = false;
-      data[1].selected = true;
-    }
-
     var html = this.createOption(data);
 
     $select
