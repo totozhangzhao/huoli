@@ -128,7 +128,6 @@ option {
 .exchange-record-box,
 .integral-list-box,
 .pay-box,
-.interlayer,
 .pay-order-detail-box,
 .address-page-box,
 .delivery-box {
@@ -544,8 +543,7 @@ option {
 p {
   word-break: break-all;
 }
-.active-pic-bar img,
-.enter-pic-bar img {
+.active-pic-bar img {
   width: 100%;
 }
 .active-bar {
@@ -1143,93 +1141,6 @@ p {
 
 /* pay-heshidai end */
 
-/* yuetu tuiguang start */
-
-.interlayer {
-  background: #000;
-}
-.enter-tit {
-  padding: 0 10px;
-  color:#ff9d5b;
-}
-.enter-tit2 {
-  text-align:center; 
-  margin:20px 0;
-}
-.interlayer .common-text {
-  padding: 0 10px;
-  color:#fff;
-}
-.interlayer .gtgj-logo {
-  width:100px; 
-  margin:40px auto;
-}
-.interlayer .privilege-pic {
-  width:154px; 
-  margin:0 auto 20px;
-}
-.interlayer .privilege5-pic {
-  width:80%; 
-  margin:30px auto;
-}
-.interlayer .privilege5-pic2 {
-  margin:10px auto;
-}
-.enter-tip-text {
-  font-size: 16px;
-  line-height: 30px;
-  text-align: center;
-  color:#ff9d5b;
-}
-.enter-tip-text {
-  line-height: 24px;
-}
-
-.interlayer .enter-arrow {
-  width:10px; 
-  margin:20px auto 0;
-}
-.interlayer .enter-arrow2 {
-  margin:5px auto 0;
-}
-.enter-btn-box {
-  padding: 10px 0 40px;
-}
-.enter-button {
-  width: 44%;
-  height: 36px;
-  line-height: 36px;
-  text-align: center;
-  font-size: 20px;
-  color: #111;
-  background: #ff9d5b;
-  border-radius: 6px;
-  display: inline-block;
-  margin: 3%;
-}
-.secondary-pay-btn {
-  margin: 0 auto;
-  display: block;
-}
-.go-box {
-  padding-bottom: 20px;
-}
-.go-exchange {
-  width: 80%;
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  font-size: 20px;
-  display: block;
-  color: #000;
-  text-decoration: none;
-  background: #ff9d5b;
-  border-radius: 4px;
-  margin: 20px auto 0;
-}
-
-/* yuetu tuiguang end */
-
 /* pay-order-detail 2.0 start */
 
 .pay-order-detail-box {
@@ -1426,8 +1337,7 @@ p {
 }
 /* pay-order-detail 2.0 end */
 
-.yunyue-box,
-.sign-secondary-box {
+.yunyue-box {
   position: relative;
 }
 .yunyue-btn {
@@ -1449,21 +1359,6 @@ p {
   background: -ms-linear-gradient(top, #f39 0%,#f36 100%);
   background: linear-gradient(to bottom, #f39 0%,#f36 100%);
   text-shadow: 0px 1px 3px  #fff;
-}
-.go-sign-btn {
-  width: 76%; 
-  height: 36px; 
-  line-height: 36px; 
-  font-size: 18px; 
-  color: #fff; 
-  background: #f33; 
-  margin: 20px auto; 
-  text-align: center; 
-  border-radius: 5px; 
-  position: absolute; 
-  left: 50%; 
-  bottom: 0; 
-  margin-left: -38%;
 }
 
 /* address page start */
@@ -1918,27 +1813,6 @@ p {
   opacity: 0.7;
 }
 
-.toast {
-  display: block;
-  z-index: 101;
-  position: fixed;
-  top: 51%;
-  left: 50%;
-  width: 320px;
-  margin-left: -160px;
-  color: #fff;
-  border-radius: 5px;
-  text-align: center;
-}
-.toast span {
-  border-radius: 5px;
-  background: rgba(0, 0, 0, .7);
-  display: inline-block;
-  max-width: 228px;
-  padding: 5px 10px;
-  word-break: break-all;
-}
-
 @keyframes blinker {  
   0% { opacity: 1.0; }
   50% { opacity: 0.0; }
@@ -1947,10 +1821,6 @@ p {
 .animaion-blink {
   -webkit-animation: blinker .3s linear .2s 3;
           animation: blinker .3s linear .2s 3;
-}
-
-#cnzz_stat_icon_1255478836 {
-  display: none;
 }
 /* widget - end */
 

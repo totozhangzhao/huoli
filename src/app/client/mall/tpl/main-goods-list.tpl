@@ -4,10 +4,14 @@
     <div class="home-show-area clearfix">
       <div class="home-recommend home-big-bar border border-r fl">
         <% var item = group.products[0] %>
-        <% if (item.url) { %>
-        <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
-        <% } else { %>
-        <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+        <% if ( String(item.action) === "0" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+        <% } else if ( String(item.action) === "1" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/share-page/share.html">
+        <% } else if ( String(item.action) === "2" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
+        <% } else if ( String(item.action) === "3" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
         <% } %>
           <div class="home-text-bar">
             <p class="home-common-tit">
@@ -26,10 +30,14 @@
       </div>
       <div class="home-limit home-small-bar border border-l fr">
         <% var item = group.products[1] %>
-        <% if (item.url) { %>
-        <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
-        <% } else { %>
-        <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+        <% if ( String(item.action) === "0" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+        <% } else if ( String(item.action) === "1" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/share-page/share.html">
+        <% } else if ( String(item.action) === "2" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
+        <% } else if ( String(item.action) === "3" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
         <% } %>
           <div class="home-show-text-bar fl">
             <p class="home-common-tit">
@@ -48,10 +56,14 @@
       </div>
       <div class="home-hot home-small-bar border border-l fr">
         <% var item = group.products[2] %>
-        <% if (item.url) { %>
-        <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
-        <% } else { %>
-        <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+        <% if ( String(item.action) === "0" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+        <% } else if ( String(item.action) === "1" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/share-page/share.html">
+        <% } else if ( String(item.action) === "2" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
+        <% } else if ( String(item.action) === "3" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
         <% } %>
           <div class="home-show-text-bar fl">
             <p class="home-common-tit">
@@ -82,7 +94,7 @@
           <% if ( String(item.action) === "0" ) { %>
             <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
           <% } else if ( String(item.action) === "1" ) { %>
-            <a data-view="interlayer" data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/share-page/share.html">
           <% } else if ( String(item.action) === "2" ) { %>
             <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
           <% } else if ( String(item.action) === "3" ) { %>

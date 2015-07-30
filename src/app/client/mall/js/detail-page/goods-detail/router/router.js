@@ -3,7 +3,6 @@ var Backbone  = require("backbone");
 var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var GoodsView = require("app/client/mall/js/detail-page/goods-detail/view/goods-detail.js");
 var OrderView = require("app/client/mall/js/detail-page/goods-detail/view/form-phone.js");
-var InterlayerView = require("app/client/mall/js/detail-page/goods-detail/view/interlayer.js");
 var AddAddressView = require("app/client/mall/js/detail-page/goods-detail/view/address-add.js");
 var ConfirmAddressView = require("app/client/mall/js/detail-page/goods-detail/view/address-confirm.js");
 var AddressListView = require("app/client/mall/js/detail-page/goods-detail/view/address-list.js");
@@ -11,7 +10,6 @@ var AddressListView = require("app/client/mall/js/detail-page/goods-detail/view/
 var ViewDic = {
   "goods-detail": GoodsView,
   "form-phone"  : OrderView,
-  "interlayer"  : InterlayerView,
   "address-add" : AddAddressView,
   "address-confirm": ConfirmAddressView,
   "address-list": AddressListView

@@ -658,3 +658,29 @@ __params__
 
 Native -> JS: {method: "headerRightBtnClick", params: null}
 Native -> JS: {method: "headerRightBtnClick", params: { "foo": "bar"}}
+
+```JavaScript
+// 先调用 updateHeaderRightBtn 设置右边按钮的文字或图片，再调用 headerRightBtnClick 设置点击了右侧按钮后做什么。
+rightButtonText: function() {
+  var self = this;
+
+  NativeAPI.invoke("updateHeaderRightBtn", {
+    action: "show",
+    text: "分享",
+    data: {
+      list: [1, 2, 3]
+    }
+  }, function(err, data) {
+    if (err) {
+      return handleError(err);
+    }
+
+    echo(JSON.stringify(data));
+  });
+
+  NativeAPI.registerHandler("headerRightBtnClick", function(data) {
+    echo(JSON.stringify(data));
+    self.share();
+  });
+}
+```

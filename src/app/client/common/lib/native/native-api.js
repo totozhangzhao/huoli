@@ -1,15 +1,20 @@
 (function(root, factory) {
   if (typeof exports === "object" && typeof module !== "undefined") {
     var cookie = require("com/mobile/lib/cookie/cookie.js");
-    factory(root, exports, cookie);
+    var util   = require("app/client/common/lib/native/util.js");
+    factory(root, exports, cookie, util);
   } else if (typeof define === "function" && define.amd) {
-    define(["com/mobile/lib/cookie/cookie.js", "exports"], function(cookie, exports) {
-      root.NBridge = factory(root, exports, cookie);
+    define([
+      "com/mobile/lib/cookie/cookie.js",
+      "app/client/common/lib/native/util.js",
+      "exports"
+    ], function(cookie, util, exports) {
+      root.NBridge = factory(root, exports, cookie, util);
     });
   } else {
-    root.NBridge = factory(root, {}, root.cookie);
+    root.NBridge = factory(root, {}, root.cookie, root.util);
   }
-}(this, function(root, NBridge, cookie) {
+}(this, function(root, NBridge, cookie, util) {
   var JSON_RPC_ERROR = {
     PARSE_ERROR: {
       code: -32700,
@@ -139,9 +144,17 @@
         buffer.push(message);
       };
 
+      if ( !util.isApp() ) {
+        clearTimeout(timer);
+        window.NativeAPI.sendToNative = handleInternalError;
+      }
+
       if (cookie) {
         var appName = cookie.get("appName");
 
+        // 加了 cookie 的版本号
+        // 高铁 3.5
+        // 航班 5.2
         if ( /hbgj/i.test(appName) ) {
           window.location.href = "openetjs://start?type=nativeapi";
         } else if ( /gtgj/i.test(appName) ) {
