@@ -1,19 +1,19 @@
-var $          = require("jquery");
-var Backbone   = require("backbone");
-var _          = require("lodash");
-var async      = require("async");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var Swipe      = require("com/mobile/lib/swipe/swipe.js");
-var toast      = require("com/mobile/widget/hint/hint.js").toast;
-var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var Util       = require("com/mobile/lib/util/util.js");
-var storage    = require("app/client/mall/js/lib/storage.js");
-var widget     = require("app/client/mall/js/lib/widget.js");
-var echo       = require("com/mobile/lib/echo/echo.js");
-var mallUitl   = require("app/client/mall/js/lib/util.js");
-var IScroll    = require("com/mobile/lib/iscroll/iscroll-probe.js");
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var $         = require("jquery");
+var Backbone  = require("backbone");
+var _         = require("lodash");
+var async     = require("async");
+var NativeAPI = require("app/client/common/lib/native/native-api.js");
+var appInfo   = require("app/client/mall/js/lib/app-info.js");
+var Swipe     = require("com/mobile/lib/swipe/swipe.js");
+var toast     = require("com/mobile/widget/hint/hint.js").toast;
+var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
+var Util      = require("com/mobile/lib/util/util.js");
+var storage   = require("app/client/mall/js/lib/storage.js");
+var widget    = require("app/client/mall/js/lib/widget.js");
+var echo      = require("com/mobile/lib/echo/echo.js");
+var mallUitl  = require("app/client/mall/js/lib/util.js");
+var IScroll   = require("com/mobile/lib/iscroll/iscroll-probe.js");
+var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 
 var AppView = Backbone.View.extend({
   el: "#main",
@@ -394,6 +394,10 @@ var AppView = Backbone.View.extend({
     ], function(err, result) {
       if (err) {
         toast(err.message, 1500);
+        return;
+      }
+
+      if (result.length === 0) {
         return;
       }
 
