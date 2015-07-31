@@ -144,11 +144,13 @@
         buffer.push(message);
       };
 
-      if ( !util.isApp() ) {
+      // standalone supported
+      if ( util && !util.isApp() ) {
         clearTimeout(timer);
         window.NativeAPI.sendToNative = handleInternalError;
       }
 
+      // standalone supported
       if (cookie) {
         var appName = cookie.get("appName");
 
