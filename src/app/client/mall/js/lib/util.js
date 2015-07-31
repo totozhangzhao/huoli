@@ -21,8 +21,7 @@ exports.getAppName = (function() {
 }());
 
 exports.isHangban = function() {
-  var flag = /hbgj/i.test(exports.getAppName());
-  return flag;
+  return /hbgj/i.test(exports.getAppName());
 };
 
 exports.getUpgradeUrl = function() {

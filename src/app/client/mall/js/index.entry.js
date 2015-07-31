@@ -212,58 +212,58 @@ var AppView = Backbone.View.extend({
     });
   },
   mallCheckin: function() {
-    // var self = this;
-    // var doCheckin = function() {
-    //   async.waterfall([
-    //     function(next) {
-    //       appInfo.getUserData(function(err, userData) {
-    //         if (err) {
-    //           next(err);
-    //           return;
-    //         }
+    var self = this;
+    var doCheckin = function() {
+      async.waterfall([
+        function(next) {
+          appInfo.getUserData(function(err, userData) {
+            if (err) {
+              next(err);
+              return;
+            }
 
-    //         next(null, userData);
-    //       });
-    //     },
-    //     function(userData, next) {
-    //       if (userData.userInfo && userData.userInfo.userid) {
-    //         var params = _.extend({}, userData.userInfo, {
-    //           p: userData.deviceInfo.p
-    //         });
+            next(null, userData);
+          });
+        },
+        function(userData, next) {
+          if (userData.userInfo && userData.userInfo.userid) {
+            var params = _.extend({}, userData.userInfo, {
+              p: userData.deviceInfo.p
+            });
 
-    //         sendPost("checkin", params, function(err, data) {
-    //           if (err) {
-    //             next(err);
-    //             return;
-    //           }
+            sendPost("checkin", params, function(err, data) {
+              if (err) {
+                next(err);
+                return;
+              }
 
-    //           next(null, data);
-    //         });
-    //       } else {
-    //         self.loginApp();
-    //       }
-    //     }
-    //   ], function(err, result) {
-    //     if (err) {
-    //       toast(err.message, 1500);
-    //       return;
-    //     }
+              next(null, data);
+            });
+          } else {
+            self.loginApp();
+          }
+        }
+      ], function(err, result) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
 
-    //     toast(result.msg, 1500);
+        toast(result.msg, 1500);
 
-    //     self.$el.$pionts
-    //       .show()
-    //       .find(".js-points")
-    //         .text(result.point)
-    //         .addClass("animaion-blink");
+        self.$el.$pionts
+          .show()
+          .find(".js-points")
+            .text(result.point)
+            .addClass("animaion-blink");
 
-    //     setTimeout(function() {
-    //       self.$el.$pionts
-    //         .find(".js-points")
-    //         .removeClass("animaion-blink");
-    //     }, 2000);
-    //   });
-    // };
+        setTimeout(function() {
+          self.$el.$pionts
+            .find(".js-points")
+            .removeClass("animaion-blink");
+        }, 2000);
+      });
+    };
 
     NativeAPI.invoke("updateHeaderRightBtn", {
       action: "show",
@@ -276,11 +276,13 @@ var AppView = Backbone.View.extend({
     });
 
     NativeAPI.registerHandler("headerRightBtnClick", function() {
-      // doCheckin();
-
-      widget.createNewView({
-        url: "https://cdn-rsscc-cn.alikunlun.com/gtgj/wap/act/20150717/index.html?gtgjparam=1"
-      });
+      if ( mallUitl.isHangban() ) {
+        doCheckin();
+      } else {
+        widget.createNewView({
+          url: "https://cdn-rsscc-cn.alikunlun.com/gtgj/wap/act/20150717/index.html?gtgjparam=1"
+        });        
+      }
     });
   },
   loginApp: function() {
