@@ -1,16 +1,16 @@
-var $          = require("jquery");
-var _          = require("lodash");
-var Backbone   = require("backbone");
-var async      = require("async");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast      = require("com/mobile/widget/hint/hint.js").toast;
-var hint       = require("com/mobile/widget/hint/hint.js");
-var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var Util       = require("com/mobile/lib/util/util.js");
-var widget     = require("app/client/mall/js/lib/widget.js");
-var mallUitl   = require("app/client/mall/js/lib/util.js");
+var $         = require("jquery");
+var _         = require("lodash");
+var Backbone  = require("backbone");
+var async     = require("async");
+var NativeAPI = require("app/client/common/lib/native/native-api.js");
+var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var toast     = require("com/mobile/widget/hint/hint.js").toast;
+var hint      = require("com/mobile/widget/hint/hint.js");
+var appInfo   = require("app/client/mall/js/lib/app-info.js");
+var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
+var Util      = require("com/mobile/lib/util/util.js");
+var widget    = require("app/client/mall/js/lib/widget.js");
+var mallUitl  = require("app/client/mall/js/lib/util.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-detail-container",
@@ -25,8 +25,8 @@ var AppView = Backbone.View.extend({
     });
 
     this.orderDetail = {};
-    this.mallOrderDetail();
     this.isPaying = false;
+    this.mallOrderDetail();
   },
   gotoExpressInfoView: function() {
     var expressInfo = this.orderDetail.express;
@@ -90,7 +90,6 @@ var AppView = Backbone.View.extend({
       };
       
       $("#order-detail-container").html( compiled(tmplData) );
-
       self.fixTpl();
     });
   },
@@ -146,7 +145,7 @@ var AppView = Backbone.View.extend({
           // url         String 显示订单基本信息的Wap页面
           // subdesc     String 商品详情描述
           var payParams = {
-            quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“兑换记录->订单详情”完成支付。确认退出吗？",
+            quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
             title: "支付订单",
             price: orderDetail.payprice,
             orderid: orderDetail.payorderid,

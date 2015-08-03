@@ -39,7 +39,8 @@ var AppView = Backbone.View.extend({
     "click .js-getCurrentPosition"      : "getCurrentPosition",
     "click .js-updateHeaderRightBtnText": "rightButtonText",
     "click .js-updateHeaderRightBtnIcon": "rightButtonIcon",
-    "click .js-goods-detail": "gotoGoods"
+    "click .js-goods-detail": "gotoGoods",
+    "click .js-test-url"    : "mallTestUrl"
   },
   initialize: function() {
     this.jsBackFlag = false;
@@ -59,6 +60,27 @@ var AppView = Backbone.View.extend({
     if ( shareUtil.hasShareInfo() ) {
       loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
     }
+  },
+  mallTestUrl: function() {
+    var url = $("#mall-test-url").val();
+
+    if (url === "" || typeof url === "undefined" || url === null) {
+      return;
+    }
+
+    NativeAPI.invoke("createWebView", {
+      url: url,
+      controls: [
+        {
+          type: "title",
+          text: "测试页面"
+        }
+      ]
+    }, function(err) {
+      if ( err && (err.code === -32603) ) {
+        window.location.href = url;
+      }
+    });
   },
   gotoGoods: function() {
     var id = $("#goods-detail-input").val();

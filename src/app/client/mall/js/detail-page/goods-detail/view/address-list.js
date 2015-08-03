@@ -1,9 +1,11 @@
 var $          = require("jquery");
 var Backbone   = require("backbone");
+var async      = require("async");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var toast      = require("com/mobile/widget/hint/hint.js").toast;
 var hint       = require("com/mobile/widget/hint/hint.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
+var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 
 var AppView = Backbone.View.extend({
@@ -20,29 +22,61 @@ var AppView = Backbone.View.extend({
     //
   },
   resume: function(options) {
+    var self = this;
+
     if (options.previousView === "") {
-      this.router.switchTo("goods-detail");
+      // this.router.switchTo("goods-detail");
       pageAction.setClose();
-      return;
+      // return;
     }
 
     hint.showLoading();
-
-    pageAction.setClose({
-      preventDefault: false
-    });
-
-    var self = this;
+    
     var addressList = this.collection.addressList;
+    var showAddressHelper = function() {
+      pageAction.setClose({
+        preventDefault: false
+      });
 
-    addressUtil.getList(function(err, result) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
+      addressUtil.getList(function(err, result) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
+
+        if (addressList) {
+          addressList.reset(result);
+        } else {
+          var AddressList = require("app/client/mall/js/detail-page/goods-detail/collection/address-list.js");
+          addressList = new AddressList();
+          if (result.length > 0) {
+            addressList.add(result);
+          }
+          self.collection.addressList = addressList;
+        }
+
+        self.initView( addressList.toJSON() );
+      });
+    };
+
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
+          if (err) {
+            toast(err.message, 1500);
+            return;
+          }
+
+          next(null, userData);
+        });
       }
-
-      addressList.reset(result);
-      self.initView( addressList.toJSON() );
+    ], function(err, result) {
+      if (result.userInfo.authcode) {
+        showAddressHelper();
+      } else {
+        hint.hideLoading();
+        self.loginApp();          
+      }
     });
   },
   initView: function(addressList) {
@@ -53,6 +87,32 @@ var AppView = Backbone.View.extend({
     }));
 
     hint.hideLoading();
+  },
+  loginApp: function() {
+    async.waterfall([
+      function(next) {
+
+        // window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
+        //   window.btoa(unescape(encodeURIComponent( window.location.href )));
+
+        NativeAPI.invoke("login", null, function(err, data) {
+          next(err, data);
+        });
+      }
+    ], function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      if ( String(result.succ) === "1" || result.value === result.SUCC ) {
+        window.location.reload();
+      } else {
+        // hint.hideLoading();
+        window.console.log(JSON.stringify(result));
+        NativeAPI.invoke("close");
+      }
+    });
   },
   gotoConfirmPage: function(e) {
     var $cur = $(e.currentTarget);

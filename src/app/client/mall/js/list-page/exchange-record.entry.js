@@ -23,10 +23,6 @@ var AppView = Backbone.View.extend({
 
     hint.showLoading();
 
-    NativeAPI.invoke("updateTitle", {
-      text: "积分兑换记录"
-    });
-
     this.$el.$emptyHint = $("#empty-record-hint");
     this.$el.$emptyHint
       .on("click", function() {
