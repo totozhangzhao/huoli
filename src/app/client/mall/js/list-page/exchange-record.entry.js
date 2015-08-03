@@ -1,14 +1,14 @@
-var $          = require("jquery");
-var Backbone   = require("backbone");
-var _          = require("lodash");
-var async      = require("async");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast      = require("com/mobile/widget/hint/hint.js").toast;
-var hint       = require("com/mobile/widget/hint/hint.js");
-var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var widget     = require("app/client/mall/js/lib/widget.js");
-var echo       = require("com/mobile/lib/echo/echo.js");
+var $         = require("jquery");
+var Backbone  = require("backbone");
+var _         = require("lodash");
+var async     = require("async");
+var NativeAPI = require("app/client/common/lib/native/native-api.js");
+var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var toast     = require("com/mobile/widget/hint/hint.js").toast;
+var hint      = require("com/mobile/widget/hint/hint.js");
+var appInfo   = require("app/client/mall/js/lib/app-info.js");
+var widget    = require("app/client/mall/js/lib/widget.js");
+var echo      = require("com/mobile/lib/echo/echo.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-list",
