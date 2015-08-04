@@ -18,6 +18,7 @@ var AppView = Backbone.View.extend({
   el: "#address-add",
   events: {
     "click #save-address": "saveAddress",
+    "click .address-option-area": "selectArea",
     "blur  [name]": "blurInput"
   },
   initialize: function() {
@@ -161,6 +162,14 @@ var AppView = Backbone.View.extend({
 
     return true;
   },
+  selectArea: function(e) {
+    var $target = $(e.target);
+    var $cur    = $(e.currentTarget);
+
+    if ( !$target.hasClass("js-select") ) {
+      $cur.find(".js-select").trigger("click");
+    }
+  },
   saveAddress: function() {
     var self = this;
 
@@ -170,6 +179,8 @@ var AppView = Backbone.View.extend({
       return;
     }
 
+    hint.showLoading();
+    
     var addressInfo = this.curAddress;
 
     async.waterfall([
@@ -235,6 +246,8 @@ var AppView = Backbone.View.extend({
         toast(err.message, 1500);
         return;
       }
+
+      hint.hideLoading();
 
       if (result !== void 0) {
         self.router.switchTo("address-confirm");

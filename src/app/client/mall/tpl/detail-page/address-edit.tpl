@@ -14,12 +14,11 @@
 </div>
 <div id="select-widget" class="address-option-bar border-b">
   <div class="address-option-area border-b">
-    <label class="address-se-la">
-      <select name="province" data-default-text="请选择：省" class="js-select address-option-se">
+    <label for="province" class="address-se-la">
+      <select id="province" name="province" data-default-text="请选择：省" class="js-select address-option-se">
         <!-- // -->
       </select>
     </label>
-    <b class="address-choice-icon"></b>
   </div>
   <div class="address-option-area border-b">
     <label class="address-se-la border-l">
@@ -27,7 +26,6 @@
         <!-- // -->
       </select>
     </label>
-    <b class="address-choice-icon"></b>
   </div>
   <div class="address-option-area">
     <label class="address-se-la border-l">
@@ -35,7 +33,6 @@
         <!-- // -->
       </select>
     </label>
-    <b class="address-choice-icon"></b>
   </div>
 </div>
 <div class="address-detail-bar border-b">

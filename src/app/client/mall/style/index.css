@@ -538,6 +538,136 @@ option {
 
 /* index end */
 
+/* index-flight start */
+
+.home-flight-area {
+  padding-top: 10px; 
+}
+.home-flight-son {
+  width: 48%;
+  height: 162px;
+  background: #fff;
+  position: relative;
+}
+.home-status-icon {
+  width: 45px;
+  height: 18px;
+  position: absolute;
+  left: 0;
+  top: 6px;
+}
+.home-daily-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png) no-repeat;
+  background-size: 320px 280px;
+}
+.home-user1-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png?a=b) no-repeat -55px 0;
+  background-size: 320px 280px;
+}
+.home-user2-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png?a=b) no-repeat -55px -28px;
+  background-size: 320px 280px;
+}
+.home-user3-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png?a=b) no-repeat -55px -56px;
+  background-size: 320px 280px;
+}
+.home-user4-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png?a=b) no-repeat -55px -84px;
+  background-size: 320px 280px;
+}
+.home-user5-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png?a=b) no-repeat -55px -112px;
+  background-size: 320px 280px;
+}
+.home-user6-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png?a=b) no-repeat -55px -140px;
+  background-size: 320px 280px;
+}
+.home-user7-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png?a=b) no-repeat -55px -168px;
+  background-size: 320px 280px;
+}
+.home-user8-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png?a=b) no-repeat -55px -196px;
+  background-size: 320px 280px;
+}
+.home-flight-son:nth-of-type(odd) {
+  float: left;
+  border-image:url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  border-width: 0px 1px 0px 1px;
+  margin: 0 0 5px 5px;
+}
+.home-flight-son:nth-of-type(even) {
+  float: right;
+  border-image:url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  border-width: 0px 1px 0px 1px;
+  margin: 0 5px 5px 0;
+}
+.home-flightpic-bar {
+  padding: 25px 0 12px;
+}
+.home-goods-flightpic {
+  width: 100px;
+  height: 64px;
+  margin: 0 auto;
+}
+.home-flight-desc-bar {
+  height: 32px;
+  overflow: hidden;
+}
+.home-flight-desc { 
+  padding: 0 10px;
+  line-height: 16px;
+}
+.home-flight-value-bar {
+  padding: 0 10px;
+}
+.home-currency-symbol {
+  font-size: 12px;
+  margin-right: 2px;
+
+}
+.home-cost,
+.home-cost-points {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Arial';
+}
+.home-points-icon {
+  width: 11px;
+  height: 11px;
+  display: inline-block;
+  margin-right: 2px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png) -110px 0 no-repeat;
+  background-size: 320px 280px;
+}
+.home-flight-points {
+  color: #ff9a00;
+}
+.home-plus-sign {
+  margin: 0 2px;
+}
+.home-flight-points .home-currency-symbol,
+.home-flight-points .home-cost,
+.home-flight-points .home-plus-sign {
+  display: none;
+}
+.home-flight-money,
+.home-flight-money-points {
+  color: #ff4000;
+}
+.home-flight-money .home-plus-sign,
+.home-flight-money .home-cost-points,
+.home-flight-money .home-points-icon {
+  display: none;
+}
+.home-flight-money-points .home-points-icon {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png) -131px 0 no-repeat;
+  background-size: 320px 280px;
+}
+/* index-flight end */
+
 /* goods-detail start */
 
 p {
@@ -1376,6 +1506,12 @@ p {
   padding: 0 10px;
   position: relative;
 }
+.address-option-se {
+  width: 100%;
+  height: 100%;
+  color: #666;
+  background: #fff;
+}
 @media only screen and (max-width:374px){
   .address-option-area {
     width: 100%;
@@ -1391,12 +1527,8 @@ p {
     color: #666;
     background: #fff;
   }
-  .address-option-se {
-    width: 100%;
-    color: #666;
-    background: #fff;
-  }
-  .address-choice-icon {
+  .address-option-area:after {
+    content: '';
     width: 13px;
     height: 7px;
     background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -145px -120px;
@@ -1420,14 +1552,11 @@ p {
     -webkit-flex: 1;
     position: relative;
   }
-  .address-option-se {
-    color: #666;
-    background: #fff;
-  }
   .address-option-bar .border-b {
     border-width: 0;
   }
-  .address-choice-icon {
+  .address-option-area:after {
+    content: '';
     width: 13px;
     height: 7px;
     background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -145px -120px;
@@ -1437,20 +1566,15 @@ p {
     top: 50%;
     margin-top: -3px;
   }
-  .address-option-area:nth-child(3) .address-choice-icon {
-    width: 13px;
-    height: 7px;
-    background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -145px -120px;
-    background-size: 312px 280px;
-    position: absolute;
+  .address-option-area:nth-child(3):after {
     right: -2px;
-    top: 50%;
-    margin-top: -3px;
   }
   .address-se-la {
     padding-left: 6px;
   }
   .address-option-area:nth-child(1) .address-se-la {
+    position: relative;
+    width: 100%;
     padding-left: 0;
   }
 }
@@ -1868,4 +1992,4 @@ p {
   line-height: 18px;
   font-size: 12px;
 }
-/* pull to refresh - end   */
+/* pull to refresh -  end  */
