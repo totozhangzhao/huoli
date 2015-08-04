@@ -402,12 +402,13 @@ __method__
 
 __params__
 
+* `selectedContacts` String `phone`以逗号分隔。表示已经选择的联系人，用于显示联系人列表时自动选中。
 * `maxNum` String 表示选择联系人的数量上限，默认为1（即单选），0 则表示不设上限。
 
 __result__
 
-* `name`  String 名字
-* `phone` String 电话号码
+* `name`  String 联系人的名字
+* `phone` Array 电话号码数组
 * `contacts` Array 以数组形式返回联系人信息。原本的 `name` 和 `phone` 字段，则为数组中第一个联系人的信息（即兼容单选）。
 
 ---------------------------------------

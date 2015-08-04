@@ -44,6 +44,7 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
     this.jsBackFlag = false;
+    this.selectedContacts = "";
 
     NativeAPI.registerHandler("loginCompleted", function() {
       echo("JavaScript loginCompleted");
@@ -109,7 +110,10 @@ var AppView = Backbone.View.extend({
     echo( cookie.get("appName") );
   },
   selectContact: function() {
+    var self = this;
+    var selected = this.selectedContacts;
     var params = {
+      selectedContacts: selected,
       maxNum: "0"
     };
 
@@ -120,7 +124,18 @@ var AppView = Backbone.View.extend({
         return handleError(err);
       }
 
-      echo(JSON.stringify(data));
+      selected = "";
+      data.contacts.every(function(element, index, array) {
+        var str = element.phone.join(",");
+
+        if (index !== array.length - 1) {
+          str += ",";
+        }
+
+        return selected += str;
+      });
+      self.selectedContacts = selected;
+      echo("【selectedContacts】: " + JSON.stringify(selected) + "; 【data】: " + JSON.stringify(data));
     });
   },
   setOrientation: function() {
