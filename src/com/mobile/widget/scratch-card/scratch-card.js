@@ -62,7 +62,10 @@ module.exports = Backbone.View.extend({
     var funcName = this.$el.data("getImage");
 
     // this[funcName](canvas);
-    this.$el.trigger(funcName, [canvas]);
+    if (!config.getImageFlag) {
+      this.$el.trigger(funcName, [canvas, this.initCard]);
+      config.getImageFlag = true;
+    }
     config.drawFlag = true;
   },
 
@@ -96,9 +99,14 @@ module.exports = Backbone.View.extend({
 
     if (!config.resultFlag) {
       if (j <= particle * 0.1) {
-        var funcName = this.$el.data("callback");
-
         config.resultFlag = true;
+
+        var ctx = config.ctx;
+        ctx.beginPath();
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.closePath();
+
+        var funcName = this.$el.data("callback");
         // this[funcName](canvas);
         this.$el.trigger(funcName, [this.initCard]);
       }
@@ -127,10 +135,12 @@ module.exports = Backbone.View.extend({
         _e = touches[touches.length - 1];
       }
 
-      var x = (_e.clientX + document.body.scrollLeft || _e.pageX) - config.offsetX || 0;
-      var y = (_e.clientY + document.body.scrollTop || _e.pageY) - config.offsetY || 0;
+      var offset = this.$el.offset();
+      var x = _e.pageX - offset.left;
+      var y = _e.pageY - offset.top;
       var ctx = config.ctx;
 
+      // console.log("x: " + x + ", y: " + y);
       ctx.beginPath();
       ctx.arc(x, y, 15, 0, config.endAngle);
       ctx.fill();
@@ -146,6 +156,7 @@ module.exports = Backbone.View.extend({
   initCard: function() {
     var config = this.config;
 
+    config.getImageFlag = false;
     config.drawFlag = false;
     config.resultFlag = false;
 
@@ -153,6 +164,8 @@ module.exports = Backbone.View.extend({
     var ctx = config.ctx;
 
     canvas.style.backgroundColor = "transparent";
+    canvas.style.backgroundSize = config.backgroundSize;
+    canvas.style.backgroundImage = "";
 
     ctx.globalCompositeOperation = "source-over";
     ctx.fillStyle = config.fillColor;

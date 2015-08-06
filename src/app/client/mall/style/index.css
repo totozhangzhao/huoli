@@ -1936,7 +1936,9 @@ p {
   background-color: #FFFFFF;
   opacity: 0.7;
 }
+/* widget - end */
 
+/* points - start */
 @keyframes blinker {  
   0% { opacity: 1.0; }
   50% { opacity: 0.0; }
@@ -1946,7 +1948,7 @@ p {
   -webkit-animation: blinker .3s linear .2s 3;
           animation: blinker .3s linear .2s 3;
 }
-/* widget - end */
+/* points -  end  */
 
 /* pull to refresh - start */
 #index-wrapper {

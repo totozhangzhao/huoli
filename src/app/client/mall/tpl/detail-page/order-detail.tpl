@@ -15,7 +15,7 @@
     <p class="order-detail-info">成交时间：<span class="order-detail-num fr"><%= orderDetail.createtime %></span></p>
   </div>
 
-  <% if ( orderDetail.msg && (String(orderDetail.msgtpl) === "1" || String(orderDetail.msgtpl) === "2") ) { %>
+  <% if ( orderDetail.msg && (String(orderDetail.msgtpl) === "1") ) { %>
   <!-- 兑换码 start -->
   <div class="order-exchange-bar">
     <div class="order-exchange-code">
@@ -31,6 +31,18 @@
     </div>
   </div>
   <!-- 兑换码 end -->
+  <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "2") ) { %>
+  <!-- 文字信息 start -->
+  <div class="order-exchange-bar">
+    <div class="order-exchange-code">
+      <div>
+        <%= orderDetail.msg %>
+      </div>
+      <b class="arc-border arc-border-left"></b>
+      <b class="arc-border arc-border-right"></b>
+    </div>
+  </div>
+  <!-- 文字信息 end -->
   <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "3") ) { %>
   <!-- 地址 start -->
   <div class="order-exchange-bar order-address-bar">

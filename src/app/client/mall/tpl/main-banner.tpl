@@ -10,6 +10,8 @@
         <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
       <% } else if ( String(item.action) === "3" ) { %>
         <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
+      <% } else if ( String(item.action) === "4" ) { %>
+        <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/active-page/scratch-card/main.html">
       <% } %>
         <img src="<%= item.img || "" %>" alt="">
       </a>

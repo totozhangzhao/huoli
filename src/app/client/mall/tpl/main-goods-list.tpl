@@ -12,6 +12,8 @@
           <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
         <% } else if ( String(item.action) === "3" ) { %>
           <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
+        <% } else if ( String(item.action) === "4" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/active-page/scratch-card/main.html">
         <% } %>
           <div class="home-text-bar">
             <p class="home-common-tit">
@@ -38,6 +40,8 @@
           <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
         <% } else if ( String(item.action) === "3" ) { %>
           <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
+        <% } else if ( String(item.action) === "4" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/active-page/scratch-card/main.html">
         <% } %>
           <div class="home-show-text-bar fl">
             <p class="home-common-tit">
@@ -64,6 +68,8 @@
           <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
         <% } else if ( String(item.action) === "3" ) { %>
           <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
+        <% } else if ( String(item.action) === "4" ) { %>
+          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/active-page/scratch-card/main.html">
         <% } %>
           <div class="home-show-text-bar fl">
             <p class="home-common-tit">
@@ -99,6 +105,8 @@
             <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
           <% } else if ( String(item.action) === "3" ) { %>
             <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
+          <% } else if ( String(item.action) === "4" ) { %>
+            <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/active-page/scratch-card/main.html">
           <% } %>
             <div class="home-text-bar">
               <p class="home-text-bar-p home-pic-tit"><%= item.title %><span class="state-icon <%= item.stateicon %> "></span></p>

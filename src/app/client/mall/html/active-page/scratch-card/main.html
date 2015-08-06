@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1, width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection"content="telephone=no">
+  <title>幸运刮刮卡</title>
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/common/style/global.css">
+  <style>
+  html, body {
+    width: 100%;
+    height: 100%;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    text-decoration: none;
+  }
+  button {
+    outline: none 0;
+    border: none;
+  }
+  img {
+    display: block;
+    border: none 0;
+    width: 100%;
+  }
+  .lucky-box {
+    max-width: 750px;
+    height: 100%;
+    margin: 0 auto;
+    background: #0b0011;
+  }
+  .lucky-desc-bar,
+  .lucky-status-bar,
+  .lucky-btn-bar,
+  .lucky-nav-bar {
+    position: relative;
+  }
+  .lucky-nav-bar {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    color: #f4f3b3;
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
+  .lucky-shadow-bar {
+    width: 100%;
+    height: 40px;
+    background: #000;
+    opacity: 0.5;
+  }
+  .lucky-integral-area,
+  .lucky-rule-area {
+    font-size: 14px;
+    height: 14px;
+    line-height: 14px;
+    position: absolute;
+  }
+  .lucky-integral-area {
+    left: 15px;
+    top: 13px;
+  }
+  .lucky-rule-area {
+    padding-left: 18px;
+    right: 15px;
+    top: 13px;
+    background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/lucky-draw/lucky-card/lucky-card-icon.png) no-repeat;
+    background-size: 14px 14px;
+  }
+  .lucky-rule-area a {
+    color: #f4f3b3;
+  }
+  .lucky-desc-text,
+  .lucky-detail-btn {
+    width: 100%;
+    text-align: center;
+    color: #fcfa6c;
+    position: absolute;
+    left: 0;
+    bottom: 50px;
+  }
+  .lucky-detail-btn {
+    text-decoration: underline;
+    left: 0;
+    bottom: 20px;
+  }
+  .lucky-status-area {
+    width: 266px;
+    height: 127px;
+    background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/lucky-draw/lucky-card/lucky-card-bg.png) no-repeat;
+    background-size: cover;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-left: -133px;
+  }
+  .lucky-status-area-son {
+    width: 253px;
+    height: 98px;
+    position: absolute;
+    left: 7px;
+    top: 15px;
+  }
+  .lucky-btn-understand {
+    display: none;
+    width: 70%;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    color: #fcfbc9;
+    font-size: 14px;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-left: -35%;
+    background: -webkit-linear-gradient(top, #390066, #50044d);
+  }
+  .lucky-btn-understand.active {
+    background: -webkit-linear-gradient(top, #f0d418, #b36b0d);
+    color: #0b0535;
+  }
+  .lucky-btn-understand.disabled {
+    background: #a7a6a6;
+    color: #888889;
+  }
+
+  /* points - start */
+  @-webkit-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+  }
+  .animaion-blink {
+    -webkit-animation: blinker .3s linear .2s 3;
+            animation: blinker .3s linear .2s 3;
+  }
+  /* points -  end  */
+
+  /* tada - start */
+  @-webkit-keyframes tada {
+    from {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+
+    10%, 20% {
+      -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+      transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+    }
+
+    30%, 50%, 70%, 90% {
+      -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+      transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    }
+
+    40%, 60%, 80% {
+      -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+      transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    }
+
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+
+  @keyframes tada {
+    from {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+
+    10%, 20% {
+      -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+      transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+    }
+
+    30%, 50%, 70%, 90% {
+      -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+      transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    }
+
+    40%, 60%, 80% {
+      -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+      transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    }
+
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+
+  .tada {
+    -webkit-animation-name: tada;
+    animation-name: tada;
+  }
+  .animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+  /* tada -  end  */
+  </style>
+</head>
+<body>
+  <section id="lottery-main" class="lucky-box">
+    <nav class="lucky-nav-bar">
+      <div class="lucky-shadow-bar"></div>
+      <p class="lucky-integral-area">当前积分：<span class="js-points">--</span></p>
+      <p class="lucky-rule-area"><a href="https://dl.rsscc.cn/guanggao/integral/active/lucky-rule.html">抽奖规则</a></p>
+    </nav>
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/lucky-draw/lucky-card/lucky-draw-1.jpg">
+    <div class="lucky-desc-bar">
+      <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/lucky-draw/lucky-card/lucky-draw-2.jpg">
+      <p class="lucky-desc-text">10积分抽498元芒果贴智慧传感套件</p>
+      <a href="https://dl.rsscc.cn/guanggao/integral/active/lucky-page.html" class="lucky-detail-btn">了解芒果贴智慧传感器套件>></a>
+    </div>
+    <div class="lucky-status-bar">
+      <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/lucky-draw/lucky-card/lucky-draw-3.jpg">
+      <div class="js-card-block lucky-status-area">
+        <div class="lucky-status-area-son">
+          <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/lucky-draw/lucky-card/lucky-card-ready.png">
+        </div>
+      </div>
+    </div>
+    <div class="lucky-btn-bar">
+      <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/lucky-draw/lucky-card/lucky-draw-4.jpg">
+      <button data-type="start" class="js-button lucky-btn-understand">开始刮奖</button>
+      <button data-type="restart" class="js-button lucky-btn-understand active">再刮一次</button>
+      <button data-type="off" class="js-button lucky-btn-understand disabled">再刮一次</button>
+    </div>
+  </section>
+
+<script src="/fe/vendor/vendor-mvc.bundle.js"></script>
+<script src="/fe/app/client/mall/js/active-page/scratch-card/main.bundle.js"></script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255478836'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1255478836' type='text/javascript'%3E%3C/script%3E"));</script>
+</body>
+</html>
