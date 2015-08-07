@@ -3,16 +3,18 @@ var Backbone  = require("backbone");
 var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var GoodsView = require("app/client/mall/js/detail-page/goods-detail/view/goods-detail.js");
 var OrderView = require("app/client/mall/js/detail-page/goods-detail/view/form-phone.js");
+var FormCustom = require("app/client/mall/js/detail-page/goods-detail/view/form-custom.js");
 var AddAddressView = require("app/client/mall/js/detail-page/goods-detail/view/address-add.js");
 var ConfirmAddressView = require("app/client/mall/js/detail-page/goods-detail/view/address-confirm.js");
 var AddressListView = require("app/client/mall/js/detail-page/goods-detail/view/address-list.js");
 
 var ViewDic = {
-  "goods-detail": GoodsView,
-  "form-phone"  : OrderView,
-  "address-add" : AddAddressView,
+  "goods-detail"   : GoodsView,
+  "form-phone"     : OrderView,
+  "form-custom"    : FormCustom,
+  "address-add"    : AddAddressView,
   "address-confirm": ConfirmAddressView,
-  "address-list": AddressListView
+  "address-list"   : AddressListView
 };
 
 var cache = {};

@@ -205,14 +205,15 @@ var AppView = Backbone.View.extend({
       this.changeButtonStatus("restart");      
     }
 
-    var showCardView = function() {
+    var showCardView = function(bonus) {
       var $cardBlock = self.$el.find(".js-card-block");
+      var animateName = bonus ? "tada" : "rubberBand";
 
       $cardBlock
-        .addClass("tada animated");
+        .addClass(animateName + " animated");
 
       setTimeout(function() {
-        $cardBlock.removeClass("tada animated");
+        $cardBlock.removeClass(animateName + " animated");
       }, 2000);
     };
 
@@ -229,9 +230,9 @@ var AppView = Backbone.View.extend({
 
     var showResultView = function(points) {
       self.$el.find(".js-points").text(points);
-      
+      showCardView(self.bonus);
+
       if (self.bonus) {
-        showCardView();
         showPointsView();
       }
     };

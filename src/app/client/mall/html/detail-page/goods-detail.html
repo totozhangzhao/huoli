@@ -81,7 +81,7 @@
   </section>
 
   <section id="form-phone" class="bb-panel pay-box">
-    <div id="form-phone-main-image" class="pay-pic-bar">
+    <div class="js-top-image pay-pic-bar">
       <!-- // -->
     </div>
     <div class="insert-bar">
@@ -100,15 +100,6 @@
         </div>
         <p class="js-error-tip error-tip insert-tit common-text text-red">密码应为6-20位</p>
       </div>
-      <!--
-      <div class="form-block insert-bar-son">
-        <div class="common-insert-area">
-          <span class="insert-icon re-psw-icon"></span>
-          <input type="password" placeholder="请再次输入密码" class="form-input form-password2 common-insert" />
-        </div>
-        <p class="js-error-tip error-tip insert-tit common-text text-red">密码错误</p>
-      </div>
-      -->
       <div class="form-block insert-bar-son authcode-insert-bar clearfix">
         <div class="authcode-insert-area fl">
           <input type="text" placeholder="请输入验证码" data-check-method="checkCaptche" class="form-input form-captcha authcode-insert" />
@@ -119,30 +110,31 @@
         <p class="js-error-tip error-tip insert-tit  authcode-tit common-text text-red fl">请输入验证码</p>
       </div>
       <div class="to-receive-bar">
-        <button id="submit" class="to-receive">马上领取</button>
+        <button class="js-submit to-receive">马上领取</button>
       </div>
     </div>
 
     <!-- 弹窗start -->
-
     <div class="js-success-prompt js-prompt flip-box flip-box-succ">
       <p class="flip-info">兑换成功</p>
       <p class="js-message flip-tip"></p>
       <a class="js-goto-order-detail exchange-button flip-go-check forbidden-color">查看订单</a>
       <a class="js-goto-url exchange-button flip-go-check able-color">立即使用</a>
     </div>
-
     <!-- 弹窗end -->
 
     <!-- 灰色半透明背景start -->
-
     <div class="js-shade common-shadow"></div>
-
     <!-- 灰色半透明背景end -->
   </section>
 
-  <section id="interlayer" class="bb-panel interlayer">
-    <!-- // -->
+  <section id="form-custom" class="bb-panel pay-box">
+    <div class="js-top-image pay-pic-bar">
+      <!-- // -->
+    </div>
+    <div class="js-input-container insert-bar">
+      <!-- // -->
+    </div>
   </section>
 
 <script src="/fe/vendor/vendor-mvc.bundle.js"></script>

@@ -14,12 +14,12 @@ var validator  = require("app/client/mall/js/lib/validator.js");
 var AppView = Backbone.View.extend({
   el: "#form-phone",
   events: {
-    "click #submit"        : "createOrder",
+    "click .js-submit"     : "createOrder",
     "input .form-input"    : "inputInput",
     "blur  .form-input"    : "blurInput",
     "input .form-phone-num": "inputPhoneNum",
-    "click .js-captcha"   : "sendCaptcha",
-    "click .js-use-url"   : "showOrder"
+    "click .js-captcha"    : "sendCaptcha",
+    "click .js-use-url"    : "showOrder"
   },
   initialize: function() {
     this.$el.$shade         = $("#form-phone .js-shade");
@@ -231,7 +231,7 @@ var AppView = Backbone.View.extend({
       alt: ""
     });
 
-    $("#form-phone-main-image").html($img);
+    this.$el.find(".js-top-image").html($img);
 
     // set phone number from getUserInfo
     async.waterfall([

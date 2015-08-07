@@ -155,7 +155,6 @@ var AppView = Backbone.View.extend({
       .text(productInfo.button)
       .addClass(buttonClass)
       .show();
-
   },
   loginApp: function() {
     var self = this;
@@ -188,11 +187,12 @@ var AppView = Backbone.View.extend({
   },
   exchange: function(productInfo) {
 
-    // type：兑换类型    
-    // 1--直接调用创建订单接口      
-    // 2--转入输入手机号页面（预留）      
-    // 3--转入输入地址页面（预留）   
+    // type：兑换类型
+    // 1--直接调用创建订单接口
+    // 2--转入输入手机号页面（预留，金融类）
+    // 3--转入输入地址页面（预留）
     // 9--点击跳转第三方链接（ thirdparturl ）
+    // 13--转入输入手机号页面（预留，金融类）
     switch ( String(productInfo.type) ) {
       case "1":
         this.$el.$promptBoard.hide();
@@ -210,6 +210,10 @@ var AppView = Backbone.View.extend({
         this.gotoNewView({
           url: productInfo.thirdparturl
         });
+        break;
+      case "13":
+        this.hidePrompt();
+        this.router.switchTo("form-custom");
         break;
     }
   },

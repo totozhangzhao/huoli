@@ -47,6 +47,32 @@ var AppView = Backbone.View.extend({
   refreshPage: function() {
     window.location.reload();
   },
+  loginApp: function() {
+    async.waterfall([
+      function(next) {
+
+        // window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
+        //   window.btoa(unescape(encodeURIComponent( window.location.href )));
+
+        NativeAPI.invoke("login", null, function(err, data) {
+          next(err, data);
+        });
+      }
+    ], function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      if ( String(result.succ) === "1" || result.value === result.SUCC ) {
+        window.location.reload();
+      } else {
+        // hint.hideLoading();
+        window.console.log(JSON.stringify(result));
+        NativeAPI.invoke("close");
+      }
+    });
+  },
   loadMore: function() {
     var $listBox = this.$el.$listBox;
     var lastOrderId = $listBox
@@ -122,19 +148,24 @@ var AppView = Backbone.View.extend({
         });
       },
       function(userData, next) {
-        var params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p,
-          last: options.lastOrderId || ""
-        });
+        if (userData.userInfo && userData.userInfo.userid) {
+          var params = _.extend({}, userData.userInfo, {
+            p: userData.deviceInfo.p,
+            last: options.lastOrderId || ""
+          });
 
-        sendPost("orderList", params, function(err, data) {
-          if (err) {
-            next(err);
-            return;
-          }
+          sendPost("orderList", params, function(err, data) {
+            if (err) {
+              next(err);
+              return;
+            }
 
-          next(null, data);
-        });
+            next(null, data);
+          });
+        } else {
+          hint.hideLoading();
+          self.loginApp();
+        }
       }
     ], function(err, result) {
       self.loadingMore = false;
