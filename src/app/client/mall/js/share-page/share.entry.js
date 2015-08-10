@@ -9,9 +9,10 @@ var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var loadScript = require("com/mobile/lib/load-script/load-script.js");
-var shareUtil  = require("com/mobile/widget/wechat/util.js");
 var cookie     = require("com/mobile/lib/cookie/cookie.js");
+var shareUtil  = require("com/mobile/widget/wechat/util.js");
 var wechatUtil = require("com/mobile/widget/wechat-hack/util.js");
+var mallWechat = require("app/client/mall/js/lib/wechat.js");
 
 var AppView = Backbone.View.extend({
   el: "#interlayer",
@@ -75,51 +76,18 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      if ( wechatUtil.isWechat() ) {
-        wechatUtil.setTitle(result.title);
-      } else {
-        self.updateNativeView(result.title);
-      }
-
       self.$el.html(result.tpl || "");
 
-      if ( shareUtil.hasShareInfo() ) {
-        self.setShareButton();
-        loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
-      }
-    });
-  },
-  setShareButton: function() {
-    var self = this;
-
-    NativeAPI.invoke("updateHeaderRightBtn", {
-      action: "show",
-      text: "分享"
-    }, function(err) {
-      if (err) {
-
-        // 此页面有可能被分享出去，不能在外部(如微信)弹出 Internal error
-        window.console.log(err.message);
-        return;
-      }
-    });
-
-    NativeAPI.registerHandler("headerRightBtnClick", function() {
-      self.shareFromApp();
-    });
-  },
-  shareFromApp: function() {
-    var shareInfo = shareUtil.getShareInfo();
-
-    NativeAPI.invoke("sharePage", {
-      title: shareInfo.title,
-      desc: shareInfo.desc,
-      link: shareInfo.link,
-      imgUrl: shareInfo.imgUrl
-    }, function(err) {
-      if (err) {
-        window.console.log(err.message);
-        return;
+      if ( wechatUtil.isWechat() ) {
+        wechatUtil.setTitle(result.title);
+        if ( shareUtil.hasShareInfo() ) {
+          loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
+        }
+      } else {
+        self.updateNativeView(result.title);
+        if ( shareUtil.hasShareInfo() ) {
+          mallWechat.initNativeShare();
+        }
       }
     });
   },

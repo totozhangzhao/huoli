@@ -8,10 +8,10 @@ var toast      = require("com/mobile/widget/hint/hint.js").toast;
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
-// var loadScript = require("com/mobile/lib/load-script/load-script.js");
-// var shareUtil  = require("com/mobile/widget/wechat/util.js");
-// var cookie     = require("com/mobile/lib/cookie/cookie.js");
-// var wechatUtil = require("com/mobile/widget/wechat-hack/util.js");
+var loadScript = require("com/mobile/lib/load-script/load-script.js");
+var shareUtil  = require("com/mobile/widget/wechat/util.js");
+var wechatUtil = require("com/mobile/widget/wechat-hack/util.js");
+var mallWechat = require("app/client/mall/js/lib/wechat.js");
 var ScratchCard = require("com/mobile/widget/scratch-card/scratch-card.js");
 // var Util       = require("com/mobile/lib/util/util.js");
 
@@ -40,6 +40,16 @@ var AppView = Backbone.View.extend({
 
     this.showPointsView();
     this.initCardButton();
+
+    if ( wechatUtil.isWechat() ) {
+      if ( shareUtil.hasShareInfo() ) {
+        loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
+      }
+    } else {
+      if ( shareUtil.hasShareInfo() ) {
+        mallWechat.initNativeShare();
+      }
+    }
   },
   createNewPage: function(e) {
     widget.createAView(e);
@@ -76,8 +86,8 @@ var AppView = Backbone.View.extend({
   },
   initCard: function() {
     var self = this;
-
     var cardTmpl = require("app/client/mall/tpl/active-page/scratch-card/main-card.tpl");
+
     this.$el
       .find(".js-card-block")
         .html( cardTmpl({}) );
