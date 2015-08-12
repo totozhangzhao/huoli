@@ -46,8 +46,8 @@
   <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "3") ) { %>
   <!-- 地址 start -->
   <div class="order-exchange-bar order-address-bar">
-    <div class="order-exchange-code">
-      <div id="address-box" class="order-exchange-area">
+    <div class="js-address-box order-exchange-code">
+      <div class="order-exchange-area">
         <%= orderDetail.msg %>
       </div>
       <b class="arc-border arc-border-left"></b>

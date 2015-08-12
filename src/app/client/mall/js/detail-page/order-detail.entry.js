@@ -11,12 +11,13 @@ var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var Util      = require("com/mobile/lib/util/util.js");
 var widget    = require("app/client/mall/js/lib/widget.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
+var pageAction = require("app/client/mall/js/lib/page-action.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-detail-container",
   events: {
     "click a": "createNewPage",
-    "click #address-box": "gotoExpressInfoView",
+    "click .js-address-box": "handleAddressInfo",
     "click #pay-button" : "payOrder"
   },
   initialize: function() {
@@ -27,6 +28,24 @@ var AppView = Backbone.View.extend({
     this.orderDetail = {};
     this.isPaying = false;
     this.mallOrderDetail();
+    pageAction.setClose();
+  },
+  handleAddressInfo: function() {
+    var needpay = this.orderDetail.needpay;
+
+    if (needpay === 2) {
+      this.gotoAddressList();
+    } else {
+      this.gotoExpressInfoView();
+    }
+  },
+  gotoAddressList: function() {
+    var id = this.orderDetail.orderid;
+    var url = "/fe/app/client/mall/html/detail-page/goods-detail.html" +
+        "?action=order&orderid=" + id +
+        "#address-list";
+
+    window.location.href = url;
   },
   gotoExpressInfoView: function() {
     var expressInfo = this.orderDetail.express;
@@ -132,7 +151,7 @@ var AppView = Backbone.View.extend({
         // shotdesc: 商品短描述
         // price: 商品价格
         // note: 使用说明
-        // needpay: 是否需要支付，1: 需要，0: 不需要
+        // needpay: 是否需要支付，1: 需要，0: 不需要，2: 补全地址
         // payprice: 支付价格
         // payorderid: 支付订单ID
         if (orderDetail.needpay) {
@@ -199,7 +218,8 @@ var AppView = Backbone.View.extend({
     var crTpl = require("app/client/mall/tpl/copyright.tpl");
 
     $("#copyright").html(crTpl({
-      system: Util.getMobileSystem()
+      system: Util.getMobileSystem(),
+      isHangban: mallUitl.isHangban()
     }));
   }
 });

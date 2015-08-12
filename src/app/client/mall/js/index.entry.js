@@ -431,7 +431,8 @@ var AppView = Backbone.View.extend({
     var crTpl = require("app/client/mall/tpl/copyright.tpl");
 
     $("#copyright").html(crTpl({
-      system: Util.getMobileSystem()
+      system: Util.getMobileSystem(),
+      isHangban: mallUitl.isHangban()
     }));
   }
 });

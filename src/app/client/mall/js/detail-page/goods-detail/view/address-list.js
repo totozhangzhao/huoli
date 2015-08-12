@@ -6,6 +6,7 @@ var toast      = require("com/mobile/widget/hint/hint.js").toast;
 var hint       = require("com/mobile/widget/hint/hint.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
 var appInfo    = require("app/client/mall/js/lib/app-info.js");
+var UrlUtil    = require("com/mobile/lib/url/url.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 
 var AppView = Backbone.View.extend({
@@ -144,11 +145,9 @@ var AppView = Backbone.View.extend({
   },
   editAddress: function(e) {
     var $cur = $(e.currentTarget);
-    var $item = $cur.closest(".js-item");
-    var addressId = $item.data("addressid");
 
     this.cache.addressAction = "update";
-    this.cache.curAddressId = addressId;
+    this.cache.curAddressId = $cur.closest(".js-item").data("addressid");
     this.router.switchTo("address-add");
   },
   removeAddress: function(e) {
