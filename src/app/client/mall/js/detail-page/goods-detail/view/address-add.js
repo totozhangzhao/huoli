@@ -10,6 +10,7 @@ var toast      = require("com/mobile/widget/hint/hint.js").toast;
 var hint       = require("com/mobile/widget/hint/hint.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
 var validator  = require("app/client/mall/js/lib/validator.js");
+var UrlUtil    = require("com/mobile/lib/url/url.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 var getProvince = require("app/client/mall/js/lib/province.js").getProvince;
 // var pageAction = require("app/client/mall/js/lib/page-action.js");
@@ -226,9 +227,48 @@ var AppView = Backbone.View.extend({
         });
       },
       function(saveData, next) {
-        addressUtil.setDefault(saveData.addressid, function(err, data) {
-          next(err, data);
-        });
+        if (UrlUtil.parseUrlSearch().action === "order") {
+          hint.showLoading();
+
+          async.waterfall([
+            function(next) {
+              appInfo.getUserData(function(err, userData) {
+                if (err) {
+                  toast(err.message, 1500);
+                  return;
+                }
+
+                next(null, userData);
+              });
+            },
+            function(userData, next) {
+              var params = _.extend({}, userData.userInfo, {
+                p: userData.deviceInfo.p,
+                orderid: UrlUtil.parseUrlSearch().orderid,
+                addressid: saveData.addressid
+              });
+
+              sendPost("addOrderAddr", params, function(err, data) {
+                next(err, data);
+              });
+            }
+          ], function(err) {
+            if (err) {
+              toast(err.message, 1500);
+              return;
+            }
+
+            // hint.hideLoading();
+            var orderDetailUrl = window.location.origin +
+                "/fe/app/client/mall/html/detail-page/order-detail.html" +
+                "?orderid=" + UrlUtil.parseUrlSearch().orderid;
+            window.location.href = orderDetailUrl;
+          });
+        } else {
+          addressUtil.setDefault(saveData.addressid, function(err, data) {
+            next(err, data);
+          });
+        }
       },
       function(setResult, next) {
         addressUtil.getList(function(err, result) {

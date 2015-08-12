@@ -1,4 +1,5 @@
 var $          = require("jquery");
+var _          = require("lodash");
 var Backbone   = require("backbone");
 var async      = require("async");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
@@ -7,6 +8,7 @@ var hint       = require("com/mobile/widget/hint/hint.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
 var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var UrlUtil    = require("com/mobile/lib/url/url.js");
+var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 
 var AppView = Backbone.View.extend({
@@ -117,8 +119,49 @@ var AppView = Backbone.View.extend({
   },
   gotoConfirmPage: function(e) {
     var $cur = $(e.currentTarget);
-    this.cache.curAddressId = $cur.closest(".js-item").data("addressid");
-    this.router.switchTo("address-confirm");
+    var addressid = $cur.closest(".js-item").data("addressid");
+
+    if (UrlUtil.parseUrlSearch().action === "order") {
+      hint.showLoading();
+
+      async.waterfall([
+        function(next) {
+          appInfo.getUserData(function(err, userData) {
+            if (err) {
+              toast(err.message, 1500);
+              return;
+            }
+
+            next(null, userData);
+          });
+        },
+        function(userData, next) {
+          var params = _.extend({}, userData.userInfo, {
+            p: userData.deviceInfo.p,
+            orderid: UrlUtil.parseUrlSearch().orderid,
+            addressid: addressid
+          });
+
+          sendPost("addOrderAddr", params, function(err, data) {
+            next(err, data);
+          });
+        }
+      ], function(err) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
+
+        // hint.hideLoading();
+        var orderDetailUrl = window.location.origin +
+            "/fe/app/client/mall/html/detail-page/order-detail.html" +
+            "?orderid=" + UrlUtil.parseUrlSearch().orderid;
+        window.location.href = orderDetailUrl;
+      });
+    } else {
+      this.cache.curAddressId = addressid;
+      this.router.switchTo("address-confirm");
+    }
   },
   setDefaultAddress: function() {
     hint.showLoading();

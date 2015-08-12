@@ -18,7 +18,7 @@ var AppView = Backbone.View.extend({
   events: {
     "click a": "createNewPage",
     "click .js-address-box": "handleAddressInfo",
-    "click #pay-button" : "payOrder"
+    "click #pay-button"    : "payOrder"
   },
   initialize: function() {
     NativeAPI.invoke("updateTitle", {

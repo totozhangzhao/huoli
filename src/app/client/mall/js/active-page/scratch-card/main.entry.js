@@ -145,9 +145,10 @@ var AppView = Backbone.View.extend({
         return;
       }
     
-      self.left = result.left;
-      self.bonus = result.bonus;
-      self.points = result.points;
+      self.orderid = result.orderid;
+      self.left    = result.left;
+      self.bonus   = result.bonus;
+      self.points  = result.points;
       canvas.style.backgroundImage = "url(" + result.result.image + ")";
     });
   },
@@ -235,6 +236,9 @@ var AppView = Backbone.View.extend({
 
       setTimeout(function() {
         $points.removeClass("animaion-blink");
+        if (self.bonus === 2) {
+          self.gotoOrderDetail();
+        }
       }, 2000);
     };
 
@@ -242,7 +246,7 @@ var AppView = Backbone.View.extend({
       self.$el.find(".js-points").text(points);
       showCardView(self.bonus);
 
-      if (self.bonus) {
+      if (self.bonus > 0) {
         showPointsView();
       }
     };
@@ -260,6 +264,15 @@ var AppView = Backbone.View.extend({
         }
       });
     }
+  },
+  gotoOrderDetail: function() {
+    var orderDetailUrl = window.location.origin +
+        "/fe/app/client/mall/html/detail-page/order-detail.html" +
+        "?orderid=" + this.orderid;
+
+    widget.createNewView({
+      url: orderDetailUrl
+    });
   },
   loginApp: function() {
     async.waterfall([
