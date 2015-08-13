@@ -1,6 +1,6 @@
 <% _.each(orderList, function(item) { %>
-  <li class="js-order-item record-area" data-id="<%= item.orderid %>">
-    <a class="clearfix">
+  <li class="js-order-item js-touch-state record-area" data-id="<%= item.orderid %>">
+    <a class="block clearfix">
       <div class="record-pic-bar fl">
         <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= item.img %>" class="record-pic chit-pic">
       </div>

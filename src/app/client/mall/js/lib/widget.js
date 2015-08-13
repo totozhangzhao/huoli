@@ -1,6 +1,23 @@
 var $          = require("jquery");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 
+// touch status
+(function() {
+  $("body")
+    .on("touchstart", "a, .js-touch-state", function() {
+      $(this).addClass("touch");
+    })
+    .on("touchmove", "a, .js-touch-state", function() {
+      $(this).removeClass("touch");
+    })
+    .on("touchend", "a, .js-touch-state", function() {
+      $(this).removeClass("touch");
+    })
+    .on("touchcancel", "a, .js-touch-state", function() {
+      $(this).removeClass("touch");
+    });
+}());
+
 exports.createAView = function(e) {
   var $cur = $(e.currentTarget);
   var url = $cur.prop("href");
