@@ -1444,8 +1444,12 @@ p {
   margin-right: 13px;
   margin-bottom: 0;
   margin-left: 13px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png?a=r) no-repeat 3px -172px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png?a=r) no-repeat;
+  background-position: -90px -168px;
   background-size: 312px 280px;
+}
+.phone-icon {
+  background-position: 3px -172px;
 }
 .psw-icon {
   background-position: -21px -171px;
@@ -1461,9 +1465,6 @@ p {
 }
 .email-icon {
   background-position: -68px -168px;
-}
-.inserting-icon {
-  background-position: -90px -168px;
 }
 .common-insert {
   width: 70%;

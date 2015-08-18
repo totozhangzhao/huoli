@@ -79,10 +79,26 @@ var AppView = Backbone.View.extend({
 
     var tmpl = require("app/client/mall/tpl/detail-page/form-custom.tpl");
 
+    // 1.realname-icon:name  : 姓名
+    // 2.idcard-icon  :idcard: 身份证号    
+    // 3.phone-icon   :phone : 手机号
+    // 4.psw-icon     :pwd   : 输入密码
+    // 5.re-psw-icon  :repwd : 再次输入密码
+    // 6.email-icon   :email : 邮箱
+    var inputClass = {
+      name  : "realname-icon",
+      idcard: "idcard-icon",
+      phone : "phone-icon",
+      pwd   : "psw-icon",
+      repwd : "re-psw-icon",
+      email : "email-icon"
+    };
+
     this.$el
       .find(".js-input-container")
         .html(tmpl({
-          list: productInfo.input
+          list: productInfo.input,
+          inputClass: inputClass
         }));
 
     // set phone number from getUserInfo
