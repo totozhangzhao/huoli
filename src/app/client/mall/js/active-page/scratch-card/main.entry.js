@@ -1,4 +1,4 @@
-var $          = require("jquery");
+// var $          = require("jquery");
 var Backbone   = require("backbone");
 var _          = require("lodash");
 var async      = require("async");
@@ -39,7 +39,7 @@ var AppView = Backbone.View.extend({
     this.$el.$button = this.$el.find(".js-button");
 
     this.showPointsView();
-    this.initCardButton();
+    this.initCard();
 
     if ( wechatUtil.isWechat() ) {
       if ( shareUtil.hasShareInfo() ) {
@@ -47,42 +47,66 @@ var AppView = Backbone.View.extend({
       }
     } else {
       if ( shareUtil.hasShareInfo() ) {
-        mallWechat.initNativeShare();
+        mallWechat.initNativeShare(_.bind(this.mallCheckin, this));
       }
     }
   },
   createNewPage: function(e) {
     widget.createAView(e);
   },
-  initCardButton: function() {
-    this.changeButtonStatus("start");
-  },
-  changeButtonStatus: function(status) {
-    var status = status || "start";
+  mallCheckin: function() {
+    var self = this;
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
+          if (err) {
+            next(err);
+            return;
+          }
 
-    this.$el.$button
-      .hide()
-      .filter("[data-type=" + status + "]")
-      .show();
-  },
-  setCard: function(e) {
-    var $cur = $(e.currentTarget);
+          next(null, userData);
+        });
+      },
+      function(userData, next) {
+        if (userData.userInfo && userData.userInfo.userid) {
+          var params = _.extend({}, userData.userInfo, {
+            p: userData.deviceInfo.p
+          });
 
-    if ( $cur.data("type") === "off" ) {
-      return;
-    }
+          sendPost("checkin", params, function(err, data) {
+            if (err) {
+              next(err);
+              return;
+            }
 
-    if ( $cur.data("type") === "start" ) {
-      this.changeButtonStatus("off");
-      this.initCard();
-      return;
-    }
+            next(null, data);
+          });
+        } else {
+          self.loginApp();
+        }
+      }
+    ], function(err, result) {
+      if (err) {
+        window.console.log(err.message);
+        return;
+      }
 
-    if ( $cur.data("type") === "restart" ) {
-      this.changeButtonStatus("off");
-      this.resetCard();
-      return;
-    }
+      var $alert = self.$el.find(".js-alert-box");
+      var tmpl = require("app/client/mall/tpl/active-page/scratch-card/alert-result.tpl");
+
+      $alert
+        .html(tmpl({
+          hint: result.msg,
+          buttonText: "确定"
+        }))
+        .show()
+        .on("click", ".js-go", function() {
+          $alert.hide();
+        })
+        .on("click", ".js-close", function() {
+          $alert.hide();
+        });
+    });
   },
   initCard: function() {
     var self = this;
@@ -210,14 +234,22 @@ var AppView = Backbone.View.extend({
   showResult: function() {
     var self = this;
 
-    if (this.left === 0) {
-      this.changeButtonStatus("off");
-    } else {
-      this.changeButtonStatus("restart");      
-    }
+    var rdNum = function(from, to) {
+      var temp = to - from + 1;  
+      return Math.floor(Math.random() * temp + from);
+    };
+
+    var textList = [
+      "你刮中这么⼤大奖,你家⼈人造吗?",
+      "哇,⼈人品⼤大爆炸,竟然被你刮中了,赶紧去领奖。",
+      "⼟土豪,带我装逼带我刮,刮刮刮~~",
+      "领奖姿势要优美哦,收腹提臀,棒棒哒~",
+      "中奖了,不分享,你对得起我吗?",
+      "中奖也会传染,不信你试试~"
+    ];
 
     var showCardView = function(bonus) {
-      var $cardBlock = self.$el.find(".js-card-block");
+      var $cardBlock = self.$el.find(".js-card-block").parent();
       var animateName = bonus ? "tada" : "rubberBand";
 
       $cardBlock
@@ -237,7 +269,21 @@ var AppView = Backbone.View.extend({
       setTimeout(function() {
         $points.removeClass("animaion-blink");
         if (self.bonus === 2) {
-          self.gotoOrderDetail();
+          var $alert = self.$el.find(".js-alert-box");
+          var tmpl = require("app/client/mall/tpl/active-page/scratch-card/alert-result.tpl");
+
+          $alert
+            .html(tmpl({
+              hint: textList[rdNum(0, textList.length - 1)],
+              buttonText: "马上领奖"
+            }))
+            .show()
+            .on("click", ".js-go", function() {
+              self.gotoOrderDetail();
+            })
+            .on("click", ".js-close", function() {
+              $alert.hide();
+            });
         }
       }, 2000);
     };

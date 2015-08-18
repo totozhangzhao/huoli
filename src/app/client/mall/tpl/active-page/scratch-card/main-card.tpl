@@ -1,4 +1,4 @@
-<canvas width="253" height="98" class="lucky-status-area-son"
+<canvas width="253" height="98"
   data-background-size="253px 98px"
   data-fill-text="刮 奖 区"
   data-fill-font="40px helvetica neue, tahoma, arial"
