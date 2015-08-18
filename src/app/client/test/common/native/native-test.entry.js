@@ -27,6 +27,7 @@ var AppView = Backbone.View.extend({
     "click .js-confirm"         : "confirm",
     "click .js-alert"           : "alert",
     "click .js-share"           : "share",
+    "click .js-setGestureBack"  : "doGestureBack",
     "click .js-scanBarcode"     : "scanBarcode",
     "click .js-storage-set"     : "setStorage",
     "click .js-storage-get"     : "getStorage",
@@ -216,6 +217,22 @@ var AppView = Backbone.View.extend({
     });
 
     NativeAPI.invoke("back");
+  },
+  doGestureBack: function() {
+    var params = {
+      preventDefault: this.jsBackFlag
+    };
+    
+    NativeAPI.invoke("setGestureBack", params, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
+    });
+
+    echo(JSON.stringify(params));
+    this.jsBackFlag = !this.jsBackFlag;
   },
   rightButtonText: function() {
     var self = this;
