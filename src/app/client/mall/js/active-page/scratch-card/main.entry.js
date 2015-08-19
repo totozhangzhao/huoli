@@ -27,7 +27,7 @@ var AppView = Backbone.View.extend({
     this.resetCard = null;
 
     // 本次中奖结果
-    this.result = {};
+    this.lotteryInfo = {};
 
     this.showPointsView();
     this.initCard();
@@ -111,7 +111,7 @@ var AppView = Backbone.View.extend({
       .on("getImageURL", function(e, canvas, resetCard) {
         self.resetCard = resetCard;
 
-        if (self.result.left === 0) {
+        if (self.lotteryInfo.left === 0) {
           resetCard();
         } else {
           self.getResultImage(canvas, resetCard);
@@ -127,7 +127,7 @@ var AppView = Backbone.View.extend({
   getResultImage: function(canvas, resetCard) {
     var self = this;
 
-    if (this.result.left === 0) {
+    if (this.lotteryInfo.left === 0) {
       this.resetCard();
       return;
     }
@@ -149,20 +149,19 @@ var AppView = Backbone.View.extend({
           productid: parseUrl().productid
         });
 
-        sendPost("createLottery", params, function(err, data) {
-          next(err, data);
+        sendPost("createLottery", params, function(err, lotteryData) {
+          next(err, lotteryData);
         });
       }
-    ], function(err, result) {
+    ], function(err, lotteryData) {
       if (err) {
         resetCard();
         toast(err.message, 1500);
         return;
       }
     
-
-      self.result = result;
-      canvas.style.backgroundImage = "url(" + self.result.image + ")";
+      self.lotteryInfo = lotteryData;
+      canvas.style.backgroundImage = "url(" + lotteryData.result.image + ")";
     });
   },
   mallGetUserInfo: function(callback) {
@@ -230,7 +229,7 @@ var AppView = Backbone.View.extend({
 
     var textList = [
       "你刮中这么大奖，你家人造吗？",
-      "哇，⼈品⼤爆炸，竟然被你刮中了，赶紧去领奖。",
+      "哇，人品大爆炸，竟然被你刮中了，赶紧去领奖。",
       "土豪，带我装逼带我刮，刮刮刮~~",
       "领奖姿势要优美哦，收腹提臀，棒棒哒~",
       "中奖了，不分享，你对得起我吗？",
@@ -257,13 +256,13 @@ var AppView = Backbone.View.extend({
 
       setTimeout(function() {
         $points.removeClass("animaion-blink");
-        if (self.result.bonus === 2) {
+        if (self.lotteryInfo.bonus === 2) {
           var $alert = self.$el.find(".js-alert-box");
           var tmpl = require("app/client/mall/tpl/active-page/scratch-card/alert-result.tpl");
 
           $alert
             .html(tmpl({
-              hint: textList[rdNum(0, textList.length - 1)],
+              hint: self.lotteryInfo.result.text || textList[rdNum(0, textList.length - 1)],
               buttonText: "马上领奖"
             }))
             .show()
@@ -279,15 +278,15 @@ var AppView = Backbone.View.extend({
 
     var showResultView = function(points) {
       self.$el.find(".js-points").text(points);
-      showCardView(self.result.bonus);
+      showCardView(self.lotteryInfo.bonus);
 
-      if (self.result.bonus > 0) {
+      if (self.lotteryInfo.bonus > 0) {
         showPointsView();
       }
     };
 
-    if ( this.result.points !== null ) {
-      showResultView(this.result.points);
+    if ( this.lotteryInfo.points !== null ) {
+      showResultView(this.lotteryInfo.points);
     } else {
       this.mallGetUserInfo(function(userInfoResult) {
         if (userInfoResult &&
@@ -303,7 +302,7 @@ var AppView = Backbone.View.extend({
   gotoOrderDetail: function() {
     var orderDetailUrl = window.location.origin +
         "/fe/app/client/mall/html/detail-page/order-detail.html" +
-        "?orderid=" + this.result.orderid;
+        "?orderid=" + this.lotteryInfo.orderid;
 
     widget.createNewView({
       url: orderDetailUrl
