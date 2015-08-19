@@ -235,17 +235,17 @@ var AppView = Backbone.View.extend({
     var self = this;
 
     var rdNum = function(from, to) {
-      var temp = to - from + 1;  
+      var temp = to - from + 1;
       return Math.floor(Math.random() * temp + from);
     };
 
     var textList = [
-      "你刮中这么⼤大奖,你家⼈人造吗?",
-      "哇,⼈人品⼤大爆炸,竟然被你刮中了,赶紧去领奖。",
-      "⼟土豪,带我装逼带我刮,刮刮刮~~",
-      "领奖姿势要优美哦,收腹提臀,棒棒哒~",
-      "中奖了,不分享,你对得起我吗?",
-      "中奖也会传染,不信你试试~"
+      "你刮中这么大奖，你家人造吗？",
+      "哇，⼈品⼤爆炸，竟然被你刮中了，赶紧去领奖。",
+      "土豪，带我装逼带我刮，刮刮刮~~",
+      "领奖姿势要优美哦，收腹提臀，棒棒哒~",
+      "中奖了，不分享，你对得起我吗？",
+      "中奖也会传染，不信你试试~"
     ];
 
     var showCardView = function(bonus) {

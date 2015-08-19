@@ -142,7 +142,7 @@ var AppView = Backbone.View.extend({
             addressid: addressid
           });
 
-          sendPost("createOrder", params, function(err, data) {
+          sendPost("addOrderAddr", params, function(err, data) {
             next(err, data);
           });
         }

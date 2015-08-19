@@ -1,4 +1,4 @@
-<div class="<%= orderDetail.needpay ? "pay-status-bar" : "pay-after-bar" %>">
+<div class="<%= orderDetail.needpay === 1 ? "pay-status-bar" : "pay-after-bar" %>">
   <div class="goods-detail">
     <img src="<%= orderDetail.img %>" class="goods-show-pic fl">
     <p class="goods-name"><%= orderDetail.title %></p>
@@ -64,11 +64,11 @@
     <%= orderDetail.note %>
   </div>
 
-  <div id="copyright" class="copyright-block <%= orderDetail.needpay ? "goods-copyright-fix" : "" %> ">
+  <div id="copyright" class="copyright-block <%= orderDetail.needpay === 1 ? "goods-copyright-fix" : "" %> ">
     <!-- // -->
   </div>
   
-  <% if (orderDetail.needpay) { %>
+  <% if (orderDetail.needpay === 1) { %>
   <div class="order-pay-bar">
     <div class="order-pay-area clearfix">
       <div class="scoring-bar fl">实付款：<span class="scoring-num num-font"><%= orderDetail.orderprice %></span>
