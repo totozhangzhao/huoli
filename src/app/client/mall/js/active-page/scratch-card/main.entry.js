@@ -29,7 +29,7 @@ var AppView = Backbone.View.extend({
     // 本次中奖结果
     this.lotteryInfo = {};
 
-    this.showPointsView();
+    this.initPointsView();
     this.initCard();
 
     if ( wechatUtil.isWechat() ) {
@@ -93,11 +93,30 @@ var AppView = Backbone.View.extend({
         .show()
         .on("click", ".js-go", function() {
           $alert.hide();
+          self.doPointsAnimate();
         })
         .on("click", ".js-close", function() {
           $alert.hide();
+          self.doPointsAnimate();
         });
+
+      self.$el
+        .find(".js-points")
+          .text(result.points);      
     });
+  },
+  doPointsAnimate: function(callback) {
+    var $points = this.$el.find(".js-points");
+
+    $points
+      .addClass("animaion-blink");
+
+    setTimeout(function() {
+      $points.removeClass("animaion-blink");
+      if (callback) {
+        callback();
+      }
+    }, 2000);
   },
   initCard: function() {
     var self = this;
@@ -205,7 +224,7 @@ var AppView = Backbone.View.extend({
       callback(result);
     });
   },
-  showPointsView: function() {
+  initPointsView: function() {
     var self = this;
 
     this.mallGetUserInfo(function(userInfoResult) {
@@ -249,13 +268,7 @@ var AppView = Backbone.View.extend({
     };
 
     var showPointsView = function() {
-      var $points = self.$el.find(".js-points");
-
-      $points
-        .addClass("animaion-blink");
-
-      setTimeout(function() {
-        $points.removeClass("animaion-blink");
+      self.doPointsAnimate(function() {
         if (self.lotteryInfo.bonus === 2) {
           var $alert = self.$el.find(".js-alert-box");
           var tmpl = require("app/client/mall/tpl/active-page/scratch-card/alert-result.tpl");
@@ -273,7 +286,7 @@ var AppView = Backbone.View.extend({
               $alert.hide();
             });
         }
-      }, 2000);
+      });
     };
 
     var showResultView = function(points) {

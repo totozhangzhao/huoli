@@ -254,7 +254,7 @@ var AppView = Backbone.View.extend({
         self.$el.$pionts
           .show()
           .find(".js-points")
-            .text(result.point)
+            .text(result.points)
             .addClass("animaion-blink");
 
         setTimeout(function() {
