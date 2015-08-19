@@ -198,7 +198,7 @@ var AppView = Backbone.View.extend({
         self.pageScroll();
       }
 
-      if (!options.rightButtonReady) { 
+      if (!options.rightButtonReady) {
 
         // fix a bug on Android
         if (Util.getMobileSystem() === "Android") {
@@ -265,25 +265,27 @@ var AppView = Backbone.View.extend({
       });
     };
 
-    NativeAPI.invoke("updateHeaderRightBtn", {
-      action: "show",
-      text: "签到"
-    }, function(err) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-    });
+    if ( !mallUitl.isHangban() ) {
+      NativeAPI.invoke("updateHeaderRightBtn", {
+        action: "show",
+        text: "签到"
+      }, function(err) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
+      });
 
-    NativeAPI.registerHandler("headerRightBtnClick", function() {
-      if ( mallUitl.isHangban() ) {
-        doCheckin();
-      } else {
-        widget.createNewView({
-          url: "https://cdn-rsscc-cn.alikunlun.com/gtgj/wap/act/20150717/index.html?gtgjparam=1"
-        });        
-      }
-    });
+      NativeAPI.registerHandler("headerRightBtnClick", function() {
+        if ( mallUitl.isHangban() ) {
+          doCheckin();
+        } else {
+          widget.createNewView({
+            url: "https://cdn-rsscc-cn.alikunlun.com/gtgj/wap/act/20150717/index.html?gtgjparam=1"
+          });        
+        }
+      });
+    }
   },
   loginApp: function() {
     var self = this;

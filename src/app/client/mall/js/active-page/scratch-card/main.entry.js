@@ -26,17 +26,8 @@ var AppView = Backbone.View.extend({
     // 重置刮刮卡
     this.resetCard = null;
 
-    // 剩余可刮奖次数
-    this.left = null;
-
-    // 本次是否中奖
-    this.bonus = null;
-
-    // 用户积分
-    this.points = null;
-
-    // 开始、再次……刮奖按钮
-    this.$el.$button = this.$el.find(".js-button");
+    // 本次中奖结果
+    this.result = {};
 
     this.showPointsView();
     this.initCard();
@@ -120,7 +111,7 @@ var AppView = Backbone.View.extend({
       .on("getImageURL", function(e, canvas, resetCard) {
         self.resetCard = resetCard;
 
-        if (self.left === 0) {
+        if (self.result.left === 0) {
           resetCard();
         } else {
           self.getResultImage(canvas, resetCard);
@@ -136,7 +127,7 @@ var AppView = Backbone.View.extend({
   getResultImage: function(canvas, resetCard) {
     var self = this;
 
-    if (this.left === 0) {
+    if (this.result.left === 0) {
       this.resetCard();
       return;
     }
@@ -169,11 +160,9 @@ var AppView = Backbone.View.extend({
         return;
       }
     
-      self.orderid = result.orderid;
-      self.left    = result.left;
-      self.bonus   = result.bonus;
-      self.points  = result.points;
-      canvas.style.backgroundImage = "url(" + result.result.image + ")";
+
+      self.result = result;
+      canvas.style.backgroundImage = "url(" + self.result.image + ")";
     });
   },
   mallGetUserInfo: function(callback) {
@@ -268,7 +257,7 @@ var AppView = Backbone.View.extend({
 
       setTimeout(function() {
         $points.removeClass("animaion-blink");
-        if (self.bonus === 2) {
+        if (self.result.bonus === 2) {
           var $alert = self.$el.find(".js-alert-box");
           var tmpl = require("app/client/mall/tpl/active-page/scratch-card/alert-result.tpl");
 
@@ -290,15 +279,15 @@ var AppView = Backbone.View.extend({
 
     var showResultView = function(points) {
       self.$el.find(".js-points").text(points);
-      showCardView(self.bonus);
+      showCardView(self.result.bonus);
 
-      if (self.bonus > 0) {
+      if (self.result.bonus > 0) {
         showPointsView();
       }
     };
 
-    if ( this.points !== null ) {
-      showResultView(this.points);
+    if ( this.result.points !== null ) {
+      showResultView(this.result.points);
     } else {
       this.mallGetUserInfo(function(userInfoResult) {
         if (userInfoResult &&
@@ -314,7 +303,7 @@ var AppView = Backbone.View.extend({
   gotoOrderDetail: function() {
     var orderDetailUrl = window.location.origin +
         "/fe/app/client/mall/html/detail-page/order-detail.html" +
-        "?orderid=" + this.orderid;
+        "?orderid=" + this.result.orderid;
 
     widget.createNewView({
       url: orderDetailUrl
