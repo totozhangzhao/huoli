@@ -105,7 +105,7 @@ var AppView = Backbone.View.extend({
           .text(result.points);      
     });
   },
-  doPointsAnimate: function(callback) {
+  doPointsAnimate: function() {
     var $points = this.$el.find(".js-points");
 
     $points
@@ -113,9 +113,6 @@ var AppView = Backbone.View.extend({
 
     setTimeout(function() {
       $points.removeClass("animaion-blink");
-      if (callback) {
-        callback();
-      }
     }, 2000);
   },
   initCard: function() {
@@ -255,7 +252,8 @@ var AppView = Backbone.View.extend({
       "中奖也会传染，不信你试试~"
     ];
 
-    var showCardView = function(bonus) {
+    var showCardView = function(callback) {
+      var bonus = self.lotteryInfo.bonus;
       var $cardBlock = self.$el.find(".js-card-block").parent();
       var animateName = bonus ? "tada" : "rubberBand";
 
@@ -264,12 +262,8 @@ var AppView = Backbone.View.extend({
 
       setTimeout(function() {
         $cardBlock.removeClass(animateName + " animated");
-      }, 2000);
-    };
 
-    var showPointsView = function() {
-      self.doPointsAnimate(function() {
-        if (self.lotteryInfo.bonus === 2) {
+        if (bonus === 2) {
           var $alert = self.$el.find(".js-alert-box");
           var tmpl = require("app/client/mall/tpl/active-page/scratch-card/alert-result.tpl");
 
@@ -287,16 +281,20 @@ var AppView = Backbone.View.extend({
               $alert.hide();
             });
         }
-      });
+
+        if (callback) {
+          callback();
+        }
+      }, 2000);
     };
 
     var showResultView = function(points) {
       self.$el.find(".js-points").text(points);
-      showCardView(self.lotteryInfo.bonus);
-
-      if (self.lotteryInfo.bonus > 0) {
-        showPointsView();
-      }
+      showCardView(function() {
+        if (self.lotteryInfo.bonus === 1) {
+          self.doPointsAnimate();
+        }
+      });
     };
 
     if ( this.lotteryInfo.points !== null ) {
