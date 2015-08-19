@@ -281,6 +281,7 @@ var AppView = Backbone.View.extend({
             .show()
             .on("click", ".js-go", function() {
               self.gotoOrderDetail();
+              $alert.hide();
             })
             .on("click", ".js-close", function() {
               $alert.hide();
