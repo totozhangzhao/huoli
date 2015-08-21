@@ -64,6 +64,14 @@ var AppView = Backbone.View.extend({
       self.initBanner();
       self.mallGetUserInfo({ userData: result });
       self.mallMainProductList();
+
+      setTimeout(function() {
+        NativeAPI.registerHandler("resume", function() {
+          self.mallGetUserInfo({
+            rightButtonReady: true
+          });
+        });
+      }, 0);
     });
   },
   handleGetUrl: function(e) {
