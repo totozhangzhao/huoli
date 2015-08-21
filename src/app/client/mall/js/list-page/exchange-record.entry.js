@@ -135,6 +135,7 @@ var AppView = Backbone.View.extend({
 
     this.loadingMore = true;
 
+    // 全部订单页面也作为一个入口，所以 { reset: true }
     async.waterfall([
       function(next) {
         appInfo.getUserData(function(err, userData) {
@@ -145,7 +146,7 @@ var AppView = Backbone.View.extend({
           }
 
           next(null, userData);
-        });
+        }, { reset: true });
       },
       function(userData, next) {
         if (userData.userInfo && userData.userInfo.userid) {
