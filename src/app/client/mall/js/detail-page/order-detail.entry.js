@@ -12,6 +12,8 @@ var Util      = require("com/mobile/lib/util/util.js");
 var widget    = require("app/client/mall/js/lib/widget.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
+var logger   = require("com/mobile/lib/log/log.js");
+var mallUitl = require("app/client/mall/js/lib/util.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-detail-container",
@@ -29,6 +31,7 @@ var AppView = Backbone.View.extend({
     this.isPaying = false;
     this.mallOrderDetail();
     pageAction.setClose();
+    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
   handleAddressInfo: function() {
     var needpay = this.orderDetail.needpay;

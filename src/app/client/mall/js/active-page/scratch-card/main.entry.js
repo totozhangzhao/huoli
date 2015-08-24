@@ -14,6 +14,8 @@ var wechatUtil = require("com/mobile/widget/wechat-hack/util.js");
 var mallWechat = require("app/client/mall/js/lib/wechat.js");
 var ScratchCard = require("com/mobile/widget/scratch-card/scratch-card.js");
 // var Util       = require("com/mobile/lib/util/util.js");
+var logger   = require("com/mobile/lib/log/log.js");
+var mallUitl = require("app/client/mall/js/lib/util.js");
 
 var AppView = Backbone.View.extend({
   el: "#lottery-main",
@@ -41,6 +43,8 @@ var AppView = Backbone.View.extend({
         mallWechat.initNativeShare(_.bind(this.mallCheckin, this));
       }
     }
+    
+    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
   createNewPage: function(e) {
     widget.createAView(e);

@@ -9,6 +9,8 @@ var hint      = require("com/mobile/widget/hint/hint.js");
 var appInfo   = require("app/client/mall/js/lib/app-info.js");
 var widget    = require("app/client/mall/js/lib/widget.js");
 var echo      = require("com/mobile/lib/echo/echo.js");
+var logger   = require("com/mobile/lib/log/log.js");
+var mallUitl = require("app/client/mall/js/lib/util.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-list",
@@ -30,6 +32,7 @@ var AppView = Backbone.View.extend({
       });
 
     this.mallOrderList();
+    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
   initLoadingMore: function() {
     var self = this;

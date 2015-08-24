@@ -13,6 +13,8 @@ var cookie     = require("com/mobile/lib/cookie/cookie.js");
 var shareUtil  = require("com/mobile/widget/wechat/util.js");
 var wechatUtil = require("com/mobile/widget/wechat-hack/util.js");
 var mallWechat = require("app/client/mall/js/lib/wechat.js");
+var logger   = require("com/mobile/lib/log/log.js");
+var mallUitl = require("app/client/mall/js/lib/util.js");
 
 var AppView = Backbone.View.extend({
   el: "#interlayer",
@@ -22,6 +24,7 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
     this.mallInterlayer();
+    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
   handleShareButton: function(e) {
     var urlObj = $(e.currentTarget).data();

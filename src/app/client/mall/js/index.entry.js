@@ -14,6 +14,7 @@ var echo      = require("com/mobile/lib/echo/echo.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var IScroll   = require("com/mobile/lib/iscroll/iscroll-probe.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var logger    = require("com/mobile/lib/log/log.js");
 
 var AppView = Backbone.View.extend({
   el: "#main",
@@ -72,6 +73,8 @@ var AppView = Backbone.View.extend({
           });
         });
       }, 0);
+
+      logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
     });
   },
   handleGetUrl: function(e) {
@@ -143,7 +146,8 @@ var AppView = Backbone.View.extend({
 
       $("#goods-block")
         .html(goodsTpl({
-          goodsList: result
+          goodsList: result,
+          appName: mallUitl.getAppName()
         }))
         .show();
 
@@ -289,7 +293,7 @@ var AppView = Backbone.View.extend({
           doCheckin();
         } else {
           widget.createNewView({
-            url: "https://cdn-rsscc-cn.alikunlun.com/gtgj/wap/act/20150717/index.html?gtgjparam=1"
+            url: "https://dl.rsscc.cn/gtgj/wap/act/20150824/index.html?gtgjparam=1"
           });        
         }
       });
@@ -414,7 +418,8 @@ var AppView = Backbone.View.extend({
       var bannerTpl = require("app/client/mall/tpl/main-banner.tpl");
 
       $("#top-banner").html(bannerTpl({
-        bannerList: result
+        bannerList: result,
+        appName: mallUitl.getAppName()
       }));
 
       var $SwipeBox = $("#top-banner .js-banner-box");

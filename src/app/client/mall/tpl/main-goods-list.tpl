@@ -4,17 +4,26 @@
     <div class="home-show-area clearfix">
       <div class="home-recommend home-big-bar border border-r fl">
         <% var item = group.products[0] %>
+        <% var jsClass = "js-new-page"; %>
+        <% var jsUrl = "javascript:;" %>
         <% if ( String(item.action) === "0" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+          <% jsUrl = "/fe/app/client/mall/html/detail-page/goods-detail.html"; %>
         <% } else if ( String(item.action) === "1" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/share-page/share.html">
+          <% jsUrl = "/fe/app/client/mall/html/share-page/share.html"; %>
         <% } else if ( String(item.action) === "2" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
+          <% jsUrl = item.url; %>
         <% } else if ( String(item.action) === "3" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
+          <% jsClass = "js-get-url"; %>
         <% } else if ( String(item.action) === "4" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/active-page/scratch-card/main.html">
+          <% jsUrl = "/fe/app/client/mall/html/active-page/scratch-card/main.html"; %>
         <% } %>
+        <a
+          data-log-click="<%= appName %>-block|<%= item.productid %>|<%= item.title %>@click@index"
+          data-productid="<%= item.productid %>"
+          data-title="<%= item.title %>"
+          class="<%= jsClass %> block"
+          href="<%= jsUrl %>"
+        >
           <div class="home-text-bar">
             <p class="home-common-tit">
               <b class="home-common-tit-icon fl"></b><span class="fl"><%= item.title %></span>
@@ -32,17 +41,26 @@
       </div>
       <div class="home-limit home-small-bar border border-l fr">
         <% var item = group.products[1] %>
+        <% var jsClass = "js-new-page"; %>
+        <% var jsUrl = "javascript:;" %>
         <% if ( String(item.action) === "0" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+          <% jsUrl = "/fe/app/client/mall/html/detail-page/goods-detail.html"; %>
         <% } else if ( String(item.action) === "1" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/share-page/share.html">
+          <% jsUrl = "/fe/app/client/mall/html/share-page/share.html"; %>
         <% } else if ( String(item.action) === "2" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
+          <% jsUrl = item.url; %>
         <% } else if ( String(item.action) === "3" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
+          <% jsClass = "js-get-url"; %>
         <% } else if ( String(item.action) === "4" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/active-page/scratch-card/main.html">
+          <% jsUrl = "/fe/app/client/mall/html/active-page/scratch-card/main.html"; %>
         <% } %>
+        <a
+          data-log-click="<%= appName %>-block|<%= item.productid %>|<%= item.title %>@click@index"
+          data-productid="<%= item.productid %>"
+          data-title="<%= item.title %>"
+          class="<%= jsClass %> block"
+          href="<%= jsUrl %>"
+        >
           <div class="home-show-text-bar fl">
             <p class="home-common-tit">
               <b class="home-common-tit-icon fl"></b><span class="fl"><%= item.title %></span>
@@ -60,17 +78,26 @@
       </div>
       <div class="home-hot home-small-bar border border-l fr">
         <% var item = group.products[2] %>
+        <% var jsClass = "js-new-page"; %>
+        <% var jsUrl = "javascript:;" %>
         <% if ( String(item.action) === "0" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+          <% jsUrl = "/fe/app/client/mall/html/detail-page/goods-detail.html"; %>
         <% } else if ( String(item.action) === "1" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/share-page/share.html">
+          <% jsUrl = "/fe/app/client/mall/html/share-page/share.html"; %>
         <% } else if ( String(item.action) === "2" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
+          <% jsUrl = item.url; %>
         <% } else if ( String(item.action) === "3" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
+          <% jsClass = "js-get-url"; %>
         <% } else if ( String(item.action) === "4" ) { %>
-          <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/active-page/scratch-card/main.html">
+          <% jsUrl = "/fe/app/client/mall/html/active-page/scratch-card/main.html"; %>
         <% } %>
+        <a
+          data-log-click="<%= appName %>-block|<%= item.productid %>|<%= item.title %>@click@index"
+          data-productid="<%= item.productid %>"
+          data-title="<%= item.title %>"
+          class="<%= jsClass %> block"
+          href="<%= jsUrl %>"
+        >
           <div class="home-show-text-bar fl">
             <p class="home-common-tit">
               <b class="home-common-tit-icon fl"></b><span class="fl"><%= item.title %></span>
@@ -97,17 +124,26 @@
       </dt>
       <% _.each(group.products, function(item) { %>
         <dd class="home-goods-area-son border fl">
+          <% var jsClass = "js-new-page"; %>
+          <% var jsUrl = "javascript:;" %>
           <% if ( String(item.action) === "0" ) { %>
-            <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+            <% jsUrl = "/fe/app/client/mall/html/detail-page/goods-detail.html"; %>
           <% } else if ( String(item.action) === "1" ) { %>
-            <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/share-page/share.html">
+            <% jsUrl = "/fe/app/client/mall/html/share-page/share.html"; %>
           <% } else if ( String(item.action) === "2" ) { %>
-            <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
+            <% jsUrl = item.url; %>
           <% } else if ( String(item.action) === "3" ) { %>
-            <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
+            <% jsClass = "js-get-url"; %>
           <% } else if ( String(item.action) === "4" ) { %>
-            <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/active-page/scratch-card/main.html">
+            <% jsUrl = "/fe/app/client/mall/html/active-page/scratch-card/main.html"; %>
           <% } %>
+          <a
+            data-log-click="<%= appName %>-block|<%= item.productid %>|<%= item.title %>@click@index"
+            data-productid="<%= item.productid %>"
+            data-title="<%= item.title %>"
+            class="<%= jsClass %> block"
+            href="<%= jsUrl %>"
+          >
             <div class="home-text-bar">
               <p class="home-text-bar-p home-pic-tit"><%= item.title %><span class="state-icon <%= item.stateicon %> "></span></p>
               <p class="home-text-bar-p home-pic-detail"><%= item.detail %></p>

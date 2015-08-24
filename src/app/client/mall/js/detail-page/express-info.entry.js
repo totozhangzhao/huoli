@@ -4,6 +4,8 @@ var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var toast     = require("com/mobile/widget/hint/hint.js").toast;
 var hint      = require("com/mobile/widget/hint/hint.js");
 var UrlUtil   = require("com/mobile/lib/url/url.js");
+var logger   = require("com/mobile/lib/log/log.js");
+var mallUitl = require("app/client/mall/js/lib/util.js");
 
 var AppView = Backbone.View.extend({
   el: "#express-info",
@@ -13,6 +15,7 @@ var AppView = Backbone.View.extend({
     });
 
     this.showExpressInfo();
+    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
   showExpressInfo: function() {
     hint.showLoading();

@@ -2,17 +2,26 @@
   <ul class="banner-pics">
     <% _.each(bannerList, function(item, index) { %>
     <li class="banner-item">
+      <% var jsClass = "js-new-page"; %>
+      <% var jsUrl = "javascript:;" %>
       <% if ( String(item.action) === "0" ) { %>
-        <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/detail-page/goods-detail.html">
+        <% jsUrl = "/fe/app/client/mall/html/detail-page/goods-detail.html"; %>
       <% } else if ( String(item.action) === "1" ) { %>
-        <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/share-page/share.html">
+        <% jsUrl = "/fe/app/client/mall/html/share-page/share.html"; %>
       <% } else if ( String(item.action) === "2" ) { %>
-        <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="<%= item.url %>">
+        <% jsUrl = item.url; %>
       <% } else if ( String(item.action) === "3" ) { %>
-        <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-get-url block">
+        <% jsClass = "js-get-url"; %>
       <% } else if ( String(item.action) === "4" ) { %>
-        <a data-productid="<%= item.productid %>" data-title="<%= item.title %>" class="js-new-page block" href="/fe/app/client/mall/html/active-page/scratch-card/main.html">
+        <% jsUrl = "/fe/app/client/mall/html/active-page/scratch-card/main.html"; %>
       <% } %>
+      <a
+        data-log-click="<%= appName %>-banner|<%= item.productid %>|<%= item.title %>@click@index"
+        data-productid="<%= item.productid %>"
+        data-title="<%= item.title %>"
+        class="<%= jsClass %> block"
+        href="<%= jsUrl %>"
+      >
         <img src="<%= item.img || "" %>" alt="">
       </a>
     </li>
