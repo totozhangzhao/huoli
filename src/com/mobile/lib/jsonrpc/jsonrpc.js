@@ -155,26 +155,26 @@
   }
 
   inherits(JsonRpcError, Error);
-  JsonRpcError.prototype.name = 'JsonRpcError';
+  JsonRpcError.prototype.name = 'Server: JsonRpcError';
 
   JsonRpcError.invalidRequest = function(data) {
-    return new JsonRpcError('Invalid request', -32600, data);
+    return new JsonRpcError('Server: Invalid request', -32600, data);
   };
 
   JsonRpcError.methodNotFound = function(data) {
-    return new JsonRpcError('Method not found', -32601, data);
+    return new JsonRpcError('Server: Method not found', -32601, data);
   };
 
   JsonRpcError.invalidParams = function(data) {
-    return new JsonRpcError('Invalid params', -32602, data);
+    return new JsonRpcError('Server: Invalid params', -32602, data);
   };
 
   JsonRpcError.internalError = function(data) {
-    return new JsonRpcError('Internal error', -32603, data);
+    return new JsonRpcError('Server: Internal error', -32603, data);
   };
 
   JsonRpcError.parseError = function(data) {
-    return new JsonRpcError('Parse error', -32700, data);
+    return new JsonRpcError('Server: Parse error', -32700, data);
   };
 
   function requestObject(id, method, params) {
