@@ -69,7 +69,7 @@ module.exports = Backbone.Router.extend({
       this.switchTo("goods-detail");      
     }
 
-    logger.track(mallUitl.getAppName(), "View PV", action);
+    logger.track(mallUitl.getAppName() + "PV", "View PV", action);
   },
   switchTo: function(panelId) {
     this.navigate(panelId, {
