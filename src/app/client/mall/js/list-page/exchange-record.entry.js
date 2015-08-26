@@ -9,8 +9,9 @@ var hint      = require("com/mobile/widget/hint/hint.js");
 var appInfo   = require("app/client/mall/js/lib/app-info.js");
 var widget    = require("app/client/mall/js/lib/widget.js");
 var echo      = require("com/mobile/lib/echo/echo.js");
-var logger   = require("com/mobile/lib/log/log.js");
-var mallUitl = require("app/client/mall/js/lib/util.js");
+var logger    = require("com/mobile/lib/log/log.js");
+var mallUitl  = require("app/client/mall/js/lib/util.js");
+var storage   = require("app/client/mall/js/lib/storage.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-list",
@@ -187,7 +188,33 @@ var AppView = Backbone.View.extend({
   },
   setUpdatePage: function() {
     NativeAPI.registerHandler("resume", function() {
-      window.location.reload();
+      async.waterfall([
+        function(next) {
+          storage.get("mallInfo", function(data) {
+            data = data || {};
+            var orderFlag = false;
+
+            if (data.status) {
+              orderFlag = data.status.orderChanged;
+            }
+
+            next(null, orderFlag, data);
+          });
+        },
+        function(orderFlag, data, next) {
+          if (data.status) {
+            data.status.orderChanged = false;
+          }
+
+          storage.set("mallInfo", data, function() {
+            next(null, orderFlag);
+          });
+        }
+      ], function(err, result) {
+          if (result) {
+            window.location.reload();
+          }
+      });
     });
   },
   gotoOrderDetail: function(e) {

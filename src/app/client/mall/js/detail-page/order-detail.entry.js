@@ -12,8 +12,9 @@ var Util      = require("com/mobile/lib/util/util.js");
 var widget    = require("app/client/mall/js/lib/widget.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
-var logger   = require("com/mobile/lib/log/log.js");
-var mallUitl = require("app/client/mall/js/lib/util.js");
+var logger     = require("com/mobile/lib/log/log.js");
+var mallUitl   = require("app/client/mall/js/lib/util.js");
+var storage    = require("app/client/mall/js/lib/storage.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-detail-container",
@@ -182,35 +183,20 @@ var AppView = Backbone.View.extend({
         } else {
           next(null, null);
         }
+      },
+      function(payData, next) {
+        storage.get("mallInfo", function(data) {
+          data = data || {};
+          next(null, payData, data);
+        });
+      },
+      function(payData, data, next) {
+        data.status = data.status || {};
+        data.status.orderChanged = true;
+        storage.set("mallInfo", data, function() {
+          next(null, payData);
+        });
       }
-      // function(payData, next) {
-      //   if (!payData) {
-      //     next(null, null);
-      //     return;
-      //   }
-
-      //   switch (payData.value) {
-      //     case payData.SUCC:
-      //       toast("支付成功", 1500);
-      //       break;
-      //     case payData.FAIL:
-      //       toast("支付失败", 1500);
-      //       break;
-      //     case payData.CANCEL:
-      //       toast("您取消了支付", 1500);
-      //       break;
-      //     default:
-      //       toast("支付异常", 1500);
-      //   }
-
-      //   if (payData.value === payData.SUCC) {
-      //     next(null, null);
-      //     return;
-      //   } else {
-      //     self.isPaying = false;
-      //     return;
-      //   }
-      // }
     ], function() {
       self.isPaying = false;
       // hint.hideLoading();
