@@ -2,6 +2,7 @@ module.exports = [
   "com/mobile/widget/wechat/wechat.entry.js",
 
   "app/client/mall/js/index.entry.js",
+  "app/client/mall/js/menu/category.entry.js",
   "app/client/mall/js/detail-page/goods-detail.entry.js",
   "app/client/mall/js/list-page/exchange-record.entry.js",
   "app/client/mall/js/detail-page/order-detail.entry.js",
