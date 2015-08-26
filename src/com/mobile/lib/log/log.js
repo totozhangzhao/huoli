@@ -9,7 +9,7 @@ var $ = require("jquery");
   $("body").on("click", "[data-log-click]", function(e) {
     var logData = $(e.currentTarget).data("logClick").split("@");
     _czc.push(["_trackEvent", logData[0], logData[1], logData[2]]);
-  })
+  });
 }());
 
 // 各参数含义如下: 

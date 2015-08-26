@@ -1,20 +1,19 @@
 (function(root, factory) {
   if (typeof exports === "object" && typeof module !== "undefined") {
     var cookie = require("com/mobile/lib/cookie/cookie.js");
-    var util   = require("app/client/common/lib/native/util.js");
-    factory(root, exports, cookie, util);
+    factory(root, exports, cookie);
   } else if (typeof define === "function" && define.amd) {
     define([
       "com/mobile/lib/cookie/cookie.js",
       "app/client/common/lib/native/util.js",
       "exports"
-    ], function(cookie, util, exports) {
-      root.NBridge = factory(root, exports, cookie, util);
+    ], function(cookie, exports) {
+      root.NBridge = factory(root, exports, cookie);
     });
   } else {
-    root.NBridge = factory(root, {}, root.cookie, root.util);
+    root.NBridge = factory(root, {}, root.cookie);
   }
-}(this, function(root, NBridge, cookie, util) {
+}(this, function(root, NBridge, cookie) {
   var JSON_RPC_ERROR = {
     PARSE_ERROR: {
       code: -32700,
@@ -145,23 +144,21 @@
       };
 
       // standalone supported
-      if ( util && !util.isApp() ) {
-        clearTimeout(timer);
-        window.NativeAPI.sendToNative = handleInternalError;
-      }
-
-      // standalone supported
       if (cookie) {
         var appName = cookie.get("appName");
 
         // 加了 cookie 的版本号
         // 高铁 3.5
         // 航班 5.2
-        // 航班上刷新有问题，屏蔽 "openetjs://start?type=nativeapi"
-        if ( false && /hbgj/i.test(appName) ) {
-          window.location.href = "openetjs://start?type=nativeapi";
+        if ( /hbgj/i.test(appName) ) {
+          // 航班上刷新有问题，屏蔽 "openetjs://start?type=nativeapi"
+          // window.location.href = "openetjs://start?type=nativeapi";
+          1;
         } else if ( /gtgj/i.test(appName) ) {
           window.location.href = "gtgj://start?type=nativeapi";
+        } else {
+          clearTimeout(timer);
+          window.NativeAPI.sendToNative = handleInternalError;
         }
       }
     })();
