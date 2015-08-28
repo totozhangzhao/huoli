@@ -110,7 +110,12 @@ var AppView = Backbone.View.extend({
     $(".js-points").html(productInfo.pprice);
 
     this.fixTpl();
-    this.handlePrompt(productInfo);
+
+    if ( UrlUtil.parseUrlSearch().gotoView ) {
+      this.router.switchTo( UrlUtil.parseUrlSearch().gotoView );
+    } else {
+      this.handlePrompt(productInfo);
+    }
   },
   handlePrompt: function(productInfo) {
     var self = this;
