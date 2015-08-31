@@ -4,6 +4,10 @@ var cookie   = require("com/mobile/lib/cookie/cookie.js");
 exports.getAppName = (function() {
   var name = "gtgj";
 
+  if ( /hb/.test(window.location.hostname) ) {
+    name = "hbgj";
+  }
+
   var urlName    = parseUrl().appName;
   var cookieName = cookie.get("appName");
 

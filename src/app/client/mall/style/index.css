@@ -163,7 +163,8 @@ option {
 .pay-box,
 .pay-order-detail-box,
 .address-page-box,
-.delivery-box {
+.delivery-box,
+.interlayer {
   max-width: 750px;
   min-height: 100%;
   margin-top: 0;
@@ -1386,11 +1387,40 @@ p {
   margin-bottom: 0;
   margin-left: auto;
 }
+.combination-insert-bar {
+  border-radius: 4px;
+  margin-top: 15px;
+}
+.combination-insert-group:last-child {
+  border-radius: 4px 4px 0 0;
+}
+.combination-insert-area {
+  height: 147px;
+  position: relative;
+  left: 0;
+  top: 0;
+  background-color: #ffffff;
+  border-radius: 4px;
+  margin-top: 12px;
+}
+.insert-delete-bar {
+  width: 45px;
+  height: 147px;
+  background-color: #ffffff;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
 .pay-box {
   background-color: #f3f3f3;
 }
 .pay-pic-bar img {
   width: 100%;
+}
+.combination-insert-bar .insert-bar-son {
+  height: 49px;
 }
 .insert-bar-son {
   height: 72px;
@@ -1411,6 +1441,11 @@ p {
   padding-left: 0;
   background-color: #ffffff;
   border-radius: 4px;
+}
+.combination-insert-bar .common-insert-area,
+.combination-insert-bar .authcode-insert-area {
+  border-radius: 0px;
+  background-color: transparent;
 }
 .authcode-insert-area {
   padding-top: 6px;
@@ -1433,13 +1468,10 @@ p {
   border-radius: 4px;
 }
 .insert-icon {
-  /*width: 15px;
-  height: 30px;*/
   width: 19px;
   height: 30px;
   vertical-align: middle;
   display: inline-block;
-  /*.margin-width(0, 15px, 0, 15px);*/
   margin-top: 0;
   margin-right: 13px;
   margin-bottom: 0;
@@ -1465,6 +1497,18 @@ p {
 }
 .email-icon {
   background-position: -68px -168px;
+}
+.dele-icon {
+  width: 15px;
+  height: 14px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -8px;
+  margin-top: -7px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png?a=v) no-repeat;
+  background-size: 312px 280px;
+  background-position: -167px -173px;
 }
 .common-insert {
   width: 70%;
@@ -1516,14 +1560,30 @@ p {
   padding-bottom: 40px;
   padding-left: 0;
 }
-.to-receive {
+.to-add-bar {
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 20px;
+  padding-left: 0;
+}
+.to-receive,
+.to-add {
   width: 100%;
   text-align: center;
   height: 42px;
   line-height: 42px;
   border-radius: 4px;
   color: #ffffff;
-  background-color: #feb220;
+  background-color: #4d8bd8;
+}
+.to-add {
+  border-radius: 0 0 4px 4px;
+  background-color: #cccccc;
+  color: #999999;
+}
+.to-add-icon {
+  font-size: 20px;
+  color: #3d89e9;
 }
 .pay-order-detail-box {
   min-height: 100%;
