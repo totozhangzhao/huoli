@@ -39,17 +39,21 @@ var AppView = Backbone.View.extend({
   blurInput: function(e) {
     var $input = $(e.currentTarget);
     var val = $input.val();
-    var method = $input.data("checkMethod");
 
+    // 1.realname-icon:name  : 姓名
+    // 2.idcard-icon  :idcard: 身份证号    
+    // 3.phone-icon   :phone : 手机号
+    // 4.psw-icon     :pwd   : 输入密码
+    // 5.re-psw-icon  :repwd : 再次输入密码
+    // 6.email-icon   :email : 邮箱
     var checkMethods = {
       email: "checkEmail",
       phone: "checkPhoneNum",
-      cphone: "checkPhoneNum",
-      password: "checkPassword",
+      pwd  : "checkPassword",
       captche: "checkCaptche"
     };
 
-    var method = checkMethods[$input[0].name];
+    var method = checkMethods[$input.data("validateType")];
 
     if (
       ( !validator[method] && val !== "" ) ||
