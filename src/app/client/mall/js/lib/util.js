@@ -4,6 +4,8 @@ var cookie   = require("com/mobile/lib/cookie/cookie.js");
 exports.getAppName = (function() {
   var name = "gtgj";
 
+  // mall.rsscc.cn
+  // hbmall.rsscc.cn
   if ( /hb/.test(window.location.hostname) ) {
     name = "hbgj";
   }
