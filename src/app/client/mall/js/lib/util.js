@@ -1,5 +1,23 @@
+var $        = require("jquery");
 var parseUrl = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var cookie   = require("com/mobile/lib/cookie/cookie.js");
+
+// touch status
+(function() {
+  $("body")
+    .on("touchstart", "a, .js-touch-state", function() {
+      $(this).addClass("touch");
+    })
+    .on("touchmove", "a, .js-touch-state", function() {
+      $(this).removeClass("touch");
+    })
+    .on("touchend", "a, .js-touch-state", function() {
+      $(this).removeClass("touch");
+    })
+    .on("touchcancel", "a, .js-touch-state", function() {
+      $(this).removeClass("touch");
+    });
+}());
 
 exports.getAppName = (function() {
   var name = "gtgj";
