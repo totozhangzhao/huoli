@@ -130,7 +130,7 @@
       var timer = setTimeout(function() {
         buffer.forEach(handleInternalError);
         window.NativeAPI.sendToNative = handleInternalError;
-      }, 3000);
+      }, 6000);
 
       document.addEventListener("WebViewJavascriptBridgeReady", function() {
         clearTimeout(timer);
@@ -150,13 +150,11 @@
         // 加了 cookie 的版本号
         // 高铁 3.5
         // 航班 5.2
-        if ( /hbgj/i.test(appName) ) {
-          // 航班上刷新有问题，屏蔽 "openetjs://start?type=nativeapi"
-          // window.location.href = "openetjs://start?type=nativeapi";
-          1;
-        } else if ( /gtgj/i.test(appName) ) {
-          window.location.href = "gtgj://start?type=nativeapi";
-        } else {
+        // 航班上刷新有问题，屏蔽 "openetjs://start?type=nativeapi"
+        // window.location.href = "openetjs://start?type=nativeapi";
+        // 高铁上面调用这个 scheme url 之后无法执行后续的 script 标签
+        // window.location.href = "gtgj://start?type=nativeapi";
+        if ( !/gtgj|hbgj/i.test(appName) ) {
           clearTimeout(timer);
           window.NativeAPI.sendToNative = handleInternalError;
         }
