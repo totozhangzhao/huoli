@@ -11,10 +11,7 @@ var hint      = require("com/mobile/widget/hint/hint.js");
 var async      = require("async");
 var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-
-var b64_to_utf8 = function(str) {
-  return decodeURIComponent(escape(window.atob(str)));
-};
+var base64     = require("com/mobile/lib/base64/base64.js").Base64;
 
 var AppView = Backbone.View.extend({
   el: "#main-container",
@@ -36,7 +33,7 @@ var AppView = Backbone.View.extend({
     var str = "";
 
     if (b64String) {
-      str = b64_to_utf8(b64String);
+      str = base64.decode(b64String);
       str = JSON.parse(str);
     }
 
