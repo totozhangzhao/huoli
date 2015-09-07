@@ -12,11 +12,11 @@ var Util       = require("com/mobile/lib/util/util.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
-// var loadScript = require("com/mobile/lib/load-script/load-script.js");
-// var cookie     = require("com/mobile/lib/cookie/cookie.js");
-// var shareUtil  = require("com/mobile/widget/wechat/util.js");
-// var wechatUtil = require("com/mobile/widget/wechat-hack/util.js");
-// var mallWechat = require("app/client/mall/js/lib/wechat.js");
+var loadScript = require("com/mobile/lib/load-script/load-script.js");
+var cookie     = require("com/mobile/lib/cookie/cookie.js");
+var shareUtil  = require("com/mobile/widget/wechat/util.js");
+var wechatUtil = require("com/mobile/widget/wechat-hack/util.js");
+var mallWechat = require("app/client/mall/js/lib/wechat.js");
 
 var AppView = Backbone.View.extend({
   el: "#goods-detail",
@@ -45,13 +45,17 @@ var AppView = Backbone.View.extend({
   createNewPage: function(e) {
     widget.createAView(e);
 
-    // var appName = cookie.get("appName");
+    var appName = cookie.get("appName");
 
-    // if ( /hbgj/i.test(appName) || /gtgj/i.test(appName) ) {
-    //   widget.createAView(e);
-    // } else {
-    //   window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.flightmanager.view";
-    // }
+    if ( /hbgj/i.test(appName) || /gtgj/i.test(appName) ) {
+      widget.createAView(e);
+    } else {
+      if ( /hb/.test(window.location.hostname) ) {
+        window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.flightmanager.view";
+      } else {
+        window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.gtgj.view";
+      }
+    }
   },
   mallGoodsDetail: function() {
     var self = this;
@@ -84,15 +88,6 @@ var AppView = Backbone.View.extend({
       }
 
       self.renderMainPanel(result);
-
-      // if ( wechatUtil.isWechat() ) {
-      //   wechatUtil.setTitle(result.title);
-      //   if ( shareUtil.hasShareInfo() ) {
-      //     loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
-      //   }
-      // } else if ( mallUitl.isHangban() ) {
-      //   mallWechat.initNativeShare();
-      // }
     });
   },
   renderMainPanel: function(productInfo) {
@@ -115,6 +110,15 @@ var AppView = Backbone.View.extend({
       this.router.switchTo( UrlUtil.parseUrlSearch().gotoView );
     } else {
       this.handlePrompt(productInfo);
+
+      if ( wechatUtil.isWechat() ) {
+        wechatUtil.setTitle(productInfo.title);
+        if ( shareUtil.hasShareInfo() ) {
+          loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
+        }
+      } else if ( mallUitl.isHangban() ) {
+        mallWechat.initNativeShare();
+      }
     }
   },
   handlePrompt: function(productInfo) {
@@ -151,7 +155,7 @@ var AppView = Backbone.View.extend({
               self.$el.$loginPrompt.hide();
               self.$el.$shade.hide();
             })
-            .show();            
+            .show();
         }
       });
     };

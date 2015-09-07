@@ -17,7 +17,7 @@
     <div class="order-text-bar fl">
       <p class="order-goods-text pic-detail"><%= productInfo.title || "" %></p>
       <p class="order-goods-text pic-detail-tip"><%= productInfo.shortdesc || "" %></p>
-      <p class="order-goods-text actually-pay orange-color"><%= productInfo.showprice || "" %></p>
+      <!-- <p class="order-goods-text actually-pay orange-color"><%= productInfo.showprice || "" %></p> -->
     </div>
   </div>
 </div>

@@ -1391,9 +1391,6 @@ p {
   border-radius: 4px;
   margin-top: 15px;
 }
-.combination-insert-group:last-child {
-  border-radius: 4px 4px 0 0;
-}
 .combination-insert-area {
   height: 147px;
   position: relative;
@@ -1402,6 +1399,9 @@ p {
   background-color: #ffffff;
   border-radius: 4px;
   margin-top: 12px;
+}
+.combination-insert-area:last-child {
+  border-radius: 4px 4px 0 0;
 }
 .insert-delete-bar {
   width: 45px;
@@ -1829,7 +1829,8 @@ p {
   color: #ff0000;
 }
 .pay-order-detail-box .order-insurance-succ + b,
-.pay-order-detail-box .order-insurance-fail + b {
+.pay-order-detail-box .order-insurance-fail + b,
+.pay-order-detail-box .order-insurance-reviewing + b {
   height: 20px;
   line-height: 20px;
   color: #ffffff;
@@ -1848,6 +1849,9 @@ p {
 }
 .pay-order-detail-box .order-insurance-fail + b {
   background-color: #cccccc;
+}
+.pay-order-detail-box .order-insurance-reviewing + b {
+  background-color: #67cc04;
 }
 .address-page-box {
   color: #666666;
