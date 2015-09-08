@@ -43,8 +43,6 @@ var AppView = Backbone.View.extend({
     hint.hideLoading();
   },
   createNewPage: function(e) {
-    widget.createAView(e);
-
     var appName = cookie.get("appName");
 
     if ( /hbgj/i.test(appName) || /gtgj/i.test(appName) ) {

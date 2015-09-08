@@ -55,9 +55,7 @@ Wilq32.PhotoEffect.prototype = {
         var oldEvents = this._parameters.bind;
         for (var a in oldEvents) {
           if (oldEvents.hasOwnProperty(a)) {
-
-            // TODO: Remove jQuery dependency
-            $(this._eventObj).unbind(a, oldEvents[a]);
+            this._eventObj.removeEventListener(a, oldEvents[a], false);
           }
         }
       }
@@ -65,9 +63,7 @@ Wilq32.PhotoEffect.prototype = {
       this._parameters.bind = events;
       for (var a in events) {
         if (events.hasOwnProperty(a)) {
-
-          // TODO: Remove jQuery dependency
-          $(this._eventObj).bind(a, events[a]);
+          this._eventObj.addEventListener(a, events[a], false);
         }
       }
     }
