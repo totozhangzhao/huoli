@@ -18,7 +18,7 @@ var del            = require("del");
 var runSequence    = require("run-sequence");
 var gutil          = require("gulp-util");
 var webpackBuilder = require("./builder/webpack/index.js");
-var versionRef     = require("./builder/version/versionRef.js");
+var versionRef     = require("./builder/version/version-ref.js");
 
 var config = {
   src : "./src/",
