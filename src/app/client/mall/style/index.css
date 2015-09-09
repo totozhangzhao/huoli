@@ -93,7 +93,8 @@ option {
   height: 1px;
   background-color: #cccccc;
   -webkit-transform: scaleY(0.5);
-  transform: scaleY(0.5);
+  -ms-transform: scaleY(0.5);
+      transform: scaleY(0.5);
 }
 .border:after {
   position: absolute;
@@ -105,7 +106,8 @@ option {
   height: 1px;
   background-color: #cccccc;
   -webkit-transform: scaleY(0.5);
-  transform: scaleY(0.5);
+  -ms-transform: scaleY(0.5);
+      transform: scaleY(0.5);
 }
 .border:before {
   position: absolute;
@@ -117,22 +119,31 @@ option {
   height: 1px;
   background-color: #cccccc;
   -webkit-transform: scaleY(0.5);
-  transform: scaleY(0.5);
+  -ms-transform: scaleY(0.5);
+      transform: scaleY(0.5);
 }
 .border-l {
-  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
   border-width: 0px 0px 0px 1px;
 }
 .border-r {
-  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
   border-width: 0px 1px 0px 0px;
 }
 .border-t {
-  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
+  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
+       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
+          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
   border-width: 1px 0px 0px 0px;
 }
 .border-b {
-  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
+  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
+       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
+          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
   border-width: 0px 0px 1px 0px;
 }
 .loading-box {
@@ -404,12 +415,16 @@ option {
 }
 .home-goods-area-son:nth-of-type(odd) {
   float: left;
-  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
   border-width: 0px 1px 0px 0px;
 }
 .home-goods-area-son:nth-of-type(even) {
   float: right;
-  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
   border-width: 0px 0px 0px 1px;
 }
 .home-text-bar {
@@ -565,6 +580,12 @@ option {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -166px 0;
   background-size: 312px 280px;
 }
+.state-channel {
+  width: 29px;
+  height: 14px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png?a=b) no-repeat -100px -58px;
+  background-size: 312px 280px;
+}
 .new-user {
   width: 34px;
   height: 14px;
@@ -696,7 +717,9 @@ option {
 }
 .home-flight-son:nth-of-type(odd) {
   float: left;
-  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
   border-width: 0px 1px 0px 1px;
   margin-top: 0;
   margin-right: 0;
@@ -705,7 +728,9 @@ option {
 }
 .home-flight-son:nth-of-type(even) {
   float: right;
-  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
   border-width: 0px 1px 0px 1px;
   margin-top: 0;
   margin-right: 5px;
@@ -1920,11 +1945,15 @@ p {
 }
 @media only screen and (min-width: 375px) {
   .address-option-bar {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     display: -webkit-flex;
   }
   .address-option-area {
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
     -webkit-flex: 1;
     position: relative;
     left: 0;
