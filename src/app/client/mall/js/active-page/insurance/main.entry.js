@@ -1,17 +1,17 @@
 var $         = require("jquery");
-var _          = require("lodash");
+var _         = require("lodash");
 var Backbone  = require("backbone");
-// var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var toast     = require("com/mobile/widget/hint/hint.js").toast;
 var hint      = require("com/mobile/widget/hint/hint.js");
 var UrlUtil   = require("com/mobile/lib/url/url.js");
 var logger    = require("com/mobile/lib/log/log.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var hint      = require("com/mobile/widget/hint/hint.js");
-var async      = require("async");
-var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var base64     = require("com/mobile/lib/base64/base64.js").Base64;
+var async     = require("async");
+var appInfo   = require("app/client/mall/js/lib/app-info.js");
+var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var base64    = require("com/mobile/lib/base64/base64.js").Base64;
+// var NativeAPI = require("app/client/common/lib/native/native-api.js");
 
 var AppView = Backbone.View.extend({
   el: "#main-container",

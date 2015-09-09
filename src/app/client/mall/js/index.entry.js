@@ -211,15 +211,7 @@ var AppView = Backbone.View.extend({
       }
 
       if (!options.rightButtonReady) {
-
-        // fix a bug on Android
-        if (Util.getMobileSystem() === "Android") {
-          setTimeout(function() {
-            self.mallCheckin();
-          }, 1500);
-        } else {
-          self.mallCheckin();
-        }
+        self.mallCheckin();
       }
     });
   },

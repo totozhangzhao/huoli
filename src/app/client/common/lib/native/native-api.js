@@ -140,7 +140,9 @@
       }, false);
 
       window.NativeAPI.sendToNative = function(message) {
-        if ( window.location.hostname === "182.92.194.225" ) {
+
+        // standalone supported
+        if ( cookie && cookie.get("appVer") && window.location.hostname === "182.92.194.225" ) {
           window.alert("OpenetNativeAPI://" + message);
         } else {
           buffer.push(message);
