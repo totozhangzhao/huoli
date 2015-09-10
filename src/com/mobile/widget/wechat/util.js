@@ -16,7 +16,7 @@ exports.getShareInfo = function() {
 
   return {
     title : data.title  || document.title,
-    desc  : data.desc   || "点击查看详情",
+    desc  : data.desc   || "查看详情",
     link  : data.link   || window.location.href,
     imgUrl: data.imgUrl || ""
   };

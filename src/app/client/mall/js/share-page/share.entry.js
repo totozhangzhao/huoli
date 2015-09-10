@@ -95,6 +95,7 @@ var AppView = Backbone.View.extend({
     });
   },
   updateNativeView: function(title) {
+    window.document.title = title;
     NativeAPI.invoke("updateTitle", {
       text: title
     });

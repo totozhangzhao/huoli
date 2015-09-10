@@ -3,7 +3,6 @@ var Backbone   = require("backbone");
 var _          = require("lodash");
 var async      = require("async");
 var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var MultiLevel = require("com/mobile/widget/select/select.js").MultiLevel;
 var toast      = require("com/mobile/widget/hint/hint.js").toast;
@@ -13,6 +12,7 @@ var validator  = require("app/client/mall/js/lib/validator.js");
 var UrlUtil    = require("com/mobile/lib/url/url.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 var getProvince = require("app/client/mall/js/lib/province.js").getProvince;
+// var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 // var pageAction = require("app/client/mall/js/lib/page-action.js");
 
 var AppView = Backbone.View.extend({
@@ -292,11 +292,6 @@ var AppView = Backbone.View.extend({
       if (result !== void 0) {
         self.router.switchTo("address-confirm");
       }
-    });
-  },
-  updateNativeView: function(title) {
-    NativeAPI.invoke("updateTitle", {
-      text: title
     });
   }
 });

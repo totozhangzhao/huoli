@@ -212,11 +212,6 @@ var AppView = Backbone.View.extend({
         $item.remove();
       }
     });
-  },
-  updateNativeView: function(title) {
-    NativeAPI.invoke("updateTitle", {
-      text: title
-    });
   }
 });
 

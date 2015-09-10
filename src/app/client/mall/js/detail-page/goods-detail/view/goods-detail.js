@@ -30,7 +30,7 @@ var AppView = Backbone.View.extend({
     this.$el.$promptBoard    = $("#goods-detail .js-exchange-prompt");
     this.$el.$promptSuccess  = $("#goods-detail .js-success-prompt");
     this.$el.$promptFail     = $("#goods-detail .js-fail-prompt");
-    
+
     this.title = "";
     this.userDataOpitons = { reset: false };
     this.mallGoodsDetail();
@@ -43,17 +43,7 @@ var AppView = Backbone.View.extend({
     hint.hideLoading();
   },
   createNewPage: function(e) {
-    var appName = cookie.get("appName");
-
-    if ( /hbgj/i.test(appName) || /gtgj/i.test(appName) ) {
-      widget.createAView(e);
-    } else {
-      if ( /hb/.test(window.location.hostname) ) {
-        window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.flightmanager.view";
-      } else {
-        window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.gtgj.view";
-      }
-    }
+    widget.createAView(e);
   },
   mallGoodsDetail: function() {
     var self = this;
@@ -114,7 +104,7 @@ var AppView = Backbone.View.extend({
         if ( shareUtil.hasShareInfo() ) {
           loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
         }
-      } else if ( mallUitl.isHangban() ) {
+      } else if ( shareUtil.hasShareInfo() ) {
         mallWechat.initNativeShare();
       }
     }
@@ -124,38 +114,48 @@ var AppView = Backbone.View.extend({
     var buttonClass = "forbidden-color";
 
     var exchangeHandler = function() {
-      async.waterfall([
-        function(next) {
-          appInfo.getUserData(function(err, userData) {
-            if (err) {
-              toast(err.message, 1500);
-              return;
-            }
+      var appName = cookie.get("appName");
 
-            next(null, userData);
-          }, self.userDataOpitons);
-        }
-      ], function(err, result) {
-        self.userDataOpitons.reset = false;
+      if ( /hbgj/i.test(appName) || /gtgj/i.test(appName) ) {
+        async.waterfall([
+          function(next) {
+            appInfo.getUserData(function(err, userData) {
+              if (err) {
+                toast(err.message, 1500);
+                return;
+              }
 
-        if (result.userInfo.authcode) {
-          self.$el.$shade.show();
-          self.$el.$promptBoard.show();
+              next(null, userData);
+            }, self.userDataOpitons);
+          }
+        ], function(err, result) {
+          self.userDataOpitons.reset = false;
+
+          if (result.userInfo.authcode) {
+            self.$el.$shade.show();
+            self.$el.$promptBoard.show();
+          } else {
+            self.$el.$shade.show();
+            self.$el.$loginPrompt
+              .one("click", ".js-confirm", function() {
+                self.$el.$loginPrompt.hide();
+                self.$el.$shade.hide();
+                self.loginApp();
+              })
+              .one("click", ".js-cancel", function() {
+                self.$el.$loginPrompt.hide();
+                self.$el.$shade.hide();
+              })
+              .show();
+          }
+        });
+      } else {
+        if ( /hb/.test(window.location.hostname) ) {
+          window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.flightmanager.view";
         } else {
-          self.$el.$shade.show();
-          self.$el.$loginPrompt
-            .one("click", ".js-confirm", function() {
-              self.$el.$loginPrompt.hide();
-              self.$el.$shade.hide();
-              self.loginApp();
-            })
-            .one("click", ".js-cancel", function() {
-              self.$el.$loginPrompt.hide();
-              self.$el.$shade.hide();
-            })
-            .show();
+          window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.gtgj.view";
         }
-      });
+      }
     };
 
     // 0: 正常兑换;

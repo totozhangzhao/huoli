@@ -142,7 +142,7 @@
       window.NativeAPI.sendToNative = function(message) {
 
         // standalone supported
-        if ( cookie && cookie.get("appVer") && window.location.hostname === "182.92.194.225" ) {
+        if ( cookie && cookie.get("appVer") && window.location.hostname === "123.56.101.36" ) {
           window.alert("OpenetNativeAPI://" + message);
         } else {
           buffer.push(message);
