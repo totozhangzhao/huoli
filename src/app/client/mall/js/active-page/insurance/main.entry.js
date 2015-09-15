@@ -22,9 +22,11 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
 
+    this.renderTopView();
+
     // initial data from url
     this.urlInputs = this.parseUrlInputs();
-    this.renderMainView(this.urlInputs);
+    this.renderFormView(this.urlInputs);
 
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
@@ -39,7 +41,42 @@ var AppView = Backbone.View.extend({
 
     return str;
   },
-  renderMainView: function(urlInputs) {
+  renderTopView: function() {
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
+          if (err) {
+            toast(err.message, 1500);
+            return;
+          }
+
+          next(null, userData);
+        });
+      },
+      function(userData, next) {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p,
+          productid: UrlUtil.parseUrlSearch().productid
+        });
+
+        sendPost("productDetail", params, function(err, data) {
+          next(err, data);
+        });
+      }
+    ], function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      $("<img>", {
+        src: result.img,
+        alt: ""
+      })
+        .appendTo("#goods-main-img");
+    });
+  },
+  renderFormView: function(urlInputs) {
     var tickets = urlInputs.tickets;
 
     if ( !Array.isArray(tickets) || tickets.length === 0 ) {
@@ -104,7 +141,7 @@ var AppView = Backbone.View.extend({
     this.$el.find(".js-user-item").each(function(index, item) {
       var userInfo = {};
       $(item).find("input").each(function(i, elem) {
-        userInfo[elem.name] = elem.value;
+        userInfo[elem.name] = elem.value.trim();
       });
       formValue.push(userInfo);
     });
