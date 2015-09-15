@@ -93,8 +93,7 @@ option {
   height: 1px;
   background-color: #cccccc;
   -webkit-transform: scaleY(0.5);
-  -ms-transform: scaleY(0.5);
-      transform: scaleY(0.5);
+  transform: scaleY(0.5);
 }
 .border:after {
   position: absolute;
@@ -106,8 +105,7 @@ option {
   height: 1px;
   background-color: #cccccc;
   -webkit-transform: scaleY(0.5);
-  -ms-transform: scaleY(0.5);
-      transform: scaleY(0.5);
+  transform: scaleY(0.5);
 }
 .border:before {
   position: absolute;
@@ -119,31 +117,22 @@ option {
   height: 1px;
   background-color: #cccccc;
   -webkit-transform: scaleY(0.5);
-  -ms-transform: scaleY(0.5);
-      transform: scaleY(0.5);
+  transform: scaleY(0.5);
 }
 .border-l {
-  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
   border-width: 0px 0px 0px 1px;
 }
 .border-r {
-  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
   border-width: 0px 1px 0px 0px;
 }
 .border-t {
-  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
-       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
-          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
+  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
   border-width: 1px 0px 0px 0px;
 }
 .border-b {
-  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
-       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
-          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
+  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 2 0 stretch;
   border-width: 0px 0px 1px 0px;
 }
 .loading-box {
@@ -240,6 +229,7 @@ option {
   font-family: 'Arial';
 }
 .home-page-box {
+  color: #333333;
   max-width: 750px;
   min-height: 100%;
   margin-top: 0;
@@ -250,6 +240,7 @@ option {
   position: relative;
   left: 0;
   top: 0;
+  background-color: #f0f0f0;
 }
 .home-banner-bar,
 .home-banner-pic,
@@ -264,6 +255,8 @@ option {
   padding-bottom: 0;
   padding-left: 10px;
   background-color: #ffffff;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
 }
 .home-nav .home-record-btn {
   height: 22px;
@@ -283,156 +276,45 @@ option {
   padding-right: 0;
   padding-bottom: 231px;
   padding-left: 0;
+  border-top: 1px solid #f0f0f0;
 }
 .home-goods-bar .num-color {
   font-size: 12px;
   color: #ffffff;
 }
-.home-show-area {
-  padding-top: 3px;
-  padding-right: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-}
-.home-recommend,
-.home-limit,
-.home-hot {
-  background-color: #ffffff;
-  margin-top: 3px;
-}
-.home-big-bar {
-  width: 44%;
-  height: 187px;
-  position: relative;
-  left: 0;
-  top: 0;
-}
-.home-small-bar {
-  width: 55%;
-  height: 92px;
-}
-.home-common-tit {
-  height: 21px;
-}
-.home-common-tit-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-}
-.home-recommend .home-common-tit {
-  color: #4d9eeb;
-}
-.home-recommend .home-value-common .home-value-p {
-  background-color: #4d9eeb;
-}
-.home-recommend .home-value-common .home-value-icon {
-  border-left: 10px solid #4d9eeb;
-}
-.home-hot .home-value-common .home-value-p {
-  background-color: #ffbe46;
-}
-.home-hot .home-value-common .home-value-icon {
-  border-left: 10px solid #ffbe46;
-}
-.home-limit .home-value-common .home-value-p {
-  background-color: #ff6533;
-}
-.home-limit .home-value-common .home-value-icon {
-  border-left: 10px solid #ff6533;
-}
-.home-recommend .home-common-tit-icon {
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -45px -87px;
-  background-size: 312px 280px;
-}
-.home-hot .home-common-tit {
-  color: #ffbe46;
-}
-.home-hot .home-common-tit-icon {
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -99px -85px;
-  background-size: 312px 280px;
-}
-.home-limit .home-common-tit {
-  color: #ff6533;
-}
-.home-limit .home-common-tit-icon {
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -71px -87px;
-  background-size: 312px 280px;
-}
-.home-recommend a,
-.home-hot a,
-.home-limit a {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  left: 0;
-  top: 0;
-  display: block;
-}
-.home-big-pic-bar {
-  position: absolute;
-  left: 50%;
-  bottom: 9px;
-  margin-left: -60px;
-}
-.home-show-text-bar {
-  width: 70%;
-  padding-top: 4px;
+.home-goods-dt {
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
   padding-left: 10px;
+  background-color: #ffffff;
+  font-weight: bold;
+  border-bottom: 1px solid #f0f0f0;
 }
-.home-show-pic-bar {
-  width: 45%;
-  position: absolute;
-  right: 4%;
-  bottom: 15px;
+.home-pic-tit {
+  font-size: 12px;
 }
-.home-small-goods-pic {
-  width: 86px;
-}
-.home-goods-dt {
-  padding-top: 10px;
-  padding-right: 0;
-  padding-bottom: 10px;
-  padding-left: 0;
-}
-.home-filed-box {
-  width: 150px;
-  text-align: center;
-  font-size: 16px;
-  color: #999999;
-  margin-top: 0;
-  margin-right: auto;
-  margin-bottom: 0;
-  margin-left: auto;
-  border-top: 1px solid #cccccc;
+.home-goods-area {
+  margin-top: 10px;
 }
 .home-goods-area-son {
-  width: 49.5%;
-  height: 141px;
-  margin-bottom: 3px;
+  width: 50%;
+  height: 150px;
   background-color: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
 }
 .home-goods-area-son:nth-of-type(odd) {
-  float: left;
-  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-  border-width: 0px 1px 0px 0px;
-}
-.home-goods-area-son:nth-of-type(even) {
-  float: right;
-  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-  border-width: 0px 0px 0px 1px;
+  border-right: 1px solid #f0f0f0;
 }
 .home-text-bar {
   width: 100%;
-  padding-top: 4px;
+  padding-top: 10px;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 10px;
+  padding-left: 14px;
 }
 .home-pic-detail {
   width: 95%;
@@ -473,7 +355,20 @@ option {
   height: 16px;
   line-height: 16px;
   font-size: 12px;
-  color: #ffffff;
+  padding-left: 14px;
+  color: #9b9b9b;
+}
+.home-value-common span {
+  color: #ff5a44;
+  padding-right: 5px;
+  font-weight: bold;
+}
+.home-value-common em {
+  color: #ff5a44;
+  padding-top: 0;
+  padding-right: 5px;
+  padding-bottom: 0;
+  padding-left: 5px;
 }
 .home-value-p {
   min-width: 24px;
@@ -483,52 +378,8 @@ option {
   padding-bottom: 0;
   padding-left: 4px;
 }
-.home-value-money .home-value-p {
-  background-color: #4d9eeb;
-}
-.home-value-end .home-value-p {
-  background-color: #cccccc;
-}
-.home-value-point .home-value-p {
-  background-color: #ffbe46;
-}
-.home-value-point-money .home-value-p {
-  background-color: #ff6533;
-}
-.home-value-icon {
-  border-top: 8px dashed transparent;
-  border-bottom: 8px dashed transparent;
-  border-right: 8px dashed transparent;
-  border-left: 10px dashed transparent;
-  position: relative;
-  left: 0;
-  top: 0;
-}
-.home-value-icon:after {
-  width: 3px;
-  height: 3px;
-  display: block;
-  content: '';
-  position: absolute;
-  left: -10px;
-  top: -2px;
-  background-color: #ffffff;
-  border-radius: 50%;
-}
-.home-value-point-money .home-value-icon {
-  border-left: 10px solid #ff6533;
-}
-.home-value-money .home-value-icon {
-  border-left: 10px solid #4d9eeb;
-}
-.home-value-point .home-value-icon {
-  border-left: 10px solid #ffbe46;
-}
-.home-value-end .home-value-icon {
-  border-left: 10px solid #cccccc;
-}
 .home-value {
-  font-size: 10px;
+  font-size: 12px;
 }
 .home-goods-pic {
   width: 100px;
@@ -545,9 +396,11 @@ option {
   margin-left: auto;
 }
 .home-pic-bar {
-  padding-top: 12px;
+  width: 100%;
+  height: 76px;
+  padding-top: 6px;
   padding-right: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   padding-left: 0;
 }
 .state-icon {
@@ -717,9 +570,7 @@ option {
 }
 .home-flight-son:nth-of-type(odd) {
   float: left;
-  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
   border-width: 0px 1px 0px 1px;
   margin-top: 0;
   margin-right: 0;
@@ -728,9 +579,7 @@ option {
 }
 .home-flight-son:nth-of-type(even) {
   float: right;
-  -webkit-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-       -o-border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
-          border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
+  border-image: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/border-line2.png) 0 2 stretch;
   border-width: 0px 1px 0px 1px;
   margin-top: 0;
   margin-right: 5px;
@@ -1945,15 +1794,11 @@ p {
 }
 @media only screen and (min-width: 375px) {
   .address-option-bar {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     display: -webkit-flex;
   }
   .address-option-area {
-    -webkit-box-flex: 1;
-        -ms-flex: 1;
-            flex: 1;
+    flex: 1;
     -webkit-flex: 1;
     position: relative;
     left: 0;
