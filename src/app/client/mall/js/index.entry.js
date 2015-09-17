@@ -12,7 +12,6 @@ var storage   = require("app/client/mall/js/lib/storage.js");
 var widget    = require("app/client/mall/js/lib/widget.js");
 var echo      = require("com/mobile/lib/echo/echo.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
-var IScroll   = require("com/mobile/lib/iscroll/iscroll-probe.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var logger    = require("com/mobile/lib/log/log.js");
 
@@ -32,7 +31,6 @@ var AppView = Backbone.View.extend({
       return;
     }
 
-    this.mainScroller;
     this.$el.$pionts = $("#index-points-bar");
 
     async.waterfall([
@@ -152,7 +150,6 @@ var AppView = Backbone.View.extend({
         .show();
 
       self.loadImage();
-      self.pageScroll();
     });
   },
   mallGetUserInfo: function(options) {
@@ -315,70 +312,6 @@ var AppView = Backbone.View.extend({
             rightButtonReady: true
           });
         }, 500);
-    });
-  },
-  pageScroll: function() {
-    if (Util.getMobileSystem() === "iOS") {
-      if (this.mainScroller) {
-        this.mainScroller.refresh();
-      } else {
-        this.initScroll();
-      }
-    }
-  },
-  getIScrollConfig: function() {
-    var config = {
-      useTransition: false,
-      probeType: 2,
-      click: true
-    };
-
-    return config;
-  },
-  initScroll: function() {
-    var scroller = this.mainScroller = new IScroll("#index-wrapper", this.getIScrollConfig());
-    
-    var $pullDownEl = $("#pull-down");
-    var pullDownOffset = $pullDownEl.data("pullDownOffset");
-    var $text = $pullDownEl.find(".line-two");
-    var textObj = $text.data();
-    var yStartFromZero = false;
-    var pullActionFlag = false;
-
-    scroller.on("scrollStart", function() {
-      if (scroller.y === 0) {
-        $text.text(textObj.initText);
-        yStartFromZero = true;
-      }
-    });
-
-    scroller.on("scroll", function() {
-      if (this.y > pullDownOffset) {
-        $text.text(textObj.execText);
-        pullActionFlag = true;
-        $pullDownEl.addClass("loading");
-      } else {
-        $text.text(textObj.initText);
-        pullActionFlag = false;
-        $pullDownEl.removeClass("loading");
-      }
-    });
-
-    scroller.on("scrollEnd", function() {
-      if (yStartFromZero && pullActionFlag) {
-        scroller._execEvent("pullToRefresh");
-        $text.text(textObj.loadingText);
-      } else {
-        $text.text(textObj.initText);
-        yStartFromZero = false;
-      }
-      this.refresh();
-    });
-
-    scroller.on("pullToRefresh", function() {
-      setTimeout(function() {
-        window.location.reload();
-      }, 1000);
     });
   },
   loadImage: function() {

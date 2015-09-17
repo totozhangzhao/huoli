@@ -2,7 +2,7 @@
   <dl class="home-goods-area clearfix">
     <dt class="home-goods-dt"><%= group.title %></dt>
     <% _.each(group.products, function(item) { %>
-      <dd class="home-goods-area-son fl">
+      <dd class="js-touch-state home-goods-area-son fl">
       <% var jsClass = "js-new-page"; %>
       <% var jsUrl = "javascript:;" %>
       <% if ( String(item.action) === "0" ) { %>
