@@ -1,4 +1,4 @@
-// var $          = require("jquery");
+var $          = require("jquery");
 var Backbone   = require("backbone");
 var _          = require("lodash");
 var async      = require("async");
@@ -168,7 +168,7 @@ var AppView = Backbone.View.extend({
       function(userData, next) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: parseUrl().productid
+          productid: parseUrl().productid || $("#lottery-main").data("productid")
         });
 
         sendPost("createLottery", params, function(err, lotteryData) {
