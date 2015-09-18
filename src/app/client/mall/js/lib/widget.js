@@ -17,7 +17,7 @@ exports.createAView = function(e) {
   e.preventDefault();  
 
   if ( $cur.data() ) {
-    url = url.indexOf("?") >= 0 ? url : url + "?";
+    url = url.indexOf("?") >= 0 ? url + "&" : url + "?";
     url = url + $.param( $cur.data() );
   }
 
