@@ -202,9 +202,7 @@ var AppView = Backbone.View.extend({
         $("#index-points-bar")
           .show()
           .find(".js-points")
-            .text(result.points);
-        
-        self.pageScroll();
+            .text(result.points);        
       }
 
       if (!options.rightButtonReady) {

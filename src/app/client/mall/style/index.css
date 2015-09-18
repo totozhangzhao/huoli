@@ -1694,6 +1694,19 @@ p {
   left: 0;
   top: 0;
 }
+.address-username-bar,
+.address-option-bar,
+.address-option-area,
+.address-detail-bar,
+.address-usertel-bar {
+  border-bottom: 1px solid #cccccc;
+}
+.address-option-area:last-child {
+  border: none;
+}
+.border-l {
+  border-left: 1px solid #cccccc;
+}
 .address-option-se {
   width: 100%;
   height: 100%;
