@@ -25,9 +25,6 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
 
-    // 重置刮刮卡
-    this.resetCard = null;
-
     // 本次中奖结果
     this.lotteryInfo = {};
 
@@ -50,6 +47,12 @@ var AppView = Backbone.View.extend({
     widget.createAView(e);
   },
   mallCheckin: function() {
+
+    // 取消分享奖励
+    if (true) {
+      return;
+    }
+
     var self = this;
     async.waterfall([
       function(next) {
@@ -129,17 +132,16 @@ var AppView = Backbone.View.extend({
 
     this.$el.find("canvas")
       .on("getImageURL", function(e, canvas, resetCard) {
-        self.resetCard = resetCard;
-
         if (self.lotteryInfo.left === 0) {
+
+          // 重置刮刮卡
           resetCard();
         } else {
           self.getResultImage(canvas, resetCard);
         }
       })
-      .on("showResult", function() {
-        // (e, resetCard)
-        self.showResult();
+      .on("showResult", function(e, resetCard) {
+        self.showResult(resetCard);
       });
 
     new ScratchCard({ el: "#lottery-main canvas" });
@@ -148,7 +150,7 @@ var AppView = Backbone.View.extend({
     var self = this;
 
     if (this.lotteryInfo.left === 0) {
-      this.resetCard();
+      resetCard();
       return;
     }
 
@@ -239,22 +241,8 @@ var AppView = Backbone.View.extend({
       }
     });
   },
-  showResult: function() {
+  showResult: function(resetCard) {
     var self = this;
-
-    var rdNum = function(from, to) {
-      var temp = to - from + 1;
-      return Math.floor(Math.random() * temp + from);
-    };
-
-    var textList = [
-      "你刮中这么大奖，你家人造吗？",
-      "哇，人品大爆炸，竟然被你刮中了，赶紧去领奖。",
-      "土豪，带我装逼带我刮，刮刮刮~~",
-      "领奖姿势要优美哦，收腹提臀，棒棒哒~",
-      "中奖了，不分享，你对得起我吗？",
-      "中奖也会传染，不信你试试~"
-    ];
 
     var showCardView = function(callback) {
       var bonus = self.lotteryInfo.bonus;
@@ -267,18 +255,30 @@ var AppView = Backbone.View.extend({
       setTimeout(function() {
         $cardBlock.removeClass(animateName + " animated");
 
-        if (bonus === 2) {
+        if (bonus !== 0) {
           var $alert = self.$el.find(".js-alert-box");
           var tmpl = require("app/client/mall/tpl/active-page/scratch-card/alert-result.tpl");
+          var buttonText = "确定";
+
+          if (bonus === 2) {
+            buttonText = "马上领奖";
+          } else if (bonus === 1) {
+            buttonText = "再玩一次";
+          }
 
           $alert
             .html(tmpl({
-              hint: self.lotteryInfo.result.text || textList[rdNum(0, textList.length - 1)],
-              buttonText: "马上领奖"
+              alertImage: self.lotteryInfo.result.alertimage,
+              hint      : self.lotteryInfo.result.text,
+              buttonText: buttonText
             }))
             .show()
             .on("click", ".js-go", function() {
-              self.gotoOrderDetail();
+              if (bonus === 2) {
+                self.gotoOrderDetail();
+              } else {
+                resetCard();
+              }
               $alert.hide();
             })
             .on("click", ".js-close", function() {

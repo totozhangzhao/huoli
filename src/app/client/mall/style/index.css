@@ -1226,6 +1226,10 @@ p {
 .combination-insert-area:last-child {
   border-radius: 4px 4px 0 0;
 }
+.combination-insert-area .insert-bar-son + .border {
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+}
 .insert-delete-bar {
   width: 45px;
   height: 147px;
