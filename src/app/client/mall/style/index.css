@@ -109,7 +109,6 @@ option {
 .active-box,
 .order-box,
 .integral-box,
-.exchange-record-box,
 .integral-list-box,
 .pay-box,
 .pay-order-detail-box,
@@ -1058,95 +1057,59 @@ p {
 .pay-status-cancel .pay-status-show {
   background-position: -245px -32px;
 }
-.integral-bar {
-  color: #333333;
-  padding-top: 0;
-  padding-right: 10px;
-  padding-bottom: 0;
-  padding-left: 10px;
-}
-.question-bar {
-  line-height: 36px;
-}
-.question-icon {
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 12px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/question-icon.png) no-repeat;
-  background-size: cover;
-}
-.answer-icon {
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  margin-top: 6px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/answer-icon.png) no-repeat;
-  background-size: cover;
-}
-.answer-text {
-  font-size: 14px;
-  padding-top: 0;
-  padding-right: 0;
-  padding-bottom: 0;
-  padding-left: 28px;
-  line-height: 28px;
-}
-.record-area,
-.integral-list-area {
-  height: 84px;
-  padding-top: 0;
-  padding-right: 10px;
-  padding-bottom: 0;
-  padding-left: 10px;
-  border-bottom: 1px solid #cccccc;
-  margin-bottom: -1px;
+.exchange-record-box {
+  font-size: 28px;
 }
 .record-area {
+  height: 190px;
   position: relative;
   left: 0;
   top: 0;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-bottom: 2px solid #f0f0f0;
 }
-.record-pic-bar,
-.list-pic-bar {
-  margin-top: 10px;
+.record-area a {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
-.record-text-bar,
-.list-text-bar {
-  margin-left: 10px;
-  margin-top: 10px;
+.record-pic-bar {
+  position: absolute;
+  left: 25px;
+  top: 25px;
+}
+.record-pic {
+  width: 140px;
+  height: 140px;
 }
 .record-text-bar {
-  width: 70%;
+  padding-left: 165px;
+  padding-top: 42px;
 }
 .record-text-tit {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.record-text-det,
-.record-text-time {
-  font-size: 14px;
-  line-height: 20px;
-}
-.record-need-integral {
-  margin-top: 10px;
-  margin-right: 35px;
-}
-.record-text-time {
-  color: #999999;
-}
-.order-bar {
-  margin-top: 8px;
+  line-height: 28px;
+  color: #333333;
 }
 .order-bar p {
-  height: 16px;
-  line-height: 16px;
+  font-size: 24px;
+  height: 24px;
+  line-height: 24px;
 }
-.order-status-time {
-  color: #999999;
-  font-size: 14px;
+.order-bar p:nth-child(1) {
+  color: #ff5a44;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+.order-bar p:nth-child(1) span {
+  color: #9b9b9b;
+  padding-left: 10px;
+}
+.order-bar p:nth-child(2) {
+  color: #9b9b9b;
 }
 .enter-btn {
   width: 9px;
@@ -1164,14 +1127,15 @@ p {
   margin-left: auto;
 }
 .exchange-empty-pic {
-  width: 104px;
-  height: 104px;
+  width: 208px;
+  height: 208px;
   margin-top: 128px;
   margin-right: auto;
   margin-bottom: 36px;
   margin-left: auto;
 }
 .exchange-empty-text {
+  font-size: 32px;
   text-align: center;
   padding-top: 0;
   padding-right: 0;
@@ -1179,29 +1143,20 @@ p {
   padding-left: 0;
 }
 .order-status {
-  width: 76px;
-  text-align: center;
-  height: 22px;
-  line-height: 22px;
-  font-size: 12px;
-  color: #ffffff;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/h2-pay-sprite.png) no-repeat;
-  background-size: 350px 350px;
   position: absolute;
-  right: 0;
-  bottom: 10px;
+  right: 42px;
+  bottom: 25px;
+  text-align: right;
 }
 .order-status-succ {
-  background-position: 0 0;
+  color: #039ef0;
 }
-.order-status-waitsure {
-  background-position: -86px 0;
-}
+.order-status-waitsure,
 .order-status-waitpay {
-  background-position: -172px 0;
+  color: #ff9600;
 }
 .order-status-fail {
-  background-position: -258px 0;
+  color: #ff5a44;
 }
 .insert-bar {
   width: 90%;

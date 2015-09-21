@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1, width=device-width">
+  <meta name="viewport" content="initial-scale=0.5, user-scalable=no, maximum-scale=0.5, width=device-width">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection"content="telephone=no">
@@ -11,6 +11,27 @@
   <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
 </head>
 <body>
+  <script>
+    var getMobileSystem = function() {
+      var ua = window.navigator.userAgent ||
+                window.navigator.vendor ||
+                window.navigator.opera;
+
+      if ( (/iPhone|iPad|iPod/i).test(ua) ) {
+        return "iOS";
+      } else if ( (/Mac OS|Macintosh/i).test(ua) ) {
+        return "iOS";
+      } else if ( (/Android/i).test(ua) ) {
+        return "Android";
+      } else {
+        return "Android";
+      }
+    };
+
+    if ( getMobileSystem() === "Android" ) {
+      window.document.body.style.zoom = "0.5";
+    }
+  </script>
   <section id="empty-record-hint" class="exchange-empty-box" style="display: none;">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/record-empty.png" class="exchange-empty-pic" />
     <p class="exchange-empty-text">您还没有订单哦！再去逛逛吧～～</p>
