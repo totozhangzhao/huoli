@@ -22,11 +22,12 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
 
-    this.renderTopView();
+    // real productid
+    this.goodsId = null;
 
     // initial data from url
     this.urlInputs = this.parseUrlInputs();
-    this.renderFormView(this.urlInputs);
+    this.renderTopView();
 
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
@@ -42,6 +43,8 @@ var AppView = Backbone.View.extend({
     return str;
   },
   renderTopView: function() {
+    var self = this;
+
     async.waterfall([
       function(next) {
         appInfo.getUserData(function(err, userData) {
@@ -56,7 +59,7 @@ var AppView = Backbone.View.extend({
       function(userData, next) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: UrlUtil.parseUrlSearch().productid
+          productid: $("#main-container").data("productid") || 10000
         });
 
         sendPost("productDetail", params, function(err, data) {
@@ -68,6 +71,9 @@ var AppView = Backbone.View.extend({
         toast(err.message, 1500);
         return;
       }
+
+      self.goodsId = result.productid;
+      self.renderFormView(self.urlInputs);
 
       $("<img>", {
         src: result.img,
@@ -125,6 +131,7 @@ var AppView = Backbone.View.extend({
     this.mallCreateOrder();
   },
   mallCreateOrder: function() {
+    var self = this;
     var $inputs = this.$el.find("input[name]");
 
     for (var i = 0, len = $inputs.length; i < len; i += 1) {
@@ -160,7 +167,7 @@ var AppView = Backbone.View.extend({
       function(userData, next) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: UrlUtil.parseUrlSearch().productid,
+          productid: self.goodsId,
           input: formValue
         });
 
