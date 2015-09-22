@@ -117,6 +117,10 @@ var AppView = Backbone.View.extend({
       var appName = cookie.get("appName");
 
       if ( /hbgj/i.test(appName) || /gtgj/i.test(appName) ) {
+        if ( String(productInfo.stat) !== "0" ) {
+          return;
+        }
+
         async.waterfall([
           function(next) {
             appInfo.getUserData(function(err, userData) {
@@ -165,9 +169,6 @@ var AppView = Backbone.View.extend({
     // 4: 今日已兑完。
     if ( String(productInfo.stat) === "0" ) {
       buttonClass = "allow-color";
-
-      this.$el.$exchangeButton.on("click", exchangeHandler);
-
       this.$el.$promptBoard
         .on("click", ".js-confirm", function() {
           self.exchange(productInfo);
@@ -184,6 +185,8 @@ var AppView = Backbone.View.extend({
       .text(productInfo.button)
       .addClass(buttonClass)
       .show();
+
+    this.$el.$exchangeButton.on("click", exchangeHandler);
   },
   loginApp: function() {
     var self = this;
