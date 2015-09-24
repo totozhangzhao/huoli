@@ -22,6 +22,11 @@ var AppView = Backbone.View.extend({
     "click .js-get-url" : "handleGetUrl"
   },
   initialize: function() {
+
+    // rem
+    var rootSize = ($(document).width() / 10).toFixed(1);
+    $("html").css({ "font-size": rootSize + "px" });
+
     var self = this;
     var version = this.getVersion(parseUrl().p);
 
