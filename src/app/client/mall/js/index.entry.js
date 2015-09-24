@@ -133,7 +133,7 @@ var AppView = Backbone.View.extend({
 
     async.waterfall([
       function(next) {
-        sendPost("newProductMain", null, function(err, data) {
+        sendPost("mainProductList", null, function(err, data) {
           next(err, data);
         });        
       }
@@ -149,8 +149,9 @@ var AppView = Backbone.View.extend({
 
       $("#goods-block")
         .html(goodsTpl({
-          goodsList: result,
-          appName: mallUitl.getAppName()
+          topList  : result.focus,
+          goodsList: result.groups,
+          appName  : mallUitl.getAppName()
         }))
         .show();
 

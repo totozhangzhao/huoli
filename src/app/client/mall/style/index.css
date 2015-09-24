@@ -2088,6 +2088,121 @@ p {
   background-size: 312px 280px;
 }
 
+/* rem - start */
+.horizontal-view {
+/*    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+*/
+/*float: left;*/
+}
+.vertical-view {
+  /*float: left;*/
+/*    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;*/
+}
+
+.panel-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.panel-block-left,
+.panel-block-right {
+  float: left;
+}
+
+.panel-block-left .goods,
+.panel-block-right .goods {
+  position: relative;
+  box-sizing: border-box;
+  line-height: 0;
+  background-image: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgb(255, 255, 255);
+  background-position: initial initial;
+  background-repeat: initial initial;
+  background-size: contain;
+}
+.panel-block-left .goods-1 {
+  /*background-image: url(http://cdn.rsscc.cn/guanggao/img/mall/active/rem-assets/goods-left-1.png);*/
+}
+.panel-block-right .goods-2 {
+  /*background-image: url(http://cdn.rsscc.cn/guanggao/img/mall/active/rem-assets/goods-right-1.png);*/
+}
+.panel-block-right .goods-3 {
+  /*background-image: url(http://cdn.rsscc.cn/guanggao/img/mall/active/rem-assets/goods-right-2.png);*/
+}
+
+.panel-block-left .goods-1:after {
+  content: '';
+  box-sizing: border-box;
+  line-height: 0;
+  background-color: #f0f0f0;
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.panel-block-right .goods-2:after {
+  content: '';
+  box-sizing: border-box;
+  line-height: 0;
+  background-color: #f0f0f0;
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.panel-block-left {
+  /*border-right: 1px solid #f0f0f0;*/
+}
+.panel-block-left .goods {
+  /*background-color: #aaa;*/
+  width: 4.094rem;
+  height: 4.826rem;
+}
+.panel-block-left .goods img {
+  width: 100%;
+}
+
+.panel-block-right .goods {
+  /*background-color: #bbb;*/
+  width: 5.906rem;
+  height: 2.413rem;
+}
+.panel-block-right .goods:first-child {
+  /*border-bottom: 1px solid #f0f0f0;*/
+}
+.panel-block-right .goods img {
+  width: 100%;
+}
+/* rem -  end  */
+
 /* widget - start */
 .bb-panel {
   display: none;

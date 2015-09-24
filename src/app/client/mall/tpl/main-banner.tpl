@@ -3,7 +3,7 @@
     <% _.each(bannerList, function(item, index) { %>
     <li class="banner-item">
       <% var jsClass = "js-new-page"; %>
-      <% var jsUrl = "javascript:;" %>
+      <% var jsUrl = "javascript:;"; %>
       <% if ( String(item.action) === "0" ) { %>
         <% jsUrl = "/fe/app/client/mall/html/detail-page/goods-detail.html"; %>
       <% } else if ( String(item.action) === "1" ) { %>
