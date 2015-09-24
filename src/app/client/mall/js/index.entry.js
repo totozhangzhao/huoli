@@ -288,6 +288,7 @@ var AppView = Backbone.View.extend({
             url: "https://dl.rsscc.cn/gtgj/wap/act/20150824/index.html?gtgjparam=1"
           });        
         }
+        logger.track(mallUitl.getAppName() + "-签到", "click");
       });
     }
   },
