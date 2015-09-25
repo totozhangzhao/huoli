@@ -6,7 +6,6 @@ module.exports = function(options) {
   var expire  = (options && options.expire) || 1;
   var version = parseInt(now - (now % expire), 10);
 
-
   var versionRef = function(file, encoding, callback) {
     if ( file.isNull() ) {
       return callback(null, file);
@@ -17,7 +16,7 @@ module.exports = function(options) {
     }
 
     var regChangeFilename = /(\.(bundle.js|css))/g;
-    var regAddParam       = /(\.(png|jpg|jpeg|gif))/g;
+    // var regAddParam       = /(\.(png|jpg|jpeg|gif))/g;
     var fileContent       = file.contents.toString();
 
     if ( regChangeFilename.test(fileContent) ) {
@@ -29,14 +28,14 @@ module.exports = function(options) {
       );
     }
 
-    if ( regAddParam.test(fileContent) ) {
-      fileContent = fileContent.replace(
-        regAddParam,
-        function(match, $1) {
-          return $1 + "?_t=" + version;
-        }
-      );
-    }
+    // if ( regAddParam.test(fileContent) ) {
+    //   fileContent = fileContent.replace(
+    //     regAddParam,
+    //     function(match, $1) {
+    //       return $1 + "?_t=" + version;
+    //     }
+    //   );
+    // }
 
     file.contents = new Buffer(fileContent);
     callback(null, file);

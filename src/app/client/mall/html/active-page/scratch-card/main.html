@@ -31,10 +31,13 @@
     }
     .lucky-box {
       max-width: 750px;
-      min-height: 100%;
+      height: 100%;
       margin: 0 auto;
-      background: #41b0e7;
+      background: #0b0011;
     }
+    .lucky-desc-bar,
+    .lucky-status-bar,
+    .lucky-btn-bar,
     .lucky-nav-bar {
       position: relative;
     }
@@ -42,7 +45,7 @@
       width: 100%;
       height: 40px;
       line-height: 40px;
-      color: #fff;
+      color: #f4f3b3;
       position: fixed;
       left: 0;
       top: 0;
@@ -68,30 +71,35 @@
       padding-left: 18px;
       right: 15px;
       top: 13px;
-      background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/lucky-draw/lucky-card/lucky-card-icon.png?a=b) no-repeat;
+      background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/lucky-mid-icon.png) no-repeat;
       background-size: 14px 14px;
     }
     .lucky-rule-area a {
-      color: #fff;
+      color: #f4f3b3;
     }
-    .lucky-desc-text {
+    .lucky-desc-text,
+    .lucky-detail-btn {
       width: 100%;
       text-align: center;
-      color: #fff;
-      font-size: 14px;
-      padding: 30px 0;
+      color: #fcfa6c;
+      position: absolute;
+      left: 0;
+      bottom: 50px;
     }
-    .lucky-desc-text span {
-      color: #ffe300;
-      padding: 0 3px;
+    .lucky-detail-btn {
+      text-decoration: underline;
+      left: 0;
+      bottom: 20px;
     }
     .lucky-status-area {
       width: 266px;
       height: 127px;
       background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/lucky-draw/lucky-card/lucky-card-bg.png) no-repeat;
       background-size: cover;
-      margin: 0 auto;
-      position: relative;
+      position: absolute;
+      left: 50%;
+      top: 0;
+      margin-left: -133px;
     }
     .lucky-status-area-son {
       width: 253px;
@@ -100,55 +108,33 @@
       left: 7px;
       top: 15px;
     }
-    .lucky-btn-bar {
-      padding: 38px 0;
-    }
-    .lucky-btn-understand {
-      width: 70%;
-      height: 34px;
-      line-height: 34px;
-      text-align: center;
-      color: #fff;
-      font-size: 14px;
-      display: block;
-      margin: 0 auto;
-      border: 1px solid #fff;
-      border-radius: 20px;
-      background: -webkit-linear-gradient(top, #73caf7, #24a2df);
-    }
-    .tip-text {
-      text-align: center;
-      color: #fff;
-      font-size: 12px;
-      padding-bottom: 40px;
-    }
     .box-shadow {
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(255, 255, 255, 0.5);
       position: fixed;
       left: 0;
       top: 0;
+      display: none; /**/
     }
     .tip-box {
       width: 277px;
-      height: 255px;
+      height: 269px;
       border-radius: 4px;
       position: absolute;
       left: 50%;
       top: 50%;
       margin-left: -138px;
-      margin-top: -128px;
-      background: #fff;
+      margin-top: -134px;
     }
     .tip-box img {
       border-radius: 3px;
     }
     .prize-desc {
       font-size: 14px;
-      color: #41b0e7;
+      color: #fff;
       box-sizing: border-box;
-      width: 100%;
+      width: 86%;
       word-break:break-word;
       padding: 0 20px;
       height: 48px;
@@ -163,21 +149,39 @@
       text-align: center;
       color: #fff;
       font-size: 16px;
-      border-radius: 30px;
-      background: -webkit-linear-gradient(top, #72c9f6, #25a1e1);
+      background: #f8621b;
       position: absolute;
       left: 50%;
-      bottom: 16px;
+      bottom: 18px;
       margin-left: -35%;
     }
     .close-btn {
       width: 32px;
       height: 32px;
-      background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/lucky-draw/lucky-card/lucky-close-icon.png) no-repeat;
+      background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/lucky-mid-close.png) no-repeat;
       background-size: 32px 32px;
       position: absolute;
       right: -16px;
       top: -16px;
+    }
+    .gift-box {
+      position: relative;
+    }
+    .gift-box p {
+      position: absolute;
+      left: 40%;
+      top: 0;
+      margin-left: -30%;
+    }
+    .gift-box .gift-text {
+      color: #fdd900;
+    }
+    .tip-gift-pic {
+      width: 120px;
+      position: absolute;
+      left: 50%;
+      top: 50px;
+      margin-left: -50px;
     }
   </style>
   <style>
@@ -342,14 +346,14 @@
   </style>
 </head>
 <body>
-  <section id="lottery-main" data-productid="10000035" class="lucky-box">
+  <section id="lottery-main" data-productid="10000037" class="lucky-box">
     <nav class="lucky-nav-bar">
       <div class="lucky-shadow-bar"></div>
       <p class="lucky-integral-area">当前积分：<span class="js-points">--</span></p>
-      <p class="lucky-rule-area"><a href="https://dl.rsscc.cn/guanggao/integral/active/lucky-rule.html?a=b">抽奖规则</a></p>
+      <p class="lucky-rule-area"><a href="https://dl.rsscc.cn/guanggao/integral/active/lucky-mid-rule.html">抽奖规则</a></p>
     </nav>
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/lucky-draw/lucky-card/lucky-draw-1.jpg?a=b">
-    <p class="lucky-desc-text"><span>10</span>积分刮价值<span>79.9</span>元阿乐乐可模方插座</p>
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-1.jpg">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-2.jpg">
     <div class="lucky-status-bar">
       <div class="lucky-status-area">
         <div class="js-card-block lucky-status-area-son">
@@ -357,18 +361,19 @@
         </div>
       </div>
     </div>
-    <div class="lucky-btn-bar">
-      <a href="https://mall.rsscc.cn/fe/app/client/mall/html/share-page/share.html?productid=10000035" class="lucky-btn-understand">了解阿乐乐可模方插座</a>
-    </div>
-    <p class="tip-text">每次刮奖仅消耗10积分，祝您好运！</p>
-    <div class="js-alert-box box-shadow" style="display: none;">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-3.jpg">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-4.jpg">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-5.jpg?a=b">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-6.jpg">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-7.jpg">
+    <div class="js-alert-box box-shadow">
       <!-- // -->
     </div>
     <div id="__wechat_share" style="display:none;">
-        <div id="__wechat_title">【有人@你】我在高铁管家玩刮刮卡中了阿乐乐可模方插座，你在哪？</div>
-        <div id="__wechat_desc">全民疯刮，刮中大奖带回家，赶快来参加吧！</div>
-        <div id="__wechat_link">https://dl.rsscc.cn/guanggao/integral/active/lucky-draw-share.html?a=c</div>
-        <div id="__wechat_img">http://cdn.rsscc.cn/guanggao/img/mall/share/h2-share-luckycard.png?a=b</div>
+        <div id="__wechat_title">#爆炸消息#高铁商城刮刮卡已疯，不确认是bug还是其他原因，只要刮就能中奖、只要刮就能中奖……</div>
+        <div id="__wechat_desc">双节开个小玩笑，希望大家中奖百分百，开心过大节~</div>
+        <div id="__wechat_link">https://dl.rsscc.cn/guanggao/integral/active/lucky-mid-share.html</div>
+        <div id="__wechat_img">http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/share.jpg</div>
     </div>
   </section>
 <script>
