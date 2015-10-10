@@ -21,7 +21,8 @@ var mallWechat = require("app/client/mall/js/lib/wechat.js");
 var AppView = Backbone.View.extend({
   el: "#goods-detail",
   events: {
-    "click #goods-desc a": "createNewPage"
+    "click #goods-desc a"      : "createNewPage",
+    "click .js-exchange-button": "exchangeHandler"
   },
   initialize: function() {
     this.$el.$shade          = $("#goods-detail .js-shade");
@@ -79,6 +80,8 @@ var AppView = Backbone.View.extend({
     });
   },
   renderMainPanel: function(productInfo) {
+
+    // router: use it as backbone view cache
     this.cache.productInfo = productInfo;
     this.title = productInfo.title;
     this.updateNativeView(productInfo.title);
@@ -97,7 +100,21 @@ var AppView = Backbone.View.extend({
     if ( UrlUtil.parseUrlSearch().gotoView ) {
       this.router.switchTo( UrlUtil.parseUrlSearch().gotoView );
     } else {
-      this.handlePrompt(productInfo);
+      var buttonClass = "forbidden-color";
+
+      // 0: 正常兑换;
+      // 1: 已结束;
+      // 2: 未开始;
+      // 3: 已兑完;
+      // 4: 今日已兑完。
+      if ( String(productInfo.stat) === "0" ) {
+        buttonClass = "allow-color";
+      }
+
+      this.$el.$exchangeButton
+        .text(productInfo.button)
+        .addClass(buttonClass)
+        .show();
 
       if ( wechatUtil.isWechat() ) {
         wechatUtil.setTitle(productInfo.title);
@@ -109,84 +126,93 @@ var AppView = Backbone.View.extend({
       }
     }
   },
-  handlePrompt: function(productInfo) {
+  exchangeHandler: function() {
     var self = this;
-    var buttonClass = "forbidden-color";
+    var appName = cookie.get("appName");
+    var productInfo = this.cache.productInfo;
 
-    var exchangeHandler = function() {
-      var appName = cookie.get("appName");
-
-      if ( /hbgj/i.test(appName) || /gtgj/i.test(appName) ) {
-        if ( String(productInfo.stat) !== "0" ) {
-          return;
-        }
-
-        async.waterfall([
-          function(next) {
-            appInfo.getUserData(function(err, userData) {
-              if (err) {
-                toast(err.message, 1500);
-                return;
-              }
-
-              next(null, userData);
-            }, self.userDataOpitons);
-          }
-        ], function(err, result) {
-          self.userDataOpitons.reset = false;
-
-          if (result.userInfo.authcode) {
-            self.$el.$shade.show();
-            self.$el.$promptBoard.show();
-          } else {
-            self.$el.$shade.show();
-            self.$el.$loginPrompt
-              .one("click", ".js-confirm", function() {
-                self.$el.$loginPrompt.hide();
-                self.$el.$shade.hide();
-                self.loginApp();
-              })
-              .one("click", ".js-cancel", function() {
-                self.$el.$loginPrompt.hide();
-                self.$el.$shade.hide();
-              })
-              .show();
-          }
-        });
-      } else {
-        if ( /hb/.test(window.location.hostname) ) {
-          window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.flightmanager.view";
-        } else {
-          window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.gtgj.view";
-        }
+    if ( /hbgj/i.test(appName) || /gtgj/i.test(appName) ) {
+      if ( String(productInfo.stat) !== "0" ) {
+        return;
       }
-    };
 
-    // 0: 正常兑换;
-    // 1: 已结束;
-    // 2: 未开始;
-    // 3: 已兑完;
-    // 4: 今日已兑完。
-    if ( String(productInfo.stat) === "0" ) {
-      buttonClass = "allow-color";
-      this.$el.$promptBoard
-        .on("click", ".js-confirm", function() {
-          self.exchange(productInfo);
-        })
-        .on("click", ".js-cancel", function() {
-          self.$el.$promptBoard.hide();
-          self.$el.$shade.hide();
-        })
-        .find(".js-title")
-          .text(productInfo.confirm);
+      async.waterfall([
+        function(next) {
+          appInfo.getUserData(function(err, userData) {
+            if (err) {
+              toast(err.message, 1500);
+              return;
+            }
+
+            next(null, userData);
+          }, self.userDataOpitons);
+        }
+      ], function(err, result) {
+        self.userDataOpitons.reset = false;
+
+        if (result.userInfo.authcode) {
+
+          // type：兑换类型
+          // 1--直接调用创建订单接口
+          // 2--转入输入手机号页面（预留，金融类）
+          // 3--转入输入地址页面（预留）
+          // 9--点击跳转第三方链接（ thirdparturl ）
+          // 13--转入输入手机号页面（预留，金融类）
+          switch ( String(productInfo.type) ) {
+            case "2":
+              self.router.switchTo("form-phone");
+              return;
+            case "3":
+              self.gotoAddress();
+              return;
+            case "9":
+              self.gotoNewView({
+                url: productInfo.thirdparturl
+              });
+              return;
+            case "13":
+              self.router.switchTo("form-custom");
+              return;
+            default:
+              // 确认兑换弹窗
+              self.$el.$shade.show();
+              self.$el.$promptBoard
+                .on("click", ".js-confirm", function() {
+                  self.exchange(productInfo);
+                })
+                .on("click", ".js-cancel", function() {
+                  self.$el.$promptBoard.hide();
+                  self.$el.$shade.hide();
+                })
+                .find(".js-title")
+                  .text(productInfo.confirm)
+                .end()
+                .show();
+              return;
+          }
+        } else {
+          // 登录弹窗
+          self.$el.$shade.show();
+          self.$el.$loginPrompt
+            .one("click", ".js-confirm", function() {
+              self.$el.$loginPrompt.hide();
+              self.$el.$shade.hide();
+              self.loginApp();
+            })
+            .one("click", ".js-cancel", function() {
+              self.$el.$loginPrompt.hide();
+              self.$el.$shade.hide();
+            })
+            .show();
+        }
+      });
+    } else {
+      if ( /hb/.test(window.location.hostname) ) {
+        window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.flightmanager.view";
+      } else {
+        window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.gtgj.view";
+      }
     }
-
-    this.$el.$exchangeButton
-      .text(productInfo.button)
-      .addClass(buttonClass)
-      .show();
-
-    this.$el.$exchangeButton.on("click", exchangeHandler);
   },
   loginApp: function() {
     var self = this;
