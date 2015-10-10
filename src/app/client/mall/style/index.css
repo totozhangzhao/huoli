@@ -242,15 +242,13 @@ option {
   font-weight: bold;
   border-bottom: 1px solid #f0f0f0;
 }
-.home-pic-tit {
-  font-size: 12px;
-}
 .home-goods-area {
   margin-top: 10px;
 }
 .home-goods-area-son {
   width: 50%;
   height: 150px;
+  font-size: 12px;
   background-color: #ffffff;
   border-bottom: 1px solid #f0f0f0;
 }
@@ -266,32 +264,9 @@ option {
 }
 .home-pic-detail {
   width: 95%;
-  font-size: 12px;
   color: #999999;
   line-height: 16px;
   margin-bottom: 3px;
-}
-.home-big-pic-detail {
-  width: 95%;
-  font-size: 12px;
-  color: #999999;
-  line-height: 16px;
-  margin-top: 4px;
-  margin-right: 0;
-  margin-bottom: 5px;
-  margin-left: 0;
-}
-.home-small-pic-detail {
-  width: 60%;
-  max-height: 32px;
-  overflow: hidden;
-  font-size: 12px;
-  color: #999999;
-  line-height: 16px;
-  margin-top: 4px;
-  margin-right: 0;
-  margin-bottom: 5px;
-  margin-left: 0;
 }
 .home-text-bar-p {
   width: 100%;
@@ -302,7 +277,6 @@ option {
 .home-value-common {
   height: 16px;
   line-height: 16px;
-  font-size: 12px;
   padding-left: 14px;
   color: #9b9b9b;
 }
@@ -351,6 +325,29 @@ option {
   padding-right: 0;
   padding-bottom: 6px;
   padding-left: 0;
+}
+@media screen and (min-width: 414px) {
+  .home-goods-area-son {
+    height: 165.6px;
+    font-size: 14px;
+  }
+  .home-pic-detail {
+    margin-top: 3px;
+    margin-right: auto;
+    margin-bottom: 3px;
+    margin-left: auto;
+  }
+  .home-pic-bar {
+    height: 86.6px;
+    padding-top: 11.3px;
+    padding-right: 0;
+    padding-bottom: 11.3px;
+    padding-left: 0;
+  }
+  .home-value-common {
+    height: 18px;
+    line-height: 18px;
+  }
 }
 .state-icon {
   margin-left: 8px;
