@@ -12,6 +12,23 @@ var cookie      = require("com/mobile/lib/cookie/cookie.js");
 // nInvoke("myFunc", {a: 1}, function(err, data) { console.log(err); console.log(data); });
 window.nInvoke = _.bind(NativeAPI.invoke, NativeAPI);
 
+// touch status
+(function() {
+  $("body")
+    .on("touchstart", "a, .js-touch-state", function() {
+      $(this).addClass("touch");
+    })
+    .on("touchmove", "a, .js-touch-state", function() {
+      $(this).removeClass("touch");
+    })
+    .on("touchend", "a, .js-touch-state", function() {
+      $(this).removeClass("touch");
+    })
+    .on("touchcancel", "a, .js-touch-state", function() {
+      $(this).removeClass("touch");
+    });
+}());
+
 var AppView = Backbone.View.extend({
   el: "body",
   events: {
@@ -22,6 +39,8 @@ var AppView = Backbone.View.extend({
     "click .js-close"           : "doNativeClose",
     "click .js-native-back-text": "doNativeBackText",
     "click .js-createWebView"   : "newPage",
+    "click .js-createWebViewAdvance"    : "createWebViewAdvance",
+    "click .js-createWebViewWithAdvance": "createWebViewWithAdvance",
     "click .js-hashchange-page" : "newPageHash",
     "click .js-showUserAgent"   : "showUserAgent",
     "click .js-confirm"         : "confirm",
@@ -288,6 +307,44 @@ var AppView = Backbone.View.extend({
           text: "Native B ~"
         }
       ]
+    });
+  },
+  createWebViewAdvance: function() {
+    NativeAPI.invoke("createWebViewAdvance", {
+      url: window.location.origin + "/fe/app/client/test/common/native/native-advance.html",
+      controls: [
+        {
+          type: "title",
+          text: "createWebViewAdvance"
+        }
+      ]
+    });
+  },
+  createWebViewWithAdvance: function() {
+    NativeAPI.invoke("createWebViewAdvance", {
+      url: window.location.origin + "/fe/app/client/test/common/native/native-advance.html",
+      controls: [
+        {
+          type: "title",
+          text: "createWebViewWithAdvance"
+        }
+      ]
+    }, function(err, data) {
+        if (err) {
+          return handleError(err);
+        }
+
+        echo(JSON.stringify(data));
+
+        NativeAPI.invoke("createWebView", {
+          url: window.location.origin + "/fe/app/client/test/common/native/native-b.html",
+          controls: [
+            {
+              type: "title",
+              text: "Native B ~"
+            }
+          ]
+        });
     });
   },
   newPageHash: function() {
