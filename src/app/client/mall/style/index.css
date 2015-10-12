@@ -130,7 +130,7 @@ option {
 }
 .copyright-block {
   width: 100%;
-  height: 231px;
+  height: 114px;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -138,42 +138,33 @@ option {
 .copyright-bar {
   width: 100%;
   height: 100%;
-  line-height: 30px;
   background-color: #f3f3f3;
   text-align: center;
-  color: #999999;
-  font-size: 10px;
-  padding-top: 18px;
-  padding-right: 0;
-  padding-bottom: 18px;
-  padding-left: 0;
-}
-.filed-box {
-  width: 200px;
-  text-align: center;
-  font-size: 14px;
-  margin-top: 0;
-  margin-right: auto;
-  margin-bottom: 0;
-  margin-left: auto;
-  border-top: 1px solid #cccccc;
-}
-.filed-text {
-  width: 266px;
-  margin-top: 5px;
-  margin-right: auto;
-  margin-bottom: 5px;
-  margin-left: auto;
-  padding-top: 5px;
+  color: #9b9b9b;
+  padding-top: 12px;
   padding-right: 10px;
-  padding-bottom: 5px;
+  padding-bottom: 42px;
   padding-left: 10px;
-  line-height: 22px;
-  border-top: 1px solid #cccccc;
-  border-bottom: 1px solid #cccccc;
-  border-left: 1px solid #cccccc;
-  border-right: 1px solid #cccccc;
-  border-radius: 4px;
+}
+.copyright-bar-text:nth-child(1) a {
+  color: #9b9b9b;
+  display: block;
+  width: 100%;
+}
+.copyright-bar-text:nth-child(1),
+.copyright-bar-text:nth-child(2) {
+  font-size: 12px;
+  line-height: 20px;
+}
+.copyright-bar-text:nth-child(3) {
+  font-size: 10px;
+  line-height: 20px;
+}
+@media screen and (min-width: 414px) {
+  .copyright-bar-text:nth-child(1),
+  .copyright-bar-text:nth-child(2) {
+    font-size: 14px;
+  }
 }
 .group-name {
   font-family: 'Arial';
@@ -222,7 +213,7 @@ option {
   background-color: #f3f3f3;
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 231px;
+  padding-bottom: 114px;
   padding-left: 0;
   border-top: 1px solid #f0f0f0;
 }
@@ -237,7 +228,7 @@ option {
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 10px;
+  padding-left: 14px;
   background-color: #ffffff;
   font-weight: bold;
   border-bottom: 1px solid #f0f0f0;
@@ -457,6 +448,20 @@ option {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -50px -58px;
   background-size: 312px 280px;
 }
+.mall-statement-box {
+  max-width: 750px;
+  margin: 0 auto;
+}
+.mall-statement-box {
+  color: #333333;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+.mall-statement-box .common-text {
+  line-height: 26px;
+}
 .home-flight-area {
   padding-top: 10px;
   padding-right: 0;
@@ -617,7 +622,7 @@ p {
 .active-bar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 292px;
+  padding-bottom: 174px;
   padding-left: 0;
 }
 .active-area {
@@ -1373,13 +1378,13 @@ p {
 .pay-order-detail-box .pay-status-bar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 293px;
+  padding-bottom: 174px;
   padding-left: 0;
 }
 .pay-order-detail-box .pay-after-bar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 232px;
+  padding-bottom: 114px;
   padding-left: 0;
 }
 .pay-order-detail-box .pay-after-bar .order-pay-bar {
