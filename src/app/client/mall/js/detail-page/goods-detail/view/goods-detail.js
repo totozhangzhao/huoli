@@ -177,10 +177,10 @@ var AppView = Backbone.View.extend({
               // 确认兑换弹窗
               self.$el.$shade.show();
               self.$el.$promptBoard
-                .on("click", ".js-confirm", function() {
+                .one("click", ".js-confirm", function() {
                   self.exchange(productInfo);
                 })
-                .on("click", ".js-cancel", function() {
+                .one("click", ".js-cancel", function() {
                   self.$el.$promptBoard.hide();
                   self.$el.$shade.hide();
                 })
