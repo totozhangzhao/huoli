@@ -58,6 +58,9 @@ var AppView = Backbone.View.extend({
       return;
     }
 
+    // companyid: 快递公司id
+    // company：快递公司名称
+    // tracking: 快递单号
     var url = "/fe/app/client/mall/html/detail-page/express-info.html" +
       "?tracking="  + expressInfo.tracking +
       "&company="   + encodeURIComponent(expressInfo.company) +
