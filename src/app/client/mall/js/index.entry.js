@@ -36,6 +36,8 @@ var AppView = Backbone.View.extend({
       return;
     }
 
+    var title = mallUitl.isHangban() ? "航班商城" : "高铁商城";
+    this.updateNativeView(title);
     this.$el.$pionts = $("#index-points-bar");
 
     async.waterfall([
@@ -77,7 +79,13 @@ var AppView = Backbone.View.extend({
         });
       }, 0);
 
-      logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+      logger.track(mallUitl.getAppName() + "PV", "View PV", title);
+    });
+  },
+  updateNativeView: function(title) {
+    window.document.title = title;
+    NativeAPI.invoke("updateTitle", {
+      text: title
     });
   },
   handleGetUrl: function(e) {
