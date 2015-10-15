@@ -33,6 +33,7 @@ var AppView = Backbone.View.extend({
   el: "body",
   events: {
     "click .js-appname-cookie"  : "showAppNameFromCookie",
+    "click .js-copyToClipboard" : "copyToClipboard",
     "click .js-native-back"     : "doNativeBack",
     "click .js-selectContact"   : "selectContact",
     "click .js-setOrientation"  : "setOrientation",
@@ -128,6 +129,19 @@ var AppView = Backbone.View.extend({
   },
   showAppNameFromCookie: function() {
     echo( cookie.get("appName") );
+  },
+  copyToClipboard: function() {
+    NativeAPI.invoke("copyToClipboard", { text: "abc" }, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      if (data.value === data.SUCC) {
+        echo("成功复制了 abc 到剪贴板");
+      } else {
+        echo(JSON.stringify(data));
+      }
+    });
   },
   selectContact: function() {
     var self = this;

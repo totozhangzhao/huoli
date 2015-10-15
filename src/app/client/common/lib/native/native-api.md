@@ -27,7 +27,7 @@ NativeAPI 用于 JavaScript 与 Native Code 双向通信。
 
 ---------------------------------------
 
-## 使用 Scheme URL 注入 Native 部分
+## 使用 Scheme URL 注入 Native 部分 （已废弃）
 
 ```JavaScript
 if ( /hbgj/i.test(appName) ) {
@@ -42,7 +42,7 @@ if ( /hbgj/i.test(appName) ) {
 ## 由 Native 提供的方法
 
 
-## confirm
+### confirm
 
 * 描述：
 弹出一个对话框，包含「确定」「取消」两个按钮。
@@ -100,7 +100,7 @@ NativeAPI.invoke(
 
 ---------------------------------------
 
-## alert
+### alert
 
 * 描述：Native 版的 window.alert，只有一个「确定」按钮。
 
@@ -150,7 +150,7 @@ NativeAPI.invoke(
 
 ---------------------------------------
 
-## close
+### close
 
 * 描述：关闭当前 WebView。
 
@@ -160,7 +160,7 @@ __method__
 
 ---------------------------------------
 
-## closeAll
+### closeAll
 
 * 描述：关闭所有 WebView。
 
@@ -170,7 +170,7 @@ __method__
 
 ---------------------------------------
 
-## createWebView
+### createWebView
 
 * 描述：根据提供的 URL 打开一个新的WebView，顶栏默认有一个返回按钮。createWebView 根据参数决定是否显⽰搜索框等。
 注意: 如果control为空, 那么webview应该默认带一个title控件, 并且这个title控件的text为空, 以备后续updateTitle接⼝使⽤. 
@@ -200,7 +200,7 @@ NativeAPI.invoke("createWebView", {
 
 ---------------------------------------
 
-## back
+### back
 
 * 描述：当JS调⽤Native的back时，Native需要调⽤JS的back接⼝，然后根据JS的back接⼝的返回逻辑进⾏操作。
 
@@ -212,7 +212,7 @@ JS -> Native: {method: "back", params:null}
 
 ---------------------------------------
 
-## webViewCallback
+### webViewCallback
 
 * 描述：关闭当前webView, 并将前一个webView的url更新为指定的url。如果没有前一个URL,则执⾏默认⾏为。 默认行为：关闭当前WebView。
 
@@ -228,7 +228,7 @@ JS -> Native: {method: "webViewCallback", params: {url: "/index.html" }}
 
 ---------------------------------------
 
-## login
+### login
 
 * 描述：启动客户端登录界面，如果登录成功，应返回原来的 WebView。
 
@@ -248,7 +248,7 @@ __result__
 
 ---------------------------------------
 
-## getUserInfo
+### getUserInfo
 
 * 描述：获取当前的⽤户信息。可以传appName参数，如'gtgj' 代表 高铁管家的用户信息，'hbgj'代表航班管家的用户信息。如果没有该参数，则返回该客户端默认的用户信息。如果⽤户未登录，则返回错误。
 
@@ -277,7 +277,7 @@ __error__
 
 ---------------------------------------
 
-## getDeviceInfo
+### getDeviceInfo
 
 描述：获取当前的客户端信息
 
@@ -296,7 +296,7 @@ __result__
 
 ---------------------------------------
 
-## makePhoneCall
+### makePhoneCall
 
 * 描述：根据指定号码拨打电话
 
@@ -314,7 +314,7 @@ __result__
 
 ---------------------------------------
 
-## updateTitle
+### updateTitle
 
 * 描述：更新标题栏⽂文字
 
@@ -328,7 +328,7 @@ __params__
 
 ---------------------------------------
 
-## storage
+### storage
 
 * 描述：storage 接⼝实现一个异步的本地存储⽅案, 该存储便于 APP 和 JS 访问, 同时容量应大于50MB。设计此接口的目的为规避 LocalStorage 在一些系统上存在的实时性方面的一些 [bug](http://tianfangye.com/2014/10/18/using-local-storage/)。
 
@@ -348,7 +348,7 @@ __result__
 
 ---------------------------------------
 
-## updateHeaderRightBtn
+### updateHeaderRightBtn
 
 * 描述：改变顶部右侧按钮
 
@@ -366,7 +366,7 @@ __params__
 
 ---------------------------------------
 
-## clearAppCache
+### clearAppCache
 
 * 描述：清除设备内遗留的 [application cache](http://www.html5rocks.com/zh/tutorials/appcache/beginner/)
 
@@ -374,7 +374,7 @@ JS -> Native: {method: "clearAppCache", params: null }
 
 ---------------------------------------
 
-## isSupported
+### isSupported
 
 * 描述：查询 API 可用性。
 
@@ -392,7 +392,7 @@ __result__
 
 ---------------------------------------
 
-## selectContact
+### selectContact
 
 * 描述：选择联系人 (使用手机本身的联系人界面)。
 
@@ -413,7 +413,7 @@ __result__
 
 ---------------------------------------
 
-## setOrientation
+### setOrientation
 
 * 描述：用来设定 webView 的显示方向。
 
@@ -427,7 +427,7 @@ __params__
 
 ---------------------------------------
 
-## setGestureBack
+### setGestureBack
 
 * 描述：用来设定 开启/关闭 手势返回（右滑返回）。
 
@@ -441,7 +441,7 @@ __params__
 
 ---------------------------------------
 
-## sendSMS
+### sendSMS
 
 * 描述：发送短信
 
@@ -460,7 +460,7 @@ __result__
 
 ---------------------------------------
 
-## getCurrentPosition
+### getCurrentPosition
 
 * 描述：获取当前位置
 
@@ -479,7 +479,7 @@ __result__
 
 ---------------------------------------
 
-## scanBarcode
+### scanBarcode
 
 * 描述：使用摄像头扫描二维码。
 
@@ -493,7 +493,7 @@ __result__
 
 ---------------------------------------
 
-## sharePage
+### sharePage
 
 * 描述：使用客户端分享功能。
 
@@ -515,7 +515,7 @@ __result__
 
 ---------------------------------------
 
-## trackEvent
+### trackEvent
 
 * 描述：客户端统计。自定义事件记录。
 
@@ -530,7 +530,7 @@ __params__
 
 ---------------------------------------
 
-## startPay
+### startPay
 
 * 描述：js调用startPay方法，将支付参数传递给app，app支付完成后调用js的startPay提供的callback(仅告之支付交互层面上的成功/失败，web需要自己查询支付结果)，js在callback中继续完成后续的交互处理(如支付流程需要authcode，可以通过getUserInfo获取authcode，支付接口调用不再涉及authcode传输)。
 
@@ -589,7 +589,7 @@ NativeAPI.invoke("startPay", {
 
 ---------------------------------------
 
-## loading
+### loading
 
 * 描述：加载中样式的提示框。
 
@@ -609,11 +609,34 @@ __result__
 * `CANCEL` 常量，点了返回键
 * `value`  SUCC/FAIL/CANCEL
 
+---------------------------------------
+
+### copyToClipboard
+
+* 描述：将文字复制到系统剪贴板。
+
+__method__
+
+* `copyToClipboard`
+
+__params__
+
+* `text` String 需要复制的文字
+
+__result__
+
+* `SUCC`   常量，正常显示
+* `FAIL`   常量，显示失败
+* `CANCEL` 常量，点了返回键
+* `value`  SUCC/FAIL/CANCEL
+
+---------------------------------------
+
 
 ## 由 JavaScript 提供的方法
 
 
-## resume
+### resume
 
 * 描述：有上一个 webview 返回当前 webview 时候触发。例如：从 c.html 所在的 webview 返回 b.html 所在的 webview 时，在 b.html 所在的 Webview 上 Native 应调用 JS 的 resume 方法，所传参数 prevUrl 为 a.html，nextUrl 为 c.html。
 
@@ -630,7 +653,7 @@ Native -> JS: {method: "resume", params: {prevUrl: "a.html", nextUrl: "c.html"}}
 
 ---------------------------------------
 
-## back
+### back
 
 * 描述：当 WebView 的顶栏上的返回按钮被点击，或 android 下⽤户点击系统⾃带返回按钮时，需要由 APP 调⽤ JS 的这个接⼝，根据 JS 返回的值来决定相关⾏为，如果调用此接⼝返回 error，则执⾏默认⾏为（关闭当前 WebView）。
 
@@ -649,7 +672,7 @@ JS -> Native: {result: {preventDefault: false}, id: 1}
 
 ---------------------------------------
 
-## headerRightBtnClick
+### headerRightBtnClick
 
 * 描述：当客户端顶部右侧的按钮被点击时，触发这个回调，由H5执⾏后续回调。
 
