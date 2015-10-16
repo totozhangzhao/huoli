@@ -26,6 +26,10 @@ if ( String(urlData.insurance) === "1" ) {
   };
 
   sendPost("getAdvUrl", params, function(err, data) {
+    if (err) {
+      showInsurancePage();
+      return;
+    }
     window.location.href = data.url;
   });
 } else {
