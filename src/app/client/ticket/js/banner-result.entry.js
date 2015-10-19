@@ -1,37 +1,52 @@
 var $         = require("jquery");
 var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
+// var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var logger    = require("com/mobile/lib/log/log.js");
 
 var urlData = parseUrl();
 
-var showInsurancePage = function() {
-  $("#insurance-banner").show();
+logger.track("insurance-main-PV", "View PV");
 
-  var $btn = $("#goto393");
+$("body").on("click", "[href]", function() {
+  logger.track("insurance-main-click", "click");
+});
 
-  $btn.prop(
-    "href",
-    $btn.prop("href") + "&orderinfo=" + encodeURIComponent(urlData.orderinfo || "")
-  );
+// 买票时已经勾选过保险领取，就显示其他广告。
+// 
+// 页面 URL：
+// https://mall.rsscc.cn/fe/app/client/ticket/html/banner-result.html
+// 
+// 跳转页面：
+// https://dl.rsscc.cn/guanggao/integral/active/to-receive2.html
+var handleInsuraceUrl = function() {
+  var showInsurancePage = function() {
+    $("#insurance-banner").show();
 
-  $("body").on("click", "[href]", function() {
-    logger.track("insurance - Base64 URL", "click");
-  });
-};
+    var $btn = $("#goto393");
 
-if ( String(urlData.insurance) === "1" ) {
-  var params = {
-    pos: 1
+    $btn.prop(
+      "href",
+      $btn.prop("href") + "&orderinfo=" + encodeURIComponent(urlData.orderinfo || "")
+    );
   };
 
-  sendPost("getAdvUrl", params, function(err, data) {
-    if (err) {
-      showInsurancePage();
-      return;
-    }
-    window.location.href = data.url;
-  });
-} else {
-  showInsurancePage();
-}
+  if ( String(urlData.insurance) === "1" ) {
+    // var params = {
+    //   pos: 1
+    // };
+
+    // sendPost("getAdvUrl", params, function(err, data) {
+    //   if (err) {
+    //     showInsurancePage();
+    //     return;
+    //   }
+    //   window.location.href = data.url;
+    // });
+
+    window.location.href = "https://dl.rsscc.cn/guanggao/integral/active/to-receive2.html";
+  } else {
+    showInsurancePage();
+  }
+};
+
+handleInsuraceUrl();
