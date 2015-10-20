@@ -10,21 +10,7 @@
 
   var callback = function () {};
 
-  var offset, poll, delay, delayIndex, useDebounce, unload;
-
-  var delayGenerator = (function() {
-    var index = 0;
-
-    return function() {
-      if (index < delayIndex) {
-        index += 1;
-        return 0;
-      } else {
-        index += 1;
-        return delay;
-      }
-    }
-  }());
+  var offset, poll, delay, useDebounce, unload;
 
   var isHidden = function (element) {
     return (element.offsetParent === null);
@@ -47,7 +33,7 @@
     poll = setTimeout(function(){
       echo.render();
       poll = null;
-    }, delayGenerator());
+    }, delay);
   };
 
   echo.init = function (opts) {
@@ -65,7 +51,6 @@
       r: optionToInt(opts.offsetRight, offsetHorizontal)
     };
     delay = optionToInt(opts.throttle, 250);
-    delayIndex = opts.delayIndex || 4;
     useDebounce = opts.debounce !== false;
     unload = !!opts.unload;
     callback = opts.callback || callback;

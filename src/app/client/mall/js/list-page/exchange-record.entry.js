@@ -8,7 +8,7 @@ var toast     = require("com/mobile/widget/hint/hint.js").toast;
 var hint      = require("com/mobile/widget/hint/hint.js");
 var appInfo   = require("app/client/mall/js/lib/app-info.js");
 var widget    = require("app/client/mall/js/lib/widget.js");
-var echo      = require("com/mobile/lib/echo/echo.js");
+var imgDelay  = require("app/client/mall/js/lib/widget.js").imageDelay;
 var logger    = require("com/mobile/lib/log/log.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var storage   = require("app/client/mall/js/lib/storage.js");
@@ -123,7 +123,7 @@ var AppView = Backbone.View.extend({
         };
         
         self.$el.$listBox.html( compiled(tmplData) );
-        self.loadImage();
+        imgDelay();
         self.setUpdatePage();
       }
     
@@ -175,15 +175,6 @@ var AppView = Backbone.View.extend({
     ], function(err, result) {
       self.loadingMore = false;
       callback(err, result);
-    });
-  },
-  loadImage: function() {
-    echo.init({
-      offset: 250,
-      throttle: 250,
-      unload: false,
-      delayIndex: 4,
-      callback: function() {}
     });
   },
   setUpdatePage: function() {

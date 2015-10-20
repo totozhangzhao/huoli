@@ -37,7 +37,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.tpl$/, loader: "tpl-loader" },
-      { test: /\.css$/, loader: "style-loader!css-loader?minimize!autoprefixer-loader?browsers=last 2 version" }
+      { test: /\.css$/, loader: "style-loader!css-loader?minimize!autoprefixer-loader" }
     ]
   },
   plugins: [

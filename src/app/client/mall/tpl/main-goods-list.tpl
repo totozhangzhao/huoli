@@ -119,7 +119,7 @@
             <p class="home-text-bar-p home-pic-detail"><%= item.detail %></p>
           </div>
           <div class="home-pic-bar">
-            <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= item.img %>" class="home-goods-pic" >
+            <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= item.img %>" class="home-goods-pic op0" >
           </div>
           <div class="home-value-common"><%= item.pprice %></div>
         </a>

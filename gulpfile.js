@@ -51,7 +51,7 @@ gulp.task("html", function() {
 // Styles
 gulp.task("styles", function() {
   return gulp.src(config.src + "**/*.css")
-    .pipe(autoprefixer({ browsers: ["last 2 version"] }))
+    .pipe(autoprefixer())
     .pipe(minifycss())
     .pipe(versionRef())
     .pipe(gulp.dest(config.dest))

@@ -10,7 +10,7 @@ var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var Util      = require("com/mobile/lib/util/util.js");
 var storage   = require("app/client/mall/js/lib/storage.js");
 var widget    = require("app/client/mall/js/lib/widget.js");
-var echo      = require("com/mobile/lib/echo/echo.js");
+var imgDelay  = require("app/client/mall/js/lib/widget.js").imageDelay;
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var logger    = require("com/mobile/lib/log/log.js");
@@ -163,7 +163,7 @@ var AppView = Backbone.View.extend({
         }))
         .show();
 
-      self.loadImage();
+      imgDelay();
     });
   },
   mallGetUserInfo: function(options) {
@@ -325,15 +325,6 @@ var AppView = Backbone.View.extend({
             rightButtonReady: true
           });
         }, 500);
-    });
-  },
-  loadImage: function() {
-    echo.init({
-      offset: 250,
-      throttle: 250,
-      unload: false,
-      delayIndex: 4,
-      callback: function() {}
     });
   },
   initBanner: function() {

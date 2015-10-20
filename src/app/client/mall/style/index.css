@@ -2274,7 +2274,18 @@ p {
   100% { opacity: 1.0; }
 }
 .animaion-blink {
-  -webkit-animation: blinker .3s linear .2s 3;
-          animation: blinker .3s linear .2s 3;
+  animation: blinker .3s linear .2s 3;
 }
 /* points -  end  */
+
+/* img - echo - start */
+img {
+  transition: opacity .3s ease-in;
+}
+.op0 {
+  opacity: 0;
+}
+.op1 {
+  opacity: 1;
+}
+/* img - echo -  end  */

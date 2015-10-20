@@ -1,5 +1,7 @@
-var $          = require("jquery");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
+var $         = require("jquery");
+var _         = require("lodash");
+var NativeAPI = require("app/client/common/lib/native/native-api.js");
+var echo      = require("com/mobile/lib/echo/echo.js");
 
 exports.createAView = function(e) {
   var $cur = $(e.currentTarget);
@@ -41,4 +43,33 @@ exports.createNewView = function(options) {
       window.location.href = options.url;
     }
   });
+};
+
+exports.imageDelay = function(options) {
+  var config = _.extend({
+    offset: 250,
+    throttle: 250,
+    unload: false,
+    callback: function(elem) {
+      var $elem = $(elem);
+
+      if ( !$elem.hasClass("op0") ) {
+        return;
+      }
+
+      if ( $elem.is("img") ) {
+        $elem.on("load", function() {
+          setTimeout(function() {
+            $elem.addClass("op1");
+          }, 150);
+        });
+      } else {
+        setTimeout(function() {
+          $elem.addClass("op1");
+        }, 300);
+      }
+    }
+  }, options || {});
+
+  echo.init(config);
 };

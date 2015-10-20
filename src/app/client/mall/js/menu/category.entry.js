@@ -7,7 +7,7 @@ var toast     = require("com/mobile/widget/hint/hint.js").toast;
 var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var Util      = require("com/mobile/lib/util/util.js");
 var widget    = require("app/client/mall/js/lib/widget.js");
-var echo      = require("com/mobile/lib/echo/echo.js");
+var imgDelay  = require("app/client/mall/js/lib/widget.js").imageDelay;
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var logger    = require("com/mobile/lib/log/log.js");
@@ -90,22 +90,13 @@ var AppView = Backbone.View.extend({
         }))
         .show();
 
-      self.loadImage();
+      imgDelay();
     });
   },
   updateNativeView: function(title) {
     window.document.title = title;
     NativeAPI.invoke("updateTitle", {
       text: title
-    });
-  },
-  loadImage: function() {
-    echo.init({
-      offset: 250,
-      throttle: 250,
-      unload: false,
-      delayIndex: 0,
-      callback: function() {}
     });
   },
   fixTpl: function() {
