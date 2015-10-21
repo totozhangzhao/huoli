@@ -294,7 +294,7 @@ var AppView = Backbone.View.extend({
           doCheckin();
         } else {
           widget.createNewView({
-            url: "https://dl.rsscc.cn/gtgj/wap/act/20150824/index.html?gtgjparam=1"
+            url: "https://jt.rsscc.com/gtgjwap/act/20150925/index.html"
           });        
         }
         logger.track(mallUitl.getAppName() + "-签到", "click");
