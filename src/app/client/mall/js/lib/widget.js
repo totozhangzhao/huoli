@@ -18,7 +18,7 @@ exports.createAView = function(e) {
 
   e.preventDefault();  
 
-  if ( $cur.data() ) {
+  if ( $cur.data() && /\/fe\//.test(url) ) {
     url = url.indexOf("?") >= 0 ? url + "&" : url + "?";
     url = url + $.param( $cur.data() );
   }
