@@ -157,7 +157,7 @@ var AppView = Backbone.View.extend({
           // 2--转入输入手机号页面（预留，金融类）
           // 3--转入输入地址页面（预留）
           // 9--点击跳转第三方链接（ thirdparturl ）
-          // 13--转入输入手机号页面（预留，金融类）
+          // 13--转入自定义表单页面
           switch ( String(productInfo.type) ) {
             case "2":
               self.router.switchTo("form-phone");

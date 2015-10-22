@@ -43,75 +43,6 @@ var AppView = Backbone.View.extend({
     
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
-  createNewPage: function(e) {
-    widget.createAView(e);
-  },
-  mallCheckin: function() {
-
-    // 取消分享奖励
-    if (true) {
-      return;
-    }
-
-    var self = this;
-    async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
-          if (err) {
-            next(err);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      function(userData, next) {
-        if (userData.userInfo && userData.userInfo.userid) {
-          var params = _.extend({}, userData.userInfo, {
-            p: userData.deviceInfo.p
-          });
-
-          sendPost("checkin", params, function(err, data) {
-            if (err) {
-              next(err);
-              return;
-            }
-
-            next(null, data);
-          });
-        } else {
-          self.loginApp();
-        }
-      }
-    ], function(err, result) {
-      if (err) {
-        window.console.log(err.message);
-        return;
-      }
-
-      var $alert = self.$el.find(".js-alert-box");
-      var tmpl = require("app/client/mall/tpl/active-page/scratch-card/alert-result.tpl");
-
-      $alert
-        .html(tmpl({
-          hint: result.msg,
-          buttonText: "确定"
-        }))
-        .show()
-        .on("click", ".js-go", function() {
-          $alert.hide();
-          self.doPointsAnimate();
-        })
-        .on("click", ".js-close", function() {
-          $alert.hide();
-          self.doPointsAnimate();
-        });
-
-      self.$el
-        .find(".js-points")
-          .text(result.points);      
-    });
-  },
   doPointsAnimate: function() {
     var $points = this.$el.find(".js-points");
 
@@ -171,7 +102,7 @@ var AppView = Backbone.View.extend({
           productid: parseUrl().productid || $("#lottery-main").data("productid")
         });
 
-        sendPost("createLottery", params, function(err, lotteryData) {
+        sendPost("createOrder", params, function(err, lotteryData) {
           next(err, lotteryData);
         });
       }
@@ -181,7 +112,7 @@ var AppView = Backbone.View.extend({
         toast(err.message, 1500);
         return;
       }
-    
+
       self.lotteryInfo = lotteryData;
       canvas.style.backgroundImage = "url(" + lotteryData.result.image + ")";
     });
@@ -245,7 +176,8 @@ var AppView = Backbone.View.extend({
     var self = this;
 
     var showCardView = function(callback) {
-      var bonus = self.lotteryInfo.bonus;
+      var lotteryInfo = self.lotteryInfo;
+      var bonus = lotteryInfo.bonus;
       var $cardBlock = self.$el.find(".js-card-block").parent();
       var animateName = bonus ? "tada" : "rubberBand";
 
@@ -255,35 +187,68 @@ var AppView = Backbone.View.extend({
       setTimeout(function() {
         $cardBlock.removeClass(animateName + " animated");
 
-        if (bonus !== 0) {
+        var winning = function() {
           var $alert = self.$el.find(".js-alert-box");
           var tmpl = require("app/client/mall/tpl/active-page/scratch-card/alert-result.tpl");
-          var buttonText = "确定";
 
-          if (bonus === 2) {
-            buttonText = "马上领奖";
-          } else if (bonus === 1) {
-            buttonText = "再玩一次";
-          }
+          var goFunc = function() {
+            var nextUrl;
+
+            // bonus: 
+            // 0: 没有中奖
+            // 1: 普通奖品
+            // 2: 转入订单详情
+            // 3: 转入商品详情
+            // 4: 转入商品详情输入页（金融类）
+            switch ( bonus ) {
+              case 2:
+                nextUrl = window.location.origin +
+                  "/fe/app/client/mall/html/detail-page/order-detail.html" +
+                  "?orderid=" + lotteryInfo.orderid;
+                break;
+              case 3:
+                nextUrl = window.location.origin +
+                  "/fe/app/client/mall/html/detail-page/goods-detail.html" +
+                  "?productid=" + lotteryInfo.productid;
+                break;
+              case 4:
+                nextUrl = window.location.origin +
+                  "/fe/app/client/mall/html/detail-page/goods-detail.html" +
+                  "?productid=" + lotteryInfo.productid +
+                  "&gotoView=form-custom";
+                break;
+            }
+
+            widget.createNewView({
+              url: nextUrl
+            });
+
+            $alert.hide();
+            resetCard();
+            $alert.off("click");
+          };
 
           $alert
             .html(tmpl({
-              alertImage: self.lotteryInfo.result.alertimage,
-              hint      : self.lotteryInfo.result.text,
-              buttonText: buttonText
+              alertImage: lotteryInfo.result.alertimage,
+              hint      : lotteryInfo.result.text,
+              buttonText: lotteryInfo.result.buttonText
             }))
             .show()
-            .on("click", ".js-go", function() {
-              if (bonus === 2) {
-                self.gotoOrderDetail();
-              } else {
-                resetCard();
-              }
+            .one("click", ".js-go", goFunc)
+            .one("click", ".js-again", function() {
               $alert.hide();
+              resetCard();
+              $alert.off("click");
             })
-            .on("click", ".js-close", function() {
+            .one("click", ".js-close", function() {
               $alert.hide();
+              $alert.off("click");
             });
+        };
+
+        if (bonus !== 0) {
+          winning();
         }
 
         if (callback) {
@@ -315,13 +280,73 @@ var AppView = Backbone.View.extend({
       });
     }
   },
-  gotoOrderDetail: function() {
-    var orderDetailUrl = window.location.origin +
-        "/fe/app/client/mall/html/detail-page/order-detail.html" +
-        "?orderid=" + this.lotteryInfo.orderid;
+  createNewPage: function(e) {
+    widget.createAView(e);
+  },
+  mallCheckin: function() {
 
-    widget.createNewView({
-      url: orderDetailUrl
+    // 取消分享奖励
+    if (true) {
+      return;
+    }
+
+    var self = this;
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
+          if (err) {
+            next(err);
+            return;
+          }
+
+          next(null, userData);
+        });
+      },
+      function(userData, next) {
+        if (userData.userInfo && userData.userInfo.userid) {
+          var params = _.extend({}, userData.userInfo, {
+            p: userData.deviceInfo.p
+          });
+
+          sendPost("checkin", params, function(err, data) {
+            if (err) {
+              next(err);
+              return;
+            }
+
+            next(null, data);
+          });
+        } else {
+          self.loginApp();
+        }
+      }
+    ], function(err, result) {
+      if (err) {
+        window.console.log(err.message);
+        return;
+      }
+
+      var $alert = self.$el.find(".js-alert-box");
+      var tmpl = require("app/client/mall/tpl/active-page/scratch-card/alert-result.tpl");
+
+      $alert
+        .html(tmpl({
+          hint: result.msg,
+          buttonText: "确定"
+        }))
+        .show()
+        .one("click", ".js-go", function() {
+          $alert.hide();
+          self.doPointsAnimate();
+        })
+        .one("click", ".js-close", function() {
+          $alert.hide();
+          self.doPointsAnimate();
+        });
+
+      self.$el
+        .find(".js-points")
+          .text(result.points);      
     });
   },
   loginApp: function() {

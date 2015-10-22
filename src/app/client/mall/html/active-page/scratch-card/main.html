@@ -16,6 +16,7 @@
     * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
     a {
       text-decoration: none;
@@ -111,11 +112,11 @@
     .box-shadow {
       width: 100%;
       height: 100%;
-      background: rgba(255, 255, 255, 0.5);
+      background: rgba(0, 0, 0, 0.5);
       position: fixed;
       left: 0;
       top: 0;
-      display: none; /**/
+      display: none;
     }
     .tip-box {
       width: 277px;
@@ -126,9 +127,6 @@
       top: 50%;
       margin-left: -138px;
       margin-top: -134px;
-    }
-    .tip-box img {
-      border-radius: 3px;
     }
     .prize-desc {
       font-size: 14px;
@@ -142,18 +140,29 @@
       overflow: hidden;
       text-align: center;
     }
+    .go-award-box {
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      bottom: 18px;
+      left: 0;
+    }
     .go-award {
-      width: 70%;
+      width: 36%;
       height: 30px;
       line-height: 30px;
       text-align: center;
       color: #fff;
-      font-size: 16px;
-      background: #f8621b;
       position: absolute;
-      left: 50%;
-      bottom: 18px;
-      margin-left: -35%;
+      top: 0;
+      font-size: 16px;
+      background: #f8621b;  
+    }
+    .go-award:nth-child(1) {
+      left: 10%;
+    }
+    .go-award:nth-child(2) {
+      right: 10%;
     }
     .close-btn {
       width: 32px;
