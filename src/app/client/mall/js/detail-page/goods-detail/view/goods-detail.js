@@ -177,6 +177,7 @@ var AppView = Backbone.View.extend({
               // 确认兑换弹窗
               self.$el.$shade.show();
               self.$el.$promptBoard
+                .off("click")
                 .one("click", ".js-confirm", function() {
                   self.exchange(productInfo);
                 })
@@ -194,6 +195,7 @@ var AppView = Backbone.View.extend({
           // 登录弹窗
           self.$el.$shade.show();
           self.$el.$loginPrompt
+            .off("click")
             .one("click", ".js-confirm", function() {
               self.$el.$loginPrompt.hide();
               self.$el.$shade.hide();
@@ -335,6 +337,7 @@ var AppView = Backbone.View.extend({
         hint.hideLoading();
 
         self.$el.$promptFail
+          .off("click")
           .one("click", ".js-close", function() {
             self.$el.$promptFail.hide();
             self.$el.$shade.hide();
@@ -411,6 +414,7 @@ var AppView = Backbone.View.extend({
       } else {
         self.$el.$shade.show();
         self.$el.$promptSuccess
+          .off("click")
           .one("click", ".js-goto-order-detail", function() {
             self.gotoNewView({
               url: orderDetailUrl

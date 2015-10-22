@@ -235,6 +235,7 @@ var AppView = Backbone.View.extend({
               buttonText: lotteryInfo.result.buttonText
             }))
             .show()
+            .off("click")
             .one("click", ".js-go", goFunc)
             .one("click", ".js-again", function() {
               $alert.hide();
@@ -335,6 +336,7 @@ var AppView = Backbone.View.extend({
           buttonText: "确定"
         }))
         .show()
+        .off("click")
         .one("click", ".js-go", function() {
           $alert.hide();
           self.doPointsAnimate();
