@@ -619,12 +619,6 @@ option {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png) -131px 0 no-repeat;
   background-size: 320px 280px;
 }
-.active-box .active-detail-tit {
-  font-size: 0.64rem;
-}
-.active-box .common-text {
-  font-size: 0.56rem;
-}
 p {
   word-break: break-all;
 }
@@ -638,44 +632,44 @@ p {
   padding-left: 0;
 }
 .active-area {
-  padding-top: 0.48rem;
-  padding-right: 0.64rem;
-  padding-bottom: 0.2rem;
-  padding-left: 0.64rem;
+  padding-top: 12px;
+  padding-right: 16px;
+  padding-bottom: 5px;
+  padding-left: 16px;
 }
 .active-detail-tit {
-  height: 0.64rem;
-  line-height: 0.64rem;
-  border-left: 0.16rem solid #e40031;
-  margin-top: 0.16rem;
+  height: 16px;
+  line-height: 16px;
+  border-left: 4px solid #e40031;
+  margin-top: 4px;
   margin-right: 0;
-  margin-bottom: 0.16rem;
+  margin-bottom: 4px;
   margin-left: 0;
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 0.16rem;
+  padding-left: 4px;
   color: #333333;
 }
 .address-tit {
   width: 100%;
   font-weight: normal;
-  font-size: 0.56rem;
-  margin-top: 0.08rem;
+  font-size: 14px;
+  margin-top: 2px;
   margin-right: 0;
-  margin-bottom: 0.08rem;
+  margin-bottom: 2px;
   margin-left: 0;
 }
 .address-tit-son {
-  height: 0.72rem;
-  line-height: 0.72rem;
+  height: 18px;
+  line-height: 18px;
   color: #ffffff;
   background-color: #4889db;
   padding-top: 0;
-  padding-right: 0.08rem;
+  padding-right: 2px;
   padding-bottom: 0;
-  padding-left: 0.08rem;
-  border-radius: 0.08rem;
+  padding-left: 2px;
+  border-radius: 2px;
 }
 .text-red {
   color: #ff0000;
@@ -684,8 +678,8 @@ p {
   border-color: #4889db;
 }
 .common-text {
-  font-size: 0.56rem;
-  line-height: 0.8rem;
+  font-size: 14px;
+  line-height: 20px;
 }
 .time-bar,
 .order-pay-bar,
@@ -710,17 +704,17 @@ p {
   top: 0;
 }
 .scoring-bar {
-  margin-left: 0.48rem;
+  margin-left: 12px;
 }
 .user-flow {
-  width: 8.4rem;
-  margin-top: 0.4rem;
+  width: 210px;
+  margin-top: 10px;
   margin-right: auto;
-  margin-bottom: 0.4rem;
+  margin-bottom: 10px;
   margin-left: auto;
 }
 .count-down {
-  margin-right: 0.4rem;
+  margin-right: 10px;
 }
 .operate-btn,
 .order-pay-bar .order-pay-btn,
@@ -750,20 +744,20 @@ p {
 }
 .scoring-num {
   font-family: 'Arial';
-  font-size: 0.88rem;
+  font-size: 22px;
   color: #ff9900;
 }
 .time-num {
-  width: 0.8rem;
+  width: 20px;
   text-align: center;
   display: inline-block;
-  height: 0.96rem;
-  line-height: 0.96rem;
-  border-radius: 0.2rem;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 5px;
   margin-top: 0;
-  margin-right: 0.08rem;
+  margin-right: 2px;
   margin-bottom: 0;
-  margin-left: 0.08rem;
+  margin-left: 2px;
   background-color: #cccccc;
   color: #ffffff;
 }
@@ -781,15 +775,15 @@ p {
 .login-flip-box,
 .del-tip-box {
   width: 80%;
-  height: 6rem;
+  height: 150px;
   text-align: center;
   background-color: #ffffff;
-  border-radius: 0.16rem;
+  border-radius: 4px;
   position: fixed;
   left: 50%;
   top: 50%;
   margin-left: -40%;
-  margin-top: -3rem;
+  margin-top: -75px;
   z-index: 6;
   display: none;
 }
@@ -797,112 +791,112 @@ p {
   display: block;
 }
 .login-flip-h {
-  border-top-left-radius: 0.12rem;
-  border-top-right-radius: 0.12rem;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
   text-align: center;
-  height: 1.44rem;
-  line-height: 1.44rem;
-  font-size: 0.72rem;
+  height: 36px;
+  line-height: 36px;
+  font-size: 18px;
   color: #ffffff;
   background-color: #4889db;
 }
 .login-flip-text {
-  padding-top: 0.6rem;
-  padding-right: 0.6rem;
-  padding-bottom: 0.6rem;
-  padding-left: 0.6rem;
+  padding-top: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
 }
 .login-flip-text-no {
   text-align: center;
-  padding-top: 1rem;
-  padding-right: 0.6rem;
-  padding-bottom: 1rem;
-  padding-left: 0.6rem;
+  padding-top: 25px;
+  padding-right: 15px;
+  padding-bottom: 25px;
+  padding-left: 15px;
 }
 .login-btn-box {
   text-align: center;
 }
 .login-no,
 .login-yes {
-  min-width: 4rem;
-  padding-top: 0.2rem;
-  padding-right: 0.72rem;
-  padding-bottom: 0.2rem;
-  padding-left: 0.72rem;
+  min-width: 100px;
+  padding-top: 5px;
+  padding-right: 18px;
+  padding-bottom: 5px;
+  padding-left: 18px;
   color: #ffffff;
   margin-top: 0;
-  margin-right: 0.32rem;
+  margin-right: 8px;
   margin-bottom: 0;
-  margin-left: 0.32rem;
-  border-radius: 0.08rem;
+  margin-left: 8px;
+  border-radius: 2px;
 }
 .flip-info,
 .del-info {
-  margin-top: 1.2rem;
+  margin-top: 30px;
   padding-top: 0;
   padding-right: 10px;
   padding-bottom: 0;
   padding-left: 10px;
 }
 .del-info {
-  margin-bottom: 1.2rem;
+  margin-bottom: 30px;
 }
 .flip-info-bar {
-  height: 1.92rem;
-  margin-bottom: 0.64rem;
+  height: 48px;
+  margin-bottom: 16px;
 }
 .exchange-button {
-  min-width: 3.52rem;
+  min-width: 88px;
   display: inline-block;
-  border-radius: 0.12rem;
-  padding-top: 0.16rem;
-  padding-right: 0.48rem;
-  padding-bottom: 0.16rem;
-  padding-left: 0.48rem;
+  border-radius: 3px;
+  padding-top: 4px;
+  padding-right: 12px;
+  padding-bottom: 4px;
+  padding-left: 12px;
   margin-top: 0;
-  margin-right: 0.4rem;
+  margin-right: 10px;
   margin-bottom: 0;
-  margin-left: 0.4rem;
+  margin-left: 10px;
   color: #ffffff;
 }
 .del-common-button {
   display: inline-block;
   margin-top: 0;
-  margin-right: 0.4rem;
+  margin-right: 10px;
   margin-bottom: 0;
-  margin-left: 0.4rem;
+  margin-left: 10px;
   color: #ffffff;
-  padding-top: 0.16rem;
-  padding-right: 1.12rem;
-  padding-bottom: 0.16rem;
-  padding-left: 1.12rem;
+  padding-top: 4px;
+  padding-right: 28px;
+  padding-bottom: 4px;
+  padding-left: 28px;
 }
 .flip-tip {
-  font-size: 0.48rem;
+  font-size: 12px;
   padding-top: 0;
-  padding-right: 0.64rem;
+  padding-right: 16px;
   padding-bottom: 0;
-  padding-left: 0.64rem;
+  padding-left: 16px;
 }
 .flip-go-check {
-  margin-top: 0.6rem;
+  margin-top: 15px;
 }
 .integral-list-num {
-  height: 0.96rem;
-  padding-top: 1.2rem;
+  height: 24px;
+  padding-top: 30px;
   padding-right: 0;
   padding-bottom: 0;
   padding-left: 0;
   color: #4889db;
 }
 .group-introduce {
-  padding-top: 0.8rem;
+  padding-top: 20px;
   padding-right: 0;
-  padding-bottom: 0.2rem;
+  padding-bottom: 5px;
   padding-left: 0;
 }
 .group-introduce-bar {
-  margin-top: 0.8rem;
+  margin-top: 20px;
 }
 .order-box {
   background-color: #f3f3f3;
