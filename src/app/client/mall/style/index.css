@@ -898,6 +898,21 @@ p {
 .group-introduce-bar {
   margin-top: 20px;
 }
+.enter-or-download {
+  display: inline-block;
+  height: 100%;
+  padding-top: 0;
+  padding-right: 10px;
+  padding-bottom: 0;
+  padding-left: 10px;
+  border-radius: 3px;
+  background-color: #4889db;
+  color: #ffffff;
+  margin-top: 0;
+  margin-right: 3px;
+  margin-bottom: 0;
+  margin-left: 3px;
+}
 .order-box {
   background-color: #f3f3f3;
 }

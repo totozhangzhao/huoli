@@ -215,7 +215,7 @@ var AppView = Backbone.View.extend({
                 nextUrl = window.location.origin +
                   "/fe/app/client/mall/html/detail-page/goods-detail.html" +
                   "?productid=" + lotteryInfo.productid +
-                  "&gotoView=form-custom";
+                  "&gotoView=form-phone";
                 break;
             }
 
