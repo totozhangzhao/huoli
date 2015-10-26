@@ -29,21 +29,23 @@ exports.createAView = function(e) {
   });
 };
 
-exports.createNewView = function(options) {
-  NativeAPI.invoke("createWebView", {
-    url: options.url,
-    controls: [
-      {
-        type: options.type || "title",
-        text: options.title || ""
+exports.createNewView = (function() {
+  return _.debounce(function(options) {
+    NativeAPI.invoke("createWebView", {
+      url: options.url,
+      controls: [
+        {
+          type: options.type || "title",
+          text: options.title || ""
+        }
+      ]
+    }, function(err) {
+      if ( err && (err.code === -32603) ) {
+        window.location.href = options.url;
       }
-    ]
-  }, function(err) {
-    if ( err && (err.code === -32603) ) {
-      window.location.href = options.url;
-    }
-  });
-};
+    });
+  }, 1000, true);
+}());
 
 exports.imageDelay = function(options) {
   var config = _.extend({
