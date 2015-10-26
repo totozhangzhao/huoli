@@ -13,8 +13,9 @@ var cookie     = require("com/mobile/lib/cookie/cookie.js");
 var shareUtil  = require("com/mobile/widget/wechat/util.js");
 var wechatUtil = require("com/mobile/widget/wechat-hack/util.js");
 var mallWechat = require("app/client/mall/js/lib/wechat.js");
-var logger   = require("com/mobile/lib/log/log.js");
-var mallUitl = require("app/client/mall/js/lib/util.js");
+var logger     = require("com/mobile/lib/log/log.js");
+var mallUitl   = require("app/client/mall/js/lib/util.js");
+var imgDelay   = require("app/client/mall/js/lib/widget.js").imageDelay;
 
 var AppView = Backbone.View.extend({
   el: "#interlayer",
@@ -27,6 +28,7 @@ var AppView = Backbone.View.extend({
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
   handleShareButton: function(e) {
+    debugger;
     var urlObj = $(e.currentTarget).data();
     var appName = cookie.get("appName");
 
@@ -47,6 +49,7 @@ var AppView = Backbone.View.extend({
     }
   },
   createNewPage: function(e) {
+    debugger;
     widget.createAView(e);
   },
   mallInterlayer: function() {
@@ -79,7 +82,18 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      self.$el.html(result.tpl || "");
+      // var $tmpl = $(result.tpl.replace(/button/g, "div"));
+      var $tmpl = $(result.tpl);
+
+      $tmpl.find("img").each(function(index, item) {
+        var $img = $(item);
+        $img.addClass("op0");
+        $img.attr( "data-echo", $img.attr("src") );
+        $img.attr( "src", "/fe/com/mobile/image/grey.gif" );
+      });
+
+      self.$el.append($tmpl);
+      imgDelay();
 
       if ( wechatUtil.isWechat() ) {
         wechatUtil.setTitle(result.title);
