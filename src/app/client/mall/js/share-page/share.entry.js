@@ -28,7 +28,6 @@ var AppView = Backbone.View.extend({
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
   handleShareButton: function(e) {
-    debugger;
     var urlObj = $(e.currentTarget).data();
     var appName = cookie.get("appName");
 
@@ -49,7 +48,6 @@ var AppView = Backbone.View.extend({
     }
   },
   createNewPage: function(e) {
-    debugger;
     widget.createAView(e);
   },
   mallInterlayer: function() {
