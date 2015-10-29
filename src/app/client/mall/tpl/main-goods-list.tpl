@@ -26,7 +26,7 @@
         class="<%= jsClass %> block"
         href="<%= jsUrl %>"
       >
-        <div class="goods goods-1" data-echo-background="<%= item.img %>"></div>
+        <div class="echo-block op0 goods goods-1" data-echo-background="<%= item.img %>"></div>
       </a>
     </div>
     <div class="vertical-view panel-block-right">
@@ -54,7 +54,7 @@
         class="<%= jsClass %> block"
         href="<%= jsUrl %>"
       >
-        <div class="goods goods-2" data-echo-background="<%= item.img %>"></div>
+        <div class="echo-block op0 goods goods-2" data-echo-background="<%= item.img %>"></div>
       </a>
       <% var item = topList[2]; %>
       <% var jsClass = "js-new-page"; %>
@@ -80,7 +80,7 @@
         class="<%= jsClass %> block"
         href="<%= jsUrl %>"
       >
-        <div class="goods goods-3" data-echo-background="<%= item.img %>"></div>
+        <div class="echo-block op0 goods goods-3" data-echo-background="<%= item.img %>"></div>
       </a>
     </div>
   </div>

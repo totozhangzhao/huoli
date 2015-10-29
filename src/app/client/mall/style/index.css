@@ -2268,7 +2268,7 @@ p {
 /* points -  end  */
 
 /* img - echo - start */
-img {
+img, .echo-block {
   transition: opacity .3s ease-in;
 }
 .op0 {

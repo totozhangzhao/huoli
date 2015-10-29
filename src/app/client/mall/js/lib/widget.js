@@ -68,7 +68,7 @@ exports.imageDelay = function(options) {
       } else {
         setTimeout(function() {
           $elem.addClass("op1");
-        }, 300);
+        }, 150);
       }
     }
   }, options || {});

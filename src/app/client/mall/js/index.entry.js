@@ -24,8 +24,13 @@ var AppView = Backbone.View.extend({
   initialize: function() {
 
     // rem
-    var rootSize = ($(document).width() / 10).toFixed(1);
-    $("html").css({ "font-size": rootSize + "px" });
+    var initRem = _.debounce(function() {      
+      var rootSize = ($("#main").width() / 10).toFixed(1);
+      $("html").css({ "font-size": rootSize + "px" });      
+    }, 150);
+
+    window.onresize = initRem;
+    initRem();
 
     var self = this;
     var version = this.getVersion(parseUrl().p);
