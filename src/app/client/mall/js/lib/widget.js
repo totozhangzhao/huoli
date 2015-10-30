@@ -75,3 +75,13 @@ exports.imageDelay = function(options) {
 
   echo.init(config);
 };
+
+exports.initRem = function() {
+  var setRoot = _.debounce(function() {      
+    var rootSize = ($(".rem-main").width() / 10).toFixed(1);
+    $("html").css({ "font-size": rootSize + "px" });      
+  }, 150);
+
+  window.onresize = setRoot;
+  setRoot();
+};

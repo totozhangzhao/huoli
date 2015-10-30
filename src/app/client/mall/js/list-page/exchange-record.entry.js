@@ -19,6 +19,10 @@ var AppView = Backbone.View.extend({
     "click .js-order-item": "gotoOrderDetail"
   },
   initialize: function() {
+
+    // rem
+    widget.initRem();
+
     var self = this;
 
     this.loadingMore = false;

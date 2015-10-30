@@ -1082,16 +1082,16 @@ p {
   background-position: -245px -32px;
 }
 .exchange-record-box {
-  font-size: 28px;
+  font-size: 0.3733rem;
 }
 .record-area {
-  height: 190px;
+  height: 2.5333rem;
   position: relative;
   left: 0;
   top: 0;
-  padding-left: 25px;
-  padding-right: 25px;
-  border-bottom: 2px solid #f0f0f0;
+  padding-left: 0.3333rem;
+  padding-right: 0.3333rem;
+  border-bottom: 1px solid #f0f0f0;
 }
 .record-area a {
   width: 100%;
@@ -1100,37 +1100,38 @@ p {
 }
 .record-pic-bar {
   position: absolute;
-  left: 25px;
-  top: 25px;
+  left: 0.3333rem;
+  top: 0.3333rem;
 }
 .record-pic {
-  width: 140px;
-  height: 140px;
+  width: 1.8667rem;
+  height: 1.8667rem;
 }
 .record-text-bar {
-  padding-left: 165px;
-  padding-top: 42px;
+  padding-left: 2.2rem;
+  padding-top: 0.56rem;
 }
 .record-text-tit {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 28px;
+  font-size: 1em;
+  line-height: 0.3734rem;
   color: #333333;
 }
 .order-bar p {
-  font-size: 24px;
-  height: 24px;
-  line-height: 24px;
+  font-size: 0.8571em;
+  height: 0.32rem;
+  line-height: 0.32rem;
 }
 .order-bar p:nth-child(1) {
   color: #ff5a44;
-  margin-top: 16px;
-  margin-bottom: 24px;
+  margin-top: 0.2133rem;
+  margin-bottom: 0.32rem;
 }
 .order-bar p:nth-child(1) span {
   color: #9b9b9b;
-  padding-left: 10px;
+  padding-left: 0.1333rem;
 }
 .order-bar p:nth-child(2) {
   color: #9b9b9b;
@@ -1151,25 +1152,25 @@ p {
   margin-left: auto;
 }
 .exchange-empty-pic {
-  width: 208px;
-  height: 208px;
-  margin-top: 128px;
+  width: 104px;
+  height: 104px;
+  margin-top: 64px;
   margin-right: auto;
-  margin-bottom: 36px;
+  margin-bottom: 18px;
   margin-left: auto;
 }
 .exchange-empty-text {
-  font-size: 32px;
+  font-size: 16px;
   text-align: center;
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 30px;
+  padding-bottom: 15px;
   padding-left: 0;
 }
 .order-status {
   position: absolute;
-  right: 42px;
-  bottom: 25px;
+  right: 0.56rem;
+  bottom: 0.3333rem;
   text-align: right;
 }
 .order-status-succ {
