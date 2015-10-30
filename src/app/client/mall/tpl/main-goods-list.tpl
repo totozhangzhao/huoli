@@ -1,6 +1,6 @@
 <% if (topList && topList.length === 3) { %>
 <section class="home-goods-area clearfix">
-  <div class="horizontal-view panel-container">
+  <div class="panel-container">
     <div class="panel-block-left">
       <% var item = topList[0]; %>
       <% var jsClass = "js-new-page"; %>
@@ -29,7 +29,7 @@
         <div class="echo-block op0 goods goods-1" data-echo-background="<%= item.img %>"></div>
       </a>
     </div>
-    <div class="vertical-view panel-block-right">
+    <div class="panel-block-right">
       <% var item = topList[1]; %>
       <% var jsClass = "js-new-page"; %>
       <% var jsUrl = "javascript:;"; %>
