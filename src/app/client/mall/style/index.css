@@ -181,6 +181,7 @@ option {
   position: relative;
   left: 0;
   top: 0;
+  background-color: #f3f3f3;
 }
 .home-banner-bar,
 .home-banner-pic,
@@ -210,7 +211,6 @@ option {
   background-color: #4d9eeb;
 }
 .home-goods-bar {
-  background-color: #f3f3f3;
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 114px;
