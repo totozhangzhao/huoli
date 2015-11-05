@@ -1,22 +1,25 @@
-var $          = require("jquery");
-var Backbone   = require("backbone");
-var _          = require("lodash");
-var async      = require("async");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var toast      = require("com/mobile/widget/hint/hint.js").toast;
-var hint       = require("com/mobile/widget/hint/hint.js");
-var UrlUtil    = require("com/mobile/lib/url/url.js");
-var Util       = require("com/mobile/lib/util/util.js");
-var widget     = require("app/client/mall/js/lib/widget.js");
-var mallUitl   = require("app/client/mall/js/lib/util.js");
+var $           = require("jquery");
+var Backbone    = require("backbone");
+var _           = require("lodash");
+var async       = require("async");
+var NativeAPI   = require("app/client/common/lib/native/native-api.js");
+var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var appInfo     = require("app/client/mall/js/lib/app-info.js");
+var toast       = require("com/mobile/widget/hint/hint.js").toast;
+var hint        = require("com/mobile/widget/hint/hint.js");
+var UrlUtil     = require("com/mobile/lib/url/url.js");
+var Util        = require("com/mobile/lib/util/util.js");
+var widget      = require("app/client/mall/js/lib/widget.js");
+var mallUitl    = require("app/client/mall/js/lib/util.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
-var loadScript = require("com/mobile/lib/load-script/load-script.js");
-var cookie     = require("com/mobile/lib/cookie/cookie.js");
-var shareUtil  = require("com/mobile/widget/wechat/util.js");
-var wechatUtil = require("com/mobile/widget/wechat-hack/util.js");
-var mallWechat = require("app/client/mall/js/lib/wechat.js");
+var loadScript  = require("com/mobile/lib/load-script/load-script.js");
+var cookie      = require("com/mobile/lib/cookie/cookie.js");
+var shareUtil   = require("com/mobile/widget/wechat/util.js");
+var wechatUtil  = require("com/mobile/widget/wechat-hack/util.js");
+var mallWechat  = require("app/client/mall/js/lib/wechat.js");
+var mallEvent   = require("app/client/mall/js/lib/mall-event.js");
+window.ee = mallEvent;
+require("app/client/mall/js/lib/advance-base.js");
 
 var AppView = Backbone.View.extend({
   el: "#goods-detail",
@@ -62,6 +65,7 @@ var AppView = Backbone.View.extend({
       },
       function(userData, next) {
         var params = _.extend({}, userData.userInfo, {
+          imei: userData.deviceInfo.imei,
           p: userData.deviceInfo.p,
           productid: UrlUtil.parseUrlSearch().productid
         });
@@ -77,6 +81,10 @@ var AppView = Backbone.View.extend({
       }
 
       self.renderMainPanel(result);
+
+      if (result.preload) {
+        mallEvent.emit("mall-advance", result.preload);
+      }
     });
   },
   renderMainPanel: function(productInfo) {

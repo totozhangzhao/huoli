@@ -41,13 +41,15 @@ var AppView = Backbone.View.extend({
   },
   initLoadingMore: function() {
     var self = this;
-
+    var screenHeight = $(window).height();
+    var edgeHeight = screenHeight * 0.35;
+    
     $(window).on("scroll", function() {
       if (self.loadingMore) {
         return;
       }
 
-      if ( $(window).scrollTop() + $(window).height() > $(document).height() - 100 ) {
+      if ( $(window).scrollTop() + screenHeight > $(document).height() - edgeHeight ) {
         self.loadMore();
       }
     });
