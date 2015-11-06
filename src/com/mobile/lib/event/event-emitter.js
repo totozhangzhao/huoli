@@ -49,14 +49,14 @@ EventEmitter.prototype._triggerEvent = function(evt, listeners, args) {
 EventEmitter.prototype.emit = function(evt) {
   var fnList = store[evt];
   if ( !fnList ) {
-    return;
+    return false;
   }
   var args = [];
   for (var i = 0, len = arguments.length - 1; i < len; i += 1) {
     args.push( arguments[i + 1] );
   }
   this._triggerEvent(evt, fnList, args);
-  return this;
+  return true;
 };
 
 EventEmitter.prototype.on = function(evt, fn, context, once) {
