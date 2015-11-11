@@ -409,7 +409,13 @@ option {
 .self-business {
   width: 40px;
   height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png?a=m) no-repeat -139px -58px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -139px -58px;
+  background-size: 312px 280px;
+}
+.to-promote {
+  width: 29px;
+  height: 14px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -189px -58px;
   background-size: 312px 280px;
 }
 .user-v2 {
