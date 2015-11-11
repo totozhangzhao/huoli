@@ -140,7 +140,10 @@ var AppView = Backbone.View.extend({
 
     async.waterfall([
       function(next) {
-        sendPost("mainProductList", null, function(err, data) {
+        var params = {
+          p: parseUrl().p
+        };
+        sendPost("mainProductList", params, function(err, data) {
           next(err, data);
         });        
       }
@@ -329,7 +332,10 @@ var AppView = Backbone.View.extend({
   initBanner: function() {
     async.waterfall([
       function(next) {
-        sendPost("getBanners", null, function(err, data) {
+        var params = {
+          p: parseUrl().p
+        };
+        sendPost("getBanners", params, function(err, data) {
           next(err, data);
         });        
       }

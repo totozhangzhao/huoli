@@ -17,9 +17,6 @@ var cookie      = require("com/mobile/lib/cookie/cookie.js");
 var shareUtil   = require("com/mobile/widget/wechat/util.js");
 var wechatUtil  = require("com/mobile/widget/wechat-hack/util.js");
 var mallWechat  = require("app/client/mall/js/lib/wechat.js");
-var mallEvent   = require("app/client/mall/js/lib/mall-event.js");
-window.ee = mallEvent;
-require("app/client/mall/js/lib/advance-base.js");
 
 var AppView = Backbone.View.extend({
   el: "#goods-detail",
@@ -81,10 +78,6 @@ var AppView = Backbone.View.extend({
       }
 
       self.renderMainPanel(result);
-
-      if (result.preload) {
-        mallEvent.emit("mall-advance", result.preload);
-      }
     });
   },
   renderMainPanel: function(productInfo) {

@@ -1,5 +1,6 @@
 var jsonrpc  = require("jsonrpc");
 var BasicRequest = require("app/client/common/lib/http/http.js").BasicRequest;
+var dispatch = require("app/client/mall/js/lib/mall-callback.js").dispatch;
 
 var idGenerator = (function() {
   var count = 0;
@@ -22,7 +23,9 @@ var callbackWraper = function(callback) {
 
     switch (data.type) {
       case "success":
-        callback(null, data.payload.result);
+        var result = data.payload.result;
+        callback(null, result);
+        dispatch(result);
         break;
       case "error":
         callback(data.payload.error);
