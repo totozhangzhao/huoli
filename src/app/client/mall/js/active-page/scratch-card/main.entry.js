@@ -205,23 +205,22 @@ var AppView = Backbone.View.extend({
                 nextUrl = window.location.origin +
                   "/fe/app/client/mall/html/detail-page/order-detail.html" +
                   "?orderid=" + lotteryInfo.orderid;
+                widget.createNewView({ url: nextUrl });
                 break;
               case 3:
                 nextUrl = window.location.origin +
                   "/fe/app/client/mall/html/detail-page/goods-detail.html" +
                   "?productid=" + lotteryInfo.productid;
+                widget.createNewView({ url: nextUrl });
                 break;
               case 4:
                 nextUrl = window.location.origin +
                   "/fe/app/client/mall/html/detail-page/goods-detail.html" +
                   "?productid=" + lotteryInfo.productid +
                   "&gotoView=form-phone";
+                widget.createNewView({ url: nextUrl });
                 break;
             }
-
-            widget.createNewView({
-              url: nextUrl
-            });
 
             $alert.hide();
             resetCard();
