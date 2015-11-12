@@ -60,8 +60,9 @@ var AppView = Backbone.View.extend({
     "click .js-getCurrentPosition"      : "getCurrentPosition",
     "click .js-updateHeaderRightBtnText": "rightButtonText",
     "click .js-updateHeaderRightBtnIcon": "rightButtonIcon",
-    "click .js-goods-detail": "gotoGoods",
-    "click .js-test-url"    : "mallTestUrl"
+    "click .js-goods-detail"   : "gotoGoods",
+    "click .js-goods-detail-hb": "gotoGoods",
+    "click .js-test-url"       : "mallTestUrl"
   },
   initialize: function() {
     this.jsBackFlag = false;
@@ -104,7 +105,8 @@ var AppView = Backbone.View.extend({
       }
     });
   },
-  gotoGoods: function() {
+  gotoGoods: function(e) {
+    var $cur = $(e.currentTarget);
     var id = $("#goods-detail-input").val();
 
     if (id === "" || typeof id === "undefined" || id === null) {
@@ -112,6 +114,10 @@ var AppView = Backbone.View.extend({
     }
 
     var url = "/fe/app/client/mall/html/detail-page/goods-detail.html?productid=" + id;
+
+    if ( $cur.hasClass("js-goods-detail-hb") ) {
+      url += "&appName=hbgj";
+    }
 
     NativeAPI.invoke("createWebView", {
       url: url,
