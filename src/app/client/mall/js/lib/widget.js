@@ -31,8 +31,14 @@ exports.createAView = function(e) {
 
 exports.createNewView = (function() {
   return _.debounce(function(options) {
+    var url = options.url;
+
+    if (url === "" || url === null || url === undefined) {
+      return;
+    }
+
     NativeAPI.invoke("createWebView", {
-      url: options.url,
+      url: url,
       controls: [
         {
           type: options.type || "title",
