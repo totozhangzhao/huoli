@@ -16,6 +16,7 @@ var storage   = require("app/client/mall/js/lib/storage.js");
 var AppView = Backbone.View.extend({
   el: "#order-list",
   events: {
+    "click .js-tab": "switchList",
     "click .js-order-item": "gotoOrderDetail"
   },
   initialize: function() {
@@ -26,7 +27,6 @@ var AppView = Backbone.View.extend({
     var self = this;
 
     this.loadingMore = false;
-    this.$el.$listBox = this.$el.find(".js-container");
 
     hint.showLoading();
 
@@ -38,6 +38,27 @@ var AppView = Backbone.View.extend({
 
     this.mallOrderList();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+  },
+  switchList: function(e) {
+    var $cur = $(e.currentTarget);
+
+    if ( $cur.hasClass("on") ) {
+      return;
+    }
+
+    this.$el.find(".js-tab").removeClass("on");
+    $cur.addClass("on");
+
+    this.listType = this.$el.find(".js-tab.on").data("type");
+
+    this.$el
+      .find(".js-container")
+        .removeClass("on")
+        .eq( $cur.index() )
+          .addClass("on");
+
+
+    this.mallOrderList();
   },
   initLoadingMore: function() {
     var self = this;
@@ -84,7 +105,7 @@ var AppView = Backbone.View.extend({
     });
   },
   loadMore: function() {
-    var $listBox = this.$el.$listBox;
+    var $listBox = this.$el.find(".js-container.on");
     var lastOrderId = $listBox
         .find(".js-order-item")
           .last()
@@ -107,11 +128,19 @@ var AppView = Backbone.View.extend({
     };
 
     this.getOrderList({
-      lastOrderId: lastOrderId
+      lastOrderId: lastOrderId,
+      listType: this.listType
     }, renderView);
   },
   mallOrderList: function() {
     var self = this;
+    var $listBox = this.$el.find(".js-container.on");
+
+    if ( $listBox.data("_cache") ) {
+      return;
+    }
+
+    var listType = this.listType || this.$el.find(".js-tab.on").data("type");
 
     var renderView = function(err, result) {
       if (err) {
@@ -120,15 +149,18 @@ var AppView = Backbone.View.extend({
       }
 
       if (!Array.isArray(result) || result.length === 0) {
-        self.$el.$listBox.hide();
-        self.$el.$emptyHint.show();
+        $listBox.hide();
+        toast("暂无订单", 1500);
+        // self.$el.$emptyHint.show();
       } else {
         var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
         var tmplData = {
           orderList: result
         };
         
-        self.$el.$listBox.html( compiled(tmplData) );
+        $listBox
+          .html( compiled(tmplData) )
+          .data("_cache", true);
         imgDelay();
         self.setUpdatePage();
       }
@@ -137,7 +169,7 @@ var AppView = Backbone.View.extend({
       self.initLoadingMore();
     };
 
-    this.getOrderList(null, renderView);
+    this.getOrderList({ listType: listType }, renderView);
   },
   getOrderList: function(options, callback) {
     var self = this;
@@ -162,7 +194,8 @@ var AppView = Backbone.View.extend({
         if (userData.userInfo && userData.userInfo.userid) {
           var params = _.extend({}, userData.userInfo, {
             p: userData.deviceInfo.p,
-            last: options.lastOrderId || ""
+            last: options.lastOrderId || "",
+            type: options.listType
           });
 
           sendPost("orderList", params, function(err, data) {

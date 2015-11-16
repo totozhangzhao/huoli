@@ -2187,6 +2187,55 @@ p {
 }
 /* rem -  end  */
 
+/* order nav - start */
+.nav-block {
+  background-color: #FFF;
+  width: 10rem;
+  height: 1.088rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+.order-content {
+  margin-top: 1.088rem;
+}
+.nav-block dl {
+  display: flex !important;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.386rem;
+}
+.nav-block dd {
+  height: 1.088rem;
+  line-height: 1.088rem;
+  text-align: center;
+  flex: 1;
+  flex-basis: 0;
+  display: block;
+  position: relative;
+  color: #333333;
+}
+.nav-block dd.on {
+  color: #039ef0;
+  border-bottom: 2px solid #039ef0;
+}
+.nav-block dd i {
+  background: #f0f0f0;
+  width: 1px;
+  height: 0.64rem;
+  position: absolute;
+  top: 0.215rem;
+  right: 0;
+}
+.js-container {
+  display: none;
+}
+.js-container.on {
+  display: block;
+}
+/* order nav -  end  */
+
 /* widget - start */
 .bb-panel {
   display: none;
