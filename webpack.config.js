@@ -2,7 +2,7 @@ var webpack = require("webpack");
 var path    = require("path");
 var _       = require("lodash");
 
-var pathList = require("./webpack-builder/entry.js");
+var pathList = require("./webpack-builder/entry-list.js");
 var entry    = {};
 
 pathList.forEach(function(devPath) {
@@ -26,7 +26,7 @@ module.exports = {
   },
   entry: entry,
   // entry: {
-  //   "vendor": ["jquery", "underscore", "backbone"],
+  //   "vendor": ["jquery", "lodash", "backbone"],
   //   "/app/client/test/common/native/native-b.bundle": __dirname + "/src/app/client/test/common/native/native-b.entry.js",
   //   "/app/client/test/common/native/native-test.bundle": __dirname + "/src/app/client/test/common/native/native-test.entry.js"
   // },
