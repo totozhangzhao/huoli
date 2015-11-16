@@ -111,7 +111,7 @@ gulp.task("watch", function() {
   gulp.watch(config.src + "**/*.css", ["styles"]);
 
   // Images
-  gulp.watch(config.src + "**/*.css", ["images"]);
+  gulp.watch(config.src + "**/*.+(jpg|jpeg|png|gif)", ["images"]);
 
   // JavaScript
   gulp.watch(config.src + "**/*.js", ["js:lint"]);
