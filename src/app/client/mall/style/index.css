@@ -2197,8 +2197,10 @@ p {
   left: 0;
   z-index: 2;
 }
-.order-content {
-  margin-top: 1.288rem;
+.nav-place {
+  background-color: #f0f0f0;
+  width: 10rem;
+  height: 1.388rem;
 }
 .nav-block dl {
   display: flex !important;
@@ -2237,6 +2239,13 @@ p {
 /* order nav -  end  */
 
 /* widget - start */
+.js-ui-hide {
+  display: none;
+}
+.js-ui-hide.show {
+  display: block;
+}
+
 .bb-panel {
   display: none;
 }

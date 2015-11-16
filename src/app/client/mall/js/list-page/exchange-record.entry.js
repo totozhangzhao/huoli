@@ -148,6 +148,10 @@ var AppView = Backbone.View.extend({
         return;
       }
 
+      self.$el
+        .find(".js-ui-hide")
+        .addClass("show");
+
       if (!Array.isArray(result) || result.length === 0) {
         $listBox.hide();
         toast("暂无订单", 1500);
