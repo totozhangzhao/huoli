@@ -409,13 +409,13 @@ option {
 .self-business {
   width: 40px;
   height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -139px -58px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png?a=m) no-repeat -139px -58px;
   background-size: 312px 280px;
 }
 .to-promote {
   width: 29px;
   height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -189px -58px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png?a=m) no-repeat -189px -58px;
   background-size: 312px 280px;
 }
 .user-v2 {
@@ -1089,6 +1089,54 @@ p {
 }
 .exchange-record-box {
   font-size: 0.3733rem;
+}
+.nav-block {
+  background-color: #FFF;
+  width: 10rem;
+  height: 1.088rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+.nav-place {
+  background-color: #f0f0f0;
+  width: 10rem;
+  height: 1.388rem;
+}
+.nav-block dl {
+  display: flex !important;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.386rem;
+}
+.nav-block dd {
+  height: 1.088rem;
+  line-height: 1.088rem;
+  text-align: center;
+  flex: 1;
+  flex-basis: 0;
+  display: block;
+  position: relative;
+  color: #333333;
+}
+.nav-block dd.on {
+  color: #039ef0;
+  border-bottom: 2px solid #039ef0;
+}
+.nav-block dd i {
+  background: #f0f0f0;
+  width: 1px;
+  height: 0.64rem;
+  position: absolute;
+  top: 0.215rem;
+  right: 0;
+}
+.js-container {
+  display: none;
+}
+.js-container.on {
+  display: block;
 }
 .record-area {
   height: 2.5333rem;
@@ -2186,57 +2234,6 @@ p {
   width: 100%;
 }
 /* rem -  end  */
-
-/* order nav - start */
-.nav-block {
-  background-color: #FFF;
-  width: 10rem;
-  height: 1.088rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 2;
-}
-.nav-place {
-  background-color: #f0f0f0;
-  width: 10rem;
-  height: 1.388rem;
-}
-.nav-block dl {
-  display: flex !important;
-  flex-wrap: wrap;
-  border-bottom: 1px solid #f0f0f0;
-  font-size: 0.386rem;
-}
-.nav-block dd {
-  height: 1.088rem;
-  line-height: 1.088rem;
-  text-align: center;
-  flex: 1;
-  flex-basis: 0;
-  display: block;
-  position: relative;
-  color: #333333;
-}
-.nav-block dd.on {
-  color: #039ef0;
-  border-bottom: 2px solid #039ef0;
-}
-.nav-block dd i {
-  background: #f0f0f0;
-  width: 1px;
-  height: 0.64rem;
-  position: absolute;
-  top: 0.215rem;
-  right: 0;
-}
-.js-container {
-  display: none;
-}
-.js-container.on {
-  display: block;
-}
-/* order nav -  end  */
 
 /* widget - start */
 .js-ui-hide {
