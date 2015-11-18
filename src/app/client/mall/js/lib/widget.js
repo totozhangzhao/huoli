@@ -18,13 +18,21 @@ exports.createAView = function(e) {
 
   e.preventDefault();  
 
+  var separateHash = url.split("#");
+  var hash = "";
+
+  if ( separateHash.length > 1 ) {
+    url  = separateHash[0];
+    hash = "#" + separateHash[1];
+  }
+
   if ( $cur.data() && /\/fe\//.test(url) ) {
     url = url.indexOf("?") >= 0 ? url + "&" : url + "?";
     url = url + $.param( $cur.data() );
   }
 
   exports.createNewView({
-    url: url,
+    url: url + hash,
     title: $cur.data("title")
   });
 };
