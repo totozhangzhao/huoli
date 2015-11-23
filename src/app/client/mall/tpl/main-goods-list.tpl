@@ -19,7 +19,7 @@
         <% jsUrl = "/fe/app/client/mall/html/menu/category.html"; %>
       <% } %>
       <a
-        data-log-click="<%= appName %>-top|<%= item.productid %>|<%= item.title %>@click@index"
+        data-log-click="<%= appName %>-top_<%= item.productid %>_<%= item.title %>@click@index"
         data-productid="<%= item.productid %>"
         data-title="<%= item.title %>"
         data-classify="<%= item.classify || '' %>"
@@ -47,7 +47,7 @@
         <% jsUrl = "/fe/app/client/mall/html/menu/category.html"; %>
       <% } %>
       <a
-        data-log-click="<%= appName %>-top|<%= item.productid %>|<%= item.title %>@click@index"
+        data-log-click="<%= appName %>-top_<%= item.productid %>_<%= item.title %>@click@index"
         data-productid="<%= item.productid %>"
         data-title="<%= item.title %>"
         data-classify="<%= item.classify || '' %>"
@@ -73,7 +73,7 @@
         <% jsUrl = "/fe/app/client/mall/html/menu/category.html"; %>
       <% } %>
       <a
-        data-log-click="<%= appName %>-top|<%= item.productid %>|<%= item.title %>@click@index"
+        data-log-click="<%= appName %>-top_<%= item.productid %>_<%= item.title %>@click@index"
         data-productid="<%= item.productid %>"
         data-title="<%= item.title %>"
         data-classify="<%= item.classify || '' %>"
@@ -107,7 +107,7 @@
           <% jsUrl = "/fe/app/client/mall/html/menu/category.html"; %>
         <% } %>
         <a
-          data-log-click="<%= appName %>-block|<%= item.productid %>|<%= item.title %>@click@index"
+          data-log-click="<%= appName %>-block_<%= item.productid %>_<%= item.title %>@click@index"
           data-productid="<%= item.productid %>"
           data-title="<%= item.title %>"
           data-classify="<%= item.classify || '' %>"

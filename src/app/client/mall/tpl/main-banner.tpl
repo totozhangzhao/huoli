@@ -18,7 +18,7 @@
         <% jsUrl = "/fe/app/client/mall/html/menu/category.html"; %>
       <% } %>
       <a
-        data-log-click="<%= appName %>-banner|<%= item.productid %>|<%= item.title %>@click@index"
+        data-log-click="<%= appName %>-banner_<%= item.productid %>_<%= item.title %>@click@index"
         data-productid="<%= item.productid %>"
         data-title="<%= item.title %>"
         data-classify="<%= item.classify || '' %>"
