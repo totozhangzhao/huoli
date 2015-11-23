@@ -625,6 +625,12 @@ option {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon-flight.png) -131px 0 no-repeat;
   background-size: 320px 280px;
 }
+.active-box .active-detail-tit {
+  font-size: 16px;
+}
+.active-box .common-text {
+  font-size: 14px;
+}
 p {
   word-break: break-all;
 }
@@ -636,6 +642,125 @@ p {
   padding-right: 0;
   padding-bottom: 174px;
   padding-left: 0;
+}
+.active-goods-tip {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 25px;
+  margin-right: 0;
+  margin-bottom: 20px;
+  margin-left: 0;
+  text-align: center;
+}
+.active-attr-show {
+  padding-top: 0;
+  padding-right: 7%;
+  padding-bottom: 0;
+  padding-left: 7%;
+  max-height: 20px;
+  overflow: hidden;
+  font-size: 12px;
+  color: #039ef0;
+  display: -webkit-flex;
+  display: flex;
+  display: -webkit-box;
+  display: box;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 20px;
+  margin-left: auto;
+}
+.active-attr-show li {
+  -webkit-flex: 1;
+  flex: 1;
+  -webkit-box-flex: 1;
+  box-flex: 1;
+  text-align: center;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 16px;
+}
+.active-attr-show li:nth-child(1) {
+  min-width: 78px;
+}
+.active-attr-show li:nth-child(2) {
+  min-width: 94px;
+}
+.active-attr-show li:nth-child(3) {
+  min-width: 100px;
+}
+.active-attr-show li span {
+  position: relative;
+  left: 0;
+  top: 0;
+}
+.active-attr-show li span:before {
+  width: 15px;
+  height: 13px;
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: -1px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png?q=s) no-repeat 0 -210px;
+  background-size: 312px 280px;
+}
+.active-goods-desc {
+  font-size: 14px;
+  line-height: 24px;
+  padding-top: 20px;
+  padding-right: 24px;
+  padding-bottom: 30px;
+  padding-left: 24px;
+  border-top: 1px solid #e5e5e5;
+  text-align: center;
+}
+.active-detail-btn {
+  width: 40%;
+  height: 40px;
+  line-height: 40px;
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  color: #333333;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 36px;
+  margin-left: auto;
+  border-radius: 2px;
+  border-left: 1px solid #000000;
+  border-top: 1px solid #000000;
+  border-right: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+}
+.active-goods-block {
+  width: 90%;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 10px;
+  margin-left: auto;
+}
+.active-goods-block tr td {
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  background-color: #68c6f5;
+  color: #ffffff;
+}
+.active-goods-block tr td:last-child {
+  width: 70%;
+  padding-top: 0;
+  padding-right: 6px;
+  padding-bottom: 0;
+  padding-left: 12px;
+  background-color: #e6e6e6;
+  color: #333333;
+  text-align: left;
 }
 .active-area {
   padding-top: 12px;
