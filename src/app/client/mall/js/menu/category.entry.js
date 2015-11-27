@@ -12,6 +12,7 @@ var mallUitl  = require("app/client/mall/js/lib/util.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var logger    = require("com/mobile/lib/log/log.js");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
+var tplUtil   = require("app/client/mall/js/lib/mall-tpl.js");
 
 var AppView = Backbone.View.extend({
   el: "#main",
@@ -86,7 +87,8 @@ var AppView = Backbone.View.extend({
       $("#goods-block")
         .html(groupGoodsTpl({
           group: result,
-          appName: mallUitl.getAppName()
+          appName: mallUitl.getAppName(),
+          tplUtil  : tplUtil
         }))
         .show();
 

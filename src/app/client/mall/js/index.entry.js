@@ -14,6 +14,7 @@ var imgDelay  = require("app/client/mall/js/lib/widget.js").imageDelay;
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var logger    = require("com/mobile/lib/log/log.js");
+var tplUtil   = require("app/client/mall/js/lib/mall-tpl.js");
 
 var AppView = Backbone.View.extend({
   el: "#main",
@@ -161,7 +162,8 @@ var AppView = Backbone.View.extend({
         .html(goodsTpl({
           topList  : result.focus,
           goodsList: result.groups,
-          appName  : mallUitl.getAppName()
+          appName  : mallUitl.getAppName(),
+          tplUtil  : tplUtil
         }))
         .show();
 
@@ -353,7 +355,8 @@ var AppView = Backbone.View.extend({
 
       $("#top-banner").html(bannerTpl({
         bannerList: result,
-        appName: mallUitl.getAppName()
+        appName: mallUitl.getAppName(),
+        tplUtil  : tplUtil
       }));
 
       var $SwipeBox = $("#top-banner .js-banner-box");
