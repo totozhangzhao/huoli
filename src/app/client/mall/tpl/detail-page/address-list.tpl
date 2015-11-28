@@ -7,13 +7,13 @@
       <div class="js-address-info">
         <div class="address-exist-info clearfix">
           <p class="address-exist-username fl">
-            <b class="address-exist-nameicon"></b><span><%= addressInfo.name || "" %></span>
+            <b class="address-exist-nameicon"></b><span><%- addressInfo.name || "" %></span>
           </p>
           <p class="address-exist-usertel fl">
-            <b class="address-exist-telicon"></b><span class="num-font"><%= addressInfo.pphone || "" %></span>
+            <b class="address-exist-telicon"></b><span class="num-font"><%- addressInfo.pphone || "" %></span>
           </p>
         </div>
-        <p class="address-exist-text num-font border-b"><%= addressInfo.province.name + " " + addressInfo.city.name + " " + addressInfo.area.name + " " + addressInfo.address || "" %></p>
+        <p class="address-exist-text num-font border-b"><%- addressInfo.province.name + " " + addressInfo.city.name + " " + addressInfo.area.name + " " + addressInfo.address || "" %></p>
       </div>
       <div class="address-control-bar">
         <p class="address-set-area">

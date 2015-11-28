@@ -1,7 +1,7 @@
 <div class="address-username-bar border-b">
   <label>收货人：</label>
   <input name="name" type="text" placeholder="请输入中文姓名" class="address-username-insert" 
-    value="<%= addressInfo.name || "" %>"
+    value="<%- addressInfo.name || "" %>"
   >
 </div>
 <div class="address-usertel-bar border-b">
@@ -9,7 +9,7 @@
   <input name="pphone" type="text" placeholder="请输入收货人手机号码" class="address-usertel-insert"
     data-check-method="checkPhoneNum"
     data-error-message="请输入正确的手机号"
-    value="<%= addressInfo.pphone || "" %>"
+    value="<%- addressInfo.pphone || "" %>"
   >
 </div>
 <div id="select-widget" class="address-option-bar border-b">
@@ -37,7 +37,7 @@
 </div>
 <div class="address-detail-bar border-b">
   <label>详细地址：</label>
-  <textarea name="address" class="address-detail-insert"><%= addressInfo.address || "" %></textarea>
+  <textarea name="address" class="address-detail-insert"><%- addressInfo.address || "" %></textarea>
 </div>
 <div class="address-foot-box">
   <a id="save-address" class="address-foot-btn allow-color"><%= addressInfo.addressid ? "设为默认收货地址" : "保存并使用" %></a>
