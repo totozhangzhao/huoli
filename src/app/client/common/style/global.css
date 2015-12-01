@@ -220,7 +220,7 @@ a {
 }
 .touch {
   background-color: #e6e6e6 !important;
-  border-radius: 2px !important;
+  border-radius: 2px;
 }
 .no-select {
   -webkit-user-select: none;
