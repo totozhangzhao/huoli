@@ -123,6 +123,10 @@ var AppView = Backbone.View.extend({
   removeUserInputs: function(e) {
     var $cur = $(e.currentTarget);
 
+    if ( this.$el.find(".js-user-item").length <= 1 ) {
+      return;
+    }
+
     $cur
       .parent(".js-user-item")
       .remove();
