@@ -32,8 +32,32 @@ exports.getList = function(callback) {
   });
 };
 
-exports.setDefault = function(id, callback) {
-  exports.handleAddress("setDefAddr", id, callback);
+exports.setDefault = function(addressData, callback) {
+  async.waterfall([
+    function(next) {
+      appInfo.getUserData(function(err, userData) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
+
+        next(null, userData);
+      });
+    },
+    function(userData, next) {
+      var params = _.extend({}, userData.userInfo, addressData, {
+        p: userData.deviceInfo.p,
+      });
+      
+      sendPost("updateAddress", params, function(err, data) {
+        next(err, data);
+      });
+    }
+  ], function(err, result) {
+    if ( _.isFunction(callback) ) {
+      callback(err, result);
+    }
+  });
 };
 
 exports.remove = function(id, callback) {

@@ -118,6 +118,7 @@ var AppView = Backbone.View.extend({
     });
   },
   gotoConfirmPage: function(e) {
+    var self = this;
     var $cur = $(e.currentTarget);
     var addressid = $cur.closest(".js-item").data("addressid");
 
@@ -136,10 +137,11 @@ var AppView = Backbone.View.extend({
           });
         },
         function(userData, next) {
+          var addressData = self.collection.addressList.get(addressid).toJSON();
           var params = _.extend({}, userData.userInfo, {
             p: userData.deviceInfo.p,
             orderid: UrlUtil.parseUrlSearch().orderid,
-            addressid: addressid
+            address: addressData
           });
 
           sendPost("addOrderAddr", params, function(err, data) {
@@ -168,12 +170,14 @@ var AppView = Backbone.View.extend({
 
     var id = this.$el
       .find(".js-default-address:checked")
-      .closest(".js-item")
-      .data("addressid");
+        .closest(".js-item")
+        .data("addressid");
 
     this.cache.curAddressId = id;
 
-    addressUtil.setDefault(id, function(err) {
+    var addressData = this.collection.addressList.get(id).toJSON();
+
+    addressUtil.setDefault(addressData, function(err) {
       if (err) {
         toast(err.message, 1500);
         return;

@@ -13,15 +13,13 @@ var Backbone = require("backbone");
 var Address = Backbone.Model.extend({
   defaults: {
     addressid: "",
-    userid: "",
     postcode: "",
     province: "",
     city: "",
     area: "",
-    phone: "",
     address: "",
     name: "",
-    hbuserid: ""
+    phone: ""
   },
   idAttribute: "addressid"
 });

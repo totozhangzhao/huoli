@@ -190,7 +190,7 @@ var AppView = Backbone.View.extend({
           identify: self.$el.$captchaInput.val()
         });
 
-        sendPost("createPhoneUser", params, function(err, data) {
+        sendPost("createOrder", params, function(err, data) {
           next(err, data);
         });
       }

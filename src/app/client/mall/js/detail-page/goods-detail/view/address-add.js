@@ -12,8 +12,6 @@ var validator  = require("app/client/mall/js/lib/validator.js");
 var UrlUtil    = require("com/mobile/lib/url/url.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 var getProvince = require("app/client/mall/js/lib/province.js").getProvince;
-// var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-// var pageAction = require("app/client/mall/js/lib/page-action.js");
 
 var AppView = Backbone.View.extend({
   el: "#address-add",
@@ -173,7 +171,6 @@ var AppView = Backbone.View.extend({
   },
   saveAddress: function() {
     var self = this;
-
     var inputError = !this.checkInputs();
 
     if (inputError) {
@@ -181,7 +178,7 @@ var AppView = Backbone.View.extend({
     }
 
     hint.showLoading();
-    
+
     var addressInfo = this.curAddress;
 
     async.waterfall([
@@ -197,9 +194,7 @@ var AppView = Backbone.View.extend({
       },
       function(userData, next) {
         var $form = self.$el;
-
-        var params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p,
+        var addressData = {
           postcode: "",
           name: $form.find("[name=name]").val(),
           pphone: $form.find("[name=pphone]").val(),
@@ -212,9 +207,12 @@ var AppView = Backbone.View.extend({
           },
           area: {
             id: $form.find("[name=area]").val()
-          }
+          },
+          def: 1
+        };
+        var params = _.extend({}, userData.userInfo, addressData, {
+          p: userData.deviceInfo.p,
         });
-
         var method = "newAddress";
 
         if (addressInfo.addressid) {
@@ -223,10 +221,13 @@ var AppView = Backbone.View.extend({
         }
 
         sendPost(method, params, function(err, data) {
-          next(err, data);
+          if (!err) {
+            addressData.addressid = data.addressid;
+          }
+          next(err, addressData);
         });
       },
-      function(saveData, next) {
+      function(addressData, next) {
         if (UrlUtil.parseUrlSearch().action === "order") {
           hint.showLoading();
 
@@ -245,7 +246,7 @@ var AppView = Backbone.View.extend({
               var params = _.extend({}, userData.userInfo, {
                 p: userData.deviceInfo.p,
                 orderid: UrlUtil.parseUrlSearch().orderid,
-                addressid: saveData.addressid
+                address: addressData
               });
 
               sendPost("addOrderAddr", params, function(err, data) {
@@ -265,12 +266,10 @@ var AppView = Backbone.View.extend({
             window.location.href = orderDetailUrl;
           });
         } else {
-          addressUtil.setDefault(saveData.addressid, function(err, data) {
-            next(err, data);
-          });
+          next(null, addressData);
         }
       },
-      function(setResult, next) {
+      function(addressData, next) {
         addressUtil.getList(function(err, result) {
           if (err) {
             toast(err.message, 1500);
@@ -278,20 +277,17 @@ var AppView = Backbone.View.extend({
           }
 
           self.collection.addressList.reset(result);
-          next(null, setResult);
+          next(null, addressData);
         });
       }
-    ], function(err, result) {
+    ], function(err) {
       if (err) {
         toast(err.message, 1500);
         return;
       }
 
       hint.hideLoading();
-
-      if (result !== void 0) {
-        self.router.switchTo("address-confirm");
-      }
+      self.router.switchTo("address-confirm");
     });
   }
 });

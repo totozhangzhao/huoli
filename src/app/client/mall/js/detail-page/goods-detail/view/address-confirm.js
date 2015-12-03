@@ -75,7 +75,7 @@ var AppView = Backbone.View.extend({
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: UrlUtil.parseUrlSearch().productid,
-          addressid: self.curAddress.addressid
+          address: self.curAddress
         });
 
         sendPost("createOrder", params, function(err, data) {
