@@ -83,12 +83,13 @@ var AppView = Backbone.View.extend({
       // var $tmpl = $(result.tpl.replace(/button/g, "div"));
       var $tmpl = $(result.tpl);
 
-      $tmpl.find("img").each(function(index, item) {
-        var $img = $(item);
-        $img.addClass("op0");
-        $img.attr( "data-echo", $img.attr("src") );
-        $img.attr( "src", "/fe/com/mobile/image/grey.gif" );
-      });
+      // img lazy load
+      // $tmpl.find("img").each(function(index, item) {
+      //   var $img = $(item);
+      //   $img.addClass("op0");
+      //   $img.attr( "data-echo", $img.attr("src") );
+      //   $img.attr( "src", "/fe/com/mobile/image/grey.gif" );
+      // });
 
       self.$el.append($tmpl);
       imgDelay();

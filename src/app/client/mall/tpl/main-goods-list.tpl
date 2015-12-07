@@ -1,6 +1,6 @@
 <% if (topList && topList.length === 3) { %>
 <section class="home-goods-area clearfix">
-  <div class="panel-container">
+  <div class="panel-container flex-row">
     <div class="panel-block-left">
       <% var item = topList[0]; %>
       <a
@@ -14,7 +14,7 @@
         <div class="echo-block op0 goods goods-1" data-echo-background="<%= item.img %>"></div>
       </a>
     </div>
-    <div class="panel-block-right">
+    <div class="panel-block-right flex-column">
       <% var item = topList[1]; %>
       <a
         data-log-click="<%= appName %>-top_<%= item.productid %>_<%= item.title %>@click@index"
