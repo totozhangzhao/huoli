@@ -77,13 +77,13 @@ var AppView = Backbone.View.extend({
               return;
             }
 
-            next(null, data);
+            next(null, data, userData.userInfo.phone);
           });
         } else {
           self.loginApp();
         }
       }
-    ], function(err, result) {
+    ], function(err, result, phone) {
       if (err) {
         toast(err.message, 1500);
         return;
@@ -97,6 +97,8 @@ var AppView = Backbone.View.extend({
         .end()
         .find(".js-money")
           .text(getMoney(points));
+
+      self.$el.find(".js-phone-input").val(phone);
     });
   },
   closePanel: function() {
