@@ -1,8 +1,8 @@
 var $      = require("jquery");
+var _      = require("lodash");
 var widget = require("app/client/mall/js/lib/widget.js");
 
 var tmpl = require("app/client/mall/tpl/back-to-top.tpl");
-
 var $toTop = $( tmpl() );
 
 $toTop
@@ -20,11 +20,12 @@ $toTop
   });
 
 var $win = $(window);
-
-$win.on("scroll", function() {
+var showBox = _.debounce(function() {
   if ( $win.scrollTop() > 100 ) {
-    $toTop.fadeIn(666);
+    $toTop.fadeIn(333);
   } else {
-    $toTop.fadeOut(666);
+    $toTop.fadeOut(333);
   }
-});
+}, 150);
+
+$win.on("scroll", showBox);
