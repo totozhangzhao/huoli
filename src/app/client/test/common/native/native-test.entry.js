@@ -33,6 +33,8 @@ var AppView = Backbone.View.extend({
   el: "body",
   events: {
     "click .js-appname-cookie"  : "showAppNameFromCookie",
+    "click .js-searchMap"       : "searchMap",
+    "click .js-showMap"         : "showMap",
     "click .js-copyToClipboard" : "copyToClipboard",
     "click .js-native-back"     : "doNativeBack",
     "click .js-selectContact"   : "selectContact",
@@ -135,6 +137,32 @@ var AppView = Backbone.View.extend({
   },
   showAppNameFromCookie: function() {
     echo( cookie.get("appName") );
+  },
+  searchMap: function() {
+    NativeAPI.invoke("searchMap", {
+      userLoc: "true",
+      zoom: "2000"
+    }, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
+    });
+  },
+  showMap: function() {
+    NativeAPI.invoke("showMap", {
+      name   : "知音大厦",
+      address: "中北路roewurowieuroiw服务费缴费基数垃圾分类",
+      lat    : "30.55760",
+      lng    : "114.33591"
+    }, function(err, data) {
+      if (err) {
+        return handleError(err);
+      }
+
+      echo(JSON.stringify(data));
+    });
   },
   copyToClipboard: function() {
     NativeAPI.invoke("copyToClipboard", { text: "abc" }, function(err, data) {

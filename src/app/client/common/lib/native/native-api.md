@@ -182,9 +182,7 @@ __method__
 __params__
 
 * `url` String url有可能是相对的,如果是相对路径的话就根据当前 webView 的 url 进⾏计算
-* `controls` Array controls是一个数组，元素中 `type: title` 表示要设置的是标题，`text: "Native Page 2"` 为具体文本。
-注意:
-controls 为可选参数
+* `controls` Array 可选；controls 是一个数组，元素中 `type: title` 表示要设置的是标题，`text: "Native Page 2"` 为具体文本。
 
 ```JavaScript
 NativeAPI.invoke("createWebView", {
@@ -629,6 +627,53 @@ __result__
 * `FAIL`   常量，显示失败
 * `CANCEL` 常量，点了返回键
 * `value`  SUCC/FAIL/CANCEL
+
+---------------------------------------
+
+### searchMap
+
+* 描述：通过客户端地图控件提供兴趣点搜索功能
+
+__method__
+
+* `searchMap`
+
+__params__
+
+* `userLoc` String("true/false") 是否显示定位用户当前位置按钮，默认为true
+* `zoom` String(number) 初始地图缩放（宽度，单位米），默认为1000
+* `lat` String(number) 初始地图纬度，默认为用户当前位置
+* `lng` String(number) 初始地图经度，默认为用户当前位置
+* `city` String 可选；关键字搜索的目标城市
+
+__result__
+
+* `name` String 选择的兴趣点名称
+* `address` String 选择的兴趣点地址
+* `lat` String 选择的兴趣点纬度
+* `lng` String 选择的兴趣点经度
+* `phone` String 可选；兴趣点联系电话
+
+
+---------------------------------------
+
+### showMap
+
+* 描述：通过客户端地图控件浏览兴趣点位置
+
+__method__
+
+* `showMap`
+
+__params__
+
+* `name` String 显示兴趣点名词
+* `address` String 显示兴趣点地址
+* `lat` String 兴趣点经度
+* `lng` String 兴趣点纬度
+* `icon` String 可选；锚点图标url，默认样式有客户端决定
+* `userLoc` String("true/false") 是否显示定位用户当前位置按钮，默认为true
+
 
 ---------------------------------------
 
