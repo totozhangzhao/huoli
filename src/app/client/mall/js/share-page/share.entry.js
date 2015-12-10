@@ -15,7 +15,7 @@ var wechatUtil = require("com/mobile/widget/wechat-hack/util.js");
 var mallWechat = require("app/client/mall/js/lib/wechat.js");
 var logger     = require("com/mobile/lib/log/log.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
-var imgDelay   = require("app/client/mall/js/lib/widget.js").imageDelay;
+var ShareInput = require("app/client/mall/js/share-page/share-input.js");
 
 var AppView = Backbone.View.extend({
   el: "#interlayer",
@@ -80,19 +80,11 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      // var $tmpl = $(result.tpl.replace(/button/g, "div"));
-      var $tmpl = $(result.tpl);
+      self.$el.append(result.tpl);
 
-      // img lazy load
-      // $tmpl.find("img").each(function(index, item) {
-      //   var $img = $(item);
-      //   $img.addClass("op0");
-      //   $img.attr( "data-echo", $img.attr("src") );
-      //   $img.attr( "src", "/fe/com/mobile/image/grey.gif" );
-      // });
-
-      self.$el.append($tmpl);
-      imgDelay();
+      if ( self.$el.find(".js-main-button").length > 0 ) {
+        new ShareInput({ el: "#interlayer" });
+      }
 
       if ( wechatUtil.isWechat() ) {
         wechatUtil.setTitle(result.title);
