@@ -645,6 +645,7 @@ __params__
 * `lat` String(number) 初始地图纬度，默认为用户当前位置
 * `lng` String(number) 初始地图经度，默认为用户当前位置
 * `city` String 可选；关键字搜索的目标城市
+* `param` String 可选；用来传递其他的可能的场景或搜索限制信息，具体用途和定义由后台服务器API定义；由客户端透传字段至服务器，以便服务器做进一步的优化
 
 __result__
 
