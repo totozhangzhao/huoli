@@ -41,12 +41,14 @@ stat  int 状态
     <p class="snap-join-num">您参与了：<span><%= data.purchased.length %></span>人次</p>
     <div class="snap-status-area">
       <p class="snap-num-flex">您的号码：</p>
-      <p class="snap-num-flex num-font">
+      <p class="snap-num-flex verbose num-font">
         <% _.each(data.purchased, function(code) { %>
-        <span><%= code %></span>
+          <%= code + " " %>
         <% }); %>
       </p>
+      <!--
       <span class="snap-num-flex snap-open-icon"></span>
+      -->
     </div>
     <!-- 2.参与 -->
     <% } else { %>

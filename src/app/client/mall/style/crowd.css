@@ -362,6 +362,11 @@ p {
   overflow: hidden;
   height: 20px;
 }
+.snap-status-area .snap-num-flex.verbose {
+  height: auto;
+  padding-right: 0;
+  word-break: break-word;
+}
 .snap-status-area .snap-open-icon {
   width: 11px;
   height: 6px;
@@ -372,9 +377,6 @@ p {
   background-size: 312px 280px;
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
-}
-.snap-status-area .snap-num-flex span {
-  margin-right: 12px;
 }
 .snap-desc-bar {
   font-size: 15px;
