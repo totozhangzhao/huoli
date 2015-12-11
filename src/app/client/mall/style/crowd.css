@@ -401,10 +401,14 @@ p {
   border-bottom: 2px solid #039ef0;
 }
 .snap-desc-bar .snap-desc-area {
+  display: none;
   padding-top: 0;
   padding-right: 15px;
   padding-bottom: 0;
   padding-left: 15px;
+}
+.snap-desc-bar .snap-desc-area.on {
+  display: block;
 }
 .snap-desc-bar .snap-desc-rule {
   padding-top: 20px;
@@ -640,4 +644,69 @@ p {
 }
 .snap-buy-box .snap-buy-num .snap-buy-tip span {
   display: inline-block;
+}
+.snap-color {
+  color: #ff5a44;
+}
+.snap-calculate-box {
+  max-width: 750px;
+  min-height: 100%;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+  position: relative;
+  left: 0;
+  top: 0;
+  background-color: #fafafa;
+  font-size: 13px;
+  color: #333333;
+  padding-bottom: 25px;
+}
+.snap-top {
+  font-size: 21px;
+  line-height: 21px;
+  padding-top: 35px;
+  padding-bottom: 35px;
+  margin-bottom: 9px;
+  background-color: #ffffff;
+  text-align: center;
+}
+.snap-bottom {
+  background-color: #ffffff;
+}
+.snap-bottom-son {
+  color: #989898;
+}
+.snap-head {
+  font-size: 16px;
+  color: #333333;
+  line-height: 16px;
+  padding-top: 20px;
+  padding-bottom: 15px;
+}
+.snap-bottom div.snap-bottom-son {
+  padding-left: 9%;
+  padding-right: 9%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #fafafa;
+}
+.snap-bottom div:nth-child(1) .snap-head + p {
+  text-indent: 45px;
+}
+.snap-table {
+  margin-top: 20px;
+  background-color: #f0f0f0;
+}
+.snap-table thead {
+  color: #333333;
+  font-size: 12px;
+  line-height: 24px;
+}
+.snap-table tbody {
+  font-size: 10px;
+  line-height: 18px;
+}
+.snap-table td {
+  text-indent: 10px;
 }

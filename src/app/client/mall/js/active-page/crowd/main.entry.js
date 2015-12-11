@@ -10,6 +10,7 @@ var appInfo   = require("app/client/mall/js/lib/app-info.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var Promise   = require("com/mobile/lib/promise/npo.js");
+var Tab       = require("com/mobile/widget/button/tab.js");
 var moneyModel = require("app/client/mall/js/active-page/crowd/model/money.js").money;
 
 var AppView = Backbone.View.extend({
@@ -20,6 +21,9 @@ var AppView = Backbone.View.extend({
     "click .js-submit"    : "submitButtonEvent"
   },
   initialize: function() {
+
+    // 活动ID
+    this.id = UrlUtil.parseUrlSearch().productid || this.$el.data("productid");
 
     // 单价
     this.unitPrice = 0;
@@ -86,7 +90,7 @@ var AppView = Backbone.View.extend({
       var params = _.extend({}, userData.userInfo, {
         imei: userData.deviceInfo.imei,
         p: userData.deviceInfo.p,
-        productid: UrlUtil.parseUrlSearch().productid || self.$el.data("productid"),
+        productid: self.id,
         num: num
       });
 
@@ -159,7 +163,7 @@ var AppView = Backbone.View.extend({
       var params = _.extend({}, userData.userInfo, {
         imei: userData.deviceInfo.imei,
         p: userData.deviceInfo.p,
-        productid: UrlUtil.parseUrlSearch().productid || self.$el.data("productid")
+        productid: self.id
       });
 
       return new Promise(function(resolve, reject) {
@@ -167,13 +171,38 @@ var AppView = Backbone.View.extend({
           if (err) {
             reject(err);
           } else {
-            resolve(data);
+            resolve({
+              crowd: data,
+              userData: userData
+            });
           }
         });
       });
     }).then(function(data) {
-      self.unitPrice = data.price;
-      self.renderMainPanel(data);
+      var crowd = data.crowd;
+      self.unitPrice = crowd.price;
+      self.renderMainPanel(crowd);
+      new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
+      return data.userData;
+    }).then(function(userData) {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p,
+          productid: self.id
+        });
+
+        return new Promise(function(resolve, reject) {
+          sendPost("tplProduct", params, function(err, data) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(data);
+            }
+          });
+        });
+    }).then(function(data) {
+      self.$el
+        .find("[data-for='goodsDetail']")
+          .html(data.tpl);
     }).catch(function(err) {
       toast(err.message, 1500);
     });

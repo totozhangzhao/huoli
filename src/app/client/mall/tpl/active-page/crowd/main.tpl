@@ -57,12 +57,12 @@ stat  int 状态
   </div>
 </div>
 <div class="snap-desc-bar">
-  <ul class="snap-tab">
-    <li class="on">所有参与</li>
-    <li>商品详情</li>
-    <li>获奖规则</li>
+  <ul class="js-tab-wrapper no-select snap-tab">
+    <li data-tab-name="userList" class="js-tab on">所有参与</li>
+    <li data-tab-name="goodsDetail" class="js-tab">商品详情</li>
+    <li data-tab-name="rules" class="js-tab">获奖规则</li>
   </ul>
-  <ul class="snap-desc-area">
+  <ul data-for="userList" class="js-tab-content snap-desc-area on">
     <% _.each(data.playerlist, function(player) { %>
     <li data-id="<%= player.orderid %>" >
       <div class="snap-desc-portrait"></div>
@@ -76,6 +76,16 @@ stat  int 状态
     </li>
     <% }); %>
   </ul>
+  <div data-for="goodsDetail" class="js-tab-content snap-desc-area snap-desc-detail">
+    <!-- // -->
+  </div>
+  <dl data-for="rules" class="js-tab-content snap-desc-area snap-desc-rule">
+      <dt>幸运号码计算方式</dt>
+      <dd>的快速康复的开发快点看来人了来人了两人论坛</dd>
+      <dd>的快速康复的开发快点看来人了来人了两人论坛</dd>
+      <dd>的快速康复的开发快点看来人了来人了两人论坛</dd>
+      <dd>的快速康复的开发快点看来人了来人了两人论坛</dd>
+  </dl>
 </div>
 <div class="snap-join-bar">
   <p class="js-model-money"><%= data.showprice %></p>
@@ -90,7 +100,7 @@ stat  int 状态
     <div class="snap-buy-nav">
       <p>购买份数</p><span class="js-hide-panel snap-buy-close"></span>
     </div>
-    <div class="snap-buy-num">
+    <div class="snap-buy-num no-select">
       <div class="snap-buy-choice">
         <span data-operator="minus" class="js-change-num unable">-</span><span class="js-goods-num">1</span><span data-operator="add" class="js-change-num">+</span>
       </div>
