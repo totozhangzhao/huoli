@@ -38,7 +38,7 @@ var AppView = Backbone.View.extend({
   },
   resume: function() {
     if (this.title) {
-      this.updateNativeView(this.title);
+      widget.updateViewTitle(this.title);
     }
 
     hint.hideLoading();
@@ -85,7 +85,7 @@ var AppView = Backbone.View.extend({
     // router: use it as backbone view cache
     this.cache.productInfo = productInfo;
     this.title = productInfo.title;
-    this.updateNativeView(productInfo.title);
+    widget.updateViewTitle(productInfo.title);
 
     $("<img>", {
       src: productInfo.img,
@@ -439,12 +439,6 @@ var AppView = Backbone.View.extend({
   gotoNewView: function(options) {
     this.hidePrompt();
     widget.createNewView(options);
-  },
-  updateNativeView: function(title) {
-    window.document.title = title;
-    NativeAPI.invoke("updateTitle", {
-      text: title
-    });
   }
 });
 

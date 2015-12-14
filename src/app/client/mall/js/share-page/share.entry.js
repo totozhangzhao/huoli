@@ -2,7 +2,6 @@ var $          = require("jquery");
 var Backbone   = require("backbone");
 var _          = require("lodash");
 var async      = require("async");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var toast      = require("com/mobile/widget/hint/hint.js").toast;
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
@@ -92,17 +91,11 @@ var AppView = Backbone.View.extend({
           loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
         }
       } else {
-        self.updateNativeView(result.title);
+        widget.updateViewTitle(result.title);
         if ( shareUtil.hasShareInfo() ) {
           mallWechat.initNativeShare();
         }
       }
-    });
-  },
-  updateNativeView: function(title) {
-    window.document.title = title;
-    NativeAPI.invoke("updateTitle", {
-      text: title
     });
   }
 });

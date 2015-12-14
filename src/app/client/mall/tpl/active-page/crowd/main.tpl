@@ -25,12 +25,12 @@ stat  int 状态
     <div class="snap-winner-son">
       <div class="snap-winner-flex"></div>
       <div class="snap-winner-flex">
-        <% var phone = data.winner.phone; %>
+        <% var phone = data.winner.phone || ""; %>
         <% phone = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
         <p>获奖者：<%= phone %></p>
         <p>揭晓日期：<%= data.winner.time %></p>
       </div>
-      <a class="snap-winner-flex" href="snap-winner-rule.html">计算规则</a>
+      <a class="js-rules snap-winner-flex">计算规则</a>
     </div>
     <div class="snap-winner-son num-font">幸运号码：<%= data.winner.wincode %></div>
   </div>
@@ -81,13 +81,7 @@ stat  int 状态
   <div data-for="goodsDetail" class="js-tab-content snap-desc-area snap-desc-detail">
     <!-- // -->
   </div>
-  <dl data-for="rules" class="js-tab-content snap-desc-area snap-desc-rule">
-      <dt>幸运号码计算方式</dt>
-      <dd>的快速康复的开发快点看来人了来人了两人论坛</dd>
-      <dd>的快速康复的开发快点看来人了来人了两人论坛</dd>
-      <dd>的快速康复的开发快点看来人了来人了两人论坛</dd>
-      <dd>的快速康复的开发快点看来人了来人了两人论坛</dd>
-  </dl>
+  <dl data-for="rules" class="js-tab-content snap-desc-area snap-desc-rule"><%= data.rulestpl %></dl>
 </div>
 <div class="snap-join-bar">
   <p class="js-model-money"><%= data.showprice %></p>

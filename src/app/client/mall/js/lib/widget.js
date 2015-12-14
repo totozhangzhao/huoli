@@ -61,6 +61,13 @@ exports.createNewView = (function() {
   }, 1000, true);
 }());
 
+exports.updateViewTitle = function(title) {
+  window.document.title = title;
+  NativeAPI.invoke("updateTitle", {
+    text: title
+  });
+};
+
 exports.imageDelay = function(options) {
   var config = _.extend({
     offset: 250,

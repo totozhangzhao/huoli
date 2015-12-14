@@ -34,7 +34,7 @@ var AppView = Backbone.View.extend({
       NativeAPI.invoke("close");
       return;
     }
-    this.updateNativeView("现金券兑换");
+    widget.updateViewTitle("现金券兑换");
     this.renderMainPanel();
     pageAction.setClose();
   },
@@ -255,12 +255,6 @@ var AppView = Backbone.View.extend({
         self.$el.$sendCaptcha
           .addClass("active");
       }
-    });
-  },
-  updateNativeView: function(title) {
-    window.document.title = title;
-    NativeAPI.invoke("updateTitle", {
-      text: title
     });
   }
 });

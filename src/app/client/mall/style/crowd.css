@@ -712,3 +712,12 @@ p {
 .snap-table td {
   text-indent: 10px;
 }
+
+/* backbone - start */
+.bb-panel {
+  display: none;
+}
+.bb-panel.active {
+  display: block;
+}
+/* backbone -  end  */

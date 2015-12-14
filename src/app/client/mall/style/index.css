@@ -2242,6 +2242,15 @@ p {
 }
 /* rem -  end  */
 
+/* backbone - start */
+.bb-panel {
+  display: none;
+}
+.bb-panel.active {
+  display: block;
+}
+/* backbone -  end  */
+
 /* widget - start */
 .js-ui-hide {
   display: none;
@@ -2249,19 +2258,10 @@ p {
 .js-ui-hide.show {
   display: block;
 }
-
-.bb-panel {
-  display: none;
-}
-.bb-panel.active {
-  display: block;
-}
-
 .block {
   display: block;
   overflow: hidden;
 }
-
 .banner {
   position: relative;
   text-align: center;

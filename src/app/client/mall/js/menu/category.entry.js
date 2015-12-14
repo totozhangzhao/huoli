@@ -11,7 +11,6 @@ var imgDelay  = require("app/client/mall/js/lib/widget.js").imageDelay;
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var logger    = require("com/mobile/lib/log/log.js");
-var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var tplUtil   = require("app/client/mall/js/lib/mall-tpl.js");
 
 var AppView = Backbone.View.extend({
@@ -80,7 +79,7 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      self.updateNativeView(result.title);
+      widget.updateViewTitle(result.title);
       
       var groupGoodsTpl = require("app/client/mall/tpl/menu/category.tpl");
 
@@ -93,12 +92,6 @@ var AppView = Backbone.View.extend({
         .show();
 
       imgDelay();
-    });
-  },
-  updateNativeView: function(title) {
-    window.document.title = title;
-    NativeAPI.invoke("updateTitle", {
-      text: title
     });
   },
   fixTpl: function() {
