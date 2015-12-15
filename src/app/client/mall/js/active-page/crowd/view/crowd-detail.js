@@ -5,13 +5,13 @@ var toast     = require("com/mobile/widget/hint/hint.js").toast;
 var hint      = require("com/mobile/widget/hint/hint.js");
 var UrlUtil   = require("com/mobile/lib/url/url.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
-var appInfo   = require("app/client/mall/js/lib/app-info.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var Promise   = require("com/mobile/lib/promise/npo.js");
 var Tab       = require("com/mobile/widget/button/tab.js");
 var widget    = require("app/client/mall/js/lib/widget.js");
-var moneyModel = require("app/client/mall/js/active-page/crowd/model/money.js").money;
+var moneyModel  = require("app/client/mall/js/active-page/crowd/model/money.js").money;
+var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 
 var AppView = Backbone.View.extend({
   el: "#crowd-detail",
@@ -87,118 +87,16 @@ var AppView = Backbone.View.extend({
 
     hint.showLoading();
 
-    new Promise(function(resolve, reject) {
-      appInfo.getUserData(function(err, userData) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(userData);
-        }
-      });
-    }).then(function(userData) {
-      var params = _.extend({}, userData.userInfo, {
-        p: userData.deviceInfo.p,
-        productid: self.id,
-        num: num
-      });
-
-      return new Promise(function(resolve, reject) {
-        sendPost("createOrder", params, function(err, data) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data);
-          }
-        });
-      });
-    }).then(function(orderInfo) {
-      if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
-        var payUrl = window.location.origin + "/bmall/payview.do?orderid=" + orderInfo.orderid;
-
-        if ( mallUitl.isHangban() ) {
-          payUrl = window.location.origin + "/bmall/hbpayview.do?orderid=" + orderInfo.orderid;
-        }
-
-        // quitpaymsg  String 退出时候的提示
-        // title       String 支付标题
-        // price       String 商品价格
-        // orderid     String 订单号
-        // productdesc String 商品描述
-        // url         String 显示订单基本信息的Wap页面
-        // subdesc     String 商品详情描述
-        var payParams = {
-          quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
-          title: "支付订单",
-          price: moneyModel.get("needPay"),
-          orderid: orderInfo.payorderid,
-          productdesc: orderInfo.paydesc,
-          url: payUrl,
-          subdesc: orderInfo.paysubdesc
-        };
-
-        return new Promise(function(resolve, reject) {
-          NativeAPI.invoke("startPay", payParams, function(err, payData) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(payData);
-            }
-          });
-        });
-      } else {
-        return null;
-      }
-    }).then(function() {
-      // hint.hideLoading();
-      window.location.reload();
-    }).catch(function(err) {
-      hint.hideLoading();
-      toast(err.message, 1500);
-    });
-  },
-  mallCrowdDetail: function() {
-    var self = this;
-
-    new Promise(function(resolve, reject) {
-      appInfo.getUserData(function(err, userData) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(userData);
-        }
-      });
-    }).then(function(userData) {
-      var params = _.extend({}, userData.userInfo, {
-        p: userData.deviceInfo.p,
-        productid: self.id
-      });
-
-      return new Promise(function(resolve, reject) {
-        sendPost("crowdDetail", params, function(err, data) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve({
-              crowd: data,
-              userData: userData
-            });
-          }
-        });
-      });
-    }).then(function(data) {
-      var crowd = data.crowd;
-      self.unitPrice = crowd.price;
-      self.renderMainPanel(crowd);
-      new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
-      return data.userData;
-    }).then(function(userData) {
+    mallPromise.appInfo
+      .then(function(userData) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: self.id
+          productid: self.id,
+          num: num
         });
 
         return new Promise(function(resolve, reject) {
-          sendPost("tplProduct", params, function(err, data) {
+          sendPost("createOrder", params, function(err, data) {
             if (err) {
               reject(err);
             } else {
@@ -206,13 +104,103 @@ var AppView = Backbone.View.extend({
             }
           });
         });
-    }).then(function(data) {
-      self.$el
-        .find("[data-for='goodsDetail']")
-          .html(data.tpl);
-    }).catch(function(err) {
-      toast(err.message, 1500);
-    });
+      })
+      .then(function(orderInfo) {
+        if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
+          var payUrl = window.location.origin + "/bmall/payview.do?orderid=" + orderInfo.orderid;
+
+          if ( mallUitl.isHangban() ) {
+            payUrl = window.location.origin + "/bmall/hbpayview.do?orderid=" + orderInfo.orderid;
+          }
+
+          // quitpaymsg  String 退出时候的提示
+          // title       String 支付标题
+          // price       String 商品价格
+          // orderid     String 订单号
+          // productdesc String 商品描述
+          // url         String 显示订单基本信息的Wap页面
+          // subdesc     String 商品详情描述
+          var payParams = {
+            quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
+            title: "支付订单",
+            price: moneyModel.get("needPay"),
+            orderid: orderInfo.payorderid,
+            productdesc: orderInfo.paydesc,
+            url: payUrl,
+            subdesc: orderInfo.paysubdesc
+          };
+
+          return new Promise(function(resolve, reject) {
+            NativeAPI.invoke("startPay", payParams, function(err, payData) {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(payData);
+              }
+            });
+          });
+        } else {
+          return null;
+        }
+      })
+      .then(function() {
+        // hint.hideLoading();
+        window.location.reload();
+      })
+      .catch(mallPromise.catchFn);
+  },
+  mallCrowdDetail: function() {
+    var self = this;
+
+    mallPromise.appInfo
+      .then(function(userData) {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p,
+          productid: self.id
+        });
+
+        return new Promise(function(resolve, reject) {
+          sendPost("crowdDetail", params, function(err, data) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve({
+                crowd: data,
+                userData: userData
+              });
+            }
+          });
+        });
+      })
+      .then(function(data) {
+        var crowd = data.crowd;
+        self.unitPrice = crowd.price;
+        self.renderMainPanel(crowd);
+        new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
+        return data.userData;
+      })
+      .then(function(userData) {
+          var params = _.extend({}, userData.userInfo, {
+            p: userData.deviceInfo.p,
+            productid: self.id
+          });
+
+          return new Promise(function(resolve, reject) {
+            sendPost("tplProduct", params, function(err, data) {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(data);
+              }
+            });
+          });
+      })
+      .then(function(data) {
+        self.$el
+          .find("[data-for='goodsDetail']")
+            .html(data.tpl);
+      })
+      .catch(mallPromise.catchFn);
   },
   renderMainPanel: function(productDetail) {
     var tmpl = require("app/client/mall/tpl/active-page/crowd/main.tpl");
