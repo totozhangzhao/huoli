@@ -18,7 +18,7 @@
   <% if ( orderDetail.msg && (String(orderDetail.msgtpl) === "1") ) { %>
   <!-- 兑换码 start -->
   <div class="order-exchange-bar">
-    <div class="order-exchange-code">
+    <div class="order-exchange-code show-select">
       <div class="order-exchange-area">
         <%= orderDetail.msg %>
       </div>
@@ -34,7 +34,7 @@
   <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "2") ) { %>
   <!-- 文字信息 start -->
   <div class="order-exchange-bar">
-    <div class="order-exchange-code">
+    <div class="order-exchange-code show-select">
       <div>
         <%= orderDetail.msg %>
       </div>
@@ -46,7 +46,7 @@
   <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "3") ) { %>
   <!-- 地址 start -->
   <div class="order-exchange-bar order-address-bar">
-    <div class="js-address-box order-exchange-code">
+    <div class="js-address-box order-exchange-code show-select">
       <div class="order-exchange-area">
         <%= orderDetail.msg %>
       </div>
