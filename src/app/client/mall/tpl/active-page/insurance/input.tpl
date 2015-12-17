@@ -18,8 +18,8 @@
       <input name="cardno" value="<%= item.cardno || '' %>" type="text" placeholder="请输入身份证号" class="common-insert">
     </div>
   </div>
-  <div class="js-user-item-delete js-touch-state no-select insert-delete-bar border-l">
-    <span class="dele-icon"></span>
+  <div class="js-user-item-delete js-touch-state insert-delete-bar border-l">
+    <span class="no-select dele-icon"></span>
   </div>
 </div>
 <% }); %>
