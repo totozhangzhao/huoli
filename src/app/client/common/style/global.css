@@ -7,6 +7,15 @@
 *:after {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+p,
+span,
+input,
+textarea {
+  -webkit-touch-callout: default;
+  -webkit-user-select: initial;
 }
 html {
   -webkit-text-size-adjust: 100%;
@@ -223,8 +232,12 @@ a {
   border-radius: 2px;
 }
 .no-select {
+  -webkit-touch-callout: none;
   -webkit-user-select: none;
-  user-select: none;
+}
+.show-select {
+  -webkit-touch-callout: default;
+  -webkit-user-select: initial;
 }
 
 /* toast - start */
