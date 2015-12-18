@@ -1107,13 +1107,13 @@ p {
   width: 10rem;
   height: 1.388rem;
 }
-.nav-block dl {
+.nav-block ul {
   display: flex !important;
   flex-wrap: wrap;
   border-bottom: 1px solid #f0f0f0;
   font-size: 0.386rem;
 }
-.nav-block dd {
+.nav-block li {
   height: 1.088rem;
   line-height: 1.088rem;
   text-align: center;
@@ -1123,11 +1123,11 @@ p {
   position: relative;
   color: #333333;
 }
-.nav-block dd.on {
+.nav-block li.on {
   color: #039ef0;
   border-bottom: 2px solid #039ef0;
 }
-.nav-block dd i {
+.nav-block li i {
   background: #f0f0f0;
   width: 1px;
   height: 0.64rem;
