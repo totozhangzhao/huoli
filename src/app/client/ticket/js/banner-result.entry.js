@@ -17,7 +17,7 @@ $("body").on("click", "[href]", function() {
 // https://mall.rsscc.cn/fe/app/client/ticket/html/banner-result.html
 // 
 // 跳转页面：
-// https://dl.rsscc.cn/guanggao/integral/active/to-receive2.html
+// https://mall.rsscc.cn/fe/app/client/ticket/html/banner-mall.html
 var handleInsuraceUrl = function() {
   var showInsurancePage = function() {
     $("#insurance-banner").show();
@@ -43,7 +43,7 @@ var handleInsuraceUrl = function() {
     //   window.location.href = data.url;
     // });
 
-    window.location.href = "https://dl.rsscc.cn/guanggao/integral/active/to-receive2.html";
+    window.location.href = "https://mall.rsscc.cn/fe/app/client/ticket/html/banner-mall.html";
   } else {
     showInsurancePage();
   }
