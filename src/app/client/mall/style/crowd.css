@@ -469,16 +469,12 @@ p {
   padding-left: 0;
 }
 .snap-desc-bar .snap-desc-area li {
-  display: -webkit-flex;
-  index-icondisplay: flex;
   position: relative;
   left: 0;
   top: 0;
   border-bottom: 1px solid #f0f0f0;
 }
 .snap-desc-bar .snap-desc-area li:last-child {
-  display: -webkit-flex;
-  display: flex;
   position: relative;
   left: 0;
   top: 0;
@@ -491,7 +487,7 @@ p {
   margin-right: 10px;
   margin-bottom: 15px;
   margin-left: 6px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png?a=e) no-repeat -120px -205px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -120px -205px;
   background-size: 312px 280px;
 }
 .snap-desc-area li .snap-desc-info {
@@ -586,7 +582,7 @@ p {
 .snap-buy-box .snap-buy-nav .snap-buy-close {
   width: 25px;
   height: 25px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png?a=g) no-repeat -159px -198px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -159px -198px;
   background-size: 312px 280px;
   position: absolute;
   right: 9px;
@@ -712,7 +708,16 @@ p {
 .snap-table td {
   text-indent: 10px;
 }
-
+/* flex - start */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+/* flex -  end  */
 /* backbone - start */
 .bb-panel {
   display: none;

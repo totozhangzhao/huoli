@@ -66,7 +66,7 @@ stat  int 状态
   </ul>
   <ul data-for="userList" class="js-tab-content snap-desc-area on">
     <% _.each(data.playerlist, function(player) { %>
-    <li data-id="<%= player.orderid %>" >
+    <li data-id="<%= player.orderid %>" class="flex-row">
       <div class="snap-desc-portrait"></div>
       <div class="snap-desc-info num-font">
         <% var phone = player.phone; %>

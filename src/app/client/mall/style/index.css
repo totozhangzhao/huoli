@@ -2168,8 +2168,7 @@ p {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -93px -147px;
   background-size: 312px 280px;
 }
-
-/* rem - start */
+/* flex - start */
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -2178,13 +2177,13 @@ p {
   display: flex;
   flex-direction: column;
 }
-
+/* flex -  end  */
+/* rem - start */
 .panel-container {
-  background-color: rgb(255, 255, 255);
+  background-color: #ffffff;
   width: 100%;
   overflow: hidden;
 }
-
 .panel-block-left .goods,
 .panel-block-right .goods {
   position: relative;
@@ -2194,12 +2193,11 @@ p {
   background-attachment: initial;
   background-origin: initial;
   background-clip: initial;
-  background-color: rgb(255, 255, 255);
+  background-color: #ffffff;
   background-position: initial initial;
   background-repeat: initial initial;
   background-size: contain;
 }
-
 .panel-block-left .goods-1:after {
   content: '';
   box-sizing: border-box;
@@ -2222,7 +2220,6 @@ p {
   bottom: 0;
   left: 0;
 }
-
 .panel-block-left .goods {
   /*background-color: #aaa;*/
   width: 4.094rem;
@@ -2231,7 +2228,6 @@ p {
 .panel-block-left .goods img {
   width: 100%;
 }
-
 .panel-block-right .goods {
   /*background-color: #bbb;*/
   width: 5.906rem;
@@ -2241,7 +2237,6 @@ p {
   width: 100%;
 }
 /* rem -  end  */
-
 /* backbone - start */
 .bb-panel {
   display: none;
@@ -2250,7 +2245,6 @@ p {
   display: block;
 }
 /* backbone -  end  */
-
 /* widget - start */
 .js-ui-hide {
   display: none;
@@ -2283,8 +2277,8 @@ p {
   position: relative;
 }
 .banner-pics .banner-item {
-  float:left;
-  width:100%;
+  float: left;
+  width: 100%;
   position: relative;
 }
 .banner-indexs {
@@ -2310,21 +2304,26 @@ p {
   opacity: 0.7;
 }
 /* widget - end */
-
 /* points - start */
-@keyframes blinker {  
-  0% { opacity: 1.0; }
-  50% { opacity: 0.0; }
-  100% { opacity: 1.0; }
+@keyframes blinker {
+  0% {
+    opacity: 1.0;
+  }
+  50% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1.0;
+  }
 }
 .animaion-blink {
   animation: blinker .3s linear .2s 3;
 }
 /* points -  end  */
-
 /* img - echo - start */
-img, .echo-block {
-  transition: opacity .3s ease-in;
+img,
+.echo-block {
+  transition: opacity 0.3s ease-in;
 }
 .op0 {
   opacity: 0;
