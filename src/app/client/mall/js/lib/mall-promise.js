@@ -20,6 +20,7 @@ exports.catchFn = function(err) {
   }
 
   if (err instanceof Error) {
-    window.console.log(err.message);
+    window.console.log("Error Message: " + err.message);
+    window.console.log("Error Stack: " + err.stack);
   }
 };

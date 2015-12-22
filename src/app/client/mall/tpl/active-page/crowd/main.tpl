@@ -39,7 +39,7 @@ stat  int 状态
   </div>
   <% } %>
   <div class="snap-status-num">
-    <% if (data.purchased.length > 0) { %>
+    <% if (data.purchased && data.purchased.length > 0) { %>
     <!-- 2.参与 -->
     <p class="snap-join-num">您参与了：<span><%= data.purchased.length %></span>人次</p>
     <div class="snap-status-area">
