@@ -14,7 +14,10 @@ stat  int 状态
     <span class="fl"><%= data.hint %></span>
   </div>
   <div class="snap-status-show">
-    <div style="width: <%= (data.totalcount - data.remaincount) / data.totalcount * 100 %>%;"></div>
+    <% var barWidth = (data.totalcount - data.remaincount) / data.totalcount * 100; %>
+    <% barWidth = barWidth > 4 ? barWidth : 4; %>
+    <% barWidth = barWidth < 100 ? barWidth : 100; %>
+    <div style="width: <%=  barWidth %>%;"></div>
   </div>
   <div class="snap-status-total clearfix">
     <span class="fl">总需<%= data.totalcount %>人次</span>
@@ -28,7 +31,7 @@ stat  int 状态
         <% var phone = data.winner.phone || ""; %>
         <% phone = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
         <p>获奖者：<%= phone %></p>
-        <p>揭晓日期：<%= data.winner.time %></p>
+        <p>揭晓时间：<%= data.winner.time %></p>
       </div>
       <a class="js-rules snap-winner-flex">计算规则</a>
     </div>
@@ -94,11 +97,11 @@ stat  int 状态
 <div class="js-panel common-shadow">
   <div class="snap-buy-box">
     <div class="snap-buy-nav">
-      <p>购买份数</p><span class="js-hide-panel snap-buy-close"></span>
+      <p>购买份数</p><i class="js-hide-panel snap-buy-close"></i>
     </div>
-    <div class="snap-buy-num no-select">
+    <div class="snap-buy-num">
       <div class="snap-buy-choice">
-        <span data-operator="minus" class="js-change-num unable">-</span><span class="js-goods-num">1</span><span data-operator="add" class="js-change-num">+</span>
+        <i data-operator="minus" class="js-change-num unable">-</i><i class="js-goods-num">1</i><i data-operator="add" class="js-change-num">+</i>
       </div>
       <p class="snap-buy-tip"><span>多买一份</span><span>，中奖概率就增大一倍</span></p>
     </div>
