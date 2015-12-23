@@ -264,7 +264,7 @@ a {
 /* toast -  end  */
 
 /* cnzz - start */
-#cnzz_stat_icon_1255478836 {
+[id^="cnzz_stat_icon_"] {
   display: none;
 }
 /* cnzz -  end  */
