@@ -25,10 +25,11 @@ stat  int 状态
   </div>
   <% if (data.stat === 2) { %>
   <div class="snap-winner-area">
+    <% data.winner = data.winner || {}; %>
     <div class="snap-winner-son">
       <div class="snap-winner-flex"></div>
       <div class="snap-winner-flex">
-      <% if (data.winner && data.winner.phone) { %>
+      <% if (data.winner.phone) { %>
         <% var phone = data.winner.phone; %>
         <% phone = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
         <p>获奖者：<%= phone %></p>
@@ -44,7 +45,8 @@ stat  int 状态
   </div>
   <% } %>
   <div class="snap-status-num">
-    <% if (data.purchased && data.purchased.length > 0) { %>
+    <% data.purchased = data.purchased || []; %>
+    <% if (data.purchased.length > 0) { %>
     <!-- 2.参与 -->
     <p class="snap-join-num">您参与了：<span><%= data.purchased.length %></span>人次</p>
     <div class="snap-status-area">

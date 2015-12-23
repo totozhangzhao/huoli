@@ -68,6 +68,11 @@ var AppView = Backbone.View.extend({
       number -= 1;
     }
 
+    if ( number > 10 ) {
+      number = 10;
+      toast("已到单笔订单数量上限", 1500);
+    }
+
     number = number >= 0 ? number : 0;
     $num.text(number);
     moneyModel.set({ "needPay": this.unitPrice * number });
