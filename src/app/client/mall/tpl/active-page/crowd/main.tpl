@@ -28,10 +28,15 @@ stat  int 状态
     <div class="snap-winner-son">
       <div class="snap-winner-flex"></div>
       <div class="snap-winner-flex">
-        <% var phone = data.winner.phone || ""; %>
+      <% if (data.winner && data.winner.phone) { %>
+        <% var phone = data.winner.phone; %>
         <% phone = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
         <p>获奖者：<%= phone %></p>
         <p>揭晓时间：<%= data.winner.time %></p>
+      <% } else { %>
+        <p>本期没有人中奖</p>
+        <p>希望下期中奖者就是您 ^_^</p>
+      <% } %>
       </div>
       <a class="js-rules snap-winner-flex">计算规则</a>
     </div>

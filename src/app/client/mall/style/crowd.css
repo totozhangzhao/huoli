@@ -292,13 +292,15 @@ p {
   top: 0;
 }
 .snap-winner-son:nth-child(2)::before {
+  background: radial-gradient(circle, #ff5a44, #ff5a44 5px, #ffffff 5px, #ffffff);
+  background-size: 10px 10px;
+  background-position: 0 10px;
   width: 100%;
-  height: 4px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/one-snap-wave.png) repeat-x;
+  height: 5px;
   content: '';
   position: absolute;
+  top: -5px;
   left: 0;
-  top: -4px;
 }
 .snap-winner-flex:nth-child(1) {
   width: 36px;
