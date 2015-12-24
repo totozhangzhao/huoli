@@ -15,68 +15,41 @@
     <p class="order-detail-info">成交时间：<span class="order-detail-num fr"><%= orderDetail.createtime %></span></p>
   </div>
 
-  <% if ( orderDetail.msg && (String(orderDetail.msgtpl) === "1") ) { %>
-  <!-- 兑换码 start -->
-  <div class="order-exchange-bar">
-    <div class="order-exchange-code show-select">
-      <div class="order-exchange-area">
-        <%= orderDetail.msg %>
+  <div>
+    <% if ( orderDetail.msg && (String(orderDetail.msgtpl) === "1") ) { %>
+    <!-- 兑换码 start -->
+    <div class="order-exchange-bar">
+      <div class="order-exchange-code show-select">
+        <div class="order-exchange-area">
+          <%= orderDetail.msg %>
+        </div>
+        <div class="effective-area">
+          <p>有效期至：</p>
+          <p><%= orderDetail.expdate %></p>
+        </div>
+        <b class="arc-border arc-border-left"></b>
+        <b class="arc-border arc-border-right"></b>
       </div>
-      <div class="effective-area">
-        <p>有效期至：</p>
-        <p><%= orderDetail.expdate %></p>
-      </div>
-      <b class="arc-border arc-border-left"></b>
-      <b class="arc-border arc-border-right"></b>
     </div>
-  </div>
-  <!-- 兑换码 end -->
-  <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "2") ) { %>
-  <!-- 文字信息 start -->
-  <div class="order-exchange-bar">
-    <div class="order-exchange-code show-select">
-      <div>
-        <%= orderDetail.msg %>
-      </div>
-      <b class="arc-border arc-border-left"></b>
-      <b class="arc-border arc-border-right"></b>
-    </div>
-  </div>
-  <!-- 文字信息 end -->
-  <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "3") ) { %>
-  <!-- 地址 start -->
-  <div class="order-exchange-bar order-address-bar">
-    <div class="js-address-box order-exchange-code show-select">
-      <div class="order-exchange-area">
-        <%= orderDetail.msg %>
-      </div>
-      <b class="arc-border arc-border-left"></b>
-      <b class="arc-border arc-border-right"></b>
-      <b class="pic-border pic-border-top"></b>
-      <b class="pic-border pic-border-bottom"></b>
-    </div>
-  </div>
-  <!-- 地址 end -->
-  <% } else if ( String(orderDetail.msgtpl) === "4" )  { %>
+    <!-- 兑换码 end -->
+    <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "2") ) { %>
     <!-- 文字信息 start -->
     <div class="order-exchange-bar">
-      <div class="js-crowd-page order-exchange-code show-select">
+      <div class="order-exchange-code show-select">
         <div>
-          <p>点击查看活动页面</p>
-          <%= orderDetail.texttpl %>
+          <%= orderDetail.msg %>
         </div>
         <b class="arc-border arc-border-left"></b>
         <b class="arc-border arc-border-right"></b>
       </div>
     </div>
     <!-- 文字信息 end -->
-
-    <% if ( orderDetail.addresstpl ) { %>
+    <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "3") ) { %>
     <!-- 地址 start -->
     <div class="order-exchange-bar order-address-bar">
       <div class="js-address-box order-exchange-code show-select">
         <div class="order-exchange-area">
-          <%= orderDetail.addresstpl %>
+          <%= orderDetail.msg %>
         </div>
         <b class="arc-border arc-border-left"></b>
         <b class="arc-border arc-border-right"></b>
@@ -85,8 +58,37 @@
       </div>
     </div>
     <!-- 地址 end -->
+    <% } else if ( String(orderDetail.msgtpl) === "4" )  { %>
+      <!-- 文字信息 start -->
+      <div class="order-exchange-bar">
+        <div class="js-crowd-page order-exchange-code show-select">
+          <div>
+            <p>点击查看活动页面</p>
+            <%= orderDetail.texttpl %>
+          </div>
+          <b class="arc-border arc-border-left"></b>
+          <b class="arc-border arc-border-right"></b>
+        </div>
+      </div>
+      <!-- 文字信息 end -->
+
+      <% if ( orderDetail.addresstpl ) { %>
+      <!-- 地址 start -->
+      <div class="order-exchange-bar order-address-bar">
+        <div class="js-address-box order-exchange-code show-select">
+          <div class="order-exchange-area">
+            <%= orderDetail.addresstpl %>
+          </div>
+          <b class="arc-border arc-border-left"></b>
+          <b class="arc-border arc-border-right"></b>
+          <b class="pic-border pic-border-top"></b>
+          <b class="pic-border pic-border-bottom"></b>
+        </div>
+      </div>
+      <!-- 地址 end -->
+      <% } %>
     <% } %>
-  <% } %>
+  </div>
 
   <div class="use-method">
     <h5 class="use-method-tit">使用说明</h5>
