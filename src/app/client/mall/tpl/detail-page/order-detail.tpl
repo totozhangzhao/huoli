@@ -57,6 +57,35 @@
     </div>
   </div>
   <!-- 地址 end -->
+  <% } else if ( String(orderDetail.msgtpl) === "4" )  { %>
+    <!-- 文字信息 start -->
+    <div class="order-exchange-bar">
+      <div class="js-crowd-page order-exchange-code show-select">
+        <div>
+          <p>点击查看活动页面</p>
+          <%= orderDetail.texttpl %>
+        </div>
+        <b class="arc-border arc-border-left"></b>
+        <b class="arc-border arc-border-right"></b>
+      </div>
+    </div>
+    <!-- 文字信息 end -->
+
+    <% if ( orderDetail.addresstpl ) { %>
+    <!-- 地址 start -->
+    <div class="order-exchange-bar order-address-bar">
+      <div class="js-address-box order-exchange-code show-select">
+        <div class="order-exchange-area">
+          <%= orderDetail.addresstpl %>
+        </div>
+        <b class="arc-border arc-border-left"></b>
+        <b class="arc-border arc-border-right"></b>
+        <b class="pic-border pic-border-top"></b>
+        <b class="pic-border pic-border-bottom"></b>
+      </div>
+    </div>
+    <!-- 地址 end -->
+    <% } %>
   <% } %>
 
   <div class="use-method">

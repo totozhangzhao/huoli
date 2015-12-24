@@ -15,11 +15,13 @@ var pageAction = require("app/client/mall/js/lib/page-action.js");
 var logger     = require("com/mobile/lib/log/log.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
 var storage    = require("app/client/mall/js/lib/storage.js");
+var tplUtil    = require("app/client/mall/js/lib/mall-tpl.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-detail-container",
   events: {
     "click a": "createNewPage",
+    "click .js-crowd-page" : "gotoCrowd",
     "click .js-address-box": "handleAddressInfo",
     "click #pay-button"    : "payOrder"
   },
@@ -66,9 +68,13 @@ var AppView = Backbone.View.extend({
       "&company="   + encodeURIComponent(expressInfo.company) +
       "&companyid=" + expressInfo.companyid;
 
-    widget.createNewView({
-      url: url
-    });
+    widget.createNewView({ url: url });
+  },
+  gotoCrowd: function() {
+    var url = tplUtil.getBlockUrl({ action: 6 }) +
+      "?productid=" + this.orderDetail.productid;
+
+    widget.createNewView({ url: url });
   },
   createNewPage: function(e) {
     widget.createAView(e);
