@@ -1565,9 +1565,9 @@ p {
   padding-left: 5%;
 }
 .pay-order-detail-box .order-exchange-code {
-  padding-top: 15px;
+  padding-top: 10px;
   padding-right: 15px;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   padding-left: 15px;
   position: relative;
   left: 0;
@@ -1585,9 +1585,6 @@ p {
 .pay-order-detail-box .order-exchange-text {
   font-size: 12px;
   line-height: 20px;
-}
-.pay-order-detail-box .order-address-area {
-  margin-bottom: 5px;
 }
 .pay-order-detail-box .order-address-area .order-exchange-text:last-child {
   width: 75%;
@@ -1693,6 +1690,7 @@ p {
 }
 .pay-order-detail-box .order-insurance-area:last-child {
   border: none;
+  padding-bottom: 0;
   margin-bottom: 0;
 }
 .pay-order-detail-box .order-insurance-fail {
