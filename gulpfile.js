@@ -12,13 +12,12 @@ var autoprefixer   = require("gulp-autoprefixer");
 var minifyHTML     = require("gulp-minify-html");
 var minifycss      = require("gulp-minify-css");
 var jshint         = require("gulp-jshint");
-var uglify         = require("gulp-uglify");
 var notify         = require("gulp-notify");
 var del            = require("del");
 var runSequence    = require("run-sequence");
-var gutil          = require("gulp-util");
 var webpackBuilder = require("./builder/webpack/index.js");
 var versionRef     = require("./builder/version/version-ref.js");
+var shell          = require("gulp-shell");
 
 var config = {
   src : "./src/",
@@ -71,10 +70,7 @@ gulp.task("js:lint", function() {
     .pipe(jshint.reporter("fail"))
     .on("error", function(err) {
       this.emit("end");
-    })
-    // .pipe(uglify())
-    // .pipe(gulp.dest(config.dest))
-    // .pipe(notify({ message: "Scripts task complete!" }));
+    });
 });
 
 gulp.task("js:bundle", function() {
@@ -97,8 +93,17 @@ gulp.task("clean", function(cb) {
     del(config.dest, cb)
 });
 
+// Compress
+gulp.task("compress", function() {
+  return gulp.src("")
+      .pipe(shell([
+        "tar -cvzf ~/Downloads/dest-" + Date.now() + ".tgz ./dest",
+        "open ~/Downloads/"
+      ]));
+});
+
 gulp.task("build", function() {
-  runSequence("clean", ["html", "styles", "images", "js"]);
+  runSequence("clean", ["html", "styles", "images", "js"], "compress");
 });
 
 // Watch
