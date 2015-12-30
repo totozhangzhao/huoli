@@ -32,6 +32,7 @@ var AppView = Backbone.View.extend({
     widget.updateViewTitle(this.title);
     this.$panel;
     this.$button;
+    this.$num;
     this.listenTo(moneyModel, "change", this.renderMoney);
     this.mallCrowdDetail();
   },
@@ -51,6 +52,11 @@ var AppView = Backbone.View.extend({
     }
   },
   showPurchasePanel: function() {
+    var price = this.unitPrice * Number( this.$num.text() );
+    moneyModel.set({
+      "needPay": price,
+      silent: true
+    });
     this.$panel.show();
     this.$button.text( this.$button.data("payText") );
   },
@@ -60,8 +66,7 @@ var AppView = Backbone.View.extend({
   },
   setNum: function(e) {
     var $cur = $(e.currentTarget);
-    var $num = this.$el.find(".js-goods-num");
-    var number = Number( $num.text() );
+    var number = Number( this.$num.text() );
 
     if ( $cur.data("operator") === "add" ) {
       number += 1;
@@ -75,7 +80,7 @@ var AppView = Backbone.View.extend({
     }
 
     number = number >= 0 ? number : 0;
-    $num.text(number);
+    this.$num.text(number);
     moneyModel.set({ "needPay": this.unitPrice * number });
   },
   renderMoney: function() {
@@ -213,6 +218,7 @@ var AppView = Backbone.View.extend({
     this.$el.html(tmpl({ data: productDetail }));
     this.$panel = this.$el.find(".js-panel");
     this.$button = this.$el.find(".js-submit");
+    this.$num = this.$el.find(".js-goods-num");
   }
 });
 

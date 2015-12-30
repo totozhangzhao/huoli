@@ -26,8 +26,8 @@ body {
 body {
   font-family: 'Microsoft Yahei';
   font-size: 16px;
-  background-color: #ffffff;
-  color: #666666;
+  background-color: #fff;
+  color: #666;
 }
 input,
 button {
@@ -74,7 +74,7 @@ p {
   color: #0000ff;
 }
 .orange-color {
-  color: #ff9900;
+  color: #f90;
 }
 .num-font {
   font-family: 'Arial';
@@ -82,7 +82,7 @@ p {
 .num-color {
   font-family: 'Arial';
   font-size: 16px;
-  color: #ff9900;
+  color: #f90;
 }
 .border {
   position: relative;
@@ -193,7 +193,7 @@ p {
   left: 0;
   top: 0;
   background-color: #f0f0f0;
-  color: #333333;
+  color: #333;
   padding-bottom: 60px;
 }
 .snap-up-box .snap-banner-bar,
@@ -202,7 +202,7 @@ p {
 }
 .snap-up-box .snap-status-bar,
 .snap-up-box .snap-desc-bar {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .snap-up-box .snap-status-bar {
   padding-top: 18px;
@@ -221,7 +221,7 @@ p {
   height: 20px;
   line-height: 20px;
   font-size: 12px;
-  color: #ffffff;
+  color: #fff;
   padding-top: 0;
   padding-right: 6px;
   padding-bottom: 0;
@@ -280,7 +280,7 @@ p {
 .snap-winner-son:nth-child(2) {
   line-height: 18px;
   font-size: 18px;
-  color: #ffffff;
+  color: #fff;
   background-color: #ff5a44;
   padding-top: 26px;
   padding-right: 0;
@@ -292,7 +292,7 @@ p {
   top: 0;
 }
 .snap-winner-son:nth-child(2)::before {
-  background: radial-gradient(circle, #ff5a44, #ff5a44 5px, #ffffff 5px, #ffffff);
+  background: radial-gradient(circle, #ff5a44, #ff5a44 5px, #fff 5px, #fff);
   background-size: 10px 10px;
   background-position: 0 10px;
   width: 100%;
@@ -406,15 +406,17 @@ p {
 }
 .snap-desc-bar .snap-desc-area {
   display: none;
+}
+.snap-desc-bar .snap-desc-area.on {
+  display: block;
+}
+.snap-desc-bar .snap-desc-area.player-list {
   padding-top: 0;
   padding-right: 15px;
   padding-bottom: 0;
   padding-left: 15px;
 }
-.snap-desc-bar .snap-desc-area.on {
-  display: block;
-}
-.snap-desc-bar .snap-desc-rule {
+.snap-desc-bar .snap-desc-area.snap-desc-rule {
   padding-top: 20px;
   padding-right: 35px;
   padding-bottom: 25px;
@@ -431,22 +433,25 @@ p {
   padding-top: 11px;
 }
 .snap-desc-bar .snap-desc-detail {
-  padding-top: 0;
+  font-size: 15px;
+}
+.snap-desc-bar .snap-desc-detail .text-box {
+  padding-top: 25px;
   padding-right: 35px;
   padding-bottom: 0;
+  padding-left: 35px;
+}
+.snap-desc-bar .snap-desc-detail .text-box:last-child {
+  padding-top: 25px;
+  padding-right: 35px;
+  padding-bottom: 25px;
   padding-left: 35px;
 }
 .snap-desc-bar .snap-desc-detail .snap-desc-parse {
   border-bottom: 1px solid #f0f0f0;
 }
-.snap-desc-bar .snap-desc-detail {
-  font-size: 15px;
-}
-.snap-desc-bar .snap-desc-detail div {
-  padding-top: 25px;
-  padding-right: 0;
-  padding-bottom: 25px;
-  padding-left: 0;
+.snap-desc-bar .snap-desc-detail img {
+  width: 100%;
 }
 .snap-desc-bar .snap-desc-detail h5 {
   font-size: 20px;
@@ -531,7 +536,7 @@ p {
   width: 100%;
   height: 60px;
   line-height: 60px;
-  background-color: #ffffff;
+  background-color: #fff;
   border-top: 1px solid #dededf;
   position: fixed;
   left: 0;
@@ -552,7 +557,7 @@ p {
   padding-bottom: 8px;
   padding-left: 45px;
   background-color: #039ef0;
-  color: #ffffff;
+  color: #fff;
   border-radius: 4px;
   position: absolute;
   right: 10px;
@@ -567,7 +572,7 @@ p {
   bottom: 60px;
   left: 0;
   z-index: 20;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .snap-buy-box .snap-buy-nav {
   width: 100%;
@@ -660,7 +665,7 @@ p {
   top: 0;
   background-color: #fafafa;
   font-size: 13px;
-  color: #333333;
+  color: #333;
   padding-bottom: 25px;
 }
 .snap-top {
@@ -669,18 +674,18 @@ p {
   padding-top: 35px;
   padding-bottom: 35px;
   margin-bottom: 9px;
-  background-color: #ffffff;
+  background-color: #fff;
   text-align: center;
 }
 .snap-bottom {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .snap-bottom-son {
   color: #989898;
 }
 .snap-head {
   font-size: 16px;
-  color: #333333;
+  color: #333;
   line-height: 16px;
   padding-top: 20px;
   padding-bottom: 15px;
@@ -699,7 +704,7 @@ p {
   background-color: #f0f0f0;
 }
 .snap-table thead {
-  color: #333333;
+  color: #333;
   font-size: 12px;
   line-height: 24px;
 }

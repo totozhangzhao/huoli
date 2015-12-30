@@ -74,7 +74,7 @@ stat  int 状态
     <li data-tab-name="goodsDetail" class="js-tab">商品详情</li>
     <li data-tab-name="rules" class="js-tab">获奖规则</li>
   </ul>
-  <ul data-for="userList" class="js-tab-content snap-desc-area on">
+  <ul data-for="userList" class="js-tab-content snap-desc-area player-list on">
     <% _.each(data.playerlist, function(player) { %>
     <li data-id="<%= player.orderid %>" class="flex-row">
       <div class="snap-desc-portrait"></div>
