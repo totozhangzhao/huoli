@@ -24,20 +24,124 @@ var AppView = Backbone.View.extend({
     // rem
     widget.initRem();
 
-    var self = this;
-
     this.loadingMore = false;
 
     hint.showLoading();
 
-    this.$el.$emptyHint = $("#empty-record-hint");
-    this.$el.$emptyHint
-      .on("click", function() {
-        self.refreshPage();
-      });
+    // var self = this;
+    // this.$el.$emptyHint = $("#empty-record-hint");
+    // this.$el.$emptyHint
+    //   .on("click", function() {
+    //     self.refreshPage();
+    //   });
 
     this.mallOrderList();
+    this.mallSearchList();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+  },
+  setAppRightButton: function(text) {
+    NativeAPI.invoke("updateHeaderRightBtn", {
+      action: "show",
+      text: text
+    }, function(err) {
+      if (err) {
+        window.console.log(err.message);
+        return;
+      }
+    });
+  },
+  mallSearchList: function() {
+    var self = this;
+
+    this.setAppRightButton("搜索");
+
+    var SearchPanel = function() {
+      this.$panel = $("#search-list");
+      var $list = this.$panel.find(".js-container");
+      var timerId;
+
+      var renderSearchResults = function(err, result) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
+
+        if (!Array.isArray(result) || result.length === 0) {
+          $list.empty();
+
+          timerId = setTimeout(function() {
+            clearTimeout(timerId);
+            toast("暂无订单", 1500);
+          }, 3000);
+          // self.$el.$emptyHint.show();
+        } else {
+          clearTimeout(timerId);
+          var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
+          var tmplData = {
+            orderList: result
+          };
+          
+          $list.html( compiled(tmplData) );
+          imgDelay();
+        }      
+      };
+
+      var $input = this.$panel.find("[data-name='search']");
+      var doSearch = function() {
+        var keywords = $input.val();
+
+        if (keywords === "") {
+          renderSearchResults(null, []);
+          clearTimeout(timerId);
+          return;
+        }
+
+        var options = {
+          listType: 4, // 搜索类型
+          keywords: keywords
+        };
+
+        self.getOrderList(options, renderSearchResults);
+      };
+
+      this.$panel
+        .on("click", ".js-order-item", self.gotoOrderDetail)
+        .on("click", ".js-search-button", doSearch);
+
+      $input
+        .on("keypress", function(e) {
+          if (e.which === 13) {
+            doSearch();
+          }
+        });
+        // .on("click", ".js-search-button", _.debounce(doSearch, 150));
+    };
+
+    _.extend(SearchPanel.prototype, {
+      show: function() {
+        self.$el.hide();
+        this.$panel.show();
+        self.setAppRightButton("取消");
+      },
+      hide: function() {
+        this.$panel.hide();
+        self.$el.show();
+        self.setAppRightButton("搜索");
+      },
+      toggle: function() {
+        if ( this.$panel.is(":visible") ) {
+          this.hide();
+        } else {
+          this.show();
+        }
+      }
+    });
+
+    var panel = new SearchPanel();
+
+    NativeAPI.registerHandler("headerRightBtnClick", function() {
+      panel.toggle();
+    });
   },
   switchList: function(e) {
     var $cur = $(e.currentTarget);
@@ -199,7 +303,8 @@ var AppView = Backbone.View.extend({
           var params = _.extend({}, userData.userInfo, {
             p: userData.deviceInfo.p,
             last: options.lastOrderId || "",
-            type: options.listType
+            type: options.listType,
+            key: options.keywords
           });
 
           sendPost("orderList", params, function(err, data) {

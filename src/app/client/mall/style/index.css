@@ -26,8 +26,8 @@ body {
 body {
   font-family: 'Microsoft Yahei';
   font-size: 16px;
-  background-color: #ffffff;
-  color: #666666;
+  background-color: #fff;
+  color: #666;
 }
 input,
 button {
@@ -74,7 +74,7 @@ p {
   color: #0000ff;
 }
 .orange-color {
-  color: #ff9900;
+  color: #f90;
 }
 .num-font {
   font-family: 'Arial';
@@ -82,7 +82,7 @@ p {
 .num-color {
   font-family: 'Arial';
   font-size: 16px;
-  color: #ff9900;
+  color: #f90;
 }
 .border {
   position: relative;
@@ -183,7 +183,7 @@ p {
   display: none;
 }
 .home-page-box {
-  color: #333333;
+  color: #333;
   max-width: 750px;
   min-height: 100%;
   margin-top: 0;
@@ -208,7 +208,7 @@ p {
   padding-right: 10px;
   padding-bottom: 0;
   padding-left: 10px;
-  background-color: #ffffff;
+  background-color: #fff;
   border-top: 1px solid #f0f0f0;
 }
 .home-nav .home-record-btn {
@@ -220,7 +220,7 @@ p {
   padding-left: 10px;
   margin-top: 9px;
   border-radius: 10px;
-  color: #ffffff;
+  color: #fff;
   background-color: #4d9eeb;
 }
 .home-goods-bar {
@@ -232,7 +232,7 @@ p {
 }
 .home-goods-bar .num-color {
   font-size: 12px;
-  color: #ffffff;
+  color: #fff;
 }
 .home-goods-dt {
   height: 40px;
@@ -242,7 +242,7 @@ p {
   padding-right: 0;
   padding-bottom: 0;
   padding-left: 14px;
-  background-color: #ffffff;
+  background-color: #fff;
   font-weight: bold;
   border-bottom: 1px solid #f0f0f0;
 }
@@ -253,7 +253,7 @@ p {
   width: 50%;
   height: 150px;
   font-size: 12px;
-  background-color: #ffffff;
+  background-color: #fff;
   border-bottom: 1px solid #f0f0f0;
 }
 .home-goods-area-son:nth-of-type(odd) {
@@ -268,7 +268,7 @@ p {
 }
 .home-pic-detail {
   width: 95%;
-  color: #999999;
+  color: #999;
   line-height: 16px;
   margin-bottom: 3px;
 }
@@ -500,7 +500,7 @@ p {
   margin: 0 auto;
 }
 .mall-statement-box {
-  color: #333333;
+  color: #333;
   padding-top: 20px;
   padding-right: 20px;
   padding-bottom: 20px;
@@ -600,16 +600,16 @@ p {
   display: block;
   text-align: center;
   font-size: 14px;
-  color: #333333;
+  color: #333;
   margin-top: 0;
   margin-right: auto;
   margin-bottom: 36px;
   margin-left: auto;
   border-radius: 2px;
-  border-left: 1px solid #000000;
-  border-top: 1px solid #000000;
-  border-right: 1px solid #000000;
-  border-bottom: 1px solid #000000;
+  border-left: 1px solid #000;
+  border-top: 1px solid #000;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
 }
 .active-goods-block {
   width: 90%;
@@ -623,12 +623,12 @@ p {
   height: 30px;
   line-height: 30px;
   text-align: center;
-  border-left: 1px solid #ffffff;
-  border-right: 1px solid #ffffff;
-  border-top: 1px solid #ffffff;
-  border-bottom: 1px solid #ffffff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
   background-color: #68c6f5;
-  color: #ffffff;
+  color: #fff;
 }
 .active-goods-block tr td:last-child {
   width: 70%;
@@ -637,7 +637,7 @@ p {
   padding-bottom: 0;
   padding-left: 12px;
   background-color: #e6e6e6;
-  color: #333333;
+  color: #333;
   text-align: left;
 }
 .active-area {
@@ -658,7 +658,7 @@ p {
   padding-right: 0;
   padding-bottom: 0;
   padding-left: 4px;
-  color: #333333;
+  color: #333;
 }
 .address-tit {
   width: 100%;
@@ -672,7 +672,7 @@ p {
 .address-tit-son {
   height: 18px;
   line-height: 18px;
-  color: #ffffff;
+  color: #fff;
   background-color: #4889db;
   padding-top: 0;
   padding-right: 2px;
@@ -681,7 +681,7 @@ p {
   border-radius: 2px;
 }
 .text-red {
-  color: #ff0000;
+  color: #f00;
 }
 .border-color {
   border-color: #4889db;
@@ -738,7 +738,7 @@ p {
   border-radius: 3px;
   margin-right: 20px;
   margin-top: 12px;
-  color: #ffffff;
+  color: #fff;
 }
 .operate-btn {
   position: absolute;
@@ -749,12 +749,12 @@ p {
   background-color: #4889db;
 }
 .forbidden-color {
-  background-color: #cccccc;
+  background-color: #ccc;
 }
 .scoring-num {
   font-family: 'Arial';
   font-size: 22px;
-  color: #ff9900;
+  color: #f90;
 }
 .time-num {
   width: 20px;
@@ -767,8 +767,8 @@ p {
   margin-right: 2px;
   margin-bottom: 0;
   margin-left: 2px;
-  background-color: #cccccc;
-  color: #ffffff;
+  background-color: #ccc;
+  color: #fff;
 }
 .flip-box,
 .login-flip-box,
@@ -776,7 +776,7 @@ p {
   width: 80%;
   height: 150px;
   text-align: center;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 4px;
   position: fixed;
   left: 50%;
@@ -796,7 +796,7 @@ p {
   height: 36px;
   line-height: 36px;
   font-size: 18px;
-  color: #ffffff;
+  color: #fff;
   background-color: #4889db;
 }
 .login-flip-text {
@@ -822,7 +822,7 @@ p {
   padding-right: 18px;
   padding-bottom: 5px;
   padding-left: 18px;
-  color: #ffffff;
+  color: #fff;
   margin-top: 0;
   margin-right: 8px;
   margin-bottom: 0;
@@ -856,7 +856,7 @@ p {
   margin-right: 10px;
   margin-bottom: 0;
   margin-left: 10px;
-  color: #ffffff;
+  color: #fff;
 }
 .del-common-button {
   display: inline-block;
@@ -864,7 +864,7 @@ p {
   margin-right: 10px;
   margin-bottom: 0;
   margin-left: 10px;
-  color: #ffffff;
+  color: #fff;
   padding-top: 4px;
   padding-right: 28px;
   padding-bottom: 4px;
@@ -906,7 +906,7 @@ p {
   padding-left: 10px;
   border-radius: 3px;
   background-color: #4889db;
-  color: #ffffff;
+  color: #fff;
   margin-top: 0;
   margin-right: 3px;
   margin-bottom: 0;
@@ -915,7 +915,7 @@ p {
 .click-me {
   dispaly: inline-block;
   background-color: #4889db;
-  color: #ffffff;
+  color: #fff;
   border-radius: 2px;
   padding-top: 3px;
   padding-right: 5px;
@@ -940,20 +940,20 @@ p {
   padding-right: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .order-goods-bar a {
-  color: #666666;
+  color: #666;
 }
 .pay-common-text {
   font-family: 'Arial';
-  color: #666666;
+  color: #666;
 }
 .pay-serial a {
-  color: #666666;
+  color: #666;
 }
 .pay-cost {
-  color: #333333;
+  color: #333;
 }
 .chit-pic {
   width: 64px;
@@ -972,7 +972,7 @@ p {
   padding-right: 10px;
   padding-bottom: 12px;
   padding-left: 10px;
-  background-color: #ffffff;
+  background-color: #fff;
   margin-bottom: 10px;
   position: relative;
   left: 0;
@@ -995,7 +995,7 @@ p {
   padding-right: 10px;
   padding-bottom: 8px;
   padding-left: 10px;
-  color: #ffffff;
+  color: #fff;
 }
 .exchange-code-word {
   min-width: 100px;
@@ -1009,7 +1009,7 @@ p {
 }
 .copy-code {
   font-size: 10px;
-  color: #cccccc;
+  color: #ccc;
   text-align: center;
 }
 .use-method {
@@ -1025,7 +1025,7 @@ p {
   margin-bottom: 10px;
   margin-left: 0;
   font-size: 16px;
-  color: #333333;
+  color: #333;
   line-height: 16px;
   padding-top: 0;
   padding-right: 0;
@@ -1045,7 +1045,7 @@ p {
 .pay-status {
   font-size: 16px;
   line-height: 26px;
-  color: #333333;
+  color: #333;
 }
 .yes-icon {
   width: 15px;
@@ -1079,13 +1079,13 @@ p {
   background-position: -81px -32px;
 }
 .pay-status-fail .pay-status-text {
-  color: #333333;
+  color: #333;
 }
 .pay-status-fail .pay-status-show {
   background-position: 163px -32px;
 }
 .pay-status-cancel .pay-status-text {
-  color: #333333;
+  color: #333;
 }
 .pay-status-cancel .pay-status-show {
   background-position: -245px -32px;
@@ -1174,7 +1174,7 @@ p {
   text-overflow: ellipsis;
   font-size: 1em;
   line-height: 0.3734rem;
-  color: #333333;
+  color: #333;
 }
 .order-bar p {
   font-size: 0.8571em;
@@ -1240,6 +1240,51 @@ p {
 .order-status-fail {
   color: #ff5a44;
 }
+.exchange-record-box.search header {
+  background-color: #f0f0f0;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 8px 0 8px 0;
+  z-index: 2;
+}
+.exchange-record-box.search .search-input-box {
+  width: 100%;
+  width: 8rem;
+  margin: 0 0 0 12px;
+}
+.exchange-record-box.search .search-input {
+  background: #FFFFFF;
+  display: block;
+  width: 100%;
+  height: 34px;
+  vertical-align: middle;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  padding: 0 0 0 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #333;
+}
+.exchange-record-box.search .search-button-box {
+  width: 70px;
+}
+.exchange-record-box.search button {
+  background-color: #f0f0f0;
+  width: 100%;
+  height: 34px;
+  font-size: 14px;
+  color: #868686;
+  text-align: center;
+}
+.exchange-record-box.search .nav-place {
+  background-color: #f0f0f0;
+  height: 50px;
+}
 .insert-bar {
   width: 90%;
   margin-top: 24px;
@@ -1256,7 +1301,7 @@ p {
   position: relative;
   left: 0;
   top: 0;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 4px;
   margin-top: 12px;
 }
@@ -1264,13 +1309,13 @@ p {
   border-radius: 4px 4px 0 0;
 }
 .combination-insert-area .insert-bar-son + .border {
-  border-top: 1px solid #cccccc;
-  border-bottom: 1px solid #cccccc;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 .insert-delete-bar {
   width: 45px;
   height: 147px;
-  background-color: #ffffff;
+  background-color: #fff;
   position: absolute;
   right: 0;
   top: 0;
@@ -1303,7 +1348,7 @@ p {
   padding-right: 0;
   padding-bottom: 8px;
   padding-left: 0;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 4px;
 }
 .combination-insert-bar .common-insert-area,
@@ -1381,7 +1426,7 @@ p {
   padding-bottom: 7px;
   padding-left: 10px;
   line-height: 16px;
-  border-left: 1px solid #cccccc;
+  border-left: 1px solid #ccc;
   border-radius: 0;
 }
 .authcode-insert {
@@ -1405,18 +1450,18 @@ p {
   padding-left: 25px;
 }
 .disable-color {
-  background-color: #cccccc;
+  background-color: #ccc;
 }
 .able-color,
 .authcode-get.active {
   background-color: #feb220;
 }
 .authcode-get {
-  background-color: #cccccc;
-  color: #999999;
+  background-color: #ccc;
+  color: #999;
 }
 .authcode-get.active {
-  color: #ffffff;
+  color: #fff;
 }
 .to-receive-bar {
   padding-top: 0;
@@ -1437,13 +1482,13 @@ p {
   height: 42px;
   line-height: 42px;
   border-radius: 4px;
-  color: #ffffff;
+  color: #fff;
   background-color: #4d8bd8;
 }
 .to-add {
   border-radius: 0 0 4px 4px;
-  background-color: #cccccc;
-  color: #999999;
+  background-color: #ccc;
+  color: #999;
 }
 .to-add-icon {
   font-size: 20px;
@@ -1480,7 +1525,7 @@ p {
   position: relative;
   left: 0;
   top: 0;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .pay-order-detail-box .goods-show-pic {
   width: 70px;
@@ -1498,7 +1543,7 @@ p {
   padding-bottom: 0;
   padding-left: 0;
   font-size: 12px;
-  color: #ffffff;
+  color: #fff;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/pay-status-sprite.png) no-repeat;
   background-size: 350px 350px;
   position: absolute;
@@ -1525,14 +1570,14 @@ p {
 }
 .pay-order-detail-box .goods-name {
   font-size: 16px;
-  color: #111111;
+  color: #111;
 }
 .pay-order-detail-box .goods-price {
   font-family: 'Arial';
   font-size: 20px;
   line-height: 20px;
   margin-top: 8px;
-  color: #ff9900;
+  color: #f90;
 }
 .pay-order-detail-box .order-detail-info {
   height: 36px;
@@ -1541,16 +1586,16 @@ p {
   padding-right: 10px;
   padding-bottom: 0;
   padding-left: 10px;
-  color: #999999;
+  color: #999;
   border-top: 1px solid #f3f3f3;
-  background-color: #ffffff;
-  color: #333333;
+  background-color: #fff;
+  color: #333;
 }
 .pay-order-detail-box .order-detail-info:last-child {
   border-bottom: 1px solid #f3f3f3;
 }
 .pay-order-detail-box .order-detail-num {
-  color: #333333;
+  color: #333;
 }
 .pay-order-detail-box .order-exchange-bar {
   padding-top: 0;
@@ -1572,12 +1617,12 @@ p {
   position: relative;
   left: 0;
   top: 0;
-  border-top: 1px solid #cccccc;
-  border-left: 1px solid #cccccc;
-  border-right: 1px solid #cccccc;
-  border-bottom: 1px solid #cccccc;
-  background-color: #ffffff;
-  color: #999999;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  background-color: #fff;
+  color: #999;
 }
 .pay-order-detail-box .order-exchange-area {
   width: 70%;
@@ -1619,7 +1664,7 @@ p {
   right: 15px;
   top: 50%;
   margin-top: -18px;
-  border-left: 1px solid #cccccc;
+  border-left: 1px solid #ccc;
 }
 .pay-order-detail-box .arc-border {
   width: 6px;
@@ -1652,7 +1697,7 @@ p {
   bottom: -1px;
 }
 .pay-order-detail-box .number-color {
-  color: #ff9900;
+  color: #f90;
 }
 .pay-order-detail-box .common-text {
   font-size: 12px;
@@ -1663,13 +1708,13 @@ p {
   padding-right: 10px;
   padding-bottom: 15px;
   padding-left: 10px;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .order-address-bar .order-exchange-area {
   width: 100%;
 }
 .pay-order-detail-box .user-info {
-  color: #111111;
+  color: #111;
 }
 .pay-order-detail-box .user-info:nth-child(1) {
   margin-right: 20px;
@@ -1681,7 +1726,7 @@ p {
   font-size: 18px;
 }
 .pay-order-detail-box .order-insurance-area {
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
   margin-bottom: 10px;
   position: relative;
@@ -1701,7 +1746,7 @@ p {
 .pay-order-detail-box .order-insurance-reviewing + b {
   height: 20px;
   line-height: 20px;
-  color: #ffffff;
+  color: #fff;
   font-size: 12px;
   border-radius: 20px;
   padding-top: 0;
@@ -1716,13 +1761,13 @@ p {
   background-color: #4889db;
 }
 .pay-order-detail-box .order-insurance-fail + b {
-  background-color: #cccccc;
+  background-color: #ccc;
 }
 .pay-order-detail-box .order-insurance-reviewing + b {
   background-color: #67cc04;
 }
 .address-page-box {
-  color: #666666;
+  color: #666;
   background-color: #f3f3f3;
 }
 .address-username-bar,
@@ -1730,7 +1775,7 @@ p {
 .address-option-bar {
   height: 42px;
   line-height: 42px;
-  background-color: #ffffff;
+  background-color: #fff;
   padding-top: 0;
   padding-right: 10px;
   padding-bottom: 0;
@@ -1744,19 +1789,19 @@ p {
 .address-option-area,
 .address-detail-bar,
 .address-usertel-bar {
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #ccc;
 }
 .address-option-area:last-child {
   border: none;
 }
 .border-l {
-  border-left: 1px solid #cccccc;
+  border-left: 1px solid #ccc;
 }
 .address-option-se {
   width: 100%;
   height: 100%;
-  color: #666666;
-  background-color: #ffffff;
+  color: #666;
+  background-color: #fff;
 }
 @media only screen and (max-width: 374px) {
   .address-option-area {
@@ -1778,8 +1823,8 @@ p {
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    color: #666666;
-    background-color: #ffffff;
+    color: #666;
+    background-color: #fff;
   }
   .address-option-area:after {
     content: '';
@@ -1846,11 +1891,11 @@ p {
   }
 }
 .address-option-se[disabled] {
-  color: #cccccc;
+  color: #ccc;
 }
 .address-detail-bar {
   line-height: 42px;
-  background-color: #ffffff;
+  background-color: #fff;
   padding-top: 0;
   padding-right: 10px;
   padding-bottom: 0;
@@ -1883,14 +1928,14 @@ p {
   line-height: 40px;
   border-radius: 5px;
   font-size: 18px;
-  color: #ffffff;
+  color: #fff;
   margin-top: 0;
   margin-right: auto;
   margin-bottom: 0;
   margin-left: auto;
 }
 .address-foot-box .forbidden-color {
-  color: #999999;
+  color: #999;
 }
 .address-exist-fatherbar {
   padding-top: 0;
@@ -1911,7 +1956,7 @@ p {
   position: relative;
   left: 0;
   top: 0;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .confirm-order .address-exist-area {
   padding-top: 10px;
@@ -1921,7 +1966,7 @@ p {
 }
 .address-exist-info {
   font-size: 16px;
-  color: #111111;
+  color: #111;
 }
 .address-exist-username {
   width: 35%;
@@ -1974,7 +2019,7 @@ p {
   overflow: hidden;
   line-height: 20px;
   font-size: 16px;
-  color: #111111;
+  color: #111;
 }
 .address-page-box .pic-detail-tip {
   margin-top: 4px;
@@ -2057,7 +2102,7 @@ p {
 .delivery-info {
   height: 100%;
   text-align: center;
-  color: #ffffff;
+  color: #fff;
 }
 .delivery-info:nth-child(1) {
   width: 40%;
@@ -2076,7 +2121,7 @@ p {
   background-color: #f6f6f6;
 }
 .delivery-status:nth-child(odd) {
-  background-color: #eeeeee;
+  background-color: #eee;
 }
 .delivery-time-pos {
   padding-top: 18px;
@@ -2113,7 +2158,7 @@ p {
 .delivery-line {
   width: 3px;
   height: 100%;
-  background-color: #cccccc;
+  background-color: #ccc;
   position: absolute;
   left: 40%;
   top: 0;
@@ -2121,7 +2166,7 @@ p {
 .delivery-line-finish {
   width: 3px;
   height: 50%;
-  background-color: #cccccc;
+  background-color: #ccc;
   position: absolute;
   left: 40%;
   top: 0;
@@ -2150,7 +2195,7 @@ p {
 .delivery-bg {
   width: 16px;
   height: 16px;
-  background-color: #ffffff;
+  background-color: #fff;
   border-left: 1px solid #f3f3f3;
   border-top: 1px solid #f3f3f3;
   border-right: 1px solid #f3f3f3;
