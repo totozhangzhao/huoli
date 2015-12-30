@@ -62,7 +62,9 @@ exports.createNewView = (function() {
 }());
 
 exports.updateViewTitle = function(title) {
-  window.document.title = title;
+  var doc = window.document;
+  title = title || doc.title;
+  doc.title = title;
   NativeAPI.invoke("updateTitle", {
     text: title
   });

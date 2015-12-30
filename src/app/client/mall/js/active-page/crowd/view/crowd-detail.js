@@ -28,7 +28,8 @@ var AppView = Backbone.View.extend({
 
     // 单价
     this.unitPrice = 0;
-    this.title = this.$el.data("title");
+    this.title = UrlUtil.parseUrlSearch().title;
+    widget.updateViewTitle(this.title);
     this.$panel;
     this.$button;
     this.listenTo(moneyModel, "change", this.renderMoney);
