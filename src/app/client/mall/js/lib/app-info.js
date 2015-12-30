@@ -144,6 +144,11 @@ exports.getUserData = (function() {
           return;
         }
 
+        // App 有时会带上 identity
+        if (result.userInfo.identity) {
+          delete result.userInfo.identity;
+        }
+
         if ( checkUserData(result) ) {
           userDataStore.deviceInfo = result.deviceInfo;
           userDataStore.userInfo   = result.userInfo;
