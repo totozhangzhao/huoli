@@ -91,7 +91,7 @@ stat  int 状态
   <div data-for="goodsDetail" class="js-tab-content snap-desc-area snap-desc-detail">
     <!-- // -->
   </div>
-  <dl data-for="rules" class="js-tab-content snap-desc-area snap-desc-rule"><%= data.rulestpl %></dl>
+  <dl data-for="rules" class="js-tab-content snap-desc-area snap-desc-rule text-box"><%= data.rulestpl %></dl>
 </div>
 <div class="snap-join-bar">
   <p class="js-model-money"><%= data.showprice %></p>
