@@ -28,8 +28,7 @@ var AppView = Backbone.View.extend({
 
     // 单价
     this.unitPrice = 0;
-    this.title = UrlUtil.parseUrlSearch().title;
-    widget.updateViewTitle(this.title);
+    this.title = UrlUtil.parseUrlSearch().title || this.$el.data("title");
     this.$panel;
     this.$button;
     this.$num;
@@ -214,6 +213,12 @@ var AppView = Backbone.View.extend({
       .catch(mallPromise.catchFn);
   },
   renderMainPanel: function(productDetail) {
+    if (productDetail.title) {
+      this.title = productDetail.title;
+    }
+
+    widget.updateViewTitle(this.title);
+
     var tmpl = require("app/client/mall/tpl/active-page/crowd/main.tpl");
     this.$el.html(tmpl({ data: productDetail }));
     this.$panel = this.$el.find(".js-panel");
