@@ -435,6 +435,12 @@ p {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -127px 0;
   background-size: 312px 280px;
 }
+.state-newyear {
+  width: 48px;
+  height: 14px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -228px -58px;
+  background-size: 312px 280px;
+}
 .user-v1 {
   width: 40px;
   height: 14px;
