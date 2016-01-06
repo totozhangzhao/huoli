@@ -5,7 +5,6 @@
   } else if (typeof define === "function" && define.amd) {
     define([
       "com/mobile/lib/cookie/cookie.js",
-      "app/client/common/lib/native/util.js",
       "exports"
     ], function(cookie, exports) {
       root.NBridge = factory(root, exports, cookie);
