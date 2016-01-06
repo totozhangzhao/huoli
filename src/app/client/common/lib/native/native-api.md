@@ -694,6 +694,21 @@ __params__
 
 ---------------------------------------
 
+### postNotification
+
+* 描述：用来实现基于事件的 web 对客户端的业务通讯。
+
+__method__
+
+* `postNotification`
+
+__params__
+
+* `name` String 消息名
+* `value` String 可选，消息对应的值
+
+---------------------------------------
+
 
 ## 由 JavaScript 提供的方法
 
