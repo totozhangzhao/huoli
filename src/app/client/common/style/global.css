@@ -13,7 +13,8 @@
 p,
 span,
 input,
-textarea {
+textarea,
+td {
   -webkit-touch-callout: default;
   -webkit-user-select: initial;
 }
