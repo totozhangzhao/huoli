@@ -19,16 +19,16 @@ $("body").on("click", "[href]", function() {
 // 跳转页面：
 // https://mall.rsscc.cn/fe/app/client/ticket/html/banner-mall.html
 var handleInsuraceUrl = function() {
-  var showInsurancePage = function() {
-    $("#insurance-banner").show();
+  // var showInsurancePage = function() {
+  //   $("#insurance-banner").show();
 
-    var $btn = $("#goto393");
+  //   var $btn = $("#goto393");
 
-    $btn.prop(
-      "href",
-      $btn.prop("href") + "&orderinfo=" + encodeURIComponent(urlData.orderinfo || "")
-    );
-  };
+  //   $btn.prop(
+  //     "href",
+  //     $btn.prop("href") + "&orderinfo=" + encodeURIComponent(urlData.orderinfo || "")
+  //   );
+  // };
 
   if ( String(urlData.insurance) === "1" ) {
     // var params = {
@@ -45,7 +45,8 @@ var handleInsuraceUrl = function() {
 
     window.location.href = "https://mall.rsscc.cn/fe/app/client/ticket/html/banner-mall.html";
   } else {
-    showInsurancePage();
+    window.location.href = "https://mall.rsscc.cn/fe/app/client/ticket/html/banner-mall.html";
+    // showInsurancePage();
   }
 };
 
