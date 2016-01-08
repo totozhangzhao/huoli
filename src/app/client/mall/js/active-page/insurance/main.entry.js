@@ -26,7 +26,7 @@ var AppView = Backbone.View.extend({
     this.goodsId = null;
 
     // initial data from url
-    this.urlInputs = this.parseUrlInputs();
+    this.dataFromUrl = this.parseUrlInputs();
     this.renderTopView();
 
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
@@ -73,7 +73,7 @@ var AppView = Backbone.View.extend({
       }
 
       self.goodsId = result.productid;
-      self.renderFormView(self.urlInputs);
+      self.renderFormView(self.dataFromUrl);
 
       $("<img>", {
         src: result.img,
@@ -82,43 +82,65 @@ var AppView = Backbone.View.extend({
         .appendTo("#goods-main-img");
     });
   },
-  renderFormView: function(urlInputs) {
-    var tickets = urlInputs.tickets;
-
-    if ( !Array.isArray(tickets) || tickets.length === 0 ) {
-      tickets = [{}];
-    } else {
-
-      // 可能没有 account 节点，没有登陆管家账号就没有
-      var accountCardno = urlInputs.account && urlInputs.account.cardno;
-
-      for (var i = 0, len = tickets.length; i < len; i += 1) {
-        if ( accountCardno && tickets[i].cardno === accountCardno ) {
-          tickets[i].phone = urlInputs.account.phone;
-        }
-
-        if ( !/身份证/.test(tickets[i].cardtype) ) {
-          tickets[i].cardno = "";
-        }
-      }      
-    }
-
+  renderFormView: function(dataFromUrl) {
+    var userArray = this.fixTicketData(dataFromUrl);
     var tmpl = require("app/client/mall/tpl/active-page/insurance/input.tpl");
 
     this.$el
       .find(".js-inputs-container")
       .html(tmpl({
-        tickets: tickets
+        userArray: userArray
       }));
   },
-  addUserInputs: function() {
-    var tmpl = require("app/client/mall/tpl/active-page/insurance/input.tpl");
+  fixTicketData: function(dataFromUrl) {
+    var userArray = dataFromUrl.tickets;
 
-    this.$el
-      .find(".js-inputs-container")
-        .append(tmpl({
-          tickets: [{}]
-        }));
+    if ( !Array.isArray(userArray) || userArray.length === 0 ) {
+      userArray = [{}];
+    } else {
+
+      // 可能没有 account 节点，没有登陆管家账号就没有
+      var accountCardno = dataFromUrl.account && dataFromUrl.account.cardno;
+
+      for (var i = 0, len = userArray.length; i < len; i += 1) {
+        if ( !/身份证/.test(userArray[i].cardtype) ) {
+          userArray[i].cardno = "";
+        }
+
+        if ( accountCardno && userArray[i].cardno === accountCardno ) {
+          userArray[i].phone = dataFromUrl.account.phone;
+        }
+      }
+    }
+
+    return this.userFilter(userArray);
+  },
+  userFilter: function(userArray) {
+    var data = this.dataFromUrl;
+    var appUser;
+
+    // 可能没有 account 节点，没有登陆管家账号就没有
+    var accountCardno = data.account && data.account.cardno;
+
+    if (accountCardno) {
+      appUser = _.find(userArray, function(user) {
+        return user.cardno === accountCardno;
+      });
+    }
+
+    return [appUser || {}];
+  },
+  addUserInputs: function() {
+
+    // 禁止多人领取
+    return;
+    // var tmpl = require("app/client/mall/tpl/active-page/insurance/input.tpl");
+
+    // this.$el
+    //   .find(".js-inputs-container")
+    //     .append(tmpl({
+    //       tickets: [{}]
+    //     }));
   },
   removeUserInputs: function(e) {
     var $cur = $(e.currentTarget);

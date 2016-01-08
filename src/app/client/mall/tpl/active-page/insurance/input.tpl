@@ -1,4 +1,4 @@
-<% _.each(tickets, function(item, index) { %>
+<% _.each(userArray, function(item, index) { %>
 <div class="js-user-item combination-insert-area">
   <div class="insert-bar-son">
     <div class="common-insert-area">
