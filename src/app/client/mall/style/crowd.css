@@ -421,10 +421,23 @@ p {
   line-height: 16px;
 }
 .snap-desc-bar .snap-desc-rule dd {
+  position: relative;
+  top: 0;
+  left: 0;
   font-size: 13px;
   color: #989898;
   line-height: 21px;
-  padding-top: 11px;
+  padding-top: 10px;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 10px;
+}
+.snap-desc-bar .snap-desc-rule dd:before {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  content: '•';
+  padding-right: 5px;
 }
 .snap-desc-bar .snap-desc-detail {
   font-size: 15px;
