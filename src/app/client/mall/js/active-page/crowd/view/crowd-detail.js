@@ -16,10 +16,10 @@ var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 var AppView = Backbone.View.extend({
   el: "#crowd-detail",
   events: {
-    "click .js-hide-panel": "hidePurchasePanel",
-    "click .js-change-num": "setNum",
-    "click .js-rules"     : "gotoRulesPage",
-    "click .js-submit"    : "submitButtonEvent"
+    "click .js-hide-panel"   : "hidePurchasePanel",
+    "touchend .js-change-num": "setNum",
+    "click .js-rules"        : "gotoRulesPage",
+    "click .js-submit"       : "submitButtonEvent"
   },
   initialize: function() {
 
@@ -76,6 +76,10 @@ var AppView = Backbone.View.extend({
     if ( number > 10 ) {
       number = 10;
       toast("已到单笔订单数量上限", 1500);
+    }
+
+    if ( number < 1 ) {
+      number = 1;
     }
 
     number = number >= 0 ? number : 0;
