@@ -73,22 +73,16 @@ var AppView = Backbone.View.extend({
       }
 
       self.goodsId = result.productid;
-      self.renderFormView(self.dataFromUrl);
-
-      $("<img>", {
-        src: result.img,
-        alt: ""
-      })
-        .appendTo("#goods-main-img");
+      self.renderFormView(result);
     });
   },
-  renderFormView: function(dataFromUrl) {
-    var userArray = this.fixTicketData(dataFromUrl);
+  renderFormView: function(productInfo) {
+    var userArray = this.fixTicketData(this.dataFromUrl);
     var tmpl = require("app/client/mall/tpl/active-page/insurance/input.tpl");
 
     this.$el
-      .find(".js-inputs-container")
       .html(tmpl({
+        productInfo: productInfo,
         userArray: userArray
       }));
   },
@@ -154,7 +148,13 @@ var AppView = Backbone.View.extend({
       .remove();
   },
   submitOrder: function() {
-    this.mallCreateOrder();
+    var $check = $("#checkAgreement");
+
+    if ( $check.is(":checked") ) {
+      this.mallCreateOrder();
+    } else {
+      toast("勾选\“我同意提交以上信息\”才能提交", 1500);
+    }
   },
   mallCreateOrder: function() {
     var self = this;

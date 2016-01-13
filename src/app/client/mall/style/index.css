@@ -1469,16 +1469,30 @@ p {
 .authcode-get.active {
   color: #fff;
 }
-.to-receive-bar {
-  padding-top: 0;
-  padding-right: 0;
-  padding-bottom: 40px;
-  padding-left: 0;
-}
 .to-add-bar {
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 20px;
+  padding-left: 0;
+}
+.to-check-bar {
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 15px;
+  padding-left: 0;
+  text-align: center;
+}
+.to-check-bar i {
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 10px;
+  font-size: 13px;
+}
+.to-receive-bar {
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 15px;
   padding-left: 0;
 }
 .to-receive,
@@ -1499,6 +1513,91 @@ p {
 .to-add-icon {
   font-size: 20px;
   color: #3d89e9;
+}
+.to-bottom-text-bar {
+  text-align: center;
+  font-size: 13px;
+}
+.insurance-box {
+  color: #333;
+  padding-top: 25px;
+  padding-right: 20px;
+  padding-bottom: 60px;
+  padding-left: 20px;
+}
+.insurance-box h5 {
+  font-weight: normal;
+}
+.insurance-box .snap-desc-bar .snap-desc-rule dt,
+.insurance-box h5 {
+  height: 16px;
+  line-height: 16px;
+}
+.insurance-box table {
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+.insurance-box table thead {
+  font-size: 13px;
+  background-color: #ebebeb;
+}
+.insurance-box table thead th {
+  font-weight: normal;
+  color: #333;
+}
+.insurance-box table tbody {
+  font-size: 13px;
+  color: #888;
+}
+.insurance-box table thead {
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  line-height: 40px;
+}
+.insurance-box table thead th:nth-child(1) {
+  width: 30%;
+}
+.insurance-box table thead th:nth-child(2) {
+  width: 70%;
+}
+.insurance-box table tbody tr td:nth-child(1) {
+  width: 30%;
+  text-align: center;
+}
+.insurance-box table tbody tr td:nth-child(2) {
+  width: 70%;
+  padding-top: 10px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+}
+.insurance-box table tbody {
+  border-left: 1px solid #ccc;
+}
+.insurance-box table td,
+.insurance-box table th {
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+.insurance-box .snap-desc-bar .snap-desc-rule dd {
+  position: relative;
+  top: 0;
+  left: 0;
+  font-size: 13px;
+  color: #989898;
+  line-height: 21px;
+  padding-top: 10px;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 10px;
+}
+.insurance-box .snap-desc-bar .snap-desc-rule dd:before {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  content: '•';
+  padding-right: 5px;
 }
 .pay-order-detail-box {
   min-height: 100%;
