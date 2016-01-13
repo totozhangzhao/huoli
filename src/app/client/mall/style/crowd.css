@@ -587,13 +587,20 @@ p {
   left: 0;
   top: 0;
 }
-.snap-buy-box .snap-buy-nav .snap-buy-close {
+.snap-buy-box .snap-buy-nav .snap-buy-close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55px;
+  height: 100%;
+}
+.snap-buy-box .snap-buy-nav .snap-buy-close-icon {
   width: 25px;
   height: 25px;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -159px -198px;
   background-size: 312px 280px;
   position: absolute;
-  right: 9px;
+  right: 10px;
   top: 13px;
 }
 .snap-buy-box .snap-buy-num {

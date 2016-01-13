@@ -104,7 +104,10 @@ stat  int 状态
 <div class="js-panel common-shadow">
   <div class="snap-buy-box">
     <div class="snap-buy-nav">
-      <p>购买份数</p><i class="js-hide-panel snap-buy-close"></i>
+      <p>购买份数</p>
+      <div class="js-hide-panel snap-buy-close-btn">
+        <i class="snap-buy-close-icon"></i>
+      </div>
     </div>
     <div class="snap-buy-num">
       <div class="snap-buy-choice">
