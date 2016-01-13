@@ -183,8 +183,7 @@ var AppView = Backbone.View.extend({
                   self.exchange(productInfo);
                 })
                 .one("click", ".js-cancel", function() {
-                  self.$el.$promptBoard.hide();
-                  self.$el.$shade.hide();
+                  self.hidePrompt();
                 })
                 .find(".js-title")
                   .text(productInfo.confirm)
@@ -198,13 +197,11 @@ var AppView = Backbone.View.extend({
           self.$el.$loginPrompt
             .off("click")
             .one("click", ".js-confirm", function() {
-              self.$el.$loginPrompt.hide();
-              self.$el.$shade.hide();
+              self.hidePrompt();
               self.loginApp();
             })
             .one("click", ".js-cancel", function() {
-              self.$el.$loginPrompt.hide();
-              self.$el.$shade.hide();
+              self.hidePrompt();
             })
             .show();
         }
@@ -340,8 +337,7 @@ var AppView = Backbone.View.extend({
         self.$el.$promptFail
           .off("click")
           .one("click", ".js-close", function() {
-            self.$el.$promptFail.hide();
-            self.$el.$shade.hide();
+            self.hidePrompt();
 
             // version 3.1 未实现 startPay 接口
             if (err.code === -99) {

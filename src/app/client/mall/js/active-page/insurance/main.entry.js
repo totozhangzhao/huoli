@@ -148,16 +148,6 @@ var AppView = Backbone.View.extend({
       .remove();
   },
   submitOrder: function() {
-    var $check = $("#checkAgreement");
-
-    if ( $check.is(":checked") ) {
-      this.mallCreateOrder();
-    } else {
-      toast("勾选\“我同意提交以上信息\”才能提交", 1500);
-    }
-  },
-  mallCreateOrder: function() {
-    var self = this;
     var $inputs = this.$el.find("input[name]");
 
     for (var i = 0, len = $inputs.length; i < len; i += 1) {
@@ -166,6 +156,18 @@ var AppView = Backbone.View.extend({
         return;
       }
     }
+
+    var $check = $("#checkAgreement");
+
+    if ( !$check.is(":checked") ) {
+      toast("勾选\“我同意提交以上信息\”才能提交", 1500);
+      return;
+    }
+
+    this.mallCreateOrder();
+  },
+  mallCreateOrder: function() {
+    var self = this;
 
     hint.showLoading();
 

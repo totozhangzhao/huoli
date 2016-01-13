@@ -22,7 +22,8 @@ var AppView = Backbone.View.extend({
     "click .js-remove-address"  : "removeAddress"
   },
   initialize: function() {
-    //
+    this.$el.$shade          = this.$el.find(".js-shade");
+    this.$el.$warningConfirm = this.$el.find(".js-warning-prompt");
   },
   resume: function(options) {
     var self = this;
@@ -85,9 +86,11 @@ var AppView = Backbone.View.extend({
   initView: function(addressList) {
     var addressListTpl = require("app/client/mall/tpl/detail-page/address-list.tpl");
 
-    this.$el.html(addressListTpl({
-      addressList: addressList
-    }));
+    this.$el
+      .find(".js-list-container")
+        .html(addressListTpl({
+          addressList: addressList
+        }));
 
     hint.hideLoading();
   },
@@ -117,51 +120,72 @@ var AppView = Backbone.View.extend({
       }
     });
   },
+  hidePrompt: function() {
+    var $el = this.$el;
+
+    $el.find(".js-prompt").hide();
+    $el.find(".js-shade").hide();
+  },
+  handleOrderAction: function() {
+    var self = this;    
+    var addressId = this.cache.curAddressId;
+
+    hint.showLoading();
+
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
+          if (err) {
+            toast(err.message, 1500);
+            return;
+          }
+
+          next(null, userData);
+        });
+      },
+      function(userData, next) {
+        var addressData = self.collection.addressList.get(addressId).toJSON();
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p,
+          orderid: UrlUtil.parseUrlSearch().orderid,
+          address: addressData
+        });
+
+        sendPost("addOrderAddr", params, function(err, data) {
+          next(err, data);
+        });
+      }
+    ], function(err) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      // hint.hideLoading();
+      var orderDetailUrl = window.location.origin +
+          "/fe/app/client/mall/html/detail-page/order-detail.html" +
+          "?orderid=" + UrlUtil.parseUrlSearch().orderid;
+      window.location.href = orderDetailUrl;
+    });
+  },
   gotoConfirmPage: function(e) {
     var self = this;
     var $cur = $(e.currentTarget);
-    var addressid = $cur.closest(".js-item").data("addressid");
+    this.cache.curAddressId = $cur.closest(".js-item").data("addressid");
 
     if (UrlUtil.parseUrlSearch().action === "order") {
-      hint.showLoading();
-
-      async.waterfall([
-        function(next) {
-          appInfo.getUserData(function(err, userData) {
-            if (err) {
-              toast(err.message, 1500);
-              return;
-            }
-
-            next(null, userData);
-          });
-        },
-        function(userData, next) {
-          var addressData = self.collection.addressList.get(addressid).toJSON();
-          var params = _.extend({}, userData.userInfo, {
-            p: userData.deviceInfo.p,
-            orderid: UrlUtil.parseUrlSearch().orderid,
-            address: addressData
-          });
-
-          sendPost("addOrderAddr", params, function(err, data) {
-            next(err, data);
-          });
-        }
-      ], function(err) {
-        if (err) {
-          toast(err.message, 1500);
-          return;
-        }
-
-        // hint.hideLoading();
-        var orderDetailUrl = window.location.origin +
-            "/fe/app/client/mall/html/detail-page/order-detail.html" +
-            "?orderid=" + UrlUtil.parseUrlSearch().orderid;
-        window.location.href = orderDetailUrl;
-      });
+      this.$el.$shade.show();
+      this.$el.$warningConfirm
+        .off("click")
+        .one("click", ".js-confirm", function() {
+          self.hidePrompt();
+          self.handleOrderAction();
+        })
+        .one("click", ".js-cancel", function() {
+          self.hidePrompt();
+        })
+        .show();
     } else {
-      this.cache.curAddressId = addressid;
       this.router.switchTo("address-confirm");
     }
   },
