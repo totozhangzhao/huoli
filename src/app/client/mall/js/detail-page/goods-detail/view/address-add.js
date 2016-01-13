@@ -229,42 +229,7 @@ var AppView = Backbone.View.extend({
       },
       function(addressData, next) {
         if (UrlUtil.parseUrlSearch().action === "order") {
-          hint.showLoading();
-
-          async.waterfall([
-            function(next) {
-              appInfo.getUserData(function(err, userData) {
-                if (err) {
-                  toast(err.message, 1500);
-                  return;
-                }
-
-                next(null, userData);
-              });
-            },
-            function(userData, next) {
-              var params = _.extend({}, userData.userInfo, {
-                p: userData.deviceInfo.p,
-                orderid: UrlUtil.parseUrlSearch().orderid,
-                address: addressData
-              });
-
-              sendPost("addOrderAddr", params, function(err, data) {
-                next(err, data);
-              });
-            }
-          ], function(err) {
-            if (err) {
-              toast(err.message, 1500);
-              return;
-            }
-
-            // hint.hideLoading();
-            var orderDetailUrl = window.location.origin +
-                "/fe/app/client/mall/html/detail-page/order-detail.html" +
-                "?orderid=" + UrlUtil.parseUrlSearch().orderid;
-            window.location.href = orderDetailUrl;
-          });
+          self.router.switchTo("address-list");
         } else {
           next(null, addressData);
         }
