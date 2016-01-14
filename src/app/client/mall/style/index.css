@@ -1818,6 +1818,30 @@ p {
 .order-address-bar .order-exchange-area {
   width: 100%;
 }
+.order-exchange-area .prize-text {
+  font-size: 13px;
+  color: #ff5a44;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-right: 0;
+  padding-bottom: 10px;
+  padding-left: 0;
+}
+.order-exchange-area .prize-hint {
+  background-color: #4889db;
+  position: absolute;
+  top: 17px;
+  right: 12px;
+  height: 26px;
+  line-height: 26px;
+  border-radius: 13px;
+  font-size: 12px;
+  color: #fff;
+  padding-top: 0;
+  padding-right: 12px;
+  padding-bottom: 0;
+  padding-left: 12px;
+}
 .pay-order-detail-box .user-info {
   color: #111;
 }
