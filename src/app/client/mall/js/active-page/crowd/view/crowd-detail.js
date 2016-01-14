@@ -28,6 +28,9 @@ var AppView = Backbone.View.extend({
 
     // 单价
     this.unitPrice = 0;
+
+    // 剩余数量
+    this.remainNum = 0;
     this.title = UrlUtil.parseUrlSearch().title || this.$el.data("title");
     this.$panel;
     this.$button;
@@ -66,6 +69,9 @@ var AppView = Backbone.View.extend({
   setNum: function(e) {
     var $cur = $(e.currentTarget);
     var number = Number( this.$num.text() );
+    var maxNum = 10;
+    var minNum = 1;
+    var remainNum = this.remainNum;
 
     if ( $cur.data("operator") === "add" ) {
       number += 1;
@@ -73,15 +79,14 @@ var AppView = Backbone.View.extend({
       number -= 1;
     }
 
-    // max number
-    if ( number > 10 ) {
-      number = 10;
+    if ( number > maxNum ) {
+      number = maxNum;
       toast("已到单笔订单数量上限", 1500);
-    }
-
-    // min number
-    if ( number < 1 ) {
-      number = 1;
+    } else if ( number < minNum ) {
+      number = minNum;
+    } else if ( remainNum > minNum && remainNum < maxNum && number > remainNum ) {
+      number = remainNum;
+      toast("剩余数量不足", 1500);
     }
 
     this.$num.text(number);
@@ -190,6 +195,7 @@ var AppView = Backbone.View.extend({
       .then(function(data) {
         var crowd = data.crowd;
         self.unitPrice = crowd.price;
+        self.remainNum = crowd.remaincount;
         self.renderMainPanel(crowd);
         new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
         return data.userData;
