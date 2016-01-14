@@ -1883,8 +1883,8 @@ p {
   padding-bottom: 0;
   padding-left: 10px;
   position: absolute;
+  top: 22px;
   right: 0;
-  bottom: 12px;
 }
 .pay-order-detail-box .order-insurance-succ + b {
   background-color: #4889db;

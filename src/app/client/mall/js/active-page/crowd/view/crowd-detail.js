@@ -73,16 +73,17 @@ var AppView = Backbone.View.extend({
       number -= 1;
     }
 
+    // max number
     if ( number > 10 ) {
       number = 10;
       toast("已到单笔订单数量上限", 1500);
     }
 
+    // min number
     if ( number < 1 ) {
       number = 1;
     }
 
-    number = number >= 0 ? number : 0;
     this.$num.text(number);
     moneyModel.set({ "needPay": this.unitPrice * number });
   },
