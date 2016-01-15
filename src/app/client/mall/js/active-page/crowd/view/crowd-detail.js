@@ -84,7 +84,7 @@ var AppView = Backbone.View.extend({
       toast("已到单笔订单数量上限", 1500);
     } else if ( number < minNum ) {
       number = minNum;
-    } else if ( remainNum > minNum && remainNum < maxNum && number > remainNum ) {
+    } else if ( remainNum >= minNum && remainNum <= maxNum && number > remainNum ) {
       number = remainNum;
       toast("剩余数量不足", 1500);
     }
@@ -194,8 +194,8 @@ var AppView = Backbone.View.extend({
       })
       .then(function(data) {
         var crowd = data.crowd;
-        self.unitPrice = crowd.price;
-        self.remainNum = crowd.remaincount;
+        self.unitPrice = Number(crowd.price);
+        self.remainNum = Number(crowd.remaincount);
         self.renderMainPanel(crowd);
         new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
         return data.userData;
