@@ -19,17 +19,20 @@ $("body").on("click", "[href]", function() {
 // 跳转页面：
 // https://mall.rsscc.cn/fe/app/client/ticket/html/banner-mall.html
 var handleInsuraceUrl = function() {
-  // var showInsurancePage = function() {
-  //   $("#insurance-banner").show();
+  var showInsurancePage = function() {
+    $("#insurance-banner").show();
 
-  //   var $btn = $("#goto393");
+    var $btn = $("#goto393");
 
-  //   $btn.prop(
-  //     "href",
-  //     $btn.prop("href") + "&orderinfo=" + encodeURIComponent(urlData.orderinfo || "")
-  //   );
-  // };
+    $btn.prop(
+      "href",
+      $btn.prop("href") + "&orderinfo=" + encodeURIComponent(urlData.orderinfo || "")
+    );
+  };
 
+  // urlData.insurance
+  // 1    买票时勾选了保险，显示其他广告（商城）
+  // 其他 显示保险广告
   if ( String(urlData.insurance) === "1" ) {
     // var params = {
     //   pos: 1
@@ -45,8 +48,7 @@ var handleInsuraceUrl = function() {
 
     window.location.href = "https://mall.rsscc.cn/fe/app/client/ticket/html/banner-mall.html";
   } else {
-    window.location.href = "https://mall.rsscc.cn/fe/app/client/ticket/html/banner-mall.html";
-    // showInsurancePage();
+    showInsurancePage();
   }
 };
 
