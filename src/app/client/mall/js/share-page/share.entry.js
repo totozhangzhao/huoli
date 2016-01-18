@@ -80,10 +80,7 @@ var AppView = Backbone.View.extend({
       }
 
       self.$el.append(result.tpl);
-
-      if ( self.$el.find(".js-main-button").length > 0 ) {
-        new ShareInput({ el: "#interlayer" });
-      }
+      self.initActive();
 
       if ( wechatUtil.isWechat() ) {
         wechatUtil.setTitle(result.title);
@@ -97,6 +94,13 @@ var AppView = Backbone.View.extend({
         }
       }
     });
+  },
+  initActive: function() {
+    var activeType = this.$el.find("[data-active-type]").data("activeType");
+
+    if ( activeType === "zhenrongbao" ) {
+      new ShareInput({ el: "#interlayer" });
+    }    
   }
 });
 
