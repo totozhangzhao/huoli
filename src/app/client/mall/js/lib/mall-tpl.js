@@ -21,6 +21,8 @@ exports.getBlockUrl = function(item) {
   if ( String(item.action) === "2" ) {
     jsUrl = item.url;
   } else {
+
+    /* jshint scripturl: true */
     jsUrl = urlMap[item.action] || "javascript:;";
   }
 

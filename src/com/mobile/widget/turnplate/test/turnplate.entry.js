@@ -151,9 +151,9 @@ function drawRouletteWheel() {
         }
       } else if (text.indexOf("M") === -1 && text.length > 6) { //奖品名称长度超过一定范围 
         text = text.substring(0, 6) + "||" + text.substring(6);
-        var texts = text.split("||");
-        for (var j = 0; j < texts.length; j++) {
-          ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
+        var texts2 = text.split("||");
+        for (var k = 0; k < texts2.length; k++) {
+          ctx.fillText(texts2[k], -ctx.measureText(texts2[k]).width / 2, k * line_height);
         }
       } else {
         //在画布上绘制填色的文本。文本的默认颜色是黑色
@@ -169,11 +169,11 @@ function drawRouletteWheel() {
         };
         ctx.drawImage(img, -15, 10);
       } else if (text.indexOf("谢谢参与") >= 0) {
-        var img = document.getElementById("sorry-img");
-        img.onload = function() {
-          ctx.drawImage(img, -15, 10);
+        var img2 = document.getElementById("sorry-img");
+        img2.onload = function() {
+          ctx.drawImage(img2, -15, 10);
         };
-        ctx.drawImage(img, -15, 10);
+        ctx.drawImage(img2, -15, 10);
       }
 
       //把当前画布返回（调整）到上一个save()状态之前 

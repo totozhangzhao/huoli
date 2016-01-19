@@ -279,9 +279,9 @@ var AppView = Backbone.View.extend({
 
     this.getOrderList({ listType: listType }, renderView);
   },
-  getOrderList: function(options, callback) {
+  getOrderList: function(opts, callback) {
     var self = this;
-    var options = options || {};
+    var options = opts || {};
 
     this.loadingMore = true;
 

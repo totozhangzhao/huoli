@@ -61,9 +61,9 @@ Wilq32.PhotoEffect.prototype = {
       }
 
       this._parameters.bind = events;
-      for (var a in events) {
-        if (events.hasOwnProperty(a)) {
-          this._eventObj.addEventListener(a, events[a], false);
+      for (var e in events) {
+        if (events.hasOwnProperty(e)) {
+          this._eventObj.addEventListener(e, events[e], false);
         }
       }
     }

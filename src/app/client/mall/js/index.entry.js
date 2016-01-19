@@ -166,9 +166,9 @@ var AppView = Backbone.View.extend({
       imgDelay();
     });
   },
-  mallGetUserInfo: function(options) {
+  mallGetUserInfo: function(opts) {
     var self = this;
-    var options = options || {};
+    var options = opts || {};
 
     async.waterfall([
       function(next) {
