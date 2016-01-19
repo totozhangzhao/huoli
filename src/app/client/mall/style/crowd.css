@@ -340,7 +340,15 @@ p {
   color: #a5a5a5;
 }
 .snap-status-num .snap-join-no {
-  text-align: center;
+  position: relative;
+  left: 0;
+  top: 0;
+}
+.snap-status-num .snap-join-no a {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #039ef0;
 }
 .snap-status-num .snap-join-num span {
   color: #ff5a44;

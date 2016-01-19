@@ -63,7 +63,7 @@ stat  int 状态
     <!-- 2.参与 -->
     <% } else { %>
     <!-- 1.未参与 -->
-    <p class="snap-join-no">您未参与本期活动</p>
+    <p class="snap-join-no">您未参与本期活动<a href="http://dl.rsscc.cn/guanggao/active/what-is-crowd.html">什么是一元夺宝？</a></p>
     <!-- 1.未参与 -->
     <% } %>
   </div>
