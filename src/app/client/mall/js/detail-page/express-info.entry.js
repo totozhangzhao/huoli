@@ -33,7 +33,7 @@ var AppView = Backbone.View.extend({
       .done(function(expressInfo) {
         var infoList = expressInfo.data;
 
-        if ( Array.isArray(infoList) ) {
+        if ( Array.isArray(infoList) && infoList.length > 0 ) {
           var firstT = new Date(infoList[0].time).getTime();
           var lastT  = new Date(infoList[infoList.length - 1].time).getTime();
 
