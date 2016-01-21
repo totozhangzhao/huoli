@@ -35,12 +35,18 @@
       height: 100%;
       margin: 0 auto;
       background: #0b0011;
+      position: relative;
+      font-family: "Microsoft YaHei";
     }
     .lucky-desc-bar,
     .lucky-status-bar,
     .lucky-btn-bar,
     .lucky-nav-bar {
       position: relative;
+    }
+    .lucky-status-bar {
+      height: 200px;
+      background: #fedb4d;
     }
     .lucky-nav-bar {
       width: 100%;
@@ -57,8 +63,7 @@
       background: #000;
       opacity: 0.5;
     }
-    .lucky-integral-area,
-    .lucky-rule-area {
+    .lucky-integral-area  {
       font-size: 14px;
       height: 14px;
       line-height: 14px;
@@ -69,11 +74,16 @@
       top: 13px;
     }
     .lucky-rule-area {
-      padding-left: 18px;
+      font-size: 14px;
+      position: absolute;
+      height: 26px;
+      line-height: 26px;
+      padding: 0 12px;
       right: 15px;
-      top: 13px;
-      background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/lucky-mid-icon.png) no-repeat;
-      background-size: 14px 14px;
+      top: 7px;
+      border-radius: 26px;
+      border: 1px solid #f4f3b3;
+      color: #f4f3b3;
     }
     .lucky-rule-area a {
       color: #f4f3b3;
@@ -93,120 +103,94 @@
       bottom: 20px;
     }
     .lucky-status-area {
-      width: 266px;
-      height: 127px;
-      background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/lucky-draw/lucky-card/lucky-card-bg.png) no-repeat;
+      width: 300px;
+      height: 152px;
+      background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/newyear-bg.png) no-repeat;
       background-size: cover;
       position: absolute;
       left: 50%;
       top: 0;
-      margin-left: -133px;
+      margin-left: -150px;
     }
     .lucky-status-area-son {
-      width: 253px;
-      height: 98px;
+      width: 286px;
       position: absolute;
       left: 7px;
       top: 15px;
     }
+    .lucky-status-area-son img {
+      width: 100%;
+      height: 122px;
+    }
     .box-shadow {
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.8);
       position: fixed;
       left: 0;
       top: 0;
       display: none; 
     }
     .tip-box {
-      width: 277px;
-      height: 269px;
-      background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/windows-bg.png) no-repeat;
-      background-size: 277px 269px;
+      width: 288px; 
+      height: 274px;
+      background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/lucky-window.bg.png) no-repeat;
+      background-size: 288px 274px;
       position: absolute;
       left: 50%;
       top: 50%;
-      margin-left: -138px;
-      margin-top: -134px;
+      margin-left: -144px;
+      margin-top: -137px;
     }
     .prize-desc {
       width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      font-size: 14px;
+      font-size: 16px;
       box-sizing: border-box;
       word-break:break-word;
       padding: 0 20px;
-      height: 48px;
-      line-height: 24px;
+      height: 40px;
+      line-height: 20px;
       overflow: hidden;
       text-align: center;
-    }
-    .go-award-box {
-      width: 100%;
-      height: 30px;
-      position: absolute;
-      bottom: 18px;
-      left: 0;
+      color: #e92e49;
     }
     .go-award {
-      width: 36%;
-      height: 30px;
-      line-height: 30px;
-      text-align: center;
-      color: #fff;
+      width: 180px;
+      height: 41px;
       position: absolute;
-      top: 0;
-      font-size: 16px;
-      background: #f8621b;  
-      border-radius: 4px;
-    }
-    .go-award:nth-child(1) {
-      left: 10%;
-    }
-    .go-award:nth-child(2) {
-      right: 10%;
+      bottom: 16px;
+      left: 50%;
+      margin-left: -90px;
+      background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/lucky-newyear-try.png) no-repeat;
+      background-size: 180px 41px;
     }
     .close-btn {
       width: 32px;
       height: 32px;
-      background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/lucky-mid-close.png?a=m) no-repeat;
+      background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/lucky-newyear-close.png) no-repeat;
       background-size: 32px 32px;
       position: absolute;
-      right: -16px;
-      top: -16px;
+      right: -7px;
+      top: -7px;
     }
     .gift-box {
       width: 100%;
       position: absolute;
       left: 0;
-      bottom: 60px;
+      bottom: 63px;
     }
     .gift-box .gift-text {
       color: #fdd900;
     }
     .tip-gift-pic {
-      width: 120px;
+      width: 140px;
       position: absolute;
       left: 50%;
-      top: 30px;
-      margin-left: -60px;
-    }
-    .look-box {
-      position: relative;
-    }
-    .look-btn {
-      width: 100%;
-      height: 24px;
-      text-align: center;
-      font-style: italic;
-      line-height: 24px;
-      text-decoration: underline;
-      color: #ffc400;
-      position: absolute;
-      left: 0;
-      bottom: 30px;
+      top: 22px;
+      margin-left: -70px;
     }
   </style>
   <style>
@@ -377,11 +361,8 @@
       <p class="lucky-integral-area">当前积分：<span class="js-points">--</span></p>
       <p class="lucky-rule-area"><a href="https://dl.rsscc.cn/guanggao/integral/active/lucky-mid-rule.html?a=m">抽奖规则</a></p>
     </nav>
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-1.jpg?a=b">
-    <div class="look-box">
-       <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-2.jpg?a=b">
-       <a class="look-btn" href="https://mall.rsscc.cn/fe/app/client/mall/html/share-page/share.html?productid=10000057">查看大神NOTE3手机详情</a>
-     </div>
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/newyear-1.jpg">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/newyear-2.jpg">
     <div class="lucky-status-bar">
       <div class="lucky-status-area">
         <div class="js-card-block lucky-status-area-son">
@@ -389,11 +370,10 @@
         </div>
       </div>
     </div>
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-3.jpg?a=f">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-4.jpg?a=b">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-5.jpg?a=m">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-6.jpg?a=m">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/mid-autumn/mid-autumn-7.jpg?a=m">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/newyear-3.jpg">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/newyear-4.jpg">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/newyear-5.jpg">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/newyear-6.jpg">
     <div class="js-alert-box box-shadow">
       <!-- // -->
     </div>
