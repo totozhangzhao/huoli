@@ -10,6 +10,9 @@
     "type": "git",
     "url": "http://gitlab.huoli.com/front-end/fe-space.git"
   },
+  "scripts": {
+    "build": "gulp build"
+  },
   "devDependencies": {
     "autoprefixer-loader": "^1.2.0",
     "css-loader": "^0.12.1",
