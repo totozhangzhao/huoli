@@ -97,7 +97,7 @@ var AppView = Backbone.View.extend({
         if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
           var payUrl = window.location.origin + "/bmall/payview.do?orderid=" + orderInfo.orderid;
 
-          if ( mallUitl.isHangban() ) {
+          if ( mallUitl.isHangbanFunc() ) {
             payUrl = window.location.origin + "/bmall/hbpayview.do?orderid=" + orderInfo.orderid;
           }
 

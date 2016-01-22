@@ -147,7 +147,7 @@ var AppView = Backbone.View.extend({
       function(next) {
         var payUrl = window.location.origin + "/bmall/payview.do?orderid=" + orderDetail.orderid;
 
-        if ( mallUitl.isHangban() ) {
+        if ( mallUitl.isHangbanFunc() ) {
           payUrl = window.location.origin + "/bmall/hbpayview.do?orderid=" + orderDetail.orderid;
         }
 
@@ -217,7 +217,7 @@ var AppView = Backbone.View.extend({
 
     $("#copyright").html(crTpl({
       system: Util.getMobileSystem(),
-      isHangban: mallUitl.isHangban()
+      isHangbanFunc: mallUitl.isHangbanFunc()
     }));
   }
 });

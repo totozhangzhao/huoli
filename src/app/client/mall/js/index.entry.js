@@ -38,7 +38,7 @@ var AppView = Backbone.View.extend({
       return;
     }
 
-    var title = mallUitl.isHangban() ? "航班商城" : "高铁商城";
+    var title = mallUitl.isHangbanFunc() ? "航班商城" : "高铁商城";
     widget.updateViewTitle(title);
     this.$el.$pionts = $("#index-points-bar");
 
@@ -278,7 +278,7 @@ var AppView = Backbone.View.extend({
       });
     };
 
-    if ( !mallUitl.isHangban() ) {
+    if ( !mallUitl.isHangbanFunc() ) {
       NativeAPI.invoke("updateHeaderRightBtn", {
         action: "show",
         text: "签到"
@@ -290,7 +290,7 @@ var AppView = Backbone.View.extend({
       });
 
       NativeAPI.registerHandler("headerRightBtnClick", function() {
-        if ( mallUitl.isHangban() ) {
+        if ( mallUitl.isHangbanFunc() ) {
           doCheckin();
         } else {
           widget.createNewView({
@@ -380,7 +380,7 @@ var AppView = Backbone.View.extend({
 
     $("#copyright").html(crTpl({
       system: Util.getMobileSystem(),
-      isHangban: mallUitl.isHangban()
+      isHangbanFunc: mallUitl.isHangbanFunc()
     }));
   }
 });

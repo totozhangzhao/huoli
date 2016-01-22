@@ -44,8 +44,18 @@ exports.getAppName = (function() {
   };
 }());
 
-exports.isHangban = function() {
+exports.isHangbanFunc = function() {
   return /hbgj/i.test(exports.getAppName());
+};
+
+exports.isAppFunc = function() {
+  var appName = cookie.get("appName");
+
+  if ( /gtgj|hbgj/i.test(appName) ) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 exports.getHangbanAppUrl = function() {

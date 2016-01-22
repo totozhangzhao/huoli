@@ -3,7 +3,7 @@ var Util       = require("app/client/mall/js/lib/util.js");
 
 var serverUrl = "/bmall/rest/";
 
-if ( Util.isHangban() ) {
+if ( Util.isHangbanFunc() ) {
   serverUrl = "/bmall/rest/hb/";
 }
 

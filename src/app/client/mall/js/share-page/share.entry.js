@@ -38,7 +38,7 @@ var AppView = Backbone.View.extend({
       widget.createNewView({
         url: urlObj.gtgjUrl || urlObj.appUrl
       });
-    } else if ( wechatUtil.isWechat() ) {
+    } else if ( wechatUtil.isWechatFunc() ) {
       window.location.href = urlObj.wechatUrl || urlObj.weixinUrl || urlObj.webUrl;
     } else {
       widget.createNewView({
@@ -82,17 +82,22 @@ var AppView = Backbone.View.extend({
       self.$el.append(result.tpl);
       self.initActive();
 
-      if ( wechatUtil.isWechat() ) {
+      if ( wechatUtil.isWechatFunc() ) {
         wechatUtil.setTitle(result.title);
         if ( shareUtil.hasShareInfo() ) {
           loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
         }
-        require("app/client/mall/js/lib/download-app.js").init( wechatUtil.isWechat() );
       } else {
         widget.updateViewTitle(result.title);
         if ( shareUtil.hasShareInfo() ) {
           mallWechat.initNativeShare();
         }
+      }
+
+      var isApp = mallUitl.isAppFunc();
+
+      if ( !isApp ) {
+        require("app/client/mall/js/lib/download-app.js").init( isApp );
       }
     });
   },

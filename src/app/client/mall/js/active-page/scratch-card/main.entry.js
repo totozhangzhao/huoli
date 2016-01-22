@@ -31,7 +31,7 @@ var AppView = Backbone.View.extend({
     this.initPointsView();
     this.initCard();
 
-    if ( wechatUtil.isWechat() ) {
+    if ( wechatUtil.isWechatFunc() ) {
       if ( shareUtil.hasShareInfo() ) {
         loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
       }

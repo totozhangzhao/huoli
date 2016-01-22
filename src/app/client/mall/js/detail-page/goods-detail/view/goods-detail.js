@@ -117,14 +117,19 @@ var AppView = Backbone.View.extend({
         .addClass(buttonClass)
         .show();
 
-      if ( wechatUtil.isWechat() ) {
+      if ( wechatUtil.isWechatFunc() ) {
         wechatUtil.setTitle(productInfo.title);
         if ( shareUtil.hasShareInfo() ) {
           loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
         }
-        require("app/client/mall/js/lib/download-app.js").init( wechatUtil.isWechat() );
       } else if ( shareUtil.hasShareInfo() ) {
         mallWechat.initNativeShare();
+      }
+
+      var isApp = mallUitl.isAppFunc();
+
+      if ( !isApp ) {
+        require("app/client/mall/js/lib/download-app.js").init( isApp );
       }
     }
   },
@@ -242,7 +247,7 @@ var AppView = Backbone.View.extend({
 
     $("#copyright").html(crTpl({
       system: Util.getMobileSystem(),
-      isHangban: mallUitl.isHangban()
+      isHangbanFunc: mallUitl.isHangbanFunc()
     }));
   },
   exchange: function(productInfo) {
@@ -363,7 +368,7 @@ var AppView = Backbone.View.extend({
         if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
           var payUrl = window.location.origin + "/bmall/payview.do?orderid=" + orderInfo.orderid;
 
-          if ( mallUitl.isHangban() ) {
+          if ( mallUitl.isHangbanFunc() ) {
             payUrl = window.location.origin + "/bmall/hbpayview.do?orderid=" + orderInfo.orderid;
           }
 

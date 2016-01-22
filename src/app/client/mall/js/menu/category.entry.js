@@ -99,7 +99,7 @@ var AppView = Backbone.View.extend({
 
     $("#copyright").html(crTpl({
       system: Util.getMobileSystem(),
-      isHangban: mallUitl.isHangban()
+      isHangbanFunc: mallUitl.isHangbanFunc()
     }));
   }
 });

@@ -23,7 +23,7 @@ exports.setTitle = function(title) {
   }
 };
 
-exports.isWechat = function() {
+exports.isWechatFunc = function() {
   var ua = window.navigator.userAgent.toLowerCase();
   return /micromessenger/.test(ua);
 };
