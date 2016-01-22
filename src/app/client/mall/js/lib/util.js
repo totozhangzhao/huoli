@@ -48,6 +48,14 @@ exports.isHangban = function() {
   return /hbgj/i.test(exports.getAppName());
 };
 
+exports.getHangbanAppUrl = function() {
+  return "http://a.app.qq.com/o/simple.jsp?pkgname=com.flightmanager.view";
+};
+
+exports.getGaotieAppUrl = function() {
+  return "http://a.app.qq.com/o/simple.jsp?pkgname=com.gtgj.view";
+};
+
 exports.getUpgradeUrl = function() {
   return "http://cdn.rsscc.cn/guanggao/upgrade/upgrade.html";
 };

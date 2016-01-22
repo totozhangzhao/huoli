@@ -122,6 +122,7 @@ var AppView = Backbone.View.extend({
         if ( shareUtil.hasShareInfo() ) {
           loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
         }
+        require("app/client/mall/js/lib/download-app.js").init( wechatUtil.isWechat() );
       } else if ( shareUtil.hasShareInfo() ) {
         mallWechat.initNativeShare();
       }
@@ -208,9 +209,9 @@ var AppView = Backbone.View.extend({
       });
     } else {
       if ( /hb/.test(window.location.hostname) ) {
-        window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.flightmanager.view";
+        window.location.href = mallUitl.getHangbanAppUrl();
       } else {
-        window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.gtgj.view";
+        window.location.href = mallUitl.getGaotieAppUrl();
       }
     }
   },
