@@ -5,7 +5,7 @@
   </div>
   <div class="go-award-box">
     <a class="js-go go-award"><%= buttonText || "确定" %></a>
-    <a class="js-again go-award">再玩一次</a>
+    <a class="js-again go-back">再玩一次</a>
   </div>
   <b class="js-close close-btn"></b>
 </div>
