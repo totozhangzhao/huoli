@@ -81,6 +81,11 @@ var AppView = Backbone.View.extend({
         });
       }, 0);
 
+      var $warning = require("app/client/mall/js/lib/warning.js").init({
+        text: "商城商品、奖品节后统一发货，预祝新年大吉！",
+        flag: ((new Date().getMonth() + 1) === 2)
+      });
+      $warning.insertBefore("#top-banner");
       logger.track(mallUitl.getAppName() + "PV", "View PV", title);
     });
   },

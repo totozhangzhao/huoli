@@ -1,15 +1,17 @@
 <!--
 stat  int 状态
-0-待开奖
+0-待开奖（已结束）
 1-正常购买中
 2-已开奖
+3-自己中奖了
+4-待开奖（有未支付的）
 -->
 <div class="snap-banner-bar">
   <img src="<%= data.img %>">
 </div>
-<div <%= data.stat === 1 ? "" : "disabled" %> class="snap-status-bar">
+<div <%= (data.stat === 1 || data.stat === 4) ? "" : "disabled" %> class="snap-status-bar">
   <div class="snap-status-tip clearfix">
-    <% var statText = { "0": "待开奖", "1": "进行中", "2": "已结束" } %>
+    <% var statText = { "0": "待开奖", "1": "进行中", "2": "已结束", "4": "进行中" } %>
     <span class="fl"><%= statText[data.stat] %></span>
     <span class="fl"><%= data.hint %></span>
   </div>
@@ -93,13 +95,16 @@ stat  int 状态
   </div>
   <dl data-for="rules" class="js-tab-content snap-desc-area snap-desc-rule text-box"><%= data.rulestpl %></dl>
 </div>
+<% if (data.stat === 4) { %>
+<div class="js-fix-text fix-hint">还有机会，有未完成支付的订单，10分钟内未支付的订单将被取消。</div>
+<% } %>
 <div class="snap-join-bar">
   <p class="js-model-money"><%= data.showprice %></p>
+  <% var buttonText = { "0": "已结束", "1": "立即参与", "2": "已结束", "4": "余量不足" } %>
   <button <%= data.stat === 1 ? "" : "disabled" %> class="js-submit" type="button"
     data-active-text="立即参与"
-    data-inactive-text="已结束"
     data-pay-text="去支付"
-  ><%= data.stat === 1 ? "立即参与" : "已结束" %></button>
+  ><%= buttonText[data.stat] %></button>
 </div>
 <div class="js-panel common-shadow">
   <div class="snap-buy-box">

@@ -19,6 +19,7 @@ var AppView = Backbone.View.extend({
     "click .js-hide-panel"   : "hidePurchasePanel",
     "touchend .js-change-num": "setNum",
     "click .js-rules"        : "gotoRulesPage",
+    "click .js-fix-text"     : "hideFixPanel",
     "click .js-submit"       : "submitButtonEvent"
   },
   initialize: function() {
@@ -42,6 +43,9 @@ var AppView = Backbone.View.extend({
     if (this.title) {
       widget.updateViewTitle(this.title);
     }
+  },
+  hideFixPanel: function(e) {
+    $(e.currentTarget).hide();
   },
   gotoRulesPage: function() {
     this.router.switchTo("crowd-rules");

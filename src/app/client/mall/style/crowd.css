@@ -541,6 +541,19 @@ p {
   padding-bottom: 0;
   padding-left: 3px;
 }
+.fix-hint {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 60px;
+  padding-top: 10px;
+  padding-right: 26px;
+  padding-bottom: 10px;
+  padding-left: 26px;
+  background-color: #FEBD14;
+  color: #FFF;
+  font-size: 12px;
+}
 .snap-join-bar {
   width: 100%;
   height: 60px;
