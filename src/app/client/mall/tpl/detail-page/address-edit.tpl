@@ -40,5 +40,5 @@
   <textarea name="address" class="address-detail-insert"><%- addressInfo.address || "" %></textarea>
 </div>
 <div class="address-foot-box">
-  <a id="save-address" class="address-foot-btn allow-color"><%= addressInfo.addressid ? "设为默认收货地址" : "保存并使用" %></a>
+  <a id="save-address" class="address-foot-btn allow-color"><%= addressInfo.addressid ? "设为默认收货地址" : "保存" %></a>
 </div>
