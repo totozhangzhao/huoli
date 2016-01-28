@@ -247,13 +247,14 @@ p {
   border-left: 1px solid #ffdcdc;
 }
 .snap-status-bar .snap-status-show div {
-  width: 45%;
+  width: 4%;
   height: 12px;
   background-color: #ff5151;
   border-radius: 12px;
   position: relative;
   left: 0;
   top: -1px;
+  transition: width 0.8s ease-out;
 }
 .snap-status-bar .snap-status-total {
   font-size: 10px;

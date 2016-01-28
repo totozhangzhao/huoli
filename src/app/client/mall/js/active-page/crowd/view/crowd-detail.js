@@ -228,17 +228,39 @@ var AppView = Backbone.View.extend({
       .catch(mallPromise.catchFn);
   },
   renderMainPanel: function(productDetail) {
+    var self = this;
+
     if (productDetail.title) {
       this.title = productDetail.title;
     }
 
     widget.updateViewTitle(this.title);
 
+    var minBarWidth = 4;
+    var maxBarWidth = 100;
+    var barWidth = (productDetail.totalcount - productDetail.remaincount) / productDetail.totalcount * 100;
+    
+    barWidth = barWidth > minBarWidth ? barWidth : minBarWidth;
+    barWidth = barWidth < maxBarWidth ? barWidth : maxBarWidth;
+
+    var showAnimation = (barWidth !== maxBarWidth && barWidth !== minBarWidth);
     var tmpl = require("app/client/mall/tpl/active-page/crowd/main.tpl");
-    this.$el.html(tmpl({ data: productDetail }));
+
+    this.$el.html(tmpl({
+      data: productDetail,
+      barWidth: showAnimation ? minBarWidth : barWidth
+    }));
     this.$panel = this.$el.find(".js-panel");
     this.$button = this.$el.find(".js-submit");
     this.$num = this.$el.find(".js-goods-num");
+
+    if (showAnimation) {    
+      _.defer(function() {
+        self.$el
+          .find(".js-bar")
+            .css("width", barWidth + "%");
+      }, 300);
+    }
   }
 });
 

@@ -16,10 +16,7 @@ stat  int 状态
     <span class="fl"><%= data.hint %></span>
   </div>
   <div class="snap-status-show">
-    <% var barWidth = (data.totalcount - data.remaincount) / data.totalcount * 100; %>
-    <% barWidth = barWidth > 4 ? barWidth : 4; %>
-    <% barWidth = barWidth < 100 ? barWidth : 100; %>
-    <div style="width: <%=  barWidth %>%;"></div>
+    <div class="js-bar" style="width: <%=  barWidth %>%;"></div>
   </div>
   <div class="snap-status-total clearfix">
     <span class="fl">总需<%= data.totalcount %>人次</span>
