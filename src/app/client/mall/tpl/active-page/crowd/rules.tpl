@@ -6,7 +6,7 @@
   </div>
   <div class="snap-bottom-son">
     <h5 class="snap-head">数值A</h5>
-    <p>=截止该奖品最后购买时间点前最后<%= data.anumber %>条全站参与记录的参与时间</p>
+    <p>=截止该奖品最后购买时间点前，本期最后<%= data.anumber %>条支付完成的订单时间</p>
     <p>=<span class="snap-color"><%= data.avalue %></span></p>
     <table class="snap-table" width="100%" >
       <thead>
