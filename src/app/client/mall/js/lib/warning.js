@@ -1,13 +1,9 @@
 var $ = require("jquery");
 
-exports.init = function(options) {
-  if (!options.flag) {
-    return;
-  }
-
+exports.init = function(text) {
   var tmpl = require("app/client/mall/tpl/etc/warning.tpl");
   var $warning = $(tmpl({
-    text: options.text
+    text: text
   }))
     .on("click", function() {
       $warning.remove();

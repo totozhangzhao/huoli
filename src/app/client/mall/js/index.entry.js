@@ -79,15 +79,20 @@ var AppView = Backbone.View.extend({
             rightButtonReady: true
           });
         });
-      }, 0);
 
-      var $warning = require("app/client/mall/js/lib/warning.js").init({
-        text: "商城商品、奖品节后统一发货，预祝新年大吉！",
-        flag: ((new Date().getMonth() + 1) === 2)
-      });
-      $warning.insertBefore("#top-banner");
-      logger.track(mallUitl.getAppName() + "PV", "View PV", title);
+        self.initWarning();
+      }, 0);
     });
+
+    logger.track(mallUitl.getAppName() + "PV", "View PV", title);
+  },
+  initWarning: function() {
+    var $warning = require("app/client/mall/js/lib/warning.js").init("商城商品、奖品节后统一发货，预祝新年大吉！");
+
+    // 春节（2月）显示延迟发货提示
+    if ( (new Date().getMonth() + 1) === 2 ) {
+      $warning.insertBefore("#top-banner");
+    }
   },
   handleGetUrl: function(e) {
     async.waterfall([
