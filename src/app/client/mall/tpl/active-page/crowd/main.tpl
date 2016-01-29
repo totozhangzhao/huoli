@@ -69,7 +69,7 @@ stat  int 状态
 </div>
 <div class="snap-desc-bar">
   <ul class="js-tab-wrapper no-select snap-tab">
-    <li data-tab-name="userList" class="js-tab on">所有参与</li>
+    <li data-tab-name="userList" class="js-tab on">最近参与</li>
     <li data-tab-name="goodsDetail" class="js-tab">商品详情</li>
     <li data-tab-name="rules" class="js-tab">获奖规则</li>
   </ul>
