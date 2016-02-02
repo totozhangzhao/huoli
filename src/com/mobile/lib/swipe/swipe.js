@@ -1,5 +1,12 @@
-// Modified
 /*
+ * Modified By:
+ *
+ * tianfangye.com
+ *
+ * ========================================
+ *
+ * Original Version:
+ *
  * Swipe 2.0
  *
  * Brad Birdsall
