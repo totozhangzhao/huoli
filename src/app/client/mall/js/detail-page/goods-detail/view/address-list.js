@@ -14,7 +14,6 @@ var addressUtil = require("app/client/mall/js/lib/address-util.js");
 var AppView = Backbone.View.extend({
   el: "#address-list",
   events: {
-    // "click #confirm-order": "confirmOrder",
     "click .js-address-info"    : "gotoConfirmPage",
     "change .js-default-address": "setDefaultAddress",
     "click .js-add-address"     : "addAddress",
@@ -28,20 +27,11 @@ var AppView = Backbone.View.extend({
   resume: function(options) {
     var self = this;
 
-    if (options.previousView === "") {
-      // this.router.switchTo("goods-detail");
-      pageAction.setClose();
-      // return;
-    }
-
     hint.showLoading();
     
     var addressList = this.collection.addressList;
-    var showAddressHelper = function() {
-      pageAction.setClose({
-        preventDefault: false
-      });
 
+    var showAddressHelper = function() {
       addressUtil.getList(function(err, result) {
         if (err) {
           toast(err.message, 1500);
@@ -63,6 +53,25 @@ var AppView = Backbone.View.extend({
       });
     };
 
+    var addLeftButtonListener = function() {
+      NativeAPI.registerHandler("back", function(params, callback) {
+        var $checked = self.$el.find(".js-default-address:checked");
+        var isShowConfirm = $checked.length > 0 ? true : false;
+
+        callback(null, {
+          preventDefault: isShowConfirm
+        });
+
+
+        if ( isShowConfirm ) {
+          var id = $checked.closest(".js-item").data("addressid");
+
+          self.cache.curAddressId = id;
+          self.showConfirm();
+        }
+      });
+    };
+
     async.waterfall([
       function(next) {
         appInfo.getUserData(function(err, userData) {
@@ -77,6 +86,10 @@ var AppView = Backbone.View.extend({
     ], function(err, result) {
       if (result.userInfo.authcode) {
         showAddressHelper();
+
+        if (UrlUtil.parseUrlSearch().action === "order") {
+          addLeftButtonListener();
+        }
       } else {
         hint.hideLoading();
         self.loginApp();          
@@ -174,20 +187,25 @@ var AppView = Backbone.View.extend({
     this.cache.curAddressId = $cur.closest(".js-item").data("addressid");
 
     if (UrlUtil.parseUrlSearch().action === "order") {
-      this.$el.$shade.show();
-      this.$el.$warningConfirm
-        .off("click")
-        .one("click", ".js-confirm", function() {
-          self.hidePrompt();
-          self.handleOrderAction();
-        })
-        .one("click", ".js-cancel", function() {
-          self.hidePrompt();
-        })
-        .show();
+      this.showConfirm();
     } else {
       this.router.switchTo("address-confirm");
     }
+  },
+  showConfirm: function() {
+    var self = this;
+
+    this.$el.$shade.show();
+    this.$el.$warningConfirm
+      .off("click")
+      .one("click", ".js-confirm", function() {
+        self.hidePrompt();
+        self.handleOrderAction();
+      })
+      .one("click", ".js-cancel", function() {
+        self.hidePrompt();
+      })
+      .show();
   },
   setDefaultAddress: function() {
     hint.showLoading();
