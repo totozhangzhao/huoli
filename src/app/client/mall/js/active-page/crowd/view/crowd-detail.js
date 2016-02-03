@@ -205,7 +205,7 @@ var AppView = Backbone.View.extend({
       })
       .catch(mallPromise.catchFn);
   },
-  //加载商品详情
+  // 加载商品详情
   renderDetail: function (e) {
     var $cur = $(e.currentTarget);
     if($cur.data("loaded")){
