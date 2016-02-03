@@ -16,14 +16,14 @@ var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 var AppView = Backbone.View.extend({
   el: "#crowd-detail",
   events: {
-    "click .js-hide-panel"   : "hidePurchasePanel",
-    "touchend .js-change-num": "setNum",
-    "click .js-rules"        : "gotoRulesPage",
-    "click .js-fix-text"     : "hideFixPanel",
-    "click .js-submit"       : "submitButtonEvent"
+    "click .js-hide-panel"                                 : "hidePurchasePanel",
+    "touchend .js-change-num"                              : "setNum",
+    "click .js-rules"                                      : "gotoRulesPage",
+    "click .js-fix-text"                                   : "hideFixPanel",
+    "click .js-submit"                                     : "submitButtonEvent",
+    "click .js-tab-wrapper>li[data-tab-name=goodsDetail]"  : "renderDetail"
   },
   initialize: function() {
-
     // 活动ID
     this.id = UrlUtil.parseUrlSearch().productid;
 
@@ -175,7 +175,6 @@ var AppView = Backbone.View.extend({
   },
   mallCrowdDetail: function() {
     var self = this;
-
     mallPromise.appInfo
       .then(function(userData) {
         var params = _.extend({}, userData.userInfo, {
@@ -204,23 +203,36 @@ var AppView = Backbone.View.extend({
         new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
         return data.userData;
       })
+      .catch(mallPromise.catchFn);
+  },
+  //加载商品详情
+  renderDetail: function (e) {
+    var $cur = $(e.currentTarget);
+    if($cur.data("loaded")){
+      return;
+    }
+    hint.showLoading();
+    var self = this;
+    mallPromise.appInfo
       .then(function(userData) {
-          var params = _.extend({}, userData.userInfo, {
-            p: userData.deviceInfo.p,
-            productid: self.id
-          });
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p,
+          productid: self.id
+        });
 
-          return new Promise(function(resolve, reject) {
-            sendPost("tplProduct", params, function(err, data) {
-              if (err) {
-                reject(err);
-              } else {
-                resolve(data);
-              }
-            });
+        return new Promise(function(resolve, reject) {
+          sendPost("tplProduct", params, function(err, data) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(data);
+            }
           });
+        });
       })
       .then(function(data) {
+        $cur.data("loaded", true)
+        hint.hideLoading();
         self.$el
           .find("[data-for='goodsDetail']")
             .html(data.tpl);
