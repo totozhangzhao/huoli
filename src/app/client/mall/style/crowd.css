@@ -182,6 +182,65 @@ p {
   z-index: 5;
   display: none;
 }
+.ui-confirm {
+  width: 74.6%;
+  text-align: center;
+  border-radius: 4px;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -37.3%;
+  transform: translate(0, -50%);
+  -webkiy-transform: translate(0, -50%);
+}
+.ui-confirm .ui-confirm-tip {
+  padding-top: 21px;
+  padding-right: 21px;
+  padding-bottom: 20px;
+  padding-left: 21px;
+}
+.ui-confirm .ui-confirm-tip p:nth-child(1) {
+  font-size: 18px;
+}
+.ui-confirm .ui-confirm-tip p:nth-child(2) {
+  font-size: 14px;
+  margin-top: 5px;
+}
+.confirm-btn-box,
+.confirm-sure-btn {
+  border-top: 1px solid #dedee0;
+}
+.confirm-btn-box a {
+  width: 50%;
+  height: 42px;
+  font-size: 15px;
+  line-height: 42px;
+  display: inline-block;
+}
+.confirm-btn-box a:nth-child(1) {
+  border-right: 1px solid #dedee0;
+  color: #4d4d4d;
+}
+.confirm-btn-box a:nth-child(2) {
+  color: #039ef0;
+}
+.ui-confirm .confirm-close {
+  width: 40px;
+  height: 40px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -281px -104px;
+  background-size: 312px 280px;
+  position: absolute;
+  right: -20px;
+  top: -20px;
+}
+.ui-confirm .confirm-sure-btn {
+  text-align: center;
+  height: 42px;
+  line-height: 42px;
+  color: #039ef0;
+  display: block;
+}
 .snap-up-box {
   max-width: 750px;
   min-height: 100%;
@@ -449,6 +508,7 @@ p {
   padding-right: 5px;
 }
 .snap-desc-bar .snap-desc-detail {
+  min-height: 200px;
   font-size: 15px;
 }
 .snap-desc-bar .text-box {
