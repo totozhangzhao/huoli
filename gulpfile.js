@@ -19,8 +19,6 @@ var webpackBuilder = require("./builder/webpack/index.js");
 var versionRef     = require("./builder/version/version-ref.js");
 var shell          = require("gulp-shell");
 
-var browserSync = require('browser-sync').create();
-
 var config = {
   src : "./src/",
   dest: "./dest/"
@@ -123,35 +121,4 @@ gulp.task("watch", function() {
   // JavaScript
   gulp.watch(config.src + "**/*.js", ["js:lint"]);
 
-});
-
-gulp.task('dev', function() {
-  browserSync.init({
-    proxy: {
-        target: "http://mall.rsscc.cn/fe/app/client/mall/",
-        middleware: function (req, res, next) {
-            console.log(req.url);
-            next();
-        }
-    }
-  });
-    // HTML
-  gulp.watch(config.src + "**/*.html", function () {
-    runSequence("html", browserSync.reload)
-  });
-
-  // CSS
-  gulp.watch(config.src + "**/*.css", function () {
-    runSequence("styles", browserSync.stream)
-  });
-
-  // Images
-  gulp.watch(config.src + "**/*.+(jpg|jpeg|png|gif)", function () {
-    runSequence("images", browserSync.reload)
-  });
-
-  // JavaScript
-  gulp.watch(config.src + "**/*.js", function () {
-    runSequence("js:lint", browserSync.reload)
-  });
 });
