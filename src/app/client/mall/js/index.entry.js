@@ -80,7 +80,7 @@ var AppView = Backbone.View.extend({
           });
         });
 
-        self.initWarning();
+        // self.initWarning();
       }, 0);
     });
 
