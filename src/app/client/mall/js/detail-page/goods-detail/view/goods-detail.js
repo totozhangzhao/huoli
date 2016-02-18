@@ -36,12 +36,17 @@ var AppView = Backbone.View.extend({
     this.userDataOpitons = { reset: false };
     this.mallGoodsDetail();
   },
-  resume: function() {
+  resume: function(opts, callback) {
     if (this.title) {
       widget.updateViewTitle(this.title);
     }
 
     hint.hideLoading();
+    callback({
+      title: this.title,
+      productid: UrlUtil.parseUrlSearch().productid,
+      from: UrlUtil.parseUrlSearch().from || "--"
+    });
   },
   createNewPage: function(e) {
     widget.createAView(e);

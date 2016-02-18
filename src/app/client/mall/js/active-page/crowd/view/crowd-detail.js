@@ -231,7 +231,7 @@ var AppView = Backbone.View.extend({
         });
       })
       .then(function(data) {
-        $cur.data("loaded", true)
+        $cur.data("loaded", true);
         hint.hideLoading();
         self.$el
           .find("[data-for='goodsDetail']")

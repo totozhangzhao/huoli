@@ -22,13 +22,18 @@ var AppView = Backbone.View.extend({
     this.$el.$shade         = this.$el.find(".js-shade");
     this.$el.$successPrompt = this.$el.find(".js-success-prompt");
   },
-  resume: function(options) {
-    if (options.previousView !== "goods-detail") {
+  resume: function(opts, callback) {
+    if (opts.previousView !== "goods-detail") {
       NativeAPI.invoke("close");
       return;
     }
     this.renderMainPanel();
     pageAction.setClose();
+    callback({
+      title: window.document.title,
+      productid: parseUrl().productid,
+      from: parseUrl().from || "--"
+    });
   },
   inputInput: function(e) {
     $(e.currentTarget)
