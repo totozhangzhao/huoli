@@ -62,9 +62,6 @@ module.exports = Backbone.Router.extend({
       bbViews[action].collection  = collection;
       bbViews[action].resume({
         previousView: this.previousView
-      }, function(data) {
-        var category = mallUitl.getAppName() + "-detail_" + data.title + "_" + data.productid;
-        logger.track(category, "View PV", data.from);
       });
       this.previousView = action;
     } else {
