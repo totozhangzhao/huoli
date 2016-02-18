@@ -25,5 +25,6 @@ module.exports = [
   "com/mobile/widget/banner-com/test/main.entry.js",
   "com/mobile/widget/swiper-full-page/test/main.entry.js",
   "com/mobile/widget/scratch-card/test/scratch-card.entry.js",
-  "com/mobile/widget/swipe-page/test/swipe-page.entry.js"
+  "com/mobile/widget/swipe-page/test/swipe-page.entry.js",
+  "com/mobile/widget/popover/test/popover.entry.js"
 ];
