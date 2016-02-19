@@ -10,7 +10,7 @@ var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
 var validator  = require("app/client/mall/js/lib/validator.js");
 var hint       = require("com/mobile/widget/hint/hint.js");
-var detailLog  = require("app/client/mall/js/detail-page/goods-detail/lib/log.js");
+var detailLog  = require("app/client/mall/js/detail-page/lib/log.js");
 
 var AppView = Backbone.View.extend({
   el: "#form-custom",

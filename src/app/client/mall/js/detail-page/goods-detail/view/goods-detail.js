@@ -17,7 +17,7 @@ var cookie      = require("com/mobile/lib/cookie/cookie.js");
 var shareUtil   = require("com/mobile/widget/wechat/util.js");
 var wechatUtil  = require("com/mobile/widget/wechat-hack/util.js");
 var mallWechat  = require("app/client/mall/js/lib/wechat.js");
-var detailLog   = require("app/client/mall/js/detail-page/goods-detail/lib/log.js");
+var detailLog   = require("app/client/mall/js/detail-page/lib/log.js");
 
 var AppView = Backbone.View.extend({
   el: "#goods-detail",

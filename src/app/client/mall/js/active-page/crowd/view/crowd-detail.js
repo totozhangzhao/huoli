@@ -12,7 +12,7 @@ var Tab       = require("com/mobile/widget/button/tab.js");
 var widget    = require("app/client/mall/js/lib/widget.js");
 var moneyModel  = require("app/client/mall/js/active-page/crowd/model/money.js").money;
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
-var detailLog   = require("app/client/mall/js/detail-page/goods-detail/lib/log.js");
+var detailLog   = require("app/client/mall/js/detail-page/lib/log.js");
 
 var AppView = Backbone.View.extend({
   el: "#crowd-detail",
