@@ -18,6 +18,7 @@ var Pop = Backbone.View.extend({
   },
   template: require("com/mobile/widget/popover/tpl/poppannel.tpl"),
   initialize: function(options) {
+    this.model = new PopModel(options.options);
     this.listenTo(this.model, "change:title", this.updateTitle);
     this.listenTo(this.model, "change:message", this.updateMessage);
     this.listenTo(this.model, "change:btnText", this.updateBtnText);
