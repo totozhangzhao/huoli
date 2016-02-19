@@ -12,6 +12,7 @@ var Tab       = require("com/mobile/widget/button/tab.js");
 var widget    = require("app/client/mall/js/lib/widget.js");
 var moneyModel  = require("app/client/mall/js/active-page/crowd/model/money.js").money;
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
+var detailLog   = require("app/client/mall/js/detail-page/goods-detail/lib/log.js");
 
 var AppView = Backbone.View.extend({
   el: "#crowd-detail",
@@ -32,7 +33,8 @@ var AppView = Backbone.View.extend({
 
     // 剩余数量
     this.remainNum = 0;
-    this.title = UrlUtil.parseUrlSearch().title || this.$el.data("title");
+    this.title = "";
+    this.urlTitle = UrlUtil.parseUrlSearch().title || this.$el.data("title");
     this.$panel;
     this.$button;
     this.$num;
@@ -40,9 +42,19 @@ var AppView = Backbone.View.extend({
     this.mallCrowdDetail();
   },
   resume: function() {
+    var title = this.urlTitle;
+
     if (this.title) {
-      widget.updateViewTitle(this.title);
+      title = this.title;
+
+      detailLog.track({
+        title: this.title,
+        productid: UrlUtil.parseUrlSearch().productid,
+        from: UrlUtil.parseUrlSearch().from || "--"
+      });
     }
+
+    widget.updateViewTitle(title);
   },
   hideFixPanel: function(e) {
     $(e.currentTarget).hide();
@@ -241,12 +253,13 @@ var AppView = Backbone.View.extend({
   },
   renderMainPanel: function(productDetail) {
     var self = this;
+    var title = this.urlTitle;
 
     if (productDetail.title) {
       this.title = productDetail.title;
+      title = this.title;
+      widget.updateViewTitle(title);
     }
-
-    widget.updateViewTitle(this.title);
 
     var minBarWidth = 4;
     var maxBarWidth = 100;
@@ -273,6 +286,12 @@ var AppView = Backbone.View.extend({
             .css("width", barWidth + "%");
       }, 300);
     }
+
+    detailLog.track({
+      title: title,
+      productid: UrlUtil.parseUrlSearch().productid,
+      from: UrlUtil.parseUrlSearch().from || "--"
+    });
   }
 });
 
