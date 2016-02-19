@@ -26,7 +26,8 @@ var Pop = Backbone.View.extend({
     return this.render();
   },
   reset: function () {
-    return this.render();
+    this.render();
+    return this;
   },
   render: function () {
     return this.$el.html(this.template({data:this.model.toJSON()}));
