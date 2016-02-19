@@ -6,7 +6,6 @@
   "laxbreak":true,
   "laxcomma":true,
   "regexp":true,
-  "asi": true,
   "loopfunc":true,
   "expr":true,
   "esnext": true,

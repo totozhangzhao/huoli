@@ -10,6 +10,7 @@ var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var widget     = require("app/client/mall/js/lib/widget.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
 var validator  = require("app/client/mall/js/lib/validator.js");
+var detailLog  = require("app/client/mall/js/detail-page/lib/log.js");
 
 var AppView = Backbone.View.extend({
   el: "#form-phone",
@@ -29,14 +30,22 @@ var AppView = Backbone.View.extend({
     this.$el.$passwordInput = $("#form-phone .form-password");
     this.$el.$captchaInput  = $("#form-phone .form-captcha");
   },
-  resume: function(options) {
-    if (options.previousView !== "goods-detail") {
+  resume: function(opts) {
+    if (opts.previousView !== "goods-detail") {
       NativeAPI.invoke("close");
       return;
     }
-    widget.updateViewTitle("现金券兑换");
+    
+    var title = "现金券兑换";
+
+    widget.updateViewTitle(title);
     this.renderMainPanel();
     pageAction.setClose();
+    detailLog.track({
+      title: title,
+      productid: parseUrl().productid,
+      from: parseUrl().from || "--"
+    });
   },
   inputInput: function(e) {
     $(e.currentTarget)

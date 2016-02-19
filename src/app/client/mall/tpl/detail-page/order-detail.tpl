@@ -33,7 +33,7 @@
     </div>
     <!-- 兑换码 end -->
     <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "2") ) { %>
-    <!-- 文字信息 start -->
+    <!-- 一元夺宝文字信息 start -->
     <div class="order-exchange-bar">
       <div class="order-exchange-code show-select">
         <div>
@@ -43,7 +43,7 @@
         <b class="arc-border arc-border-right"></b>
       </div>
     </div>
-    <!-- 文字信息 end -->
+    <!-- 一元夺宝文字信息 end -->
     <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "3") ) { %>
     <!-- 地址 start -->
     <div class="order-exchange-bar order-address-bar">
@@ -59,18 +59,18 @@
     </div>
     <!-- 地址 end -->
     <% } else if ( String(orderDetail.msgtpl) === "4" )  { %>
-      <!-- 文字信息 start -->
+      <!-- 一元夺宝文字信息 start -->
       <div class="order-exchange-bar">
         <div class="js-crowd-page order-exchange-code show-select">
           <div>
-            <p>点击查看活动页面</p>
+            <p>点击查看本期夺宝进度</p>
             <%= orderDetail.texttpl %>
           </div>
           <b class="arc-border arc-border-left"></b>
           <b class="arc-border arc-border-right"></b>
         </div>
       </div>
-      <!-- 文字信息 end -->
+      <!-- 一元夺宝文字信息 end -->
 
       <% if ( orderDetail.addresstpl ) { %>
       <!-- 地址 start -->

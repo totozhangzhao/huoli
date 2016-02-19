@@ -17,6 +17,7 @@ var cookie      = require("com/mobile/lib/cookie/cookie.js");
 var shareUtil   = require("com/mobile/widget/wechat/util.js");
 var wechatUtil  = require("com/mobile/widget/wechat-hack/util.js");
 var mallWechat  = require("app/client/mall/js/lib/wechat.js");
+var detailLog   = require("app/client/mall/js/detail-page/lib/log.js");
 
 var AppView = Backbone.View.extend({
   el: "#goods-detail",
@@ -39,6 +40,12 @@ var AppView = Backbone.View.extend({
   resume: function() {
     if (this.title) {
       widget.updateViewTitle(this.title);
+
+      detailLog.track({
+        title: this.title,
+        productid: UrlUtil.parseUrlSearch().productid,
+        from: UrlUtil.parseUrlSearch().from || "--"
+      });
     }
 
     hint.hideLoading();
@@ -132,6 +139,12 @@ var AppView = Backbone.View.extend({
         require("app/client/mall/js/lib/download-app.js").init( isApp );
       }
     }
+
+    detailLog.track({
+      title: productInfo.title,
+      productid: UrlUtil.parseUrlSearch().productid,
+      from: UrlUtil.parseUrlSearch().from || "--"
+    });
   },
   exchangeHandler: function() {
     var self = this;

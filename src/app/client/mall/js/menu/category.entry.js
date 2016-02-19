@@ -1,17 +1,18 @@
-var $         = require("jquery");
-var Backbone  = require("backbone");
-var _         = require("lodash");
-var async     = require("async");
-var appInfo   = require("app/client/mall/js/lib/app-info.js");
-var toast     = require("com/mobile/widget/hint/hint.js").toast;
-var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var Util      = require("com/mobile/lib/util/util.js");
-var widget    = require("app/client/mall/js/lib/widget.js");
-var imgDelay  = require("app/client/mall/js/lib/widget.js").imageDelay;
-var mallUitl  = require("app/client/mall/js/lib/util.js");
-var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var logger    = require("com/mobile/lib/log/log.js");
-var tplUtil   = require("app/client/mall/js/lib/mall-tpl.js");
+var $        = require("jquery");
+var Backbone = require("backbone");
+var _        = require("lodash");
+var async    = require("async");
+var appInfo  = require("app/client/mall/js/lib/app-info.js");
+var toast    = require("com/mobile/widget/hint/hint.js").toast;
+var parseUrl = require("com/mobile/lib/url/url.js").parseUrlSearch;
+var Util     = require("com/mobile/lib/util/util.js");
+var widget   = require("app/client/mall/js/lib/widget.js");
+var imgDelay = require("app/client/mall/js/lib/widget.js").imageDelay;
+var mallUitl = require("app/client/mall/js/lib/util.js");
+var sendPost = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var logger   = require("com/mobile/lib/log/log.js");
+var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
+var menuLog  = require("app/client/mall/js/menu/lib/log.js");
 
 var AppView = Backbone.View.extend({
   el: "#main",
@@ -92,6 +93,11 @@ var AppView = Backbone.View.extend({
         .show();
 
       imgDelay();
+    });
+
+    menuLog.track({
+      title: parseUrl().classify,
+      from: parseUrl().from || "--"
     });
   },
   fixTpl: function() {
