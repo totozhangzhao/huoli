@@ -48,6 +48,11 @@ exports.setDefault = function(addressData, callback) {
       var params = _.extend({}, userData.userInfo, addressData, {
         p: userData.deviceInfo.p,
       });
+
+      // 是否为默认地址
+      // 1-是
+      // 0-否
+      params.def = 1;
       
       sendPost("updateAddress", params, function(err, data) {
         next(err, data);
