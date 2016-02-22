@@ -1,7 +1,7 @@
-var $                = require("jquery");
-var Backbone         = require("backbone");
-var _                = require("lodash");
-var Swipe     = require("com/mobile/lib/swipe/swipe.js");
+var $        = require("jquery");
+var Backbone = require("backbone");
+var _        = require("lodash");
+var Swipe    = require("com/mobile/lib/swipe/swipe.js");
 
 var AppView = Backbone.View.extend({
   el: "#top-banner",

@@ -1,14 +1,14 @@
-var $                = require("jquery");
-var Backbone         = require("backbone");
-var _                = require("lodash");
+var $             = require("jquery");
+var Backbone      = require("backbone");
+var _             = require("lodash");
 var Promise       = require("com/mobile/lib/promise/npo.js");
 
 var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
 var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var Util     = require("com/mobile/lib/util/util.js");
+var Util          = require("com/mobile/lib/util/util.js");
 var tplUtil       = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl      = require("app/client/mall/js/lib/util.js");
-var UrlUtil   = require("com/mobile/lib/url/url.js");
+var UrlUtil       = require("com/mobile/lib/url/url.js");
 
 var logger        = require("com/mobile/lib/log/log.js");
 var menuLog       = require("app/client/mall/js/menu/lib/log.js");
