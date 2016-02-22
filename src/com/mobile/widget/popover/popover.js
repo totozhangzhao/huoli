@@ -1,6 +1,5 @@
 var $        = require("jquery");
 var Backbone = require("backbone");
-
 var PopModel = require("com/mobile/widget/popover/models/PopModel.js");
 
 /*
@@ -9,20 +8,20 @@ API
   show 显示视图
   hide 隐藏视图
 */
-var Pop = Backbone.View.extend({
+var PopView = Backbone.View.extend({
   events: {
-    "click .confirm-btn-box>a:first"      : "yes",
-    "click .confirm-sure-btn"             : "yes",
-    "click .confirm-btn-box>a:last"       : "no",
-    "click .confirm-close"                : "hide"
+    "click .confirm-sure-btn"       : "yes",
+    "click .confirm-btn-box>a:last" : "yes",
+    "click .confirm-btn-box>a:first": "no",
+    "click .confirm-close"          : "hide"
   },
   template: require("com/mobile/widget/popover/tpl/poppannel.tpl"),
   initialize: function(options) {
-    this.model = new PopModel(options.options);
+    this.model = new PopModel(options.model);
     this.listenTo(this.model, "change:title", this.updateTitle);
     this.listenTo(this.model, "change:message", this.updateMessage);
-    this.listenTo(this.model, "change:btnText", this.updateBtnText);
-    this.listenTo(this.model, "change:cancleText", this.updateCancleText);
+    this.listenTo(this.model, "change:agreeText", this.updateagreeText);
+    this.listenTo(this.model, "change:cancelText", this.updatecancelText);
     return this.render();
   },
   reset: function () {
@@ -46,15 +45,15 @@ var Pop = Backbone.View.extend({
   },
   // 点击确定按钮
   yes: function () {
-    if(typeof this.model.get('clickBtn') === "function"){
-      this.model.get('clickBtn')();
+    if(typeof this.model.get('agreeFunc') === "function"){
+      this.model.get('agreeFunc')();
     }
     return this.hide();
   },
   // 点击取消按钮
   no: function () {
-    if(typeof this.model.get('clickCancel') === "function"){
-      this.model.get('clickCancel')();
+    if(typeof this.model.get('cancelFunc') === "function"){
+      this.model.get('cancelFunc')();
     }
     return this.hide();
   },
@@ -67,19 +66,44 @@ var Pop = Backbone.View.extend({
     return $(".ui-confirm>.ui-confirm-tip>p:last", this.$el).html(this.model.get('title'));
   },
   // 更新确定按钮文案
-  updateBtnText: function () {
+  updateagreeText: function () {
     if(this.model.get("type") === "confirm"){
-      return $(".confirm-btn-box>a:first", this.$el).html(this.model.get('btnText'));
+      return $(".confirm-btn-box>a:first", this.$el).html(this.model.get('agreeText'));
     }
-    return $(".confirm-sure-btn", this.$el).html(this.model.get('btnText'));
+    return $(".confirm-sure-btn", this.$el).html(this.model.get('agreeText'));
   }, 
   // 取消按钮文案
-  updateCancleText: function () {
+  updatecancelText: function () {
     if(this.model.get("type") === "confirm"){
-      return $(".confirm-btn-box>a:last", this.$el).html(this.model.get('cancleText'));
+      return $(".confirm-btn-box>a:last", this.$el).html(this.model.get('cancelText'));
     }
   }
-
 });
+
+var Pop = function(options) {
+  if (!options.el) {
+    var id = "ui-pop-" + Date.now();
+    $("<div>", {
+      id: id
+    })
+      .appendTo("body");
+    options.el = "#" + id;
+  }
+
+  var model = {
+    type: options.type,
+    title: options.title,
+    message: options.message,
+    agreeText: options.agreeText,
+    cancelText: options.cancelText,
+    agreeFunc: options.agreeFunc,
+    cancelFunc: options.cancelFunc
+  };
+
+  return new PopView({
+    el: options.el,
+    model: model
+  });
+};
 
 module.exports = Pop;

@@ -5,8 +5,8 @@ var PopModel = Backbone.Model.extend({
     title: "提示信息",
     message: "。。。",
     type: "alert",
-    btnText:"继续购买",
-    cancleText: "查看订单"
+    agreeText:"继续购买",
+    cancelText: "查看订单"
   }
 });
 module.exports = PopModel;
