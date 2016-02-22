@@ -18,6 +18,7 @@ var shareUtil   = require("com/mobile/widget/wechat/util.js");
 var wechatUtil  = require("com/mobile/widget/wechat-hack/util.js");
 var mallWechat  = require("app/client/mall/js/lib/wechat.js");
 var detailLog   = require("app/client/mall/js/detail-page/lib/log.js");
+var Popover     = require("com/mobile/widget/popover/popover.js");
 
 var AppView = Backbone.View.extend({
   el: "#goods-detail",
@@ -26,15 +27,9 @@ var AppView = Backbone.View.extend({
     "click .js-exchange-button": "exchangeHandler"
   },
   initialize: function() {
-    this.$el.$shade          = $("#goods-detail .js-shade");
-    this.$el.$loginPrompt    = $("#goods-detail .js-login-prompt");
-    this.$el.$exchangeButton = $("#goods-detail .js-exchange-button");
-    this.$el.$promptBoard    = $("#goods-detail .js-exchange-prompt");
-    this.$el.$promptSuccess  = $("#goods-detail .js-success-prompt");
-    this.$el.$promptFail     = $("#goods-detail .js-fail-prompt");
-
     this.title = "";
     this.userDataOpitons = { reset: false };
+    this.$el.$exchangeButton = $("#goods-detail .js-exchange-button");
     this.mallGoodsDetail();
   },
   resume: function() {
@@ -194,34 +189,36 @@ var AppView = Backbone.View.extend({
               self.router.switchTo("form-custom");
               return;
             default:
+              var titleText = productInfo.confirm || "是否确认兑换？";
+
               // 确认兑换弹窗
-              self.$el.$shade.show();
-              self.$el.$promptBoard
-                .off("click")
-                .one("click", ".js-confirm", function() {
+              var confirm = new Popover({
+                type: "confirm",
+                title: titleText,
+                message: "",
+                agreeText: "确定",  
+                cancelText: "取消",
+                agreeFunc: function() {
                   self.exchange(productInfo);
-                })
-                .one("click", ".js-cancel", function() {
-                  self.hidePrompt();
-                })
-                .find(".js-title")
-                  .text(productInfo.confirm)
-                .end()
-                .show();
+                },
+                cancelFunc: function() {}
+              });
+              confirm.show();
               return;
           }
         } else {
           // 登录弹窗
-          self.$el.$shade.show();
-          self.$el.$loginPrompt
-            .off("click")
-            .one("click", ".js-confirm", function() {
-              self.hidePrompt();
+          new Popover({
+            type: "confirm",
+            title: "提　示",
+            message: "您尚未登录，登录后即可兑换！",
+            agreeText: "确定",
+            cancelText: "取消",
+            agreeFunc: function() {
               self.loginApp();
-            })
-            .one("click", ".js-cancel", function() {
-              self.hidePrompt();
-            })
+            },
+            cancelFunc: function() {}
+          })
             .show();
         }
       });
@@ -273,15 +270,12 @@ var AppView = Backbone.View.extend({
     // 13--转入输入手机号页面（预留，金融类）
     switch ( String(productInfo.type) ) {
       case "1":
-        this.$el.$promptBoard.hide();
         this.mallCreateOrder(productInfo);
         break;
       case "2":
-        this.hidePrompt();
         this.router.switchTo("form-phone");
         break;
       case "3":
-        this.hidePrompt();
         this.gotoAddress();
         break;
       case "9":
@@ -290,7 +284,6 @@ var AppView = Backbone.View.extend({
         });
         break;
       case "13":
-        this.hidePrompt();
         this.router.switchTo("form-custom");
         break;
     }
@@ -353,20 +346,19 @@ var AppView = Backbone.View.extend({
       if (err) {
         hint.hideLoading();
 
-        self.$el.$promptFail
-          .off("click")
-          .one("click", ".js-close", function() {
-            self.hidePrompt();
-
+        var alert = new Popover({
+          type: "alert",
+          title: "兑换失败",
+          message: err.message,
+          agreeText: "确定",  
+          agreeFunc: function() {
             // version 3.1 未实现 startPay 接口
             if (err.code === -99) {
               window.location.href = mallUitl.getUpgradeUrl();
             }
-          })
-          .find(".js-message")
-            .html(err.message)
-          .end()
-          .show();
+          }
+        });
+        alert.show();
         return;
       }
 
@@ -405,10 +397,6 @@ var AppView = Backbone.View.extend({
           NativeAPI.invoke("startPay", payParams, function(err, payData) {
             next(err, payData);
           });
-
-          _.defer(function() {
-            self.hidePrompt();
-          }, 300);
         } else {
           next(null, null);
         }
@@ -428,31 +416,24 @@ var AppView = Backbone.View.extend({
           url: orderDetailUrl
         });
       } else {
-        self.$el.$shade.show();
-        self.$el.$promptSuccess
-          .off("click")
-          .one("click", ".js-goto-order-detail", function() {
+        var alert = new Popover({
+          type: "alert",
+          title: "兑换成功",
+          message: orderInfo.message,
+          agreeText: "查看订单",  
+          agreeFunc: function() {
             self.gotoNewView({
               url: orderDetailUrl
             });
-          })
-          .find(".js-message")
-            .html(orderInfo.message)
-          .end()
-          .show();
+          }
+        });
+        alert.show();
       }
 
       hint.hideLoading();
     });
   },
-  hidePrompt: function() {
-    var $el = this.$el;
-
-    $el.find(".js-prompt").hide();
-    $el.find(".js-shade").hide();
-  },
   gotoNewView: function(options) {
-    this.hidePrompt();
     widget.createNewView(options);
   }
 });

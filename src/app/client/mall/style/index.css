@@ -207,6 +207,9 @@ p {
   font-size: 14px;
   margin-top: 5px;
 }
+.confirm-btn-box {
+  font-size: 0;
+}
 .confirm-btn-box,
 .confirm-sure-btn {
   border-top: 1px solid #dedee0;
