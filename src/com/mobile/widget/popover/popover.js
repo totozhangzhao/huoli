@@ -1,7 +1,7 @@
 var $        = require("jquery");
 var Backbone = require("backbone");
 
-var PopModel = require("com/mobile/widget/popover/models/PopModel.js")
+var PopModel = require("com/mobile/widget/popover/models/PopModel.js");
 
 /*
 API
@@ -80,6 +80,6 @@ var Pop = Backbone.View.extend({
     }
   }
 
-})
+});
 
-module.exports = Pop
+module.exports = Pop;

@@ -5,6 +5,8 @@ module.exports = [
 
   "app/client/mall/js/index.entry.js",
   "app/client/mall/js/menu/category.entry.js",
+  "app/client/mall/js/menu/indiana.entry.js",
+  "app/client/mall/js/list-page/indiana/indiana-record.entry.js",
   "app/client/mall/js/detail-page/goods-detail.entry.js",
   "app/client/mall/js/list-page/exchange-record.entry.js",
   "app/client/mall/js/detail-page/order-detail.entry.js",

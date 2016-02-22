@@ -12,8 +12,8 @@ var popover = new Popover({
     message: "消息",
     btnText: "确定",  
     cancleText: "取消", // alert类型 此参数无效
-    clickBtn: function (){ window.alert("clickBtn")},
-    clickCancel: function () { window.alert("clickCancel")} // alert类型 此方法无效
+    clickBtn: function (){ window.alert("clickBtn");},
+    clickCancel: function () { window.alert("clickCancel");} // alert类型 此方法无效
   }
 });
 popover.show();
