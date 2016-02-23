@@ -1,5 +1,5 @@
 <div class="js-banner-box banner-box">
-  <ul class="banner-pics">
+  <ul class="banner-pics crowd-channel-banner">
     <% _.each(bannerList, function(item, index) { %>
     <li class="banner-item">
       <a
@@ -15,9 +15,4 @@
     </li>
     <% }); %>
   </ul>
-</div>
-<div class="banner-indexs">
-<% _.each(bannerList, function(item, index) { %>
-  <i class="js-banner-index <%= index === 0 ? "active" : "" %> "></i>
-<% }); %>
 </div>

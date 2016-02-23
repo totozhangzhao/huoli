@@ -4,32 +4,34 @@ var _        = require("lodash");
 var widget   = require("app/client/mall/js/lib/widget.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
-
+var Marquee = require("com/mobile/widget/marquee/marquee.js");
 
 var WinnerView = Backbone.View.extend({
   el: "#winner-label",
 
-  template: require("app/client/mall/tpl/menu/indiana-winner.tpl"),
+  template: require("app/client/mall/tpl/menu/indiana/indiana-winner.tpl"),
 
   events:{
     "click .js-new-page": "createNewPage"
   },
 
-  initialize: function (options) {
+  initialize: function () {
+
     this.render();
   },
 
-  render: function () {
+  render: function (data) {
     this.$el.html(this.template({
-      item: {
-        action: 2,
-        img: "",
-        productid: 10000117,
-        url: "/fe/app/client/mall/html/list-page/indiana/indiana-record.html"
-      },
+      dataList: this.model,
       appName: mallUitl.getAppName(),
       tplUtil  : tplUtil
     }));
+    new Marquee({
+      box: $("#winner-label"),
+      items: $("#winner-label .marquee-item"),
+      interval: 5000,
+      direction: 0
+    });
     return this.$el;
   },
 

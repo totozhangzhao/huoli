@@ -25,6 +25,8 @@ var AppView = Backbone.View.extend({
   events:{},
 
   initialize: function (options) {
+    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+    
     this.id = UrlUtil.parseUrlSearch().productid;
     // 商品列表容器
     this.$goodsPannel = $("#goods-block", this.$el);
@@ -59,11 +61,9 @@ var AppView = Backbone.View.extend({
   },
 
   render: function (data) {
-    window.console.log(data);
     this.$goods.set(data.product);
     this.initBanner(data.banner);
     this.initWinnerLabel(data.winner);
-    new WinnerView();
     this.fixTpl();
     return this;
   },
@@ -71,7 +71,7 @@ var AppView = Backbone.View.extend({
   // 增加一个商品视图
   addGoodsItem: function (data) {
     var itemView = new GoodsItemView();
-    this.$goodsPannel.append(itemView.render(data));
+    this.$goodsPannel.append(itemView.render(data).el);
   },
 
   // 初始化banner
@@ -88,7 +88,7 @@ var AppView = Backbone.View.extend({
   },
   // 初始化获奖名单滚动显示条
   initWinnerLabel: function (winnerData) {
-    window.console.log(winnerData);
+    new WinnerView({model: winnerData});
   },
 
   fixTpl: function() {
