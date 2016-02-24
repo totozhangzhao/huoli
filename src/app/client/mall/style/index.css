@@ -2662,24 +2662,24 @@ img,
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar {
   width: 100%;
   height: 100%;
-  padding-top: 24px;
+  padding-top: 4px;
   padding-bottom: 13px;
   background-color: #fff;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-pic-area {
   width: 100%;
-  height: 114px;
+  height: 156px;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-pic-area img {
-  width: 114px;
-  height: 114px;
+  width: 156px;
+  height: 156px;
   margin: 0 auto;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-info-show {
   line-height: 18px;
   padding-left: 15px;
   padding-right: 15px;
-  padding-top: 25px;
+  padding-top: 4px;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-info-show .crowd-goods-name {
   font-size: 14px;
@@ -2739,6 +2739,9 @@ img,
   top: 0;
   background-color: #f3f3f3;
 }
+.crowd-history-box .crowd-history-bar {
+  padding-bottom: 114px;
+}
 .crowd-history-box .crowd-history-area {
   width: 100%;
   background-color: #fff;
@@ -2766,7 +2769,6 @@ img,
 }
 .crowd-history-box .crowd-history-area a .crowd-history-desc {
   width: 62%;
-  padding-top: 3px;
   float: left;
 }
 .crowd-history-box .crowd-history-area a .crowd-history-desc p {
@@ -2774,9 +2776,18 @@ img,
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 12px;
+  color: #a5a5a5;
   line-height: 20px;
 }
 .crowd-history-box .crowd-history-area a .crowd-history-desc p:nth-child(1) {
   font-size: 14px;
+  color: #333;
   line-height: 24px;
+  padding-bottom: 4px;
+}
+.crowd-history-box .crowd-history-area a .crowd-history-desc .crowd-history-tel {
+  color: #039ef0;
+}
+.crowd-history-box .crowd-history-area a .crowd-history-desc .crowd-history-num {
+  color: #ff5a44;
 }
