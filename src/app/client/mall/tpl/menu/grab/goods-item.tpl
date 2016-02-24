@@ -13,7 +13,7 @@
       <p class="crowd-goods-name"><%= item.title %></p>
       <p class="crowd-goods-process">开奖进度<span><%= item.progress %>%</span></p>
       <div class="snap-status-show">
-        <div style="width:<%= item.progress %>%"></div>
+        <div style="width:<%= item.progress > 4 ? item.progress : 4 %>%"></div>
       </div>
     </div>
   </div>
