@@ -31,6 +31,9 @@ var AppView = Backbone.View.extend({
     // 单价
     this.unitPrice = 0;
 
+    // 单笔订单数量上限
+    this.maxNum = null;
+
     // 剩余数量
     this.remainNum = 0;
     this.title = "";
@@ -85,7 +88,7 @@ var AppView = Backbone.View.extend({
   setNum: function(e) {
     var $cur = $(e.currentTarget);
     var number = Number( this.$num.text() );
-    var maxNum = 10;
+    var maxNum = this.maxNum;
     var minNum = 1;
     var remainNum = this.remainNum;
 
@@ -211,11 +214,23 @@ var AppView = Backbone.View.extend({
         var crowd = data.crowd;
         self.unitPrice = Number(crowd.price);
         self.remainNum = Number(crowd.remaincount);
+        self.maxNum = self.getMaxNum(crowd.totalcount);
         self.renderMainPanel(crowd);
         new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
         return data.userData;
       })
       .catch(mallPromise.catchFn);
+  },
+  getMaxNum: function(total) {
+    var maxNum = Math.floor(total * 0.05);
+
+    if (maxNum < 10) {
+      maxNum = 10;
+    } else if (maxNum > 99) {
+      maxNum = 99;
+    }
+
+    return maxNum;
   },
   // 加载商品详情
   renderDetail: function (e) {
