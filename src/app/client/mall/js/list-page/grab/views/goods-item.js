@@ -21,7 +21,6 @@ var GoodsItemView = Backbone.View.extend({
   },
 
   render: function (data) {
-    console.log(data.toJSON());
     this.$el.html(this.template({
       item: data.toJSON(),
       appName: mallUitl.getAppName(),
