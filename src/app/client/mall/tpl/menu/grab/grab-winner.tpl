@@ -7,7 +7,7 @@
   class="<%= tplUtil.getJsClass(item) %> block"
   href="<%= tplUtil.getBlockUrl(item) %>"
 >
-  <div class="crowd-nav-tip marquee-item"><b class="icon"></b>18910480870获得<span>[第1期] Apple iPhone 6s</span></div>
+  <div class="crowd-nav-tip marquee-item"><b class="icon"></b><%= item.phone.slice(0,3) %>****<%= item.phone.slice(7) %>获得<span><%= item.title %></span></div>
 </a>
 <%})%>
 <a 
