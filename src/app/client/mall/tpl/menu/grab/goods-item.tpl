@@ -1,11 +1,11 @@
-<div class="crowd-info-bar">
-  <a
-    data-log-click="<%= appName %>-block_<%= item.productid %>_<%= item.title %>@click@index"
-    data-productid="<%= item.productid %>"
-    data-title="<%= item.title %>"
-    data-classify="<%= item.classify || '' %>"
-    class="<%= tplUtil.getJsClass(item) %> block"
-    href="<%= tplUtil.getBlockUrl(item) %>">
+<a
+  data-log-click="<%= appName %>-block_<%= item.productid %>_<%= item.title %>@click@index"
+  data-productid="<%= item.productid %>"
+  data-title="<%= item.title %>"
+  data-classify="<%= item.classify || '' %>"
+  class="<%= tplUtil.getJsClass(item) %> block"
+  href="<%= tplUtil.getBlockUrl(item) %>">
+  <div class="crowd-info-bar js-touch-state">
     <div class="crowd-pic-area">
       <img src="<%= item.img %>" />  
     </div>
@@ -16,8 +16,8 @@
         <div style="width:<%= item.progress %>%"></div>
       </div>
     </div>
-  </a>
-</div>
+  </div>
+</a>
 
 
 
