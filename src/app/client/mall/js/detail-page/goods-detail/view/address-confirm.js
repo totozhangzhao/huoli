@@ -27,8 +27,10 @@ var AppView = Backbone.View.extend({
       pageAction.setClose();
       return;
     }
-
-    pageAction.setClose();
+    
+    if (options.previousView !== "goods-detail") {
+      pageAction.setClose();
+    }
 
     var curAddressId = this.cache.curAddressId;
     var addressList = this.collection.addressList;
