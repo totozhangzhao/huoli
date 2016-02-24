@@ -32,7 +32,6 @@ var AppView = Backbone.View.extend({
             next(err);
             return;
           }
-
           next(null, userData);
         });
       },
