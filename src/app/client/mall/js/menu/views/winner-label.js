@@ -31,8 +31,8 @@ var WinnerView = Backbone.View.extend({
     new Marquee({
       box: $("#winner-label"),
       items: $("#winner-label .marquee-item"),
-      speed: 3000,
-      interval: 3000,
+      speed: 300,
+      interval: 5000,
       direction: 2
     });
     return this.$el;
