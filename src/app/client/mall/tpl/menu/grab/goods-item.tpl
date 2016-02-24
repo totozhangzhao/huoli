@@ -5,7 +5,7 @@
   data-classify="<%= item.classify || '' %>"
   class="<%= tplUtil.getJsClass(item) %> block"
   href="<%= tplUtil.getBlockUrl(item) %>">
-  <div class="crowd-info-bar js-touch-state">
+  <div class="crowd-info-bar">
     <div class="crowd-pic-area">
       <img src="<%= item.img %>" />  
     </div>
