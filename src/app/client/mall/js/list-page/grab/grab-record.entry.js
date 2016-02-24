@@ -15,7 +15,7 @@ var logger        = require("com/mobile/lib/log/log.js");
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
 var GoodsItemView = require("app/client/mall/js/list-page/grab/views/goods-item.js");
 var AppView = Backbone.View.extend({
-  
+
   el: "#main",
 
   events:{
@@ -50,7 +50,8 @@ var AppView = Backbone.View.extend({
     })
     .then(function (data) {
       self.render(data);
-    });
+    })
+    .catch(mallPromise.catchFn);;
   },
 
   render: function (data) {
