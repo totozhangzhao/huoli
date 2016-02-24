@@ -9,7 +9,7 @@ var Marquee = require("com/mobile/widget/marquee/marquee.js");
 var WinnerView = Backbone.View.extend({
   el: "#winner-label",
 
-  template: require("app/client/mall/tpl/menu/indiana/indiana-winner.tpl"),
+  template: require("app/client/mall/tpl/menu/grab/grab-winner.tpl"),
 
   events:{
     "click .js-new-page": "createNewPage"
@@ -30,7 +30,7 @@ var WinnerView = Backbone.View.extend({
       box: $("#winner-label"),
       items: $("#winner-label .marquee-item"),
       interval: 5000,
-      direction: 0
+      direction: 2
     });
     return this.$el;
   },

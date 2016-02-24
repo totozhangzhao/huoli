@@ -6,7 +6,7 @@ var Swipe    = require("com/mobile/lib/swipe/swipe.js");
 var AppView = Backbone.View.extend({
   el: "#top-banner",
 
-  template: require("app/client/mall/tpl/menu/indiana/indiana-banner.tpl"),
+  template: require("app/client/mall/tpl/menu/grab/grab-banner.tpl"),
 
   initialize: function () {
     this.$el.html(this.template(this.model));

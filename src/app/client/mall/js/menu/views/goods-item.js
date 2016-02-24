@@ -9,7 +9,7 @@ var tplUtil       = require("app/client/mall/js/lib/mall-tpl.js");
 var GoodsItemView = Backbone.View.extend({
   tagName: "li",
 
-  template: require("app/client/mall/tpl/menu/indiana/goods-item.tpl"),
+  template: require("app/client/mall/tpl/menu/grab/goods-item.tpl"),
   events:{
     "click .js-new-page": "createNewPage"
   },

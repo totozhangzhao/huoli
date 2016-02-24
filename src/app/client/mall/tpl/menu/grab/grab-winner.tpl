@@ -6,5 +6,5 @@
   data-title=""
   data-classify=""
   class="js-new-page crowd-history"
-  href="/fe/app/client/mall/html/list-page/indiana/indiana-record.html"
+  href="/fe/app/client/mall/html/list-page/grab/grab-record.html"
   >往期<b class="more"></b></a>
