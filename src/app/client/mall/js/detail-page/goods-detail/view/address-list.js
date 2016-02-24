@@ -27,6 +27,12 @@ var AppView = Backbone.View.extend({
   resume: function(options) {
     var self = this;
 
+    if (options.previousView === "" && UrlUtil.parseUrlSearch().action === void 0) {
+      this.router.switchTo("goods-detail");
+      pageAction.setClose();
+      return;
+    }
+
     hint.showLoading();
     
     var addressList = this.collection.addressList;
