@@ -2662,24 +2662,24 @@ img,
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar {
   width: 100%;
   height: 100%;
-  padding-top: 24px;
+  padding-top: 4px;
   padding-bottom: 13px;
   background-color: #fff;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-pic-area {
   width: 100%;
-  height: 114px;
+  height: 156px;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-pic-area img {
-  width: 114px;
-  height: 114px;
+  width: 156px;
+  height: 156px;
   margin: 0 auto;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-info-show {
   line-height: 18px;
   padding-left: 15px;
   padding-right: 15px;
-  padding-top: 25px;
+  padding-top: 4px;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-info-show .crowd-goods-name {
   font-size: 14px;
