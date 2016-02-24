@@ -55,7 +55,7 @@ var AppView = Backbone.View.extend({
     .then(function (data) {
       self.render(data);
     })
-    .catch(mallPromise.catchFn);;
+    .catch(mallPromise.catchFn);
   },
 
   render: function (data) {
