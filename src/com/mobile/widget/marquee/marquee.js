@@ -56,7 +56,7 @@ Marquee.prototype.start = function () {
   var self = this;
   setInterval(function () {
     self.next();
-  },this._config.interval);
+  },this._config.interval + this._config.speed);
 };
 
 // 初始化转换

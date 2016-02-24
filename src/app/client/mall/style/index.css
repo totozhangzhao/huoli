@@ -2727,3 +2727,56 @@ img,
 .crowd-channel-box .crowd-goods-bar li:nth-child(odd) {
   padding-right: 2px;
 }
+.crowd-history-box {
+  max-width: 750px;
+  min-height: 100%;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+  position: relative;
+  left: 0;
+  top: 0;
+  background-color: #f3f3f3;
+}
+.crowd-history-box .crowd-history-area {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 2px;
+}
+.crowd-history-box .crowd-history-area:last-child {
+  margin-bottom: 0;
+}
+.crowd-history-box .crowd-history-area a {
+  width: 100%;
+  display: block;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.crowd-history-box .crowd-history-area a .crowd-history-pic {
+  width: 90px;
+  height: 90px;
+  margin-right: 15px;
+  float: left;
+}
+.crowd-history-box .crowd-history-area a .crowd-history-pic img {
+  width: 100%;
+}
+.crowd-history-box .crowd-history-area a .crowd-history-desc {
+  width: 62%;
+  padding-top: 3px;
+  float: left;
+}
+.crowd-history-box .crowd-history-area a .crowd-history-desc p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  line-height: 20px;
+}
+.crowd-history-box .crowd-history-area a .crowd-history-desc p:nth-child(1) {
+  font-size: 14px;
+  line-height: 24px;
+}

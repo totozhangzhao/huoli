@@ -1,10 +1,10 @@
-var $                = require("jquery");
-var Backbone         = require("backbone");
-var _                = require("lodash");
+var $        = require("jquery");
+var Backbone = require("backbone");
+var _        = require("lodash");
 
 var widget   = require("app/client/mall/js/lib/widget.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
-var tplUtil       = require("app/client/mall/js/lib/mall-tpl.js");
+var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 
 var GoodsItemView = Backbone.View.extend({
   tagName: "li",

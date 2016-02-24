@@ -1,8 +1,5 @@
-var $         = require("jquery");
-var Backbone  = require("backbone");
-
-var GoodsItem = Backbone.Model.extend({
+var BaseGoods = require("app/client/common/models/base-goods.js");
+var GoodsItem = BaseGoods.extend({
   
 });
-
 module.exports = GoodsItem;

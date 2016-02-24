@@ -6,14 +6,12 @@ var Promise       = require("com/mobile/lib/promise/npo.js");
 var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
 var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var Util          = require("com/mobile/lib/util/util.js");
-var tplUtil       = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl      = require("app/client/mall/js/lib/util.js");
 var UrlUtil       = require("com/mobile/lib/url/url.js");
 
 var logger        = require("com/mobile/lib/log/log.js");
 var menuLog       = require("app/client/mall/js/menu/lib/log.js");
 
-var Banners       = require("app/client/mall/js/menu/collections/banners.js");
 var Goods         = require("app/client/mall/js/menu/collections/goods.js");
 var GoodsItemView = require("app/client/mall/js/menu/views/goods-item.js");
 var BannerView    = require("app/client/mall/js/menu/views/banner.js");
@@ -24,7 +22,7 @@ var AppView = Backbone.View.extend({
 
   events:{},
 
-  initialize: function (options) {
+  initialize: function () {
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
     
     this.id = UrlUtil.parseUrlSearch().productid;
@@ -32,7 +30,6 @@ var AppView = Backbone.View.extend({
     this.$goodsPannel = $("#goods-block", this.$el);
     // 商品数据集合
     this.$goods = new Goods();
-
     this.listenTo(this.$goods,"add",this.addGoodsItem);
     this.fetchData();
     
@@ -76,15 +73,7 @@ var AppView = Backbone.View.extend({
 
   // 初始化banner
   initBanner: function(bannerData) {
-    this.$bannerView = new BannerView(
-      {
-        model:{
-          bannerList: bannerData,
-          appName: mallUitl.getAppName(),
-          tplUtil  : tplUtil
-        }
-      }
-    );
+    new BannerView({model: bannerData});
   },
   // 初始化获奖名单滚动显示条
   initWinnerLabel: function (winnerData) {
@@ -93,7 +82,6 @@ var AppView = Backbone.View.extend({
 
   fixTpl: function() {
     var crTpl = require("app/client/mall/tpl/copyright.tpl");
-
     $("#copyright").html(crTpl({
       system: Util.getMobileSystem(),
       isHangbanFunc: mallUitl.isHangbanFunc()

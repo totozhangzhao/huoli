@@ -4,7 +4,8 @@ var _        = require("lodash");
 var widget   = require("app/client/mall/js/lib/widget.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
-var Marquee = require("com/mobile/widget/marquee/marquee.js");
+var UrlUtil  = require("com/mobile/lib/url/url.js");
+var Marquee  = require("com/mobile/widget/marquee/marquee.js");
 
 var WinnerView = Backbone.View.extend({
   el: "#winner-label",
@@ -23,13 +24,15 @@ var WinnerView = Backbone.View.extend({
   render: function (data) {
     this.$el.html(this.template({
       dataList: this.model,
+      pId: UrlUtil.parseUrlSearch().productid,
       appName: mallUitl.getAppName(),
       tplUtil  : tplUtil
     }));
     new Marquee({
       box: $("#winner-label"),
       items: $("#winner-label .marquee-item"),
-      interval: 5000,
+      speed: 3000,
+      interval: 3000,
       direction: 2
     });
     return this.$el;
