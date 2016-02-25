@@ -20,7 +20,6 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
     this.curAddress = {};
-    window.bao = pageAction;
   },
   resume: function(options) {
     if (options.previousView === "") {
