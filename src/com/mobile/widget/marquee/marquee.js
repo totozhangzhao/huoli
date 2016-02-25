@@ -24,7 +24,7 @@ function Marquee(options) {
 Marquee.prototype.init = function () {
   var self = this;
   this._config.box.css("overflow","hidden");
-  this._config.items.css({position:"absolute",top:0,left:0});
+  this._config.items.css({position:"absolute"});
   this._count = this._config.items.length;
   this._index = 0;
   this._box_width = this._config.box.width();
@@ -100,7 +100,13 @@ Marquee.prototype.translate = function (style, x, y, speed) {
   style.OTransitionDuration =
   style.transitionDuration = speed + "ms";
 
-  
+
+  style.webkitTransitionTimingFunction =
+  style.MozTransitionTimingFunction =
+  style.msTransitionTimingFunction =
+  style.OTransitionTimingFunction =
+  style.transitionTimingFunction = "cubic-bezier(0.57, 0.57, 0.21, 0.98)";
+
   style.webkitTransform =
   style.transform = _3dtsl;
   style.msTransform =
