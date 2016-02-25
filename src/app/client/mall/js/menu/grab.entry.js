@@ -64,7 +64,7 @@ var AppView = Backbone.View.extend({
     this.$goods.set(data.product);
     this.fixTpl();
     menuLog.track({
-      title: UrlUtil.parseUrlSearch().classify,
+      title: UrlUtil.parseUrlSearch().classify || window.document.title,
       from: UrlUtil.parseUrlSearch().from || "--"
     });
     return this;

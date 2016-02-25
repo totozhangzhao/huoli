@@ -283,7 +283,8 @@ var AppView = Backbone.View.extend({
     barWidth = barWidth > minBarWidth ? barWidth : minBarWidth;
     barWidth = barWidth < maxBarWidth ? barWidth : maxBarWidth;
 
-    var showAnimation = (barWidth !== maxBarWidth && barWidth !== minBarWidth);
+    var isSelling = productDetail.stat === 1 || productDetail.stat === 4;
+    var showAnimation = isSelling && (barWidth !== maxBarWidth && barWidth !== minBarWidth);
     var tmpl = require("app/client/mall/tpl/active-page/crowd/main.tpl");
 
     this.$el.html(tmpl({

@@ -65,6 +65,7 @@ var AppView = Backbone.View.extend({
     "click .js-goods-detail"   : "gotoGoods",
     "click .js-goods-detail-hb": "gotoGoods",
     "click .js-crowd"          : "gotoGoods",
+    "click .js-crowd-column"   : "gotoCrowdColumn",
     "click .js-test-url"       : "mallTestUrl"
   },
   initialize: function() {
@@ -100,6 +101,23 @@ var AppView = Backbone.View.extend({
         {
           type: "title",
           text: "测试页面"
+        }
+      ]
+    }, function(err) {
+      if ( err && (err.code === -32603) ) {
+        window.location.href = url;
+      }
+    });
+  },
+  gotoCrowdColumn: function() {
+    var url = "/fe/app/client/mall/html/menu/grab.html";
+
+    NativeAPI.invoke("createWebView", {
+      url: url,
+      controls: [
+        {
+          type: "title",
+          text: "频道"
         }
       ]
     }, function(err) {
