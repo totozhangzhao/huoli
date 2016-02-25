@@ -59,10 +59,14 @@ var AppView = Backbone.View.extend({
   },
 
   render: function (data) {
-    this.$goods.set(data.product);
     this.initBanner(data.banner);
     this.initWinnerLabel(data.winner);
+    this.$goods.set(data.product);
     this.fixTpl();
+    menuLog.track({
+      title: UrlUtil.parseUrlSearch().classify,
+      from: UrlUtil.parseUrlSearch().from || "--"
+    });
     return this;
   },
 
