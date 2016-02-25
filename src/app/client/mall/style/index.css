@@ -2574,6 +2574,15 @@ img,
   opacity: 1;
 }
 /* img - echo -  end  */
+.touch-zoom-box .touch {
+  background-color: #fff !important;
+}
+.touch-zoom-box .touch img {
+  -webkit-transform: scale(1.03);
+  -ms-transform: scale(1.03);
+  transform: scale(1.03);
+  zoom: 1.03;
+}
 .crowd-channel-box {
   max-width: 750px;
   min-height: 100%;
@@ -2667,6 +2676,7 @@ img,
   background-color: #fff;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-pic-area {
+  overflow: hidden;
   width: 100%;
   height: 156px;
 }
@@ -2753,15 +2763,11 @@ img,
 .crowd-history-box .crowd-history-area a {
   width: 100%;
   display: block;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 15px;
-  padding-bottom: 15px;
 }
 .crowd-history-box .crowd-history-area a .crowd-history-pic {
-  width: 90px;
-  height: 90px;
-  margin-right: 15px;
+  overflow: hidden;
+  width: 120px;
+  height: 120px;
   float: left;
 }
 .crowd-history-box .crowd-history-area a .crowd-history-pic img {
@@ -2770,6 +2776,7 @@ img,
 .crowd-history-box .crowd-history-area a .crowd-history-desc {
   width: 62%;
   float: left;
+  padding-top: 15px;
 }
 .crowd-history-box .crowd-history-area a .crowd-history-desc p {
   white-space: nowrap;
