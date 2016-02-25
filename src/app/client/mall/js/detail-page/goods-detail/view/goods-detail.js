@@ -19,6 +19,7 @@ var wechatUtil  = require("com/mobile/widget/wechat-hack/util.js");
 var mallWechat  = require("app/client/mall/js/lib/wechat.js");
 var detailLog   = require("app/client/mall/js/detail-page/lib/log.js");
 var Popover     = require("com/mobile/widget/popover/popover.js");
+var pageAction  = require("app/client/mall/js/lib/page-action.js");
 
 var AppView = Backbone.View.extend({
   el: "#goods-detail",
@@ -27,6 +28,7 @@ var AppView = Backbone.View.extend({
     "click .js-exchange-button": "exchangeHandler"
   },
   initialize: function() {
+    this.resetAppView = false;
     this.title = "";
     this.userDataOpitons = { reset: false };
     this.$el.$exchangeButton = $("#goods-detail .js-exchange-button");
@@ -41,6 +43,10 @@ var AppView = Backbone.View.extend({
         productid: UrlUtil.parseUrlSearch().productid,
         from: UrlUtil.parseUrlSearch().from || "--"
       });
+    }
+
+    if (this.resetAppView) {
+      pageAction.showRightButton({ text: "分享" });
     }
 
     hint.hideLoading();
@@ -126,6 +132,7 @@ var AppView = Backbone.View.extend({
         }
       } else if ( shareUtil.hasShareInfo() ) {
         mallWechat.initNativeShare();
+        this.resetAppView = true;
       }
 
       var isApp = mallUitl.isAppFunc();

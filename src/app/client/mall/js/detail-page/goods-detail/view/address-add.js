@@ -30,6 +30,7 @@ var AppView = Backbone.View.extend({
       return;
     }
 
+    pageAction.hideRightButton();
     hint.showLoading();
 
     var action = this.cache.addressAction;

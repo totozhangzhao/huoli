@@ -33,6 +33,7 @@ var AppView = Backbone.View.extend({
       return;
     }
 
+    pageAction.hideRightButton();
     hint.showLoading();
     
     var addressList = this.collection.addressList;

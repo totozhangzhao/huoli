@@ -20,6 +20,7 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
     this.curAddress = {};
+    window.bao = pageAction;
   },
   resume: function(options) {
     if (options.previousView === "") {
@@ -27,7 +28,9 @@ var AppView = Backbone.View.extend({
       pageAction.setClose();
       return;
     }
-    
+
+    pageAction.hideRightButton();
+
     if (options.previousView !== "goods-detail") {
       pageAction.setClose();
     }

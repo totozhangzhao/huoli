@@ -294,7 +294,7 @@ var AppView = Backbone.View.extend({
     this.$button = this.$el.find(".js-submit");
     this.$num = this.$el.find(".js-goods-num");
 
-    if (showAnimation) {    
+    if (showAnimation) {
       _.defer(function() {
         self.$el
           .find(".js-bar")

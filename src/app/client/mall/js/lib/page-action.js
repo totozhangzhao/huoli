@@ -27,3 +27,25 @@ exports.setClose = function(opts) {
     }
   });
 };
+
+exports.showRightButton = function(options) {
+  options.action = "show";
+
+  NativeAPI.invoke("updateHeaderRightBtn", options, function(err) {
+    if (err) {
+      window.console.log(err.message);
+      return;
+    }
+  });
+};
+
+exports.hideRightButton = function() {
+  NativeAPI.invoke("updateHeaderRightBtn", {
+    action: "hide"
+  }, function(err) {
+    if (err) {
+      window.console.log(err.message);
+      return;
+    }
+  });
+};
