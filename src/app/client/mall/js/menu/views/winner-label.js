@@ -29,8 +29,8 @@ var WinnerView = Backbone.View.extend({
       tplUtil  : tplUtil
     }));
     new Marquee({
-      box: $("#winner-label"),
-      items: $("#winner-label .marquee-item"),
+      box: $("#winner-label .crowd-nav-tip"),
+      items: $("#winner-label .crowd-nav-tip .marquee-item"),
       speed: 500,
       interval: 5000,
       direction: 2
