@@ -7,8 +7,8 @@
     <% if(data.type === "confirm") { %>
     <b class="confirm-close"></b>
     <div class="confirm-btn-box">
-      <a><%= data.cancelText %></a>
-      <a><%= data.agreeText %></a>
+      <a><%= data.cancelText %>
+      <a><%= data.agreeText %>
     </div>
     <% } %>
     <% if(data.type === "alert") { %>
