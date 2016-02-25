@@ -100,7 +100,13 @@ Marquee.prototype.translate = function (style, x, y, speed) {
   style.OTransitionDuration =
   style.transitionDuration = speed + "ms";
 
-  
+
+  style.webkitTransitionTimingFunction =
+  style.MozTransitionTimingFunction =
+  style.msTransitionTimingFunction =
+  style.OTransitionTimingFunction =
+  style.transitionTimingFunction = "cubic-bezier(0.57, 0.57, 0.21, 0.98)";
+
   style.webkitTransform =
   style.transform = _3dtsl;
   style.msTransform =
