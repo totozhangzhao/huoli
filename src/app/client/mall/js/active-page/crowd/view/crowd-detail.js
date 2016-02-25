@@ -190,34 +190,46 @@ var AppView = Backbone.View.extend({
   },
   mallCrowdDetail: function() {
     var self = this;
-    mallPromise.appInfo
-      .then(function(userData) {
-        var params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p,
-          productid: self.id
-        });
+    var render = function(userData) {
+      var params = _.extend({}, userData.userInfo, {
+        p: userData.deviceInfo.p,
+        productid: self.id
+      });
 
-        return new Promise(function(resolve, reject) {
-          sendPost("crowdDetail", params, function(err, data) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve({
-                crowd: data,
-                userData: userData
-              });
-            }
-          });
+      return new Promise(function(resolve, reject) {
+        sendPost("crowdDetail", params, function(err, data) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve({
+              crowd: data,
+              userData: userData
+            });
+          }
         });
       })
-      .then(function(data) {
-        var crowd = data.crowd;
-        self.unitPrice = Number(crowd.price);
-        self.remainNum = Number(crowd.remaincount);
-        self.maxNum = self.getMaxNum(crowd.totalcount);
-        self.renderMainPanel(crowd);
-        new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
-        return data.userData;
+        .then(function(data) {
+          var crowd = data.crowd;
+          self.unitPrice = Number(crowd.price);
+          self.remainNum = Number(crowd.remaincount);
+          self.maxNum = self.getMaxNum(crowd.totalcount);
+          self.renderMainPanel(crowd);
+          new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
+          return data.userData;
+        })
+        .catch(mallPromise.catchFn);
+    };
+    var start = function(userData) {
+      if (userData.userInfo && userData.userInfo.userid) {
+        return render(userData);
+      } else {
+        return self.loginApp();
+      }
+    };
+
+    mallPromise.appInfo
+      .then(function(userData) {
+        return start(userData);
       })
       .catch(mallPromise.catchFn);
   },
@@ -308,6 +320,27 @@ var AppView = Backbone.View.extend({
       productid: UrlUtil.parseUrlSearch().productid,
       from: UrlUtil.parseUrlSearch().from || "--"
     });
+  },
+  loginApp: function() {
+    return new Promise(function(resolve, reject) {
+      NativeAPI.invoke("login", null, function(err, data) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    })
+      .then(function(result) {
+        if ( String(result.succ) === "1" || result.value === result.SUCC ) {
+          window.location.reload();
+        } else {
+          // hint.hideLoading();
+          window.console.log(JSON.stringify(result));
+          NativeAPI.invoke("close");
+        }
+      })
+      .catch(mallPromise.catchFn);
   }
 });
 
