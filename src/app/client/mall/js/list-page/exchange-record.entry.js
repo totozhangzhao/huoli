@@ -7,8 +7,8 @@ var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var toast     = require("com/mobile/widget/hint/hint.js").toast;
 var hint      = require("com/mobile/widget/hint/hint.js");
 var appInfo   = require("app/client/mall/js/lib/app-info.js");
-var widget    = require("app/client/mall/js/lib/widget.js");
-var imgDelay  = require("app/client/mall/js/lib/widget.js").imageDelay;
+var widget    = require("app/client/mall/js/lib/common.js");
+var imgDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
 var logger    = require("com/mobile/lib/log/log.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var storage   = require("app/client/mall/js/lib/storage.js");
@@ -20,10 +20,6 @@ var AppView = Backbone.View.extend({
     "click .js-order-item": "gotoOrderDetail"
   },
   initialize: function() {
-
-    // rem
-    widget.initRem();
-
     this.loadingMore = false;
 
     hint.showLoading();

@@ -17,6 +17,8 @@ var GoodsItemView = require("app/client/mall/js/menu/views/goods-item.js");
 var BannerView    = require("app/client/mall/js/menu/views/banner.js");
 var WinnerView    = require("app/client/mall/js/menu/views/winner-label.js");
 
+require("app/client/mall/js/lib/common.js");
+
 var AppView = Backbone.View.extend({
   el: "#main",
 
@@ -95,4 +97,3 @@ var AppView = Backbone.View.extend({
 });
 
 new AppView();
-

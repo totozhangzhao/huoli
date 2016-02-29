@@ -11,6 +11,8 @@ var UrlUtil    = require("com/mobile/lib/url/url.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 
+require("app/client/mall/js/lib/common.js");
+
 var AppView = Backbone.View.extend({
   el: "#address-list",
   events: {

@@ -13,6 +13,8 @@ var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var base64    = require("com/mobile/lib/base64/base64.js").Base64;
 // var NativeAPI = require("app/client/common/lib/native/native-api.js");
 
+require("app/client/mall/js/lib/common.js");
+
 var AppView = Backbone.View.extend({
   el: "#main-container",
   events: {

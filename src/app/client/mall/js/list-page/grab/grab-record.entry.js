@@ -14,10 +14,11 @@ var logger        = require("com/mobile/lib/log/log.js");
 
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
 var GoodsItemView = require("app/client/mall/js/list-page/grab/views/goods-item.js");
+
+require("app/client/mall/js/lib/common.js");
+
 var AppView = Backbone.View.extend({
-
   el: "#main",
-
   events:{
   },
 
@@ -72,6 +73,6 @@ var AppView = Backbone.View.extend({
       isHangbanFunc: mallUitl.isHangbanFunc()
     }));
   }
-
 });
+
 new AppView();

@@ -100,11 +100,13 @@ exports.imageDelay = function(options) {
 };
 
 exports.initRem = function() {
-  var setRoot = _.debounce(function() {      
-    var rootSize = ($(".rem-main").width() / 10).toFixed(1);
-    $("html").css({ "font-size": rootSize + "px" });      
-  }, 150);
+  var setRoot = function() {      
+    var rootSize = ($("body").width() / 10).toFixed(1);
+    $("html").css({ "font-size": rootSize + "px" });
+  };
 
-  window.onresize = setRoot;
   setRoot();
+  window.onresize = _.debounce(setRoot, 150);
 };
+
+exports.initRem();

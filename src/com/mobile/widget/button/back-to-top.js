@@ -1,6 +1,6 @@
 var $      = require("jquery");
 var _      = require("lodash");
-var widget = require("app/client/mall/js/lib/widget.js");
+var widget = require("app/client/mall/js/lib/common.js");
 
 var tmpl = require("app/client/mall/tpl/back-to-top.tpl");
 var $toTop = $( tmpl() );

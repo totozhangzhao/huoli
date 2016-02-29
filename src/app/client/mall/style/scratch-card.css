@@ -9,7 +9,6 @@
   text-overflow: ellipsis;
 }
 .container {
-  max-width: 750px;
   min-height: 100%;
   margin-top: 0;
   margin-right: auto;
@@ -25,7 +24,7 @@ body {
 }
 body {
   font-family: 'Microsoft Yahei';
-  font-size: 16px;
+  font-size: 0.42667rem;
   background-color: #fff;
   color: #666;
 }
@@ -81,7 +80,7 @@ p {
 }
 .num-color {
   font-family: 'Arial';
-  font-size: 16px;
+  font-size: 0.42667rem;
   color: #f90;
 }
 .border {
@@ -100,13 +99,13 @@ p {
   z-index: 9999;
 }
 .loading-icon {
-  width: 36px;
-  height: 36px;
+  width: 0.96rem;
+  height: 0.96rem;
   position: absolute;
   left: 50%;
   top: 50%;
-  margin-left: -18px;
-  margin-top: -18px;
+  margin-left: -0.48rem;
+  margin-top: -0.48rem;
 }
 .info-box,
 .active-box,
@@ -118,7 +117,6 @@ p {
 .address-page-box,
 .delivery-box,
 .interlayer {
-  max-width: 750px;
   min-height: 100%;
   margin-top: 0;
   margin-right: auto;
@@ -129,11 +127,11 @@ p {
   top: 0;
 }
 .goods-copyright-fix {
-  margin-bottom: 60px;
+  margin-bottom: 1.6rem;
 }
 .copyright-block {
   width: 100%;
-  height: 114px;
+  height: 3.04rem;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -144,10 +142,10 @@ p {
   background-color: #f3f3f3;
   text-align: center;
   color: #9b9b9b;
-  padding-top: 12px;
-  padding-right: 10px;
-  padding-bottom: 42px;
-  padding-left: 10px;
+  padding-top: 0.32rem;
+  padding-right: 0.26667rem;
+  padding-bottom: 1.12rem;
+  padding-left: 0.26667rem;
 }
 .copyright-bar-text:nth-child(1) a {
   color: #9b9b9b;
@@ -156,17 +154,17 @@ p {
 }
 .copyright-bar-text:nth-child(1),
 .copyright-bar-text:nth-child(2) {
-  font-size: 12px;
-  line-height: 20px;
+  font-size: 0.32rem;
+  line-height: 0.53333rem;
 }
 .copyright-bar-text:nth-child(3) {
-  font-size: 10px;
-  line-height: 20px;
+  font-size: 0.26667rem;
+  line-height: 0.53333rem;
 }
 @media screen and (min-width: 414px) {
   .copyright-bar-text:nth-child(1),
   .copyright-bar-text:nth-child(2) {
-    font-size: 14px;
+    font-size: 0.37333rem;
   }
 }
 .group-name {
@@ -182,8 +180,69 @@ p {
   z-index: 5;
   display: none;
 }
+.ui-confirm {
+  width: 74.6%;
+  text-align: center;
+  border-radius: 0.10667rem;
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -37.3%;
+  transform: translate(0, -50%);
+  -webkiy-transform: translate(0, -50%);
+}
+.ui-confirm .ui-confirm-tip {
+  padding-top: 0.56rem;
+  padding-right: 0.56rem;
+  padding-bottom: 0.53333rem;
+  padding-left: 0.56rem;
+}
+.ui-confirm .ui-confirm-tip p:nth-child(1) {
+  font-size: 0.48rem;
+}
+.ui-confirm .ui-confirm-tip p:nth-child(2) {
+  font-size: 0.37333rem;
+  margin-top: 0.13333rem;
+}
+.confirm-btn-box {
+  font-size: 0;
+}
+.confirm-btn-box,
+.confirm-sure-btn {
+  border-top: 1px solid #dedee0;
+}
+.confirm-btn-box a {
+  width: 50%;
+  height: 1.12rem;
+  font-size: 0.4rem;
+  line-height: 1.12rem;
+  display: inline-block;
+}
+.confirm-btn-box a:nth-child(1) {
+  border-right: 1px solid #dedee0;
+  color: #4d4d4d;
+}
+.confirm-btn-box a:nth-child(2) {
+  color: #039ef0;
+}
+.ui-confirm .confirm-close {
+  width: 1.06667rem;
+  height: 1.06667rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -7.49333rem -2.77333rem;
+  background-size: 8.32rem 7.46667rem;
+  position: absolute;
+  right: -0.53333rem;
+  top: -0.53333rem;
+}
+.ui-confirm .confirm-sure-btn {
+  text-align: center;
+  height: 1.12rem;
+  line-height: 1.12rem;
+  color: #039ef0;
+  display: block;
+}
 .lucky-box {
-  max-width: 750px;
   min-height: 100%;
   margin-top: 0;
   margin-right: auto;
@@ -208,13 +267,13 @@ img {
   top: 0;
 }
 .lucky-status-bar {
-  height: 200px;
+  height: 5.33333rem;
   background-color: #fedb4d;
 }
 .lucky-nav-bar {
   width: 100%;
-  height: 40px;
-  line-height: 40px;
+  height: 1.06667rem;
+  line-height: 1.06667rem;
   color: #f4f3b3;
   position: fixed;
   left: 0;
@@ -222,30 +281,30 @@ img {
 }
 .lucky-shadow-bar {
   width: 100%;
-  height: 40px;
+  height: 1.06667rem;
   background-color: #000;
   opacity: 0.5;
 }
 .lucky-integral-area {
-  height: 14px;
-  line-height: 14px;
-  font-size: 14px;
+  height: 0.37333rem;
+  line-height: 0.37333rem;
+  font-size: 0.37333rem;
   position: absolute;
-  left: 15px;
-  top: 13px;
+  left: 0.4rem;
+  top: 0.34667rem;
 }
 .lucky-nav-bar a.lucky-rule-area {
-  height: 26px;
-  line-height: 26px;
-  font-size: 14px;
+  height: 0.69333rem;
+  line-height: 0.69333rem;
+  font-size: 0.37333rem;
   position: absolute;
-  top: 7px;
-  right: 15px;
+  top: 0.18667rem;
+  right: 0.4rem;
   padding-top: 0;
-  padding-right: 12px;
+  padding-right: 0.32rem;
   padding-bottom: 0;
-  padding-left: 12px;
-  border-radius: 26px;
+  padding-left: 0.32rem;
+  border-radius: 0.69333rem;
   border-left: 1px solid #f4f3b3;
   border-top: 1px solid #f4f3b3;
   border-bottom: 1px solid #f4f3b3;
@@ -253,24 +312,24 @@ img {
   color: #f4f3b3;
 }
 .lucky-status-area {
-  width: 300px;
-  height: 152px;
+  width: 8rem;
+  height: 4.05333rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/newyear-bg.png) no-repeat;
-  background-size: 300px 152px;
+  background-size: 8rem 4.05333rem;
   position: absolute;
   left: 50%;
   top: 0;
-  margin-left: -150px;
+  margin-left: -4rem;
 }
 .lucky-status-area-son {
-  width: 286px;
+  width: 7.62667rem;
   position: absolute;
-  left: 7px;
-  top: 15px;
+  left: 0.18667rem;
+  top: 0.4rem;
 }
 .lucky-status-area-son img {
   width: 100%;
-  height: 122px;
+  height: 3.25333rem;
 }
 .box-shadow {
   width: 100%;
@@ -282,77 +341,77 @@ img {
   display: none;
 }
 .tip-box {
-  width: 288px;
-  height: 274px;
+  width: 7.68rem;
+  height: 7.30667rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/lucky-window.bg.png) no-repeat;
-  background-size: 288px 274px;
+  background-size: 7.68rem 7.30667rem;
   position: absolute;
   left: 50%;
   top: 50%;
-  margin-left: -144px;
-  margin-top: -137px;
+  margin-left: -3.84rem;
+  margin-top: -3.65333rem;
 }
 .prize-desc {
   width: 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-size: 16px;
+  font-size: 0.42667rem;
   word-break: break-word;
   padding-top: 0;
-  padding-right: 20px;
+  padding-right: 0.53333rem;
   padding-bottom: 0;
-  padding-left: 20px;
-  height: 40px;
-  line-height: 20px;
+  padding-left: 0.53333rem;
+  height: 1.06667rem;
+  line-height: 0.53333rem;
   overflow: hidden;
   text-align: center;
   color: #333;
 }
 .go-back,
 .go-award {
-  width: 124px;
-  height: 41px;
-  line-height: 38px;
+  width: 3.30667rem;
+  height: 1.09333rem;
+  line-height: 1.01333rem;
   text-align: center;
-  font-size: 18px;
+  font-size: 0.48rem;
   color: #fff;
 }
 .go-back {
   position: absolute;
-  bottom: 16px;
-  right: 14px;
+  bottom: 0.42667rem;
+  right: 0.37333rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/lucky-newyear-try.png?a=b) no-repeat;
-  background-size: 124px 41px;
+  background-size: 3.30667rem 1.09333rem;
 }
 .go-award {
   position: absolute;
-  bottom: 16px;
-  left: 14px;
+  bottom: 0.42667rem;
+  left: 0.37333rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/lucky-newyear-try.png?a=b) no-repeat;
-  background-size: 124px 41px;
+  background-size: 3.30667rem 1.09333rem;
 }
 .close-btn {
-  width: 32px;
-  height: 32px;
+  width: 0.85333rem;
+  height: 0.85333rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/newyear/lucky-newyear-close.png) no-repeat;
-  background-size: 32px 32px;
+  background-size: 0.85333rem 0.85333rem;
   position: absolute;
-  right: -7px;
-  top: -7px;
+  right: -0.18667rem;
+  top: -0.18667rem;
 }
 .gift-box {
   width: 100%;
   position: absolute;
   left: 0;
-  bottom: 63px;
+  bottom: 1.68rem;
 }
 .gift-box .gift-text {
   color: #e92e49;
 }
 .tip-gift-pic {
-  width: 140px;
+  width: 3.73333rem;
   position: absolute;
   left: 50%;
-  top: 22px;
-  margin-left: -70px;
+  top: 0.58667rem;
+  margin-left: -1.86667rem;
 }

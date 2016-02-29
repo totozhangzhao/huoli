@@ -9,7 +9,6 @@
   text-overflow: ellipsis;
 }
 .container {
-  max-width: 750px;
   min-height: 100%;
   margin-top: 0;
   margin-right: auto;
@@ -25,7 +24,7 @@ body {
 }
 body {
   font-family: 'Microsoft Yahei';
-  font-size: 16px;
+  font-size: 0.42667rem;
   background-color: #fff;
   color: #666;
 }
@@ -81,7 +80,7 @@ p {
 }
 .num-color {
   font-family: 'Arial';
-  font-size: 16px;
+  font-size: 0.42667rem;
   color: #f90;
 }
 .border {
@@ -100,13 +99,13 @@ p {
   z-index: 9999;
 }
 .loading-icon {
-  width: 36px;
-  height: 36px;
+  width: 0.96rem;
+  height: 0.96rem;
   position: absolute;
   left: 50%;
   top: 50%;
-  margin-left: -18px;
-  margin-top: -18px;
+  margin-left: -0.48rem;
+  margin-top: -0.48rem;
 }
 .info-box,
 .active-box,
@@ -118,7 +117,6 @@ p {
 .address-page-box,
 .delivery-box,
 .interlayer {
-  max-width: 750px;
   min-height: 100%;
   margin-top: 0;
   margin-right: auto;
@@ -129,11 +127,11 @@ p {
   top: 0;
 }
 .goods-copyright-fix {
-  margin-bottom: 60px;
+  margin-bottom: 1.6rem;
 }
 .copyright-block {
   width: 100%;
-  height: 114px;
+  height: 3.04rem;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -144,10 +142,10 @@ p {
   background-color: #f3f3f3;
   text-align: center;
   color: #9b9b9b;
-  padding-top: 12px;
-  padding-right: 10px;
-  padding-bottom: 42px;
-  padding-left: 10px;
+  padding-top: 0.32rem;
+  padding-right: 0.26667rem;
+  padding-bottom: 1.12rem;
+  padding-left: 0.26667rem;
 }
 .copyright-bar-text:nth-child(1) a {
   color: #9b9b9b;
@@ -156,17 +154,17 @@ p {
 }
 .copyright-bar-text:nth-child(1),
 .copyright-bar-text:nth-child(2) {
-  font-size: 12px;
-  line-height: 20px;
+  font-size: 0.32rem;
+  line-height: 0.53333rem;
 }
 .copyright-bar-text:nth-child(3) {
-  font-size: 10px;
-  line-height: 20px;
+  font-size: 0.26667rem;
+  line-height: 0.53333rem;
 }
 @media screen and (min-width: 414px) {
   .copyright-bar-text:nth-child(1),
   .copyright-bar-text:nth-child(2) {
-    font-size: 14px;
+    font-size: 0.37333rem;
   }
 }
 .group-name {
@@ -185,7 +183,7 @@ p {
 .ui-confirm {
   width: 74.6%;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 0.10667rem;
   background-color: #fff;
   position: absolute;
   left: 50%;
@@ -195,17 +193,17 @@ p {
   -webkiy-transform: translate(0, -50%);
 }
 .ui-confirm .ui-confirm-tip {
-  padding-top: 21px;
-  padding-right: 21px;
-  padding-bottom: 20px;
-  padding-left: 21px;
+  padding-top: 0.56rem;
+  padding-right: 0.56rem;
+  padding-bottom: 0.53333rem;
+  padding-left: 0.56rem;
 }
 .ui-confirm .ui-confirm-tip p:nth-child(1) {
-  font-size: 18px;
+  font-size: 0.48rem;
 }
 .ui-confirm .ui-confirm-tip p:nth-child(2) {
-  font-size: 14px;
-  margin-top: 5px;
+  font-size: 0.37333rem;
+  margin-top: 0.13333rem;
 }
 .confirm-btn-box {
   font-size: 0;
@@ -216,9 +214,9 @@ p {
 }
 .confirm-btn-box a {
   width: 50%;
-  height: 42px;
-  font-size: 15px;
-  line-height: 42px;
+  height: 1.12rem;
+  font-size: 0.4rem;
+  line-height: 1.12rem;
   display: inline-block;
 }
 .confirm-btn-box a:nth-child(1) {
@@ -229,30 +227,29 @@ p {
   color: #039ef0;
 }
 .ui-confirm .confirm-close {
-  width: 40px;
-  height: 40px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -281px -104px;
-  background-size: 312px 280px;
+  width: 1.06667rem;
+  height: 1.06667rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -7.49333rem -2.77333rem;
+  background-size: 8.32rem 7.46667rem;
   position: absolute;
-  right: -20px;
-  top: -20px;
+  right: -0.53333rem;
+  top: -0.53333rem;
 }
 .ui-confirm .confirm-sure-btn {
   text-align: center;
-  height: 42px;
-  line-height: 42px;
+  height: 1.12rem;
+  line-height: 1.12rem;
   color: #039ef0;
   display: block;
 }
 .home-page-box {
   color: #333;
-  max-width: 750px;
   min-height: 100%;
   margin-top: 0;
   margin-right: auto;
   margin-bottom: 0;
   margin-left: auto;
-  font-size: 14px;
+  font-size: 0.37333rem;
   position: relative;
   left: 0;
   top: 0;
@@ -264,57 +261,57 @@ p {
   width: 100%;
 }
 .home-nav {
-  height: 40px;
-  line-height: 40px;
+  height: 1.06667rem;
+  line-height: 1.06667rem;
   padding-top: 0;
-  padding-right: 10px;
+  padding-right: 0.26667rem;
   padding-bottom: 0;
-  padding-left: 10px;
+  padding-left: 0.26667rem;
   background-color: #fff;
   border-top: 1px solid #f0f0f0;
 }
 .home-nav .home-record-btn {
-  height: 22px;
-  line-height: 22px;
+  height: 0.58667rem;
+  line-height: 0.58667rem;
   padding-top: 0;
-  padding-right: 10px;
+  padding-right: 0.26667rem;
   padding-bottom: 0;
-  padding-left: 10px;
-  margin-top: 9px;
-  border-radius: 10px;
+  padding-left: 0.26667rem;
+  margin-top: 0.24rem;
+  border-radius: 0.26667rem;
   color: #fff;
   background-color: #4d9eeb;
 }
 .home-goods-bar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 114px;
+  padding-bottom: 3.04rem;
   padding-left: 0;
   border-top: 1px solid #f0f0f0;
 }
 .home-goods-bar .num-color {
-  font-size: 12px;
+  font-size: 0.32rem;
   color: #fff;
 }
 .home-goods-dt {
-  height: 40px;
-  line-height: 40px;
-  font-size: 14px;
+  height: 1.06667rem;
+  line-height: 1.06667rem;
+  font-size: 0.37333rem;
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 14px;
+  padding-left: 0.37333rem;
   background-color: #fff;
   font-weight: bold;
   border-bottom: 1px solid #f0f0f0;
 }
 .home-goods-area {
-  margin-top: 10px;
+  margin-top: 0.26667rem;
 }
 .home-goods-area-son {
   width: 50%;
-  height: 150px;
-  font-size: 12px;
+  height: 4rem;
+  font-size: 0.32rem;
   background-color: #fff;
   border-bottom: 1px solid #f0f0f0;
 }
@@ -323,16 +320,16 @@ p {
 }
 .home-text-bar {
   width: 100%;
-  padding-top: 10px;
+  padding-top: 0.26667rem;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 14px;
+  padding-left: 0.37333rem;
 }
 .home-pic-detail {
   width: 95%;
   color: #999;
-  line-height: 16px;
-  margin-bottom: 3px;
+  line-height: 0.42667rem;
+  margin-bottom: 0.08rem;
 }
 .home-text-bar-p {
   width: 100%;
@@ -341,44 +338,44 @@ p {
   text-overflow: ellipsis;
 }
 .home-value-common {
-  height: 16px;
-  line-height: 16px;
-  padding-left: 14px;
+  height: 0.42667rem;
+  line-height: 0.42667rem;
+  padding-left: 0.37333rem;
   color: #9b9b9b;
 }
 .home-value-common span {
   color: #ff5a44;
-  padding-right: 5px;
+  padding-right: 0.13333rem;
   font-weight: bold;
 }
 .home-value-common em {
   color: #ff5a44;
   padding-top: 0;
-  padding-right: 5px;
+  padding-right: 0.13333rem;
   padding-bottom: 0;
-  padding-left: 5px;
+  padding-left: 0.13333rem;
 }
 .home-value-p {
-  min-width: 24px;
-  height: 16px;
+  min-width: 0.64rem;
+  height: 0.42667rem;
   padding-top: 0;
-  padding-right: 8px;
+  padding-right: 0.21333rem;
   padding-bottom: 0;
-  padding-left: 4px;
+  padding-left: 0.10667rem;
 }
 .home-value {
-  font-size: 12px;
+  font-size: 0.32rem;
 }
 .home-goods-pic {
-  width: 100px;
-  height: 64px;
+  width: 2.66667rem;
+  height: 1.70667rem;
   margin-top: 0;
   margin-right: auto;
   margin-bottom: 0;
   margin-left: auto;
 }
 .home-big-goods-pic {
-  width: 120px;
+  width: 3.2rem;
   margin-top: 0;
   margin-right: auto;
   margin-bottom: 0;
@@ -386,202 +383,201 @@ p {
 }
 .home-pic-bar {
   width: 100%;
-  height: 76px;
-  padding-top: 6px;
+  height: 2.02667rem;
+  padding-top: 0.16rem;
   padding-right: 0;
-  padding-bottom: 6px;
+  padding-bottom: 0.16rem;
   padding-left: 0;
 }
 .home-fixed-box {
-  width: 45px;
-  height: 100px;
+  width: 1.2rem;
+  height: 2.66667rem;
   position: fixed;
-  right: 10px;
-  bottom: 10px;
+  right: 0.26667rem;
+  bottom: 0.26667rem;
 }
 .home-fixed-box a {
   width: 100%;
-  height: 45px;
+  height: 1.2rem;
   display: block;
   border-radius: 50%;
 }
 .home-fixed-box a:nth-child(1) {
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -20px -205px;
-  background-size: 312px 280px;
-  margin-bottom: 10px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -0.53333rem -5.46667rem;
+  background-size: 8.32rem 7.46667rem;
+  margin-bottom: 0.26667rem;
 }
 .home-fixed-box a:nth-child(2) {
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -70px -205px;
-  background-size: 312px 280px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -1.86667rem -5.46667rem;
+  background-size: 8.32rem 7.46667rem;
 }
 @media screen and (min-width: 414px) {
   .home-goods-area-son {
-    height: 165.6px;
-    font-size: 14px;
+    height: 4.416rem;
+    font-size: 0.37333rem;
   }
   .home-pic-detail {
-    margin-top: 3px;
+    margin-top: 0.08rem;
     margin-right: auto;
-    margin-bottom: 3px;
+    margin-bottom: 0.08rem;
     margin-left: auto;
   }
   .home-pic-bar {
-    height: 86.6px;
-    padding-top: 11.3px;
+    height: 2.30933rem;
+    padding-top: 0.30133rem;
     padding-right: 0;
-    padding-bottom: 11.3px;
+    padding-bottom: 0.30133rem;
     padding-left: 0;
   }
   .home-value-common {
-    height: 18px;
-    line-height: 18px;
+    height: 0.48rem;
+    line-height: 0.48rem;
   }
 }
 .state-icon {
-  margin-left: 8px;
-  margin-top: -3px;
+  margin-left: 0.21333rem;
+  margin-top: -0.08rem;
   display: inline-block;
   vertical-align: middle;
 }
 .state-limit {
-  width: 29px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -205px 0;
-  background-size: 312px 280px;
+  width: 0.77333rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -5.46667rem 0;
+  background-size: 8.32rem 7.46667rem;
 }
 .state-out {
-  width: 29px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -244px 0;
-  background-size: 312px 280px;
+  width: 0.77333rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -6.50667rem 0;
+  background-size: 8.32rem 7.46667rem;
 }
 .state-prize {
-  width: 29px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -283px 0;
-  background-size: 312px 280px;
+  width: 0.77333rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -7.54667rem 0;
+  background-size: 8.32rem 7.46667rem;
 }
 .state-grab {
-  width: 29px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -166px 0;
-  background-size: 312px 280px;
+  width: 0.77333rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -4.42667rem 0;
+  background-size: 8.32rem 7.46667rem;
 }
 .state-channel {
-  width: 29px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -100px -58px;
-  background-size: 312px 280px;
+  width: 0.77333rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -2.66667rem -1.54667rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .new-user {
-  width: 34px;
-  height: 14px;
+  width: 0.90667rem;
+  height: 0.37333rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat;
-  background-size: 312px 280px;
+  background-size: 8.32rem 7.46667rem;
 }
 .old-user {
-  width: 34px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -44px 0;
-  background-size: 312px 280px;
+  width: 0.90667rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -1.17333rem 0;
+  background-size: 8.32rem 7.46667rem;
 }
 .month-card {
-  width: 29px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -88px 0;
-  background-size: 312px 280px;
+  width: 0.77333rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -2.34667rem 0;
+  background-size: 8.32rem 7.46667rem;
 }
 .quarter-card {
-  width: 29px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -127px 0;
-  background-size: 312px 280px;
+  width: 0.77333rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -3.38667rem 0;
+  background-size: 8.32rem 7.46667rem;
 }
 .state-newyear {
-  width: 48px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -228px -58px;
-  background-size: 312px 280px;
+  width: 1.28rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -6.08rem -1.54667rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .user-v1 {
-  width: 40px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat 0 -29px;
-  background-size: 312px 280px;
+  width: 1.06667rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat 0 -0.77333rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .self-business {
-  width: 40px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -139px -58px;
-  background-size: 312px 280px;
+  width: 1.06667rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -3.70667rem -1.54667rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .to-promote {
-  width: 29px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -189px -58px;
-  background-size: 312px 280px;
+  width: 0.77333rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -5.04rem -1.54667rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .user-v2 {
-  width: 40px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -50px -29px;
-  background-size: 312px 280px;
+  width: 1.06667rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -1.33333rem -0.77333rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .user-v3 {
-  width: 40px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -100px -29px;
-  background-size: 312px 280px;
+  width: 1.06667rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -2.66667rem -0.77333rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .user-v4 {
-  width: 40px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -150px -29px;
-  background-size: 312px 280px;
+  width: 1.06667rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -4rem -0.77333rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .user-v5 {
-  width: 40px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -200px -29px;
-  background-size: 312px 280px;
+  width: 1.06667rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -5.33333rem -0.77333rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .user-v6 {
-  width: 40px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -250px -29px;
-  background-size: 312px 280px;
+  width: 1.06667rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -6.66667rem -0.77333rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .user-v7 {
-  width: 40px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat 0 -58px;
-  background-size: 312px 280px;
+  width: 1.06667rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat 0 -1.54667rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .user-v8 {
-  width: 40px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -50px -58px;
-  background-size: 312px 280px;
+  width: 1.06667rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -1.33333rem -1.54667rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .mall-statement-box {
-  max-width: 750px;
   margin: 0 auto;
 }
 .mall-statement-box {
   color: #333;
-  padding-top: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
-  padding-left: 20px;
+  padding-top: 0.53333rem;
+  padding-right: 0.53333rem;
+  padding-bottom: 0.53333rem;
+  padding-left: 0.53333rem;
 }
 .mall-statement-box .common-text {
-  line-height: 26px;
+  line-height: 0.69333rem;
 }
 .active-box .active-detail-tit {
-  font-size: 16px;
+  font-size: 0.42667rem;
 }
 .active-box .common-text {
-  font-size: 14px;
+  font-size: 0.37333rem;
 }
 .active-pic-bar img {
   width: 100%;
@@ -589,15 +585,15 @@ p {
 .active-bar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 174px;
+  padding-bottom: 4.64rem;
   padding-left: 0;
 }
 .active-goods-tip {
-  font-size: 20px;
+  font-size: 0.53333rem;
   font-weight: bold;
-  margin-top: 25px;
+  margin-top: 0.66667rem;
   margin-right: 0;
-  margin-bottom: 20px;
+  margin-bottom: 0.53333rem;
   margin-left: 0;
   text-align: center;
 }
@@ -606,14 +602,14 @@ p {
   padding-right: 7%;
   padding-bottom: 0;
   padding-left: 7%;
-  max-height: 20px;
+  max-height: 0.53333rem;
   overflow: hidden;
-  font-size: 12px;
+  font-size: 0.32rem;
   color: #039ef0;
   display: flex;
   margin-top: 0;
   margin-right: auto;
-  margin-bottom: 20px;
+  margin-bottom: 0.53333rem;
   margin-left: auto;
 }
 .active-attr-show li {
@@ -625,16 +621,16 @@ p {
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 16px;
+  padding-left: 0.42667rem;
 }
 .active-attr-show li:nth-child(1) {
-  min-width: 78px;
+  min-width: 2.08rem;
 }
 .active-attr-show li:nth-child(2) {
-  min-width: 94px;
+  min-width: 2.50667rem;
 }
 .active-attr-show li:nth-child(3) {
-  min-width: 100px;
+  min-width: 2.66667rem;
 }
 .active-attr-show li span {
   position: relative;
@@ -642,38 +638,38 @@ p {
   top: 0;
 }
 .active-attr-show li span:before {
-  width: 15px;
-  height: 13px;
+  width: 0.4rem;
+  height: 0.34667rem;
   content: '';
   position: absolute;
-  left: -16px;
+  left: -0.42667rem;
   top: -1px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat 0 -210px;
-  background-size: 312px 280px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat 0 -5.6rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .active-goods-desc {
-  font-size: 14px;
-  line-height: 24px;
-  padding-top: 20px;
-  padding-right: 24px;
-  padding-bottom: 30px;
-  padding-left: 24px;
+  font-size: 0.37333rem;
+  line-height: 0.64rem;
+  padding-top: 0.53333rem;
+  padding-right: 0.64rem;
+  padding-bottom: 0.8rem;
+  padding-left: 0.64rem;
   border-top: 1px solid #e5e5e5;
   text-align: center;
 }
 .active-detail-btn {
   width: 40%;
-  height: 40px;
-  line-height: 40px;
+  height: 1.06667rem;
+  line-height: 1.06667rem;
   display: block;
   text-align: center;
-  font-size: 14px;
+  font-size: 0.37333rem;
   color: #333;
   margin-top: 0;
   margin-right: auto;
-  margin-bottom: 36px;
+  margin-bottom: 0.96rem;
   margin-left: auto;
-  border-radius: 2px;
+  border-radius: 0.05333rem;
   border-left: 1px solid #000;
   border-top: 1px solid #000;
   border-right: 1px solid #000;
@@ -683,13 +679,13 @@ p {
   width: 90%;
   margin-top: 0;
   margin-right: auto;
-  margin-bottom: 10px;
+  margin-bottom: 0.26667rem;
   margin-left: auto;
 }
 .active-goods-block tr td {
-  font-size: 14px;
-  height: 30px;
-  line-height: 30px;
+  font-size: 0.37333rem;
+  height: 0.8rem;
+  line-height: 0.8rem;
   text-align: center;
   border-left: 1px solid #fff;
   border-right: 1px solid #fff;
@@ -701,52 +697,52 @@ p {
 .active-goods-block tr td:last-child {
   width: 70%;
   padding-top: 0;
-  padding-right: 6px;
+  padding-right: 0.16rem;
   padding-bottom: 0;
-  padding-left: 12px;
+  padding-left: 0.32rem;
   background-color: #e6e6e6;
   color: #333;
   text-align: left;
 }
 .active-area {
-  padding-top: 12px;
-  padding-right: 16px;
-  padding-bottom: 5px;
-  padding-left: 16px;
+  padding-top: 0.32rem;
+  padding-right: 0.42667rem;
+  padding-bottom: 0.13333rem;
+  padding-left: 0.42667rem;
 }
 .active-detail-tit {
-  height: 16px;
-  line-height: 16px;
-  border-left: 4px solid #e40031;
-  margin-top: 4px;
+  height: 0.42667rem;
+  line-height: 0.42667rem;
+  border-left: 0.10667rem solid #e40031;
+  margin-top: 0.10667rem;
   margin-right: 0;
-  margin-bottom: 4px;
+  margin-bottom: 0.10667rem;
   margin-left: 0;
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 4px;
+  padding-left: 0.10667rem;
   color: #333;
 }
 .address-tit {
   width: 100%;
   font-weight: normal;
-  font-size: 14px;
-  margin-top: 2px;
+  font-size: 0.37333rem;
+  margin-top: 0.05333rem;
   margin-right: 0;
-  margin-bottom: 2px;
+  margin-bottom: 0.05333rem;
   margin-left: 0;
 }
 .address-tit-son {
-  height: 18px;
-  line-height: 18px;
+  height: 0.48rem;
+  line-height: 0.48rem;
   color: #fff;
   background-color: #4889db;
   padding-top: 0;
-  padding-right: 2px;
+  padding-right: 0.05333rem;
   padding-bottom: 0;
-  padding-left: 2px;
-  border-radius: 2px;
+  padding-left: 0.05333rem;
+  border-radius: 0.05333rem;
 }
 .text-red {
   color: #f00;
@@ -755,15 +751,15 @@ p {
   border-color: #4889db;
 }
 .common-text {
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 0.37333rem;
+  line-height: 0.53333rem;
 }
 .time-bar,
 .order-pay-bar,
 .goods-pay-bar {
   width: 100%;
-  height: 60px;
-  line-height: 60px;
+  height: 1.6rem;
+  line-height: 1.6rem;
   background-color: #f3f3f3;
   border-top: 1px solid #d1d1d1;
   position: fixed;
@@ -781,31 +777,31 @@ p {
   top: 0;
 }
 .scoring-bar {
-  margin-left: 12px;
+  margin-left: 0.32rem;
 }
 .user-flow {
-  width: 210px;
-  margin-top: 10px;
+  width: 5.6rem;
+  margin-top: 0.26667rem;
   margin-right: auto;
-  margin-bottom: 10px;
+  margin-bottom: 0.26667rem;
   margin-left: auto;
 }
 .count-down {
-  margin-right: 10px;
+  margin-right: 0.26667rem;
 }
 .operate-btn,
 .order-pay-bar .order-pay-btn,
 .goods-pay-bar .goods-pay-btn {
   text-align: center;
-  padding-top: 10px;
-  padding-right: 15px;
-  padding-bottom: 10px;
-  padding-left: 15px;
-  font-size: 18px;
-  line-height: 18px;
-  border-radius: 3px;
-  margin-right: 20px;
-  margin-top: 12px;
+  padding-top: 0.26667rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.26667rem;
+  padding-left: 0.4rem;
+  font-size: 0.48rem;
+  line-height: 0.48rem;
+  border-radius: 0.08rem;
+  margin-right: 0.53333rem;
+  margin-top: 0.32rem;
   color: #fff;
 }
 .operate-btn {
@@ -821,20 +817,20 @@ p {
 }
 .scoring-num {
   font-family: 'Arial';
-  font-size: 22px;
+  font-size: 0.58667rem;
   color: #f90;
 }
 .time-num {
-  width: 20px;
+  width: 0.53333rem;
   text-align: center;
   display: inline-block;
-  height: 24px;
-  line-height: 24px;
-  border-radius: 5px;
+  height: 0.64rem;
+  line-height: 0.64rem;
+  border-radius: 0.13333rem;
   margin-top: 0;
-  margin-right: 2px;
+  margin-right: 0.05333rem;
   margin-bottom: 0;
-  margin-left: 2px;
+  margin-left: 0.05333rem;
   background-color: #ccc;
   color: #fff;
 }
@@ -842,15 +838,15 @@ p {
 .login-flip-box,
 .del-tip-box {
   width: 80%;
-  height: 150px;
+  height: 4rem;
   text-align: center;
   background-color: #fff;
-  border-radius: 4px;
+  border-radius: 0.10667rem;
   position: fixed;
   left: 50%;
   top: 50%;
   margin-left: -40%;
-  margin-top: -75px;
+  margin-top: -2rem;
   z-index: 6;
   display: none;
 }
@@ -858,156 +854,156 @@ p {
   display: block;
 }
 .login-flip-h {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  border-top-left-radius: 0.08rem;
+  border-top-right-radius: 0.08rem;
   text-align: center;
-  height: 36px;
-  line-height: 36px;
-  font-size: 18px;
+  height: 0.96rem;
+  line-height: 0.96rem;
+  font-size: 0.48rem;
   color: #fff;
   background-color: #4889db;
 }
 .login-flip-text {
-  padding-top: 15px;
-  padding-right: 15px;
-  padding-bottom: 15px;
-  padding-left: 15px;
+  padding-top: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-left: 0.4rem;
 }
 .login-flip-text-no {
   text-align: center;
-  padding-top: 25px;
-  padding-right: 15px;
-  padding-bottom: 25px;
-  padding-left: 15px;
+  padding-top: 0.66667rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.66667rem;
+  padding-left: 0.4rem;
 }
 .login-btn-box {
   text-align: center;
 }
 .login-no,
 .login-yes {
-  min-width: 100px;
-  padding-top: 5px;
-  padding-right: 18px;
-  padding-bottom: 5px;
-  padding-left: 18px;
+  min-width: 2.66667rem;
+  padding-top: 0.13333rem;
+  padding-right: 0.48rem;
+  padding-bottom: 0.13333rem;
+  padding-left: 0.48rem;
   color: #fff;
   margin-top: 0;
-  margin-right: 8px;
+  margin-right: 0.21333rem;
   margin-bottom: 0;
-  margin-left: 8px;
-  border-radius: 2px;
+  margin-left: 0.21333rem;
+  border-radius: 0.05333rem;
 }
 .flip-info,
 .del-info {
-  margin-top: 30px;
+  margin-top: 0.8rem;
   padding-top: 0;
-  padding-right: 10px;
+  padding-right: 0.26667rem;
   padding-bottom: 0;
-  padding-left: 10px;
+  padding-left: 0.26667rem;
 }
 .del-info {
-  margin-bottom: 30px;
+  margin-bottom: 0.8rem;
 }
 .flip-info-bar {
-  height: 48px;
-  margin-bottom: 16px;
+  height: 1.28rem;
+  margin-bottom: 0.42667rem;
 }
 .exchange-button {
-  min-width: 88px;
+  min-width: 2.34667rem;
   display: inline-block;
-  border-radius: 3px;
-  padding-top: 4px;
-  padding-right: 12px;
-  padding-bottom: 4px;
-  padding-left: 12px;
+  border-radius: 0.08rem;
+  padding-top: 0.10667rem;
+  padding-right: 0.32rem;
+  padding-bottom: 0.10667rem;
+  padding-left: 0.32rem;
   margin-top: 0;
-  margin-right: 10px;
+  margin-right: 0.26667rem;
   margin-bottom: 0;
-  margin-left: 10px;
+  margin-left: 0.26667rem;
   color: #fff;
 }
 .del-common-button {
   display: inline-block;
   margin-top: 0;
-  margin-right: 10px;
+  margin-right: 0.26667rem;
   margin-bottom: 0;
-  margin-left: 10px;
+  margin-left: 0.26667rem;
   color: #fff;
-  padding-top: 4px;
-  padding-right: 28px;
-  padding-bottom: 4px;
-  padding-left: 28px;
+  padding-top: 0.10667rem;
+  padding-right: 0.74667rem;
+  padding-bottom: 0.10667rem;
+  padding-left: 0.74667rem;
 }
 .flip-tip {
-  font-size: 12px;
+  font-size: 0.32rem;
   padding-top: 0;
-  padding-right: 16px;
+  padding-right: 0.42667rem;
   padding-bottom: 0;
-  padding-left: 16px;
+  padding-left: 0.42667rem;
 }
 .flip-go-check {
-  margin-top: 15px;
+  margin-top: 0.4rem;
 }
 .integral-list-num {
-  height: 24px;
-  padding-top: 30px;
+  height: 0.64rem;
+  padding-top: 0.8rem;
   padding-right: 0;
   padding-bottom: 0;
   padding-left: 0;
   color: #4889db;
 }
 .group-introduce {
-  padding-top: 20px;
+  padding-top: 0.53333rem;
   padding-right: 0;
-  padding-bottom: 5px;
+  padding-bottom: 0.13333rem;
   padding-left: 0;
 }
 .group-introduce-bar {
-  margin-top: 20px;
+  margin-top: 0.53333rem;
 }
 .enter-or-download {
   display: inline-block;
   height: 100%;
   padding-top: 0;
-  padding-right: 10px;
+  padding-right: 0.26667rem;
   padding-bottom: 0;
-  padding-left: 10px;
-  border-radius: 3px;
+  padding-left: 0.26667rem;
+  border-radius: 0.08rem;
   background-color: #4889db;
   color: #fff;
   margin-top: 0;
-  margin-right: 3px;
+  margin-right: 0.08rem;
   margin-bottom: 0;
-  margin-left: 3px;
+  margin-left: 0.08rem;
 }
 .click-me {
   dispaly: inline-block;
   background-color: #4889db;
   color: #fff;
-  border-radius: 2px;
-  padding-top: 3px;
-  padding-right: 5px;
-  padding-bottom: 3px;
-  padding-left: 5px;
+  border-radius: 0.05333rem;
+  padding-top: 0.08rem;
+  padding-right: 0.13333rem;
+  padding-bottom: 0.08rem;
+  padding-left: 0.13333rem;
 }
 .order-box {
   background-color: #f3f3f3;
 }
 .pay-order-box {
-  margin-bottom: 10px;
+  margin-bottom: 0.26667rem;
 }
 .order-goods-box {
-  font-size: 14px;
+  font-size: 0.37333rem;
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 292px;
+  padding-bottom: 7.78667rem;
   padding-left: 0;
 }
 .order-goods-bar {
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  padding-top: 0.26667rem;
+  padding-right: 0.26667rem;
+  padding-bottom: 0.26667rem;
+  padding-left: 0.26667rem;
   background-color: #fff;
 }
 .order-goods-bar a {
@@ -1024,24 +1020,24 @@ p {
   color: #333;
 }
 .chit-pic {
-  width: 64px;
-  height: 64px;
-  border-radius: 4px;
+  width: 1.70667rem;
+  height: 1.70667rem;
+  border-radius: 0.10667rem;
 }
 .order-goods-text {
-  margin-left: 10px;
+  margin-left: 0.26667rem;
 }
 .actually-pay {
   text-align: right;
   font-family: 'Arial';
 }
 .exchange-code-bar {
-  padding-top: 12px;
-  padding-right: 10px;
-  padding-bottom: 12px;
-  padding-left: 10px;
+  padding-top: 0.32rem;
+  padding-right: 0.26667rem;
+  padding-bottom: 0.32rem;
+  padding-left: 0.26667rem;
   background-color: #fff;
-  margin-bottom: 10px;
+  margin-bottom: 0.26667rem;
   position: relative;
   left: 0;
   top: 0;
@@ -1050,86 +1046,86 @@ p {
   width: 75%;
 }
 .order-box .enter-btn {
-  width: 9px;
-  height: 18px;
-  margin-top: 22px;
+  width: 0.24rem;
+  height: 0.48rem;
+  margin-top: 0.58667rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/arrow-icon.png) no-repeat;
   background-size: cover;
 }
 .exchange-code {
   text-align: center;
-  font-size: 18px;
-  padding-top: 8px;
-  padding-right: 10px;
-  padding-bottom: 8px;
-  padding-left: 10px;
+  font-size: 0.48rem;
+  padding-top: 0.21333rem;
+  padding-right: 0.26667rem;
+  padding-bottom: 0.21333rem;
+  padding-left: 0.26667rem;
   color: #fff;
 }
 .exchange-code-word {
-  min-width: 100px;
+  min-width: 2.66667rem;
   display: inline-block;
   background-color: #feb220;
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  border-radius: 3px;
+  padding-top: 0.26667rem;
+  padding-right: 0.26667rem;
+  padding-bottom: 0.26667rem;
+  padding-left: 0.26667rem;
+  border-radius: 0.08rem;
 }
 .copy-code {
-  font-size: 10px;
+  font-size: 0.26667rem;
   color: #ccc;
   text-align: center;
 }
 .use-method {
   padding-top: 0;
-  padding-right: 10px;
+  padding-right: 0.26667rem;
   padding-bottom: 0;
-  padding-left: 10px;
+  padding-left: 0.26667rem;
 }
 .use-method-tit {
-  height: 16px;
-  margin-top: 15px;
+  height: 0.42667rem;
+  margin-top: 0.4rem;
   margin-right: 0;
-  margin-bottom: 10px;
+  margin-bottom: 0.26667rem;
   margin-left: 0;
-  font-size: 16px;
+  font-size: 0.42667rem;
   color: #333;
-  line-height: 16px;
+  line-height: 0.42667rem;
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 5px;
-  border-left: 4px solid #4889db;
+  padding-left: 0.13333rem;
+  border-left: 0.10667rem solid #4889db;
 }
 .use-method-text {
-  font-size: 14px;
+  font-size: 0.37333rem;
 }
 .pay-status-box {
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  padding-top: 0.26667rem;
+  padding-right: 0.26667rem;
+  padding-bottom: 0.26667rem;
+  padding-left: 0.26667rem;
 }
 .pay-status {
-  font-size: 16px;
-  line-height: 26px;
+  font-size: 0.42667rem;
+  line-height: 0.69333rem;
   color: #333;
 }
 .yes-icon {
-  width: 15px;
-  height: 15px;
+  width: 0.4rem;
+  height: 0.4rem;
   display: inline-block;
-  margin-right: 10px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/h2-pay-sprite.png) no-repeat 0 -115px;
-  background-size: 350px 350px;
+  margin-right: 0.26667rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/h2-pay-sprite.png) no-repeat 0 -3.06667rem;
+  background-size: 9.33333rem 9.33333rem;
 }
 .pay-status-tip {
-  width: 73px;
-  height: 73px;
-  margin-top: 10px;
-  margin-right: 20px;
+  width: 1.94667rem;
+  height: 1.94667rem;
+  margin-top: 0.26667rem;
+  margin-right: 0.53333rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/h2-pay-sprite.png) no-repeat;
-  background-size: 350px 350px;
+  background-size: 9.33333rem 9.33333rem;
 }
 .order-pay-btn {
   background-color: #4889db;
@@ -1138,25 +1134,25 @@ p {
   color: #4889db;
 }
 .pay-status-succ .pay-status-show {
-  background-position: 0 -32px;
+  background-position: 0 -0.85333rem;
 }
 .pay-status-unfinished .pay-status-text {
   color: #f31818;
 }
 .pay-status-unfinished .pay-status-show {
-  background-position: -81px -32px;
+  background-position: -2.16rem -0.85333rem;
 }
 .pay-status-fail .pay-status-text {
   color: #333;
 }
 .pay-status-fail .pay-status-show {
-  background-position: 163px -32px;
+  background-position: 4.34667rem -0.85333rem;
 }
 .pay-status-cancel .pay-status-text {
   color: #333;
 }
 .pay-status-cancel .pay-status-show {
-  background-position: -245px -32px;
+  background-position: -6.53333rem -0.85333rem;
 }
 .exchange-record-box {
   font-size: 0.3733rem;
@@ -1193,7 +1189,7 @@ p {
 }
 .nav-block li.on {
   color: #039ef0;
-  border-bottom: 2px solid #039ef0;
+  border-bottom: 0.05333rem solid #039ef0;
 }
 .nav-block li i {
   background: #f0f0f0;
@@ -1262,14 +1258,13 @@ p {
   color: #9b9b9b;
 }
 .enter-btn {
-  width: 9px;
-  height: 18px;
-  margin-top: 28px;
+  width: 0.24rem;
+  height: 0.48rem;
+  margin-top: 0.74667rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/arrow-icon.png) no-repeat;
   background-size: cover;
 }
 .exchange-empty-box {
-  max-width: 750px;
   display: none;
   margin-top: 0;
   margin-right: auto;
@@ -1277,19 +1272,19 @@ p {
   margin-left: auto;
 }
 .exchange-empty-pic {
-  width: 104px;
-  height: 104px;
-  margin-top: 64px;
+  width: 2.77333rem;
+  height: 2.77333rem;
+  margin-top: 1.70667rem;
   margin-right: auto;
-  margin-bottom: 18px;
+  margin-bottom: 0.48rem;
   margin-left: auto;
 }
 .exchange-empty-text {
-  font-size: 16px;
+  font-size: 0.42667rem;
   text-align: center;
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 15px;
+  padding-bottom: 0.4rem;
   padding-left: 0;
 }
 .order-status {
@@ -1314,81 +1309,81 @@ p {
   position: fixed;
   top: 0;
   left: 0;
-  padding: 8px 0 8px 0;
+  padding: 0.21333rem 0 0.21333rem 0;
   z-index: 2;
 }
 .exchange-record-box.search .search-input-box {
   width: 100%;
   width: 7.8rem;
-  margin: 0 0 0 12px;
+  margin: 0 0 0 0.32rem;
 }
 .exchange-record-box.search .search-input {
   background: #FFFFFF;
   display: block;
   width: 100%;
-  height: 34px;
+  height: 0.90667rem;
   vertical-align: middle;
   background-color: #fff;
   background-image: none;
   border: 1px solid #EAEAEA;
-  border-radius: 4px;
+  border-radius: 0.10667rem;
   -webkit-appearance: none;
-  padding: 0 0 0 10px;
+  padding: 0 0 0 0.26667rem;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 0.37333rem;
   color: #333;
 }
 .exchange-record-box.search .search-button-box {
-  width: 70px;
+  width: 1.86667rem;
 }
 .exchange-record-box.search button {
   background-color: #f0f0f0;
   width: 100%;
-  height: 34px;
-  font-size: 14px;
+  height: 0.90667rem;
+  font-size: 0.37333rem;
   color: #868686;
   text-align: center;
 }
 .exchange-record-box.search .nav-place {
   background-color: #f0f0f0;
-  height: 50px;
+  height: 1.33333rem;
 }
 .insert-bar {
   width: 90%;
-  margin-top: 24px;
+  margin-top: 0.64rem;
   margin-right: auto;
   margin-bottom: 0;
   margin-left: auto;
 }
 .combination-insert-bar {
-  border-radius: 4px;
-  margin-top: 15px;
+  border-radius: 0.10667rem;
+  margin-top: 0.4rem;
 }
 .combination-insert-area {
-  height: 147px;
+  height: 3.92rem;
   position: relative;
   left: 0;
   top: 0;
   background-color: #fff;
-  border-radius: 4px;
-  margin-top: 12px;
+  border-radius: 0.10667rem;
+  margin-top: 0.32rem;
 }
 .combination-insert-area:last-child {
-  border-radius: 4px 4px 0 0;
+  border-radius: 0.10667rem 0.10667rem 0 0;
 }
 .combination-insert-area .insert-bar-son + .border {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
 .insert-delete-bar {
-  width: 45px;
-  height: 147px;
+  width: 1.2rem;
+  height: 3.92rem;
   background-color: #fff;
   position: absolute;
   right: 0;
   top: 0;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-top-right-radius: 0.10667rem;
+  border-bottom-right-radius: 0.10667rem;
 }
 .pay-box {
   background-color: #f3f3f3;
@@ -1397,27 +1392,27 @@ p {
   width: 100%;
 }
 .combination-insert-bar .insert-bar-son {
-  height: 49px;
+  height: 1.30667rem;
 }
 .insert-bar-son {
-  height: 72px;
+  height: 1.92rem;
 }
 .authcode-insert-bar {
-  height: 68px;
+  height: 1.81333rem;
 }
 .insert-bar-son .common-text {
-  height: 26px;
-  line-height: 26px;
-  font-size: 12px;
+  height: 0.69333rem;
+  line-height: 0.69333rem;
+  font-size: 0.32rem;
 }
 .common-insert-area,
 .authcode-insert-area {
-  padding-top: 8px;
+  padding-top: 0.21333rem;
   padding-right: 0;
-  padding-bottom: 8px;
+  padding-bottom: 0.21333rem;
   padding-left: 0;
   background-color: #fff;
-  border-radius: 4px;
+  border-radius: 0.10667rem;
 }
 .combination-insert-bar .common-insert-area,
 .combination-insert-bar .authcode-insert-area {
@@ -1425,9 +1420,9 @@ p {
   background-color: transparent;
 }
 .authcode-insert-area {
-  padding-top: 6px;
+  padding-top: 0.16rem;
   padding-right: 0;
-  padding-bottom: 6px;
+  padding-bottom: 0.16rem;
   padding-left: 0;
 }
 .authcode-insert-area {
@@ -1435,87 +1430,87 @@ p {
 }
 .authcode-get-area {
   width: 40%;
-  border-radius: 4px;
+  border-radius: 0.10667rem;
 }
 .authcode-get {
   width: 100%;
   text-align: center;
-  height: 42px;
-  line-height: 42px;
-  border-radius: 4px;
+  height: 1.12rem;
+  line-height: 1.12rem;
+  border-radius: 0.10667rem;
 }
 .insert-icon {
-  width: 19px;
-  height: 30px;
+  width: 0.50667rem;
+  height: 0.8rem;
   vertical-align: middle;
   display: inline-block;
   margin-top: 0;
-  margin-right: 13px;
+  margin-right: 0.34667rem;
   margin-bottom: 0;
-  margin-left: 13px;
+  margin-left: 0.34667rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat;
-  background-position: -90px -168px;
-  background-size: 312px 280px;
+  background-position: -2.4rem -4.48rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .phone-icon {
-  background-position: 3px -172px;
+  background-position: 0.08rem -4.58667rem;
 }
 .psw-icon {
-  background-position: -21px -171px;
+  background-position: -0.56rem -4.56rem;
 }
 .re-psw-icon {
-  background-position: -44px -171px;
+  background-position: -1.17333rem -4.56rem;
 }
 .realname-icon {
-  background-position: -144px -170px;
+  background-position: -3.84rem -4.53333rem;
 }
 .idcard-icon {
-  background-position: -117px -169px;
+  background-position: -3.12rem -4.50667rem;
 }
 .email-icon {
-  background-position: -68px -168px;
+  background-position: -1.81333rem -4.48rem;
 }
 .dele-icon {
-  width: 15px;
-  height: 14px;
+  width: 0.4rem;
+  height: 0.37333rem;
   position: absolute;
   left: 50%;
   top: 50%;
-  margin-left: -8px;
-  margin-top: -7px;
+  margin-left: -0.21333rem;
+  margin-top: -0.18667rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat;
-  background-size: 312px 280px;
-  background-position: -167px -173px;
+  background-size: 8.32rem 7.46667rem;
+  background-position: -4.45333rem -4.61333rem;
 }
 .common-insert {
   width: 70%;
-  padding-top: 7px;
+  padding-top: 0.18667rem;
   padding-right: 0;
-  padding-bottom: 7px;
-  padding-left: 10px;
-  line-height: 16px;
+  padding-bottom: 0.18667rem;
+  padding-left: 0.26667rem;
+  line-height: 0.42667rem;
   border-left: 1px solid #ccc;
   border-radius: 0;
 }
 .authcode-insert {
   width: 100%;
-  line-height: 16px;
-  padding-top: 7px;
+  line-height: 0.42667rem;
+  padding-top: 0.18667rem;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 25px;
+  padding-left: 0.66667rem;
 }
 .insert-tit {
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 55px;
+  padding-left: 1.46667rem;
 }
 .insert-bar-son .authcode-tit {
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 25px;
+  padding-left: 0.66667rem;
 }
 .disable-color {
   background-color: #ccc;
@@ -1534,13 +1529,13 @@ p {
 .to-add-bar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 20px;
+  padding-bottom: 0.53333rem;
   padding-left: 0;
 }
 .to-check-bar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 15px;
+  padding-bottom: 0.4rem;
   padding-left: 0;
   text-align: center;
 }
@@ -1548,60 +1543,60 @@ p {
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 10px;
-  font-size: 13px;
+  padding-left: 0.26667rem;
+  font-size: 0.34667rem;
 }
 .to-receive-bar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 15px;
+  padding-bottom: 0.4rem;
   padding-left: 0;
 }
 .to-receive,
 .to-add {
   width: 100%;
   text-align: center;
-  height: 42px;
-  line-height: 42px;
-  border-radius: 4px;
+  height: 1.12rem;
+  line-height: 1.12rem;
+  border-radius: 0.10667rem;
   color: #fff;
   background-color: #4d8bd8;
 }
 .to-add {
-  border-radius: 0 0 4px 4px;
+  border-radius: 0 0 0.10667rem 0.10667rem;
   background-color: #ccc;
   color: #999;
 }
 .to-add-icon {
-  font-size: 20px;
+  font-size: 0.53333rem;
   color: #3d89e9;
 }
 .to-bottom-text-bar {
   text-align: center;
-  font-size: 13px;
+  font-size: 0.34667rem;
 }
 .insurance-box {
   color: #333;
-  padding-top: 25px;
-  padding-right: 20px;
-  padding-bottom: 60px;
-  padding-left: 20px;
+  padding-top: 0.66667rem;
+  padding-right: 0.53333rem;
+  padding-bottom: 1.6rem;
+  padding-left: 0.53333rem;
 }
 .insurance-box h5 {
   font-weight: normal;
 }
 .insurance-box .snap-desc-bar .snap-desc-rule dt,
 .insurance-box h5 {
-  height: 16px;
-  line-height: 16px;
+  height: 0.42667rem;
+  line-height: 0.42667rem;
 }
 .insurance-box table {
   width: 100%;
-  margin-top: 15px;
-  margin-bottom: 25px;
+  margin-top: 0.4rem;
+  margin-bottom: 0.66667rem;
 }
 .insurance-box table thead {
-  font-size: 13px;
+  font-size: 0.34667rem;
   background-color: #ebebeb;
 }
 .insurance-box table thead th {
@@ -1609,13 +1604,13 @@ p {
   color: #333;
 }
 .insurance-box table tbody {
-  font-size: 13px;
+  font-size: 0.34667rem;
   color: #888;
 }
 .insurance-box table thead {
   border-left: 1px solid #ccc;
   border-top: 1px solid #ccc;
-  line-height: 40px;
+  line-height: 1.06667rem;
 }
 .insurance-box table thead th:nth-child(1) {
   width: 30%;
@@ -1629,10 +1624,10 @@ p {
 }
 .insurance-box table tbody tr td:nth-child(2) {
   width: 70%;
-  padding-top: 10px;
-  padding-right: 15px;
-  padding-bottom: 10px;
-  padding-left: 15px;
+  padding-top: 0.26667rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.26667rem;
+  padding-left: 0.4rem;
 }
 .insurance-box table tbody {
   border-left: 1px solid #ccc;
@@ -1646,36 +1641,36 @@ p {
   position: relative;
   top: 0;
   left: 0;
-  font-size: 13px;
+  font-size: 0.34667rem;
   color: #989898;
-  line-height: 21px;
-  padding-top: 10px;
+  line-height: 0.56rem;
+  padding-top: 0.26667rem;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 10px;
+  padding-left: 0.26667rem;
 }
 .insurance-box .snap-desc-bar .snap-desc-rule dd:before {
   position: absolute;
-  top: 10px;
+  top: 0.26667rem;
   left: 0;
   content: '•';
-  padding-right: 5px;
+  padding-right: 0.13333rem;
 }
 .pay-order-detail-box {
   min-height: 100%;
   background-color: #f3f3f3;
-  font-size: 14px;
+  font-size: 0.37333rem;
 }
 .pay-order-detail-box .pay-status-bar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 174px;
+  padding-bottom: 4.64rem;
   padding-left: 0;
 }
 .pay-order-detail-box .pay-after-bar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 114px;
+  padding-bottom: 3.04rem;
   padding-left: 0;
 }
 .pay-order-detail-box .pay-after-bar .order-pay-bar {
@@ -1685,49 +1680,49 @@ p {
   margin-bottom: 0;
 }
 .pay-order-detail-box .goods-detail {
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  padding-top: 0.26667rem;
+  padding-right: 0.26667rem;
+  padding-bottom: 0.26667rem;
+  padding-left: 0.26667rem;
   position: relative;
   left: 0;
   top: 0;
   background-color: #fff;
 }
 .pay-order-detail-box .goods-show-pic {
-  width: 70px;
-  height: 70px;
-  border-radius: 4px;
-  margin-right: 10px;
+  width: 1.86667rem;
+  height: 1.86667rem;
+  border-radius: 0.10667rem;
+  margin-right: 0.26667rem;
 }
 .pay-order-detail-box .trade-status {
-  width: 77px;
-  height: 22px;
-  line-height: 22px;
+  width: 2.05333rem;
+  height: 0.58667rem;
+  line-height: 0.58667rem;
   text-align: right;
   padding-top: 0;
-  padding-right: 7px;
+  padding-right: 0.18667rem;
   padding-bottom: 0;
   padding-left: 0;
-  font-size: 12px;
+  font-size: 0.32rem;
   color: #fff;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/pay-status-sprite.png) no-repeat;
-  background-size: 350px 350px;
+  background-size: 9.33333rem 9.33333rem;
   position: absolute;
   right: 0;
-  bottom: 10px;
+  bottom: 0.26667rem;
 }
 .pay-order-detail-box .trade-status-succ {
-  background-position: -94px 0;
+  background-position: -2.50667rem 0;
 }
 .pay-order-detail-box .trade-status-fail {
-  background-position: -188px 0;
+  background-position: -5.01333rem 0;
 }
 .pay-order-detail-box .trade-status-waiting {
   background-position: 0 0;
 }
 .pay-order-detail-box .trade-status-confirm {
-  background-position: 0 -32px;
+  background-position: 0 -0.85333rem;
 }
 .pay-order-detail-box .goods-detail p {
   width: 70%;
@@ -1736,23 +1731,23 @@ p {
   text-overflow: ellipsis;
 }
 .pay-order-detail-box .goods-name {
-  font-size: 16px;
+  font-size: 0.42667rem;
   color: #111;
 }
 .pay-order-detail-box .goods-price {
   font-family: 'Arial';
-  font-size: 20px;
-  line-height: 20px;
-  margin-top: 8px;
+  font-size: 0.53333rem;
+  line-height: 0.53333rem;
+  margin-top: 0.21333rem;
   color: #f90;
 }
 .pay-order-detail-box .order-detail-info {
-  height: 36px;
-  line-height: 36px;
+  height: 0.96rem;
+  line-height: 0.96rem;
   padding-top: 0;
-  padding-right: 10px;
+  padding-right: 0.26667rem;
   padding-bottom: 0;
-  padding-left: 10px;
+  padding-left: 0.26667rem;
   color: #999;
   border-top: 1px solid #f3f3f3;
   background-color: #fff;
@@ -1767,20 +1762,20 @@ p {
 .pay-order-detail-box .order-exchange-bar {
   padding-top: 0;
   padding-right: 5%;
-  padding-bottom: 20px;
+  padding-bottom: 0.53333rem;
   padding-left: 5%;
 }
 .pay-order-detail-box .order-exchange-bar:first-child {
-  padding-top: 20px;
+  padding-top: 0.53333rem;
   padding-right: 5%;
-  padding-bottom: 20px;
+  padding-bottom: 0.53333rem;
   padding-left: 5%;
 }
 .pay-order-detail-box .order-exchange-code {
-  padding-top: 10px;
-  padding-right: 15px;
-  padding-bottom: 10px;
-  padding-left: 15px;
+  padding-top: 0.26667rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.26667rem;
+  padding-left: 0.4rem;
   position: relative;
   left: 0;
   top: 0;
@@ -1795,14 +1790,14 @@ p {
   width: 70%;
 }
 .pay-order-detail-box .order-exchange-text {
-  font-size: 12px;
-  line-height: 20px;
+  font-size: 0.32rem;
+  line-height: 0.53333rem;
 }
 .pay-order-detail-box .order-address-area .order-exchange-text:last-child {
   width: 75%;
 }
 .pay-order-detail-box .logistics-info {
-  margin-right: 8px;
+  margin-right: 0.21333rem;
   color: #2d6dbe;
 }
 .pay-order-detail-box .order-address-area + .order-exchange-text {
@@ -1811,48 +1806,48 @@ p {
   top: 0;
 }
 .pay-order-detail-box .order-address-enter {
-  width: 8px;
-  height: 14px;
+  width: 0.21333rem;
+  height: 0.37333rem;
   position: absolute;
-  right: 5px;
+  right: 0.13333rem;
   top: 50%;
-  margin-top: -7px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -170px -120px;
-  background-size: 312px 280px;
+  margin-top: -0.18667rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -4.53333rem -3.2rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .pay-order-detail-box .effective-area {
-  height: 36px;
-  font-size: 12px;
+  height: 0.96rem;
+  font-size: 0.32rem;
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
-  padding-left: 15px;
+  padding-left: 0.4rem;
   position: absolute;
-  right: 15px;
+  right: 0.4rem;
   top: 50%;
-  margin-top: -18px;
+  margin-top: -0.48rem;
   border-left: 1px solid #ccc;
 }
 .pay-order-detail-box .arc-border {
-  width: 6px;
-  height: 12px;
+  width: 0.16rem;
+  height: 0.32rem;
   position: absolute;
   top: 50%;
-  margin-top: -6px;
+  margin-top: -0.16rem;
 }
 .pay-order-detail-box .arc-border-left {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/order-bg-leftcircle.png) no-repeat;
-  background-size: 6px 12px;
+  background-size: 0.16rem 0.32rem;
   left: -1px;
 }
 .pay-order-detail-box .arc-border-right {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/order-bg-rightcircle.png) no-repeat;
-  background-size: 6px 12px;
+  background-size: 0.16rem 0.32rem;
   right: -1px;
 }
 .pay-order-detail-box .pic-border {
   width: 100%;
-  height: 3px;
+  height: 0.08rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/order-bg-address-boder.png) repeat-x;
   position: absolute;
   left: 0;
@@ -1867,59 +1862,59 @@ p {
   color: #f90;
 }
 .pay-order-detail-box .common-text {
-  font-size: 12px;
-  line-height: 20px;
+  font-size: 0.32rem;
+  line-height: 0.53333rem;
 }
 .pay-order-detail-box .use-method {
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 15px;
-  padding-left: 10px;
+  padding-top: 0.26667rem;
+  padding-right: 0.26667rem;
+  padding-bottom: 0.4rem;
+  padding-left: 0.26667rem;
   background-color: #fff;
 }
 .order-address-bar .order-exchange-area {
   width: 100%;
 }
 .order-exchange-area .prize-text {
-  font-size: 13px;
+  font-size: 0.34667rem;
   color: #ff5a44;
   font-weight: bold;
-  padding-top: 10px;
+  padding-top: 0.26667rem;
   padding-right: 0;
-  padding-bottom: 10px;
+  padding-bottom: 0.26667rem;
   padding-left: 0;
 }
 .order-exchange-area .prize-hint {
   background-color: #4889db;
   position: absolute;
-  top: 17px;
-  right: 12px;
-  height: 26px;
-  line-height: 26px;
-  border-radius: 13px;
-  font-size: 12px;
+  top: 0.45333rem;
+  right: 0.32rem;
+  height: 0.69333rem;
+  line-height: 0.69333rem;
+  border-radius: 0.34667rem;
+  font-size: 0.32rem;
   color: #fff;
   padding-top: 0;
-  padding-right: 12px;
+  padding-right: 0.32rem;
   padding-bottom: 0;
-  padding-left: 12px;
+  padding-left: 0.32rem;
 }
 .pay-order-detail-box .user-info {
   color: #111;
 }
 .pay-order-detail-box .user-info:nth-child(1) {
-  margin-right: 20px;
+  margin-right: 0.53333rem;
 }
 .pay-order-detail-box .big-font {
-  font-size: 16px;
+  font-size: 0.42667rem;
 }
 .pay-order-detail-box .bigger-font {
-  font-size: 18px;
+  font-size: 0.48rem;
 }
 .pay-order-detail-box .order-insurance-area {
   border-bottom: 1px solid #ccc;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  padding-bottom: 0.26667rem;
+  margin-bottom: 0.26667rem;
   position: relative;
   left: 0;
   top: 0;
@@ -1935,17 +1930,17 @@ p {
 .pay-order-detail-box .order-insurance-succ + b,
 .pay-order-detail-box .order-insurance-fail + b,
 .pay-order-detail-box .order-insurance-reviewing + b {
-  height: 20px;
-  line-height: 20px;
+  height: 0.53333rem;
+  line-height: 0.53333rem;
   color: #fff;
-  font-size: 12px;
-  border-radius: 20px;
+  font-size: 0.32rem;
+  border-radius: 0.53333rem;
   padding-top: 0;
-  padding-right: 10px;
+  padding-right: 0.26667rem;
   padding-bottom: 0;
-  padding-left: 10px;
+  padding-left: 0.26667rem;
   position: absolute;
-  top: 22px;
+  top: 0.58667rem;
   right: 0;
 }
 .pay-order-detail-box .order-insurance-succ + b {
@@ -1964,13 +1959,13 @@ p {
 .address-username-bar,
 .address-usertel-bar,
 .address-option-bar {
-  height: 42px;
-  line-height: 42px;
+  height: 1.12rem;
+  line-height: 1.12rem;
   background-color: #fff;
   padding-top: 0;
-  padding-right: 10px;
+  padding-right: 0.26667rem;
   padding-bottom: 0;
-  padding-left: 10px;
+  padding-left: 0.26667rem;
   position: relative;
   left: 0;
   top: 0;
@@ -1998,9 +1993,9 @@ p {
   .address-option-area {
     width: 100%;
     padding-top: 0;
-    padding-right: 10px;
+    padding-right: 0.26667rem;
     padding-bottom: 0;
-    padding-left: 10px;
+    padding-left: 0.26667rem;
     position: relative;
     left: 0;
     top: 0;
@@ -2009,7 +2004,7 @@ p {
     border-width: 0;
   }
   .address-option-bar {
-    height: 126px;
+    height: 3.36rem;
     padding-top: 0;
     padding-right: 0;
     padding-bottom: 0;
@@ -2019,14 +2014,14 @@ p {
   }
   .address-option-area:after {
     content: '';
-    width: 13px;
-    height: 7px;
-    background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -145px -120px;
-    background-size: 312px 280px;
+    width: 0.34667rem;
+    height: 0.18667rem;
+    background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -3.86667rem -3.2rem;
+    background-size: 8.32rem 7.46667rem;
     position: absolute;
-    right: 10px;
+    right: 0.26667rem;
     top: 50%;
-    margin-top: -3px;
+    margin-top: -0.08rem;
   }
   .address-se-la {
     padding-top: 0;
@@ -2052,23 +2047,23 @@ p {
   }
   .address-option-area:after {
     content: '';
-    width: 13px;
-    height: 7px;
-    background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -145px -120px;
-    background-size: 312px 280px;
+    width: 0.34667rem;
+    height: 0.18667rem;
+    background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -3.86667rem -3.2rem;
+    background-size: 8.32rem 7.46667rem;
     position: absolute;
-    right: 10px;
+    right: 0.26667rem;
     top: 50%;
-    margin-top: -3px;
+    margin-top: -0.08rem;
   }
   .address-option-area:nth-child(3):after {
-    right: -2px;
+    right: -0.05333rem;
   }
   .address-se-la {
     padding-top: 0;
     padding-right: 0;
     padding-bottom: 0;
-    padding-left: 6px;
+    padding-left: 0.16rem;
   }
   .address-option-area:nth-child(1) .address-se-la {
     width: 100%;
@@ -2078,27 +2073,27 @@ p {
     padding-top: 0;
     padding-right: 0;
     padding-bottom: 0;
-    padding-left: 6px;
+    padding-left: 0.16rem;
   }
 }
 .address-option-se[disabled] {
   color: #ccc;
 }
 .address-detail-bar {
-  line-height: 42px;
+  line-height: 1.12rem;
   background-color: #fff;
   padding-top: 0;
-  padding-right: 10px;
+  padding-right: 0.26667rem;
   padding-bottom: 0;
-  padding-left: 10px;
+  padding-left: 0.26667rem;
 }
 .address-detail-insert {
   width: 66%;
-  height: 63px;
-  padding-top: 9px;
-  padding-right: 8px;
-  padding-bottom: 9px;
-  padding-left: 8px;
+  height: 1.68rem;
+  padding-top: 0.24rem;
+  padding-right: 0.21333rem;
+  padding-bottom: 0.24rem;
+  padding-left: 0.21333rem;
 }
 .address-username-insert,
 .address-usertel-insert {
@@ -2106,19 +2101,19 @@ p {
 }
 .address-foot-box {
   width: 100%;
-  height: 40px;
+  height: 1.06667rem;
   position: relative;
   left: 0;
-  top: 20px;
+  top: 0.53333rem;
 }
 .address-foot-btn {
   width: 90%;
   text-align: center;
   display: block;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 5px;
-  font-size: 18px;
+  height: 1.06667rem;
+  line-height: 1.06667rem;
+  border-radius: 0.13333rem;
+  font-size: 0.48rem;
   color: #fff;
   margin-top: 0;
   margin-right: auto;
@@ -2131,32 +2126,32 @@ p {
 .address-exist-fatherbar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 40px;
+  padding-bottom: 1.06667rem;
   padding-left: 0;
 }
 .address-exist-bar {
-  font-size: 14px;
-  line-height: 34px;
+  font-size: 0.37333rem;
+  line-height: 0.90667rem;
 }
 .address-exist-area {
-  padding-top: 4px;
-  padding-right: 10px;
+  padding-top: 0.10667rem;
+  padding-right: 0.26667rem;
   padding-bottom: 0;
-  padding-left: 10px;
-  margin-bottom: 10px;
+  padding-left: 0.26667rem;
+  margin-bottom: 0.26667rem;
   position: relative;
   left: 0;
   top: 0;
   background-color: #fff;
 }
 .confirm-order .address-exist-area {
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  padding-top: 0.26667rem;
+  padding-right: 0.26667rem;
+  padding-bottom: 0.26667rem;
+  padding-left: 0.26667rem;
 }
 .address-exist-info {
-  font-size: 16px;
+  font-size: 0.42667rem;
   color: #111;
 }
 .address-exist-username {
@@ -2166,65 +2161,65 @@ p {
   text-overflow: ellipsis;
 }
 .address-exist-usertel {
-  margin-left: 5px;
+  margin-left: 0.13333rem;
 }
 .address-exist-nameicon {
-  width: 15px;
-  height: 15px;
+  width: 0.4rem;
+  height: 0.4rem;
   display: inline-block;
-  margin-right: 10px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -99px -120px;
-  background-size: 312px 280px;
+  margin-right: 0.26667rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -2.64rem -3.2rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .address-exist-telicon {
-  width: 11px;
-  height: 17px;
+  width: 0.29333rem;
+  height: 0.45333rem;
   display: inline-block;
-  margin-right: 10px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -124px -120px;
-  background-size: 312px 280px;
+  margin-right: 0.26667rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -3.30667rem -3.2rem;
+  background-size: 8.32rem 7.46667rem;
   position: relative;
   left: 0;
-  top: 2px;
+  top: 0.05333rem;
 }
 .address-exist-text {
-  line-height: 24px;
+  line-height: 0.64rem;
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 6px;
+  padding-bottom: 0.16rem;
   padding-left: 0;
 }
 .address-page-box .pay-order-box {
-  margin-top: 10px;
+  margin-top: 0.26667rem;
   position: relative;
   left: 0;
   top: 0;
 }
 .address-page-box .order-goods-text {
-  font-size: 14px;
+  font-size: 0.37333rem;
   font-family: 'Arial';
 }
 .address-page-box .pic-detail {
-  height: 40px;
-  max-height: 40px;
+  height: 1.06667rem;
+  max-height: 1.06667rem;
   overflow: hidden;
-  line-height: 20px;
-  font-size: 16px;
+  line-height: 0.53333rem;
+  font-size: 0.42667rem;
   color: #111;
 }
 .address-page-box .pic-detail-tip {
-  margin-top: 4px;
+  margin-top: 0.10667rem;
 }
 .address-page-box .actually-pay {
-  font-size: 16px;
+  font-size: 0.42667rem;
   position: absolute;
-  right: 10px;
-  bottom: 10px;
+  right: 0.26667rem;
+  bottom: 0.26667rem;
 }
 .address-control-bar {
   width: 100%;
-  height: 40px;
-  line-height: 40px;
+  height: 1.06667rem;
+  line-height: 1.06667rem;
   position: relative;
   left: 0;
   top: 0;
@@ -2236,20 +2231,20 @@ p {
   position: relative;
   left: 0;
   top: 0;
-  height: 14px;
+  height: 0.37333rem;
 }
 .address-custom-common {
-  width: 13px;
-  height: 13px;
+  width: 0.34667rem;
+  height: 0.34667rem;
   position: absolute;
   left: 0;
   top: 0;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -69px -146px;
-  background-size: 312px 280px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -1.84rem -3.89333rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .address-radio-group input[type="radio"]:checked + .address-custom-common {
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -46px -146px;
-  background-size: 312px 280px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -1.22667rem -3.89333rem;
+  background-size: 8.32rem 7.46667rem;
 }
 .address-set-inp {
   position: absolute;
@@ -2258,11 +2253,11 @@ p {
   opacity: 0.01;
 }
 .address-set-default {
-  margin-left: 20px;
+  margin-left: 0.53333rem;
 }
 .address-edit-area {
   position: absolute;
-  right: 70px;
+  right: 1.86667rem;
   top: 0;
 }
 .address-delete-area {
@@ -2271,24 +2266,24 @@ p {
   top: 0;
 }
 .address-edit-icon {
-  width: 13px;
-  height: 13px;
+  width: 0.34667rem;
+  height: 0.34667rem;
   display: inline-block;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -23px -146px;
-  background-size: 312px 280px;
-  margin-right: 6px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -0.61333rem -3.89333rem;
+  background-size: 8.32rem 7.46667rem;
+  margin-right: 0.16rem;
 }
 .address-delete-icon {
-  width: 13px;
-  height: 13px;
+  width: 0.34667rem;
+  height: 0.34667rem;
   display: inline-block;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat 0 -146px;
-  background-size: 312px 280px;
-  margin-right: 6px;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat 0 -3.89333rem;
+  background-size: 8.32rem 7.46667rem;
+  margin-right: 0.16rem;
 }
 .delivery-nav {
-  height: 40px;
-  line-height: 40px;
+  height: 1.06667rem;
+  line-height: 1.06667rem;
 }
 .delivery-info {
   height: 100%;
@@ -2315,10 +2310,10 @@ p {
   background-color: #eee;
 }
 .delivery-time-pos {
-  padding-top: 18px;
-  padding-right: 18px;
-  padding-bottom: 18px;
-  padding-left: 18px;
+  padding-top: 0.48rem;
+  padding-right: 0.48rem;
+  padding-bottom: 0.48rem;
+  padding-left: 0.48rem;
   height: 100%;
 }
 .delivery-time-pos:nth-child(1) {
@@ -2333,21 +2328,21 @@ p {
   position: absolute;
   left: 0;
   top: 50%;
-  margin-top: -20px;
+  margin-top: -0.53333rem;
 }
 .delivery-time-pos:nth-child(2) {
   width: 60%;
-  font-size: 14px;
-  line-height: 24px;
+  font-size: 0.37333rem;
+  line-height: 0.64rem;
 }
 .delivery-time-pos p {
   text-align: center;
 }
 .delivery-time-pos p:nth-child(1) {
-  font-size: 12px;
+  font-size: 0.32rem;
 }
 .delivery-line {
-  width: 3px;
+  width: 0.08rem;
   height: 100%;
   background-color: #ccc;
   position: absolute;
@@ -2355,7 +2350,7 @@ p {
   top: 0;
 }
 .delivery-line-finish {
-  width: 3px;
+  width: 0.08rem;
   height: 50%;
   background-color: #ccc;
   position: absolute;
@@ -2367,15 +2362,15 @@ p {
   top: 50%;
 }
 .delivery-roll {
-  width: 10px;
-  height: 10px;
+  width: 0.26667rem;
+  height: 0.26667rem;
   background-color: #67baf7;
   border-radius: 50%;
   position: absolute;
   left: 40%;
   top: 50%;
-  margin-left: -5px;
-  margin-top: -5px;
+  margin-left: -0.13333rem;
+  margin-top: -0.13333rem;
 }
 .delivery-status:nth-child(1) .delivery-roll {
   top: 0;
@@ -2384,8 +2379,8 @@ p {
   width: 0;
 }
 .delivery-bg {
-  width: 16px;
-  height: 16px;
+  width: 0.42667rem;
+  height: 0.42667rem;
   background-color: #fff;
   border-left: 1px solid #f3f3f3;
   border-top: 1px solid #f3f3f3;
@@ -2395,20 +2390,20 @@ p {
   position: absolute;
   left: 0;
   top: 50%;
-  margin-left: -7px;
-  margin-top: -8px;
+  margin-left: -0.18667rem;
+  margin-top: -0.21333rem;
 }
 .delivery-status:nth-child(1) .delivery-bg {
   top: 0;
 }
 .delivery-line-finish .delivery-bg {
-  width: 18px;
-  height: 18px;
+  width: 0.48rem;
+  height: 0.48rem;
   top: 100%;
-  margin-left: -8px;
-  margin-top: -9px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -93px -147px;
-  background-size: 312px 280px;
+  margin-left: -0.21333rem;
+  margin-top: -0.24rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -2.48rem -3.92rem;
+  background-size: 8.32rem 7.46667rem;
 }
 /* flex - start */
 .flex-row {
@@ -2527,19 +2522,19 @@ p {
   position: absolute;
   right: 0;
   left: 0;
-  bottom: 8px;
+  bottom: 0.21333rem;
   font-size: 0;
   overflow: hidden;
 }
 .banner-indexs i {
   display: inline-block;
-  width: 4px;
-  height: 4px;
+  width: 0.10667rem;
+  height: 0.10667rem;
   opacity: 0.2;
   background-color: #000000;
   background-clip: padding-box;
-  border-radius: 2px;
-  margin: 0 4px;
+  border-radius: 0.05333rem;
+  margin: 0 0.10667rem;
 }
 .banner-indexs i.active {
   background-color: #FFFFFF;
@@ -2584,7 +2579,6 @@ img,
   zoom: 1.03;
 }
 .crowd-channel-box {
-  max-width: 750px;
   min-height: 100%;
   margin-top: 0;
   margin-right: auto;
@@ -2594,7 +2588,7 @@ img,
   left: 0;
   top: 0;
   background-color: #f3f3f3;
-  padding-bottom: 114px;
+  padding-bottom: 3.04rem;
 }
 .crowd-channel-box .crowd-channel-banner {
   width: 100%;
@@ -2609,10 +2603,10 @@ img,
   width: 100%;
 }
 .crowd-channel-box .crowd-nav {
-  height: 40px;
-  line-height: 40px;
+  height: 1.06667rem;
+  line-height: 1.06667rem;
   background-color: #fff;
-  font-size: 12px;
+  font-size: 0.32rem;
   position: relative;
   left: 0;
   top: 0;
@@ -2620,7 +2614,7 @@ img,
 .crowd-channel-box .crowd-nav .crowd-nav-tip {
   width: 80%;
   height: 100%;
-  padding-left: 36px;
+  padding-left: 0.96rem;
   color: #a5a5a5;
   white-space: nowrap;
   overflow: hidden;
@@ -2629,72 +2623,72 @@ img,
   top: 0;
 }
 .crowd-channel-box .crowd-nav .crowd-nav-tip b.icon {
-  width: 16px;
-  height: 14px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -125px -87px;
-  background-size: 312px 280px;
+  width: 0.42667rem;
+  height: 0.37333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -3.33333rem -2.32rem;
+  background-size: 8.32rem 7.46667rem;
   position: absolute;
-  left: 15px;
-  top: 13px;
+  left: 0.4rem;
+  top: 0.34667rem;
 }
 .crowd-channel-box .crowd-nav .crowd-nav-tip span {
   color: #039ef0;
-  margin-left: 3px;
+  margin-left: 0.08rem;
 }
 .crowd-channel-box .crowd-nav .crowd-history {
   color: #a5a5a5;
-  padding-right: 11px;
-  padding-left: 12px;
+  padding-right: 0.29333rem;
+  padding-left: 0.32rem;
   position: absolute;
-  right: 15px;
+  right: 0.4rem;
   top: 0;
 }
 .crowd-channel-box .crowd-nav .crowd-history .more {
-  width: 6px;
-  height: 10px;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -150px -87px;
-  background-size: 312px 280px;
+  width: 0.16rem;
+  height: 0.26667rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -4rem -2.32rem;
+  background-size: 8.32rem 7.46667rem;
   position: absolute;
   right: 0;
-  top: 15px;
+  top: 0.4rem;
 }
 .crowd-channel-box .crowd-goods-bar {
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding-top: 0.05333rem;
+  padding-bottom: 0.05333rem;
 }
 .crowd-channel-box .crowd-goods-bar li {
   width: 50%;
   float: left;
-  padding-bottom: 2px;
-  padding-top: 2px;
+  padding-bottom: 0.05333rem;
+  padding-top: 0.05333rem;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar {
   width: 100%;
   height: 100%;
-  padding-top: 4px;
-  padding-bottom: 13px;
+  padding-top: 0.10667rem;
+  padding-bottom: 0.34667rem;
   background-color: #fff;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-pic-area {
   overflow: hidden;
   width: 100%;
-  height: 156px;
+  height: 4.16rem;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-pic-area img {
-  width: 156px;
-  height: 156px;
+  width: 4.16rem;
+  height: 4.16rem;
   margin: 0 auto;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-info-show {
-  line-height: 18px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 4px;
+  line-height: 0.48rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.10667rem;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-info-show .crowd-goods-name {
-  font-size: 14px;
+  font-size: 0.37333rem;
   color: #333;
-  height: 36px;
+  height: 0.96rem;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -2702,20 +2696,20 @@ img,
   -webkit-box-orient: vertical;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-info-show .crowd-goods-process {
-  font-size: 12px;
+  font-size: 0.32rem;
   color: #a5a5a5;
-  height: 24px;
-  line-height: 24px;
+  height: 0.64rem;
+  line-height: 0.64rem;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-info-show .crowd-goods-process span {
   color: #039ef0;
-  margin-left: 3px;
+  margin-left: 0.08rem;
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-info-show .snap-status-show {
   width: 100%;
-  height: 6px;
+  height: 0.16rem;
   background-color: #ffeded;
-  border-radius: 5px;
+  border-radius: 0.13333rem;
   border-top: 1px solid #ffdcdc;
   border-right: 1px solid #ffdcdc;
   border-bottom: 1px solid #ffdcdc;
@@ -2723,22 +2717,21 @@ img,
 }
 .crowd-channel-box .crowd-goods-bar li div.crowd-info-bar .crowd-info-show .snap-status-show div {
   width: 24%;
-  height: 6px;
+  height: 0.16rem;
   background-color: #ff5151;
-  border-radius: 5px;
+  border-radius: 0.13333rem;
   position: relative;
   left: 0;
   top: -1px;
   transition: width 0.8s ease-out;
 }
 .crowd-channel-box .crowd-goods-bar li:nth-child(even) {
-  padding-left: 2px;
+  padding-left: 0.05333rem;
 }
 .crowd-channel-box .crowd-goods-bar li:nth-child(odd) {
-  padding-right: 2px;
+  padding-right: 0.05333rem;
 }
 .crowd-history-box {
-  max-width: 750px;
   min-height: 100%;
   margin-top: 0;
   margin-right: auto;
@@ -2750,12 +2743,12 @@ img,
   background-color: #f3f3f3;
 }
 .crowd-history-box .crowd-history-bar {
-  padding-bottom: 114px;
+  padding-bottom: 3.04rem;
 }
 .crowd-history-box .crowd-history-area {
   width: 100%;
   background-color: #fff;
-  margin-bottom: 2px;
+  margin-bottom: 0.05333rem;
 }
 .crowd-history-box .crowd-history-area:last-child {
   margin-bottom: 0;
@@ -2766,8 +2759,8 @@ img,
 }
 .crowd-history-box .crowd-history-area a .crowd-history-pic {
   overflow: hidden;
-  width: 120px;
-  height: 120px;
+  width: 3.2rem;
+  height: 3.2rem;
   float: left;
 }
 .crowd-history-box .crowd-history-area a .crowd-history-pic img {
@@ -2776,21 +2769,21 @@ img,
 .crowd-history-box .crowd-history-area a .crowd-history-desc {
   width: 62%;
   float: left;
-  padding-top: 15px;
+  padding-top: 0.4rem;
 }
 .crowd-history-box .crowd-history-area a .crowd-history-desc p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 12px;
+  font-size: 0.32rem;
   color: #a5a5a5;
-  line-height: 20px;
+  line-height: 0.53333rem;
 }
 .crowd-history-box .crowd-history-area a .crowd-history-desc p:nth-child(1) {
-  font-size: 14px;
+  font-size: 0.37333rem;
   color: #333;
-  line-height: 24px;
-  padding-bottom: 4px;
+  line-height: 0.64rem;
+  padding-bottom: 0.10667rem;
 }
 .crowd-history-box .crowd-history-area a .crowd-history-desc .crowd-history-tel {
   color: #039ef0;

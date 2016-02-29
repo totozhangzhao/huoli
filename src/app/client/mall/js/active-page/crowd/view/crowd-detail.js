@@ -9,7 +9,7 @@ var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var Promise   = require("com/mobile/lib/promise/npo.js");
 var Tab       = require("com/mobile/widget/button/tab.js");
-var widget    = require("app/client/mall/js/lib/widget.js");
+var widget    = require("app/client/mall/js/lib/common.js");
 var moneyModel  = require("app/client/mall/js/active-page/crowd/model/money.js").money;
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 var detailLog   = require("app/client/mall/js/detail-page/lib/log.js");
@@ -25,6 +25,7 @@ var AppView = Backbone.View.extend({
     "click .js-tab-wrapper>li[data-tab-name=goodsDetail]"  : "renderDetail"
   },
   initialize: function() {
+
     // 活动ID
     this.id = UrlUtil.parseUrlSearch().productid;
 

@@ -13,6 +13,8 @@ var UrlUtil    = require("com/mobile/lib/url/url.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 var getProvince = require("app/client/mall/js/lib/province.js").getProvince;
 
+require("app/client/mall/js/lib/common.js");
+
 var AppView = Backbone.View.extend({
   el: "#address-add",
   events: {

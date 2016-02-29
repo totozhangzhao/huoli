@@ -12,6 +12,8 @@ var validator  = require("app/client/mall/js/lib/validator.js");
 var hint       = require("com/mobile/widget/hint/hint.js");
 var detailLog  = require("app/client/mall/js/detail-page/lib/log.js");
 
+require("app/client/mall/js/lib/common.js");
+
 var AppView = Backbone.View.extend({
   el: "#form-custom",
   events: {
