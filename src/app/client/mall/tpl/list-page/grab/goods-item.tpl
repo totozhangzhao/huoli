@@ -6,7 +6,7 @@
   class="<%= tplUtil.getJsClass(item) %> clearfix"
   href="<%= tplUtil.getBlockUrl(item) %>">
   <div class="crowd-history-pic">
-    <img src="<%= item.img %>" />
+    <img class="op0" data-echo="<%= item.img %>" src="<%= item.img %>" />
   </div>
   <div class="crowd-history-desc">
     <p><%= item.title %></p>

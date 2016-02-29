@@ -7,7 +7,7 @@
   href="<%= tplUtil.getBlockUrl(item) %>">
   <div class="crowd-info-bar">
     <div class="crowd-pic-area">
-      <img src="<%= item.img %>" />  
+      <img class="op0" data-echo="<%= item.img %>" src="<%= item.img %>" />  
     </div>
     <div class="crowd-info-show">
       <p class="crowd-goods-name"><%= item.title %></p>
