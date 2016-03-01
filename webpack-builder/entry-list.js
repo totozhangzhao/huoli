@@ -4,6 +4,7 @@ module.exports = [
   "app/client/ticket/js/banner-result.entry.js",
 
   "app/client/mall/js/index.entry.js",
+  "app/client/mall/js/home/index-v2.entry.js",
   "app/client/mall/js/menu/category.entry.js",
   "app/client/mall/js/menu/grab.entry.js",
   "app/client/mall/js/list-page/grab/grab-record.entry.js",
