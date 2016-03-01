@@ -8,6 +8,7 @@ var mallUitl  = require("app/client/mall/js/lib/util.js");
 
 var widget    = require("app/client/mall/js/lib/common.js");
 var imgDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
+
 var Footer = require("app/client/common/views/footer.js");
 var AppView = Backbone.View.extend({
   el: "#main",
