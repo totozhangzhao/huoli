@@ -2748,7 +2748,7 @@ img,
 .crowd-history-box .crowd-history-area {
   width: 100%;
   background-color: #fff;
-  margin-bottom: 0.05333rem;
+  margin-bottom: 1px;
 }
 .crowd-history-box .crowd-history-area:last-child {
   margin-bottom: 0;
