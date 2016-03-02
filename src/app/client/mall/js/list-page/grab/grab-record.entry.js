@@ -15,6 +15,8 @@ var logger        = require("com/mobile/lib/log/log.js");
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
 var GoodsItemView = require("app/client/mall/js/list-page/grab/views/goods-item.js");
 
+var imgDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
+
 require("app/client/mall/js/lib/common.js");
 
 var AppView = Backbone.View.extend({
@@ -26,9 +28,10 @@ var AppView = Backbone.View.extend({
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
 
     this.id = UrlUtil.parseUrlSearch().productid;
-    this.$goods = new Goods();
+    // this.$goods = new Goods();
     this.$goodsPannel = $("#goods-block", this.$el);
-    this.listenTo(this.$goods, "add", this.addGoodsItem);
+    this.$goodsView = new GoodsItemView({el: this.$goodsPannel});
+    // this.listenTo(this.$goods, "add", this.addGoodsItem);
     this.fetchData();
   },
 
@@ -56,15 +59,21 @@ var AppView = Backbone.View.extend({
   },
 
   render: function (data) {
-    this.$goods.set(data);
+    // this.$goods.set(data);
+    this.renderGoodsList(data);
     this.fixTpl();
     return this;
   },
   // 增加一个商品视图
   addGoodsItem: function (data) {
-    var itemView = new GoodsItemView();
-    this.$goodsPannel.append(itemView.render(data).el);
+    // var itemView = new GoodsItemView();
+    // this.$goodsPannel.append(itemView.render(data).el);
   },
+  renderGoodsList: function (data) {
+    this.$goodsView.render(data);
+    imgDelay();
+  },
+
   fixTpl: function() {
     var crTpl = require("app/client/mall/tpl/copyright.tpl");
 

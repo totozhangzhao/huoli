@@ -1,35 +1,44 @@
 var webpack = require("webpack");
 var path    = require("path");
 var _       = require("lodash");
+var glob    = require("glob");
 
-var pathList = require("./webpack-builder/entry-list.js");
-var entry    = {};
+// /(\.\/src)(.*)(\.entry\.js)/.exec("./src/app/client/mall/js/index.entry.js")
+// ["./src/app/client/mall/js/index.entry.js", "./src", "/app/client/mall/js/index", ".entry.js"]
+var createEntryObj = function() {
+  var entry = {};
+  var entryKeys = function(path) {
+    var matches = /(\.\/src)(.*)(\.entry\.js)/.exec(path);
+    return matches[2] + ".bundle";
+  };
 
-pathList.forEach(function(devPath) {
-  var key = "/" + devPath.replace(/\.entry\.js/, ".bundle");
-  entry[key] = __dirname + "/src/" + devPath;
-});
+  glob.sync("./src/**/*.entry.js").forEach(function(path) {
+    entry[entryKeys(path)] = path;
+  });
+  
+  _.extend(entry, {
+    "vendor": ["jquery", "lodash", "backbone"]
+  });
 
-_.extend(entry, {
-  "vendor": ["jquery", "lodash", "backbone"]
-});
+  return entry;
+};
 
 module.exports = {
   resolve: {
     root: __dirname + "/src",
     alias: {
-      "jquery"    : __dirname + "/src/com/mobile/lib/jquery/jquery.js",
-      "backbone"  : __dirname + "/src/com/mobile/lib/backbone/backbone.js",
-      "async"     : __dirname + "/src/com/mobile/lib/async/async.js",
-      "jsonrpc"   : __dirname + "/src/com/mobile/lib/jsonrpc/jsonrpc.js"
+      "jquery"  : "com/mobile/lib/jquery/jquery.js",
+      "backbone": "com/mobile/lib/backbone/backbone.js",
+      "async"   : "com/mobile/lib/async/async.js",
+      "jsonrpc" : "com/mobile/lib/jsonrpc/jsonrpc.js"
     }
   },
-  entry: entry,
   // entry: {
   //   "vendor": ["jquery", "lodash", "backbone"],
-  //   "/app/client/test/common/native/native-b.bundle": __dirname + "/src/app/client/test/common/native/native-b.entry.js",
-  //   "/app/client/test/common/native/native-test.bundle": __dirname + "/src/app/client/test/common/native/native-test.entry.js"
+  //   "/app/client/test/common/native/native-b.bundle": "./src/app/client/test/common/native/native-b.entry.js",
+  //   "/app/client/test/common/native/native-test.bundle": "./src/app/client/test/common/native/native-test.entry.js"
   // },
+  entry: createEntryObj(),
   output: {
     path: path.join(__dirname, "dest"),
     filename: "[name].js"

@@ -15,11 +15,11 @@
     <p class="order-detail-info">成交时间：<span class="order-detail-num fr"><%= orderDetail.createtime %></span></p>
   </div>
 
-  <div>
+  <div class="show-select">
     <% if ( orderDetail.msg && (String(orderDetail.msgtpl) === "1") ) { %>
     <!-- 兑换码 start -->
     <div class="order-exchange-bar">
-      <div class="order-exchange-code show-select">
+      <div class="order-exchange-code">
         <div class="order-exchange-area">
           <%= orderDetail.msg %>
         </div>
@@ -35,7 +35,7 @@
     <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "2") ) { %>
     <!-- 一元夺宝文字信息 start -->
     <div class="order-exchange-bar">
-      <div class="order-exchange-code show-select">
+      <div class="order-exchange-code">
         <div>
           <%= orderDetail.msg %>
         </div>
@@ -47,7 +47,7 @@
     <% } else if ( orderDetail.msg && (String(orderDetail.msgtpl) === "3") ) { %>
     <!-- 地址 start -->
     <div class="order-exchange-bar order-address-bar">
-      <div class="js-address-box order-exchange-code show-select">
+      <div class="js-address-box order-exchange-code">
         <div class="order-exchange-area">
           <%= orderDetail.msg %>
         </div>
@@ -61,7 +61,7 @@
     <% } else if ( String(orderDetail.msgtpl) === "4" )  { %>
       <!-- 一元夺宝文字信息 start -->
       <div class="order-exchange-bar">
-        <div class="js-crowd-page order-exchange-code show-select">
+        <div class="js-crowd-page order-exchange-code">
           <div>
             <p>点击查看本期夺宝进度</p>
             <%= orderDetail.texttpl %>
@@ -75,7 +75,7 @@
       <% if ( orderDetail.addresstpl ) { %>
       <!-- 地址 start -->
       <div class="order-exchange-bar order-address-bar">
-        <div class="js-address-box order-exchange-code show-select">
+        <div class="js-address-box order-exchange-code">
           <div class="order-exchange-area">
             <%= orderDetail.addresstpl %>
           </div>
