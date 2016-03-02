@@ -30,9 +30,10 @@ var AppView = Backbone.View.extend({
     this.id = UrlUtil.parseUrlSearch().productid;
     // 商品列表容器
     this.$goodsPannel = $("#goods-block", this.$el);
+    this.goodsView = new GoodsItemView({el: this.$goodsPannel});
     // 商品数据集合
-    this.$goods = new Goods();
-    this.listenTo(this.$goods,"add",this.addGoodsItem);
+    // this.$goods = new Goods();
+    // this.listenTo(this.$goods,"set",this.addGoodsItem);
     this.fetchData();
     
   },
@@ -63,7 +64,8 @@ var AppView = Backbone.View.extend({
   render: function (data) {
     this.initBanner(data.banner);
     this.initWinnerLabel(data.winner);
-    this.$goods.set(data.product);
+    // this.$goods.set(data.product);
+    this.renderGoodsList(data.product);
     this.fixTpl();
     menuLog.track({
       title: UrlUtil.parseUrlSearch().classify || window.document.title,
@@ -74,10 +76,15 @@ var AppView = Backbone.View.extend({
 
   // 增加一个商品视图
   addGoodsItem: function (data) {
-    var itemView = new GoodsItemView();
-    this.$goodsPannel.append(itemView.render(data).el);
+
+    // var itemView = new GoodsItemView();
+    // this.$goodsPannel.append(itemView.render(data).el);
   },
 
+  // 加载商品列表
+  renderGoodsList: function (data) {
+    this.goodsView.render(data);
+  },
   // 初始化banner
   initBanner: function(bannerData) {
     new BannerView({model: bannerData});
