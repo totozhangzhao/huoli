@@ -17,6 +17,7 @@
     "autoprefixer-loader": "^1.2.0",
     "css-loader": "^0.12.1",
     "del": "^1.1.1",
+    "glob": "^7.0.0",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.1.0",
     "gulp-jshint": "^1.10.0",
