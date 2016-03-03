@@ -2,17 +2,30 @@
   首页顶部固定入口位
 */
 var $         = require("jquery");
-var Backbone  = require("backbone");
 var _         = require("lodash");
 
-var EntranceView = Backbone.View.extend({
+var BaseView = require("app/client/mall/js/home/views/view.js");
+var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
+var mallUitl = require("app/client/mall/js/lib/util.js");
+
+var EntranceView = BaseView.extend({
+
   el: "#home-entrance",
+
+  events: {
+    "click .js-new-page": "createNewPage"
+  },
+
+  template: require("app/client/mall/tpl/home/v2/entrance.tpl"),
 
   initialize: function () {
   },
 
   render: function () {
-    this.$el.html("首页入口");
+    this.$el.html(this.template({
+      appName: mallUitl.getAppName(),
+      tplUtil: tplUtil
+    }));
     return this;
   }
 });

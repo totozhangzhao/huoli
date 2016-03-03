@@ -26,6 +26,7 @@ var CategoryView  = require("app/client/mall/js/home/views/category.js");
 var Footer        = require("app/client/mall/common/views/footer.js");
 
 var AppView = Backbone.View.extend({
+
   el: "#main",
 
   events:{},
@@ -36,15 +37,14 @@ var AppView = Backbone.View.extend({
     this.$entranceView  = new EntranceView();
     this.$promotionView = new PromotionView();
     this.$categoryView  = new CategoryView();
-    this.fetchData();
   },
 
   fetchData: function () {
+    this.$bannerView.fetchData();
     this.render();
   },
 
   render: function () {
-    this.$bannerView.render();
     this.$entranceView.render();
     this.$promotionView.render();
     this.$categoryView.render();
@@ -53,4 +53,5 @@ var AppView = Backbone.View.extend({
   }
 });
 
-new AppView();
+var app = new AppView();
+app.fetchData();
