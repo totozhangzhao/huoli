@@ -16,7 +16,7 @@ var Goods         = require("app/client/mall/js/menu/collections/goods.js");
 var GoodsItemView = require("app/client/mall/js/menu/views/goods-item.js");
 var BannerView    = require("app/client/mall/js/menu/views/banner.js");
 var WinnerView    = require("app/client/mall/js/menu/views/winner-label.js");
-
+var Footer        = require("app/client/mall/common/views/footer.js");
 require("app/client/mall/js/lib/common.js");
 
 var AppView = Backbone.View.extend({
@@ -31,6 +31,7 @@ var AppView = Backbone.View.extend({
     // 商品列表容器
     this.$goodsPannel = $("#goods-block", this.$el);
     this.goodsView = new GoodsItemView({el: this.$goodsPannel});
+    this.$footer        = new Footer();
     // 商品数据集合
     // this.$goods = new Goods();
     // this.listenTo(this.$goods,"set",this.addGoodsItem);
@@ -66,7 +67,7 @@ var AppView = Backbone.View.extend({
     this.initWinnerLabel(data.winner);
     // this.$goods.set(data.product);
     this.renderGoodsList(data.product);
-    this.fixTpl();
+    this.$footer.render();
     menuLog.track({
       title: UrlUtil.parseUrlSearch().classify || window.document.title,
       from: UrlUtil.parseUrlSearch().from || "--"
@@ -92,14 +93,6 @@ var AppView = Backbone.View.extend({
   // 初始化获奖名单滚动显示条
   initWinnerLabel: function (winnerData) {
     new WinnerView({model: winnerData});
-  },
-
-  fixTpl: function() {
-    var crTpl = require("app/client/mall/tpl/copyright.tpl");
-    $("#copyright").html(crTpl({
-      system: Util.getMobileSystem(),
-      isHangbanFunc: mallUitl.isHangbanFunc()
-    }));
   }
 });
 

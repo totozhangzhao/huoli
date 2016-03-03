@@ -14,8 +14,9 @@ var logger        = require("com/mobile/lib/log/log.js");
 
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
 var GoodsItemView = require("app/client/mall/js/list-page/grab/views/goods-item.js");
+var Footer        = require("app/client/mall/common/views/footer.js");
 
-var imgDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
+var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 
 require("app/client/mall/js/lib/common.js");
 
@@ -30,7 +31,8 @@ var AppView = Backbone.View.extend({
     this.id = UrlUtil.parseUrlSearch().productid;
     // this.$goods = new Goods();
     this.$goodsPannel = $("#goods-block", this.$el);
-    this.$goodsView = new GoodsItemView({el: this.$goodsPannel});
+    this.$goodsView   = new GoodsItemView({el: this.$goodsPannel});
+    this.$footer      = new Footer();
     // this.listenTo(this.$goods, "add", this.addGoodsItem);
     this.fetchData();
   },
@@ -61,7 +63,7 @@ var AppView = Backbone.View.extend({
   render: function (data) {
     // this.$goods.set(data);
     this.renderGoodsList(data);
-    this.fixTpl();
+    this.$footer.render();
     return this;
   },
   // 增加一个商品视图
@@ -72,15 +74,6 @@ var AppView = Backbone.View.extend({
   renderGoodsList: function (data) {
     this.$goodsView.render(data);
     imgDelay();
-  },
-
-  fixTpl: function() {
-    var crTpl = require("app/client/mall/tpl/copyright.tpl");
-
-    $("#copyright").html(crTpl({
-      system: Util.getMobileSystem(),
-      isHangbanFunc: mallUitl.isHangbanFunc()
-    }));
   }
 });
 

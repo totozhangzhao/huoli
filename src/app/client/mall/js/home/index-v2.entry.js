@@ -23,7 +23,7 @@ var EntranceView  = require("app/client/mall/js/home/views/entrance.js");
 var PromotionView = require("app/client/mall/js/home/views/promotion.js");
 var CategoryView  = require("app/client/mall/js/home/views/category.js");
 
-var Footer        = require("app/client/common/views/footer.js");
+var Footer        = require("app/client/mall/common/views/footer.js");
 
 var AppView = Backbone.View.extend({
   el: "#main",
