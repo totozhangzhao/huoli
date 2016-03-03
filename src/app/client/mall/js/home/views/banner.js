@@ -22,7 +22,7 @@ var BannerView = BaseView.extend({
   events: {
     "click .js-new-page": "createNewPage"
   },
-  
+
   template: require("app/client/mall/tpl/home/v2/banner.tpl"),
 
   initialize: function () {
@@ -53,7 +53,7 @@ var BannerView = BaseView.extend({
     }));
 
     this.loadSwipe();
-    window.console.log(this.bannerData);
+    
     return this;
   },
 

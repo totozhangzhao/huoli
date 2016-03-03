@@ -1,5 +1,5 @@
 /*
-  首页商品分类视图
+  首页商品视图
 */
 var $         = require("jquery");
 var _         = require("lodash");
@@ -9,25 +9,26 @@ var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 
 
-var CategoryView = BaseView.extend({
+var PromotionView = BaseView.extend({
 
-  el: "#home-category",
+  el: "#home-goods",
 
-  events: {},
+  events: {
+    "click .js-new-page": "createNewPage"
+  },
 
-  template: require("app/client/mall/tpl/home/v2/category.tpl"),
+  template: require("app/client/mall/tpl/home/v2/goods.tpl"),
 
-  initialize: function () {
-
+  initialize: function (){
   },
 
   render: function () {
     this.$el.html(this.template({
-      appName: mallUitl.getAppName(),
-      tplUtil: tplUtil
+      appName  : mallUitl.getAppName(),
+      tplUtil  : tplUtil
     }));
     return this;
   }
 });
 
-module.exports = CategoryView;
+module.exports = PromotionView;
