@@ -2,6 +2,9 @@ var $         = require("jquery");
 var _         = require("lodash");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var echo      = require("com/mobile/lib/echo/echo.js");
+var mallUitl  = require("app/client/mall/js/lib/util.js");
+var logger    = require("com/mobile/lib/log/log.js");
+var UrlUtil   = require("com/mobile/lib/url/url.js");
 
 exports.createAView = function(e) {
   var $cur = $(e.currentTarget);
@@ -110,3 +113,15 @@ exports.initRem = function() {
 };
 
 exports.initRem();
+
+$("body").on("click", "a, button, [data-log-mall-click]", function(e) {
+  var $cur = $(e.currentTarget);
+  if ( $cur.data("logClick") ) {
+    return;
+  }
+  var eventText = $cur.data("logMallClick") || $cur.text() || $cur.val() || "";
+  eventText.replace(/\r?\n|\r/g, "");
+  eventText.replace(/\s+/g, " ").trim();
+  var category = mallUitl.getAppName() + "EV_" + window.document.title + "_" + eventText;
+  logger.track(category, "EV click", UrlUtil.parseUrlSearch().from || "--");
+});
