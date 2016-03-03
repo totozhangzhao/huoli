@@ -7,6 +7,8 @@ var UrlUtil   = require("com/mobile/lib/url/url.js");
 var logger   = require("com/mobile/lib/log/log.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 
+require("app/client/mall/js/lib/common.js");
+
 var AppView = Backbone.View.extend({
   el: "#express-info",
   initialize: function() {
