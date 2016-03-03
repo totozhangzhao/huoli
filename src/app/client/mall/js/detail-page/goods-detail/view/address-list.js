@@ -10,6 +10,7 @@ var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var UrlUtil    = require("com/mobile/lib/url/url.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
+var Popover     = require("com/mobile/widget/popover/popover.js");
 
 require("app/client/mall/js/lib/common.js");
 
@@ -23,8 +24,7 @@ var AppView = Backbone.View.extend({
     "click .js-remove-address"  : "removeAddress"
   },
   initialize: function() {
-    this.$el.$shade          = this.$el.find(".js-shade");
-    this.$el.$warningConfirm = this.$el.find(".js-warning-prompt");
+    // 
   },
   resume: function(options) {
     var self = this;
@@ -204,17 +204,18 @@ var AppView = Backbone.View.extend({
   showConfirm: function() {
     var self = this;
 
-    this.$el.$shade.show();
-    this.$el.$warningConfirm
-      .off("click")
-      .one("click", ".js-confirm", function() {
-        self.hidePrompt();
+    var confirm = new Popover({
+      type: "confirm",
+      title: "地址提交后不能修改，确定吗？",
+      message: "",
+      agreeText: "确定",  
+      cancelText: "修改",
+      agreeFunc: function() {
         self.handleOrderAction();
-      })
-      .one("click", ".js-cancel", function() {
-        self.hidePrompt();
-      })
-      .show();
+      },
+      cancelFunc: function() {}
+    });
+    confirm.show();
   },
   setDefaultAddress: function() {
     hint.showLoading();
