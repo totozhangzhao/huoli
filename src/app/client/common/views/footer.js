@@ -21,5 +21,5 @@ var Footer = Backbone.View.extend({
       isHangbanFunc: mallUitl.isHangbanFunc()
     }));
   } 
-})
+});
 module.exports = Footer;
