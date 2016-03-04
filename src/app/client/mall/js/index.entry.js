@@ -18,6 +18,7 @@ var tplUtil   = require("app/client/mall/js/lib/mall-tpl.js");
 
 require("com/mobile/widget/button/back-to-top.js");
 
+
 var AppView = Backbone.View.extend({
   el: "#main",
   events: {

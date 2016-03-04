@@ -31,7 +31,9 @@ var AppView = Backbone.View.extend({
 
   el: "#main",
 
-  events:{},
+  events:{
+    "click .classify-item[state!=on]": "updateClassify" // 切换频道
+  },
 
   initialize: function () {
     var title = mallUitl.isHangbanFunc() ? "航班商城" : "高铁商城";
@@ -47,17 +49,52 @@ var AppView = Backbone.View.extend({
   },
 
   fetchData: function () {
-    this.$bannerView.fetchData();
+    var self = this;
+
+    mallPromise.appInfo
+    .then(function (userData) {
+      return new Promise(function(resolve, reject) {
+        sendPost("indexPageData", null, function(err, data) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        });
+      });
+    })
+    .then(function (data) {
+      self.render(data);
+    })
+    .catch(mallPromise.catchFn);
+
+
     this.render();
+    this.$bannerView.fetchData();
   },
 
-  render: function () {
-    this.$entranceView.render();
+  render: function (data) {
+    data = data || {};
+    var topmenu = data.topmenu || [];
+    var promotion = data.topgoods || [];
+    var category = data.menu || [];
+    var goods = data.goods || {};
+    this.$entranceView.render(topmenu);
     this.$promotionView.render();
     this.$categoryView.render();
     this.$goodsView.render();
     this.$footer.render();
     return this;
+  },
+
+  // 根据频道获取商品列表
+  updateClassify: function (classify) {
+    sendPost("classifyGoods", {classify: classify}, function(err, data) {
+      if (err) {
+        return mallPromise.catchFn(err);
+      }
+      window.console.log(data);
+    });
   }
 });
 

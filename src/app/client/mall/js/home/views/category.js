@@ -8,6 +8,7 @@ var BaseView = require("app/client/mall/js/home/views/view.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 
+var IScroll       = require("com/mobile/lib/iscroll/iscroll.js");
 
 var CategoryView = BaseView.extend({
 
@@ -26,6 +27,12 @@ var CategoryView = BaseView.extend({
       appName: mallUitl.getAppName(),
       tplUtil: tplUtil
     }));
+    myScroll = new IScroll('#test', { scrollX: true, scrollY: false, mouseWheel: true });
+    // var sList = $("#test div div");
+    // var i = 1;
+    // setInterval(function() {
+    //   myScroll.scrollToElement(sList.get(i++));
+    // },1000);
     return this;
   }
 });

@@ -21,8 +21,9 @@ var EntranceView = BaseView.extend({
   initialize: function () {
   },
 
-  render: function () {
+  render: function (data) {
     this.$el.html(this.template({
+      dataList: data,
       appName: mallUitl.getAppName(),
       tplUtil: tplUtil
     }));
