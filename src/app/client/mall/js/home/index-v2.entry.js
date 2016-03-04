@@ -25,6 +25,8 @@ var CategoryView  = require("app/client/mall/js/home/views/category.js");
 var GoodsView     = require("app/client/mall/js/home/views/goods.js");
 var Footer        = require("app/client/mall/common/views/footer.js");
 
+require("com/mobile/widget/button/back-to-top.js");
+
 var AppView = Backbone.View.extend({
 
   el: "#main",
@@ -32,12 +34,16 @@ var AppView = Backbone.View.extend({
   events:{},
 
   initialize: function () {
+    var title = mallUitl.isHangbanFunc() ? "航班商城" : "高铁商城";
+    widget.updateViewTitle(title);
+
     this.$footer        = new Footer();
     this.$bannerView    = new BannerView();
     this.$entranceView  = new EntranceView();
     this.$promotionView = new PromotionView();
     this.$categoryView  = new CategoryView();
     this.$goodsView     = new GoodsView();
+
   },
 
   fetchData: function () {
