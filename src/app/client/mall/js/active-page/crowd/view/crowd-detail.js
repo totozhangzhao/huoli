@@ -17,12 +17,12 @@ var detailLog   = require("app/client/mall/js/detail-page/lib/log.js");
 var AppView = Backbone.View.extend({
   el: "#crowd-detail",
   events: {
-    "click .js-hide-panel"                                 : "hidePurchasePanel",
-    "touchend .js-change-num"                              : "setNum",
-    "click .js-rules"                                      : "gotoRulesPage",
-    "click .js-fix-text"                                   : "hideFixPanel",
-    "click .js-submit"                                     : "submitButtonEvent",
-    "click .js-tab-wrapper>li[data-tab-name=goodsDetail]"  : "renderDetail"
+    "click .js-hide-panel"                             : "hidePurchasePanel",
+    "touchend .js-change-num"                          : "setNum",
+    "click .js-rules"                                  : "gotoRulesPage",
+    "click .js-fix-text"                               : "hideFixPanel",
+    "click .js-submit"                                 : "submitButtonEvent",
+    "click .js-tab-wrapper [data-tab-name=goodsDetail]": "renderDetail"
   },
   initialize: function() {
 

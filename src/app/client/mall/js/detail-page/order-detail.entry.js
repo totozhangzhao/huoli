@@ -37,8 +37,8 @@ var AppView = Backbone.View.extend({
     pageAction.setClose();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
-  copyText: function() {
-    var $text = $(".order-exchange-text.big-font");
+  copyText: function(e) {
+    var $text = $(e.currentTarget).find(".js-copy-text");
 
     if ( $text.length !== 1 ) {
       return;
