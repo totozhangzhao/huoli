@@ -42,32 +42,20 @@ var CategoryView = BaseView.extend({
     this.allCategory  = $("[data-category-item]", this.$el);
   },
 
-  selectItem: function (e) {
-    
-    var index= 1;
-    this.scrollItems
-      .removeClass("on")
-      .addClass("off")
-      .eq(index)
-      .addClass("on")
-      .removeClass("off")
-      .end();
-    // this.myScroll.scrollToElement(this.scrollItems.get(index));
-  },
-
   selectCategory: function (e) {
+    window.console.log("查询商品");
   },
 
   checkCategory: function (e) {
     var title = $(e.currentTarget).data("categoryItem")
     var scrollItem = $("span[data-category-item=" + title + "]")
     scrollItem.trigger("click");
-    window.console.log(this.allCategory.length);
+
+    // 更改栏目选项样式
     var a = this.allCategory
     .removeClass("on")
     .siblings("[data-category-item=" + title + "]")
     .addClass("on");
-    window.console.log(a);
 
     this.scrollCnt.scrollLeft(scrollItem.get(0).offsetLeft);
   },

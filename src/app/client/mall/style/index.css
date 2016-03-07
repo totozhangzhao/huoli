@@ -472,6 +472,7 @@ p {
 }
 .home-page-box .home-list-nav .home-pull-area a {
   display: inline-block;
+  float: left;
   width: 25%;
   height: 0.93333rem;
   line-height: 0.93333rem;
