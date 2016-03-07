@@ -9,7 +9,6 @@ var widget    = require("app/client/mall/js/lib/common.js");
 
 var BaseView = Backbone.View.extend({
   createNewPage: function (e) {
-    window.console.log(e);
     widget.createAView(e);
   }
 });

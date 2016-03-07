@@ -1,4 +1,30 @@
-<ul>
-  <% _.each(dataList, function(item){ %>
-  <% }); %>
-</ul>
+<li>
+  <a>
+    <div></div>
+    <p>天天特价</p>
+  </a>
+</li>
+<li>
+  <a>
+    <div></div>
+    <p>最新上架</p>
+  </a>
+</li>
+<li>
+  <a>
+    <div></div>
+    <p>积分兑换</p>
+  </a>
+</li>
+<li>
+  <a>
+    <div></div>
+    <p>一元夺宝</p>
+  </a>
+</li>
+<li>
+  <a>
+    <div></div>
+    <p>主题故事</p>
+  </a>
+</li>

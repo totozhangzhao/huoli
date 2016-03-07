@@ -1,4 +1,4 @@
-<div class="js-banner-box banner-box">
+<!-- <div class="js-banner-box banner-box">
   <ul class="banner-pics">
     <% _.each(dataList, function(item, index) { %>
     <li class="banner-item">
@@ -20,4 +20,11 @@
 <% _.each(dataList, function(item, index) { %>
   <i class="js-banner-index <%= index === 0 ? "active" : "" %> "></i>
 <% }); %>
-</div>
+</div> -->
+<ul class="home-banner-area clearfix">
+  <li class="home-banner-pic fl">
+    <a href="javascript:;">
+      <img src="http://cdn.rsscc.cn/guanggao/img/mall/index-test-banner.jpg" >
+    </a>
+  </li>
+</ul>

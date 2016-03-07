@@ -14,7 +14,9 @@ var CategoryView = BaseView.extend({
 
   el: "#home-category",
 
-  events: {},
+  events: {
+    "click .home-list-fa": "selectItem"
+  },
 
   template: require("app/client/mall/tpl/home/v2/category.tpl"),
 
@@ -27,13 +29,35 @@ var CategoryView = BaseView.extend({
       appName: mallUitl.getAppName(),
       tplUtil: tplUtil
     }));
-    myScroll = new IScroll('#test', { scrollX: true, scrollY: false, mouseWheel: true });
-    // var sList = $("#test div div");
-    // var i = 1;
-    // setInterval(function() {
-    //   myScroll.scrollToElement(sList.get(i++));
-    // },1000);
+    this.initScroll();
+    
     return this;
+  },
+
+  initScroll: function () {
+    this.scrollItems = $("#categoryScroll>p>span");
+    var _width = this.scrollItems.get(0).offsetWidth * this.scrollItems.length;
+    $("#categoryScroll>p").css("width",_width);
+    var myScroll = new IScroll(
+      '#categoryScroll', 
+      { 
+        scrollX: true, 
+        scrollY: true, 
+        mouseWheel: false 
+      }
+    );
+  },
+
+  selectItem: function (e) {
+    window.console.log(e);
+    this.scrollItems
+      .removeClass("on")
+      .addClass("off")
+      .eq(index)
+      .addClass("on")
+      .removeClass("off")
+      .end();
+    myScroll.scrollToElement(scrollItems.get(index));
   }
 });
 

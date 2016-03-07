@@ -3,6 +3,9 @@ var Backbone      = require("backbone");
 var _             = require("lodash");
 var Promise       = require("com/mobile/lib/promise/npo.js");
 
+var NativeAPI = require("app/client/common/lib/native/native-api.js");
+var toast     = require("com/mobile/widget/hint/hint.js").toast;
+
 var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
 var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var Util          = require("com/mobile/lib/util/util.js");
@@ -68,21 +71,21 @@ var AppView = Backbone.View.extend({
     })
     .catch(mallPromise.catchFn);
 
-
-    this.render();
+    var data = {
+      topmenu: [],
+      topgoods: [],
+      menu: [],
+      goods: []
+    };
+    // this.render(data);
     this.$bannerView.fetchData();
   },
 
   render: function (data) {
-    data = data || {};
-    var topmenu = data.topmenu || [];
-    var promotion = data.topgoods || [];
-    var category = data.menu || [];
-    var goods = data.goods || {};
-    this.$entranceView.render(topmenu);
-    this.$promotionView.render();
-    this.$categoryView.render();
-    this.$goodsView.render();
+    this.$entranceView.render(data.topmenu);
+    this.$promotionView.render(data.topgoods);
+    this.$categoryView.render(data.menu);
+    this.$goodsView.render(data.goods);
     this.$footer.render();
     return this;
   },
@@ -95,7 +98,24 @@ var AppView = Backbone.View.extend({
       }
       window.console.log(data);
     });
+  },
+
+  loginApp: function() {
+    var self = this;
+    NativeAPI.invoke("login", null, function (err, data) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      setTimeout(function() {
+        self.mallGetUserInfo({
+          rightButtonReady: true
+        });
+      }, 500);
+    });
   }
+
 });
 
 var app = new AppView();
