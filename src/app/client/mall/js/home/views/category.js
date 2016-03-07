@@ -15,7 +15,8 @@ var CategoryView = BaseView.extend({
   el: "#home-category",
 
   events: {
-    "click .home-list-fa": "selectItem"
+    "click span[data-category-item]"  : "selectCategory",
+    "click a[data-category-item]"     : "checkCategory"
   },
 
   template: require("app/client/mall/tpl/home/v2/category.tpl"),
@@ -24,32 +25,26 @@ var CategoryView = BaseView.extend({
 
   },
 
-  render: function () {
+  render: function (data) {
     this.$el.html(this.template({
+      dataList: data,
       appName: mallUitl.getAppName(),
       tplUtil: tplUtil
     }));
     this.initScroll();
-    
     return this;
   },
 
   initScroll: function () {
-    this.scrollItems = $("#categoryScroll>p>span");
-    var _width = this.scrollItems.get(0).offsetWidth * this.scrollItems.length;
-    $("#categoryScroll>p").css("width",_width);
-    var myScroll = new IScroll(
-      '#categoryScroll', 
-      { 
-        scrollX: true, 
-        scrollY: true, 
-        mouseWheel: false 
-      }
-    );
+    this.scrollItems  = $("span[data-category-item]", this.$el);
+    this.scrollCnt    = $("#categoryScroll>p", this.$el);
+    this.categoryList = $("a[data-category-item]", this.$el);
+    this.allCategory  = $("[data-category-item]", this.$el);
   },
 
   selectItem: function (e) {
-    window.console.log(e);
+    
+    var index= 1;
     this.scrollItems
       .removeClass("on")
       .addClass("off")
@@ -57,8 +52,25 @@ var CategoryView = BaseView.extend({
       .addClass("on")
       .removeClass("off")
       .end();
-    myScroll.scrollToElement(scrollItems.get(index));
-  }
+    // this.myScroll.scrollToElement(this.scrollItems.get(index));
+  },
+
+  selectCategory: function (e) {
+  },
+
+  checkCategory: function (e) {
+    var title = $(e.currentTarget).data("categoryItem")
+    var scrollItem = $("span[data-category-item=" + title + "]")
+    scrollItem.trigger("click");
+    window.console.log(this.allCategory.length);
+    var a = this.allCategory
+    .removeClass("on")
+    .siblings("[data-category-item=" + title + "]")
+    .addClass("on");
+    window.console.log(a);
+
+    this.scrollCnt.scrollLeft(scrollItem.get(0).offsetLeft);
+  },
 });
 
 module.exports = CategoryView;

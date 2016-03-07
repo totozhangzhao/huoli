@@ -412,8 +412,14 @@ p {
   white-space: nowrap;
   overflow: hidden;
 }
+.home-page-box .home-list-nav .home-list-fa p::-webkit-scrollbar {
+  width: 0 !important;
+}
 .home-page-box .home-list-nav .home-list-fa p {
   padding-left: 0.13333rem;
+  height: 1.17333rem;
+  overflow: hidden;
+  overflow-x: scroll;
 }
 .home-page-box .home-list-nav .home-list-fa p span {
   height: 1.17333rem;
