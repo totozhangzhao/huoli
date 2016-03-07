@@ -18,6 +18,7 @@ var AppView = Backbone.View.extend({
   el: "#crowd-detail",
   events: {
     "click .js-hide-panel"                             : "hidePurchasePanel",
+    "touchstart .js-change-num"                        : "combo",
     "touchend .js-change-num"                          : "setNum",
     "click .js-rules"                                  : "gotoRulesPage",
     "click .js-fix-text"                               : "hideFixPanel",
@@ -37,6 +38,9 @@ var AppView = Backbone.View.extend({
 
     // 剩余数量
     this.remainNum = 0;
+
+    this.comboMode = false;
+    this.comboFuncTimer = null;
     this.title = "";
     this.urlTitle = UrlUtil.parseUrlSearch().title || this.$el.data("title");
     this.$panel;
@@ -86,14 +90,34 @@ var AppView = Backbone.View.extend({
     this.$panel.hide();
     this.$button.text( this.$button.data("activeText") );
   },
-  setNum: function(e) {
-    var $cur = $(e.currentTarget);
+  combo: function(e) {
+    var self = this;
+
+    if (this.comboMode) {
+      return;
+    }
+
+    var emit = function() {
+      setTimeout(function() {
+        self.updateMoneyModel( $(e.currentTarget) );
+        if (self.comboMode) {
+          emit();
+        }
+      }, 100);
+    };
+
+    this.comboFuncTimer = setTimeout(function() {
+      self.comboMode = true;
+      emit();
+    }, 500);
+  },
+  updateMoneyModel: function($button) {
     var number = Number( this.$num.text() );
     var maxNum = this.maxNum;
     var minNum = 1;
     var remainNum = this.remainNum;
 
-    if ( $cur.data("operator") === "add" ) {
+    if ( $button.data("operator") === "add" ) {
       number += 1;
     } else {
       number -= 1;
@@ -111,6 +135,12 @@ var AppView = Backbone.View.extend({
 
     this.$num.text(number);
     moneyModel.set({ "needPay": this.unitPrice * number });
+  },
+  setNum: function(e) {
+    this.comboMode = false;
+    clearTimeout(this.comboFuncTimer);
+    var $cur = $(e.currentTarget);
+    this.updateMoneyModel($cur);
   },
   renderMoney: function() {
     var moneyText = "￥" + moneyModel.get("needPay");

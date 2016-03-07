@@ -12,7 +12,14 @@
   </div>
   <div class="crowd-history-desc">
     <p><%= item.title %></p>
-    <p>获奖者:<span class="crowd-history-tel"><%= item.phone.slice(0,3) %>****<%= item.phone.slice(7) %></span></p>
+    <% var username; %>
+    <% if (item.phone) { %>
+      <% var phone = item.phone; %>
+      <% username = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
+    <% } else { %>
+      <% username = "微信用户****"; %>
+    <% } %>
+    <p>获奖者:<span class="crowd-history-tel"><%= username %></span></p>
     <p>幸运号码:<span class="crowd-history-num"><%= item.wincode%></span></p>
     <p>揭晓时间:<span><%= item.time %></span></p>
   </div>

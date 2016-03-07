@@ -28,10 +28,15 @@ stat  int 状态
     <div class="snap-winner-son">
       <div class="snap-winner-flex"></div>
       <div class="snap-winner-flex">
-      <% if (data.winner.phone) { %>
-        <% var phone = data.winner.phone; %>
-        <% phone = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
-        <p>获奖者：<%= phone %></p>
+      <% if (data.winner) { %>
+        <% var username; %>
+        <% if (data.winner.phone) { %>
+          <% var phone = data.winner.phone; %>
+          <% username = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
+        <% } else { %>
+          <% username = "微信用户****"; %>
+        <% } %>
+        <p>获奖者：<%= username %></p>
         <p>揭晓时间：<%= data.winner.time %></p>
       <% } else { %>
         <p>本期没有人中奖</p>
@@ -78,9 +83,14 @@ stat  int 状态
     <li data-id="<%= player.orderid %>" class="flex-row">
       <div class="snap-desc-portrait"></div>
       <div class="snap-desc-info num-font">
-        <% var phone = player.phone; %>
-        <% phone = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
-        <p><%= phone %></p>
+        <% var username; %>
+        <% if (player.phone) { %>
+          <% var phone = player.phone; %>
+          <% username = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
+        <% } else { %>
+          <% username = "微信用户****"; %>
+        <% } %>
+        <p><%= username %></p>
         <p>参与了<span><%= player.count %></span>人次</p>
       </div>
       <div class="snap-desc-time num-font"><%= player.time %></div>
@@ -103,7 +113,7 @@ stat  int 状态
     data-pay-text="去支付"
   ><%= buttonText[data.stat] %></button>
 </div>
-<div class="js-panel js-hide-panel common-shadow">
+<div class="js-panel common-shadow">
   <div class="snap-buy-box">
     <div class="snap-buy-nav">
       <p>购买份数</p>
