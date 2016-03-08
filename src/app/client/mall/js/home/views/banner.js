@@ -58,8 +58,8 @@ var BannerView = BaseView.extend({
   },
 
   loadSwipe: function () {
-    var $SwipeBox = $(".js-banner-box", this.$el);
-    var $index    = $(".js-banner-index", this.$el);
+    var $SwipeBox = $("#banner-box", this.$el);
+    var $index    = $("#banner-index>i", this.$el);
     new Swipe($SwipeBox.get(0), {
       startSlide: 0,
       speed: 400,

@@ -23,7 +23,7 @@ var EntranceView = BaseView.extend({
 
   render: function (data) {
     this.$el.hide();
-    if(!data.length || data.length == 0){
+    if(!data.length || data.length === 0){
       return;
     }
     this.$el.html(this.template({

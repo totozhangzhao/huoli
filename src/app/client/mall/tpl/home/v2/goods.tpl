@@ -2,15 +2,23 @@
 <ul class="home-goods-bar clearfix no-select">
   <% _.each(dataList,function (item, index) { %>
     <li>
-        <a>
+        <a
+          data-log-click="<%= appName %>-block_<%= item.productid %>_<%= item.title %>@click@index"
+          data-productid="<%= item.productid %>"
+          data-title="<%= item.title %>"
+          data-classify="<%= item.classify || '' %>"
+          class="<%= tplUtil.getJsClass(item) %> block"
+          href="<%= tplUtil.getBlockUrl(item) %>"
+        >
           <div class="home-info-bar">
             <div class="home-pic-area">
-              <img src="http://cdn.rsscc.cn/guanggao/img/gaotie/gt-index-goods-10002.png" />  
+              <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= item.img %>" class="op0" >
             </div>
             <div class="home-info-show">
-              <p class="hmoe-goods-name">Apple iPhone6s 64G颜色随机Apple iPhone6s 64G颜色随机Apple iPhone6s 64G颜色随机Apple iPhone6s 64G颜色随机</p>
+              <p class="hmoe-goods-name"><%= item.title %></p>
             </div>
-            <p class="home-goods-price"><em class="home-point-icon"></em><span>200+25</span>元</p>
+            <p class="home-goods-price"><em class="home-point-icon"></em><span>
+            <%= item.points > 0 ? item.points + "+" : '' %><%= item.money %></span>元</p>
           </div>
         </a>
       </li>

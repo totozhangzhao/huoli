@@ -368,7 +368,7 @@ var AppView = Backbone.View.extend({
       new Swipe($SwipeBox.get(0), {
         startSlide: 0,
         speed: 400,
-        auto: 3000,
+        // auto: 3000,
         continuous: true,
         disableScroll: false,
         stopPropagation: false,

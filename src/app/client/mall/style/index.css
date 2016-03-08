@@ -255,12 +255,16 @@ p {
   padding-bottom: 3.04rem;
   padding-left: 0;
 }
+.home-page-box .home-banner-pic {
+  position: relative;
+}
 .home-page-box .home-banner-bar,
 .home-page-box .home-banner-pic,
 .home-page-box .home-banner-pic img {
   width: 100%;
 }
 .home-page-box .home-banner-bar {
+  overflow: hidden;
   position: relative;
   left: 0;
   top: 0;
@@ -407,8 +411,8 @@ p {
   border-bottom: 1px solid #f0f0f0;
 }
 .home-page-box .home-list-nav .home-list-fa::-webkit-scrollbar {
-  width: 0;
   height: 0;
+  width: 0;
   display: none;
 }
 .home-page-box .home-list-nav .home-list-fa {

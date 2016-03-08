@@ -13,6 +13,7 @@ var BaseView = require("app/client/mall/js/home/views/view.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 
+var imgDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
 
 var PromotionView = BaseView.extend({
 
@@ -26,6 +27,7 @@ var PromotionView = BaseView.extend({
 
   initialize: function (){
     this.listenTo(this.model, "change", this.fetch);
+    imgDelay();
   },
 
   render: function (data) {
@@ -63,7 +65,7 @@ var PromotionView = BaseView.extend({
       model.set({
         status: 2,
         classify:""
-      })
+      });
     }.bind(this));
   }
 });

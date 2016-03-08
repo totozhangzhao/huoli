@@ -1,30 +1,23 @@
-<!-- <div class="js-banner-box banner-box">
-  <ul class="banner-pics">
+<div id="banner-box">
+  <ul class="home-banner-area clearfix">
     <% _.each(dataList, function(item, index) { %>
-    <li class="banner-item">
-      <a
-        data-log-click="<%= appName %>-banner_<%= item.productid %>_<%= item.title %>@click@index"
-        data-productid="<%= item.productid %>"
-        data-title="<%= item.title %>"
-        data-classify="<%= item.classify || '' %>"
-        class="<%= tplUtil.getJsClass(item) %> block"
-        href="<%= tplUtil.getBlockUrl(item) %>"
+    <li class="home-banner-pic fl">
+      <a 
+      data-log-click="<%= appName %>-banner_<%= item.productid %>_<%= item.title %>@click@index"
+      data-productid="<%= item.productid %>"
+      data-title="<%= item.title %>"
+      data-classify="<%= item.classify || '' %>"
+      class="<%= tplUtil.getJsClass(item) %> block"
+      href="<%= tplUtil.getBlockUrl(item) %>"
       >
         <img src="<%= item.img || "" %>" alt="">
       </a>
     </li>
     <% }); %>
   </ul>
-</div>
-<div class="banner-indexs">
+<div>
+<div id="banner-index" class="home-banner-indexs">
 <% _.each(dataList, function(item, index) { %>
-  <i class="js-banner-index <%= index === 0 ? "active" : "" %> "></i>
+  <i class="<%= index === 0 ? "active" : "" %> "></i>
 <% }); %>
-</div> -->
-<ul class="home-banner-area clearfix">
-  <li class="home-banner-pic fl">
-    <a href="javascript:;">
-      <img src="http://cdn.rsscc.cn/guanggao/img/mall/index-test-banner.jpg" >
-    </a>
-  </li>
-</ul>
+</div>

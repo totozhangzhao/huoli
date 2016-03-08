@@ -52,19 +52,19 @@ var CategoryView = BaseView.extend({
     // 滚动容器总宽度
     var width = 0;
     _.each(scrollItems, function (item, index) {
-      width += item.offsetWidth
+      width += item.offsetWidth;
     });
     scrollCnt.find("p").css({width:width + 10});
     var widthFix = width - scrollCnt.get(0).offsetWidth;
     // 最大滚动位移
     var maxScrollLeft = widthFix + (80-(widthFix%80));
-    return this.scrollObj = {
+    this.scrollObj = {
       scrollCnt: scrollCnt,
       allCategory: allCategory,
       width: width, // 滚动区域总宽度
       cntWidth: scrollCnt.get(0).offsetWidth,
       maxScrollLeft: maxScrollLeft
-    }
+    };
   },
 
   checkCategory: function (e) {
@@ -82,7 +82,7 @@ var CategoryView = BaseView.extend({
     this.model.set({
       status: 1,
       classify: classify
-    })
+    });
 
     if(_el.data("scrollItem")){
       return; 
@@ -107,7 +107,7 @@ var CategoryView = BaseView.extend({
   // 数据列表面板显示隐藏
   showCagetoryListPannel: function (e) {
     if($(e.currentTarget).hasClass("home-rotate-switch")){
-      return this.hidePannel()
+      return this.hidePannel();
     }
     return this.showPannel();
   },
