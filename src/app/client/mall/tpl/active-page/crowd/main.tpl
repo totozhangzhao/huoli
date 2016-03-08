@@ -99,8 +99,8 @@ stat  int 状态
     data-pay-text="去支付"
   ><%= buttonText[data.stat] %></button>
 </div>
-<div class="js-panel common-shadow">
-  <div class="snap-buy-box">
+<div class="js-pop-shadow common-shadow">
+  <div class="js-pop-window snap-buy-box">
     <div class="snap-buy-nav">
       <p>购买份数</p>
       <div class="js-hide-panel snap-buy-close-btn">

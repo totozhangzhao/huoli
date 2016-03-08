@@ -17,6 +17,7 @@ var detailLog   = require("app/client/mall/js/detail-page/lib/log.js");
 var AppView = Backbone.View.extend({
   el: "#crowd-detail",
   events: {
+    "click .js-pop-shadow"                             : "hidePurchasePanel",
     "click .js-hide-panel"                             : "hidePurchasePanel",
     "touchstart .js-change-num"                        : "combo",
     "touchend .js-change-num"                          : "setNum",
@@ -86,9 +87,20 @@ var AppView = Backbone.View.extend({
     this.$panel.show();
     this.$button.text( this.$button.data("payText") );
   },
-  hidePurchasePanel: function() {
-    this.$panel.hide();
-    this.$button.text( this.$button.data("activeText") );
+  hidePurchasePanel: function(e) {
+    var self = this;
+    var $cur = $(e.currentTarget);
+
+    var close = function() {
+      self.$panel.hide();
+      self.$button.text( self.$button.data("activeText") );      
+    };
+
+    if ( $cur.hasClass("js-hide-panel") ) {
+      close();
+    } else if ( !$.contains(this.$el.find(".js-pop-window").get(0), e.target) ) {
+      close();
+    }
   },
   combo: function(e) {
     var self = this;
@@ -334,7 +346,7 @@ var AppView = Backbone.View.extend({
       data: productDetail,
       barWidth: showAnimation ? minBarWidth : barWidth
     }));
-    this.$panel = this.$el.find(".js-panel");
+    this.$panel = this.$el.find(".js-pop-shadow");
     this.$button = this.$el.find(".js-submit");
     this.$num = this.$el.find(".js-goods-num");
 
