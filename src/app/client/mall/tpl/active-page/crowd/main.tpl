@@ -29,7 +29,7 @@ stat  int 状态
       <div class="snap-winner-flex"></div>
       <div class="snap-winner-flex">
       <% if (data.winner.phone) { %>
-        <p>获奖者：<%= data.winner.phone %> %></p>
+        <p>获奖者：<%= data.winner.phone %></p>
         <p>揭晓时间：<%= data.winner.time %></p>
       <% } else { %>
         <p>本期没有人中奖</p>
