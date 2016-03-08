@@ -1,13 +1,6 @@
 
 <div class="crowd-nav-tip"><b class="icon"></b>
 <% _.each(dataList, function(item){ %>
-  <% var username; %>
-  <% if (item.phone) { %>
-    <% var phone = item.phone; %>
-    <% username = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
-  <% } else { %>
-    <% username = "微信用户****"; %>
-  <% } %>
   <a
     data-log-click="<%= appName %>-block_<%= item.productid %>_<%= item.title %>@click@index"
     data-productid="<%= item.productid %>"
@@ -15,7 +8,7 @@
     data-classify="<%= item.classify || '' %>"
     class="<%= tplUtil.getJsClass(item) %> block marquee-item"
     href="<%= tplUtil.getBlockUrl(item) %>"
-  ><%= username %>获得<span><%= item.title %></span></a>
+  ><%= item.phone %>获得<span><%= item.title %></span></a>
 <%})%>
 </div>
 <a 
