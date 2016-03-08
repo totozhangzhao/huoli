@@ -89,7 +89,7 @@ stat  int 状态
   <dl data-for="rules" class="js-tab-content snap-desc-area snap-desc-rule text-box"><%= data.rulestpl %></dl>
 </div>
 <% if (data.stat === 4) { %>
-<div class="js-fix-text fix-hint">还有机会，有未完成支付的订单，10分钟内未支付的订单将被取消。</div>
+<div class="js-fix-text fix-hint">还有机会，有未完成支付的订单，5分钟内未支付的订单将被取消。</div>
 <% } %>
 <div class="snap-join-bar">
   <p class="js-model-money"><%= data.showprice %></p>
