@@ -22,11 +22,15 @@ var EntranceView = BaseView.extend({
   },
 
   render: function (data) {
+    this.$el.hide();
+    if(!data.length || data.length == 0){
+      return;
+    }
     this.$el.html(this.template({
       dataList: data,
       appName: mallUitl.getAppName(),
       tplUtil: tplUtil
-    }));
+    })).show();
     return this;
   }
 });

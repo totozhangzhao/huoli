@@ -29,7 +29,11 @@ var GoodsView     = require("app/client/mall/js/home/views/goods.js");
 var Footer        = require("app/client/mall/common/views/footer.js");
 
 require("com/mobile/widget/button/back-to-top.js");
-
+var StateModel = Backbone.Model.extend({
+  defaults:{
+    status: 0 // －1 数据返回失败 0 初始状态 1 请求数据 2 数据返回成功 
+  }
+});
 var AppView = Backbone.View.extend({
 
   el: "#main",
@@ -39,15 +43,16 @@ var AppView = Backbone.View.extend({
   },
 
   initialize: function () {
+
     var title = mallUitl.isHangbanFunc() ? "航班商城" : "高铁商城";
     widget.updateViewTitle(title);
-
+    this.stateModel     = new StateModel();
     this.$footer        = new Footer();
     this.$bannerView    = new BannerView();
     this.$entranceView  = new EntranceView();
     this.$promotionView = new PromotionView();
-    this.$categoryView  = new CategoryView();
-    this.$goodsView     = new GoodsView();
+    this.$categoryView  = new CategoryView({model: this.stateModel});
+    this.$goodsView     = new GoodsView({model: this.stateModel});
 
   },
 
@@ -70,15 +75,6 @@ var AppView = Backbone.View.extend({
       self.render(data);
     })
     .catch(mallPromise.catchFn);
-
-    var data = {
-      topmenu: [],
-      topgoods: [],
-      menu: [],
-      goods: []
-    };
-    // this.render(data);
-    this.$bannerView.fetchData();
   },
 
   render: function (data) {
@@ -87,33 +83,28 @@ var AppView = Backbone.View.extend({
     this.$categoryView.render(data.menu);
     this.$goodsView.render(data.goods);
     this.$footer.render();
+    this.getUserInfo();
     return this;
   },
 
-  // 根据频道获取商品列表
-  updateClassify: function (classify) {
-    sendPost("classifyGoods", {classify: classify}, function(err, data) {
-      if (err) {
-        return mallPromise.catchFn(err);
-      }
-      window.console.log(data);
-    });
-  },
+  getUserInfo: function () {
+    mallPromise.appInfo
+    .then(function (userData) {
+      var params = _.extend({}, userData.userInfo, {
+        p: userData.deviceInfo.p
+      });
+      sendPost("getUserInfo", params, function(err, data) {
+        if(err){
+          return;
+        }
+        $("#home-points")
+          .find(".num-font").html(data.points)
+        .end()
+        .show();
 
-  loginApp: function() {
-    var self = this;
-    NativeAPI.invoke("login", null, function (err, data) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      setTimeout(function() {
-        self.mallGetUserInfo({
-          rightButtonReady: true
-        });
-      }, 500);
-    });
+      });
+    })
+    .catch(mallPromise.catchFn);
   }
 
 });

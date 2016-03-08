@@ -1,20 +1,14 @@
+<% _.each(dataList, function (item, index) { %>
 <li>
-  <a>
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/index-test-goods.png" />
+  <a 
+      data-log-click="<%= appName %>-top_<%= item.productid %>_<%= item.title %>@click@index"
+      data-productid="<%= item.productid %>"
+      data-title="<%= item.title %>"
+      data-classify="<%= item.classify || '' %>"
+      class="<%= tplUtil.getJsClass(item) %> block"
+      href="<%= tplUtil.getBlockUrl(item) %>"
+      >
+    <img src="<%= item.img %>" />
   </a>
 </li>
-<li>
-  <a>
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/index-test-goods.png" />
-  </a>
-</li>
-<li>
-  <a>
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/index-test-goods.png" />
-  </a>
-</li>
-<li>
-  <a>
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/index-test-goods.png" />
-  </a>
-</li>
+<% }); %>

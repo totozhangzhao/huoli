@@ -27,7 +27,7 @@ var BannerView = BaseView.extend({
 
   initialize: function () {
     // 
-    
+    this.fetchData();
   },
 
   fetchData: function () {

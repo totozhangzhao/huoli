@@ -1,30 +1,15 @@
-<li>
-  <a>
-    <div></div>
-    <p>天天特价</p>
-  </a>
-</li>
-<li>
-  <a>
-    <div></div>
-    <p>最新上架</p>
-  </a>
-</li>
-<li>
-  <a>
-    <div></div>
-    <p>积分兑换</p>
-  </a>
-</li>
-<li>
-  <a>
-    <div></div>
-    <p>一元夺宝</p>
-  </a>
-</li>
-<li>
-  <a>
-    <div></div>
-    <p>主题故事</p>
-  </a>
-</li>
+<% _.each(dataList, function (item, index) { %>
+  <li>
+    <a 
+    data-log-click="<%= appName %>-top_<%= item.productid %>_<%= item.title %>@click@index"
+    data-productid="<%= item.productid %>"
+    data-title="<%= item.title %>"
+    data-classify="<%= item.classify || '' %>"
+    class="<%= tplUtil.getJsClass(item) %> block"
+    href="<%= tplUtil.getBlockUrl(item) %>"
+    >
+      <div style="background-image: url(<%= item.img %>)"></div>
+      <p><%= item.title %></p>
+    </a>
+  </li>
+<% }); %>
