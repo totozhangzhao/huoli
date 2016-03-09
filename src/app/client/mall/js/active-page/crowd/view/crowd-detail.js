@@ -12,7 +12,7 @@ var Tab       = require("com/mobile/widget/button/tab.js");
 var widget    = require("app/client/mall/js/lib/common.js");
 var moneyModel  = require("app/client/mall/js/active-page/crowd/model/money.js").money;
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
-var detailLog   = require("app/client/mall/js/detail-page/lib/log.js");
+var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
 
 var AppView = Backbone.View.extend({
   el: "#crowd-detail",
@@ -56,7 +56,7 @@ var AppView = Backbone.View.extend({
     if (this.title) {
       title = this.title;
 
-      detailLog.track({
+      detailLog({
         title: this.title,
         productid: UrlUtil.parseUrlSearch().productid,
         from: UrlUtil.parseUrlSearch().from || "--"
@@ -358,7 +358,7 @@ var AppView = Backbone.View.extend({
       }, 300);
     }
 
-    detailLog.track({
+    detailLog({
       title: title,
       productid: UrlUtil.parseUrlSearch().productid,
       from: UrlUtil.parseUrlSearch().from || "--"

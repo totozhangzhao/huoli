@@ -6,6 +6,18 @@ var mallUitl  = require("app/client/mall/js/lib/util.js");
 var logger    = require("com/mobile/lib/log/log.js");
 var UrlUtil   = require("com/mobile/lib/url/url.js");
 
+exports.initRem = function() {
+  var setRoot = function() {      
+    var rootSize = ($("body").width() / 10).toFixed(1);
+    $("html").css({ "font-size": rootSize + "px" });
+  };
+
+  setRoot();
+  window.onresize = _.debounce(setRoot, 150);
+};
+
+exports.initRem();
+
 exports.createAView = function(e) {
   var $cur = $(e.currentTarget);
   var url = $cur.prop("href");
@@ -102,26 +114,23 @@ exports.imageDelay = function(options) {
   echo.init(config);
 };
 
-exports.initRem = function() {
-  var setRoot = function() {      
-    var rootSize = ($("body").width() / 10).toFixed(1);
-    $("html").css({ "font-size": rootSize + "px" });
+exports.initTracker = function(tag) {
+  return function(data) {
+    data.title     = data.title     || "";
+    data.productid = data.productid || "";
+    data.from      = data.from      || "--";
+    var category = mallUitl.getAppName() + "-" + tag + "_" + data.title + "_" + data.productid;
+    logger.track(category, "View PV", data.from);
   };
-
-  setRoot();
-  window.onresize = _.debounce(setRoot, 150);
 };
-
-exports.initRem();
 
 $("body").on("click", "a, button, [data-log-mall-click]", function(e) {
   var $cur = $(e.currentTarget);
   if ( $cur.data("logClick") ) {
     return;
   }
-  var eventText = $cur.data("logMallClick") || $cur.text() || $cur.val() || "";
-  eventText.replace(/\r?\n|\r/g, "");
-  eventText.replace(/\s+/g, " ").trim();
+  var eventText = $cur.data("logMallClick") || $cur.data("title") || $cur.text() || $cur.val() || "--btn--";
+  eventText = eventText.replace(/\r?\n|\r/g, "").replace(/\s+/g, " ").trim();
   var category = mallUitl.getAppName() + "EV_" + window.document.title + "_" + eventText;
   logger.track(category, "EV click", UrlUtil.parseUrlSearch().from || "--");
 });
