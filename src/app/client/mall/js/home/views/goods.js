@@ -55,7 +55,7 @@ var PromotionView = BaseView.extend({
         model.set({
           status: -1,
           classify: ""
-        })
+        });
         toast(err.message, 1500);
         return;
       }
