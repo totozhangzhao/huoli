@@ -19,10 +19,6 @@ var BannerView = BaseView.extend({
 
   el: "#home-banner",
 
-  events: {
-    "click .js-new-page": "createNewPage"
-  },
-
   template: require("app/client/mall/tpl/home/v2/banner.tpl"),
 
   initialize: function () {
@@ -46,6 +42,10 @@ var BannerView = BaseView.extend({
   },
 
   render: function () {
+    if(!this.bannerData || this.bannerData.length ===0) {
+      this.$el.hide();
+      return ;
+    }
     this.$el.html(this.template({
       dataList: this.bannerData,
       appName  : mallUitl.getAppName(),

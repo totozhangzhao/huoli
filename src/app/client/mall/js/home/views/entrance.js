@@ -12,10 +12,6 @@ var EntranceView = BaseView.extend({
 
   el: "#home-entrance",
 
-  events: {
-    "click .js-new-page": "createNewPage"
-  },
-
   template: require("app/client/mall/tpl/home/v2/entrance.tpl"),
 
   initialize: function () {
@@ -24,6 +20,7 @@ var EntranceView = BaseView.extend({
   render: function (data) {
     this.$el.hide();
     if(!data.length || data.length === 0){
+      this.$el.hide();
       return;
     }
     this.$el.html(this.template({

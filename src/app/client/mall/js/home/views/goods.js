@@ -19,10 +19,6 @@ var PromotionView = BaseView.extend({
 
   el: "#home-goods",
 
-  events: {
-    "click .js-new-page": "createNewPage"
-  },
-
   template: require("app/client/mall/tpl/home/v2/goods.tpl"),
 
   initialize: function (){

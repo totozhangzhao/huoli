@@ -13,21 +13,23 @@ var PromotionView = BaseView.extend({
 
   el: "#home-promotion",
 
-  events: {
-    "click .js-new-page": "createNewPage"
-  },
-
   template: require("app/client/mall/tpl/home/v2/promotion.tpl"),
 
   initialize: function (){
   },
 
   render: function (data) {
+    this.$el.hide();
+    if(!data.length || data.length === 0){
+      this.$el.hide();
+      return;
+    }
     this.$el.html(this.template({
       dataList: data,
       appName  : mallUitl.getAppName(),
       tplUtil  : tplUtil
-    }));
+    }))
+    .show();
     return this;
   }
 });

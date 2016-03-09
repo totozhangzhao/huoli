@@ -28,6 +28,7 @@ var CategoryView = BaseView.extend({
 
   render: function (data) {
     if(!data){
+      this.$el.hide();
       return;
     }
     this.$el.html(this.template({

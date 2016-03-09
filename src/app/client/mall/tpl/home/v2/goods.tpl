@@ -17,8 +17,23 @@
             <div class="home-info-show">
               <p class="hmoe-goods-name"><%= item.title %></p>
             </div>
-            <p class="home-goods-price"><em class="home-point-icon"></em><span>
-            <%= item.points > 0 ? item.points + "+" : '' %><%= item.money %></span>元</p>
+            <p class="home-goods-price">
+              <% if(item.points) {%>
+                <em class="home-point-icon"></em>
+              <% } %>
+              <%
+                var p = [];
+                if(item.points){
+                  p.push(item.points);
+                }
+                if(item.money){
+                  p.push(item.money);
+                }
+                var price = p.join("+"); 
+              %>
+              <span><%= price %></span>
+              <%= !!item.money ? '元' : ''%>
+            </p>
           </div>
         </a>
       </li>
