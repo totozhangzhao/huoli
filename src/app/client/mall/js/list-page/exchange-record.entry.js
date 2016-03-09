@@ -12,6 +12,8 @@ var imgDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
 var logger    = require("com/mobile/lib/log/log.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var storage   = require("app/client/mall/js/lib/storage.js");
+var UrlUtil   = require("com/mobile/lib/url/url.js");
+var orderListLog = require("app/client/mall/js/lib/common.js").initTracker("orderList");
 
 var AppView = Backbone.View.extend({
   el: "#order-list",
@@ -34,6 +36,10 @@ var AppView = Backbone.View.extend({
     this.mallOrderList();
     this.mallSearchList();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+    orderListLog({
+      title: document.title,
+      from: UrlUtil.parseUrlSearch().from || "--"
+    });
   },
   setAppRightButton: function(text) {
     NativeAPI.invoke("updateHeaderRightBtn", {

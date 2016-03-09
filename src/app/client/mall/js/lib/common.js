@@ -116,10 +116,10 @@ exports.imageDelay = function(options) {
 
 exports.initTracker = function(tag) {
   return function(data) {
-    data.title     = data.title     || "";
-    data.productid = data.productid || "";
-    data.from      = data.from      || "--";
-    var category = mallUitl.getAppName() + "-" + tag + "_" + data.title + "_" + data.productid;
+    var category = mallUitl.getAppName() + "-" + tag + "_" + data.title;
+    if (data.productid) {
+      category += "_" + data.productid;
+    }
     logger.track(category, "View PV", data.from);
   };
 };
