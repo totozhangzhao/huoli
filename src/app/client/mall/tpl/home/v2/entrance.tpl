@@ -8,7 +8,7 @@
     class="<%= tplUtil.getJsClass(item) %> block"
     href="<%= tplUtil.getBlockUrl(item) %>"
     >
-      <div style="background-image: url(<%= item.img %>)"></div>
+      <div style="background-image: url(<%= item.img%>)"></div>
       <p><%= item.title %></p>
     </a>
   </li>
