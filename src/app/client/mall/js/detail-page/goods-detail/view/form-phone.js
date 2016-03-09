@@ -10,7 +10,7 @@ var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var widget     = require("app/client/mall/js/lib/common.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
 var validator  = require("app/client/mall/js/lib/validator.js");
-var detailLog  = require("app/client/mall/js/detail-page/lib/log.js");
+var detailLog  = require("app/client/mall/js/lib/common.js").initTracker("detail");
 
 var AppView = Backbone.View.extend({
   el: "#form-phone",
@@ -41,7 +41,7 @@ var AppView = Backbone.View.extend({
     widget.updateViewTitle(title);
     this.renderMainPanel();
     pageAction.setClose();
-    detailLog.track({
+    detailLog({
       title: title,
       productid: parseUrl().productid,
       from: parseUrl().from || "--"

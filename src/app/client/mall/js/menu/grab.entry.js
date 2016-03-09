@@ -10,7 +10,7 @@ var mallUitl      = require("app/client/mall/js/lib/util.js");
 var UrlUtil       = require("com/mobile/lib/url/url.js");
 
 var logger        = require("com/mobile/lib/log/log.js");
-var menuLog       = require("app/client/mall/js/menu/lib/log.js");
+var menuLog       = require("app/client/mall/js/lib/common.js").initTracker("menu");
 
 var Goods         = require("app/client/mall/js/menu/collections/goods.js");
 var GoodsItemView = require("app/client/mall/js/menu/views/goods-item.js");
@@ -68,7 +68,7 @@ var AppView = Backbone.View.extend({
     // this.$goods.set(data.product);
     this.renderGoodsList(data.product);
     this.$footer.render();
-    menuLog.track({
+    menuLog({
       title: UrlUtil.parseUrlSearch().classify || window.document.title,
       from: UrlUtil.parseUrlSearch().from || "--"
     });

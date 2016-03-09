@@ -78,9 +78,7 @@ stat  int 状态
     <li data-id="<%= player.orderid %>" class="flex-row">
       <div class="snap-desc-portrait"></div>
       <div class="snap-desc-info num-font">
-        <% var phone = player.phone; %>
-        <% phone = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
-        <p><%= phone %></p>
+        <p><%= player.phone %></p>
         <p>参与了<span><%= player.count %></span>人次</p>
       </div>
       <div class="snap-desc-time num-font"><%= player.time %></div>
@@ -93,7 +91,7 @@ stat  int 状态
   <dl data-for="rules" class="js-tab-content snap-desc-area snap-desc-rule text-box"><%= data.rulestpl %></dl>
 </div>
 <% if (data.stat === 4) { %>
-<div class="js-fix-text fix-hint">还有机会，有未完成支付的订单，10分钟内未支付的订单将被取消。</div>
+<div class="js-fix-text fix-hint">还有机会，有未完成支付的订单，5分钟内未支付的订单将被取消。</div>
 <% } %>
 <div class="snap-join-bar">
   <p class="js-model-money"><%= data.showprice %></p>
@@ -103,8 +101,8 @@ stat  int 状态
     data-pay-text="去支付"
   ><%= buttonText[data.stat] %></button>
 </div>
-<div class="js-panel common-shadow">
-  <div class="snap-buy-box">
+<div class="js-pop-shadow common-shadow">
+  <div class="js-pop-window snap-buy-box">
     <div class="snap-buy-nav">
       <p>购买份数</p>
       <div class="js-hide-panel snap-buy-close-btn">

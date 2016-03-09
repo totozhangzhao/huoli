@@ -10,9 +10,7 @@ var appInfo    = require("app/client/mall/js/lib/app-info.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
 var validator  = require("app/client/mall/js/lib/validator.js");
 var hint       = require("com/mobile/widget/hint/hint.js");
-var detailLog  = require("app/client/mall/js/detail-page/lib/log.js");
-
-require("app/client/mall/js/lib/common.js");
+var detailLog  = require("app/client/mall/js/lib/common.js").initTracker("detail");
 
 var AppView = Backbone.View.extend({
   el: "#form-custom",
@@ -32,7 +30,7 @@ var AppView = Backbone.View.extend({
     }
     this.renderMainPanel();
     pageAction.setClose();
-    detailLog.track({
+    detailLog({
       title: window.document.title + "form-custom",
       productid: parseUrl().productid,
       from: parseUrl().from || "--"

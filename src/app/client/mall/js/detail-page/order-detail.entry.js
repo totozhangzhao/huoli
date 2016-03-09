@@ -16,11 +16,13 @@ var logger     = require("com/mobile/lib/log/log.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
 var storage    = require("app/client/mall/js/lib/storage.js");
 var tplUtil    = require("app/client/mall/js/lib/mall-tpl.js");
+var orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
 
 var AppView = Backbone.View.extend({
   el: "#order-detail-container",
   events: {
-    "click a": "createNewPage",
+    "click a"              : "createNewPage",
+    "touchstart .js-copy"  : "copyText",
     "click .js-crowd-page" : "gotoCrowd",
     "click .js-address-box": "handleAddressInfo",
     "click #pay-button"    : "payOrder"
@@ -35,6 +37,25 @@ var AppView = Backbone.View.extend({
     this.mallOrderDetail();
     pageAction.setClose();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+  },
+  copyText: function(e) {
+    var $text = $(e.currentTarget).find(".js-copy-text");
+
+    if ( $text.length !== 1 ) {
+      return;
+    }
+
+    NativeAPI.invoke("copyToClipboard", {
+      text: $text.text()
+    }, function(err, data) {
+      if (err) {
+        return;
+      }
+
+      if (data.value === data.SUCC) {
+        toast("复制成功", 1500);
+      }
+    });
   },
   handleAddressInfo: function() {
     var needpay = this.orderDetail.needpay;
@@ -123,6 +144,11 @@ var AppView = Backbone.View.extend({
       
       $("#order-detail-container").html( compiled(tmplData) );
       self.fixTpl();
+
+      orderLog({
+        title: self.orderDetail.title,
+        from: parseUrl().from || "--"
+      });
     });
   },
   payOrder: function() {

@@ -12,7 +12,7 @@ var mallUitl = require("app/client/mall/js/lib/util.js");
 var sendPost = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var logger   = require("com/mobile/lib/log/log.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
-var menuLog  = require("app/client/mall/js/menu/lib/log.js");
+var menuLog  = require("app/client/mall/js/lib/common.js").initTracker("menu");
 
 var AppView = Backbone.View.extend({
   el: "#main",
@@ -94,7 +94,7 @@ var AppView = Backbone.View.extend({
       imgDelay();
     });
 
-    menuLog.track({
+    menuLog({
       title: parseUrl().classify,
       from: parseUrl().from || "--"
     });

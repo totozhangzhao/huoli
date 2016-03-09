@@ -20,7 +20,7 @@
     <!-- 兑换码 start -->
     <div class="order-exchange-bar">
       <div class="order-exchange-code">
-        <div class="order-exchange-area">
+        <div class="js-copy order-exchange-area">
           <%= orderDetail.msg %>
         </div>
         <div class="effective-area">

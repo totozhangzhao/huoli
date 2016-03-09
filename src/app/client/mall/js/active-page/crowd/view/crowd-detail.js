@@ -12,17 +12,19 @@ var Tab       = require("com/mobile/widget/button/tab.js");
 var widget    = require("app/client/mall/js/lib/common.js");
 var moneyModel  = require("app/client/mall/js/active-page/crowd/model/money.js").money;
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
-var detailLog   = require("app/client/mall/js/detail-page/lib/log.js");
+var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
 
 var AppView = Backbone.View.extend({
   el: "#crowd-detail",
   events: {
-    "click .js-hide-panel"                                 : "hidePurchasePanel",
-    "touchend .js-change-num"                              : "setNum",
-    "click .js-rules"                                      : "gotoRulesPage",
-    "click .js-fix-text"                                   : "hideFixPanel",
-    "click .js-submit"                                     : "submitButtonEvent",
-    "click .js-tab-wrapper>li[data-tab-name=goodsDetail]"  : "renderDetail"
+    "click .js-pop-shadow"                             : "hidePurchasePanel",
+    "click .js-hide-panel"                             : "hidePurchasePanel",
+    "touchstart .js-change-num"                        : "combo",
+    "touchend .js-change-num"                          : "setNum",
+    "click .js-rules"                                  : "gotoRulesPage",
+    "click .js-fix-text"                               : "hideFixPanel",
+    "click .js-submit"                                 : "submitButtonEvent",
+    "click .js-tab-wrapper [data-tab-name=goodsDetail]": "renderDetail"
   },
   initialize: function() {
 
@@ -37,11 +39,15 @@ var AppView = Backbone.View.extend({
 
     // 剩余数量
     this.remainNum = 0;
+
+    this.comboMode = false;
+    this.comboFuncTimer = null;
     this.title = "";
     this.urlTitle = UrlUtil.parseUrlSearch().title || this.$el.data("title");
     this.$panel;
     this.$button;
     this.$num;
+    this.$pop;
     this.listenTo(moneyModel, "change", this.renderMoney);
     this.mallCrowdDetail();
   },
@@ -51,7 +57,7 @@ var AppView = Backbone.View.extend({
     if (this.title) {
       title = this.title;
 
-      detailLog.track({
+      detailLog({
         title: this.title,
         productid: UrlUtil.parseUrlSearch().productid,
         from: UrlUtil.parseUrlSearch().from || "--"
@@ -82,18 +88,49 @@ var AppView = Backbone.View.extend({
     this.$panel.show();
     this.$button.text( this.$button.data("payText") );
   },
-  hidePurchasePanel: function() {
-    this.$panel.hide();
-    this.$button.text( this.$button.data("activeText") );
-  },
-  setNum: function(e) {
+  hidePurchasePanel: function(e) {
+    var self = this;
     var $cur = $(e.currentTarget);
+
+    var close = function() {
+      self.$panel.hide();
+      self.$button.text( self.$button.data("activeText") );      
+    };
+
+    if ( $cur.hasClass("js-hide-panel") ) {
+      close();
+    } else if ( !$.contains(this.$pop.get(0), e.target) ) {
+      close();
+    }
+  },
+  combo: function(e) {
+    var self = this;
+
+    if (this.comboMode) {
+      return;
+    }
+
+    var emit = function() {
+      setTimeout(function() {
+        self.updateMoneyModel( $(e.currentTarget) );
+        if (self.comboMode) {
+          emit();
+        }
+      }, 100);
+    };
+
+    this.comboFuncTimer = setTimeout(function() {
+      self.comboMode = true;
+      emit();
+    }, 500);
+  },
+  updateMoneyModel: function($button) {
     var number = Number( this.$num.text() );
     var maxNum = this.maxNum;
     var minNum = 1;
     var remainNum = this.remainNum;
 
-    if ( $cur.data("operator") === "add" ) {
+    if ( $button.data("operator") === "add" ) {
       number += 1;
     } else {
       number -= 1;
@@ -111,6 +148,12 @@ var AppView = Backbone.View.extend({
 
     this.$num.text(number);
     moneyModel.set({ "needPay": this.unitPrice * number });
+  },
+  setNum: function(e) {
+    this.comboMode = false;
+    clearTimeout(this.comboFuncTimer);
+    var $cur = $(e.currentTarget);
+    this.updateMoneyModel($cur);
   },
   renderMoney: function() {
     var moneyText = "￥" + moneyModel.get("needPay");
@@ -304,9 +347,10 @@ var AppView = Backbone.View.extend({
       data: productDetail,
       barWidth: showAnimation ? minBarWidth : barWidth
     }));
-    this.$panel = this.$el.find(".js-panel");
+    this.$panel = this.$el.find(".js-pop-shadow");
     this.$button = this.$el.find(".js-submit");
     this.$num = this.$el.find(".js-goods-num");
+    this.$pop = this.$el.find(".js-pop-window");
 
     if (showAnimation) {
       _.defer(function() {
@@ -316,7 +360,7 @@ var AppView = Backbone.View.extend({
       }, 300);
     }
 
-    detailLog.track({
+    detailLog({
       title: title,
       productid: UrlUtil.parseUrlSearch().productid,
       from: UrlUtil.parseUrlSearch().from || "--"
