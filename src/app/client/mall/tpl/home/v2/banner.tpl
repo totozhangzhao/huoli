@@ -2,8 +2,8 @@
   <ul class="home-banner-area clearfix">
     <% _.each(dataList, function(item, index) { %>
     <li class="home-banner-pic fl">
-      <a 
-      data-log-click="<%= appName %>-banner_<%= item.productid %>_<%= item.title %>@click@index"
+      <a
+      data-log-mall-click="top_banner_<%= item.title %>"
       data-productid="<%= item.productid %>"
       data-title="<%= item.title %>"
       data-classify="<%= item.classify || '' %>"

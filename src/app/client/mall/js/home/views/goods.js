@@ -23,7 +23,7 @@ var PromotionView = BaseView.extend({
 
   initialize: function (){
     this.listenTo(this.model, "change", this.fetch);
-    this.imageDelayEcho = imageDelay();
+    imageDelay();
   },
 
   render: function (data) {
@@ -32,7 +32,7 @@ var PromotionView = BaseView.extend({
       appName  : mallUitl.getAppName(),
       tplUtil  : tplUtil
     }));
-    this.imageDelayEcho.render();
+    imageDelay();
     return this;
   },
 

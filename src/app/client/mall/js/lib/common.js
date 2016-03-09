@@ -97,7 +97,6 @@ exports.imageDelay = function(options) {
   }, options || {});
 
   echo.init(config);
-  return echo;
 };
 
 exports.initRem = function() {
