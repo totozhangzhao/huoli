@@ -47,6 +47,7 @@ var AppView = Backbone.View.extend({
     this.$panel;
     this.$button;
     this.$num;
+    this.$pop;
     this.listenTo(moneyModel, "change", this.renderMoney);
     this.mallCrowdDetail();
   },
@@ -98,7 +99,7 @@ var AppView = Backbone.View.extend({
 
     if ( $cur.hasClass("js-hide-panel") ) {
       close();
-    } else if ( !$.contains(this.$el.find(".js-pop-window").get(0), e.target) ) {
+    } else if ( !$.contains(this.$pop.get(0), e.target) ) {
       close();
     }
   },
@@ -349,6 +350,7 @@ var AppView = Backbone.View.extend({
     this.$panel = this.$el.find(".js-pop-shadow");
     this.$button = this.$el.find(".js-submit");
     this.$num = this.$el.find(".js-goods-num");
+    this.$pop = this.$el.find(".js-pop-window");
 
     if (showAnimation) {
       _.defer(function() {
