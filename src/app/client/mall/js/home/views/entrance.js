@@ -1,8 +1,8 @@
 /*
   首页顶部固定入口位
 */
-var $         = require("jquery");
-var _         = require("lodash");
+var $        = require("jquery");
+var _        = require("lodash");
 
 var BaseView = require("app/client/mall/js/home/views/view.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
@@ -18,8 +18,7 @@ var EntranceView = BaseView.extend({
   },
 
   render: function (data) {
-    this.$el.hide();
-    if(!data.length || data.length === 0){
+    if(!data.length){
       this.$el.hide();
       return;
     }

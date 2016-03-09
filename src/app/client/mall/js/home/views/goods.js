@@ -1,17 +1,17 @@
 /*
   首页商品视图
 */
-var $         = require("jquery");
-var _         = require("lodash");
+var $           = require("jquery");
+var _           = require("lodash");
 
-var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
-var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast     = require("com/mobile/widget/hint/hint.js").toast;
-var hint      = require("com/mobile/widget/hint/hint.js");
+var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
+var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var toast       = require("com/mobile/widget/hint/hint.js").toast;
+var hint        = require("com/mobile/widget/hint/hint.js");
 
-var BaseView = require("app/client/mall/js/home/views/view.js");
-var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
-var mallUitl = require("app/client/mall/js/lib/util.js");
+var BaseView    = require("app/client/mall/js/home/views/view.js");
+var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
+var mallUitl    = require("app/client/mall/js/lib/util.js");
 
 var imageDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
 
@@ -29,8 +29,8 @@ var PromotionView = BaseView.extend({
   render: function (data) {
     this.$el.html(this.template({
       dataList: data,
-      appName  : mallUitl.getAppName(),
-      tplUtil  : tplUtil
+      appName : mallUitl.getAppName(),
+      tplUtil : tplUtil
     }));
     imageDelay();
     return this;
@@ -52,13 +52,14 @@ var PromotionView = BaseView.extend({
     sendPost("classifyGoods", {classify: model.get("classify")}, function(err, result) {
       hint.hideLoading();
       if (err) {
+        model.set({
+          status: -1,
+          classify: ""
+        })
         toast(err.message, 1500);
         return;
       }
-      if (result.length === 0) {
-        return;
-      }
-      this.render(result.goods);
+      this.render(result.goods || []);
       model.set({
         status: 2,
         classify:""

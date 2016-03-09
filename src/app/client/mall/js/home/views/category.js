@@ -1,14 +1,14 @@
 /*
   首页商品分类视图
 */
-var $         = require("jquery");
-var _         = require("lodash");
+var $        = require("jquery");
+var _        = require("lodash");
 
 var BaseView = require("app/client/mall/js/home/views/view.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 
-var IScroll       = require("com/mobile/lib/iscroll/iscroll.js");
+var IScroll  = require("com/mobile/lib/iscroll/iscroll.js");
 
 var CategoryView = BaseView.extend({
 
@@ -27,7 +27,7 @@ var CategoryView = BaseView.extend({
   },
 
   render: function (data) {
-    if(!data){
+    if(!data.length){
       this.$el.hide();
       return;
     }

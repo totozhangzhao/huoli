@@ -3,8 +3,8 @@ var Backbone      = require("backbone");
 var _             = require("lodash");
 var Promise       = require("com/mobile/lib/promise/npo.js");
 
-var NativeAPI = require("app/client/common/lib/native/native-api.js");
-var toast     = require("com/mobile/widget/hint/hint.js").toast;
+var NativeAPI     = require("app/client/common/lib/native/native-api.js");
+var toast         = require("com/mobile/widget/hint/hint.js").toast;
 
 var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
 var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
@@ -16,7 +16,7 @@ var UrlUtil       = require("com/mobile/lib/url/url.js");
 var widget        = require("app/client/mall/js/lib/common.js");
 var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 
-var logger    = require("com/mobile/lib/log/log.js");
+var logger        = require("com/mobile/lib/log/log.js");
 
 // views
 var BannerView    = require("app/client/mall/js/home/views/banner.js");
@@ -82,8 +82,14 @@ var AppView = Backbone.View.extend({
     this.$categoryView.render(data.menu);
     this.$goodsView.render(data.goods);
     this.$footer.render();
+    // this.initWarning();
     this.getUserInfo();
     return this;
+  },
+
+  initWarning: function() {
+    var $warning = require("app/client/mall/js/lib/warning.js").init("顶部提示信息");
+    $warning.insertBefore("#home-banner");
   },
 
   getUserInfo: function () {

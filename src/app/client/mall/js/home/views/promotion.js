@@ -1,8 +1,8 @@
 /*
   首页推广位视图
 */
-var $         = require("jquery");
-var _         = require("lodash");
+var $        = require("jquery");
+var _        = require("lodash");
 
 var BaseView = require("app/client/mall/js/home/views/view.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
@@ -25,8 +25,8 @@ var PromotionView = BaseView.extend({
     }
     this.$el.html(this.template({
       dataList: data,
-      appName  : mallUitl.getAppName(),
-      tplUtil  : tplUtil
+      appName : mallUitl.getAppName(),
+      tplUtil : tplUtil
     }));
     return this;
   }

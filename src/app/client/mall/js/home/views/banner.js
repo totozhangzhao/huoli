@@ -1,19 +1,19 @@
 /*
   首页banner视图
 */
-var $         = require("jquery");
-var _         = require("lodash");
+var $           = require("jquery");
+var _           = require("lodash");
 
-var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
-var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
+var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
 
-var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
-var mallUitl = require("app/client/mall/js/lib/util.js");
+var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
+var mallUitl    = require("app/client/mall/js/lib/util.js");
 
-var toast     = require("com/mobile/widget/hint/hint.js").toast;
-var Swipe     = require("com/mobile/lib/swipe/swipe.js");
+var toast       = require("com/mobile/widget/hint/hint.js").toast;
+var Swipe       = require("com/mobile/lib/swipe/swipe.js");
 
-var BaseView = require("app/client/mall/js/home/views/view.js");
+var BaseView    = require("app/client/mall/js/home/views/view.js");
 
 var BannerView = BaseView.extend({
 
@@ -42,7 +42,7 @@ var BannerView = BaseView.extend({
   },
 
   render: function () {
-    if(!this.bannerData || this.bannerData.length ===0) {
+    if(!this.bannerData) {
       this.$el.hide();
       return ;
     }

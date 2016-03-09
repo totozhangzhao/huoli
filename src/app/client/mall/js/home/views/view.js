@@ -1,14 +1,14 @@
 /*
   首页视图
 */
-var $         = require("jquery");
-var Backbone  = require("backbone");
-var _         = require("lodash");
+var $           = require("jquery");
+var Backbone    = require("backbone");
+var _           = require("lodash");
 
-var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
-var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var widget    = require("app/client/mall/js/lib/common.js");
-var toast     = require("com/mobile/widget/hint/hint.js").toast;
+var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
+var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var widget      = require("app/client/mall/js/lib/common.js");
+var toast       = require("com/mobile/widget/hint/hint.js").toast;
 var BaseView = Backbone.View.extend({
   events: {
     "click .js-new-page": "createNewPage",
