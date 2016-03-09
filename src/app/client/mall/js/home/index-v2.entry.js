@@ -16,9 +16,7 @@ var UrlUtil       = require("com/mobile/lib/url/url.js");
 var widget        = require("app/client/mall/js/lib/common.js");
 var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 
-// models
-
-// collections
+var logger    = require("com/mobile/lib/log/log.js");
 
 // views
 var BannerView    = require("app/client/mall/js/home/views/banner.js");
@@ -29,6 +27,7 @@ var GoodsView     = require("app/client/mall/js/home/views/goods.js");
 var Footer        = require("app/client/mall/common/views/footer.js");
 
 require("com/mobile/widget/button/back-to-top.js");
+
 var StateModel = Backbone.Model.extend({
   defaults:{
     status: 0 // －1 数据返回失败 0 初始状态 1 请求数据 2 数据返回成功 
@@ -53,7 +52,7 @@ var AppView = Backbone.View.extend({
     this.$promotionView = new PromotionView();
     this.$categoryView  = new CategoryView({model: this.stateModel});
     this.$goodsView     = new GoodsView({model: this.stateModel});
-
+    logger.track(mallUitl.getAppName() + "PV", "View PV", title);
   },
 
   fetchData: function () {

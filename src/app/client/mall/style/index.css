@@ -574,6 +574,29 @@ p {
 .home-page-box .copyright-bar {
   background-color: #f0f0f0;
 }
+.home-fixed-box {
+  width: 1.2rem;
+  height: 2.66667rem;
+  position: fixed;
+  right: .26667rem;
+  bottom: .26667rem;
+  z-index: 10;
+}
+.home-fixed-box a:nth-child(1) {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) -0.53333rem -5.46667rem no-repeat;
+  background-size: 8.32rem 7.46667rem;
+  margin-bottom: .26667rem;
+}
+.home-fixed-box a:nth-child(2) {
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) -1.86667rem -5.46667rem no-repeat;
+  background-size: 8.32rem 7.46667rem;
+}
+.home-fixed-box a {
+  width: 100%;
+  height: 1.2rem;
+  display: block;
+  border-radius: 50%;
+}
 .mall-statement-box {
   margin: 0 auto;
 }
