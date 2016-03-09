@@ -19,7 +19,6 @@ var PromotionView = BaseView.extend({
   },
 
   render: function (data) {
-    this.$el.hide();
     if(!data.length || data.length === 0){
       this.$el.hide();
       return;
@@ -28,8 +27,7 @@ var PromotionView = BaseView.extend({
       dataList: data,
       appName  : mallUitl.getAppName(),
       tplUtil  : tplUtil
-    }))
-    .show();
+    }));
     return this;
   }
 });

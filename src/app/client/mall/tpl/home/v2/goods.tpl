@@ -7,7 +7,7 @@
           data-productid="<%= item.productid %>"
           data-title="<%= item.title %>"
           data-classify="<%= item.classify || '' %>"
-          class="<%= tplUtil.getJsClass(item) %> block"
+          class="<%= tplUtil.getJsClass(item) %>"
           href="<%= tplUtil.getBlockUrl(item) %>"
         >
           <div class="home-info-bar">
