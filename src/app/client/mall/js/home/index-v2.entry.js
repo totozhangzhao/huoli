@@ -52,7 +52,7 @@ var AppView = Backbone.View.extend({
     this.$promotionView = new PromotionView();
     this.$categoryView  = new CategoryView({model: this.stateModel});
     this.$goodsView     = new GoodsView({model: this.stateModel});
-    logger.track(mallUitl.getAppName() + "PV", "View PV", title);
+    // logger.track(mallUitl.getAppName() + "PV", "View PV", title);
   },
 
   fetchData: function () {
