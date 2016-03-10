@@ -12,7 +12,7 @@
         >
           <div class="home-info-bar">
             <div class="home-pic-area">
-              <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= item.img %>" class="op0" >
+              <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= item.img %>" class="op0 touch-img" >
             </div>
             <div class="home-info-show">
               <p class="hmoe-goods-name"><%= item.title %></p>

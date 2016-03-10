@@ -242,6 +242,12 @@ p {
   color: #039ef0;
   display: block;
 }
+img.touch-img {
+  transition: transform .5s;
+}
+.touch img.touch-img {
+  transform: scale(0.95);
+}
 .home-page-box {
   color: #333;
   min-height: 100%;
@@ -2593,38 +2599,6 @@ img,
   opacity: 1;
 }
 /* img - echo -  end  */
-.touch-zoom-box .touch {
-  background-color: #fff !important;
-}
-.touch-zoom-box .touch img {
-  
-
-  transition: all .5s;
-  -moz-transition: all .5s; 
-  -webkit-transition: all .5s;
-  -o-transition: all .5s; 
-
-  -webkit-transform: scale(.95);
-  -ms-transform: scale(.95);
-  transform: scale(.95);
-  zoom: .95;
-}
-
-
-/*
-@keyframes pulse {
-  from {
-  }
-
-  to {
-    transform: scale3d(1.05, 1.05, 1.05);
-  }
-}
-*/
-
-
-
-
 .crowd-channel-box {
   min-height: 100%;
   margin-top: 0;

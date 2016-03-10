@@ -49,12 +49,12 @@ var PromotionView = BaseView.extend({
       return;
     }
     hint.showLoading();
-    sendPost("classifyGoods", {classify: model.get("classify")}, function(err, result) {
+    sendPost("classifyGoods", {groupId: model.get("groupId")}, function(err, result) {
       hint.hideLoading();
       if (err) {
         model.set({
           status: -1,
-          classify: ""
+          groupId: ""
         });
         toast(err.message, 1500);
         return;
@@ -62,7 +62,7 @@ var PromotionView = BaseView.extend({
       this.render(result.goods || []);
       model.set({
         status: 2,
-        classify:""
+        groupId:""
       });
     }.bind(this));
   }

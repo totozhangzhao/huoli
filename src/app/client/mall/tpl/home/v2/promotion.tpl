@@ -8,7 +8,7 @@
       class="<%= tplUtil.getJsClass(item) %> block"
       href="<%= tplUtil.getBlockUrl(item) %>"
       >
-    <img src="<%= item.img %>" />
+    <img class="touch-img" src="<%= item.img %>" />
   </a>
 </li>
 <% }); %>

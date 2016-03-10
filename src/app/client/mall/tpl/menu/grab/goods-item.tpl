@@ -9,7 +9,7 @@
   href="<%= tplUtil.getBlockUrl(item) %>">
   <div class="crowd-info-bar">
     <div class="crowd-pic-area">
-      <img class="op0" data-echo="<%= item.img %>" src="/fe/com/mobile/image/grey.gif" />  
+      <img class="op0 touch-img" data-echo="<%= item.img %>" src="/fe/com/mobile/image/grey.gif" />  
     </div>
     <div class="crowd-info-show">
       <p class="crowd-goods-name"><%= item.title %></p>

@@ -15,8 +15,8 @@ var CategoryView = BaseView.extend({
   el: "#home-category",
 
   events: {
-    "click span[data-category-item]"  : "checkCategory",
-    "click a[data-category-item]"     : "checkCategory",
+    "click span[data-group-id]"  : "checkCategory",
+    "click a[data-group-id]"     : "checkCategory",
     "click .home-list-switch"         : "showCagetoryListPannel"
   },
 
@@ -44,11 +44,11 @@ var CategoryView = BaseView.extend({
     // 滚动容器
     var scrollCnt    = $("#categoryScroll", this.$el);
     // 滚动列表
-    var scrollItems  = $("span[data-category-item]", this.$el);
+    var scrollItems  = $("span[data-group-id]", this.$el);
     // 数据列表
-    var categoryList = $("a[data-category-item]", this.$el);
+    var categoryList = $("a[data-group-id]", this.$el);
     // 滚动列表和数据列表
-    var allCategory  = $("[data-category-item]", this.$el);
+    var allCategory  = $("[data-group-id]", this.$el);
 
     // 滚动容器总宽度
     var width = 0;
@@ -74,15 +74,17 @@ var CategoryView = BaseView.extend({
       return;
     }
     
-    var classify = _el.data("categoryItem");
+    var groupId = _el.data("groupId");
     this.scrollObj.allCategory
+      .siblings(".on")
         .removeClass("on")
-      .siblings("[data-category-item=" + classify + "]")
+      .end()
+      .siblings("[data-group-id=" + groupId + "]")
         .addClass("on");
 
     this.model.set({
       status: 1,
-      classify: classify
+      groupId: groupId
     });
 
     if(_el.data("scrollItem")){
@@ -90,7 +92,7 @@ var CategoryView = BaseView.extend({
     }
     // 滚动
     // 设置滚动位置
-    var scrollItem = $("span[data-category-item=" + classify + "]");
+    var scrollItem = $("span[data-group-id=" + groupId + "]");
     var _left = scrollItem.get(0).offsetLeft;
     // 不需要滚动
     if(this.scrollObj.width <= this.scrollObj.cntWidth){
