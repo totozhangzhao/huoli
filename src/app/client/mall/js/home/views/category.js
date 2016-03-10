@@ -105,8 +105,6 @@ var CategoryView = BaseView.extend({
     return this.scrollObj.scrollCnt.scrollLeft(_left - 5);
   },
 
-
-
   // 数据列表面板显示隐藏
   showCagetoryListPannel: function (e) {
     if($(e.currentTarget).hasClass("home-rotate-switch")){

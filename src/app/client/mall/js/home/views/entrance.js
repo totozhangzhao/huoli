@@ -14,8 +14,7 @@ var EntranceView = BaseView.extend({
 
   template: require("app/client/mall/tpl/home/v2/entrance.tpl"),
 
-  initialize: function () {
-  },
+  initialize: function () {},
 
   render: function (data) {
     if(!data.length){

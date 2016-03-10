@@ -12,12 +12,13 @@ var Util          = require("com/mobile/lib/util/util.js");
 var mallUitl      = require("app/client/mall/js/lib/util.js");
 var UrlUtil       = require("com/mobile/lib/url/url.js");
 
-
 var widget        = require("app/client/mall/js/lib/common.js");
 var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 
 var logger        = require("com/mobile/lib/log/log.js");
 
+// models
+var StateModel = require("app/client/mall/common/models/state.js");
 // views
 var BannerView    = require("app/client/mall/js/home/views/banner.js");
 var EntranceView  = require("app/client/mall/js/home/views/entrance.js");
@@ -27,8 +28,6 @@ var GoodsView     = require("app/client/mall/common/views/index-goods.js");
 var Footer        = require("app/client/mall/common/views/footer.js");
 
 require("com/mobile/widget/button/back-to-top.js");
-
-var StateModel = require("app/client/mall/common/models/state.js");
 
 var AppView = Backbone.View.extend({
 

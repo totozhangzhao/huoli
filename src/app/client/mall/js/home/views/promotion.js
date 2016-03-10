@@ -15,8 +15,7 @@ var PromotionView = BaseView.extend({
 
   template: require("app/client/mall/tpl/home/v2/promotion.tpl"),
 
-  initialize: function (){
-  },
+  initialize: function (){},
 
   render: function (data) {
     if(!data.length || data.length === 0){

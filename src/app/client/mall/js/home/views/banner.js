@@ -22,7 +22,6 @@ var BannerView = BaseView.extend({
   template: require("app/client/mall/tpl/home/v2/banner.tpl"),
 
   initialize: function () {
-    // 
     this.fetchData();
   },
 
