@@ -17,7 +17,7 @@ var EntranceView = BaseView.extend({
   initialize: function () {},
 
   render: function (data) {
-    if(!data.length){
+    if(!data.length || data.length === 0){
       this.$el.hide();
       return;
     }

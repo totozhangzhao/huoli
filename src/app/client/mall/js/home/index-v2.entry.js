@@ -73,10 +73,10 @@ var AppView = Backbone.View.extend({
   },
 
   render: function (data) {
-    this.$entranceView.render(data.topmenu);
-    this.$promotionView.render(data.topgoods);
-    this.$categoryView.render(data.menu);
-    this.$goodsView.render(data.goods);
+    this.$entranceView.render(data.topmenu || []);
+    this.$promotionView.render(data.topgoods || []);
+    this.$categoryView.render(data.menu || []);
+    this.$goodsView.render(data.goods || []);
     this.$footer.render();
     // this.initWarning();
     this.getUserInfo();
