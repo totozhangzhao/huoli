@@ -23,16 +23,13 @@ var BannerView    = require("app/client/mall/js/home/views/banner.js");
 var EntranceView  = require("app/client/mall/js/home/views/entrance.js");
 var PromotionView = require("app/client/mall/js/home/views/promotion.js");
 var CategoryView  = require("app/client/mall/js/home/views/category.js");
-var GoodsView     = require("app/client/mall/js/home/views/goods.js");
+var GoodsView     = require("app/client/mall/common/views/index-goods.js");
 var Footer        = require("app/client/mall/common/views/footer.js");
 
 require("com/mobile/widget/button/back-to-top.js");
 
-var StateModel = Backbone.Model.extend({
-  defaults:{
-    status: 0 // －1 数据返回失败 0 初始状态 1 请求数据 2 数据返回成功 
-  }
-});
+var StateModel = require("app/client/mall/common/models/state.js");
+
 var AppView = Backbone.View.extend({
 
   el: "#main",
@@ -52,7 +49,7 @@ var AppView = Backbone.View.extend({
     this.$promotionView = new PromotionView();
     this.$categoryView  = new CategoryView({model: this.stateModel});
     this.$goodsView     = new GoodsView({model: this.stateModel});
-    // logger.track(mallUitl.getAppName() + "PV", "View PV", title);
+    logger.track(mallUitl.getAppName() + "PV", "View PV", title);
   },
 
   fetchData: function () {
