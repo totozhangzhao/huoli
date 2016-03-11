@@ -416,6 +416,7 @@ img.touch-img {
 }
 .home-page-box .home-list-nav .home-list-fa p {
   margin-left: 0.13333rem;
+  position: relative;
   float: left;
   height: 1.17333rem;
   overflow: hidden;

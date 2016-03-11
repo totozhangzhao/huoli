@@ -58,7 +58,7 @@ var CategoryView = BaseView.extend({
     scrollCnt.find("p").css({width:width + 10});
     var widthFix = width - scrollCnt.get(0).offsetWidth;
     // 最大滚动位移
-    var maxScrollLeft = widthFix + (80-(widthFix%80));
+    var maxScrollLeft = widthFix + (80 - (widthFix % 80));
     this.scrollObj = {
       scrollCnt: scrollCnt,
       allCategory: allCategory,
@@ -100,9 +100,9 @@ var CategoryView = BaseView.extend({
     }
     // 滚动到最后一页
     if(this.scrollObj.width - _left <= this.scrollObj.cntWidth){
-      _left = this.scrollObj.maxScrollLeft + 5;
+      _left = this.scrollObj.maxScrollLeft;
     }
-    return this.scrollObj.scrollCnt.scrollLeft(_left - 5);
+    return this.scrollObj.scrollCnt.scrollLeft(_left);
   },
 
   // 数据列表面板显示隐藏
