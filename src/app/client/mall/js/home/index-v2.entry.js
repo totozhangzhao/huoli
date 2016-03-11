@@ -89,6 +89,7 @@ var AppView = Backbone.View.extend({
   },
 
   getUserInfo: function () {
+    var self = this;
     mallPromise.appInfo
     .then(function (userData) {
       var params = _.extend({}, userData.userInfo, {
@@ -102,10 +103,33 @@ var AppView = Backbone.View.extend({
           .find(".num-font").html(data.points)
         .end()
         .show();
+        self.showCheckinBtn();
 
       });
     })
     .catch(mallPromise.catchFn);
+  },
+
+  // 显示签到按钮
+  showCheckinBtn: function () {
+    if ( !mallUitl.isHangbanFunc() ) {
+      NativeAPI.invoke("updateHeaderRightBtn", {
+        action: "show",
+        text: "签到"
+      }, function(err) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
+      });
+
+      NativeAPI.registerHandler("headerRightBtnClick", function() {
+        widget.createNewView({
+          url: "https://jt.rsscc.com/gtgjwap/act/20150925/index.html"
+        });
+        logger.track(mallUitl.getAppName() + "-签到", "click");
+      });
+    }
   }
 
 });
