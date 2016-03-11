@@ -5,6 +5,7 @@
       <a
       data-log-mall-click="index-banner_<%= item.title %>"
       data-productid="<%= item.productid %>"
+      data-group-id="<%= item.groupId %>"
       data-title="<%= item.title %>"
       data-classify="<%= item.classify || '' %>"
       class="<%= tplUtil.getJsClass(item) %> block"
