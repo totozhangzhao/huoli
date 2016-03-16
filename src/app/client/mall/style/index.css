@@ -242,6 +242,23 @@ p {
   color: #039ef0;
   display: block;
 }
+.ui-blank {
+  min-height: 9.38667rem;
+  padding: 2.26667rem 0 0 0;
+}
+.ui-blank .bg {
+  background-image: url(http://cdn.rsscc.cn/guanggao/mall/common/bg-blank.png);
+  background-size: contain;
+  width: 4.70667rem;
+  height: 3.46667rem;
+  margin: 0 auto;
+}
+.ui-blank .txt {
+  margin: 0.8rem 0 0 0;
+  text-align: center;
+  font-size: 0.4rem;
+  color: #727272;
+}
 img.touch-img {
   transition: transform .2s;
 }
@@ -503,7 +520,7 @@ img.touch-img {
   width: 50%;
   float: left;
   padding-bottom: 1px;
-  height: 5.54667rem;
+  height: 5.06667rem;
 }
 .home-page-box .home-goods-fa .home-goods-bar li a {
   width: 100%;
@@ -533,7 +550,7 @@ img.touch-img {
 .home-page-box .home-goods-fa .home-goods-bar li a div.home-info-bar .home-info-show .hmoe-goods-name {
   font-size: 0.32rem;
   color: #333;
-  height: 0.96rem;
+  height: 0.48rem;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
