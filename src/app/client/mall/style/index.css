@@ -242,6 +242,23 @@ p {
   color: #039ef0;
   display: block;
 }
+.ui-blank {
+  min-height: 9.38667rem;
+  padding: 2.26667rem 0 0 0;
+}
+.ui-blank .bg {
+  background-image: url(http://cdn.rsscc.cn/guanggao/mall/common/bg-blank.png);
+  background-size: contain;
+  width: 4.70667rem;
+  height: 3.46667rem;
+  margin: 0 auto;
+}
+.ui-blank .txt {
+  margin: 0.8rem 0 0 0;
+  text-align: center;
+  font-size: 0.4rem;
+  color: #727272;
+}
 img.touch-img {
   transition: transform .2s;
 }
