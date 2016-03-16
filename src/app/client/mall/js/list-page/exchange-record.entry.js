@@ -13,6 +13,7 @@ var logger    = require("com/mobile/lib/log/log.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var storage   = require("app/client/mall/js/lib/storage.js");
 var UrlUtil   = require("com/mobile/lib/url/url.js");
+var ui        = require("app/client/mall/js/lib/ui.js");
 var orderListLog = require("app/client/mall/js/lib/common.js").initTracker("orderList");
 
 var AppView = Backbone.View.extend({
@@ -33,6 +34,7 @@ var AppView = Backbone.View.extend({
     //     self.refreshPage();
     //   });
 
+    this.$blank = ui.blank("暂无订单");
     this.mallOrderList();
     this.mallSearchList();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
@@ -70,12 +72,10 @@ var AppView = Backbone.View.extend({
 
         if (!Array.isArray(result) || result.length === 0) {
           $list.empty();
-
           timerId = setTimeout(function() {
             clearTimeout(timerId);
-            toast("暂无订单", 1500);
+            $list.html( self.$blank );
           }, 3000);
-          // self.$el.$emptyHint.show();
         } else {
           clearTimeout(timerId);
           var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
@@ -259,9 +259,7 @@ var AppView = Backbone.View.extend({
         .addClass("show");
 
       if (!Array.isArray(result) || result.length === 0) {
-        $listBox.hide();
-        toast("暂无订单", 1500);
-        // self.$el.$emptyHint.show();
+        $listBox.html( self.$blank );
       } else {
         var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
         var tmplData = {
