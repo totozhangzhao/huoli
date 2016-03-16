@@ -16,7 +16,7 @@ var AppView = Backbone.View.extend({
       appName: mallUitl.getAppName(),
       tplUtil: tplUtil
     }));
-    
+
     var $SwipeBox = $("#top-banner .js-banner-box");
     var $index    = $("#top-banner .js-banner-index");
 

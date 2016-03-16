@@ -65,7 +65,7 @@ var AppView = Backbone.View.extend({
         toast(err.message, 1500);
         return;
       }
-      
+
       self.initBanner();
       self.mallGetUserInfo({ userData: result });
       self.mallMainProductList();
@@ -127,7 +127,7 @@ var AppView = Backbone.View.extend({
     widget.createAView(e);
   },
   getVersion: function(versionInfo) {
-    
+
     //
     // Pro:
     // "appstorepro,ios,8.3,gtgjpro,3.3,iPhone7.2,0"
@@ -149,7 +149,7 @@ var AppView = Backbone.View.extend({
         };
         sendPost("mainProductList", params, function(err, data) {
           next(err, data);
-        });        
+        });
       }
     ], function(err, result) {
       self.fixTpl();
@@ -223,7 +223,7 @@ var AppView = Backbone.View.extend({
         $("#index-points-bar")
           .show()
           .find(".js-points")
-            .text(result.points);        
+            .text(result.points);
       }
 
       if (!options.rightButtonReady) {
@@ -302,7 +302,7 @@ var AppView = Backbone.View.extend({
         } else {
           widget.createNewView({
             url: "https://jt.rsscc.com/gtgjwap/act/20150925/index.html"
-          });        
+          });
         }
         logger.track(mallUitl.getAppName() + "-签到", "click");
       });
@@ -342,7 +342,7 @@ var AppView = Backbone.View.extend({
         };
         sendPost("getBanners", params, function(err, data) {
           next(err, data);
-        });        
+        });
       }
     ], function(err, result) {
       if (err) {

@@ -26,7 +26,7 @@ var AppView = Backbone.View.extend({
 
   initialize: function () {
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
-    
+
     this.id = UrlUtil.parseUrlSearch().productid;
     // 商品列表容器
     this.$goodsPannel = $("#goods-block", this.$el);
@@ -36,7 +36,7 @@ var AppView = Backbone.View.extend({
     // this.$goods = new Goods();
     // this.listenTo(this.$goods,"set",this.addGoodsItem);
     this.fetchData();
-    
+
   },
 
   fetchData: function () {

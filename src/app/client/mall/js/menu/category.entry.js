@@ -69,7 +69,7 @@ var AppView = Backbone.View.extend({
 
         sendPost("getClassify", params, function(err, data) {
           next(err, data);
-        });        
+        });
       }
     ], function(err, result) {
       self.fixTpl();
@@ -80,7 +80,7 @@ var AppView = Backbone.View.extend({
       }
 
       widget.updateViewTitle(result.title);
-      
+
       var groupGoodsTpl = require("app/client/mall/tpl/menu/category.tpl");
 
       $("#goods-block")
