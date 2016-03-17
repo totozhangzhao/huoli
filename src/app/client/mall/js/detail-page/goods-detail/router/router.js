@@ -35,7 +35,7 @@ module.exports = Backbone.Router.extend({
   },
   default: function() {
     var view = parseUrl().view;
-    
+
     if (view in ViewDic) {
       this.switchTo(view);
     } else {
@@ -55,18 +55,19 @@ module.exports = Backbone.Router.extend({
     var bbViews = this.bbViews;
 
     if ( ViewDic[action] ) {
-      bbViews[action]        = bbViews[action] || new ViewDic[action]();
-      bbViews[action].router = this;
-      bbViews[action].cache  = cache;
-      bbViews[action].model  = model;
-      bbViews[action].collection  = collection;
-      bbViews[action].resume({
+      bbViews[action] = bbViews[action] || new ViewDic[action]();
+      var curView = bbViews[action];
+      curView.router = this;
+      curView.cache  = cache;
+      curView.model  = model;
+      curView.collection  = collection;
+      curView.resume({
         previousView: this.previousView
       });
       this.previousView = action;
     } else {
       window.console.log("-- [Backbone View] not found! action: " + action + " --");
-      this.switchTo("goods-detail");      
+      this.switchTo("goods-detail");
     }
 
     logger.track(mallUitl.getAppName() + "PV", "View PV", action);
