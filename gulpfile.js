@@ -18,7 +18,7 @@ var runSequence    = require("run-sequence");
 var webpackBuilder = require("./builder/webpack/index.js");
 var versionRef     = require("./builder/version/version-ref.js");
 var shell          = require("gulp-shell");
-
+var md5            = require("gulp-md5-plus");
 var config = {
   src : "./src/",
   dest: "./dest/"
@@ -43,7 +43,7 @@ gulp.task("html", function() {
 
   return gulp.src(config.src + "**/*.html")
     .pipe(minifyHTML(options))
-    .pipe(versionRef())
+    // .pipe(versionRef())
     .pipe(gulp.dest(config.dest));
 });
 
@@ -52,7 +52,7 @@ gulp.task("styles", function() {
   return gulp.src(config.src + "**/*.css")
     .pipe(autoprefixer())
     .pipe(minifycss())
-    .pipe(versionRef())
+    // .pipe(versionRef())
     .pipe(gulp.dest(config.dest))
 });
 
@@ -102,8 +102,11 @@ gulp.task("compress", function() {
       ]));
 });
 
-gulp.task("build", function() {
-  runSequence("clean", ["html", "styles", "images", "js"], "compress");
+gulp.task("dev",["clean"], function () {
+  runSequence("html", "styles", "images", "js");
+});
+gulp.task("build",["clean"], function() {
+  runSequence(["html", "styles", "images", "js"], ["md5:js", "md5:css"], "compress", "dev");
 });
 
 // Watch
@@ -122,3 +125,18 @@ gulp.task("watch", function() {
   gulp.watch(config.src + "**/*.js", ["js:lint"]);
 
 });
+
+// md5
+gulp.task("md5:js", function (done) {
+  gulp.src(config.dest + "**/*.js")
+  .pipe(md5(5, config.dest + "**/*.html"))
+  .pipe(gulp.dest(config.dest))
+  .on("end",done);
+});
+gulp.task("md5:css", function (done) {
+  gulp.src(config.dest + "**/*.css")
+  .pipe(md5(5, config.dest + "**/*.html"))
+  .pipe(gulp.dest(config.dest))
+  .on("end",done)
+});
+
