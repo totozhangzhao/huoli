@@ -102,11 +102,11 @@ gulp.task("compress", function() {
       ]));
 });
 
-gulp.task("dev",["clean"], function () {
+gulp.task("dev", ["clean"], function () {
   runSequence("html", "styles", "images", "js");
 });
-gulp.task("build",["clean"], function() {
-  runSequence(["html", "styles", "images", "js"], ["md5:js", "md5:css"], "compress", "dev");
+gulp.task("build", ["clean"], function() {
+  runSequence(["html", "styles", "images", "js"], ["md5:js", "md5:css"], "compress", "html");
 });
 
 // Watch
@@ -128,14 +128,14 @@ gulp.task("watch", function() {
 
 // md5
 gulp.task("md5:js", function (done) {
-  gulp.src(config.dest + "**/*.js")
-  .pipe(md5(5, config.dest + "**/*.html"))
+  gulp.src(config.dest + "app/client/mall/**/*.js")
+  .pipe(md5(8, config.dest + "**/*.html"))
   .pipe(gulp.dest(config.dest))
   .on("end",done);
 });
 gulp.task("md5:css", function (done) {
   gulp.src(config.dest + "**/*.css")
-  .pipe(md5(5, config.dest + "**/*.html"))
+  .pipe(md5(8, config.dest + "**/*.html"))
   .pipe(gulp.dest(config.dest))
   .on("end",done)
 });
