@@ -128,14 +128,14 @@ gulp.task("watch", function() {
 
 // md5
 gulp.task("md5:js", function (done) {
-  gulp.src(config.dest + "app/client/mall/**/*.js")
-  .pipe(md5(8, config.dest + "**/*.html"))
+  gulp.src([config.dest + "{app,vendor}/**/*.js"], {base: config.dest})
+  .pipe(md5(8, config.dest + "app/**/*.html"))
   .pipe(gulp.dest(config.dest))
   .on("end",done);
 });
 gulp.task("md5:css", function (done) {
-  gulp.src(config.dest + "**/*.css")
-  .pipe(md5(8, config.dest + "**/*.html"))
+  gulp.src(config.dest + "app/**/*.css", {base: config.dest})
+  .pipe(md5(8, config.dest + "app/**/*.html"))
   .pipe(gulp.dest(config.dest))
   .on("end",done)
 });
