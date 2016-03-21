@@ -132,11 +132,13 @@ var CategoryView = BaseView.extend({
     if(this.$el.hasClass('fix')){
       return;
     }
+    $("#home-category-fix").show();
     return this.$el.addClass('fix');
   },
 
   rel: function () {
     if(this.$el.hasClass('fix')){
+      $("#home-category-fix").hide();
       return this.$el.removeClass('fix');
     }
   }

@@ -136,7 +136,6 @@ var AppView = Backbone.View.extend({
     $(window).scroll(function(event) {
               /* Act on the event */
       var height = this.$bannerView.$el.height() + this.$entranceView.$el.height() + this.$promotionView.$el.height();
-      window.console.log(height);
       if($(window).scrollTop() > height){
         this.$categoryView.fix();
       }else{
