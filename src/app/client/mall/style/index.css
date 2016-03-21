@@ -288,6 +288,8 @@ img.touch-img {
 }
 .home-page-box .home-banner-bar {
   overflow: hidden;
+  height: 2.66667rem;
+  width: 10rem;
   position: relative;
   left: 0;
   top: 0;
