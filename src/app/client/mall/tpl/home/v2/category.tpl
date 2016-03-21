@@ -13,9 +13,11 @@
   </p>
 </div>
 <!-- home-rotate-switch 控制箭头方向与菜单的显示隐藏 -->
+<% if(dataList.length > 4 ) { %>
 <div class="home-list-switch">
   <em class="home-switch-icon"></em>
 </div>
+<% } %>
 <div class="home-pull-area clearfix">
   <% _.each(dataList, function (item, index) {%>
     <a 

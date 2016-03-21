@@ -73,7 +73,7 @@ var CategoryView = BaseView.extend({
     if(_el.hasClass("on")){
       return;
     }
-    
+
     var groupId = _el.data("groupId");
     this.scrollObj.allCategory
       .siblings(".on")
@@ -88,7 +88,7 @@ var CategoryView = BaseView.extend({
     });
 
     if(_el.data("scrollItem")){
-      return; 
+      return;
     }
     // 滚动
     // 设置滚动位置
