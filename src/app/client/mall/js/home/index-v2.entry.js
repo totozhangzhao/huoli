@@ -49,6 +49,7 @@ var AppView = Backbone.View.extend({
     this.$categoryView  = new CategoryView({model: this.stateModel});
     this.$goodsView     = new GoodsView({model: this.stateModel});
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
+    this.bindEvents();
   },
 
   fetchData: function () {
@@ -130,6 +131,18 @@ var AppView = Backbone.View.extend({
         logger.track(mallUitl.getAppName() + "-签到", "click");
       });
     }
+  },
+  bindEvents: function () {
+    $(window).scroll(function(event) {
+              /* Act on the event */
+      var height = this.$bannerView.$el.height() + this.$entranceView.$el.height() + this.$promotionView.$el.height();
+      window.console.log(height);
+      if($(window).scrollTop() > height){
+        this.$categoryView.fix();
+      }else{
+        this.$categoryView.rel();
+      }
+    }.bind(this));
   }
 
 });

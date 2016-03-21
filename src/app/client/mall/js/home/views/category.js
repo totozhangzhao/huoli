@@ -126,6 +126,19 @@ var CategoryView = BaseView.extend({
     if(e.hasChanged("status") && e.get("status") !== 1){
       return this.hidePannel();
     }
+  },
+
+  fix: function () {
+    if(this.$el.hasClass('fix')){
+      return;
+    }
+    return this.$el.addClass('fix');
+  },
+
+  rel: function () {
+    if(this.$el.hasClass('fix')){
+      return this.$el.removeClass('fix');
+    }
   }
 });
 
