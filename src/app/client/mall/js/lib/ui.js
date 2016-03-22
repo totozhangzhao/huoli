@@ -11,7 +11,7 @@ exports.initial = function() {
 
   if ( $initial.length === 0 ) {
     var imgClass = "gt";
-    var text = "高铁号正努力驶向商城…";
+    var text = "正在加载……";
 
     if ( mallUitl.isHangbanFunc() ) {
       imgClass = "hb";
