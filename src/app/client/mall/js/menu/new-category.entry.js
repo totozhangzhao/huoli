@@ -31,7 +31,7 @@ var AppView = BaseView.extend({
     this.stateModel = new StateModel();
     this.$footer    = new Footer();
     this.$goodsView = new GoodsView({model: this.stateModel});
-    this.listenTo(this.model, "change", this.stateChange);
+    this.listenTo(this.stateModel, "change", this.stateChange);
     this.render();
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
     menuLog({
@@ -46,11 +46,13 @@ var AppView = BaseView.extend({
       groupId: this.groupId
     });
     this.$footer.render();
-    this.$initial.hide();
     return this;
   },
 
-  stateChange: function () {
+  stateChange: function (e) {
+    if(e.hasChanged("status") && e.get("status") !== 1){
+      this.$initial.hide();
+    }
     // 数据加载完成
   }
 });
