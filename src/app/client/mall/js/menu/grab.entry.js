@@ -8,6 +8,7 @@ var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var Util          = require("com/mobile/lib/util/util.js");
 var mallUitl      = require("app/client/mall/js/lib/util.js");
 var UrlUtil       = require("com/mobile/lib/url/url.js");
+var ui            = require("app/client/mall/js/lib/ui.js");
 
 var logger        = require("com/mobile/lib/log/log.js");
 var menuLog       = require("app/client/mall/js/lib/common.js").initTracker("menu");
@@ -17,6 +18,7 @@ var GoodsItemView = require("app/client/mall/js/menu/views/goods-item.js");
 var BannerView    = require("app/client/mall/js/menu/views/banner.js");
 var WinnerView    = require("app/client/mall/js/menu/views/winner-label.js");
 var Footer        = require("app/client/mall/common/views/footer.js");
+
 require("app/client/mall/js/lib/common.js");
 
 var AppView = Backbone.View.extend({
@@ -25,6 +27,8 @@ var AppView = Backbone.View.extend({
   events:{},
 
   initialize: function () {
+    this.$initial = ui.initial().show();
+
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
 
     this.id = UrlUtil.parseUrlSearch().productid;
@@ -68,6 +72,7 @@ var AppView = Backbone.View.extend({
     // this.$goods.set(data.product);
     this.renderGoodsList(data.product);
     this.$footer.render();
+    this.$initial.hide();
     menuLog({
       title: UrlUtil.parseUrlSearch().classify || window.document.title,
       from: UrlUtil.parseUrlSearch().from || "--"

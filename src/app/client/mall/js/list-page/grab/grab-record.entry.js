@@ -17,6 +17,7 @@ var GoodsItemView = require("app/client/mall/js/list-page/grab/views/goods-item.
 var Footer        = require("app/client/mall/common/views/footer.js");
 
 var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
+var ui            = require("app/client/mall/js/lib/ui.js");
 
 require("app/client/mall/js/lib/common.js");
 
@@ -26,6 +27,7 @@ var AppView = Backbone.View.extend({
   },
 
   initialize: function () {
+    this.$initial = ui.initial().show();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
 
     this.id = UrlUtil.parseUrlSearch().productid;
@@ -64,6 +66,7 @@ var AppView = Backbone.View.extend({
     // this.$goods.set(data);
     this.renderGoodsList(data);
     this.$footer.render();
+    this.$initial.hide();
     return this;
   },
   // 增加一个商品视图

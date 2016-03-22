@@ -11,6 +11,7 @@ var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var Util          = require("com/mobile/lib/util/util.js");
 var mallUitl      = require("app/client/mall/js/lib/util.js");
 var UrlUtil       = require("com/mobile/lib/url/url.js");
+var ui            = require("app/client/mall/js/lib/ui.js");
 
 var widget        = require("app/client/mall/js/lib/common.js");
 var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
@@ -41,6 +42,7 @@ var AppView = Backbone.View.extend({
 
     var title = mallUitl.isHangbanFunc() ? "航班商城" : "高铁商城";
     widget.updateViewTitle(title);
+    this.$initial       = ui.initial().show();
     this.stateModel     = new StateModel();
     this.$footer        = new Footer();
     this.$bannerView    = new BannerView();
@@ -74,6 +76,7 @@ var AppView = Backbone.View.extend({
   },
 
   render: function (data) {
+    var self = this;
     this.$entranceView.render(data.topmenu || []);
     this.$promotionView.render(data.topgoods || []);
     this.$categoryView.render(data.menu || []);
@@ -81,6 +84,9 @@ var AppView = Backbone.View.extend({
     this.$footer.render();
     // this.initWarning();
     this.getUserInfo();
+    setTimeout(function() {
+      self.$initial.hide();
+    }, 100);
     return this;
   },
 

@@ -5,6 +5,7 @@ var widget     = require("app/client/mall/js/lib/common.js");
 
 var Util       = require("com/mobile/lib/util/util.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
+var ui         = require("app/client/mall/js/lib/ui.js");
 
 var logger     = require("com/mobile/lib/log/log.js");
 var menuLog    = require("app/client/mall/js/lib/common.js").initTracker("menu");
@@ -25,6 +26,7 @@ var AppView = BaseView.extend({
   initialize: function() {
     var title       = parseUrl().title;
     widget.updateViewTitle(title);
+    this.$initial = ui.initial().show();
     this.groupId    = parseUrl().groupId;
     this.stateModel = new StateModel();
     this.$footer    = new Footer();
@@ -44,6 +46,8 @@ var AppView = BaseView.extend({
       groupId: this.groupId
     });
     this.$footer.render();
+    this.$initial.hide();
+    return this;
   },
 
   stateChange: function () {

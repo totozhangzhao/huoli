@@ -13,6 +13,7 @@ var sendPost = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var logger   = require("com/mobile/lib/log/log.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var menuLog  = require("app/client/mall/js/lib/common.js").initTracker("menu");
+var ui       = require("app/client/mall/js/lib/ui.js");
 
 var AppView = Backbone.View.extend({
   el: "#main",
@@ -21,6 +22,7 @@ var AppView = Backbone.View.extend({
     "click .js-get-url" : "handleGetUrl"
   },
   initialize: function() {
+    this.$initial = ui.initial().show();
     this.mallMainProductList();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
@@ -92,6 +94,7 @@ var AppView = Backbone.View.extend({
         .show();
 
       imgDelay();
+      self.$initial.hide();
     });
 
     menuLog({

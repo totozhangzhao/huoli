@@ -2,10 +2,10 @@ var $         = require("jquery");
 var Backbone  = require("backbone");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var toast     = require("com/mobile/widget/hint/hint.js").toast;
-var hint      = require("com/mobile/widget/hint/hint.js");
 var UrlUtil   = require("com/mobile/lib/url/url.js");
-var logger   = require("com/mobile/lib/log/log.js");
-var mallUitl = require("app/client/mall/js/lib/util.js");
+var logger    = require("com/mobile/lib/log/log.js");
+var mallUitl  = require("app/client/mall/js/lib/util.js");
+var ui        = require("app/client/mall/js/lib/ui.js");
 
 require("app/client/mall/js/lib/common.js");
 
@@ -16,12 +16,12 @@ var AppView = Backbone.View.extend({
       text: "物流信息"
     });
 
+    this.$initial = ui.initial().show();
     this.showExpressInfo();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
   showExpressInfo: function() {
-    hint.showLoading();
-
+    var self = this;
     var $expressBox = this.$el;
     var urlData = UrlUtil.parseUrlSearch();
     var url = "/bmall/express/?companyid=" + urlData.companyid +
@@ -55,7 +55,7 @@ var AppView = Backbone.View.extend({
         };
 
         $expressBox.html( compiled(tmplData) );
-        hint.hideLoading();
+        self.$initial.hide();
       })
       .fail(function() {
         toast("网络异常", 1500);
@@ -63,4 +63,4 @@ var AppView = Backbone.View.extend({
   }
 });
 
-new AppView(); 
+new AppView();

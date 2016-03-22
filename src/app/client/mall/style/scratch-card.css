@@ -88,6 +88,28 @@ p {
   left: 0;
   top: 0;
 }
+/* toast - start */
+.toast {
+  display: block;
+  position: fixed;
+  top: 51%;
+  left: 50%;
+  width: 8.53333rem;
+  margin-left: -4.26667rem;
+  color: #fff;
+  border-radius: 0.13333rem;
+  text-align: center;
+  z-index: 20000;
+}
+.toast span {
+  border-radius: 0.13333rem;
+  background: rgba(0, 0, 0, 0.7);
+  display: inline-block;
+  max-width: 6.08rem;
+  padding: 0.13333rem 0.26667rem;
+  word-break: break-all;
+}
+/* toast -  end  */
 .loading-box {
   display: none;
   width: 100%;
@@ -241,6 +263,48 @@ p {
   line-height: 1.12rem;
   color: #039ef0;
   display: block;
+}
+.ui-blank {
+  min-height: 9.38667rem;
+  padding: 2.26667rem 0 0 0;
+}
+.ui-blank .bg {
+  background-image: url(http://cdn.rsscc.cn/guanggao/mall/common/bg-blank.png);
+  background-size: contain;
+  width: 4.70667rem;
+  height: 3.46667rem;
+  margin: 0 auto;
+}
+.ui-blank .txt {
+  margin: 0.8rem 0 0 0;
+  text-align: center;
+  font-size: 0.4rem;
+  color: #727272;
+}
+.ui-initial {
+  background-color: #f0f0f0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 2.8rem 0 0 0;
+  z-index: 19999;
+}
+.ui-initial .bg {
+  background-size: contain;
+  width: 10rem;
+  height: 2.29333rem;
+  margin: 0 auto;
+}
+.ui-initial .bg.gt {
+  background-image: url(http://cdn.rsscc.cn/guanggao/mall/common/init-gt.gif);
+}
+.ui-initial .txt {
+  margin: 0.8rem 0 0 0;
+  text-align: center;
+  font-size: 0.4rem;
+  color: #333;
 }
 .lucky-box {
   min-height: 100%;

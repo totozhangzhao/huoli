@@ -20,6 +20,7 @@ var mallWechat  = require("app/client/mall/js/lib/wechat.js");
 var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
 var Popover     = require("com/mobile/widget/popover/popover.js");
 var pageAction  = require("app/client/mall/js/lib/page-action.js");
+var ui          = require("app/client/mall/js/lib/ui.js");
 
 var AppView = Backbone.View.extend({
   el: "#goods-detail",
@@ -28,6 +29,7 @@ var AppView = Backbone.View.extend({
     "click .js-exchange-button": "exchangeHandler"
   },
   initialize: function() {
+    this.$initial = ui.initial();
     this.resetAppView = false;
     this.title = "";
     this.userDataOpitons = { reset: false };
@@ -35,6 +37,8 @@ var AppView = Backbone.View.extend({
     this.mallGoodsDetail();
   },
   resume: function() {
+    this.$initial.show();
+
     if (this.title) {
       widget.updateViewTitle(this.title);
 
@@ -86,6 +90,7 @@ var AppView = Backbone.View.extend({
       }
 
       self.renderMainPanel(result);
+      self.$initial.hide();
     });
   },
   renderMainPanel: function(productInfo) {
@@ -203,7 +208,7 @@ var AppView = Backbone.View.extend({
                 type: "confirm",
                 title: titleText,
                 message: "",
-                agreeText: "确定",  
+                agreeText: "确定",
                 cancelText: "取消",
                 agreeFunc: function() {
                   self.exchange(productInfo);
@@ -312,7 +317,7 @@ var AppView = Backbone.View.extend({
       if (result.length > 0) {
         addressList.add(result);
       }
-      
+
       self.collection.addressList = addressList;
       hint.hideLoading();
 
@@ -357,7 +362,7 @@ var AppView = Backbone.View.extend({
           type: "alert",
           title: "兑换失败",
           message: err.message,
-          agreeText: "确定",  
+          agreeText: "确定",
           agreeFunc: function() {
             // version 3.1 未实现 startPay 接口
             if (err.code === -99) {
@@ -427,7 +432,7 @@ var AppView = Backbone.View.extend({
           type: "alert",
           title: "兑换成功",
           message: orderInfo.message,
-          agreeText: "查看订单",  
+          agreeText: "查看订单",
           agreeFunc: function() {
             self.gotoNewView({
               url: orderDetailUrl

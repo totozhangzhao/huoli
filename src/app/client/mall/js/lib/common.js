@@ -7,7 +7,7 @@ var logger    = require("com/mobile/lib/log/log.js");
 var UrlUtil   = require("com/mobile/lib/url/url.js");
 
 exports.initRem = function() {
-  var setRoot = function() {      
+  var setRoot = function() {
     var rootSize = ($("body").width() / 10).toFixed(1);
     $("html").css({ "font-size": rootSize + "px" });
   };
@@ -31,7 +31,7 @@ exports.createAView = function(e) {
     return true;
   }
 
-  e.preventDefault();  
+  e.preventDefault();
 
   var separateHash = url.split("#");
   var hash = "";

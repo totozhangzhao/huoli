@@ -16,6 +16,7 @@ var ScratchCard = require("com/mobile/widget/scratch-card/scratch-card.js");
 // var Util       = require("com/mobile/lib/util/util.js");
 var logger   = require("com/mobile/lib/log/log.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
+var ui       = require("app/client/mall/js/lib/ui.js");
 
 var AppView = Backbone.View.extend({
   el: "#lottery-main",
@@ -24,6 +25,7 @@ var AppView = Backbone.View.extend({
     "click a": "createNewPage"
   },
   initialize: function() {
+    this.$initial = ui.initial().show();
 
     // 本次中奖结果
     this.lotteryInfo = {};
@@ -40,7 +42,7 @@ var AppView = Backbone.View.extend({
         mallWechat.initNativeShare(_.bind(this.mallCheckin, this));
       }
     }
-    
+
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
   doPointsAnimate: function() {
@@ -115,6 +117,7 @@ var AppView = Backbone.View.extend({
 
       self.lotteryInfo = lotteryData;
       canvas.style.backgroundImage = "url(" + lotteryData.result.image + ")";
+      self.$initial.hide();
     });
   },
   mallGetUserInfo: function(callback) {
@@ -194,7 +197,7 @@ var AppView = Backbone.View.extend({
           var goFunc = function() {
             var nextUrl;
 
-            // bonus: 
+            // bonus:
             // 0: 没有中奖
             // 1: 普通奖品
             // 2: 转入订单详情
@@ -347,7 +350,7 @@ var AppView = Backbone.View.extend({
 
       self.$el
         .find(".js-points")
-          .text(result.points);      
+          .text(result.points);
     });
   },
   loginApp: function() {
