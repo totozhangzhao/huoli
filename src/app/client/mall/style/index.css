@@ -308,7 +308,7 @@ p {
   color: #333;
 }
 img.touch-img {
-  transition: transform .2s;
+  transition: all .3s;
 }
 .touch img.touch-img {
   transform: scale(0.95);
@@ -604,7 +604,7 @@ img.touch-img {
   padding-bottom: 0.16rem;
 }
 .home-page-box .home-goods-fa .home-goods-bar li a div.home-info-bar .home-info-show .hmoe-goods-name {
-  font-size: 0.32rem;
+  font-size: 0.37333rem;
   color: #333;
   height: 0.48rem;
   overflow: hidden;
