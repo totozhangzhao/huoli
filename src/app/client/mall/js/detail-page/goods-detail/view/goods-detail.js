@@ -41,7 +41,7 @@ var AppView = Backbone.View.extend({
 
     if (this.title) {
       widget.updateViewTitle(this.title);
-
+      this.$initial.hide();
       detailLog({
         title: this.title,
         productid: UrlUtil.parseUrlSearch().productid,
