@@ -429,6 +429,7 @@ img.touch-img {
   height: 1.14667rem;
   margin: 0 auto;
   background-size: contain;
+  background-repeat: no-repeat;
 }
 .home-page-box .home-item-bar li p {
   height: 0.32rem;
