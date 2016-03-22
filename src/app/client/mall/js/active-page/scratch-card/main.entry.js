@@ -58,10 +58,13 @@ var AppView = Backbone.View.extend({
   initCard: function() {
     var self = this;
     var cardTmpl = require("app/client/mall/tpl/active-page/scratch-card/main-card.tpl");
+    var $cardBox = this.$el.find(".js-card-block");
 
-    this.$el
-      .find(".js-card-block")
-        .html( cardTmpl({}) );
+    $cardBox
+      .html( cardTmpl({
+        width : $cardBox.width(),
+        height: $cardBox.height()
+      }) );
 
     this.$el.find("canvas")
       .on("getImageURL", function(e, canvas, resetCard) {
