@@ -130,9 +130,10 @@ p {
   margin-top: -0.48rem;
 }
 .info-box,
-.goods-detail-box,
 .active-box,
 .order-box,
+.integral-box,
+.integral-list-box,
 .pay-box,
 .pay-order-detail-box,
 .address-page-box,
@@ -292,6 +293,7 @@ p {
 }
 .ui-initial .bg {
   background-size: contain;
+  background-repeat: no-repeat;
   width: 10rem;
   height: 2.29333rem;
   margin: 0 auto;
@@ -304,182 +306,6 @@ p {
   text-align: center;
   font-size: 0.4rem;
   color: #333;
-}
-.text-red {
-  color: #f00;
-}
-.border-color {
-  border-color: #4889db;
-}
-.common-text {
-  font-size: 0.37333rem;
-  line-height: 0.53333rem;
-}
-.time-bar,
-.order-pay-bar,
-.goods-pay-bar {
-  width: 100%;
-  height: 1.6rem;
-  line-height: 1.6rem;
-  background-color: #f3f3f3;
-  border-top: 1px solid #d1d1d1;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-}
-.time-area,
-.order-pay-bar .order-pay-area,
-.goods-pay-bar .goods-pay-area {
-  height: 100%;
-}
-.time-area {
-  position: relative;
-  left: 0;
-  top: 0;
-}
-.scoring-bar {
-  margin-left: 0.32rem;
-}
-.operate-btn,
-.order-pay-bar .order-pay-btn,
-.goods-pay-bar .goods-pay-btn {
-  text-align: center;
-  padding-top: 0.26667rem;
-  padding-right: 0.4rem;
-  padding-bottom: 0.26667rem;
-  padding-left: 0.4rem;
-  font-size: 0.48rem;
-  line-height: 0.48rem;
-  border-radius: 0.08rem;
-  margin-right: 0.53333rem;
-  margin-top: 0.32rem;
-  color: #fff;
-}
-.operate-btn {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-.allow-color {
-  background-color: #4889db;
-}
-.forbidden-color {
-  background-color: #ccc;
-}
-.scoring-num {
-  font-family: 'Arial';
-  font-size: 0.58667rem;
-  color: #f90;
-}
-.flip-box,
-.login-flip-box,
-.del-tip-box {
-  width: 80%;
-  height: 4rem;
-  text-align: center;
-  background-color: #fff;
-  border-radius: 0.10667rem;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  margin-left: -40%;
-  margin-top: -2rem;
-  z-index: 6;
-  display: none;
-}
-.del-tip-box {
-  display: block;
-}
-.login-flip-h {
-  border-top-left-radius: 0.08rem;
-  border-top-right-radius: 0.08rem;
-  text-align: center;
-  height: 0.96rem;
-  line-height: 0.96rem;
-  font-size: 0.48rem;
-  color: #fff;
-  background-color: #4889db;
-}
-.login-flip-text {
-  padding-top: 0.4rem;
-  padding-right: 0.4rem;
-  padding-bottom: 0.4rem;
-  padding-left: 0.4rem;
-}
-.login-flip-text-no {
-  text-align: center;
-  padding-top: 0.66667rem;
-  padding-right: 0.4rem;
-  padding-bottom: 0.66667rem;
-  padding-left: 0.4rem;
-}
-.login-btn-box {
-  text-align: center;
-}
-.login-no,
-.login-yes {
-  min-width: 2.66667rem;
-  padding-top: 0.13333rem;
-  padding-right: 0.48rem;
-  padding-bottom: 0.13333rem;
-  padding-left: 0.48rem;
-  color: #fff;
-  margin-top: 0;
-  margin-right: 0.21333rem;
-  margin-bottom: 0;
-  margin-left: 0.21333rem;
-  border-radius: 0.05333rem;
-}
-.flip-info,
-.del-info {
-  margin-top: 0.8rem;
-  padding-top: 0;
-  padding-right: 0.26667rem;
-  padding-bottom: 0;
-  padding-left: 0.26667rem;
-}
-.del-info {
-  margin-bottom: 0.8rem;
-}
-.flip-info-bar {
-  height: 1.28rem;
-  margin-bottom: 0.42667rem;
-}
-.exchange-button {
-  min-width: 2.34667rem;
-  display: inline-block;
-  border-radius: 0.08rem;
-  padding-top: 0.10667rem;
-  padding-right: 0.32rem;
-  padding-bottom: 0.10667rem;
-  padding-left: 0.32rem;
-  margin-top: 0;
-  margin-right: 0.26667rem;
-  margin-bottom: 0;
-  margin-left: 0.26667rem;
-  color: #fff;
-}
-.del-common-button {
-  display: inline-block;
-  margin-top: 0;
-  margin-right: 0.26667rem;
-  margin-bottom: 0;
-  margin-left: 0.26667rem;
-  color: #fff;
-  padding-top: 0.10667rem;
-  padding-right: 0.74667rem;
-  padding-bottom: 0.10667rem;
-  padding-left: 0.74667rem;
-}
-.flip-tip {
-  font-size: 0.32rem;
-  padding-top: 0;
-  padding-right: 0.42667rem;
-  padding-bottom: 0;
-  padding-left: 0.42667rem;
-}
-.flip-go-check {
-  margin-top: 0.4rem;
 }
 .lucky-box {
   min-height: 100%;
@@ -562,7 +388,6 @@ img {
 }
 .lucky-status-area-son {
   width: 7.62667rem;
-  height: 3.25333rem;
   position: absolute;
   left: 0.18667rem;
   top: 0.4rem;
