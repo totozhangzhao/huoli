@@ -629,7 +629,7 @@ img.touch-img {
 .home-page-box .home-goods-fa .home-goods-bar li a div.home-info-bar .home-goods-price em.home-point-icon {
   width: 0.32rem;
   height: 0.37333rem;
-  display: inline-block;
+  float: left;
   margin-right: 0.08rem;
   padding-left: 0.32rem;
   background: url(http://cdn.rsscc.cn/guanggao/img//icon/index-icon.png) no-repeat -0.26667rem -2.26667rem;
