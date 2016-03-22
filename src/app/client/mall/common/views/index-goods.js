@@ -22,7 +22,8 @@ var PromotionView = BaseView.extend({
 
   template: require("app/client/mall/tpl/home/v2/goods.tpl"),
 
-  initialize: function (){
+  initialize: function (options){
+    this.showLoading = options.showLoading || false;
     this.listenTo(this.model, "change", this.fetch);
     imageDelay();
   },
@@ -49,9 +50,13 @@ var PromotionView = BaseView.extend({
     if(model.get("status") !== 1){
       return;
     }
-    hint.showLoading();
+    if(this.showLoading){
+      hint.showLoading();
+    }
     sendPost("classifyGoods", {groupId: model.get("groupId")}, function(err, result) {
-      hint.hideLoading();
+      if(this.showLoading){
+        hint.hideLoading();
+      }
       if (err) {
         model.set({
           status: -1,

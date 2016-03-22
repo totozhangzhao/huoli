@@ -49,7 +49,7 @@ var AppView = Backbone.View.extend({
     this.$entranceView  = new EntranceView();
     this.$promotionView = new PromotionView();
     this.$categoryView  = new CategoryView({model: this.stateModel});
-    this.$goodsView     = new GoodsView({model: this.stateModel});
+    this.$goodsView     = new GoodsView({model: this.stateModel, showLoading: true});
     this.listenTo(this.stateModel, "change", this.stateChange);
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
     this.bindEvents();
