@@ -48,6 +48,7 @@ var AppView = Backbone.View.extend({
     this.$promotionView = new PromotionView();
     this.$categoryView  = new CategoryView({model: this.stateModel});
     this.$goodsView     = new GoodsView({model: this.stateModel});
+    this.listenTo(this.stateModel, "change", this.stateChange);
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
     this.bindEvents();
   },
@@ -132,16 +133,28 @@ var AppView = Backbone.View.extend({
       });
     }
   },
+
+  stateChange: function (e) {
+    if(e.hasChanged("status") && e.get("status") !== 1){
+      $(window).scrollTop(this.getFixTop() + 18);
+    }
+  },
+
   bindEvents: function () {
     $(window).scroll(function(event) {
               /* Act on the event */
-      var height = this.$bannerView.$el.height() + this.$entranceView.$el.height() + this.$promotionView.$el.height();
+      var height = this.getFixTop();
       if($(window).scrollTop() > height){
         this.$categoryView.fix();
       }else{
         this.$categoryView.rel();
       }
     }.bind(this));
+  },
+
+  // 获取分类选择吸顶效果的top距离
+  getFixTop: function () {
+    return this.$goodsView.$el.get(0).offsetTop - this.$categoryView.$el.get(0).offsetHeight;
   }
 
 });
