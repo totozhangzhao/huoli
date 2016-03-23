@@ -131,6 +131,10 @@ $("body").on("click", "a, button, [data-log-mall-click]", function(e) {
   }
   var eventText = $cur.data("logMallClick") || $cur.data("title") || $cur.text() || $cur.val() || "--btn--";
   eventText = eventText.replace(/\r?\n|\r/g, "").replace(/\s+/g, " ").trim();
-  var category = mallUitl.getAppName() + "EV_" + window.document.title + "_" + eventText;
-  logger.track(category, "EV click", UrlUtil.parseUrlSearch().from || "--");
+  var category = mallUitl.getAppName() + "-ev_" + window.document.title + "-" + eventText;
+  var urlObj = UrlUtil.parseUrlSearch();
+  if (urlObj.productid) {
+    category += "_" + urlObj.productid;
+  }
+  logger.track(category, "EV click", urlObj.from || "--");
 });

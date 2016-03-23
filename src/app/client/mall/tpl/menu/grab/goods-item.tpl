@@ -1,7 +1,7 @@
 <% _.each(dataList, function(item) { %>
 <li>
 <a
-  data-log-click="<%= appName %>-block_<%= item.productid %>_<%= item.title %>@click@index"
+  data-log-mall-click="block-<%= item.productid %>-<%= item.title %>"
   data-productid="<%= item.productid %>"
   data-title="<%= item.title %>"
   data-classify="<%= item.classify || '' %>"

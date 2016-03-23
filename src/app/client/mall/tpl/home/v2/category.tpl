@@ -2,7 +2,7 @@
   <p>
     <% _.each(dataList, function (item, index) {%>
       <span 
-        data-log-mall-click="index-category_<%= item.title %>"
+        data-log-mall-click="index-category-<%= item.title %>"
         class="<%= (index == 0 ? 'on' : '') %>" 
         data-scroll-item="true" 
         data-group-id="<%= item.groupId %>"
@@ -21,7 +21,7 @@
 <div class="home-pull-area clearfix">
   <% _.each(dataList, function (item, index) {%>
     <a 
-    data-log-mall-click="index-category-sub_<%= item.title %>"
+    data-log-mall-click="index-category-sub-<%= item.title %>"
     data-group-id="<%= item.groupId %>" 
     class="<%= (index == 0 ? 'on' : '') %>"
     ><%= item.title.slice(0,4)%></a>
