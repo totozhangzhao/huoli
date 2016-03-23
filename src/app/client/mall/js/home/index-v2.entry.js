@@ -88,7 +88,7 @@ var AppView = Backbone.View.extend({
     this.getUserInfo();
     setTimeout(function() {
       self.$initial.hide();
-    }, 100);
+    }, 1200);
     return this;
   },
 

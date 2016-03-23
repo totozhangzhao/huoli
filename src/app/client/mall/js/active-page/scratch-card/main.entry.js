@@ -1,22 +1,22 @@
-var $          = require("jquery");
-var Backbone   = require("backbone");
-var _          = require("lodash");
-var async      = require("async");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast      = require("com/mobile/widget/hint/hint.js").toast;
-var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var widget     = require("app/client/mall/js/lib/common.js");
-var loadScript = require("com/mobile/lib/load-script/load-script.js");
-var shareUtil  = require("com/mobile/widget/wechat/util.js");
-var wechatUtil = require("com/mobile/widget/wechat-hack/util.js");
-var mallWechat = require("app/client/mall/js/lib/wechat.js");
+var $           = require("jquery");
+var Backbone    = require("backbone");
+var _           = require("lodash");
+var async       = require("async");
+var NativeAPI   = require("app/client/common/lib/native/native-api.js");
+var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var toast       = require("com/mobile/widget/hint/hint.js").toast;
+var parseUrl    = require("com/mobile/lib/url/url.js").parseUrlSearch;
+var appInfo     = require("app/client/mall/js/lib/app-info.js");
+var widget      = require("app/client/mall/js/lib/common.js");
+var loadScript  = require("com/mobile/lib/load-script/load-script.js");
+var shareUtil   = require("com/mobile/widget/wechat/util.js");
+var wechatUtil  = require("com/mobile/widget/wechat-hack/util.js");
+var mallWechat  = require("app/client/mall/js/lib/wechat.js");
 var ScratchCard = require("com/mobile/widget/scratch-card/scratch-card.js");
-// var Util       = require("com/mobile/lib/util/util.js");
-var logger   = require("com/mobile/lib/log/log.js");
-var mallUitl = require("app/client/mall/js/lib/util.js");
-var ui       = require("app/client/mall/js/lib/ui.js");
+var logger      = require("com/mobile/lib/log/log.js");
+var mallUitl    = require("app/client/mall/js/lib/util.js");
+var ui          = require("app/client/mall/js/lib/ui.js");
+var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
 
 var AppView = Backbone.View.extend({
   el: "#lottery-main",
@@ -25,6 +25,9 @@ var AppView = Backbone.View.extend({
     "click a": "createNewPage"
   },
   initialize: function() {
+    var title = parseUrl().title || document.title;
+
+    widget.updateViewTitle(title);
     this.$initial = ui.initial().show();
 
     // 本次中奖结果
@@ -43,7 +46,13 @@ var AppView = Backbone.View.extend({
       }
     }
 
-    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+
+    logger.track(mallUitl.getAppName() + "PV", "View PV", title);
+    detailLog({
+      title: title,
+      productid: parseUrl().productid,
+      from: parseUrl().from || "--"
+    });
   },
   doPointsAnimate: function() {
     var $points = this.$el.find(".js-points");
