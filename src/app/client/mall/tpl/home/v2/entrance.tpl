@@ -2,7 +2,7 @@
 <% _.each(dataList, function (item, index) { %>
   <li>
     <a
-    data-log-mall-click="index-entrance-<%= item.title %>"
+    data-log-mall-click="index-entrance_<%= item.title %>"
     data-productid="<%= item.productid %>"
     data-group-id="<%= item.groupId %>"
     data-title="<%= item.title %>"

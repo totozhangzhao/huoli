@@ -126,15 +126,27 @@ exports.initTracker = function(tag) {
 
 $("body").on("click", "a, button, [data-log-mall-click]", function(e) {
   var $cur = $(e.currentTarget);
+
   if ( $cur.data("logClick") ) {
     return;
   }
-  var eventText = $cur.data("logMallClick") || $cur.data("title") || $cur.text() || $cur.val() || "--btn--";
-  eventText = eventText.replace(/\r?\n|\r/g, "").replace(/\s+/g, " ").trim();
-  var category = mallUitl.getAppName() + "-ev_" + window.document.title + "-" + eventText;
-  var urlObj = UrlUtil.parseUrlSearch();
-  if (urlObj.productid) {
-    category += "_" + urlObj.productid;
+
+  var category;
+  var prefix = mallUitl.getAppName() + "-ev-" + window.document.title;
+
+  if ( $cur.data("logMallClick") ) {
+    category = prefix + "-" + $cur.data("logMallClick");
+  } else {
+    category = $cur.data("title") || $cur.text() || $cur.val() || "btn";
+    category = category.replace(/\r?\n|\r/g, "").replace(/\s+/g, " ").trim();
+    category = prefix + "_" + category;
   }
+
+  var urlObj = UrlUtil.parseUrlSearch();
+
+  if (urlObj.productid) {
+    category = category + "_" + urlObj.productid;
+  }
+
   logger.track(category, "EV click", urlObj.from || "--");
 });

@@ -1,7 +1,7 @@
 <% _.each(dataList, function(item) { %>
 <li class="crowd-history-area">
 <a
-  data-log-mall-click="block-<%= item.productid %>-<%= item.title %>"
+  data-log-mall-click="block_<%= item.title %>"
   data-productid="<%= item.productid %>"
   data-title="<%= item.title %>"
   data-classify="<%= item.classify || '' %>"

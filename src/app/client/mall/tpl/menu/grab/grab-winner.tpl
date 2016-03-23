@@ -2,7 +2,7 @@
 <div class="crowd-nav-tip"><b class="icon"></b>
 <% _.each(dataList, function(item){ %>
   <a
-    data-log-mall-click="block-<%= item.productid %>-<%= item.title %>"
+    data-log-mall-click="block_<%= item.title %>"
     data-productid="<%= item.productid %>"
     data-title="<%= item.title %>"
     data-classify="<%= item.classify || '' %>"

@@ -4,7 +4,7 @@
     <div class="panel-block-left">
       <% var item = topList[0]; %>
       <a
-        data-log-mall-click="top-<%= item.productid %>-<%= item.title %>"
+        data-log-mall-click="top_<%= item.title %>"
         data-productid="<%= item.productid %>"
         data-title="<%= item.title %>"
         data-classify="<%= item.classify || '' %>"
@@ -17,7 +17,7 @@
     <div class="panel-block-right flex-column">
       <% var item = topList[1]; %>
       <a
-        data-log-mall-click="top-<%= item.productid %>-<%= item.title %>"
+        data-log-mall-click="top_<%= item.title %>"
         data-productid="<%= item.productid %>"
         data-title="<%= item.title %>"
         data-classify="<%= item.classify || '' %>"
@@ -28,7 +28,7 @@
       </a>
       <% var item = topList[2]; %>
       <a
-        data-log-mall-click="top-<%= item.productid %>-<%= item.title %>"
+        data-log-mall-click="top_<%= item.title %>"
         data-productid="<%= item.productid %>"
         data-title="<%= item.title %>"
         data-classify="<%= item.classify || '' %>"
@@ -47,7 +47,7 @@
     <% _.each(group.products, function(item) { %>
       <dd class="js-touch-state home-goods-area-son fl">
         <a
-          data-log-mall-click="block-<%= item.productid %>-<%= item.title %>"
+          data-log-mall-click="block_<%= item.title %>"
           data-productid="<%= item.productid %>"
           data-title="<%= item.title %>"
           data-classify="<%= item.classify || '' %>"

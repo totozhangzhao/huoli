@@ -3,7 +3,7 @@
     <% _.each(bannerList, function(item, index) { %>
     <li class="banner-item">
       <a
-        data-log-mall-click="banner-<%= item.productid %>-<%= item.title %>"
+        data-log-mall-click="banner_<%= item.title %>"
         data-productid="<%= item.productid %>"
         data-title="<%= item.title %>"
         data-classify="<%= item.classify || '' %>"
