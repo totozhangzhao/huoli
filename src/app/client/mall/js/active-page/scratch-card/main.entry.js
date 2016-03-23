@@ -89,6 +89,13 @@ var AppView = Backbone.View.extend({
       });
 
     new ScratchCard({ el: "#lottery-main canvas" });
+
+    var isApp = mallUitl.isAppFunc();
+
+    if ( !isApp ) {
+      require("app/client/mall/js/lib/download-app.js").init( isApp );
+    }
+
     setTimeout(function() {
       self.$initial.hide();
     }, 600);
@@ -379,7 +386,7 @@ var AppView = Backbone.View.extend({
       }
     ], function(err, result) {
       if (err) {
-        toast(err.message, 1500);
+        window.console.log(err.message);
         return;
       }
 
