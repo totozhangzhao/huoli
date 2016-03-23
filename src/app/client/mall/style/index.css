@@ -311,7 +311,7 @@ img.touch-img {
   transition: all .3s;
 }
 .touch img.touch-img {
-  transform: scale(0.95);
+  transform: scale(0.9);
 }
 .home-page-box {
   color: #333;
