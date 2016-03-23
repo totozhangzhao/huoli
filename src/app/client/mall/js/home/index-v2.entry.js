@@ -27,7 +27,7 @@ var PromotionView = require("app/client/mall/js/home/views/promotion.js");
 var CategoryView  = require("app/client/mall/js/home/views/category.js");
 var GoodsView     = require("app/client/mall/common/views/index-goods.js");
 var Footer        = require("app/client/mall/common/views/footer.js");
-
+var PointsView    = require("app/client/mall/js/home/views/points.js");
 require("com/mobile/widget/button/back-to-top.js");
 
 var AppView = Backbone.View.extend({
@@ -50,6 +50,7 @@ var AppView = Backbone.View.extend({
     this.$promotionView = new PromotionView();
     this.$categoryView  = new CategoryView({model: this.stateModel});
     this.$goodsView     = new GoodsView({model: this.stateModel, showLoading: true});
+    this.$pointsView    = new PointsView();
     this.listenTo(this.stateModel, "change", this.stateChange);
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
     this.bindEvents();
@@ -104,13 +105,11 @@ var AppView = Backbone.View.extend({
         p: userData.deviceInfo.p
       });
       sendPost("getUserInfo", params, function(err, data) {
+        window.console.log(err);
         if(err){
           return;
         }
-        $("#home-points")
-          .find(".num-font").html(data.points)
-        .end()
-        .show();
+        self.$pointsView.render(data);
         self.showCheckinBtn();
 
       });
