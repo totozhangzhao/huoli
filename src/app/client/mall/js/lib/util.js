@@ -4,17 +4,25 @@ var cookie   = require("com/mobile/lib/cookie/cookie.js");
 
 // touch status
 (function() {
+
+var intervalId;
   $("body")
     .on("touchstart", "a, .js-touch-state", function() {
-      $(this).addClass("touch");
+
+      intervalId = setTimeout(function () {
+        $(this).addClass("touch");
+      }.bind(this),50 + Math.random() * 100);
     })
     .on("touchmove", "a, .js-touch-state", function() {
+      window.clearInterval(intervalId);
       $(this).removeClass("touch");
     })
     .on("touchend", "a, .js-touch-state", function() {
+      window.clearInterval(intervalId);
       $(this).removeClass("touch");
     })
     .on("touchcancel", "a, .js-touch-state", function() {
+      window.clearInterval(intervalId);
       $(this).removeClass("touch");
     });
 }());
@@ -38,7 +46,7 @@ exports.getAppName = (function() {
   if (cookieName) {
     name = cookieName;
   }
-  
+
   return function() {
     return name;
   };
