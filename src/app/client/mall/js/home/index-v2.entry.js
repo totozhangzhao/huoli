@@ -105,13 +105,11 @@ var AppView = Backbone.View.extend({
         p: userData.deviceInfo.p
       });
       sendPost("getUserInfo", params, function(err, data) {
-        window.console.log(err);
         if(err){
           return;
         }
         self.$pointsView.render(data);
         self.showCheckinBtn();
-
       });
     })
     .catch(mallPromise.catchFn);
