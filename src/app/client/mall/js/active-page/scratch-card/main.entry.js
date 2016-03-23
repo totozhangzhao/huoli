@@ -81,6 +81,9 @@ var AppView = Backbone.View.extend({
       });
 
     new ScratchCard({ el: "#lottery-main canvas" });
+    setTimeout(function() {
+      self.$initial.hide();
+    }, 600);
   },
   getResultImage: function(canvas, resetCard) {
     var self = this;
@@ -120,7 +123,6 @@ var AppView = Backbone.View.extend({
 
       self.lotteryInfo = lotteryData;
       canvas.style.backgroundImage = "url(" + lotteryData.result.image + ")";
-      self.$initial.hide();
     });
   },
   mallGetUserInfo: function(callback) {
