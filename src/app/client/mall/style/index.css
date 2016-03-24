@@ -396,7 +396,7 @@ img.touch-img {
   top: 0;
 }
 .home-page-box .home-nav .home-record-btn .home-record-icon {
-  width: 0.16rem;
+  width: 0.18667rem;
   height: 0.26667rem;
   position: absolute;
   right: 0;
@@ -616,8 +616,8 @@ img.touch-img {
   -webkit-box-orient: vertical;
 }
 .home-page-box .home-goods-fa .home-goods-bar li a div.home-info-bar .home-goods-price {
-  height: 0.37333rem;
-  line-height: 0.37333rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
   padding-left: 0.4rem;
   color: #bfbfbf;
 }
@@ -630,7 +630,7 @@ img.touch-img {
 }
 .home-page-box .home-goods-fa .home-goods-bar li a div.home-info-bar .home-goods-price em.home-point-icon {
   width: 0.32rem;
-  height: 0.37333rem;
+  height: 0.4rem;
   float: left;
   margin-right: 0.08rem;
   padding-left: 0.32rem;
