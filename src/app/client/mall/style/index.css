@@ -369,8 +369,9 @@ img.touch-img {
   opacity: 0.8;
 }
 .home-page-box .home-nav {
-  height: 1.06667rem;
-  line-height: 1.06667rem;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  font-size: 0.37333rem;
   padding-top: 0;
   padding-right: 0.4rem;
   padding-bottom: 0;
@@ -384,7 +385,7 @@ img.touch-img {
 }
 .home-page-box .home-nav .home-record-btn {
   height: 100%;
-  line-height: 1.06667rem;
+  line-height: 1.2rem;
   padding-top: 0;
   padding-right: 0.32rem;
   padding-bottom: 0;
@@ -434,6 +435,7 @@ img.touch-img {
 }
 .home-page-box .home-item-bar li p {
   height: 0.32rem;
+  font-size: 0.34667rem;
   line-height: 0.32rem;
   margin-top: 0.24rem;
 }
@@ -465,7 +467,7 @@ img.touch-img {
 }
 .home-page-box .home-list-nav {
   width: 100%;
-  font-size: 0.4rem;
+  font-size: 0.37333rem;
   color: #434343;
   padding-right: 1.22667rem;
   margin-top: 0.24rem;
@@ -575,7 +577,7 @@ img.touch-img {
 .home-page-box .home-goods-fa .home-goods-bar li {
   width: 50%;
   float: left;
-  padding-bottom: 1px;
+  border-bottom: 1px solid #f0f0f0;
   height: 5.06667rem;
 }
 .home-page-box .home-goods-fa .home-goods-bar li a {
