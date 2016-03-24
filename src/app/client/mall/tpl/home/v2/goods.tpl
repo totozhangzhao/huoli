@@ -30,7 +30,7 @@
                 if(item.money){
                   p.push(item.money);
                 }
-                var price = p.join("+"); 
+                var price = p.join(" + "); 
               %>
               <span><%= price %></span>
               <%= !!item.money ? '元' : ''%>
