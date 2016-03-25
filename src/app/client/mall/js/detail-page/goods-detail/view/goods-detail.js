@@ -21,6 +21,7 @@ var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detai
 var Popover     = require("com/mobile/widget/popover/popover.js");
 var pageAction  = require("app/client/mall/js/lib/page-action.js");
 var ui          = require("app/client/mall/js/lib/ui.js");
+var FooterView  = require("app/client/mall/common/views/footer.js");
 
 var AppView = Backbone.View.extend({
   el: "#goods-detail",
@@ -109,7 +110,7 @@ var AppView = Backbone.View.extend({
     $("#goods-desc").html(productInfo.desc || "");
     $(".js-points").html(productInfo.pprice);
 
-    this.fixTpl();
+    new FooterView().render();
 
     if ( UrlUtil.parseUrlSearch().gotoView ) {
       this.router.switchTo( UrlUtil.parseUrlSearch().gotoView );
@@ -263,14 +264,6 @@ var AppView = Backbone.View.extend({
 
       self.userDataOpitons.reset = true;
     });
-  },
-  fixTpl: function() {
-    var crTpl = require("app/client/mall/tpl/copyright.tpl");
-
-    $("#copyright").html(crTpl({
-      system: Util.getMobileSystem(),
-      isHangbanFunc: mallUitl.isHangbanFunc()
-    }));
   },
   exchange: function(productInfo) {
 
