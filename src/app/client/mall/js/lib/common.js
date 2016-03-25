@@ -143,11 +143,6 @@ exports.initTracker = function(tag) {
  */
 $("body").on("click", "a, button, [data-log-mall-click]", function(e) {
   var $cur = $(e.currentTarget);
-
-  if ( $cur.data("logClick") ) {
-    return;
-  }
-
   var prefix = mallUitl.getAppName() + "-ev-" + window.document.title;
   var category;
 
