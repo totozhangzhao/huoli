@@ -15,7 +15,7 @@ var BaseView = Backbone.View.extend({
     widget.createAView(e);
   },
   handleGetUrl: function(e) {
-    mallPromise.appInfo
+    mallPromise.getAppInfo()
     .then(function (userData) {
       var params = _.extend({}, userData.userInfo, userData.deviceInfo, {
         productid: $(e.currentTarget).data("productid")
