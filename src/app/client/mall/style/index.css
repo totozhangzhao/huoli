@@ -501,8 +501,8 @@ img.touch-img {
   line-height: 1.17333rem;
   display: inline-block;
   float: left;
-  padding-left: 0.26667rem;
-  padding-right: 0.26667rem;
+  padding-left: 0.29333rem;
+  padding-right: 0.32rem;
 }
 .home-page-box .home-list-nav .home-list-fa p span.on {
   color: #039ef0;
@@ -515,23 +515,27 @@ img.touch-img {
   right: 0;
   top: 0;
 }
-.home-page-box .home-list-nav .home-list-switch .home-switch-icon {
-  width: 0.82667rem;
+.home-page-box .home-list-nav .home-list-switch .home-switch-hr {
+  position: absolute;
+  left: 0;
+  top: 0.29333rem;
+  width: 1px;
   height: 0.53333rem;
+  background-color: #f0f0f0;
+}
+.home-page-box .home-list-nav .home-list-switch .home-switch-icon {
+  transition: transform .3s;
+  position: absolute;
+  left: 0.37333rem;
+  top: 0.45333rem;
+  width: 0.42667rem;
+  height: 0.26667rem;
   display: block;
-  border-left: 1px solid #f0f0f0;
-  background: url(http://cdn.rsscc.cn/guanggao/img//icon/index-icon.png) no-repeat -0.56rem -1.46667rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img//icon/index-icon.png) no-repeat -1.73333rem -1.54667rem;
   background-size: 10.66667rem 10.66667rem;
-  margin-top: 0.32rem;
 }
 .home-page-box .home-list-nav .home-rotate-switch .home-switch-icon {
-  background-position: -1.36rem -1.46667rem;
-}
-.home-page-box .home-list-nav .home-rotate-switch + .home-pull-area {
-  display: block;
-}
-.home-page-box .home-list-nav .home-rotate-switch + .home-pull-area {
-  display: block;
+  transform: rotate(180deg);
 }
 .home-page-box .home-list-nav .home-pull-area {
   width: 100%;
@@ -556,6 +560,9 @@ img.touch-img {
 }
 .home-page-box .home-list-nav .home-pull-area a.on {
   color: #039ef0;
+}
+.home-page-box .home-list-nav .home-pull-area.on {
+  display: block;
 }
 .home-page-box .home-goods-fa {
   width: 100%;

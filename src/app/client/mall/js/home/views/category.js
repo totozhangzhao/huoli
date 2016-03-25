@@ -17,7 +17,7 @@ var CategoryView = BaseView.extend({
   events: {
     "click span[data-group-id]"  : "checkCategory",
     "click a[data-group-id]"     : "checkCategory",
-    "click .home-list-switch"         : "showCagetoryListPannel"
+    "click .home-list-switch"    : "showCagetoryListPannel"
   },
 
   template: require("app/client/mall/tpl/home/v2/category.tpl"),
@@ -115,10 +115,12 @@ var CategoryView = BaseView.extend({
 
   showPannel: function () {
     $(".home-list-switch", this.$el).addClass("home-rotate-switch");
+    $(".home-pull-area", this.$el).fadeIn('fast');
     return $(".home-goods-shadow").show();
   },
   hidePannel: function () {
     $(".home-list-switch", this.$el).removeClass("home-rotate-switch");
+    $(".home-pull-area", this.$el).fadeOut('fast');
     return $(".home-goods-shadow").hide();
   },
 

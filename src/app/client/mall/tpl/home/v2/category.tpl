@@ -15,6 +15,7 @@
 <!-- home-rotate-switch 控制箭头方向与菜单的显示隐藏 -->
 <% if(dataList.length > 4 ) { %>
 <div class="home-list-switch">
+  <div class="home-switch-hr"></div>
   <em class="home-switch-icon"></em>
 </div>
 <% } %>
