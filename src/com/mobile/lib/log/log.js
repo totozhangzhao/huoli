@@ -1,16 +1,8 @@
-var $ = require("jquery");
-
 /*
  *
  * Log Tracker
  *
  */
-(function() {
-  $("body").on("click", "[data-log-click]", function(e) {
-    var logData = $(e.currentTarget).data("logClick").split("@");
-    _czc.push(["_trackEvent", logData[0], logData[1], logData[2]]);
-  });
-}());
 
 // 各参数含义如下: 
 // category: 事件类别，必填项，表示事件发生在谁身上，如“视频”、“小说”、“轮显层”等等。
