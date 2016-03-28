@@ -114,6 +114,18 @@ exports.imageDelay = function(options) {
   echo.init(config);
 };
 
+/**
+ * 数据统计
+ *
+ * 格式：
+ * 页面类型_页面标题_产品ID，即 XXX_XXX_ID
+ */
+
+/**
+ * 示例：
+ * gtgj-detail_Jeep男士钱包优惠券_1000901
+ * gtgj-detail_[第15期]IPhone6s Plus_1100259
+ */
 exports.initTracker = function(tag) {
   return function(data) {
     var category = mallUitl.getAppName() + "-" + tag + "_" + data.title;
@@ -124,13 +136,29 @@ exports.initTracker = function(tag) {
   };
 };
 
+/**
+ * 示例：
+ * gtgj-ev-高铁商城-index-entrance_积分兑换
+ * gtgj-ev-御泥坊刮刮卡_再玩一次_1000907
+ */
 $("body").on("click", "a, button, [data-log-mall-click]", function(e) {
   var $cur = $(e.currentTarget);
-  if ( $cur.data("logClick") ) {
-    return;
+  var prefix = mallUitl.getAppName() + "-ev-" + window.document.title;
+  var category;
+
+  if ( $cur.data("logMallClick") ) {
+    category = prefix + "-" + $cur.data("logMallClick");
+  } else {
+    category = $cur.data("title") || $cur.text() || $cur.val() || "btn";
+    category = category.replace(/\r?\n|\r/g, "").replace(/\s+/g, " ").trim();
+    category = prefix + "_" + category;
   }
-  var eventText = $cur.data("logMallClick") || $cur.data("title") || $cur.text() || $cur.val() || "--btn--";
-  eventText = eventText.replace(/\r?\n|\r/g, "").replace(/\s+/g, " ").trim();
-  var category = mallUitl.getAppName() + "EV_" + window.document.title + "_" + eventText;
-  logger.track(category, "EV click", UrlUtil.parseUrlSearch().from || "--");
+
+  var urlObj = UrlUtil.parseUrlSearch();
+
+  if (urlObj.productid) {
+    category = category + "_" + urlObj.productid;
+  }
+
+  logger.track(category, "EV click", urlObj.from || "--");
 });

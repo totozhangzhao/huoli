@@ -14,6 +14,7 @@ var logger   = require("com/mobile/lib/log/log.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var menuLog  = require("app/client/mall/js/lib/common.js").initTracker("menu");
 var ui       = require("app/client/mall/js/lib/ui.js");
+var FooterView = require("app/client/mall/common/views/footer.js");
 
 var AppView = Backbone.View.extend({
   el: "#main",
@@ -74,7 +75,7 @@ var AppView = Backbone.View.extend({
         });
       }
     ], function(err, result) {
-      self.fixTpl();
+      new FooterView().render();
 
       if (err) {
         toast(err.message, 1500);
@@ -101,14 +102,6 @@ var AppView = Backbone.View.extend({
       title: parseUrl().classify,
       from: parseUrl().from || "--"
     });
-  },
-  fixTpl: function() {
-    var crTpl = require("app/client/mall/tpl/copyright.tpl");
-
-    $("#copyright").html(crTpl({
-      system: Util.getMobileSystem(),
-      isHangbanFunc: mallUitl.isHangbanFunc()
-    }));
   }
 });
 

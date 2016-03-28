@@ -18,6 +18,7 @@ var storage    = require("app/client/mall/js/lib/storage.js");
 var tplUtil    = require("app/client/mall/js/lib/mall-tpl.js");
 var orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
 var ui         = require("app/client/mall/js/lib/ui.js");
+var FooterView = require("app/client/mall/common/views/footer.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-detail-container",
@@ -145,7 +146,7 @@ var AppView = Backbone.View.extend({
       };
 
       $("#order-detail-container").html( compiled(tmplData) );
-      self.fixTpl();
+      new FooterView().render();
       self.$initial.hide();
       orderLog({
         title: self.orderDetail.title,
@@ -239,14 +240,6 @@ var AppView = Backbone.View.extend({
       // hint.hideLoading();
       window.location.reload();
     });
-  },
-  fixTpl: function() {
-    var crTpl = require("app/client/mall/tpl/copyright.tpl");
-
-    $("#copyright").html(crTpl({
-      system: Util.getMobileSystem(),
-      isHangbanFunc: mallUitl.isHangbanFunc()
-    }));
   }
 });
 

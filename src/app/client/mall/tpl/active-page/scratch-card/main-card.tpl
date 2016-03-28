@@ -1,7 +1,7 @@
 <canvas width="<%= width %>" height="<%= height %>"
   data-background-size="<%= width %>px <%= height %>px"
   data-fill-text="刮 奖 区"
-  data-fill-font="1rem helvetica neue, tahoma, arial"
+  data-fill-font="40px helvetica neue, tahoma, arial"
   data-font-color="#716F70"
   data-text-align="center"
   data-text-base-line="middle"

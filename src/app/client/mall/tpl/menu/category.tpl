@@ -2,7 +2,7 @@
   <% _.each(group.products, function(item) { %>
     <dd class="js-touch-state home-goods-area-son fl">
       <a
-        data-log-click="<%= appName %>-block_<%= item.productid %>_<%= item.title %>@click@index"
+        data-log-mall-click="block_<%= item.title %>"
         data-productid="<%= item.productid %>"
         data-title="<%= item.title %>"
         data-classify="<%= item.classify || '' %>"
