@@ -51,7 +51,7 @@ var AppView = Backbone.View.extend({
     this.$categoryView  = new CategoryView({model: this.stateModel});
     this.$goodsView     = new GoodsView({model: this.stateModel, showLoading: true});
     this.$pointsView    = new PointsView();
-    this.listenTo(this.stateModel, "change", this.stateChange);
+    this.listenTo(this.stateModel, "change:status", this.stateChange);
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
     this.bindEvents();
   },
@@ -138,14 +138,13 @@ var AppView = Backbone.View.extend({
   },
 
   stateChange: function (e) {
-    if(e.hasChanged("status") && e.get("status") !== 1){
+    if(e.get("status") !== 1){
       $(window).scrollTop(this.getFixTop() + 18);
     }
   },
 
   bindEvents: function () {
     $(window).scroll(function(event) {
-              /* Act on the event */
       var height = this.getFixTop();
       if($(window).scrollTop() > height){
         this.$categoryView.fix();
