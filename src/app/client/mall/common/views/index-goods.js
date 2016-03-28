@@ -24,7 +24,7 @@ var PromotionView = BaseView.extend({
 
   initialize: function (options){
     this.showLoading = options.showLoading || false;
-    this.listenTo(this.model, "change", this.fetch);
+    this.listenTo(this.model, "change:status", this.fetch);
     imageDelay();
   },
 

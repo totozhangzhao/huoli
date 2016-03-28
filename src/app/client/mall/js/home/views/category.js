@@ -23,7 +23,7 @@ var CategoryView = BaseView.extend({
   template: require("app/client/mall/tpl/home/v2/category.tpl"),
 
   initialize: function (options) {
-    this.listenTo(this.model, "change", this.stateChange);
+    this.listenTo(this.model, "change:status", this.stateChange);
   },
 
   render: function (data) {
@@ -116,7 +116,12 @@ var CategoryView = BaseView.extend({
   showPannel: function () {
     $(".home-list-switch", this.$el).addClass("home-rotate-switch");
     $(".home-pull-area", this.$el).fadeIn('fast');
-    return $(".home-goods-shadow").show();
+    return $(".home-goods-shadow")
+            .show()
+            .off("click")
+            .one('click', function(event) {
+              this.hidePannel();
+            }.bind(this));
   },
   hidePannel: function () {
     $(".home-list-switch", this.$el).removeClass("home-rotate-switch");
@@ -125,7 +130,7 @@ var CategoryView = BaseView.extend({
   },
 
   stateChange: function (e) {
-    if(e.hasChanged("status") && e.get("status") !== 1){
+    if(e.get("status") !== 1){
       return this.hidePannel();
     }
   },
