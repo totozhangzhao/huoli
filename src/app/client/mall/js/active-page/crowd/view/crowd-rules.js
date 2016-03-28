@@ -24,7 +24,7 @@ var AppView = Backbone.View.extend({
   mallCrowdRules: function() {
     var self = this;
 
-    mallPromise.appInfo
+    mallPromise.getAppInfo()
       .then(function(userData) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,

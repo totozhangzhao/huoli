@@ -2,15 +2,17 @@ var Promise = require("com/mobile/lib/promise/npo.js");
 var appInfo = require("app/client/mall/js/lib/app-info.js");
 var toast   = require("com/mobile/widget/hint/hint.js").toast;
 
-exports.appInfo = new Promise(function(resolve, reject) {
-  appInfo.getUserData(function(err, userData) {
-    if (err) {
-      reject(err);
-    } else {
-      resolve(userData);
-    }
+exports.getAppInfo = function(reset) {
+  return new Promise(function(resolve, reject) {
+    appInfo.getUserData(function(err, userData) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(userData);
+      }
+    }, { reset: reset || false });
   });
-});
+};
 
 exports.catchFn = function(err) {
   if (err.message) {

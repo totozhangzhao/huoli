@@ -45,7 +45,7 @@ var AppView = Backbone.View.extend({
 
   fetchData: function () {
     var self = this;
-    mallPromise.appInfo
+    mallPromise.getAppInfo()
     .then(function (userData) {
       var params = _.extend({}, userData.userInfo, {
         productid: self.id

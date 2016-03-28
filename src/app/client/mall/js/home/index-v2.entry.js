@@ -31,7 +31,6 @@ var PointsView    = require("app/client/mall/js/home/views/points.js");
 require("com/mobile/widget/button/back-to-top.js");
 
 var AppView = Backbone.View.extend({
-
   el: "#main",
 
   events:{
@@ -39,9 +38,9 @@ var AppView = Backbone.View.extend({
   },
 
   initialize: function () {
-
     var title = mallUitl.isHangbanFunc() ? "航班商城" : "高铁商城";
     widget.updateViewTitle(title);
+
     this.$initial       = ui.initial().show();
     this.stateModel     = new StateModel();
     this.$footer        = new Footer();
@@ -52,14 +51,17 @@ var AppView = Backbone.View.extend({
     this.$goodsView     = new GoodsView({model: this.stateModel, showLoading: true});
     this.$pointsView    = new PointsView();
     this.listenTo(this.stateModel, "change:status", this.stateChange);
-    logger.track(mallUitl.getAppName() + "PV", "View PV", title);
+
     this.bindEvents();
+    this.fetchData();
+
+    logger.track(mallUitl.getAppName() + "PV", "View PV", title);
   },
 
   fetchData: function () {
     var self = this;
 
-    mallPromise.appInfo
+    mallPromise.getAppInfo(true)
     .then(function (userData) {
       return new Promise(function(resolve, reject) {
         sendPost("indexPageData", null, function(err, data) {
@@ -99,7 +101,7 @@ var AppView = Backbone.View.extend({
 
   getUserInfo: function () {
     var self = this;
-    mallPromise.appInfo
+    mallPromise.getAppInfo()
     .then(function (userData) {
       var params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p
@@ -161,5 +163,4 @@ var AppView = Backbone.View.extend({
 
 });
 
-var app = new AppView();
-app.fetchData();
+new AppView();

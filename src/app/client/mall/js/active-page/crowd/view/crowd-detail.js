@@ -170,7 +170,7 @@ var AppView = Backbone.View.extend({
 
     hint.showLoading();
 
-    mallPromise.appInfo
+    mallPromise.getAppInfo()
       .then(function(userData) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
@@ -271,7 +271,7 @@ var AppView = Backbone.View.extend({
       }
     };
 
-    mallPromise.appInfo
+    mallPromise.getAppInfo()
       .then(function(userData) {
         return start(userData);
       })
@@ -296,7 +296,7 @@ var AppView = Backbone.View.extend({
     }
     hint.showLoading();
     var self = this;
-    mallPromise.appInfo
+    mallPromise.getAppInfo()
       .then(function(userData) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
