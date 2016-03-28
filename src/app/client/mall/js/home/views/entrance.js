@@ -21,8 +21,10 @@ var EntranceView = BaseView.extend({
       this.$el.hide();
       return;
     }
+    var firstLineLength = data.length > 5 && data.length < 9 ? 4 : 5;
     this.$el.html(this.template({
-      dataList: data,
+      dataList: data.slice(0,firstLineLength),
+      moreDataList: data.slice(firstLineLength),
       appName: mallUitl.getAppName(),
       tplUtil: tplUtil
     })).show();
