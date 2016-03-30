@@ -936,6 +936,7 @@ img.touch-img {
   position: relative;
   left: 0;
   top: 0;
+  margin-bottom: 0.24rem;
 }
 .goods-detail-box .goods-buy-bar .goods-buy-price {
   padding-top: 0.32rem;

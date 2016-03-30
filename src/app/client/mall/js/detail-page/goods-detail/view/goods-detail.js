@@ -35,6 +35,7 @@ var AppView = Backbone.View.extend({
     this.title = "";
     this.userDataOpitons = { reset: false };
     this.$el.$exchangeButton = $("#goods-detail .js-exchange-button");
+    this.action = UrlUtil.parseUrlSearch().action;
     this.mallGoodsDetail();
   },
   resume: function() {
@@ -80,7 +81,9 @@ var AppView = Backbone.View.extend({
           productid: UrlUtil.parseUrlSearch().productid
         });
 
-        sendPost("goodsDetail", params, function(err, data) {
+        var method = String(self.action) === "9" ? "goodsDetail" : "productDetail";
+
+        sendPost(method, params, function(err, data) {
           next(err, data);
         });
       }
@@ -94,12 +97,15 @@ var AppView = Backbone.View.extend({
       self.$initial.hide();
     });
   },
-  renderMainPanel: function(goods) {
+  renderOldGoods: function(goods) {
+    this.$el.removeClass("goods-detail-box").addClass("active-box");
 
-    // router: use it as backbone view cache
-    this.cache.goods = goods;
-    this.title = goods.title;
-    widget.updateViewTitle(goods.title);
+    var mainOldTmpl = require("app/client/mall/tpl/detail-page/goods-detail-old.tpl");
+    this.$el.html(mainOldTmpl(goods));
+
+    new FooterView().render();
+  },
+  renderNewGoods: function(goods) {
 
     // 100积分+3125元
     var moneyTextFn = function(points, money) {
@@ -117,6 +123,19 @@ var AppView = Backbone.View.extend({
 
     // View: copyright
     new FooterView().render();
+  },
+  renderMainPanel: function(goods) {
+
+    // router: use it as backbone view cache
+    this.cache.goods = goods;
+    this.title = goods.title;
+    widget.updateViewTitle(goods.title);
+
+    if (goods.showprice) {
+      this.renderOldGoods(goods);
+    } else {
+      this.renderNewGoods(goods);
+    }
 
     if ( UrlUtil.parseUrlSearch().gotoView ) {
       this.router.switchTo( UrlUtil.parseUrlSearch().gotoView );
@@ -133,7 +152,6 @@ var AppView = Backbone.View.extend({
       }
 
       this.$el.$exchangeButton
-        .text(goods.button)
         .addClass(buttonClass)
         .show();
 

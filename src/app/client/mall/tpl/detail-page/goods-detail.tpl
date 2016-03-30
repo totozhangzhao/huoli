@@ -1,5 +1,5 @@
 <div class="goods-banner-bar">
-  <img src="<%= img %>">
+  <img src="<%= img %>" alt="">
 </div>
 
 <div class="goods-tit-bar">

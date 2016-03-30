@@ -10,6 +10,7 @@ exports.getJsClass = function(item) {
 
 exports.getBlockUrl = function(item) {
   var urlMap = {
+    "9": "/fe/app/client/mall/html/detail-page/goods-detail.html?action=9",
     "0": "/fe/app/client/mall/html/detail-page/goods-detail.html",
     "1": "/fe/app/client/mall/html/share-page/share.html",
     "4": "/fe/app/client/mall/html/active-page/scratch-card/main.html",
