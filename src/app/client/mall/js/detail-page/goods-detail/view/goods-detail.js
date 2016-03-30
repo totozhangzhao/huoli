@@ -80,7 +80,7 @@ var AppView = Backbone.View.extend({
           productid: UrlUtil.parseUrlSearch().productid
         });
 
-        sendPost("productDetail", params, function(err, data) {
+        sendPost("goodsDetail", params, function(err, data) {
           next(err, data);
         });
       }
@@ -94,22 +94,28 @@ var AppView = Backbone.View.extend({
       self.$initial.hide();
     });
   },
-  renderMainPanel: function(productInfo) {
+  renderMainPanel: function(goods) {
 
     // router: use it as backbone view cache
-    this.cache.productInfo = productInfo;
-    this.title = productInfo.title;
-    widget.updateViewTitle(productInfo.title);
+    this.cache.goods = goods;
+    this.title = goods.title;
+    widget.updateViewTitle(goods.title);
 
-    $("<img>", {
-      src: productInfo.img,
-      alt: ""
-    })
-      .appendTo("#goods-main-img");
+    // 100积分+3125元
+    var moneyTextFn = function(points, money) {
+      return points && money ?
+        points + "积分+" + money + "元" :
+        points && points + "积分" || money && money + "元" || "0元";
+    };
 
-    $("#goods-desc").html(productInfo.desc || "");
-    $(".js-points").html(productInfo.pprice);
+    goods.relevance.showMoney = moneyTextFn(goods.relevance.points, goods.relevance.money);
+    goods.showMoney = moneyTextFn(goods.points, goods.money);
 
+    // View: goods info
+    var mainTmpl = require("app/client/mall/tpl/detail-page/goods-detail.tpl");
+    this.$el.html(mainTmpl(goods));
+
+    // View: copyright
     new FooterView().render();
 
     if ( UrlUtil.parseUrlSearch().gotoView ) {
@@ -122,17 +128,17 @@ var AppView = Backbone.View.extend({
       // 2: 未开始;
       // 3: 已兑完;
       // 4: 今日已兑完。
-      if ( String(productInfo.stat) === "0" ) {
+      if ( String(goods.stat) === "0" ) {
         buttonClass = "allow-color";
       }
 
       this.$el.$exchangeButton
-        .text(productInfo.button)
+        .text(goods.button)
         .addClass(buttonClass)
         .show();
 
       if ( wechatUtil.isWechatFunc() ) {
-        wechatUtil.setTitle(productInfo.title);
+        wechatUtil.setTitle(goods.title);
         if ( shareUtil.hasShareInfo() ) {
           loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
         }
@@ -149,7 +155,7 @@ var AppView = Backbone.View.extend({
     }
 
     detailLog({
-      title: productInfo.title,
+      title: goods.title,
       productid: UrlUtil.parseUrlSearch().productid,
       from: UrlUtil.parseUrlSearch().from || "--"
     });
@@ -157,10 +163,10 @@ var AppView = Backbone.View.extend({
   exchangeHandler: function() {
     var self = this;
     var appName = cookie.get("appName");
-    var productInfo = this.cache.productInfo;
+    var goods = this.cache.goods;
 
     if ( /hbgj/i.test(appName) || /gtgj/i.test(appName) ) {
-      if ( String(productInfo.stat) !== "0" ) {
+      if ( String(goods.stat) !== "0" ) {
         return;
       }
 
@@ -186,7 +192,7 @@ var AppView = Backbone.View.extend({
           // 3--转入输入地址页面（预留）
           // 9--点击跳转第三方链接（ thirdparturl ）
           // 13--转入自定义表单页面
-          switch ( String(productInfo.type) ) {
+          switch ( String(goods.type) ) {
             case "2":
               self.router.switchTo("form-phone");
               return;
@@ -195,14 +201,14 @@ var AppView = Backbone.View.extend({
               return;
             case "9":
               self.gotoNewView({
-                url: productInfo.thirdparturl
+                url: goods.thirdparturl
               });
               return;
             case "13":
               self.router.switchTo("form-custom");
               return;
             default:
-              var titleText = productInfo.confirm || "是否确认兑换？";
+              var titleText = goods.confirm || "是否确认兑换？";
 
               // 确认兑换弹窗
               var confirm = new Popover({
@@ -212,7 +218,7 @@ var AppView = Backbone.View.extend({
                 agreeText: "确定",
                 cancelText: "取消",
                 agreeFunc: function() {
-                  self.exchange(productInfo);
+                  self.exchange(goods);
                 },
                 cancelFunc: function() {}
               });
@@ -265,7 +271,7 @@ var AppView = Backbone.View.extend({
       self.userDataOpitons.reset = true;
     });
   },
-  exchange: function(productInfo) {
+  exchange: function(goods) {
 
     // type：兑换类型
     // 1--直接调用创建订单接口
@@ -273,9 +279,9 @@ var AppView = Backbone.View.extend({
     // 3--转入输入地址页面（预留）
     // 9--点击跳转第三方链接（ thirdparturl ）
     // 13--转入输入手机号页面（预留，金融类）
-    switch ( String(productInfo.type) ) {
+    switch ( String(goods.type) ) {
       case "1":
-        this.mallCreateOrder(productInfo);
+        this.mallCreateOrder(goods);
         break;
       case "2":
         this.router.switchTo("form-phone");
@@ -285,7 +291,7 @@ var AppView = Backbone.View.extend({
         break;
       case "9":
         this.gotoNewView({
-          url: productInfo.thirdparturl
+          url: goods.thirdparturl
         });
         break;
       case "13":
@@ -321,7 +327,7 @@ var AppView = Backbone.View.extend({
       }
     });
   },
-  mallCreateOrder: function(productInfo) {
+  mallCreateOrder: function(goods) {
     var self = this;
 
     hint.showLoading();
@@ -367,10 +373,10 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      self.handleCreateOrder(result, productInfo);
+      self.handleCreateOrder(result, goods);
     });
   },
-  handleCreateOrder: function(orderInfo, productInfo) {
+  handleCreateOrder: function(orderInfo, goods) {
     var self = this;
 
     async.waterfall([
@@ -392,7 +398,7 @@ var AppView = Backbone.View.extend({
           var payParams = {
             quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
             title: "支付订单",
-            price: productInfo.mprice,
+            price: goods.mprice,
             orderid: orderInfo.payorderid,
             productdesc: orderInfo.paydesc,
             url: payUrl,
