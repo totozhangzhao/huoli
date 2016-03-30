@@ -94,7 +94,7 @@ var AppView = Backbone.View.extend({
 
     var close = function() {
       self.$panel.hide();
-      self.$button.text( self.$button.data("activeText") );      
+      self.$button.text( self.$button.data("activeText") );
     };
 
     if ( $cur.hasClass("js-hide-panel") ) {
@@ -170,7 +170,7 @@ var AppView = Backbone.View.extend({
 
     hint.showLoading();
 
-    mallPromise.appInfo
+    mallPromise.getAppInfo()
       .then(function(userData) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
@@ -271,7 +271,7 @@ var AppView = Backbone.View.extend({
       }
     };
 
-    mallPromise.appInfo
+    mallPromise.getAppInfo()
       .then(function(userData) {
         return start(userData);
       })
@@ -296,7 +296,7 @@ var AppView = Backbone.View.extend({
     }
     hint.showLoading();
     var self = this;
-    mallPromise.appInfo
+    mallPromise.getAppInfo()
       .then(function(userData) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
@@ -335,7 +335,7 @@ var AppView = Backbone.View.extend({
     var minBarWidth = 4;
     var maxBarWidth = 100;
     var barWidth = (productDetail.totalcount - productDetail.remaincount) / productDetail.totalcount * 100;
-    
+
     barWidth = barWidth > minBarWidth ? barWidth : minBarWidth;
     barWidth = barWidth < maxBarWidth ? barWidth : maxBarWidth;
 

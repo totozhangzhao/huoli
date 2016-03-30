@@ -15,6 +15,7 @@ var mallWechat = require("app/client/mall/js/lib/wechat.js");
 var logger     = require("com/mobile/lib/log/log.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
 var ShareInput = require("app/client/mall/js/share-page/share-input.js");
+var ui         = require("app/client/mall/js/lib/ui.js");
 
 var AppView = Backbone.View.extend({
   el: "#interlayer",
@@ -23,6 +24,7 @@ var AppView = Backbone.View.extend({
     "click a": "createNewPage"
   },
   initialize: function() {
+    this.$initial = ui.initial().show();
     this.mallInterlayer();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
@@ -99,6 +101,8 @@ var AppView = Backbone.View.extend({
       if ( !isApp ) {
         require("app/client/mall/js/lib/download-app.js").init( isApp );
       }
+
+      self.$initial.hide();
     });
   },
   initActive: function() {
@@ -106,7 +110,7 @@ var AppView = Backbone.View.extend({
 
     if ( activeType === "zhenrongbao" ) {
       new ShareInput({ el: "#interlayer" });
-    }    
+    }
   }
 });
 

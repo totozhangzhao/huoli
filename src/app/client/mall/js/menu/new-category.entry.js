@@ -5,6 +5,7 @@ var widget     = require("app/client/mall/js/lib/common.js");
 
 var Util       = require("com/mobile/lib/util/util.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
+var ui         = require("app/client/mall/js/lib/ui.js");
 
 var logger     = require("com/mobile/lib/log/log.js");
 var menuLog    = require("app/client/mall/js/lib/common.js").initTracker("menu");
@@ -25,11 +26,12 @@ var AppView = BaseView.extend({
   initialize: function() {
     var title       = parseUrl().title;
     widget.updateViewTitle(title);
+    this.$initial = ui.initial().show();
     this.groupId    = parseUrl().groupId;
     this.stateModel = new StateModel();
     this.$footer    = new Footer();
     this.$goodsView = new GoodsView({model: this.stateModel});
-    this.listenTo(this.model, "change", this.stateChange);
+    this.listenTo(this.stateModel, "change", this.stateChange);
     this.render();
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
     menuLog({
@@ -44,9 +46,13 @@ var AppView = BaseView.extend({
       groupId: this.groupId
     });
     this.$footer.render();
+    return this;
   },
 
-  stateChange: function () {
+  stateChange: function (e) {
+    if(e.hasChanged("status") && e.get("status") !== 1){
+      this.$initial.hide();
+    }
     // 数据加载完成
   }
 });

@@ -11,6 +11,7 @@ var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var Util          = require("com/mobile/lib/util/util.js");
 var mallUitl      = require("app/client/mall/js/lib/util.js");
 var UrlUtil       = require("com/mobile/lib/url/url.js");
+var ui            = require("app/client/mall/js/lib/ui.js");
 
 var widget        = require("app/client/mall/js/lib/common.js");
 var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
@@ -26,11 +27,10 @@ var PromotionView = require("app/client/mall/js/home/views/promotion.js");
 var CategoryView  = require("app/client/mall/js/home/views/category.js");
 var GoodsView     = require("app/client/mall/common/views/index-goods.js");
 var Footer        = require("app/client/mall/common/views/footer.js");
-
+var PointsView    = require("app/client/mall/js/home/views/points.js");
 require("com/mobile/widget/button/back-to-top.js");
 
 var AppView = Backbone.View.extend({
-
   el: "#main",
 
   events:{
@@ -38,23 +38,30 @@ var AppView = Backbone.View.extend({
   },
 
   initialize: function () {
-
     var title = mallUitl.isHangbanFunc() ? "航班商城" : "高铁商城";
     widget.updateViewTitle(title);
+
+    this.$initial       = ui.initial().show();
     this.stateModel     = new StateModel();
     this.$footer        = new Footer();
     this.$bannerView    = new BannerView();
     this.$entranceView  = new EntranceView();
     this.$promotionView = new PromotionView();
     this.$categoryView  = new CategoryView({model: this.stateModel});
-    this.$goodsView     = new GoodsView({model: this.stateModel});
+    this.$goodsView     = new GoodsView({model: this.stateModel, showLoading: true});
+    this.$pointsView    = new PointsView();
+
+    this.listenTo(this.stateModel, "change", this.stateChange);
+    this.bindEvents();
+    this.fetchData();
+
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
   },
 
   fetchData: function () {
     var self = this;
 
-    mallPromise.appInfo
+    mallPromise.getAppInfo(true)
     .then(function (userData) {
       return new Promise(function(resolve, reject) {
         sendPost("indexPageData", null, function(err, data) {
@@ -73,6 +80,7 @@ var AppView = Backbone.View.extend({
   },
 
   render: function (data) {
+    var self = this;
     this.$entranceView.render(data.topmenu || []);
     this.$promotionView.render(data.topgoods || []);
     this.$categoryView.render(data.menu || []);
@@ -80,6 +88,9 @@ var AppView = Backbone.View.extend({
     this.$footer.render();
     // this.initWarning();
     this.getUserInfo();
+    setTimeout(function() {
+      self.$initial.hide();
+    }, 600);
     return this;
   },
 
@@ -90,7 +101,7 @@ var AppView = Backbone.View.extend({
 
   getUserInfo: function () {
     var self = this;
-    mallPromise.appInfo
+    mallPromise.getAppInfo()
     .then(function (userData) {
       var params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p
@@ -99,12 +110,8 @@ var AppView = Backbone.View.extend({
         if(err){
           return;
         }
-        $("#home-points")
-          .find(".num-font").html(data.points)
-        .end()
-        .show();
+        self.$pointsView.render(data);
         self.showCheckinBtn();
-
       });
     })
     .catch(mallPromise.catchFn);
@@ -130,9 +137,31 @@ var AppView = Backbone.View.extend({
         logger.track(mallUitl.getAppName() + "-签到", "click");
       });
     }
+  },
+
+  stateChange: function (e) {
+    if(e.hasChanged("status") && e.get("status") !== 1){
+      $(window).scrollTop(this.getFixTop() + 18);
+    }
+  },
+
+  bindEvents: function () {
+    $(window).scroll(function(event) {
+      /* Act on the event */
+      var height = this.getFixTop();
+      if($(window).scrollTop() > height){
+        this.$categoryView.fix();
+      }else{
+        this.$categoryView.rel();
+      }
+    }.bind(this));
+  },
+
+  // 获取分类选择吸顶效果的top距离
+  getFixTop: function () {
+    return this.$goodsView.$el.get(0).offsetTop - this.$categoryView.$el.get(0).offsetHeight;
   }
 
 });
 
-var app = new AppView();
-app.fetchData();
+new AppView();

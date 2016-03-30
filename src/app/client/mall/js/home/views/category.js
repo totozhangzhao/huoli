@@ -73,7 +73,7 @@ var CategoryView = BaseView.extend({
     if(_el.hasClass("on")){
       return;
     }
-    
+
     var groupId = _el.data("groupId");
     this.scrollObj.allCategory
       .siblings(".on")
@@ -88,7 +88,7 @@ var CategoryView = BaseView.extend({
     });
 
     if(_el.data("scrollItem")){
-      return; 
+      return;
     }
     // 滚动
     // 设置滚动位置
@@ -125,6 +125,21 @@ var CategoryView = BaseView.extend({
   stateChange: function (e) {
     if(e.hasChanged("status") && e.get("status") !== 1){
       return this.hidePannel();
+    }
+  },
+
+  fix: function () {
+    if(this.$el.hasClass('fix')){
+      return;
+    }
+    $("#home-category-fix").show();
+    return this.$el.addClass('fix');
+  },
+
+  rel: function () {
+    if(this.$el.hasClass('fix')){
+      $("#home-category-fix").hide();
+      return this.$el.removeClass('fix');
     }
   }
 });

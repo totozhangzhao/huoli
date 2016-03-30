@@ -1,3 +1,4 @@
+<ul class="home-item-bar flex-row clearfix no-select">
 <% _.each(dataList, function (item, index) { %>
   <li>
     <a
@@ -14,3 +15,4 @@
     </a>
   </li>
 <% }); %>
+</ul>

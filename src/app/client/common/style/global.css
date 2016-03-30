@@ -241,29 +241,6 @@ a {
   -webkit-user-select: initial;
 }
 
-/* toast - start */
-.toast {
-  display: block;
-  z-index: 101;
-  position: fixed;
-  top: 51%;
-  left: 50%;
-  width: 320px;
-  margin-left: -160px;
-  color: #fff;
-  border-radius: 5px;
-  text-align: center;
-}
-.toast span {
-  border-radius: 5px;
-  background: rgba(0, 0, 0, .7);
-  display: inline-block;
-  max-width: 228px;
-  padding: 5px 10px;
-  word-break: break-all;
-}
-/* toast -  end  */
-
 /* cnzz - start */
 [id^="cnzz_stat_icon_"] {
   display: none;

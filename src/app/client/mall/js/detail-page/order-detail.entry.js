@@ -17,6 +17,8 @@ var mallUitl   = require("app/client/mall/js/lib/util.js");
 var storage    = require("app/client/mall/js/lib/storage.js");
 var tplUtil    = require("app/client/mall/js/lib/mall-tpl.js");
 var orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
+var ui         = require("app/client/mall/js/lib/ui.js");
+var FooterView = require("app/client/mall/common/views/footer.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-detail-container",
@@ -32,6 +34,7 @@ var AppView = Backbone.View.extend({
       text: "订单详情"
     });
 
+    this.$initial = ui.initial().show();
     this.orderDetail = {};
     this.isPaying = false;
     this.mallOrderDetail();
@@ -141,10 +144,10 @@ var AppView = Backbone.View.extend({
       var tmplData = {
         orderDetail: self.orderDetail
       };
-      
-      $("#order-detail-container").html( compiled(tmplData) );
-      self.fixTpl();
 
+      $("#order-detail-container").html( compiled(tmplData) );
+      new FooterView().render();
+      self.$initial.hide();
       orderLog({
         title: self.orderDetail.title,
         from: parseUrl().from || "--"
@@ -237,15 +240,7 @@ var AppView = Backbone.View.extend({
       // hint.hideLoading();
       window.location.reload();
     });
-  },
-  fixTpl: function() {
-    var crTpl = require("app/client/mall/tpl/copyright.tpl");
-
-    $("#copyright").html(crTpl({
-      system: Util.getMobileSystem(),
-      isHangbanFunc: mallUitl.isHangbanFunc()
-    }));
   }
 });
 
-new AppView(); 
+new AppView();

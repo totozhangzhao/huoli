@@ -1,21 +1,22 @@
-var $          = require("jquery");
-var Backbone   = require("backbone");
-var _          = require("lodash");
-var async      = require("async");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast      = require("com/mobile/widget/hint/hint.js").toast;
-var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var widget     = require("app/client/mall/js/lib/common.js");
-var loadScript = require("com/mobile/lib/load-script/load-script.js");
-var shareUtil  = require("com/mobile/widget/wechat/util.js");
-var wechatUtil = require("com/mobile/widget/wechat-hack/util.js");
-var mallWechat = require("app/client/mall/js/lib/wechat.js");
+var $           = require("jquery");
+var Backbone    = require("backbone");
+var _           = require("lodash");
+var async       = require("async");
+var NativeAPI   = require("app/client/common/lib/native/native-api.js");
+var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var toast       = require("com/mobile/widget/hint/hint.js").toast;
+var parseUrl    = require("com/mobile/lib/url/url.js").parseUrlSearch;
+var appInfo     = require("app/client/mall/js/lib/app-info.js");
+var widget      = require("app/client/mall/js/lib/common.js");
+var loadScript  = require("com/mobile/lib/load-script/load-script.js");
+var shareUtil   = require("com/mobile/widget/wechat/util.js");
+var wechatUtil  = require("com/mobile/widget/wechat-hack/util.js");
+var mallWechat  = require("app/client/mall/js/lib/wechat.js");
 var ScratchCard = require("com/mobile/widget/scratch-card/scratch-card.js");
-// var Util       = require("com/mobile/lib/util/util.js");
-var logger   = require("com/mobile/lib/log/log.js");
-var mallUitl = require("app/client/mall/js/lib/util.js");
+var logger      = require("com/mobile/lib/log/log.js");
+var mallUitl    = require("app/client/mall/js/lib/util.js");
+var ui          = require("app/client/mall/js/lib/ui.js");
+var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
 
 var AppView = Backbone.View.extend({
   el: "#lottery-main",
@@ -24,6 +25,10 @@ var AppView = Backbone.View.extend({
     "click a": "createNewPage"
   },
   initialize: function() {
+    var title = parseUrl().title || document.title;
+
+    widget.updateViewTitle(title);
+    this.$initial = ui.initial().show();
 
     // 本次中奖结果
     this.lotteryInfo = {};
@@ -40,8 +45,13 @@ var AppView = Backbone.View.extend({
         mallWechat.initNativeShare(_.bind(this.mallCheckin, this));
       }
     }
-    
-    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+
+    logger.track(mallUitl.getAppName() + "PV", "View PV", title);
+    detailLog({
+      title: title,
+      productid: parseUrl().productid,
+      from: parseUrl().from || "--"
+    });
   },
   doPointsAnimate: function() {
     var $points = this.$el.find(".js-points");
@@ -56,10 +66,13 @@ var AppView = Backbone.View.extend({
   initCard: function() {
     var self = this;
     var cardTmpl = require("app/client/mall/tpl/active-page/scratch-card/main-card.tpl");
+    var $cardBox = this.$el.find(".js-card-block");
 
-    this.$el
-      .find(".js-card-block")
-        .html( cardTmpl({}) );
+    $cardBox
+      .html( cardTmpl({
+        width : $cardBox.width(),
+        height: $cardBox.height()
+      }) );
 
     this.$el.find("canvas")
       .on("getImageURL", function(e, canvas, resetCard) {
@@ -76,6 +89,16 @@ var AppView = Backbone.View.extend({
       });
 
     new ScratchCard({ el: "#lottery-main canvas" });
+
+    var isApp = mallUitl.isAppFunc();
+
+    if ( !isApp ) {
+      require("app/client/mall/js/lib/download-app.js").init( isApp );
+    }
+
+    setTimeout(function() {
+      self.$initial.hide();
+    }, 600);
   },
   getResultImage: function(canvas, resetCard) {
     var self = this;
@@ -194,7 +217,7 @@ var AppView = Backbone.View.extend({
           var goFunc = function() {
             var nextUrl;
 
-            // bonus: 
+            // bonus:
             // 0: 没有中奖
             // 1: 普通奖品
             // 2: 转入订单详情
@@ -347,7 +370,7 @@ var AppView = Backbone.View.extend({
 
       self.$el
         .find(".js-points")
-          .text(result.points);      
+          .text(result.points);
     });
   },
   loginApp: function() {
@@ -363,7 +386,7 @@ var AppView = Backbone.View.extend({
       }
     ], function(err, result) {
       if (err) {
-        toast(err.message, 1500);
+        window.console.log(err.message);
         return;
       }
 

@@ -24,8 +24,7 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
     this.loadingMore = false;
-
-    hint.showLoading();
+    this.$initial = ui.initial().show();
 
     // var self = this;
     // this.$el.$emptyHint = $("#empty-record-hint");
@@ -82,10 +81,10 @@ var AppView = Backbone.View.extend({
           var tmplData = {
             orderList: result
           };
-          
+
           $list.html( compiled(tmplData) );
           imgDelay();
-        }      
+        }
       };
 
       var $input = this.$panel.find("[data-name='search']");
@@ -170,7 +169,7 @@ var AppView = Backbone.View.extend({
     var self = this;
     var screenHeight = $(window).height();
     var edgeHeight = screenHeight * 0.35;
-    
+
     $(window).on("scroll", function() {
       if (self.loadingMore) {
         return;
@@ -204,7 +203,6 @@ var AppView = Backbone.View.extend({
       if ( String(result.succ) === "1" || result.value === result.SUCC ) {
         window.location.reload();
       } else {
-        // hint.hideLoading();
         window.console.log(JSON.stringify(result));
         NativeAPI.invoke("close");
       }
@@ -228,7 +226,7 @@ var AppView = Backbone.View.extend({
         var tmplData = {
           orderList: result
         };
-        
+
         $listBox.append( compiled(tmplData) );
       }
     };
@@ -265,15 +263,15 @@ var AppView = Backbone.View.extend({
         var tmplData = {
           orderList: result
         };
-        
+
         $listBox
           .html( compiled(tmplData) )
           .data("_cache", true);
         imgDelay();
         self.setUpdatePage();
       }
-    
-      hint.hideLoading();
+
+      self.$initial.hide();
       self.initLoadingMore();
     };
 
@@ -316,7 +314,7 @@ var AppView = Backbone.View.extend({
             next(null, data);
           });
         } else {
-          hint.hideLoading();
+          self.$initial.hide();
           self.loginApp();
         }
       }

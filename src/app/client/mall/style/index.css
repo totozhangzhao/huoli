@@ -88,6 +88,28 @@ p {
   left: 0;
   top: 0;
 }
+/* toast - start */
+.toast {
+  display: block;
+  position: fixed;
+  top: 51%;
+  left: 50%;
+  width: 8.53333rem;
+  margin-left: -4.26667rem;
+  color: #fff;
+  border-radius: 0.13333rem;
+  text-align: center;
+  z-index: 20000;
+}
+.toast span {
+  border-radius: 0.13333rem;
+  background: rgba(0, 0, 0, 0.7);
+  display: inline-block;
+  max-width: 6.08rem;
+  padding: 0.13333rem 0.26667rem;
+  word-break: break-all;
+}
+/* toast -  end  */
 .loading-box {
   display: none;
   width: 100%;
@@ -259,11 +281,37 @@ p {
   font-size: 0.4rem;
   color: #727272;
 }
+.ui-initial {
+  background-color: #f0f0f0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 2.8rem 0 0 0;
+  z-index: 19999;
+}
+.ui-initial .bg {
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 10rem;
+  height: 2.29333rem;
+  margin: 0 auto;
+}
+.ui-initial .bg.gt {
+  background-image: url(http://cdn.rsscc.cn/guanggao/mall/common/init-gt.gif);
+}
+.ui-initial .txt {
+  margin: 0.8rem 0 0 0;
+  text-align: center;
+  font-size: 0.4rem;
+  color: #333;
+}
 img.touch-img {
-  transition: transform .2s;
+  transition: all .3s;
 }
 .touch img.touch-img {
-  transform: scale(0.95);
+  transform: scale(0.9);
 }
 .home-page-box {
   color: #333;
@@ -288,6 +336,8 @@ img.touch-img {
 }
 .home-page-box .home-banner-bar {
   overflow: hidden;
+  height: 2.66667rem;
+  width: 10rem;
   position: relative;
   left: 0;
   top: 0;
@@ -319,8 +369,9 @@ img.touch-img {
   opacity: 0.8;
 }
 .home-page-box .home-nav {
-  height: 1.06667rem;
-  line-height: 1.06667rem;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  font-size: 0.37333rem;
   padding-top: 0;
   padding-right: 0.4rem;
   padding-bottom: 0;
@@ -334,7 +385,7 @@ img.touch-img {
 }
 .home-page-box .home-nav .home-record-btn {
   height: 100%;
-  line-height: 1.06667rem;
+  line-height: 1.2rem;
   padding-top: 0;
   padding-right: 0.32rem;
   padding-bottom: 0;
@@ -345,7 +396,7 @@ img.touch-img {
   top: 0;
 }
 .home-page-box .home-nav .home-record-btn .home-record-icon {
-  width: 0.16rem;
+  width: 0.18667rem;
   height: 0.26667rem;
   position: absolute;
   right: 0;
@@ -356,7 +407,7 @@ img.touch-img {
 }
 .home-page-box .home-item-bar {
   width: 100%;
-  height: 2.72rem;
+  height: 2.50667rem;
   background-color: #fff;
   color: #434343;
   padding-top: 0;
@@ -372,17 +423,19 @@ img.touch-img {
   display: block;
   width: 100%;
   height: 100%;
-  padding-top: 0.48rem;
-  padding-bottom: 0.53333rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
 }
 .home-page-box .home-item-bar li div {
   width: 1.14667rem;
   height: 1.14667rem;
   margin: 0 auto;
   background-size: contain;
+  background-repeat: no-repeat;
 }
 .home-page-box .home-item-bar li p {
   height: 0.32rem;
+  font-size: 0.34667rem;
   line-height: 0.32rem;
   margin-top: 0.24rem;
 }
@@ -407,9 +460,14 @@ img.touch-img {
   width: 100%;
   height: 1.86667rem;
 }
+.home-page-box .home-list-nav.fix {
+  position: fixed;
+  margin-top: 0;
+  z-index: 4;
+}
 .home-page-box .home-list-nav {
   width: 100%;
-  font-size: 0.4rem;
+  font-size: 0.37333rem;
   color: #434343;
   padding-right: 1.22667rem;
   margin-top: 0.24rem;
@@ -519,8 +577,8 @@ img.touch-img {
 .home-page-box .home-goods-fa .home-goods-bar li {
   width: 50%;
   float: left;
-  padding-bottom: 1px;
-  height: 5.54667rem;
+  border-bottom: 1px solid #f0f0f0;
+  height: 5.06667rem;
 }
 .home-page-box .home-goods-fa .home-goods-bar li a {
   width: 100%;
@@ -548,9 +606,9 @@ img.touch-img {
   padding-bottom: 0.16rem;
 }
 .home-page-box .home-goods-fa .home-goods-bar li a div.home-info-bar .home-info-show .hmoe-goods-name {
-  font-size: 0.32rem;
+  font-size: 0.37333rem;
   color: #333;
-  height: 0.96rem;
+  height: 0.48rem;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -558,22 +616,21 @@ img.touch-img {
   -webkit-box-orient: vertical;
 }
 .home-page-box .home-goods-fa .home-goods-bar li a div.home-info-bar .home-goods-price {
-  height: 0.37333rem;
-  line-height: 0.37333rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
   padding-left: 0.4rem;
   color: #bfbfbf;
 }
 .home-page-box .home-goods-fa .home-goods-bar li a div.home-info-bar .home-goods-price span {
   color: #ff5a44;
-  margin-right: 0.08rem;
   position: relative;
   left: 0;
   top: 0;
 }
 .home-page-box .home-goods-fa .home-goods-bar li a div.home-info-bar .home-goods-price em.home-point-icon {
   width: 0.32rem;
-  height: 0.37333rem;
-  display: inline-block;
+  height: 0.4rem;
+  float: left;
   margin-right: 0.08rem;
   padding-left: 0.32rem;
   background: url(http://cdn.rsscc.cn/guanggao/img//icon/index-icon.png) no-repeat -0.26667rem -2.26667rem;

@@ -1,5 +1,5 @@
-<canvas width="286" height="122"
-  data-background-size="286px 122px"
+<canvas width="<%= width %>" height="<%= height %>"
+  data-background-size="<%= width %>px <%= height %>px"
   data-fill-text="刮 奖 区"
   data-fill-font="40px helvetica neue, tahoma, arial"
   data-font-color="#716F70"
