@@ -18,7 +18,9 @@ var runSequence    = require("run-sequence");
 var webpackBuilder = require("./builder/webpack/index.js");
 var versionRef     = require("./builder/version/version-ref.js");
 var shell          = require("gulp-shell");
-var md5            = require("gulp-md5-plus");
+
+var rev            = require("gulp-rev");
+var revReplace     = require("gulp-rev-replace");
 var config = {
   src : "./src/",
   dest: "./dest/"
@@ -106,7 +108,7 @@ gulp.task("dev", ["clean"], function () {
   runSequence("html", "styles", "images", "js");
 });
 gulp.task("build", ["clean"], function() {
-  runSequence(["html", "styles", "images", "js"], ["md5:js", "md5:css"], "compress", "html");
+  runSequence(["html", "styles", "images", "js"], "rev:replace", "compress", "html");
 });
 
 // Watch
@@ -126,32 +128,21 @@ gulp.task("watch", function() {
 
 });
 
-// md5
-gulp.task("md5:js", function (done) {
-  runSequence("md5:app", "md5:vendor", "md5:test");
-});
-gulp.task("md5:app", function (done) {
-  gulp.src([config.dest + "app/**/*.bundle.js"], {base: config.dest})
-  .pipe(md5(8, config.dest + "app/**/*.html"))
-  .pipe(gulp.dest(config.dest))
-  .on("end",done);
-});
-gulp.task("md5:vendor", function (done) {
-  gulp.src([config.dest + "vendor/**/*.bundle.js"], {base: config.dest})
-  .pipe(md5(8, config.dest + "**/*.html"))
-  .pipe(gulp.dest(config.dest))
-  .on("end",done);
-});
-gulp.task("md5:test", function (done) {
-  gulp.src([config.dest + "com/**/*.bundle.js"], {base: config.dest})
-  .pipe(md5(8, config.dest + "com/**/*.html"))
-  .pipe(gulp.dest(config.dest))
-  .on("end",done);
-});
-gulp.task("md5:css", function (done) {
-  gulp.src(config.dest + "app/**/*.css", {base: config.dest})
-  .pipe(md5(8, config.dest + "app/**/*.html"))
-  .pipe(gulp.dest(config.dest))
-  .on("end",done)
-});
 
+gulp.task("rev", function (cb) {
+  return gulp.src([config.dest + "**/*.bundle.js", config.dest + "**/*.css"])
+  .pipe(rev())
+  .pipe(gulp.dest(config.dest))
+  .pipe(rev.manifest())
+  .pipe(gulp.dest(config.dest))
+
+});
+gulp.task("rev:replace", ["rev"], function () {
+  var manifest = gulp.src(config.dest + "rev-manifest.json");
+  return gulp.src(config.dest + "**/*.html")
+  .pipe(revReplace({
+    manifest: manifest
+  }))
+  .pipe(gulp.dest(config.dest))
+
+});
