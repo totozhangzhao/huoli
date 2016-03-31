@@ -21,9 +21,16 @@ exports.initRem();
 exports.createAView = function(e) {
   var $cur = $(e.currentTarget);
   var url = $cur.prop("href");
+  var isEmpty = function(str) {
+    return str === "" || str === null || str === undefined;
+  };
 
-  if (url === "" || url === null || url === undefined) {
-    return true;
+  if ( isEmpty(url) ) {
+    url = $cur.data("href");
+
+    if ( isEmpty(url) ) {
+      return true;
+    }
   }
 
   // <a href="tel:+6494461709">61709</a>

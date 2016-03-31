@@ -22,19 +22,23 @@ var Popover     = require("com/mobile/widget/popover/popover.js");
 var pageAction  = require("app/client/mall/js/lib/page-action.js");
 var ui          = require("app/client/mall/js/lib/ui.js");
 var FooterView  = require("app/client/mall/common/views/footer.js");
+var BaseView    = require("app/client/mall/common/views/BaseView.js");
+var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
 
-var AppView = Backbone.View.extend({
+var AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
-    "click #goods-desc a"      : "createNewPage",
-    "click .js-exchange-button": "exchangeHandler"
+    "click .js-new-page": "createNewPage",
+    "click .js-get-url" : "handleGetUrl",
+    "click .js-desc a"  : "createNewPage",
+    "click .js-exchange": "exchangeHandler"
   },
   initialize: function() {
     this.$initial = ui.initial();
     this.resetAppView = false;
     this.title = "";
     this.userDataOpitons = { reset: false };
-    this.$el.$exchangeButton = $("#goods-detail .js-exchange-button");
+    this.$el.$exchangeButton = $("#goods-detail .js-exchange");
     this.action = UrlUtil.parseUrlSearch().action;
     this.mallGoodsDetail();
   },
@@ -116,6 +120,7 @@ var AppView = Backbone.View.extend({
 
     goods.relevance.showMoney = moneyTextFn(goods.relevance.points, goods.relevance.money);
     goods.showMoney = moneyTextFn(goods.points, goods.money);
+    goods.tplUtil = tplUtil;
 
     // View: goods info
     var mainTmpl = require("app/client/mall/tpl/detail-page/goods-detail.tpl");

@@ -24,14 +24,23 @@
     <p><%= relevance.title %></p>
     <p class="num-font"><span><%= relevance.showMoney %></span></p>
   </div>
-  <button type="button" class="goods-buy-btn bold-tit"><%= relevance.button %></button>
+  <button
+    data-log-mall-click="detail_<%= relevance.title %>"
+    data-productid="<%= relevance.productid %>"
+    data-group-id="<%= relevance.groupId %>"
+    data-title="<%= relevance.title %>"
+    data-classify="<%= relevance.classify || '' %>"
+    data-href="<%= tplUtil.getBlockUrl(relevance) %>"
+    class="<%= tplUtil.getJsClass(relevance) %> goods-buy-btn bold-tit"
+    type="button"
+  ><%= relevance.button %></button>
 </div>
 <% } %>
 
-<a class="goods-detail-bar bold-tit">图文详情<span>建议在WiFi下查看</span></a>
+<a class="js-detail-bar goods-detail-bar bold-tit">图文详情<span>建议在WiFi下查看</span></a>
 
 <% if (Array.isArray(rules) && rules.length > 0) { %>
-<div class="goods-desc-bar">
+<div class="js-desc goods-desc-bar">
   <h4 class="bold-tit">说明信息</h4>
   <ul class="goods-info-list">
     <% rules.forEach(function(elem) { %>
@@ -51,6 +60,6 @@
 <div class="time-bar">
   <div class="time-area">
     <div class="js-points scoring-bar fl"><%= showMoney %></div>
-    <a class="js-exchange-button operate-btn fr allow-color"><%= button %></a>
+    <a class="js-exchange operate-btn fr allow-color"><%= button %></a>
   </div>
 </div>

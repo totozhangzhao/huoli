@@ -2,7 +2,7 @@
   <img src="<%= img %>" alt="">
 </div>
 
-<div id="goods-desc">
+<div class="js-desc goods-desc">
   <%= desc %>
 </div>
 
@@ -13,6 +13,6 @@
 <div class="time-bar">
   <div class="time-area">
     <div class="js-points scoring-bar fl"><%= pprice %></div>
-    <a class="js-exchange-button operate-btn fr"><%= button %></a>
+    <a class="js-exchange operate-btn fr"><%= button %></a>
   </div> 
 </div> 
