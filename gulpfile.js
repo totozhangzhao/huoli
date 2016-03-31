@@ -128,8 +128,23 @@ gulp.task("watch", function() {
 
 // md5
 gulp.task("md5:js", function (done) {
-  gulp.src([config.dest + "{app,vendor}/**/*.js"], {base: config.dest})
+  runSequence("md5:app", "md5:vendor", "md5:test");
+});
+gulp.task("md5:app", function (done) {
+  gulp.src([config.dest + "app/**/*.bundle.js"], {base: config.dest})
   .pipe(md5(8, config.dest + "app/**/*.html"))
+  .pipe(gulp.dest(config.dest))
+  .on("end",done);
+});
+gulp.task("md5:vendor", function (done) {
+  gulp.src([config.dest + "vendor/**/*.bundle.js"], {base: config.dest})
+  .pipe(md5(8, config.dest + "**/*.html"))
+  .pipe(gulp.dest(config.dest))
+  .on("end",done);
+});
+gulp.task("md5:test", function (done) {
+  gulp.src([config.dest + "com/**/*.bundle.js"], {base: config.dest})
+  .pipe(md5(8, config.dest + "com/**/*.html"))
   .pipe(gulp.dest(config.dest))
   .on("end",done);
 });
