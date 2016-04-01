@@ -63,7 +63,7 @@ var PromotionView = BaseView.extend({
           url: encodeURIComponent(window.location.href),
           userData: userData,
           logger: model.get("logger")
-        }
+        };
         this.getGoods(model, params);
       }.bind(this));
 
@@ -80,7 +80,13 @@ var PromotionView = BaseView.extend({
         hint.hideLoading();
       }
       if (err) {
-        this.errInfo(err);
+        model.set({
+          status: -1,
+          groupId: ""
+        });
+        if(err){
+          toast(err.message, 1500);
+        }
         return;
       }
       this.render(result.goods || []);
@@ -89,16 +95,6 @@ var PromotionView = BaseView.extend({
         groupId:""
       });
     }.bind(this));
-  },
-
-  errInfo: function (err) {
-    model.set({
-      status: -1,
-      groupId: ""
-    });
-    if(err){
-      toast(err.message, 1500);
-    }
   }
 });
 
