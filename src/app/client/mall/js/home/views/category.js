@@ -84,7 +84,8 @@ var CategoryView = BaseView.extend({
 
     this.model.set({
       status: 1,
-      groupId: groupId
+      groupId: groupId,
+      logger: _el.data("info")
     });
 
     if(_el.data("scrollItem")){
