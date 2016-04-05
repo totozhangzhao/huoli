@@ -7,7 +7,7 @@ var _        = require("lodash");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 
-var BaseView    = require("app/client/mall/common/views/BaseView.js");
+var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 var EntranceView = BaseView.extend({
 
   el: "#home-entrance",

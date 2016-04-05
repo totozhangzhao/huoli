@@ -4,7 +4,7 @@ var _        = require("lodash");
 var Swipe    = require("com/mobile/lib/swipe/swipe.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
-var BaseView = require("app/client/mall/common/views/BaseView.js");
+var BaseView = require("app/client/mall/js/common/views/BaseView.js");
 
 var AppView = BaseView.extend({
   el: "#top-banner",

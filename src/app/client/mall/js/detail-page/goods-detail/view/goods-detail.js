@@ -21,9 +21,9 @@ var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detai
 var Popover     = require("com/mobile/widget/popover/popover.js");
 var pageAction  = require("app/client/mall/js/lib/page-action.js");
 var ui          = require("app/client/mall/js/lib/ui.js");
-var FooterView  = require("app/client/mall/common/views/footer.js");
 var BaseView    = require("app/client/mall/common/views/BaseView.js");
 var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
+var FooterView  = require("app/client/mall/js/common/views/footer.js");
 
 var AppView = BaseView.extend({
   el: "#goods-detail",

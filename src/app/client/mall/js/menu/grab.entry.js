@@ -17,7 +17,7 @@ var Goods         = require("app/client/mall/js/menu/collections/goods.js");
 var GoodsItemView = require("app/client/mall/js/menu/views/goods-item.js");
 var BannerView    = require("app/client/mall/js/menu/views/banner.js");
 var WinnerView    = require("app/client/mall/js/menu/views/winner-label.js");
-var Footer        = require("app/client/mall/common/views/footer.js");
+var Footer        = require("app/client/mall/js/common/views/footer.js");
 
 require("app/client/mall/js/lib/common.js");
 

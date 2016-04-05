@@ -35,7 +35,7 @@ var AppView = Backbone.View.extend({
       NativeAPI.invoke("close");
       return;
     }
-    
+
     var title = "现金券兑换";
 
     widget.updateViewTitle(title);

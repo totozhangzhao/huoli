@@ -14,7 +14,7 @@ var mallUitl    = require("app/client/mall/js/lib/util.js");
 
 var imageDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
 
-var BaseView    = require("app/client/mall/common/views/BaseView.js");
+var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 
 var PromotionView = BaseView.extend({
 
