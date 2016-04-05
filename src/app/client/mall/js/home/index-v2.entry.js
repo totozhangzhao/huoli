@@ -132,7 +132,8 @@ var AppView = Backbone.View.extend({
 
       NativeAPI.registerHandler("headerRightBtnClick", function() {
         widget.createNewView({
-          url: "https://jt.rsscc.com/gtgjwap/act/20150925/index.html"
+          // url: "https://jt.rsscc.com/gtgjwap/act/20150925/index.html"
+          url: "https://dl.rsscc.cn/gtgj/wap/act/20160324_sign/index.html"
         });
         logger.track(mallUitl.getAppName() + "-签到", "click");
       });
