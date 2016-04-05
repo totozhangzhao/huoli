@@ -19,14 +19,14 @@ var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 var logger        = require("com/mobile/lib/log/log.js");
 
 // models
-var StateModel = require("app/client/mall/common/models/state.js");
+var StateModel = require("app/client/mall/js/common/models/state.js");
 // views
 var BannerView    = require("app/client/mall/js/home/views/banner.js");
 var EntranceView  = require("app/client/mall/js/home/views/entrance.js");
 var PromotionView = require("app/client/mall/js/home/views/promotion.js");
 var CategoryView  = require("app/client/mall/js/home/views/category.js");
-var GoodsView     = require("app/client/mall/common/views/index-goods.js");
-var Footer        = require("app/client/mall/common/views/footer.js");
+var GoodsView     = require("app/client/mall/js/common/views/index-goods.js");
+var Footer        = require("app/client/mall/js/common/views/footer.js");
 var PointsView    = require("app/client/mall/js/home/views/points.js");
 require("com/mobile/widget/button/back-to-top.js");
 

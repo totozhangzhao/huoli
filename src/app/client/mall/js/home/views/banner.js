@@ -13,7 +13,7 @@ var mallUitl    = require("app/client/mall/js/lib/util.js");
 var toast       = require("com/mobile/widget/hint/hint.js").toast;
 var Swipe       = require("com/mobile/lib/swipe/swipe.js");
 
-var BaseView    = require("app/client/mall/common/views/BaseView.js");
+var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 
 var BannerView = BaseView.extend({
 
@@ -52,7 +52,7 @@ var BannerView = BaseView.extend({
     }));
 
     this.loadSwipe();
-    
+
     return this;
   },
 

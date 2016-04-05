@@ -47,7 +47,7 @@ var AppView = Backbone.View.extend({
     var val = $input.val();
 
     // 1.realname-icon:name  : 姓名
-    // 2.idcard-icon  :idcard: 身份证号    
+    // 2.idcard-icon  :idcard: 身份证号
     // 3.phone-icon   :phone : 手机号
     // 4.psw-icon     :pwd   : 输入密码
     // 5.re-psw-icon  :repwd : 再次输入密码
@@ -90,7 +90,7 @@ var AppView = Backbone.View.extend({
     var tmpl = require("app/client/mall/tpl/detail-page/form-custom.tpl");
 
     // 1.realname-icon:name  : 姓名
-    // 2.idcard-icon  :idcard: 身份证号    
+    // 2.idcard-icon  :idcard: 身份证号
     // 3.phone-icon   :phone : 手机号
     // 4.psw-icon     :pwd   : 输入密码
     // 5.re-psw-icon  :repwd : 再次输入密码
@@ -135,7 +135,7 @@ var AppView = Backbone.View.extend({
   },
   createOrder: function() {
     var $inputs = this.$el.find(".js-form-input");
-    
+
     $inputs.trigger("blur");
 
     if (this.$el.find(".error-tip.active").length > 0) {

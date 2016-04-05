@@ -11,12 +11,12 @@ var logger     = require("com/mobile/lib/log/log.js");
 var menuLog    = require("app/client/mall/js/lib/common.js").initTracker("menu");
 
 // models
-var StateModel = require("app/client/mall/common/models/state.js");
+var StateModel = require("app/client/mall/js/common/models/state.js");
 
 // views
-var BaseView   = require("app/client/mall/common/views/BaseView.js");
-var GoodsView  = require("app/client/mall/common/views/index-goods.js");
-var Footer     = require("app/client/mall/common/views/footer.js");
+var BaseView   = require("app/client/mall/js/common/views/BaseView.js");
+var GoodsView  = require("app/client/mall/js/common/views/index-goods.js");
+var Footer     = require("app/client/mall/js/common/views/footer.js");
 
 var AppView = BaseView.extend({
   el: "#main",
