@@ -24,7 +24,9 @@ var AppView = Backbone.View.extend({
     "click .js-rules"                                  : "gotoRulesPage",
     "click .js-fix-text"                               : "hideFixPanel",
     "click .js-submit"                                 : "submitButtonEvent",
-    "click .js-tab-wrapper [data-tab-name=goodsDetail]": "renderDetail"
+    "click .js-tab-wrapper [data-tab-name=goodsDetail]": "renderDetail",
+    "keyup .js-goods-num"                              : "checkInput",
+    "keydown .js-goods-num"                            : "inputcheck"
   },
   initialize: function() {
 
@@ -80,7 +82,7 @@ var AppView = Backbone.View.extend({
     }
   },
   showPurchasePanel: function() {
-    var price = this.unitPrice * Number( this.$num.text() );
+    var price = this.unitPrice * Number( this.$num.val() );
     moneyModel.set({
       "needPay": price,
       silent: true
@@ -125,17 +127,19 @@ var AppView = Backbone.View.extend({
     }, 500);
   },
   updateMoneyModel: function($button) {
-    var number = Number( this.$num.text() );
-    var maxNum = this.maxNum;
-    var minNum = 1;
-    var remainNum = this.remainNum;
-
+    var number = Number( this.$num.val() );
     if ( $button.data("operator") === "add" ) {
       number += 1;
     } else {
       number -= 1;
     }
+    this.checkNum(number);
+  },
 
+  checkNum: function (number) {
+    var maxNum = this.maxNum;
+    var minNum = 1;
+    var remainNum = this.remainNum;
     if ( number > maxNum ) {
       number = maxNum;
       toast("已到单笔订单数量上限", 1500);
@@ -146,9 +150,27 @@ var AppView = Backbone.View.extend({
       toast("剩余数量不足", 1500);
     }
 
-    this.$num.text(number);
+    this.$num.val(number);
     moneyModel.set({ "needPay": this.unitPrice * number });
   },
+
+  checkInput: function (e) {
+    var val = parseInt(this.$num.val()) || 1;
+    if(isNaN(val)){
+      return;
+    }
+    this.checkNum(val);
+  },
+
+  // 只能输入数字
+  inputcheck: function (e) {
+    if(e.keyCode !== 8 && (e.keyCode < 48 || e.keyCode >56 )) {
+      e.preventDefault();
+      return;
+    }
+  },
+
+
   setNum: function(e) {
     this.comboMode = false;
     clearTimeout(this.comboFuncTimer);
@@ -161,7 +183,7 @@ var AppView = Backbone.View.extend({
   },
   createOrder: function() {
     var self = this;
-    var num = Number( self.$el.find(".js-goods-num").text() );
+    var num = Number( self.$el.find(".js-goods-num").val() );
 
     if (num <= 0) {
       toast("不能选择0个");
