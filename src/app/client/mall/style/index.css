@@ -820,7 +820,7 @@ img.touch-img {
   height: 0.26667rem;
   display: block;
   border-left: 1px solid #f0f0f0;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon.png') no-repeat -0.56rem -1.46667rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon.png') no-repeat -0.96rem -1.54667rem;
   background-size: 10.66667rem 10.66667rem;
 }
 .home-page-box .home-list-nav .home-rotate-switch .home-switch-icon {
@@ -2954,170 +2954,6 @@ img.touch-img {
   background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -2.48rem -3.92rem;
   background-size: 8.32rem 7.46667rem;
 }
-/* flex - start */
-.flex-row {
-  display: flex;
-  flex-direction: row;
-}
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-/* flex -  end  */
-/* rem - start */
-.panel-container {
-  background-color: #ffffff;
-  width: 100%;
-  overflow: hidden;
-}
-.panel-block-left .goods,
-.panel-block-right .goods {
-  position: relative;
-  box-sizing: border-box;
-  line-height: 0;
-  background-image: initial;
-  background-attachment: initial;
-  background-origin: initial;
-  background-clip: initial;
-  background-color: #ffffff;
-  background-position: initial initial;
-  background-repeat: initial initial;
-  background-size: contain;
-}
-.panel-block-left .goods-1:after {
-  content: '';
-  box-sizing: border-box;
-  line-height: 0;
-  background-color: #f0f0f0;
-  width: 1px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-.panel-block-right .goods-2:after {
-  content: '';
-  box-sizing: border-box;
-  line-height: 0;
-  background-color: #f0f0f0;
-  width: 100%;
-  height: 1px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-.panel-block-left .goods {
-  /*background-color: #aaa;*/
-  width: 4.094rem;
-  height: 4.826rem;
-}
-.panel-block-left .goods img {
-  width: 100%;
-}
-.panel-block-right .goods {
-  /*background-color: #bbb;*/
-  width: 5.906rem;
-  height: 2.413rem;
-}
-.panel-block-right .goods img {
-  width: 100%;
-}
-/* rem -  end  */
-/* backbone - start */
-.bb-panel {
-  display: none;
-}
-.bb-panel.active {
-  display: block;
-}
-/* backbone -  end  */
-/* widget - start */
-.js-ui-hide {
-  display: none;
-}
-.js-ui-hide.show {
-  display: block;
-}
-.block {
-  display: block;
-  overflow: hidden;
-}
-.banner {
-  position: relative;
-  text-align: center;
-  width: 100%;
-  overflow: hidden;
-}
-.banner img {
-  width: 100%;
-  max-width: 100%;
-  vertical-align: top;
-}
-.banner-box {
-  overflow: hidden;
-  visibility: hidden;
-  position: relative;
-}
-.banner-pics {
-  overflow: hidden;
-  position: relative;
-}
-.banner-pics .banner-item {
-  float: left;
-  width: 100%;
-  position: relative;
-}
-.banner-indexs {
-  position: absolute;
-  right: 0;
-  left: 0;
-  bottom: 0.21333rem;
-  font-size: 0;
-  overflow: hidden;
-}
-.banner-indexs i {
-  display: inline-block;
-  width: 0.10667rem;
-  height: 0.10667rem;
-  opacity: 0.2;
-  background-color: #000000;
-  background-clip: padding-box;
-  border-radius: 0.05333rem;
-  margin: 0 0.10667rem;
-}
-.banner-indexs i.active {
-  background-color: #fff;
-  opacity: 0.7;
-}
-/* widget - end */
-/* points - start */
-@keyframes blinker {
-  0% {
-    opacity: 1.0;
-  }
-  50% {
-    opacity: 0.0;
-  }
-  100% {
-    opacity: 1.0;
-  }
-}
-.animaion-blink {
-  animation: blinker .3s linear .2s 3;
-}
-/* points -  end  */
-/* img - echo - start */
-img,
-.echo-block {
-  transition: opacity 0.3s ease-in;
-}
-.op0 {
-  opacity: 0;
-}
-.op1 {
-  opacity: 1;
-}
-/* img - echo -  end  */
 .crowd-channel-box {
   min-height: 100%;
   margin-top: 0;
@@ -3331,3 +3167,167 @@ img,
 .crowd-history-box .crowd-history-area a .crowd-history-desc .crowd-history-num {
   color: #ff5a44;
 }
+/* flex - start */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+/* flex -  end  */
+/* rem - start */
+.panel-container {
+  background-color: #ffffff;
+  width: 100%;
+  overflow: hidden;
+}
+.panel-block-left .goods,
+.panel-block-right .goods {
+  position: relative;
+  box-sizing: border-box;
+  line-height: 0;
+  background-image: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: #ffffff;
+  background-position: initial initial;
+  background-repeat: initial initial;
+  background-size: contain;
+}
+.panel-block-left .goods-1:after {
+  content: '';
+  box-sizing: border-box;
+  line-height: 0;
+  background-color: #f0f0f0;
+  width: 1px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.panel-block-right .goods-2:after {
+  content: '';
+  box-sizing: border-box;
+  line-height: 0;
+  background-color: #f0f0f0;
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.panel-block-left .goods {
+  /*background-color: #aaa;*/
+  width: 4.094rem;
+  height: 4.826rem;
+}
+.panel-block-left .goods img {
+  width: 100%;
+}
+.panel-block-right .goods {
+  /*background-color: #bbb;*/
+  width: 5.906rem;
+  height: 2.413rem;
+}
+.panel-block-right .goods img {
+  width: 100%;
+}
+/* rem -  end  */
+/* backbone - start */
+.bb-panel {
+  display: none;
+}
+.bb-panel.active {
+  display: block;
+}
+/* backbone -  end  */
+/* widget - start */
+.js-ui-hide {
+  display: none;
+}
+.js-ui-hide.show {
+  display: block;
+}
+.block {
+  display: block;
+  overflow: hidden;
+}
+.banner {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+}
+.banner img {
+  width: 100%;
+  max-width: 100%;
+  vertical-align: top;
+}
+.banner-box {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+.banner-pics {
+  overflow: hidden;
+  position: relative;
+}
+.banner-pics .banner-item {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+.banner-indexs {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0.21333rem;
+  font-size: 0;
+  overflow: hidden;
+}
+.banner-indexs i {
+  display: inline-block;
+  width: 0.10667rem;
+  height: 0.10667rem;
+  opacity: 0.2;
+  background-color: #000000;
+  background-clip: padding-box;
+  border-radius: 0.05333rem;
+  margin: 0 0.10667rem;
+}
+.banner-indexs i.active {
+  background-color: #fff;
+  opacity: 0.7;
+}
+/* widget - end */
+/* points - start */
+@keyframes blinker {
+  0% {
+    opacity: 1.0;
+  }
+  50% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1.0;
+  }
+}
+.animaion-blink {
+  animation: blinker .3s linear .2s 3;
+}
+/* points -  end  */
+/* img - echo - start */
+img,
+.echo-block {
+  transition: opacity 0.3s ease-in;
+}
+.op0 {
+  opacity: 0;
+}
+.op1 {
+  opacity: 1;
+}
+/* img - echo -  end  */

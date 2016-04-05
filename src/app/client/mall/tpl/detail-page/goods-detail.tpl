@@ -60,6 +60,6 @@
 <div class="time-bar">
   <div class="time-area">
     <div class="js-points scoring-bar fl"><%= showMoney %></div>
-    <a class="js-exchange operate-btn fr allow-color"><%= button %></a>
+    <a class="js-exchange operate-btn fr"><%= button %></a>
   </div>
 </div>

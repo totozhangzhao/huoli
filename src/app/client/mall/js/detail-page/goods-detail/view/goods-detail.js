@@ -21,7 +21,7 @@ var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detai
 var Popover     = require("com/mobile/widget/popover/popover.js");
 var pageAction  = require("app/client/mall/js/lib/page-action.js");
 var ui          = require("app/client/mall/js/lib/ui.js");
-var BaseView    = require("app/client/mall/common/views/BaseView.js");
+var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
 var FooterView  = require("app/client/mall/js/common/views/footer.js");
 
@@ -38,7 +38,6 @@ var AppView = BaseView.extend({
     this.resetAppView = false;
     this.title = "";
     this.userDataOpitons = { reset: false };
-    this.$el.$exchangeButton = $("#goods-detail .js-exchange");
     this.action = UrlUtil.parseUrlSearch().action;
     this.mallGoodsDetail();
   },
@@ -156,9 +155,10 @@ var AppView = BaseView.extend({
         buttonClass = "allow-color";
       }
 
-      this.$el.$exchangeButton
-        .addClass(buttonClass)
-        .show();
+      this.$el
+        .find(".js-exchange")
+          .addClass(buttonClass)
+          .show();
 
       if ( wechatUtil.isWechatFunc() ) {
         wechatUtil.setTitle(goods.title);

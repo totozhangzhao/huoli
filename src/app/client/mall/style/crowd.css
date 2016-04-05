@@ -130,13 +130,13 @@ p {
   margin-top: -0.48rem;
 }
 .info-box,
+.goods-detail-box,
 .active-box,
 .order-box,
-.integral-box,
-.integral-list-box,
 .pay-box,
 .pay-order-detail-box,
 .address-page-box,
+.confirm-order-box,
 .delivery-box,
 .interlayer {
   min-height: 100%;
@@ -251,7 +251,7 @@ p {
 .ui-confirm .confirm-close {
   width: 1.06667rem;
   height: 1.06667rem;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -7.49333rem -2.77333rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -7.49333rem -2.77333rem;
   background-size: 8.32rem 7.46667rem;
   position: absolute;
   right: -0.53333rem;
@@ -306,6 +306,294 @@ p {
   text-align: center;
   font-size: 0.4rem;
   color: #333;
+}
+.text-red {
+  color: #f00;
+}
+.border-color {
+  border-color: #4889db;
+}
+.common-text {
+  font-size: 0.37333rem;
+  line-height: 0.53333rem;
+}
+.time-bar,
+.goods-pay-bar,
+.goods-charge-bar {
+  width: 100%;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  background-color: #f3f3f3;
+  border-top: 1px solid #d1d1d1;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 6;
+}
+.goods-charge-bar {
+  font-size: 0.48rem;
+  padding-left: 0.26667rem;
+}
+.goods-charge-bar .goods-charge-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: #4889db;
+}
+.goods-charge-bar .goods-charge-btn[disabled] {
+  background-color: #c0c0c0;
+}
+.goods-charge-info {
+  color: #a5a5a5;
+}
+.goods-charge-info span {
+  color: #ff5a44;
+}
+.time-area,
+.goods-pay-bar .goods-pay-area {
+  height: 100%;
+}
+.time-area {
+  position: relative;
+  left: 0;
+  top: 0;
+}
+.scoring-bar {
+  margin-left: 0.32rem;
+}
+.operate-btn,
+.goods-pay-bar .goods-pay-btn,
+.goods-charge-btn {
+  text-align: center;
+  padding-top: 0.26667rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.26667rem;
+  padding-left: 0.4rem;
+  font-size: 0.48rem;
+  line-height: 0.48rem;
+  border-radius: 0.08rem;
+  margin-right: 0.53333rem;
+  margin-top: 0.32rem;
+  color: #fff;
+}
+.operate-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.allow-color {
+  background-color: #4889db;
+}
+.forbidden-color {
+  background-color: #ccc;
+}
+.scoring-num {
+  font-family: 'Arial';
+  font-size: 0.58667rem;
+  color: #f90;
+}
+.flip-box,
+.login-flip-box,
+.del-tip-box {
+  width: 80%;
+  height: 4rem;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 0.10667rem;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-left: -40%;
+  margin-top: -2rem;
+  z-index: 6;
+  display: none;
+}
+.del-tip-box {
+  display: block;
+}
+.login-flip-h {
+  border-top-left-radius: 0.08rem;
+  border-top-right-radius: 0.08rem;
+  text-align: center;
+  height: 0.96rem;
+  line-height: 0.96rem;
+  font-size: 0.48rem;
+  color: #fff;
+  background-color: #4889db;
+}
+.login-flip-text {
+  padding-top: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-left: 0.4rem;
+}
+.login-flip-text-no {
+  text-align: center;
+  padding-top: 0.66667rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.66667rem;
+  padding-left: 0.4rem;
+}
+.login-btn-box {
+  text-align: center;
+}
+.login-no,
+.login-yes {
+  min-width: 2.66667rem;
+  padding-top: 0.13333rem;
+  padding-right: 0.48rem;
+  padding-bottom: 0.13333rem;
+  padding-left: 0.48rem;
+  color: #fff;
+  margin-top: 0;
+  margin-right: 0.21333rem;
+  margin-bottom: 0;
+  margin-left: 0.21333rem;
+  border-radius: 0.05333rem;
+}
+.flip-info,
+.del-info {
+  margin-top: 0.8rem;
+  padding-top: 0;
+  padding-right: 0.26667rem;
+  padding-bottom: 0;
+  padding-left: 0.26667rem;
+}
+.del-info {
+  margin-bottom: 0.8rem;
+}
+.flip-info-bar {
+  height: 1.28rem;
+  margin-bottom: 0.42667rem;
+}
+.exchange-button {
+  min-width: 2.34667rem;
+  display: inline-block;
+  border-radius: 0.08rem;
+  padding-top: 0.10667rem;
+  padding-right: 0.32rem;
+  padding-bottom: 0.10667rem;
+  padding-left: 0.32rem;
+  margin-top: 0;
+  margin-right: 0.26667rem;
+  margin-bottom: 0;
+  margin-left: 0.26667rem;
+  color: #fff;
+}
+.del-common-button {
+  display: inline-block;
+  margin-top: 0;
+  margin-right: 0.26667rem;
+  margin-bottom: 0;
+  margin-left: 0.26667rem;
+  color: #fff;
+  padding-top: 0.10667rem;
+  padding-right: 0.74667rem;
+  padding-bottom: 0.10667rem;
+  padding-left: 0.74667rem;
+}
+.flip-tip {
+  font-size: 0.32rem;
+  padding-top: 0;
+  padding-right: 0.42667rem;
+  padding-bottom: 0;
+  padding-left: 0.42667rem;
+}
+.flip-go-check {
+  margin-top: 0.4rem;
+}
+.common-buy-box {
+  width: 100%;
+  position: absolute;
+  bottom: 1.6rem;
+  left: 0;
+  z-index: 20;
+  background-color: #fff;
+}
+.common-buy-box .common-buy-nav {
+  width: 100%;
+  background-color: #f0f0f0;
+  font-size: 0.4rem;
+  padding-top: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-left: 0.4rem;
+  position: relative;
+  left: 0;
+  top: 0;
+}
+.common-buy-box .common-buy-nav .common-buy-close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1.46667rem;
+  height: 100%;
+}
+.common-buy-box .common-buy-nav .common-buy-close-icon {
+  width: 0.66667rem;
+  height: 0.66667rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -4.24rem -5.28rem;
+  background-size: 8.32rem 7.46667rem;
+  position: absolute;
+  right: 0.26667rem;
+  top: 0.34667rem;
+}
+.common-buy-box .common-buy-num {
+  padding-top: 1.06667rem;
+  padding-right: 0.4rem;
+  padding-bottom: 1.06667rem;
+  padding-left: 0.4rem;
+}
+.common-buy-box .common-buy-num .common-buy-choice {
+  font-size: 0.53333rem;
+}
+.common-buy-box .common-buy-num i {
+  display: inline-block;
+  height: 1.06667rem;
+  line-height: 1.06667rem;
+  border-top: 1px solid #dededf;
+  border-bottom: 1px solid #dededf;
+}
+.common-buy-box .common-buy-num i:nth-child(1) {
+  border-top-left-radius: 0.10667rem;
+  border-bottom-left-radius: 0.10667rem;
+  padding-top: 0;
+  padding-right: 0.50667rem;
+  padding-bottom: 0;
+  padding-left: 0.50667rem;
+  border-left: 1px solid #dededf;
+}
+.common-buy-box .common-buy-num i:nth-child(1).unable {
+  color: #a5a5a5;
+}
+.common-buy-box .common-buy-num i:nth-child(3) {
+  border-top-right-radius: 0.10667rem;
+  border-bottom-right-radius: 0.10667rem;
+  padding-top: 0;
+  padding-right: 0.50667rem;
+  padding-bottom: 0;
+  padding-left: 0.50667rem;
+  border-right: 1px solid #dededf;
+}
+.common-buy-box .common-buy-num i:nth-child(2) {
+  width: 1.28rem;
+  border-left: 1px solid #dededf;
+  border-right: 1px solid #dededf;
+}
+.common-buy-box .common-buy-num i:nth-child(2) input[type=text] {
+  width: 100%;
+  height: 0.74667rem;
+  text-align: center;
+}
+.common-buy-box .common-buy-num .common-buy-tip {
+  width: 100%;
+  text-align: justify;
+  font-size: 0.37333rem;
+  color: #a5a5a5;
+  margin-top: 0.24rem;
+}
+.common-buy-box .common-buy-num .common-buy-tip span {
+  display: inline-block;
 }
 .snap-up-box {
   min-height: 100%;
@@ -430,7 +718,7 @@ p {
 .snap-winner-flex:nth-child(1) {
   width: 0.96rem;
   height: 0.96rem;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -3.2rem -5.46667rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -3.2rem -5.46667rem;
   background-size: 8.32rem 7.46667rem;
   margin-right: 0.26667rem;
 }
@@ -508,7 +796,7 @@ p {
   position: absolute;
   right: 0;
   top: 0.13333rem;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -4.96rem -5.46667rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -4.96rem -5.46667rem;
   background-size: 8.32rem 7.46667rem;
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
@@ -629,7 +917,7 @@ p {
   margin-right: 0.26667rem;
   margin-bottom: 0.4rem;
   margin-left: 0.16rem;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -3.2rem -5.46667rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -3.2rem -5.46667rem;
   background-size: 8.32rem 7.46667rem;
 }
 .snap-desc-area li .snap-desc-info {
@@ -676,7 +964,7 @@ p {
   padding-bottom: 0.26667rem;
   padding-left: 0.69333rem;
   background-color: #FEBD14;
-  color: #FFF;
+  color: #fff;
   font-size: 0.32rem;
 }
 .snap-join-bar {
@@ -712,97 +1000,6 @@ p {
 }
 .snap-join-bar button[disabled] {
   background-color: #d4d4d4;
-}
-.snap-buy-box {
-  width: 100%;
-  position: absolute;
-  bottom: 1.6rem;
-  left: 0;
-  z-index: 20;
-  background-color: #fff;
-}
-.snap-buy-box .snap-buy-nav {
-  width: 100%;
-  background-color: #f0f0f0;
-  font-size: 0.4rem;
-  padding-top: 0.4rem;
-  padding-right: 0.4rem;
-  padding-bottom: 0.4rem;
-  padding-left: 0.4rem;
-  position: relative;
-  left: 0;
-  top: 0;
-}
-.snap-buy-box .snap-buy-nav .snap-buy-close-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 1.46667rem;
-  height: 100%;
-}
-.snap-buy-box .snap-buy-nav .snap-buy-close-icon {
-  width: 0.66667rem;
-  height: 0.66667rem;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png) no-repeat -4.24rem -5.28rem;
-  background-size: 8.32rem 7.46667rem;
-  position: absolute;
-  right: 0.26667rem;
-  top: 0.34667rem;
-}
-.snap-buy-box .snap-buy-num {
-  padding-top: 1.06667rem;
-  padding-right: 0.4rem;
-  padding-bottom: 1.06667rem;
-  padding-left: 0.4rem;
-}
-.snap-buy-box .snap-buy-num .snap-buy-choice {
-  font-size: 0.53333rem;
-}
-.snap-buy-box .snap-buy-num .snap-buy-choice i {
-  display: inline-block;
-  height: 1.06667rem;
-  line-height: 1.06667rem;
-  border-top: 1px solid #dededf;
-  border-bottom: 1px solid #dededf;
-}
-.snap-buy-box .snap-buy-num .snap-buy-choice i:nth-child(1) {
-  border-top-left-radius: 0.10667rem;
-  border-bottom-left-radius: 0.10667rem;
-  padding-top: 0;
-  padding-right: 0.50667rem;
-  padding-bottom: 0;
-  padding-left: 0.50667rem;
-  border-left: 1px solid #dededf;
-}
-.snap-buy-box .snap-buy-num .snap-buy-choice i:nth-child(1).unable {
-  color: #a5a5a5;
-}
-.snap-buy-box .snap-buy-num .snap-buy-choice i:nth-child(3) {
-  border-top-right-radius: 0.10667rem;
-  border-bottom-right-radius: 0.10667rem;
-  padding-top: 0;
-  padding-right: 0.50667rem;
-  padding-bottom: 0;
-  padding-left: 0.50667rem;
-  border-right: 1px solid #dededf;
-}
-.snap-buy-box .snap-buy-num .snap-buy-choice i:nth-child(2) {
-  padding-top: 0;
-  padding-right: 1.06667rem;
-  padding-bottom: 0;
-  padding-left: 1.06667rem;
-  border-left: 1px solid #dededf;
-  border-right: 1px solid #dededf;
-}
-.snap-buy-box .snap-buy-num .snap-buy-tip {
-  width: 100%;
-  text-align: justify;
-  font-size: 0.37333rem;
-  color: #a5a5a5;
-  margin-top: 0.24rem;
-}
-.snap-buy-box .snap-buy-num .snap-buy-tip span {
-  display: inline-block;
 }
 .snap-color {
   color: #ff5a44;
