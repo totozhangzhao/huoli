@@ -36,8 +36,9 @@ var AppView = BaseView.extend({
     "click .js-hide-panel"   : "hidePurchasePanel",
     "touchstart .js-change-num": "combo",
     "touchend .js-change-num"  : "setNum",
-    "keyup .js-goods-num"      : "checkInput",
-    "keydown .js-goods-num"    : "inputcheck",
+    "keyup .js-goods-num"      : "inputKeyUp",
+    "keydown .js-goods-num"    : "inputKeyDown",
+    "blur .js-goods-num"       : "inputBlur",
     "click .js-purchase"       : "submitButtonEvent"
   },
   initialize: function(commonData) {
@@ -99,11 +100,10 @@ var AppView = BaseView.extend({
       number -= 1;
     }
 
-    this.checkNum(number);
+    this.checkNum(1, number);
   },
-  checkNum: function (number) {
+  checkNum: function (minNum, number) {
     var limitNum = this.limitNum;
-    var minNum = 1;
 
     if ( number > limitNum ) {
 
@@ -125,17 +125,25 @@ var AppView = BaseView.extend({
     this.$el.find(".js-m-points").text(moneyModel.get("points"));
     this.$el.find(".js-m-money").text(moneyModel.get("money"));
   },
-  checkInput: function (e) {
-    var val = Number( this.$goodsNum.val() ) || 1;
+  inputKeyUp: function (e) {
+    var val = parseInt(this.$goodsNum.val()) || '';
     if(isNaN(val)){
       return;
     }
-    this.checkNum(val);
+    this.checkNum('',val);
+  },
+
+  inputBlur: function (e){
+    var val = parseInt(this.$goodsNum.val()) || 1;
+    if(isNaN(val)){
+      return;
+    }
+    this.checkNum(1,val);
   },
 
   // 只能输入数字
-  inputcheck: function (e) {
-    if ( e.keyCode !== 8 && (e.keyCode < 48 || e.keyCode >56 ) ) {
+  inputKeyDown: function (e) {
+    if(e.keyCode !== 8 && (e.keyCode < 48 || e.keyCode >57 )) {
       e.preventDefault();
       return;
     }
