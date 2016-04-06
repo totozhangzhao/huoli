@@ -8,7 +8,6 @@ var GoodsOldView = require("app/client/mall/js/detail-page/goods-detail/view/goo
 var AppView = Backbone.View.extend({
   initialize: function(commonData) {
     this.commonData = commonData;
-
     this.action = UrlUtil.parseUrlSearch().action;
     this.goodsView;
     this.isInit = false;
@@ -20,11 +19,6 @@ var AppView = Backbone.View.extend({
       } else {
         this.goodsView = new GoodsOldView(this.commonData);
       }
-
-      // this.goodsView.router = this.router;
-      // this.goodsView.cache = this.cache;
-      // this.goodsView.model = this.model;
-      // this.goodsView.collection = this.collection;
     }
 
     this.isInit = true;

@@ -2,7 +2,8 @@ var Backbone = require("backbone");
 
 var Money = Backbone.Model.extend({
   defaults: {
-    needPay: 0
+    points: 0,
+    money: 0
   }
 });
 
