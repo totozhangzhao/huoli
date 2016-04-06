@@ -18,7 +18,8 @@ var AppView = Backbone.View.extend({
     "click #confirm-order": "confirmOrder",
     "click #address-entry": "selectAddress"
   },
-  initialize: function() {
+  initialize: function(commonData) {
+    _.extend(this, commonData);
     this.curAddress = {};
   },
   resume: function(options) {
@@ -51,7 +52,7 @@ var AppView = Backbone.View.extend({
 
     this.$el.html(addressListTpl({
       addressInfo: addressInfo,
-      productInfo: this.cache.productInfo
+      goods: this.cache.goods
     }));
   },
   selectAddress: function() {
@@ -59,9 +60,9 @@ var AppView = Backbone.View.extend({
   },
   confirmOrder: function() {
     hint.showLoading();
-    this.mallCreateOrder(this.cache.productInfo);
+    this.mallCreateOrder(this.cache.goods);
   },
-  mallCreateOrder: function(productInfo) {
+  mallCreateOrder: function(goods) {
     var self = this;
 
     async.waterfall([
@@ -92,10 +93,10 @@ var AppView = Backbone.View.extend({
         return;
       }
 
-      self.handleCreateOrder(result, productInfo);
+      self.handleCreateOrder(result, goods);
     });
   },
-  handleCreateOrder: function(orderInfo, productInfo) {
+  handleCreateOrder: function(orderInfo, goods) {
     async.waterfall([
       function(next) {
         if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
@@ -115,7 +116,7 @@ var AppView = Backbone.View.extend({
           var payParams = {
             quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
             title: "支付订单",
-            price: productInfo.mprice,
+            price: goods.mprice,
             orderid: orderInfo.payorderid,
             productdesc: orderInfo.paydesc,
             url: payUrl,

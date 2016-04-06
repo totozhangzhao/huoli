@@ -23,8 +23,8 @@ var AppView = Backbone.View.extend({
     "click .js-edit-address"    : "editAddress",
     "click .js-remove-address"  : "removeAddress"
   },
-  initialize: function() {
-    //
+  initialize: function(commonData) {
+    _.extend(this, commonData);
   },
   resume: function(options) {
     var self = this;

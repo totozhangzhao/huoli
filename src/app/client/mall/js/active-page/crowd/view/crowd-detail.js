@@ -46,10 +46,10 @@ var AppView = Backbone.View.extend({
     this.comboFuncTimer = null;
     this.title = "";
     this.urlTitle = UrlUtil.parseUrlSearch().title || this.$el.data("title");
-    this.$panel;
-    this.$button;
+    this.$popShadow;
+    this.$popPanel;
     this.$num;
-    this.$pop;
+    this.$button;
     this.listenTo(moneyModel, "change", this.renderMoney);
     this.mallCrowdDetail();
   },
@@ -75,7 +75,7 @@ var AppView = Backbone.View.extend({
     this.router.switchTo("crowd-rules");
   },
   submitButtonEvent: function() {
-    if ( this.$panel.is(":visible") ) {
+    if ( this.$popShadow.is(":visible") ) {
       this.createOrder();
     } else {
       this.showPurchasePanel();
@@ -87,7 +87,7 @@ var AppView = Backbone.View.extend({
       "needPay": price,
       silent: true
     });
-    this.$panel.show();
+    this.$popShadow.show();
     this.$button.text( this.$button.data("payText") );
   },
   hidePurchasePanel: function(e) {
@@ -95,13 +95,13 @@ var AppView = Backbone.View.extend({
     var $cur = $(e.currentTarget);
 
     var close = function() {
-      self.$panel.hide();
+      self.$popShadow.hide();
       self.$button.text( self.$button.data("activeText") );
     };
 
     if ( $cur.hasClass("js-hide-panel") ) {
       close();
-    } else if ( !$.contains(this.$pop.get(0), e.target) ) {
+    } else if ( !$.contains(this.$popPanel.get(0), e.target) ) {
       close();
     }
   },
@@ -369,10 +369,10 @@ var AppView = Backbone.View.extend({
       data: productDetail,
       barWidth: showAnimation ? minBarWidth : barWidth
     }));
-    this.$panel = this.$el.find(".js-pop-shadow");
-    this.$button = this.$el.find(".js-submit");
+    this.$popShadow = this.$el.find(".js-pop-shadow");
+    this.$popPanel = this.$el.find(".js-pop-panel");
     this.$num = this.$el.find(".js-goods-num");
-    this.$pop = this.$el.find(".js-pop-window");
+    this.$button = this.$el.find(".js-submit");
 
     if (showAnimation) {
       _.defer(function() {

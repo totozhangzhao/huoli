@@ -57,9 +57,24 @@
   <!-- // -->
 </div>
 
-<div class="time-bar">
-  <div class="time-area">
-    <div class="js-points scoring-bar fl"><%= showMoney %></div>
-    <a class="js-exchange operate-btn fr"><%= button %></a>
+<div class="js-pop-shadow common-shadow">
+  <div class="js-pop-panel common-buy-box">
+    <div class="common-buy-nav">
+      <p>购买数量</p>
+      <div class="js-hide-panel common-buy-close-btn">
+        <i class="common-buy-close-icon"></i>
+      </div>
+    </div>
+    <div class="common-buy-num">
+      <div class="common-buy-choice">
+        <i data-operator="minus" class="js-change-num unable">-</i><i class="js-goods-num"><input type="number" value="1" /></i><i data-operator="add" class="js-change-num">+</i>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="goods-charge-bar">
+  <!-- <p class="js-points goods-charge-info num-font"><span>100</span> 积分 + <span>100</span> 元</p> -->
+  <p class="js-points goods-charge-info num-font"><%= showMoney %></p>
+  <button type="button" disabled class="js-purchase goods-charge-btn"><%= button %></button>
 </div>

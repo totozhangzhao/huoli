@@ -47,15 +47,19 @@ module.exports = Backbone.Router.extend({
     var bbViews = this.bbViews;
 
     if ( ViewDic[action] ) {
-      bbViews[action] = bbViews[action] || new ViewDic[action]();
-      var curView = bbViews[action];
-      curView.router = this;
-      curView.cache  = cache;
-      curView.model  = model;
-      curView.collection  = collection;
-      curView.resume({
+      if ( !bbViews[action] ) {
+        bbViews[action] = new ViewDic[action]({
+          router: this,
+          cache: cache,
+          model: model,
+          collection: collection
+        });
+      }
+
+      bbViews[action].resume({
         previousView: this.previousView
       });
+
       this.previousView = action;
     } else {
       window.console.log("-- [Backbone View] not found! action: " + action + " --");

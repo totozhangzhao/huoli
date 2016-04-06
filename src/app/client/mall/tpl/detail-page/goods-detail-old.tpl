@@ -13,6 +13,6 @@
 <div class="time-bar">
   <div class="time-area">
     <div class="js-points scoring-bar fl"><%= pprice %></div>
-    <a class="js-exchange operate-btn fr"><%= button %></a>
+    <a class="js-purchase operate-btn fr"><%= button %></a>
   </div> 
 </div> 

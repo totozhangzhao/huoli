@@ -22,7 +22,8 @@ var AppView = Backbone.View.extend({
     "click .address-option-area": "selectArea",
     "blur  [name]": "blurInput"
   },
-  initialize: function() {
+  initialize: function(commonData) {
+    _.extend(this, commonData);
     this.curAddress = {};
   },
   resume: function(options) {

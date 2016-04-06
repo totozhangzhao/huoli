@@ -13,17 +13,17 @@
     </li>
   </ul>
   <div class="order-goods-bar pay-order-box clearfix">
-    <img src="<%= productInfo.smallimg || "" %>" class="chit-pic fl" />
+    <img src="<%= goods.smallimg || "" %>" class="chit-pic fl" />
     <div class="order-text-bar fl">
-      <p class="order-goods-text pic-detail"><%= productInfo.title || "" %></p>
-      <p class="order-goods-text pic-detail-tip"><%= productInfo.shortdesc || "" %></p>
-      <!-- <p class="order-goods-text actually-pay orange-color"><%= productInfo.showprice || "" %></p> -->
+      <p class="order-goods-text pic-detail"><%= goods.title || "" %></p>
+      <p class="order-goods-text pic-detail-tip"><%= goods.shortdesc || "" %></p>
+      <!-- <p class="order-goods-text actually-pay orange-color"><%= goods.showprice || "" %></p> -->
     </div>
   </div>
 </div>
 <div class="time-bar">
   <div class="time-area">
-    <div class="scoring-bar fl"><%= productInfo.pprice || "" %></div>
-    <a id="confirm-order" class="operate-btn allow-color fr"><%= productInfo.confirm || "确认" %></a>
+    <div class="scoring-bar fl"><%= goods.pprice || "" %></div>
+    <a id="confirm-order" class="operate-btn allow-color fr"><%= goods.confirm || "确认" %></a>
   </div> 
 </div>

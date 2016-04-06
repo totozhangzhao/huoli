@@ -22,7 +22,8 @@ var AppView = Backbone.View.extend({
     "click .js-captcha"    : "sendCaptcha",
     "click .js-use-url"    : "showOrder"
   },
-  initialize: function() {
+  initialize: function(commonData) {
+    _.extend(this, commonData);
     this.$el.$shade         = $("#form-phone .js-shade");
     this.$el.$successPrompt = $("#form-phone .js-success-prompt");
     this.$el.$sendCaptcha   = $("#form-phone .js-captcha");
@@ -233,10 +234,10 @@ var AppView = Backbone.View.extend({
   },
   renderMainPanel: function() {
     var self = this;
-    var productInfo = this.cache.productInfo;
+    var goods = this.cache.goods;
 
     var $img = $("<img>", {
-      src: productInfo.img,
+      src: goods.img,
       alt: ""
     });
 

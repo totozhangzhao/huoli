@@ -102,10 +102,10 @@ stat  int 状态
   ><%= buttonText[data.stat] %></button>
 </div>
 <div class="js-pop-shadow common-shadow">
-  <div class="common-buy-box">
+  <div class="js-pop-panel common-buy-box">
     <div class="common-buy-nav">
       <p>购买份数</p>
-      <div class="common-buy-close-btn">
+      <div class="js-hide-panel common-buy-close-btn">
         <i class="common-buy-close-icon"></i>
       </div>
     </div>
@@ -119,7 +119,7 @@ stat  int 状态
 </div>
 <!-- 
 <div class="js-pop-shadow common-shadow">
-  <div class="js-pop-window snap-buy-box">
+  <div class="js-pop-panel snap-buy-box">
     <div class="snap-buy-nav">
       <p>购买份数</p>
       <div class="js-hide-panel snap-buy-close-btn">

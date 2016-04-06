@@ -19,7 +19,8 @@ var AppView = Backbone.View.extend({
     "input .js-form-input": "inputInput",
     "blur  .js-form-input": "blurInput"
   },
-  initialize: function() {
+  initialize: function(commonData) {
+    _.extend(this, commonData);
     this.$el.$shade         = this.$el.find(".js-shade");
     this.$el.$successPrompt = this.$el.find(".js-success-prompt");
   },
@@ -78,10 +79,10 @@ var AppView = Backbone.View.extend({
   },
   renderMainPanel: function() {
     var self = this;
-    var productInfo = this.cache.productInfo;
+    var goods = this.cache.goods;
 
     var $img = $("<img>", {
-      src: productInfo.img,
+      src: goods.img,
       alt: ""
     });
 
@@ -107,7 +108,7 @@ var AppView = Backbone.View.extend({
     this.$el
       .find(".js-input-container")
         .html(tmpl({
-          list: productInfo.input,
+          list: goods.input,
           inputClass: inputClass
         }));
 

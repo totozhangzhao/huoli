@@ -330,6 +330,9 @@ p {
   bottom: 0;
   z-index: 6;
 }
+.time-bar {
+  z-index: 4;
+}
 .goods-charge-bar {
   font-size: 0.48rem;
   padding-left: 0.26667rem;
