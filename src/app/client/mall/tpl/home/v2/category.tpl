@@ -20,13 +20,16 @@
   <em class="home-switch-icon"></em>
 </div>
 <% } %>
-<div class="home-pull-area clearfix">
-  <% _.each(dataList, function (item, index) {%>
-    <a 
-    data-log-mall-click="index-category-sub_<%= item.title %>"
-    data-group-id="<%= item.groupId %>" 
-    data-info="index-subcategory-<%= index %>"
-    class="<%= (index == 0 ? 'on' : '') %>"
-    ><%= item.title.slice(0,4)%></a>
-  <% }); %>
+
+<div class="home-pull-content">
+  <div class="home-pull-area clearfix">
+    <% _.each(dataList, function (item, index) {%>
+      <a 
+      data-log-mall-click="index-category-sub_<%= item.title %>"
+      data-group-id="<%= item.groupId %>" 
+      data-info="index-subcategory-<%= index %>"
+      class="<%= (index == 0 ? 'on' : '') %>"
+      ><%= item.title.slice(0,4)%></a>
+    <% }); %>
+  </div>
 </div>
