@@ -1,4 +1,4 @@
-<div class="common-shadow" style="display: none;">
+<div class="common-shadow improve-zindex" style="display: none;">
   <div class="ui-confirm">
     <div class="ui-confirm-tip">
       <p><%= data.title %></p>

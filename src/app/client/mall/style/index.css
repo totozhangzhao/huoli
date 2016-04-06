@@ -202,6 +202,9 @@ p {
   z-index: 5;
   display: none;
 }
+.common-shadow.improve-zindex {
+  z-index: 7;
+}
 .ui-confirm {
   width: 74.6%;
   text-align: center;
@@ -408,7 +411,7 @@ p {
   top: 50%;
   margin-left: -40%;
   margin-top: -2rem;
-  z-index: 6;
+  z-index: 8;
   display: none;
 }
 .del-tip-box {
@@ -794,8 +797,8 @@ img.touch-img {
   line-height: 1.17333rem;
   display: inline-block;
   float: left;
-  padding-left: 0.29333rem;
-  padding-right: 0.32rem;
+  padding-left: 0.21333rem;
+  padding-right: 0.24rem;
 }
 .home-page-box .home-list-nav .home-list-fa p span.on {
   color: #039ef0;
@@ -824,27 +827,34 @@ img.touch-img {
   width: 0.42667rem;
   height: 0.26667rem;
   display: block;
-  border-left: 1px solid #f0f0f0;
   background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon.png') no-repeat -0.96rem -1.54667rem;
   background-size: 10.66667rem 10.66667rem;
 }
 .home-page-box .home-list-nav .home-rotate-switch .home-switch-icon {
   transform: rotate(180deg);
 }
-.home-page-box .home-list-nav .home-pull-area {
+.home-page-box .home-list-nav .home-rotate-switch + .home-pull-content .home-pull-area {
+  -webkit-animation: 0.2s move ease-out forwards;
+  animation: 0.2s move ease-out forwards;
+}
+.home-page-box .home-pull-content {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 1.17333rem;
+  overflow: hidden;
+  z-index: 4;
+}
+.home-page-box .home-pull-area {
   width: 100%;
   padding-top: 0.26667rem;
   padding-right: 0.4rem;
   padding-bottom: 0.4rem;
   padding-left: 0.4rem;
-  position: absolute;
-  left: 0;
-  top: 1.2rem;
-  z-index: 4;
+  transform: translate(0, -100%);
   background: rgba(255, 255, 255, 0.95);
-  display: none;
 }
-.home-page-box .home-list-nav .home-pull-area a {
+.home-page-box .home-pull-area a {
   display: inline-block;
   float: left;
   width: 25%;
@@ -852,11 +862,32 @@ img.touch-img {
   line-height: 0.93333rem;
   text-align: center;
 }
-.home-page-box .home-list-nav .home-pull-area a.on {
+.home-page-box .home-pull-area a.on {
   color: #039ef0;
 }
-.home-page-box .home-list-nav .home-pull-area.on {
-  display: block;
+@-webkit-keyframes move {
+  0% {
+    -webkit-transform: translate(0, -100%);
+    transform: translate(0, -100%);
+  }
+  100% {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+@keyframes move {
+  0% {
+    -webkit-transform: translate(0, -100%);
+    transform: translate(0, -100%);
+  }
+  100% {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+.home-page-box .home-pull-content.on .home-pull-area {
+  -webkit-animation: 0.2s move ease-out forwards;
+  animation: 0.2s move ease-out forwards;
 }
 .home-page-box .home-goods-fa {
   width: 100%;
