@@ -20,6 +20,7 @@ var Footer = Backbone.View.extend({
       system: Util.getMobileSystem(),
       isHangbanFunc: mallUitl.isHangbanFunc()
     }));
-  } 
+    return this;
+  }
 });
 module.exports = Footer;

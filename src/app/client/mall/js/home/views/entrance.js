@@ -7,7 +7,7 @@ var _        = require("lodash");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 
-var BaseView    = require("app/client/mall/common/views/BaseView.js");
+var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 var EntranceView = BaseView.extend({
 
   el: "#home-entrance",
@@ -21,8 +21,10 @@ var EntranceView = BaseView.extend({
       this.$el.hide();
       return;
     }
+    var firstLineLength = data.length > 5 && data.length < 9 ? 4 : 5;
     this.$el.html(this.template({
-      dataList: data,
+      dataList: data.slice(0,firstLineLength),
+      moreDataList: data.slice(firstLineLength),
       appName: mallUitl.getAppName(),
       tplUtil: tplUtil
     })).show();

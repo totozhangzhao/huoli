@@ -19,14 +19,14 @@ var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 var logger        = require("com/mobile/lib/log/log.js");
 
 // models
-var StateModel = require("app/client/mall/common/models/state.js");
+var StateModel = require("app/client/mall/js/common/models/state.js");
 // views
 var BannerView    = require("app/client/mall/js/home/views/banner.js");
 var EntranceView  = require("app/client/mall/js/home/views/entrance.js");
 var PromotionView = require("app/client/mall/js/home/views/promotion.js");
 var CategoryView  = require("app/client/mall/js/home/views/category.js");
-var GoodsView     = require("app/client/mall/common/views/index-goods.js");
-var Footer        = require("app/client/mall/common/views/footer.js");
+var GoodsView     = require("app/client/mall/js/common/views/index-goods.js");
+var Footer        = require("app/client/mall/js/common/views/footer.js");
 var PointsView    = require("app/client/mall/js/home/views/points.js");
 require("com/mobile/widget/button/back-to-top.js");
 
@@ -50,8 +50,8 @@ var AppView = Backbone.View.extend({
     this.$categoryView  = new CategoryView({model: this.stateModel});
     this.$goodsView     = new GoodsView({model: this.stateModel, showLoading: true});
     this.$pointsView    = new PointsView();
+    this.listenTo(this.stateModel, "change:status", this.stateChange);
 
-    this.listenTo(this.stateModel, "change", this.stateChange);
     this.bindEvents();
     this.fetchData();
 
@@ -132,7 +132,8 @@ var AppView = Backbone.View.extend({
 
       NativeAPI.registerHandler("headerRightBtnClick", function() {
         widget.createNewView({
-          url: "https://jt.rsscc.com/gtgjwap/act/20150925/index.html"
+          // url: "https://jt.rsscc.com/gtgjwap/act/20150925/index.html"
+          url: "https://dl.rsscc.cn/gtgj/wap/act/20160324_sign/index.html"
         });
         logger.track(mallUitl.getAppName() + "-签到", "click");
       });
@@ -140,14 +141,13 @@ var AppView = Backbone.View.extend({
   },
 
   stateChange: function (e) {
-    if(e.hasChanged("status") && e.get("status") !== 1){
+    if(e.get("status") !== 1){
       $(window).scrollTop(this.getFixTop() + 18);
     }
   },
 
   bindEvents: function () {
     $(window).scroll(function(event) {
-      /* Act on the event */
       var height = this.getFixTop();
       if($(window).scrollTop() > height){
         this.$categoryView.fix();

@@ -8,6 +8,7 @@
       data-group-id="<%= item.groupId %>"
       data-title="<%= item.title %>"
       data-classify="<%= item.classify || '' %>"
+      data-info="index-banner-<%= index %>"
       class="<%= tplUtil.getJsClass(item) %> block"
       href="<%= tplUtil.getBlockUrl(item) %>"
       >

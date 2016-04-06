@@ -24,7 +24,10 @@ var AppView = Backbone.View.extend({
     "click .js-rules"                                  : "gotoRulesPage",
     "click .js-fix-text"                               : "hideFixPanel",
     "click .js-submit"                                 : "submitButtonEvent",
-    "click .js-tab-wrapper [data-tab-name=goodsDetail]": "renderDetail"
+    "click .js-tab-wrapper [data-tab-name=goodsDetail]": "renderDetail",
+    "keyup .js-goods-num"                              : "inputKeyUp",
+    "keydown .js-goods-num"                            : "inputKeyDown",
+    "blur .js-goods-num"                               : "inputBlur"
   },
   initialize: function() {
 
@@ -44,10 +47,10 @@ var AppView = Backbone.View.extend({
     this.comboFuncTimer = null;
     this.title = "";
     this.urlTitle = UrlUtil.parseUrlSearch().title || this.$el.data("title");
-    this.$panel;
-    this.$button;
+    this.$popShadow;
+    this.$popPanel;
     this.$num;
-    this.$pop;
+    this.$button;
     this.listenTo(moneyModel, "change", this.renderMoney);
     this.mallCrowdDetail();
   },
@@ -73,19 +76,19 @@ var AppView = Backbone.View.extend({
     this.router.switchTo("crowd-rules");
   },
   submitButtonEvent: function() {
-    if ( this.$panel.is(":visible") ) {
+    if ( this.$popShadow.is(":visible") ) {
       this.createOrder();
     } else {
       this.showPurchasePanel();
     }
   },
   showPurchasePanel: function() {
-    var price = this.unitPrice * Number( this.$num.text() );
+    var price = this.unitPrice * Number( this.$num.val() );
     moneyModel.set({
       "needPay": price,
       silent: true
     });
-    this.$panel.show();
+    this.$popShadow.show();
     this.$button.text( this.$button.data("payText") );
   },
   hidePurchasePanel: function(e) {
@@ -93,13 +96,13 @@ var AppView = Backbone.View.extend({
     var $cur = $(e.currentTarget);
 
     var close = function() {
-      self.$panel.hide();
+      self.$popShadow.hide();
       self.$button.text( self.$button.data("activeText") );
     };
 
     if ( $cur.hasClass("js-hide-panel") ) {
       close();
-    } else if ( !$.contains(this.$pop.get(0), e.target) ) {
+    } else if ( !$.contains(this.$popPanel.get(0), e.target) ) {
       close();
     }
   },
@@ -125,17 +128,18 @@ var AppView = Backbone.View.extend({
     }, 500);
   },
   updateMoneyModel: function($button) {
-    var number = Number( this.$num.text() );
-    var maxNum = this.maxNum;
-    var minNum = 1;
-    var remainNum = this.remainNum;
-
+    var number = Number( this.$num.val() );
     if ( $button.data("operator") === "add" ) {
       number += 1;
     } else {
       number -= 1;
     }
+    this.checkNum(1,number);
+  },
 
+  checkNum: function (minNum, number) {
+    var maxNum = this.maxNum;
+    var remainNum = this.remainNum;
     if ( number > maxNum ) {
       number = maxNum;
       toast("已到单笔订单数量上限", 1500);
@@ -146,9 +150,35 @@ var AppView = Backbone.View.extend({
       toast("剩余数量不足", 1500);
     }
 
-    this.$num.text(number);
+    this.$num.val(number);
     moneyModel.set({ "needPay": this.unitPrice * number });
   },
+
+  inputKeyUp: function (e) {
+    var val = parseInt(this.$num.val()) || '';
+    if(isNaN(val)){
+      return;
+    }
+    this.checkNum('',val);
+  },
+
+  inputBlur: function (e){
+    var val = parseInt(this.$num.val()) || 1;
+    if(isNaN(val)){
+      return;
+    }
+    this.checkNum(1,val);
+  },
+
+  // 只能输入数字
+  inputKeyDown: function (e) {
+    if(e.keyCode !== 8 && (e.keyCode < 48 || e.keyCode >57 )) {
+      e.preventDefault();
+      return;
+    }
+  },
+
+
   setNum: function(e) {
     this.comboMode = false;
     clearTimeout(this.comboFuncTimer);
@@ -161,7 +191,7 @@ var AppView = Backbone.View.extend({
   },
   createOrder: function() {
     var self = this;
-    var num = Number( self.$el.find(".js-goods-num").text() );
+    var num = Number( self.$el.find(".js-goods-num").val() );
 
     if (num <= 0) {
       toast("不能选择0个");
@@ -347,10 +377,10 @@ var AppView = Backbone.View.extend({
       data: productDetail,
       barWidth: showAnimation ? minBarWidth : barWidth
     }));
-    this.$panel = this.$el.find(".js-pop-shadow");
-    this.$button = this.$el.find(".js-submit");
+    this.$popShadow = this.$el.find(".js-pop-shadow");
+    this.$popPanel = this.$el.find(".js-pop-panel");
     this.$num = this.$el.find(".js-goods-num");
-    this.$pop = this.$el.find(".js-pop-window");
+    this.$button = this.$el.find(".js-submit");
 
     if (showAnimation) {
       _.defer(function() {

@@ -8,7 +8,7 @@ var _        = require("lodash");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 
-var BaseView    = require("app/client/mall/common/views/BaseView.js");
+var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 
 var CategoryView = BaseView.extend({
 
@@ -17,13 +17,13 @@ var CategoryView = BaseView.extend({
   events: {
     "click span[data-group-id]"  : "checkCategory",
     "click a[data-group-id]"     : "checkCategory",
-    "click .home-list-switch"         : "showCagetoryListPannel"
+    "click .home-list-switch"    : "showCagetoryListPannel"
   },
 
   template: require("app/client/mall/tpl/home/v2/category.tpl"),
 
   initialize: function (options) {
-    this.listenTo(this.model, "change", this.stateChange);
+    this.listenTo(this.model, "change:status", this.stateChange);
   },
 
   render: function (data) {
@@ -84,7 +84,8 @@ var CategoryView = BaseView.extend({
 
     this.model.set({
       status: 1,
-      groupId: groupId
+      groupId: groupId,
+      logger: _el.data("info")
     });
 
     if(_el.data("scrollItem")){
@@ -115,15 +116,22 @@ var CategoryView = BaseView.extend({
 
   showPannel: function () {
     $(".home-list-switch", this.$el).addClass("home-rotate-switch");
-    return $(".home-goods-shadow").show();
+    $(".home-pull-area", this.$el).fadeIn('fast');
+    return $(".home-goods-shadow")
+            .show()
+            .off("click")
+            .one('click', function(event) {
+              this.hidePannel();
+            }.bind(this));
   },
   hidePannel: function () {
     $(".home-list-switch", this.$el).removeClass("home-rotate-switch");
+    $(".home-pull-area", this.$el).fadeOut('fast');
     return $(".home-goods-shadow").hide();
   },
 
   stateChange: function (e) {
-    if(e.hasChanged("status") && e.get("status") !== 1){
+    if(e.get("status") !== 1){
       return this.hidePannel();
     }
   },

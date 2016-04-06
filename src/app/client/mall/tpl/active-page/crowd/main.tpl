@@ -102,7 +102,24 @@ stat  int 状态
   ><%= buttonText[data.stat] %></button>
 </div>
 <div class="js-pop-shadow common-shadow">
-  <div class="js-pop-window snap-buy-box">
+  <div class="js-pop-panel common-buy-box">
+    <div class="common-buy-nav">
+      <p>购买份数</p>
+      <div class="js-hide-panel common-buy-close-btn">
+        <i class="common-buy-close-icon"></i>
+      </div>
+    </div>
+    <div class="common-buy-num">
+      <div class="common-buy-choice">
+        <i data-operator="minus" class="js-change-num unable">-</i><i><input class="js-goods-num" type="number" value="1" min="1" max="99" /></i><i data-operator="add" class="js-change-num">+</i>
+      </div>
+      <p class="common-buy-tip"><span>多买一份</span><span>，中奖概率就增大一倍</span></p>
+    </div>
+  </div>
+</div>
+<!-- 
+<div class="js-pop-shadow common-shadow">
+  <div class="js-pop-panel snap-buy-box">
     <div class="snap-buy-nav">
       <p>购买份数</p>
       <div class="js-hide-panel snap-buy-close-btn">
@@ -116,4 +133,4 @@ stat  int 状态
       <p class="snap-buy-tip"><span>多买一份</span><span>，中奖概率就增大一倍</span></p>
     </div>
   </div>
-</div>
+</div> -->

@@ -22,7 +22,8 @@ var AppView = Backbone.View.extend({
     "click .address-option-area": "selectArea",
     "blur  [name]": "blurInput"
   },
-  initialize: function() {
+  initialize: function(commonData) {
+    _.extend(this, commonData);
     this.curAddress = {};
   },
   resume: function(options) {
@@ -72,7 +73,7 @@ var AppView = Backbone.View.extend({
           $select.each(function(index, item) {
             self.addOption( $(item), regionData[item.name] );
           });
-        } else {        
+        } else {
           $select.each(function(index, item) {
             if (index === 0) {
               self.addOption( $(item), getProvince() );
@@ -85,7 +86,7 @@ var AppView = Backbone.View.extend({
 
       MultiLevel.prototype.getResult = function(options, callback) {
         var params = {
-          id: options.id 
+          id: options.id
         };
         sendPost("getRegion", params, function(err, data) {
           callback(err, data);

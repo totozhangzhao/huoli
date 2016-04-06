@@ -18,7 +18,7 @@ var storage    = require("app/client/mall/js/lib/storage.js");
 var tplUtil    = require("app/client/mall/js/lib/mall-tpl.js");
 var orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
 var ui         = require("app/client/mall/js/lib/ui.js");
-var FooterView = require("app/client/mall/common/views/footer.js");
+var FooterView = require("app/client/mall/js/common/views/footer.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-detail-container",

@@ -19,7 +19,8 @@ var AppView = Backbone.View.extend({
     "input .js-form-input": "inputInput",
     "blur  .js-form-input": "blurInput"
   },
-  initialize: function() {
+  initialize: function(commonData) {
+    _.extend(this, commonData);
     this.$el.$shade         = this.$el.find(".js-shade");
     this.$el.$successPrompt = this.$el.find(".js-success-prompt");
   },
@@ -47,7 +48,7 @@ var AppView = Backbone.View.extend({
     var val = $input.val();
 
     // 1.realname-icon:name  : 姓名
-    // 2.idcard-icon  :idcard: 身份证号    
+    // 2.idcard-icon  :idcard: 身份证号
     // 3.phone-icon   :phone : 手机号
     // 4.psw-icon     :pwd   : 输入密码
     // 5.re-psw-icon  :repwd : 再次输入密码
@@ -78,10 +79,10 @@ var AppView = Backbone.View.extend({
   },
   renderMainPanel: function() {
     var self = this;
-    var productInfo = this.cache.productInfo;
+    var goods = this.cache.goods;
 
     var $img = $("<img>", {
-      src: productInfo.img,
+      src: goods.img,
       alt: ""
     });
 
@@ -90,7 +91,7 @@ var AppView = Backbone.View.extend({
     var tmpl = require("app/client/mall/tpl/detail-page/form-custom.tpl");
 
     // 1.realname-icon:name  : 姓名
-    // 2.idcard-icon  :idcard: 身份证号    
+    // 2.idcard-icon  :idcard: 身份证号
     // 3.phone-icon   :phone : 手机号
     // 4.psw-icon     :pwd   : 输入密码
     // 5.re-psw-icon  :repwd : 再次输入密码
@@ -107,7 +108,7 @@ var AppView = Backbone.View.extend({
     this.$el
       .find(".js-input-container")
         .html(tmpl({
-          list: productInfo.input,
+          list: goods.input,
           inputClass: inputClass
         }));
 
@@ -135,7 +136,7 @@ var AppView = Backbone.View.extend({
   },
   createOrder: function() {
     var $inputs = this.$el.find(".js-form-input");
-    
+
     $inputs.trigger("blur");
 
     if (this.$el.find(".error-tip.active").length > 0) {

@@ -14,7 +14,7 @@ var logger        = require("com/mobile/lib/log/log.js");
 
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
 var GoodsItemView = require("app/client/mall/js/list-page/grab/views/goods-item.js");
-var Footer        = require("app/client/mall/common/views/footer.js");
+var Footer        = require("app/client/mall/js/common/views/footer.js");
 
 var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 var ui            = require("app/client/mall/js/lib/ui.js");

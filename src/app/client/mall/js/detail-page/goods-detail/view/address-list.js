@@ -23,8 +23,8 @@ var AppView = Backbone.View.extend({
     "click .js-edit-address"    : "editAddress",
     "click .js-remove-address"  : "removeAddress"
   },
-  initialize: function() {
-    // 
+  initialize: function(commonData) {
+    _.extend(this, commonData);
   },
   resume: function(options) {
     var self = this;
@@ -37,7 +37,7 @@ var AppView = Backbone.View.extend({
 
     pageAction.hideRightButton();
     hint.showLoading();
-    
+
     var addressList = this.collection.addressList;
 
     var showAddressHelper = function() {
@@ -101,7 +101,7 @@ var AppView = Backbone.View.extend({
         }
       } else {
         hint.hideLoading();
-        self.loginApp();          
+        self.loginApp();
       }
     });
   },
@@ -149,7 +149,7 @@ var AppView = Backbone.View.extend({
     $el.find(".js-shade").hide();
   },
   handleOrderAction: function() {
-    var self = this;    
+    var self = this;
     var addressId = this.cache.curAddressId;
 
     hint.showLoading();
@@ -208,7 +208,7 @@ var AppView = Backbone.View.extend({
       type: "confirm",
       title: "地址提交后不能修改，确定吗？",
       message: "",
-      agreeText: "确定",  
+      agreeText: "确定",
       cancelText: "修改",
       agreeFunc: function() {
         self.handleOrderAction();

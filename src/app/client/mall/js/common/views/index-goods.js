@@ -4,6 +4,7 @@
 var $           = require("jquery");
 var _           = require("lodash");
 
+var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var toast       = require("com/mobile/widget/hint/hint.js").toast;
 var hint        = require("com/mobile/widget/hint/hint.js");
@@ -13,7 +14,7 @@ var mallUitl    = require("app/client/mall/js/lib/util.js");
 
 var imageDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
 
-var BaseView    = require("app/client/mall/common/views/BaseView.js");
+var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 
 var PromotionView = BaseView.extend({
 
@@ -23,7 +24,7 @@ var PromotionView = BaseView.extend({
 
   initialize: function (options){
     this.showLoading = options.showLoading || false;
-    this.listenTo(this.model, "change", this.fetch);
+    this.listenTo(this.model, "change:status", this.fetch);
     imageDelay();
   },
 
@@ -52,7 +53,29 @@ var PromotionView = BaseView.extend({
     if(this.showLoading){
       hint.showLoading();
     }
-    sendPost("classifyGoods", {groupId: model.get("groupId")}, function(err, result) {
+    var params = {
+      groupId: model.get("groupId")
+    };
+    if(!params.groupId || params.groupId === ""){
+      mallPromise.getAppInfo()
+      .then(function(userData) {
+        params["logger"] = {
+          url: encodeURIComponent(window.location.href),
+          userData: userData,
+          logger: model.get("logger")
+        };
+        this.getGoods(model, params);
+      }.bind(this));
+
+      return;
+    }
+    this.getGoods(model, params);
+
+
+  },
+
+  getGoods: function (model, params) {
+    sendPost("classifyGoods", params, function(err, result) {
       if(this.showLoading){
         hint.hideLoading();
       }
@@ -61,7 +84,9 @@ var PromotionView = BaseView.extend({
           status: -1,
           groupId: ""
         });
-        toast(err.message, 1500);
+        if(err){
+          toast(err.message, 1500);
+        }
         return;
       }
       this.render(result.goods || []);
