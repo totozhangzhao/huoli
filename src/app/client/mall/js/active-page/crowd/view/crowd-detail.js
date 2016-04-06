@@ -25,8 +25,9 @@ var AppView = Backbone.View.extend({
     "click .js-fix-text"                               : "hideFixPanel",
     "click .js-submit"                                 : "submitButtonEvent",
     "click .js-tab-wrapper [data-tab-name=goodsDetail]": "renderDetail",
-    "keyup .js-goods-num"                              : "checkInput",
-    "keydown .js-goods-num"                            : "inputcheck"
+    "keyup .js-goods-num"                              : "inputKeyUp",
+    "keydown .js-goods-num"                            : "inputKeyDown",
+    "blur .js-goods-num"                               : "inputBlur"
   },
   initialize: function() {
 
@@ -133,12 +134,12 @@ var AppView = Backbone.View.extend({
     } else {
       number -= 1;
     }
-    this.checkNum(number);
+    this.checkNum(1,number);
   },
 
-  checkNum: function (number) {
+  checkNum: function (minNum, number) {
     var maxNum = this.maxNum;
-    var minNum = 1;
+    var minNum = minNum;
     var remainNum = this.remainNum;
     if ( number > maxNum ) {
       number = maxNum;
@@ -154,17 +155,25 @@ var AppView = Backbone.View.extend({
     moneyModel.set({ "needPay": this.unitPrice * number });
   },
 
-  checkInput: function (e) {
+  inputKeyUp: function (e) {
+    var val = parseInt(this.$num.val()) || '';
+    if(isNaN(val)){
+      return;
+    }
+    this.checkNum('',val);
+  },
+
+  inputBlur: function (e){
     var val = parseInt(this.$num.val()) || 1;
     if(isNaN(val)){
       return;
     }
-    this.checkNum(val);
+    this.checkNum(1,val);
   },
 
   // 只能输入数字
-  inputcheck: function (e) {
-    if(e.keyCode !== 8 && (e.keyCode < 48 || e.keyCode >56 )) {
+  inputKeyDown: function (e) {
+    if(e.keyCode !== 8 && (e.keyCode < 48 || e.keyCode >57 )) {
       e.preventDefault();
       return;
     }
