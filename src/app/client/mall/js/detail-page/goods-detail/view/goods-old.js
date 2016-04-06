@@ -89,9 +89,7 @@ var AppView = BaseView.extend({
           productid: UrlUtil.parseUrlSearch().productid
         });
 
-        var method = String(self.action) === "9" ? "goodsDetail" : "productDetail";
-
-        sendPost(method, params, function(err, data) {
+        sendPost("productDetail", params, function(err, data) {
           next(err, data);
         });
       }
@@ -113,39 +111,15 @@ var AppView = BaseView.extend({
 
     new FooterView().render();
   },
-  renderNewGoods: function(goods) {
-
-    // 100积分+3125元
-    var moneyTextFn = function(points, money) {
-      return points && money ?
-        points + "积分+" + money + "元" :
-        points && points + "积分" || money && money + "元" || "0元";
-    };
-
-    goods.relevance.showMoney = moneyTextFn(goods.relevance.points, goods.relevance.money);
-    goods.showMoney = moneyTextFn(goods.points, goods.money);
-    goods.tplUtil = tplUtil;
-
-    // View: goods info
-    var mainTmpl = require("app/client/mall/tpl/detail-page/goods-detail.tpl");
-    this.$el.html(mainTmpl(goods));
-
-    // View: copyright
-    new FooterView().render();
-  },
   renderMainPanel: function(goods) {
 
     // router: use it as backbone view cache
     this.cache.goods = goods;
     this.title = goods.title;
+
     widget.updateViewTitle(goods.title);
 
-    if (goods.showprice) {
-      this.renderOldGoods(goods);
-    } else {
-      this.renderNewGoods(goods);
-    }
-
+    this.renderOldGoods(goods);
     this.$button = this.$el.find(".js-purchase");
 
     if ( UrlUtil.parseUrlSearch().gotoView ) {

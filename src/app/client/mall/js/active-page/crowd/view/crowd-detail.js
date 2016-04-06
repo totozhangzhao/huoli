@@ -84,7 +84,8 @@ var AppView = Backbone.View.extend({
   showPurchasePanel: function() {
     var price = this.unitPrice * Number( this.$num.val() );
     moneyModel.set({
-      "needPay": price,
+      "needPay": price
+    }, {
       silent: true
     });
     this.$popShadow.show();
