@@ -49,7 +49,7 @@ var AppView = Backbone.View.extend({
     this.urlTitle = UrlUtil.parseUrlSearch().title || this.$el.data("title");
     this.$popShadow;
     this.$popPanel;
-    this.$num;
+    this.$goodsNum;
     this.$button;
     this.listenTo(moneyModel, "change", this.renderMoney);
     this.mallCrowdDetail();
@@ -83,7 +83,7 @@ var AppView = Backbone.View.extend({
     }
   },
   showPurchasePanel: function() {
-    var price = this.unitPrice * Number( this.$num.val() );
+    var price = this.unitPrice * Number( this.$goodsNum.val() );
     moneyModel.set({
       "needPay": price
     }, {
@@ -129,18 +129,20 @@ var AppView = Backbone.View.extend({
     }, 500);
   },
   updateMoneyModel: function($button) {
-    var number = Number( this.$num.val() );
+    var number = Number( this.$goodsNum.val() );
     if ( $button.data("operator") === "add" ) {
       number += 1;
     } else {
       number -= 1;
     }
-    this.checkNum(1,number);
+    this.checkNum(number);
   },
 
-  checkNum: function (minNum, number) {
+  checkNum: function (number) {
     var maxNum = this.maxNum;
+    var minNum = 1;
     var remainNum = this.remainNum;
+
     if ( number > maxNum ) {
       number = maxNum;
       toast("已到单笔订单数量上限", 1500);
@@ -151,34 +153,40 @@ var AppView = Backbone.View.extend({
       toast("剩余数量不足", 1500);
     }
 
-    this.$num.val(number);
-    moneyModel.set({ "needPay": this.unitPrice * number });
+    this.$goodsNum.val(number);
+    moneyModel.set({
+      needPay: this.unitPrice * number,
+      _t: Date.now()
+    });
   },
 
   inputKeyUp: function (e) {
-    var val = parseInt(this.$num.val()) || '';
-    if(isNaN(val)){
+    var val = parseInt( this.$goodsNum.val() ) || "";
+
+    if ( isNaN(val) ) {
       return;
     }
-    this.checkNum('',val);
+
+    if (val !== "") {
+      this.checkNum(val);
+    }
   },
 
   inputBlur: function (e){
-    var val = parseInt(this.$num.val()) || 1;
-    if(isNaN(val)){
+    var val = parseInt( this.$goodsNum.val() ) || 1;
+    if ( isNaN(val) ) {
       return;
     }
-    this.checkNum(1,val);
+    this.checkNum(val);
   },
 
   // 只能输入数字
   inputKeyDown: function (e) {
-    if(e.keyCode !== 8 && (e.keyCode < 48 || e.keyCode >57 )) {
+    if ( e.which !== 8 && (e.which < 48 || e.which > 57 ) ) {
       e.preventDefault();
       return;
     }
   },
-
 
   setNum: function(e) {
     this.comboMode = false;
@@ -380,7 +388,7 @@ var AppView = Backbone.View.extend({
     }));
     this.$popShadow = this.$el.find(".js-pop-shadow");
     this.$popPanel = this.$el.find(".js-pop-panel");
-    this.$num = this.$el.find(".js-goods-num");
+    this.$goodsNum = this.$el.find(".js-goods-num");
     this.$button = this.$el.find(".js-submit");
 
     if (showAnimation) {

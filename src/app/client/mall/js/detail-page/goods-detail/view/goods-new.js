@@ -100,10 +100,11 @@ var AppView = BaseView.extend({
       number -= 1;
     }
 
-    this.checkNum(1, number);
+    this.checkNum(number);
   },
-  checkNum: function (minNum, number) {
+  checkNum: function (number) {
     var limitNum = this.limitNum;
+    var minNum = 1;
 
     if ( number > limitNum ) {
 
@@ -114,36 +115,41 @@ var AppView = BaseView.extend({
       number = minNum;
     }
 
-    this.$goodsNum.val(number);
-
     moneyModel.set({
       points: this.unitPoints * number,
-      money: this.unitMoney * number
+      money: this.unitMoney * number,
+      num: number,
+      _t: Date.now()
     });
   },
   renderMoney: function() {
+    this.$goodsNum.val(moneyModel.get("num"));
     this.$el.find(".js-m-points").text(moneyModel.get("points"));
     this.$el.find(".js-m-money").text(moneyModel.get("money"));
   },
   inputKeyUp: function (e) {
-    var val = parseInt(this.$goodsNum.val()) || '';
-    if(isNaN(val)){
+    var val = parseInt( this.$goodsNum.val() ) || "";
+
+    if ( isNaN(val) ) {
       return;
     }
-    this.checkNum('',val);
+
+    if (val !== "") {
+      this.checkNum(val);
+    }
   },
 
   inputBlur: function (e){
-    var val = parseInt(this.$goodsNum.val()) || 1;
-    if(isNaN(val)){
+    var val = parseInt( this.$goodsNum.val() ) || 1;
+    if ( isNaN(val) ) {
       return;
     }
-    this.checkNum(1,val);
+    this.checkNum(val);
   },
 
   // 只能输入数字
   inputKeyDown: function (e) {
-    if(e.keyCode !== 8 && (e.keyCode < 48 || e.keyCode >57 )) {
+    if ( e.which !== 8 && (e.which < 48 || e.which > 57 ) ) {
       e.preventDefault();
       return;
     }
@@ -299,7 +305,8 @@ var AppView = BaseView.extend({
     var number = Number( this.$goodsNum.val() );
     moneyModel.set({
       points: this.unitPoints * number,
-      money: this.unitMoney * number
+      money: this.unitMoney * number,
+      num: number
     }, {
       silent: true
     });
