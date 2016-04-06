@@ -139,7 +139,6 @@ var AppView = Backbone.View.extend({
 
   checkNum: function (minNum, number) {
     var maxNum = this.maxNum;
-    var minNum = minNum;
     var remainNum = this.remainNum;
     if ( number > maxNum ) {
       number = maxNum;
