@@ -1606,6 +1606,17 @@ img.touch-img {
   padding-bottom: 0.08rem;
   padding-left: 0.13333rem;
 }
+.goods-desc-box .desc-container {
+  font-size: 0.48rem;
+  color: #333;
+  padding: 0.53333rem 0 0 0;
+}
+.goods-desc-box .desc-container p {
+  margin: 0 0.42667rem 0.21333rem 0.42667rem;
+}
+.goods-desc-box .desc-container img {
+  width: 100%;
+}
 .pay-order-box {
   margin-bottom: 0.26667rem;
 }

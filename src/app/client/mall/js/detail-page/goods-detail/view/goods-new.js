@@ -32,6 +32,7 @@ var AppView = BaseView.extend({
     "click .js-new-page": "createNewPage",
     "click .js-get-url" : "handleGetUrl",
     "click .js-desc a"  : "createNewPage",
+    "click .js-detail-bar"   : "showDetailInfo",
     "click .js-pop-shadow"   : "hidePurchasePanel",
     "click .js-hide-panel"   : "hidePurchasePanel",
     "touchstart .js-change-num": "combo",
@@ -69,6 +70,9 @@ var AppView = BaseView.extend({
     this.action = UrlUtil.parseUrlSearch().action;
     this.listenTo(moneyModel, "change", this.renderMoney);
     this.mallGoodsDetail();
+  },
+  showDetailInfo: function() {
+    this.router.switchTo("goods-desc");
   },
   combo: function(e) {
     var self = this;
