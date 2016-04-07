@@ -116,16 +116,14 @@ var AppView = BaseView.extend({
     }
 
     moneyModel.set({
-      points: this.unitPoints * number,
-      money: this.unitMoney * number,
       num: number,
       _t: Date.now()
     });
   },
   renderMoney: function() {
     this.$goodsNum.val(moneyModel.get("num"));
-    this.$el.find(".js-m-points").text(moneyModel.get("points"));
-    this.$el.find(".js-m-money").text(moneyModel.get("money"));
+    this.$el.find(".js-m-points").text(moneyModel.get("points") * moneyModel.get("num"));
+    this.$el.find(".js-m-money").text(moneyModel.get("money") * moneyModel.get("num"));
   },
   inputKeyUp: function (e) {
     var val = parseInt( this.$goodsNum.val() ) || "";
@@ -304,8 +302,8 @@ var AppView = BaseView.extend({
   showPurchasePanel: function() {
     var number = Number( this.$goodsNum.val() );
     moneyModel.set({
-      points: this.unitPoints * number,
-      money: this.unitMoney * number,
+      points: this.unitPoints,
+      money: this.unitMoney,
       num: number
     }, {
       silent: true

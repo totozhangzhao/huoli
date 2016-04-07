@@ -92,5 +92,8 @@
   <% } else { %>
   <p class="js-points goods-charge-info num-font"><span>0</span>元</p>
   <% } %>
-  <button type="button" disabled class="js-purchase goods-charge-btn"><%= button %></button>
+  <button type="button" disabled class="js-purchase goods-charge-btn"
+    data-pay-text="去支付"
+    data-active-text="<%= button %>"
+  ><%= button %></button>
 </div>

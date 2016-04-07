@@ -644,7 +644,7 @@ img.touch-img {
   position: absolute;
   left: 50%;
   bottom: 0.13333rem;
-  transform: translate(-50%, 0);
+  transform: translate3d(-50%, 0, 0);
   overflow: hidden;
 }
 .home-page-box .home-banner-bar .home-banner-indexs i {
@@ -851,7 +851,7 @@ img.touch-img {
   padding-right: 0.4rem;
   padding-bottom: 0.4rem;
   padding-left: 0.4rem;
-  transform: translate(0, -100%);
+  transform: translate3d(0, -100%, 0);
   background: rgba(255, 255, 255, 0.95);
 }
 .home-page-box .home-pull-area a {
@@ -865,28 +865,15 @@ img.touch-img {
 .home-page-box .home-pull-area a.on {
   color: #039ef0;
 }
-@-webkit-keyframes move {
-  0% {
-    -webkit-transform: translate(0, -100%);
-    transform: translate(0, -100%);
-  }
-  100% {
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
-  }
-}
 @keyframes move {
   0% {
-    -webkit-transform: translate(0, -100%);
-    transform: translate(0, -100%);
+    transform: translate3d(0, -100%, 0);
   }
   100% {
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 .home-page-box .home-pull-content.on .home-pull-area {
-  -webkit-animation: 0.2s move ease-out forwards;
   animation: 0.2s move ease-out forwards;
 }
 .home-page-box .home-goods-fa {
