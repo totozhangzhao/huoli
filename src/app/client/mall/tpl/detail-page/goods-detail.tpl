@@ -54,7 +54,8 @@
     <% rules.forEach(function(elem) { %>
       <li>
         <p><span><%= elem.name %></span></p>
-        <p><%= elem.content %></p>
+        <% elem.content = _.escape(elem.content) %>
+        <p><%= elem.content.replace(/\$\$\$\$/g, "<br>") %></p>
       </li>
     <% }); %>
   </ul>
