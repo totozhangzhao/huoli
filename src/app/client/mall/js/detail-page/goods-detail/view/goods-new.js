@@ -244,6 +244,10 @@ var AppView = BaseView.extend({
 
     this.renderNewGoods(goods);
 
+    if (goods.wechatshare) {
+      wechatUtil.setShareInfo(goods.wechatshare);
+    }
+
     this.$popShadow = this.$el.find(".js-pop-shadow");
     this.$popPanel = this.$el.find(".js-pop-panel");
     this.$goodsNum = this.$el.find(".js-goods-num");
