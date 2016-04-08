@@ -29,12 +29,12 @@ var moneyModel  = require("app/client/mall/js/detail-page/goods-detail/model/mon
 var AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
-    "click .js-new-page": "createNewPage",
-    "click .js-get-url" : "handleGetUrl",
-    "click .js-desc a"  : "createNewPage",
-    "click .js-detail-bar"   : "showDetailInfo",
-    "click .js-pop-shadow"   : "hidePurchasePanel",
-    "click .js-hide-panel"   : "hidePurchasePanel",
+    "click .js-new-page"       : "createNewPage",
+    "click .js-get-url"        : "handleGetUrl",
+    "click .js-webview a"      : "createNewPage",
+    "click .js-detail-bar"     : "showDetailInfo",
+    "click .js-pop-shadow"     : "hidePurchasePanel",
+    "click .js-hide-panel"     : "hidePurchasePanel",
     "touchstart .js-change-num": "combo",
     "touchend .js-change-num"  : "setNum",
     "keyup .js-goods-num"      : "inputKeyUp",
