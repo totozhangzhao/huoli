@@ -6,12 +6,11 @@ var widget   = require("app/client/mall/js/lib/common.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 
-var GoodsItemView = Backbone.View.extend({
+var BaseView   = require("app/client/mall/js/common/views/BaseView.js");
+
+var GoodsItemView = BaseView.extend({
 
   template: require("app/client/mall/tpl/list-page/grab/goods-item.tpl"),
-  events:{
-    "click .js-new-page": "createNewPage"
-  },
 
   initialize: function (options) {
 
@@ -24,9 +23,6 @@ var GoodsItemView = Backbone.View.extend({
       tplUtil  : tplUtil
     }));
     return this;
-  },
-  createNewPage: function(e) {
-    widget.createAView(e);
   }
 });
 module.exports = GoodsItemView;
