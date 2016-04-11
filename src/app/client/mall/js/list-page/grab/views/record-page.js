@@ -14,8 +14,8 @@ var app = Backbone.View.extend({
     new Footer().render();
   },
 
-  render: function (dom) {
-    this.$el.find("#list-box").html(dom);
+  render: function (view) {
+    this.$el.find("#list-box").html(view.el);
   },
 
   route: function (e) {

@@ -11,7 +11,7 @@ var UrlUtil       = require("com/mobile/lib/url/url.js");
 
 
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
-var GoodsItemView = require("app/client/mall/js/list-page/grab/views/goods-item.js");
+var GoodsListView = require("app/client/mall/js/list-page/grab/views/goods-list.js");
 
 var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 var ui            = require("app/client/mall/js/lib/ui.js");
@@ -29,8 +29,8 @@ var AppView = Backbone.View.extend({
     this.$initial = ui.initial().show();
 
     this.id = UrlUtil.parseUrlSearch().productid;
-    this.$goodsPannel = this.$el;
-    this.$goodsView   = new GoodsItemView({el: this.$goodsPannel});
+
+    this.$goodsView   = new GoodsListView({el: this.$el});
     this.fetchData();
   },
 
@@ -66,6 +66,14 @@ var AppView = Backbone.View.extend({
   renderGoodsList: function (data) {
     this.$goodsView.render(data);
     imgDelay();
+  },
+
+  // 加载更多
+  moreGoods: function (data) {
+    setTimeout(function (){
+      this.$goodsView.addMore(data);
+      imgDelay();
+    }.bind(this),5000);
   }
 });
 module.exports = AppView;

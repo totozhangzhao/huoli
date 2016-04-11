@@ -11,8 +11,7 @@ var UrlUtil       = require("com/mobile/lib/url/url.js");
 
 
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
-var GoodsItemView = require("app/client/mall/js/list-page/grab/views/goods-item.js");
-var Footer        = require("app/client/mall/js/common/views/footer.js");
+var GoodsListView = require("app/client/mall/js/list-page/grab/views/goods-list.js");
 
 var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 var ui            = require("app/client/mall/js/lib/ui.js");
@@ -28,23 +27,36 @@ var AppView = Backbone.View.extend({
 
   initialize: function () {
     this.$initial = ui.initial().show();
-
+    this.last = null;       // 更多数据起始位置
+    this.hasMore = true;    // 有更多数据
+    this.isLoading = false; // 正在加载数据
     this.id = UrlUtil.parseUrlSearch().productid;
-    this.$goodsPannel = this.$el;
-    this.$goodsView   = new GoodsItemView({el: this.$goodsPannel});
-    // this.$footer      = new Footer();
+    this.$goodsView   = new GoodsListView({el: this.$el});
+
     this.fetchData();
+    return this.bindEvent();
+
   },
 
   fetchData: function () {
     var self = this;
+    if(!this.hasMore || this.isLoading){
+      return;
+    }
+    this.isLoading = true;
+
     mallPromise.getAppInfo()
     .then(function (userData) {
-      var params = _.extend({}, userData.userInfo, {
-        productid: self.id
-      });
+      var params = {
+        // userid: userData.userInfo.userid,
+        userid: "1215787082202880",
+        authcode: userData.userInfo.authcode,
+        uid: userData.userInfo.uid,
+        limit: 10,
+        last: self.last
+      }
       return new Promise(function(resolve, reject) {
-        sendPost("crowdWinList", params, function(err, data) {
+        sendPost("userInvolvedCrowd", params, function(err, data) {
           if (err) {
             reject(err);
           } else {
@@ -54,28 +66,47 @@ var AppView = Backbone.View.extend({
       });
     })
     .then(function (data) {
-      self.render(data);
+      self.isLoading = false;
+      if(!data || data.length === 0){
+        return self.hasMore = false;
+      }
+      return self.render(data);
     })
     .catch(mallPromise.catchFn);
   },
 
   render: function (data) {
-    // this.$goods.set(data);
-    this.renderGoodsList(data);
-    // this.$footer.render();
-    this.$initial.hide();
+    var isNotFirstPage = !!this.last;
+    this.last = _.last(data).orderid;
+    if(isNotFirstPage){
+      this.moreGoods(data);
+    }else{
+      this.renderGoodsList(data);
+      this.$initial.hide();
+    }
     return this;
   },
-  // 增加一个商品视图
-  addGoodsItem: function (data) {
-    // var itemView = new GoodsItemView();
-    // this.$goodsPannel.append(itemView.render(data).el);
+
+  bindEvent: function () {
+    $(window).scroll((function (_this) {
+      return function (e) {
+        if(Backbone.history.getHash() === "my-record"){
+          var bottom = $("#main").height() - $(window).scrollTop() - document.body.offsetHeight;
+          if(bottom < 200) { // 距离底部200像素时 加载更多数据
+            return _this.fetchData();
+          }
+        }
+      };
+    })(this));
   },
+
   renderGoodsList: function (data) {
-    // this.$goodsView.render(data);
-    this.$el.html("aaa");
-    imgDelay();
+    this.$goodsView.render(data);
+    return imgDelay();
+  },
+
+  moreGoods: function (data) {
+    return this.$goodsView.addMore(data);
   }
 });
 module.exports = AppView;
-// new AppView();
