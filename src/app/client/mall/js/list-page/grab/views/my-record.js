@@ -47,7 +47,7 @@ var AppView = Backbone.View.extend({
     }
     this.isLoading = true;
     this.loadingView.show();
-/*
+
     mallPromise.getAppInfo()
     .then(function (userData) {
       var params = {
@@ -67,8 +67,8 @@ var AppView = Backbone.View.extend({
           }
         });
       });
-    })*/
-      var params = {
+    })
+      /*var params = {
         // userid: userData.userInfo.userid,
         userid: "1215787082202880",
         authcode: "373101894604160/web/1460343718/AF1C625478B14DBD0754CFD8E44E9495",
@@ -76,7 +76,7 @@ var AppView = Backbone.View.extend({
         limit: 10,
         last: self.last
       };
-    var a = new Promise(function(resolve, reject) {
+      var a = new Promise(function(resolve, reject) {
         sendPost("userInvolvedCrowd", params, function(err, data) {
           if (err) {
             reject(err);
@@ -84,9 +84,9 @@ var AppView = Backbone.View.extend({
             resolve(data);
           }
         });
-      });
+      });*/
 
-    a.then(function (data) {
+    .then(function (data) {
       self.loadingView.hide();
       self.isLoading = false;
       if(!data || data.length === 0){

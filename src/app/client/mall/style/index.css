@@ -606,6 +606,7 @@ p {
   width: 100%;
   height: 1.6rem;
   line-height: 1.6rem;
+  display: none;
   font-size: 0.32rem;
   color: #a5a5a5;
   background-color: #f3f3f3;
