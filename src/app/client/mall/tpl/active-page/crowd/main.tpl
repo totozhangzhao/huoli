@@ -31,8 +31,9 @@ stat  int 状态
       <% if (data.winner.phone) { %>
         <% var phone = data.winner.phone; %>
         <% phone = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
-        <p class="ellipsis">获奖者：<%= phone %></p>
-        <p class="ellipsis">揭晓时间：<%= data.winner.time %></p>
+        <p>获奖者：<span class="snap-winner-tel"><%= phone %></span></p>
+        <p>参与次数：<span class="snap-winner-time"><%= data.winner.winnerBuyNum %></span>人次</p>
+        <p>揭晓日期：<%= data.winner.time %></p>
       <% } else { %>
         <p>本期没有人中奖</p>
         <p>希望下期中奖者就是您 ^_^</p>

@@ -202,6 +202,9 @@ p {
   z-index: 5;
   display: none;
 }
+.common-shadow.improve-zindex {
+  z-index: 7;
+}
 .ui-confirm {
   width: 74.6%;
   text-align: center;
@@ -330,6 +333,9 @@ p {
   bottom: 0;
   z-index: 6;
 }
+.time-bar {
+  z-index: 4;
+}
 .goods-charge-bar {
   font-size: 0.48rem;
   padding-left: 0.26667rem;
@@ -405,7 +411,7 @@ p {
   top: 50%;
   margin-left: -40%;
   margin-top: -2rem;
-  z-index: 6;
+  z-index: 8;
   display: none;
 }
 .del-tip-box {
@@ -728,6 +734,12 @@ p {
   flex: 1;
   padding-right: 0.13333rem;
 }
+.snap-winner-flex:nth-child(2) .snap-winner-tel {
+  color: #039ef0;
+}
+.snap-winner-flex:nth-child(2) .snap-winner-time {
+  color: #ff5a44;
+}
 .snap-winner-flex:nth-child(3) {
   height: 0.58667rem;
   line-height: 0.58667rem;
@@ -741,7 +753,7 @@ p {
   border-radius: 0.08rem;
   position: relative;
   right: 0;
-  top: 0.18667rem;
+  top: 0.42667rem;
 }
 .snap-status-num {
   padding-top: 0.26667rem;

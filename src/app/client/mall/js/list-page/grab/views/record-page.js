@@ -1,27 +1,49 @@
 var $             = require("jquery");
 var Backbone      = require("backbone");
 var _             = require("lodash");
-var Footer        = require("app/client/mall/js/common/views/footer.js");
+
+var logger       = require("com/mobile/lib/log/log.js");
+var mallUitl     = require("app/client/mall/js/lib/util.js");
+
+var HistroyView  = require("app/client/mall/js/list-page/grab/views/history-record.js");
+var MyRecordView = require("app/client/mall/js/list-page/grab/views/my-record.js");
+var NavView      = require("app/client/mall/js/list-page/grab/views/record-nav.js");
+
 var app = Backbone.View.extend({
 
   el:"#main",
 
-  events:{
-    "click span[data-route]": "route"
-  },
+
 
   initialize: function () {
-    new Footer().render();
+    // new Footer().render();
+    this.navView = new NavView();
+    this.ViewDic = {
+      "record": {view:HistroyView,title:"最近开奖"},
+      "my-record": {view:MyRecordView,title:"我参与纪录"}
+    };
+    this.views = {};
   },
 
-  render: function (view) {
-    this.$el.find("#list-box").html(view.el);
+  changeView: function (action) {
+    if(action in this.ViewDic) {
+      if(!this.views[action]){
+        this.views[action] = new this.ViewDic[action].view();
+      }
+      this.render(action);
+      logger.track(mallUitl.getAppName() + "PV", "View PV", this.ViewDic[action].title);
+    } else {
+      window.console.log("-- [Backbone View] not found! action: " + action + " --");
+      this.switchTo("record", true, true);
+    }
   },
 
-  route: function (e) {
-    var data = $(e.currentTarget).data("route");
-    this.switchTo(data, true, true);
+  render: function (action) {
+    this.$el.find("#list-box").html(this.views[action].el);
+    this.navView.update(action);
   },
+
+
 
   switchTo: function (view, trigger, replace){
     Backbone.history.navigate(view,{

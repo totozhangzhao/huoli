@@ -8,11 +8,9 @@ var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 
 var BaseView   = require("app/client/mall/js/common/views/BaseView.js");
 
-var GoodsItemView = BaseView.extend({
+var GoodsListView = BaseView.extend({
 
-  template: require("app/client/mall/tpl/list-page/grab/record-goods.tpl"),
-
-  initialize: function (options) {
+  initialize: function () {
 
   },
 
@@ -34,4 +32,4 @@ var GoodsItemView = BaseView.extend({
 
   }
 });
-module.exports = GoodsItemView;
+module.exports = GoodsListView;

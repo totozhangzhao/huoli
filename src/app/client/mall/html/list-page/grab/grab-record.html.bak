@@ -6,18 +6,13 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection"content="telephone=no">
-  <title>夺宝纪录</title>
+  <title>最近开奖记录</title>
   <link rel="stylesheet" type="text/css" href="/fe/app/client/common/style/global.css">
   <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
 </head>
 <body>
 
 <section id="main" class="crowd-history-box">
-  <div>
-    <span data-route="record">最近开奖</span>
-    <span data-route="my-record">我参与纪录</span>
-  </div>
-  <div id="list-box"></div>
   <ul id="goods-block" class="crowd-history-bar">
   </ul>
   <div id="copyright" class="copyright-block">
@@ -30,7 +25,7 @@
   _czc.push(["_setAccount", "1255478836"]);
 </script>
 <script src="/fe/vendor/vendor-mvc.bundle.js"></script>
-<script src="/fe/app/client/mall/js/list-page/grab/grab-record-test.bundle.js"></script>
+<script src="/fe/app/client/mall/js/list-page/grab/grab-record.bundle.js"></script>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255478836'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1255478836' type='text/javascript'%3E%3C/script%3E"));</script>
 </body>
 </html>

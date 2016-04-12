@@ -11,8 +11,8 @@ var UrlUtil       = require("com/mobile/lib/url/url.js");
 
 
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
-var GoodsListView = require("app/client/mall/js/list-page/grab/views/goods-list.js");
-
+var GoodsListView = require("app/client/mall/js/list-page/grab/views/my-goods-list.js");
+var LoadingView   = require("app/client/mall/js/list-page/grab/views/loading-view.js");
 var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 var ui            = require("app/client/mall/js/lib/ui.js");
 
@@ -21,6 +21,8 @@ require("app/client/mall/js/lib/common.js");
 var AppView = Backbone.View.extend({
 
   tagName: "ul",
+
+  className: "crowd-join-bar",
 
   events:{
   },
@@ -32,7 +34,7 @@ var AppView = Backbone.View.extend({
     this.isLoading = false; // 正在加载数据
     this.id = UrlUtil.parseUrlSearch().productid;
     this.$goodsView   = new GoodsListView({el: this.$el});
-
+    this.loadingView = new LoadingView();
     this.fetchData();
     return this.bindEvent();
 
@@ -44,7 +46,8 @@ var AppView = Backbone.View.extend({
       return;
     }
     this.isLoading = true;
-
+    this.loadingView.show();
+/*
     mallPromise.getAppInfo()
     .then(function (userData) {
       var params = {
@@ -64,11 +67,30 @@ var AppView = Backbone.View.extend({
           }
         });
       });
-    })
-    .then(function (data) {
+    })*/
+      var params = {
+        // userid: userData.userInfo.userid,
+        userid: "1215787082202880",
+        authcode: "373101894604160/web/1460343718/AF1C625478B14DBD0754CFD8E44E9495",
+        uid: "23112f6bcb0100003",
+        limit: 10,
+        last: self.last
+      };
+    var a = new Promise(function(resolve, reject) {
+        sendPost("userInvolvedCrowd", params, function(err, data) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        });
+      });
+
+    a.then(function (data) {
+      self.loadingView.hide();
       self.isLoading = false;
       if(!data || data.length === 0){
-        return self.hasMore = false;
+        return (self.hasMore = false);
       }
       return self.render(data);
     })

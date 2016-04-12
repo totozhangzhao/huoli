@@ -11,7 +11,7 @@ var UrlUtil       = require("com/mobile/lib/url/url.js");
 
 
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
-var GoodsListView = require("app/client/mall/js/list-page/grab/views/goods-list.js");
+var GoodsListView = require("app/client/mall/js/list-page/grab/views/history-goods-list.js");
 
 var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 var ui            = require("app/client/mall/js/lib/ui.js");
@@ -21,6 +21,8 @@ require("app/client/mall/js/lib/common.js");
 var AppView = Backbone.View.extend({
 
   tagName: "ul",
+
+  className: "crowd-history-bar",
 
   events:{
   },
@@ -70,10 +72,7 @@ var AppView = Backbone.View.extend({
 
   // 加载更多
   moreGoods: function (data) {
-    setTimeout(function (){
-      this.$goodsView.addMore(data);
-      imgDelay();
-    }.bind(this),5000);
+    return this.$goodsView.addMore(data);
   }
 });
 module.exports = AppView;
