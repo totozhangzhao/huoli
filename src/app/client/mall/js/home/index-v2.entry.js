@@ -142,7 +142,10 @@ var AppView = Backbone.View.extend({
 
   stateChange: function (e) {
     if(e.get("status") !== 1){
-      $(window).scrollTop(this.getFixTop() + 18);
+      // 只有分类菜单fix状态时，才重置位置
+      if(this.$categoryView.$el.hasClass('fix')){
+        $(window).scrollTop(this.getFixTop() + 18);
+      }
     }
   },
 

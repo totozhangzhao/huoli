@@ -29,11 +29,12 @@ var moneyModel  = require("app/client/mall/js/detail-page/goods-detail/model/mon
 var AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
-    "click .js-new-page": "createNewPage",
-    "click .js-get-url" : "handleGetUrl",
-    "click .js-desc a"  : "createNewPage",
-    "click .js-pop-shadow"   : "hidePurchasePanel",
-    "click .js-hide-panel"   : "hidePurchasePanel",
+    "click .js-new-page"       : "createNewPage",
+    "click .js-get-url"        : "handleGetUrl",
+    "click .js-webview a"      : "createNewPage",
+    "click .js-detail-bar"     : "showDetailInfo",
+    "click .js-pop-shadow"     : "hidePurchasePanel",
+    "click .js-hide-panel"     : "hidePurchasePanel",
     "touchstart .js-change-num": "combo",
     "touchend .js-change-num"  : "setNum",
     "keyup .js-goods-num"      : "inputKeyUp",
@@ -69,6 +70,9 @@ var AppView = BaseView.extend({
     this.action = UrlUtil.parseUrlSearch().action;
     this.listenTo(moneyModel, "change", this.renderMoney);
     this.mallGoodsDetail();
+  },
+  showDetailInfo: function() {
+    this.router.switchTo("goods-desc");
   },
   combo: function(e) {
     var self = this;
@@ -116,16 +120,14 @@ var AppView = BaseView.extend({
     }
 
     moneyModel.set({
-      points: this.unitPoints * number,
-      money: this.unitMoney * number,
       num: number,
       _t: Date.now()
     });
   },
   renderMoney: function() {
     this.$goodsNum.val(moneyModel.get("num"));
-    this.$el.find(".js-m-points").text(moneyModel.get("points"));
-    this.$el.find(".js-m-money").text(moneyModel.get("money"));
+    this.$el.find(".js-m-points").text(moneyModel.get("points") * moneyModel.get("num"));
+    this.$el.find(".js-m-money").text(moneyModel.get("money") * moneyModel.get("num"));
   },
   inputKeyUp: function (e) {
     var val = parseInt( this.$goodsNum.val() ) || "";
@@ -304,8 +306,8 @@ var AppView = BaseView.extend({
   showPurchasePanel: function() {
     var number = Number( this.$goodsNum.val() );
     moneyModel.set({
-      points: this.unitPoints * number,
-      money: this.unitMoney * number,
+      points: this.unitPoints,
+      money: this.unitMoney,
       num: number
     }, {
       silent: true

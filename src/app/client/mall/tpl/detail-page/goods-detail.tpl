@@ -48,13 +48,14 @@
 <a class="js-detail-bar goods-detail-bar bold-tit">图文详情<span>建议在WiFi下查看</span></a>
 
 <% if (Array.isArray(rules) && rules.length > 0) { %>
-<div class="js-desc goods-desc-bar">
+<div class="js-webview goods-desc-bar">
   <h4 class="bold-tit">说明信息</h4>
   <ul class="goods-info-list">
     <% rules.forEach(function(elem) { %>
       <li>
         <p><span><%= elem.name %></span></p>
-        <p><%= elem.content %></p>
+        <% elem.content = _.escape(elem.content) %>
+        <p><%= elem.content.replace(/\$\$\$\$/g, "<br>") %></p>
       </li>
     <% }); %>
   </ul>
@@ -92,5 +93,8 @@
   <% } else { %>
   <p class="js-points goods-charge-info num-font"><span>0</span>元</p>
   <% } %>
-  <button type="button" disabled class="js-purchase goods-charge-btn"><%= button %></button>
+  <button type="button" disabled class="js-purchase goods-charge-btn"
+    data-pay-text="去支付"
+    data-active-text="<%= button %>"
+  ><%= button %></button>
 </div>

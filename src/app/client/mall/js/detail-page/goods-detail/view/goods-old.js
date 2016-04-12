@@ -28,10 +28,10 @@ var FooterView  = require("app/client/mall/js/common/views/footer.js");
 var AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
-    "click .js-new-page": "createNewPage",
-    "click .js-get-url" : "handleGetUrl",
-    "click .js-desc a"  : "createNewPage",
-    "click .js-purchase": "exchangeHandler"
+    "click .js-new-page" : "createNewPage",
+    "click .js-get-url"  : "handleGetUrl",
+    "click .js-webview a": "createNewPage",
+    "click .js-purchase" : "exchangeHandler"
   },
   initialize: function(commonData) {
     _.extend(this, commonData);

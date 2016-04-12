@@ -1,19 +1,21 @@
 var $         = require("jquery");
 var Backbone  = require("backbone");
 var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var GoodsView  = require("app/client/mall/js/detail-page/goods-detail/view/goods-detail.js");
-var OrderView  = require("app/client/mall/js/detail-page/goods-detail/view/form-phone.js");
-var FormCustom = require("app/client/mall/js/detail-page/goods-detail/view/form-custom.js");
+var logger    = require("com/mobile/lib/log/log.js");
+var mallUitl  = require("app/client/mall/js/lib/util.js");
+var GoodsView          = require("app/client/mall/js/detail-page/goods-detail/view/goods-detail.js");
+var DescView           = require("app/client/mall/js/detail-page/goods-detail/view/goods-desc.js");
+var OrderView          = require("app/client/mall/js/detail-page/goods-detail/view/form-phone.js");
+var FormCustomView     = require("app/client/mall/js/detail-page/goods-detail/view/form-custom.js");
 var AddAddressView     = require("app/client/mall/js/detail-page/goods-detail/view/address-add.js");
 var ConfirmAddressView = require("app/client/mall/js/detail-page/goods-detail/view/address-confirm.js");
 var AddressListView    = require("app/client/mall/js/detail-page/goods-detail/view/address-list.js");
-var logger   = require("com/mobile/lib/log/log.js");
-var mallUitl = require("app/client/mall/js/lib/util.js");
 
 var ViewDic = {
   "goods-detail"   : GoodsView,
+  "goods-desc"     : DescView,
   "form-phone"     : OrderView,
-  "form-custom"    : FormCustom,
+  "form-custom"    : FormCustomView,
   "address-add"    : AddAddressView,
   "address-confirm": ConfirmAddressView,
   "address-list"   : AddressListView

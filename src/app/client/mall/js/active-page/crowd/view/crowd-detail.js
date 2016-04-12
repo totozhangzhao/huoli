@@ -17,6 +17,7 @@ var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detai
 var AppView = Backbone.View.extend({
   el: "#crowd-detail",
   events: {
+    "click .js-webview a"                              : "createNewPage",
     "click .js-pop-shadow"                             : "hidePurchasePanel",
     "click .js-hide-panel"                             : "hidePurchasePanel",
     "touchstart .js-change-num"                        : "combo",
@@ -68,6 +69,9 @@ var AppView = Backbone.View.extend({
     }
 
     widget.updateViewTitle(title);
+  },
+  createNewPage: function(e) {
+    widget.createAView(e);
   },
   hideFixPanel: function(e) {
     $(e.currentTarget).hide();

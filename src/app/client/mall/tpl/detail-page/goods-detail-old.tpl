@@ -2,7 +2,7 @@
   <img src="<%= img %>" alt="">
 </div>
 
-<div class="js-desc goods-desc">
+<div class="js-webview goods-desc">
   <%= desc %>
 </div>
 

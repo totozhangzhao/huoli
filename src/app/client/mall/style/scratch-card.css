@@ -202,6 +202,9 @@ p {
   z-index: 5;
   display: none;
 }
+.common-shadow.improve-zindex {
+  z-index: 7;
+}
 .ui-confirm {
   width: 74.6%;
   text-align: center;
@@ -330,6 +333,9 @@ p {
   bottom: 0;
   z-index: 6;
 }
+.time-bar {
+  z-index: 4;
+}
 .goods-charge-bar {
   font-size: 0.48rem;
   padding-left: 0.26667rem;
@@ -405,7 +411,7 @@ p {
   top: 50%;
   margin-left: -40%;
   margin-top: -2rem;
-  z-index: 6;
+  z-index: 8;
   display: none;
 }
 .del-tip-box {
