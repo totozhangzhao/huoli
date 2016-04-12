@@ -21,7 +21,6 @@ var GoodsListView = Backbone.View.extend({
   update: function (action) {
     $("[data-route]", this.$el).removeClass('on');
     $("[data-route=" + action + "]", this.$el).addClass('on');
-
   },
 
   route: function (e) {

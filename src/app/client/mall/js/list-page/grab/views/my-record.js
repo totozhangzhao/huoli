@@ -9,11 +9,10 @@ var tplUtil       = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl      = require("app/client/mall/js/lib/util.js");
 var UrlUtil       = require("com/mobile/lib/url/url.js");
 
-
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
 var GoodsListView = require("app/client/mall/js/list-page/grab/views/my-goods-list.js");
 var LoadingView   = require("app/client/mall/js/list-page/grab/views/loading-view.js");
-var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
+
 var ui            = require("app/client/mall/js/lib/ui.js");
 
 require("app/client/mall/js/lib/common.js");
@@ -51,8 +50,7 @@ var AppView = Backbone.View.extend({
     mallPromise.getAppInfo()
     .then(function (userData) {
       var params = {
-        // userid: userData.userInfo.userid,
-        userid: "1215787082202880",
+        userid: userData.userInfo.userid,
         authcode: userData.userInfo.authcode,
         uid: userData.userInfo.uid,
         limit: 10,
@@ -84,13 +82,14 @@ var AppView = Backbone.View.extend({
             resolve(data);
           }
         });
-      });*/
+      });
 
+    a*/
     .then(function (data) {
       self.loadingView.hide();
       self.isLoading = false;
       if(!data || data.length === 0){
-        return (self.hasMore = false);
+        self.hasMore = false;
       }
       return self.render(data);
     })
@@ -98,8 +97,13 @@ var AppView = Backbone.View.extend({
   },
 
   render: function (data) {
+
     var isNotFirstPage = !!this.last;
-    this.last = _.last(data).orderid;
+
+    if(data.length > 0){
+      this.last = _.last(data).orderid;
+    }
+
     if(isNotFirstPage){
       this.moreGoods(data);
     }else{
@@ -123,8 +127,7 @@ var AppView = Backbone.View.extend({
   },
 
   renderGoodsList: function (data) {
-    this.$goodsView.render(data);
-    return imgDelay();
+    return this.$goodsView.render(data);
   },
 
   moreGoods: function (data) {

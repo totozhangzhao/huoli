@@ -25,7 +25,7 @@
     class="<%= tplUtil.getJsClass(item) %> clearfix"
     href="<%= tplUtil.getBlockUrl(item) %>">
     <div class="crowd-join-pic">
-      <img class="cp0 touch-img" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
+      <img class="op0 touch-img" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
     </div>
     <div class="crowd-join-desc">
       <p class="crowd-history-title"><%= item.title %></p>
@@ -53,7 +53,7 @@
     class="<%= tplUtil.getJsClass(item) %> clearfix"
     href="<%= tplUtil.getBlockUrl(item) %>">
     <div class="crowd-history-pic">
-      <img class="cp0 touch-img" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
+      <img class="op0 touch-img" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
     </div>
     <div class="crowd-join-desc">
       <p class="crowd-history-title"><%= item.title %></p>
@@ -81,7 +81,7 @@
     class="<%= tplUtil.getJsClass(item) %> clearfix"
     href="<%= tplUtil.getBlockUrl(item) %>">
     <div class="crowd-history-pic">
-      <img class="cp0 touch-img" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
+      <img class="op0 touch-img" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
     </div>
     <div class="crowd-join-desc">
       <p class="crowd-history-title"><%= item.title %></p>

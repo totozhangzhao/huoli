@@ -13,7 +13,6 @@ module.exports = Backbone.Router.extend({
   },
 
   default: function () {
-
     this.switchTo("record", true, true);
   },
 

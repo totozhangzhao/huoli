@@ -13,7 +13,6 @@ var UrlUtil       = require("com/mobile/lib/url/url.js");
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
 var GoodsListView = require("app/client/mall/js/list-page/grab/views/history-goods-list.js");
 
-var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 var ui            = require("app/client/mall/js/lib/ui.js");
 
 require("app/client/mall/js/lib/common.js");
@@ -66,8 +65,7 @@ var AppView = Backbone.View.extend({
   },
 
   renderGoodsList: function (data) {
-    this.$goodsView.render(data);
-    imgDelay();
+    return this.$goodsView.render(data);
   },
 
   // 加载更多

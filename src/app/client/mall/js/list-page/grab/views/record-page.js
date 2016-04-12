@@ -4,6 +4,7 @@ var _             = require("lodash");
 
 var logger       = require("com/mobile/lib/log/log.js");
 var mallUitl     = require("app/client/mall/js/lib/util.js");
+// var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 
 var HistroyView  = require("app/client/mall/js/list-page/grab/views/history-record.js");
 var MyRecordView = require("app/client/mall/js/list-page/grab/views/my-record.js");
@@ -12,8 +13,6 @@ var NavView      = require("app/client/mall/js/list-page/grab/views/record-nav.j
 var app = Backbone.View.extend({
 
   el:"#main",
-
-
 
   initialize: function () {
     // new Footer().render();
@@ -27,10 +26,15 @@ var app = Backbone.View.extend({
 
   changeView: function (action) {
     if(action in this.ViewDic) {
-      if(!this.views[action]){
+      var isLoaded = !!this.views[action];
+      if(!isLoaded){
         this.views[action] = new this.ViewDic[action].view();
       }
       this.render(action);
+      this.navView.update(action);
+      if(isLoaded){
+        // imgDelay();
+      }
       logger.track(mallUitl.getAppName() + "PV", "View PV", this.ViewDic[action].title);
     } else {
       window.console.log("-- [Backbone View] not found! action: " + action + " --");
@@ -40,10 +44,7 @@ var app = Backbone.View.extend({
 
   render: function (action) {
     this.$el.find("#list-box").html(this.views[action].el);
-    this.navView.update(action);
   },
-
-
 
   switchTo: function (view, trigger, replace){
     Backbone.history.navigate(view,{

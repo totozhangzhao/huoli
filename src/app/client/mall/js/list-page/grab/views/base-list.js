@@ -7,6 +7,7 @@ var mallUitl = require("app/client/mall/js/lib/util.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 
 var BaseView   = require("app/client/mall/js/common/views/BaseView.js");
+var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 
 var GoodsListView = BaseView.extend({
 
@@ -20,6 +21,7 @@ var GoodsListView = BaseView.extend({
       appName: mallUitl.getAppName(),
       tplUtil: tplUtil
     }));
+    imgDelay();
     return this;
   },
 
