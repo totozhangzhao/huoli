@@ -6,10 +6,9 @@ var widget   = require("app/client/mall/js/lib/common.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 
-var BaseView = require("app/client/mall/js/common/views/BaseView.js");
 var imgDelay = require("app/client/mall/js/lib/common.js").imageDelay;
 
-var GoodsListView = BaseView.extend({
+var GoodsListView = Backbone.View.extend({
 
   initialize: function () {
 
