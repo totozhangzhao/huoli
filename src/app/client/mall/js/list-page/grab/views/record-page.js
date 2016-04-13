@@ -8,8 +8,9 @@ var mallUitl     = require("app/client/mall/js/lib/util.js");
 var HistroyView  = require("app/client/mall/js/list-page/grab/views/history-record.js");
 var MyRecordView = require("app/client/mall/js/list-page/grab/views/my-record.js");
 var NavView      = require("app/client/mall/js/list-page/grab/views/record-nav.js");
+var BaseView = require("app/client/mall/js/common/views/BaseView.js");
 
-var app = Backbone.View.extend({
+var app = BaseView.extend({
 
   el:"#main",
 
