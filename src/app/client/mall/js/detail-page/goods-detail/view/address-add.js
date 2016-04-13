@@ -28,8 +28,10 @@ var AppView = Backbone.View.extend({
   },
   resume: function(options) {
     if (options.previousView === "") {
-      this.router.switchTo("goods-detail");
-      pageAction.setClose();
+      setTimeout(function() {
+        this.router.switchTo("goods-detail");
+        pageAction.setClose();
+      }.bind(this), 0);
       return;
     }
 
