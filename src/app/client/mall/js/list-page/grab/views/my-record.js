@@ -46,11 +46,10 @@ var AppView = ListBaseView.extend({
     this.isLoading = true;
     this.loadingView.show();
 
-    /*mallPromise.getAppInfo()
+    mallPromise.getAppInfo()
     .then(function (userData) {
       var params = {
-        // userid: userData.userInfo.userid,
-        userid: "1215787082202880",
+        userid: userData.userInfo.userid,
         authcode: userData.userInfo.authcode,
         uid: userData.userInfo.uid,
         limit: 10,
@@ -65,8 +64,8 @@ var AppView = ListBaseView.extend({
           }
         });
       });
-    })*/
-      var params = {
+    })
+      /*var params = {
         // userid: userData.userInfo.userid,
         userid: "1215787082202880",
         authcode: "373101894604160/web/1460343718/AF1C625478B14DBD0754CFD8E44E9495",
@@ -84,7 +83,7 @@ var AppView = ListBaseView.extend({
         });
       });
 
-    a
+    a*/
     .then(function (data) {
       self.loadingView.hide();
       self.isLoading = false;
