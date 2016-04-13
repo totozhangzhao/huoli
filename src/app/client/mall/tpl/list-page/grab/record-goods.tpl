@@ -11,7 +11,7 @@
     </div>
     <div class="crowd-history-desc">
       <p class="crowd-history-title"><%= item.title %></p>
-      <p>获奖者:<span class="crowd-history-tel"><%= item.phone %></span><span class="crowd-history-time"><%= item.winnerbuynum %></span>人次</p>
+      <p>获奖者:<span class="crowd-history-tel"><%= item.phone %></span><span class="crowd-history-num"><%= item.winnerbuynum %></span>人次</p>
       <p>幸运号码:<span class="crowd-history-num"><%= item.wincode%></span></p>
       <p>揭晓时间:<span><%= item.time %></span></p>
     </div>

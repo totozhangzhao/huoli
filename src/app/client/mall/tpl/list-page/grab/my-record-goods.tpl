@@ -14,7 +14,12 @@
   };
   var type = typeHash[typeKey];
 %>
-
+<%
+var winphone = item.winphone; 
+if(winphone){
+  winphone = winphone.slice(0, 3) + "****" + winphone.slice(7, 11); 
+}
+%>
 <% if(type === "live") {%>
 <!-- 继续参与 -->
 <li class="crowd-join-area crowd-go-on">
@@ -64,7 +69,7 @@
   </a>
   <div class="crowd-winner-info">
     <div>
-      获奖者:<span class="crowd-join-tel"><%= item.winphone %></span><span class="crowd-join-time"><%= item.winnerbuynum %></span>人次
+      获奖者:<span class="crowd-join-tel"><%= winphone %></span><span class="crowd-join-time"><%= item.winnerbuynum %></span>人次
     </div>
   </div>
 </li>
@@ -92,7 +97,7 @@
   </a>
   <div class="crowd-winner-info">
     <div>
-      获奖者:<span class="crowd-join-tel"><%= item.winphone %></span><span class="crowd-join-time"><%= item.winnerbuynum %></span>人次
+      获奖者:<span class="crowd-join-tel"><%= winphone %></span><span class="crowd-join-time"><%= item.winnerbuynum %></span>人次
     </div>
   </div>
   <div class="crowd-win-show"></div>
