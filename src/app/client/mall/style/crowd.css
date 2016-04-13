@@ -602,6 +602,34 @@ p {
 .common-buy-box .common-buy-num .common-buy-tip span {
   display: inline-block;
 }
+.more-loading {
+  width: 100%;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  display: none;
+  font-size: 0.32rem;
+  color: #a5a5a5;
+  background-color: #f3f3f3;
+  position: absolute;
+  left: 0;
+  bottom: -1.6rem;
+}
+.more-loading div {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0);
+}
+.more-loading div img {
+  width: 0.53333rem;
+  vertical-align: middle;
+  display: inline-block;
+}
+.more-loading div span {
+  height: 100%;
+  display: inline-block;
+  margin-left: 0.34667rem;
+}
 .snap-up-box {
   min-height: 100%;
   margin-top: 0;
@@ -734,6 +762,12 @@ p {
   flex: 1;
   padding-right: 0.13333rem;
 }
+.snap-winner-flex:nth-child(2) .snap-winner-tel {
+  color: #039ef0;
+}
+.snap-winner-flex:nth-child(2) .snap-winner-time {
+  color: #ff5a44;
+}
 .snap-winner-flex:nth-child(3) {
   height: 0.58667rem;
   line-height: 0.58667rem;
@@ -747,7 +781,7 @@ p {
   border-radius: 0.08rem;
   position: relative;
   right: 0;
-  top: 0.18667rem;
+  top: 0.42667rem;
 }
 .snap-status-num {
   padding-top: 0.26667rem;

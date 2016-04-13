@@ -6,22 +6,17 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection"content="telephone=no">
-  <title>夺宝纪录</title>
+  <title>最近开奖记录</title>
   <link rel="stylesheet" type="text/css" href="/fe/app/client/common/style/global.css">
   <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
 </head>
 <body>
 
 <section id="main" class="crowd-history-box">
-  <nav id="record-nav" class="crowd-history-nav flex-row">
-    <div data-route="record"><span>最近开奖</span></div>
-    <div data-route="my-record"><span>我的参与</span></div>
-  </nav>
-  <div id="list-box"></div>
-  <div id="loading-more" class="more-loading no-select">
-    <div>
-      <img src="http://cdn.rsscc.cn/guanggao/img/icon/more-loading.gif" /><span>正在加载...</span>
-    </div>
+  <ul id="goods-block" class="crowd-history-bar">
+  </ul>
+  <div id="copyright" class="copyright-block">
+    <!-- // -->
   </div>
 </section>
 
