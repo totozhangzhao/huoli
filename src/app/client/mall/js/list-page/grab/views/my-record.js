@@ -54,7 +54,7 @@ var AppView = ListBaseView.extend({
         uid: userData.userInfo.uid,
         limit: 10,
         last: self.last
-      }
+      };
       return new Promise(function(resolve, reject) {
         sendPost("userInvolvedCrowd", params, function(err, data) {
           if (err) {
