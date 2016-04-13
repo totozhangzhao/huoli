@@ -4,7 +4,6 @@ var _             = require("lodash");
 
 var logger       = require("com/mobile/lib/log/log.js");
 var mallUitl     = require("app/client/mall/js/lib/util.js");
-// var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
 
 var HistroyView  = require("app/client/mall/js/list-page/grab/views/history-record.js");
 var MyRecordView = require("app/client/mall/js/list-page/grab/views/my-record.js");
@@ -33,7 +32,7 @@ var app = Backbone.View.extend({
       this.render(action);
       this.navView.update(action);
       if(isLoaded){
-        // imgDelay();
+
       }
       logger.track(mallUitl.getAppName() + "PV", "View PV", this.ViewDic[action].title);
     } else {

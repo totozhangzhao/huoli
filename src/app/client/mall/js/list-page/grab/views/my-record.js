@@ -10,18 +10,20 @@ var mallUitl      = require("app/client/mall/js/lib/util.js");
 var UrlUtil       = require("com/mobile/lib/url/url.js");
 
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
-var GoodsListView = require("app/client/mall/js/list-page/grab/views/my-goods-list.js");
 var LoadingView   = require("app/client/mall/js/list-page/grab/views/loading-view.js");
+var ListBaseView      = require("app/client/mall/js/list-page/grab/views/base-list.js");
 
 var ui            = require("app/client/mall/js/lib/ui.js");
 
 require("app/client/mall/js/lib/common.js");
 
-var AppView = Backbone.View.extend({
+var AppView = ListBaseView.extend({
 
   tagName: "ul",
 
-  className: "crowd-join-bar",
+  className: "crowd-join-bar more-loading-padding",
+
+  template: require("app/client/mall/tpl/list-page/grab/my-record-goods.tpl"),
 
   events:{
   },
@@ -32,7 +34,6 @@ var AppView = Backbone.View.extend({
     this.hasMore = true;    // 有更多数据
     this.isLoading = false; // 正在加载数据
     this.id = UrlUtil.parseUrlSearch().productid;
-    this.$goodsView   = new GoodsListView({el: this.$el});
     this.loadingView = new LoadingView();
     this.fetchData();
     return this.bindEvent();
@@ -47,10 +48,11 @@ var AppView = Backbone.View.extend({
     this.isLoading = true;
     this.loadingView.show();
 
-    mallPromise.getAppInfo()
+    /*mallPromise.getAppInfo()
     .then(function (userData) {
       var params = {
-        userid: userData.userInfo.userid,
+        // userid: userData.userInfo.userid,
+        userid: "1215787082202880",
         authcode: userData.userInfo.authcode,
         uid: userData.userInfo.uid,
         limit: 10,
@@ -65,8 +67,8 @@ var AppView = Backbone.View.extend({
           }
         });
       });
-    })
-      /*var params = {
+    })*/
+      var params = {
         // userid: userData.userInfo.userid,
         userid: "1215787082202880",
         authcode: "373101894604160/web/1460343718/AF1C625478B14DBD0754CFD8E44E9495",
@@ -84,12 +86,13 @@ var AppView = Backbone.View.extend({
         });
       });
 
-    a*/
+    a
     .then(function (data) {
       self.loadingView.hide();
       self.isLoading = false;
       if(!data || data.length === 0){
         self.hasMore = false;
+        self.$el.removeClass('more-loading-padding');
       }
       return self.render(data);
     })
@@ -105,9 +108,9 @@ var AppView = Backbone.View.extend({
     }
 
     if(isNotFirstPage){
-      this.moreGoods(data);
+      this.addMore(data);
     }else{
-      this.renderGoodsList(data);
+      this.renderGoods(data);
       this.$initial.hide();
     }
     return this;
@@ -118,20 +121,12 @@ var AppView = Backbone.View.extend({
       return function (e) {
         if(Backbone.history.getHash() === "my-record"){
           var bottom = $("#main").height() - $(window).scrollTop() - document.body.offsetHeight;
-          if(bottom < 200) { // 距离底部200像素时 加载更多数据
+          if(bottom < 100) { // 距离底部200像素时 加载更多数据
             return _this.fetchData();
           }
         }
       };
     })(this));
-  },
-
-  renderGoodsList: function (data) {
-    return this.$goodsView.render(data);
-  },
-
-  moreGoods: function (data) {
-    return this.$goodsView.addMore(data);
   }
 });
 module.exports = AppView;

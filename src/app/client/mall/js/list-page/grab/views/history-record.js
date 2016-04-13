@@ -11,17 +11,19 @@ var UrlUtil       = require("com/mobile/lib/url/url.js");
 
 
 var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
-var GoodsListView = require("app/client/mall/js/list-page/grab/views/history-goods-list.js");
+var ListBaseView  = require("app/client/mall/js/list-page/grab/views/base-list.js");
 
 var ui            = require("app/client/mall/js/lib/ui.js");
 
 require("app/client/mall/js/lib/common.js");
 
-var AppView = Backbone.View.extend({
+var AppView = ListBaseView.extend({
 
   tagName: "ul",
 
   className: "crowd-history-bar",
+
+  template: require("app/client/mall/tpl/list-page/grab/record-goods.tpl"),
 
   events:{
   },
@@ -30,8 +32,6 @@ var AppView = Backbone.View.extend({
     this.$initial = ui.initial().show();
 
     this.id = UrlUtil.parseUrlSearch().productid;
-
-    this.$goodsView   = new GoodsListView({el: this.$el});
     this.fetchData();
   },
 
@@ -59,18 +59,9 @@ var AppView = Backbone.View.extend({
   },
 
   render: function (data) {
-    this.renderGoodsList(data);
+    this.renderGoods(data);
     this.$initial.hide();
     return this;
-  },
-
-  renderGoodsList: function (data) {
-    return this.$goodsView.render(data);
-  },
-
-  // 加载更多
-  moreGoods: function (data) {
-    return this.$goodsView.addMore(data);
   }
 });
 module.exports = AppView;
