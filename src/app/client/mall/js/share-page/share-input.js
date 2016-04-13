@@ -1,4 +1,4 @@
-// var $          = require("jquery");
+var $          = require("jquery");
 var _          = require("lodash");
 var Backbone   = require("backbone");
 var async      = require("async");
@@ -8,44 +8,16 @@ var toast      = require("com/mobile/widget/hint/hint.js").toast;
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var validator  = require("app/client/mall/js/lib/validator.js");
 var NativeAPI  = require("app/client/common/lib/native/native-api.js");
+var widget     = require("app/client/mall/js/lib/common.js");
 
-var getMoney = function(points) {
-  points = Number(points) || 0;
-
-  var maxMoney = 200000;
-  var minMoney = 10000;
-
-  if (points < minMoney) {
-    return minMoney;
-  } else if (points > maxMoney) {
-    return maxMoney;
-  } else {
-    return points;
-  }
+var idMap = {
+  "10000184": 1001014,
+  "22000003": 2000281
 };
 
 var AppView = Backbone.View.extend({
-
-  // 用户积分
-  // js-points
-
-  // 可领取 XXX 元
-  // js-money
-
-  // 手机号 input
-  // js-phone-input
-
-  // 领取按钮
-  // js-main-button
-
-  // 领取成功弹窗
-  // js-success-alert
-
-  // 关闭弹窗
-  // js-close
   events: {
-    "click .js-main-button": "handleMainSubmit",
-    "click .js-close"      : "closePanel"
+    "click input.send-info": "handleMainSubmit"
   },
   initialize: function() {
     this.$panel = this.$el.find(".js-success-alert");
@@ -62,43 +34,16 @@ var AppView = Backbone.View.extend({
             return;
           }
 
-          next(null, userData);
+          next(null, userData.userInfo.phone);
         });
-      },
-      function(userData, next) {
-        if (userData.userInfo && userData.userInfo.userid) {
-          var params = _.extend({}, userData.userInfo, {
-            p: userData.deviceInfo.p
-          });
-
-          sendPost("getUserInfo", params, function(err, data) {
-            if (err) {
-              next(err);
-              return;
-            }
-
-            next(null, data, userData.userInfo.phone);
-          });
-        } else {
-          self.loginApp();
-        }
       }
-    ], function(err, result, phone) {
+    ], function(err, phone) {
       if (err) {
         toast(err.message, 1500);
         return;
       }
 
-      var points = result.points;
-
-      self.$el
-        .find(".js-points")
-          .text(points)
-        .end()
-        .find(".js-money")
-          .text(getMoney(points));
-
-      self.$el.find(".js-phone-input").val(phone);
+      self.$el.find("input.insert-tel").val(phone);
     });
   },
   closePanel: function() {
@@ -106,10 +51,55 @@ var AppView = Backbone.View.extend({
   },
   handleMainSubmit: function() {
     var self = this;
-    var phone = this.$el.find(".js-phone-input").val();
+    var phone = this.$el.find("input.insert-tel").val();
 
     if ( !validator.checkPhoneNum(phone) ) {
       toast("请输入正确的手机号", 1500);
+      return;
+    }
+
+    var list = [];
+
+    var $radio = $("input[type='radio']:checked");
+
+    if ( $radio.length > 0 ) {
+      $radio.each(function() {
+        var q = $(this)
+            .parents(".pin-chocicebar")
+            .find("> :nth-child(1)")
+              .text();
+        var a = $(this)
+            .siblings("span")
+            .text();
+        list.push({
+          q: q,
+          a: a
+        });
+      });
+    }
+
+    var $checkbox = $("input[type='checkbox']:checked");
+
+    if ( $checkbox.length > 0 ) {
+      $checkbox.each(function() {
+        var q = $(this)
+            .parents(".pin-chocicebar")
+            .find("> :nth-child(1)")
+              .text();
+        var a = $(this)
+            .siblings("span")
+            .text();
+        list.push({
+          q: q,
+          a: a
+        });
+      });
+    }
+
+    // console.log(JSON.stringify(list));
+
+    if ( list.length < 1 ) {
+      toast("请您选择答案", 1500);
       return;
     }
 
@@ -130,7 +120,7 @@ var AppView = Backbone.View.extend({
         // uid: 设备id
         // userid: 用户id
         // authcode: token
-        // productid: 产品id
+        // productid: 虚拟产品id
         // input {{}, {}, ...}
         // 返回包
         // orderid: 订单id
@@ -138,9 +128,10 @@ var AppView = Backbone.View.extend({
         // useurl: 第三方url
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: parseUrl().productid,
+          productid: idMap[parseUrl().productid],
           input: {
-            phone: phone
+            phone: phone,
+            list: list
           }
         });
 
@@ -148,18 +139,23 @@ var AppView = Backbone.View.extend({
           next(err, data);
         });
       }
-    ], function(err) {
+    ], function(err, orderInfo) {
       if (err) {
         toast(err.message, 1500);
         return;
       }
 
-      self.$panel
-        .find(".js-phone")
-          .text( phone.slice(0, 3) + "****" + phone.slice(7, 11) )
-        .end()
-        .show();
+      var orderDetailUrl = window.location.origin +
+          "/fe/app/client/mall/html/detail-page/order-detail.html" +
+          "?orderid=" + orderInfo.orderid;
+
+      self.gotoNewView({
+        url: orderDetailUrl
+      });
     });
+  },
+  gotoNewView: function(options) {
+    widget.createNewView(options);
   },
   loginApp: function() {
     async.waterfall([

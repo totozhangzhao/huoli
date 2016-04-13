@@ -106,9 +106,9 @@ var AppView = Backbone.View.extend({
     });
   },
   initActive: function() {
-    var activeType = this.$el.find("[data-active-type]").data("activeType");
+    var id = parseUrl().productid;
 
-    if ( activeType === "zhenrongbao" ) {
+    if ( String(id) === "10000184" || String(id) === "22000003") {
       new ShareInput({ el: "#interlayer" });
     }
   }
