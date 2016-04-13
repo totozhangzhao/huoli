@@ -60,39 +60,33 @@ var AppView = Backbone.View.extend({
 
     var list = [];
 
-    var $radio = $("input[type='radio']:checked");
-
-    if ( $radio.length > 0 ) {
-      $radio.each(function() {
-        var q = $(this)
-            .parents(".pin-chocicebar")
-            .find("> :nth-child(1)")
-              .text();
-        var a = $(this)
-            .siblings("span")
-            .text();
-        list.push({
-          q: q,
-          a: a
-        });
-      });
-    }
-
     var $checkbox = $("input[type='checkbox']:checked");
 
     if ( $checkbox.length > 0 ) {
       $checkbox.each(function() {
-        var q = $(this)
-            .parents(".pin-chocicebar")
-            .find("> :nth-child(1)")
-              .text();
+        // var q = $(this)
+        //     .parents(".pin-chocicebar")
+        //     .find("> :nth-child(1)")
+        //       .text();
         var a = $(this)
             .siblings("span")
             .text();
-        list.push({
-          q: q,
-          a: a
-        });
+        list.push(a);
+      });
+    }
+
+    var $radio = $("input[type='radio']:checked");
+
+    if ( $radio.length > 0 ) {
+      $radio.each(function() {
+        // var q = $(this)
+        //     .parents(".pin-chocicebar")
+        //     .find("> :nth-child(1)")
+        //       .text();
+        var a = $(this)
+            .siblings("span")
+            .text();
+        list.push(a);
       });
     }
 
