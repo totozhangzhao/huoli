@@ -25,8 +25,6 @@ var AppView = ListBaseView.extend({
 
   template: require("app/client/mall/tpl/list-page/grab/my-record-goods.tpl"),
 
-  events:{
-  },
 
   initialize: function () {
     this.$initial = ui.initial().show();
