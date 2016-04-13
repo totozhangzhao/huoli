@@ -29,7 +29,7 @@
     </div>
     <div class="crowd-join-desc">
       <p class="crowd-history-title"><%= item.title %></p>
-      <p>我已参与:<span class="crowd-join-time"><%= item.winnerbuynum %></span>人次</p>
+      <p>我已参与:<span class="crowd-join-time"><%= item.buynum %></span>人次</p>
       <div class="crowd-goods-process-fa">
         <p class="crowd-goods-process">开奖进度:<span><%= item.progress %>%</span></p>
         <div class="snap-status-show">
