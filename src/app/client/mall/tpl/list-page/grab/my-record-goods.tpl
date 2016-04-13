@@ -64,7 +64,7 @@
   </a>
   <div class="crowd-winner-info">
     <div>
-      获奖者:<span class="crowd-join-tel"><%= item.phone %></span><span class="crowd-join-time"><%= item.winnerbuynum %></span>人次
+      获奖者:<span class="crowd-join-tel"><%= item.winphone %></span><span class="crowd-join-time"><%= item.winnerbuynum %></span>人次
     </div>
   </div>
 </li>
@@ -92,7 +92,7 @@
   </a>
   <div class="crowd-winner-info">
     <div>
-      获奖者:<span class="crowd-join-tel"><%= item.phone %></span><span class="crowd-join-time"><%= item.winnerbuynum %></span>人次
+      获奖者:<span class="crowd-join-tel"><%= item.winphone %></span><span class="crowd-join-time"><%= item.winnerbuynum %></span>人次
     </div>
   </div>
   <div class="crowd-win-show"></div>
