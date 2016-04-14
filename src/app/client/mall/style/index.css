@@ -864,6 +864,9 @@ img.touch-img {
 .home-page-box .home-list-nav .home-rotate-switch .home-switch-icon {
   transform: rotate(180deg);
 }
+.home-page-box .home-list-nav .home-rotate-switch + .home-pull-content {
+  z-index: 4;
+}
 .home-page-box .home-list-nav .home-rotate-switch + .home-pull-content .home-pull-area {
   -webkit-animation: 0.2s move ease-out forwards;
   animation: 0.2s move ease-out forwards;
@@ -874,7 +877,7 @@ img.touch-img {
   left: 0;
   top: 1.17333rem;
   overflow: hidden;
-  z-index: 4;
+  z-index: -1;
 }
 .home-page-box .home-pull-area {
   width: 100%;
