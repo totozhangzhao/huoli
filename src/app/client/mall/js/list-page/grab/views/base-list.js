@@ -6,27 +6,31 @@ var widget   = require("app/client/mall/js/lib/common.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 
-var GoodsItemView = Backbone.View.extend({
+var imgDelay = require("app/client/mall/js/lib/common.js").imageDelay;
 
-  template: require("app/client/mall/tpl/list-page/grab/goods-item.tpl"),
-  events:{
-    "click .js-new-page": "createNewPage"
-  },
+var GoodsListView = Backbone.View.extend({
 
-  initialize: function (options) {
+  initialize: function () {
 
   },
 
-  render: function (data) {
+  renderGoods: function (data) {
     this.$el.html(this.template({
       dataList: data,
       appName: mallUitl.getAppName(),
-      tplUtil  : tplUtil
+      tplUtil: tplUtil
     }));
+    imgDelay();
     return this;
   },
-  createNewPage: function(e) {
-    widget.createAView(e);
+
+  addMore: function (data){
+    this.$el.append(this.template({
+      dataList: data,
+      appName: mallUitl.getAppName(),
+      tplUtil: tplUtil
+    }));
+
   }
 });
-module.exports = GoodsItemView;
+module.exports = GoodsListView;

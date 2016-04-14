@@ -1,3 +1,4 @@
+var $ = require("jquery");
 var Util = require("com/mobile/lib/util/util.js");
 
 exports.setTitle = function(title) {
@@ -26,4 +27,9 @@ exports.setTitle = function(title) {
 exports.isWechatFunc = function() {
   var ua = window.navigator.userAgent.toLowerCase();
   return /micromessenger/.test(ua);
+};
+
+exports.setShareInfo = function(data) {
+  var tmpl = require("com/mobile/widget/wechat-hack/tpl/share.tpl");
+  $(tmpl({ data: data })).appendTo("body");
 };

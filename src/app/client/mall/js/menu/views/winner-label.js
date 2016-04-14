@@ -6,15 +6,12 @@ var mallUitl = require("app/client/mall/js/lib/util.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var UrlUtil  = require("com/mobile/lib/url/url.js");
 var Marquee  = require("com/mobile/widget/marquee/marquee.js");
+var BaseView = require("app/client/mall/js/common/views/BaseView.js");
 
-var WinnerView = Backbone.View.extend({
+var WinnerView = BaseView.extend({
   el: "#winner-label",
 
   template: require("app/client/mall/tpl/menu/grab/grab-winner.tpl"),
-
-  events:{
-    "click .js-new-page": "createNewPage"
-  },
 
   initialize: function () {
 

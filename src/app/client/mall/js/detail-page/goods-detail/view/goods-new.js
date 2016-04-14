@@ -24,30 +24,143 @@ var ui          = require("app/client/mall/js/lib/ui.js");
 var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
 var FooterView  = require("app/client/mall/js/common/views/footer.js");
-var moneyModel  = require("app/client/mall/js/active-page/crowd/model/money.js").money;
+var moneyModel  = require("app/client/mall/js/detail-page/goods-detail/model/money.js").money;
 
 var AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
-    "click .js-new-page": "createNewPage",
-    "click .js-get-url" : "handleGetUrl",
-    "click .js-desc a"  : "createNewPage",
-    "click .js-pop-shadow": "hidePurchasePanel",
-    "click .js-hide-panel": "hidePurchasePanel",
-    "click .js-purchase": "submitButtonEvent"
+    "click .js-new-page"       : "createNewPage",
+    "click .js-get-url"        : "handleGetUrl",
+    "click .js-webview a"      : "createNewPage",
+    "click .js-detail-bar"     : "showDetailInfo",
+    "click .js-pop-shadow"     : "hidePurchasePanel",
+    "click .js-hide-panel"     : "hidePurchasePanel",
+    "touchstart .js-change-num": "combo",
+    "touchend .js-change-num"  : "setNum",
+    "keyup .js-goods-num"      : "inputKeyUp",
+    "keydown .js-goods-num"    : "inputKeyDown",
+    "blur .js-goods-num"       : "inputBlur",
+    "click .js-purchase"       : "submitButtonEvent"
   },
   initialize: function(commonData) {
     _.extend(this, commonData);
+
     this.$initial = ui.initial();
     this.$popShadow;
     this.$popPanel;
-    this.$num;
+    this.$goodsNum;
     this.$button;
+
+    this.comboMode = false;
+    this.comboFuncTimer = null;
+
+    // 购买数量上限
+    // 每个订单可购数量
+    // 0为不可购买
+    // 大于1时则限制当前订单可购数量
+    // 等于1时不多选
+    this.limitNum = null;
+
+    this.unitPoints = null;
+    this.unitMoney = null;
+
     this.resetAppView = false;
     this.title = "";
     this.userDataOpitons = { reset: false };
     this.action = UrlUtil.parseUrlSearch().action;
+    this.listenTo(moneyModel, "change", this.renderMoney);
     this.mallGoodsDetail();
+  },
+  showDetailInfo: function() {
+    this.router.switchTo("goods-desc");
+  },
+  combo: function(e) {
+    var self = this;
+
+    if (this.comboMode) {
+      return;
+    }
+
+    var emit = function() {
+      setTimeout(function() {
+        self.updateMoneyModel( $(e.currentTarget) );
+        if (self.comboMode) {
+          emit();
+        }
+      }, 100);
+    };
+
+    this.comboFuncTimer = setTimeout(function() {
+      self.comboMode = true;
+      emit();
+    }, 500);
+  },
+  updateMoneyModel: function($button) {
+    var number = Number( this.$goodsNum.val() );
+
+    if ( $button.data("operator") === "add" ) {
+      number += 1;
+    } else {
+      number -= 1;
+    }
+
+    this.checkNum(number);
+  },
+  checkNum: function (number) {
+    var limitNum = this.limitNum;
+    var minNum = 1;
+
+    if ( number > limitNum ) {
+
+      // 数量为 0 时应该点不开这个界面
+      number = limitNum || 1;
+      toast("已到单笔订单数量上限", 1500);
+    } else if ( number < minNum ) {
+      number = minNum;
+    }
+
+    moneyModel.set({
+      num: number,
+      _t: Date.now()
+    });
+  },
+  renderMoney: function() {
+    this.$goodsNum.val(moneyModel.get("num"));
+    this.$el.find(".js-m-points").text(moneyModel.get("points") * moneyModel.get("num"));
+    this.$el.find(".js-m-money").text(moneyModel.get("money") * moneyModel.get("num"));
+  },
+  inputKeyUp: function (e) {
+    var val = parseInt( this.$goodsNum.val() ) || "";
+
+    if ( isNaN(val) ) {
+      return;
+    }
+
+    if (val !== "") {
+      this.checkNum(val);
+    }
+  },
+
+  inputBlur: function (e){
+    var val = parseInt( this.$goodsNum.val() ) || 1;
+    if ( isNaN(val) ) {
+      return;
+    }
+    this.checkNum(val);
+  },
+
+  // 只能输入数字
+  inputKeyDown: function (e) {
+    if ( e.which !== 8 && (e.which < 48 || e.which > 57 ) ) {
+      e.preventDefault();
+      return;
+    }
+  },
+  setNum: function(e) {
+    this.comboMode = false;
+    clearTimeout(this.comboFuncTimer);
+    var $cur = $(e.currentTarget);
+    this.updateMoneyModel($cur);
   },
   resume: function() {
     this.$initial.show();
@@ -92,9 +205,7 @@ var AppView = BaseView.extend({
           productid: UrlUtil.parseUrlSearch().productid
         });
 
-        var method = String(self.action) === "9" ? "goodsDetail" : "productDetail";
-
-        sendPost(method, params, function(err, data) {
+        sendPost("goodsDetail", params, function(err, data) {
           next(err, data);
         });
       }
@@ -108,29 +219,12 @@ var AppView = BaseView.extend({
       self.$initial.hide();
     });
   },
-  renderOldGoods: function(goods) {
-    this.$el.removeClass("goods-detail-box").addClass("active-box");
-
-    var mainOldTmpl = require("app/client/mall/tpl/detail-page/goods-detail-old.tpl");
-    this.$el.html(mainOldTmpl(goods));
-
-    new FooterView().render();
-  },
   renderNewGoods: function(goods) {
-
-    // 100积分+3125元
-    var moneyTextFn = function(points, money) {
-      return points && money ?
-        points + "积分+" + money + "元" :
-        points && points + "积分" || money && money + "元" || "0元";
-    };
-
-    goods.relevance.showMoney = moneyTextFn(goods.relevance.points, goods.relevance.money);
-    goods.showMoney = moneyTextFn(goods.points, goods.money);
-    goods.tplUtil = tplUtil;
 
     // View: goods info
     var mainTmpl = require("app/client/mall/tpl/detail-page/goods-detail.tpl");
+
+    goods.tplUtil = tplUtil;
     this.$el.html(mainTmpl(goods));
 
     // View: copyright
@@ -140,18 +234,23 @@ var AppView = BaseView.extend({
 
     // router: use it as backbone view cache
     this.cache.goods = goods;
+
     this.title = goods.title;
     widget.updateViewTitle(goods.title);
 
-    if (goods.showprice) {
-      this.renderOldGoods(goods);
-    } else {
-      this.renderNewGoods(goods);
+    this.limitNum = goods.limit;
+    this.unitPoints = goods.points;
+    this.unitMoney = goods.money;
+
+    this.renderNewGoods(goods);
+
+    if (goods.wechatshare) {
+      wechatUtil.setShareInfo(goods.wechatshare);
     }
 
     this.$popShadow = this.$el.find(".js-pop-shadow");
     this.$popPanel = this.$el.find(".js-pop-panel");
-    this.$num = this.$el.find(".js-goods-num");
+    this.$goodsNum = this.$el.find(".js-goods-num");
     this.$button = this.$el.find(".js-purchase");
 
     if ( UrlUtil.parseUrlSearch().gotoView ) {
@@ -209,11 +308,15 @@ var AppView = BaseView.extend({
     }
   },
   showPurchasePanel: function() {
-    var price = this.unitPrice * Number( this.$num.text() );
+    var number = Number( this.$goodsNum.val() );
     moneyModel.set({
-      "needPay": price,
+      points: this.unitPoints,
+      money: this.unitMoney,
+      num: number
+    }, {
       silent: true
     });
+
     this.$popShadow.show();
     this.$button.text( this.$button.data("payText") );
   },
@@ -272,37 +375,11 @@ var AppView = BaseView.extend({
               self.router.switchTo("form-custom");
               return;
             default:
-              var titleText = goods.confirm || "是否确认兑换？";
-
-              // 确认兑换弹窗
-              var confirm = new Popover({
-                type: "confirm",
-                title: titleText,
-                message: "",
-                agreeText: "确定",
-                cancelText: "取消",
-                agreeFunc: function() {
-                  self.exchange(goods);
-                },
-                cancelFunc: function() {}
-              });
-              confirm.show();
+              self.exchange(goods);
               return;
           }
         } else {
-          // 登录弹窗
-          new Popover({
-            type: "confirm",
-            title: "提　示",
-            message: "您尚未登录，登录后即可兑换！",
-            agreeText: "确定",
-            cancelText: "取消",
-            agreeFunc: function() {
-              self.loginApp();
-            },
-            cancelFunc: function() {}
-          })
-            .show();
+          self.loginApp();
         }
       });
     } else {
@@ -410,7 +487,8 @@ var AppView = BaseView.extend({
       function(userData, next) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: UrlUtil.parseUrlSearch().productid
+          productid: UrlUtil.parseUrlSearch().productid,
+          num: Number( self.$goodsNum.val() )
         });
 
         sendPost("createOrder", params, function(err, data) {
@@ -462,7 +540,7 @@ var AppView = BaseView.extend({
           var payParams = {
             quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
             title: "支付订单",
-            price: goods.mprice,
+            price: goods.payprice,
             orderid: orderInfo.payorderid,
             productdesc: orderInfo.paydesc,
             url: payUrl,

@@ -28,10 +28,10 @@ var FooterView  = require("app/client/mall/js/common/views/footer.js");
 var AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
-    "click .js-new-page": "createNewPage",
-    "click .js-get-url" : "handleGetUrl",
-    "click .js-desc a"  : "createNewPage",
-    "click .js-purchase": "exchangeHandler"
+    "click .js-new-page" : "createNewPage",
+    "click .js-get-url"  : "handleGetUrl",
+    "click .js-webview a": "createNewPage",
+    "click .js-purchase" : "exchangeHandler"
   },
   initialize: function(commonData) {
     _.extend(this, commonData);
@@ -89,9 +89,7 @@ var AppView = BaseView.extend({
           productid: UrlUtil.parseUrlSearch().productid
         });
 
-        var method = String(self.action) === "9" ? "goodsDetail" : "productDetail";
-
-        sendPost(method, params, function(err, data) {
+        sendPost("productDetail", params, function(err, data) {
           next(err, data);
         });
       }
@@ -113,39 +111,15 @@ var AppView = BaseView.extend({
 
     new FooterView().render();
   },
-  renderNewGoods: function(goods) {
-
-    // 100积分+3125元
-    var moneyTextFn = function(points, money) {
-      return points && money ?
-        points + "积分+" + money + "元" :
-        points && points + "积分" || money && money + "元" || "0元";
-    };
-
-    goods.relevance.showMoney = moneyTextFn(goods.relevance.points, goods.relevance.money);
-    goods.showMoney = moneyTextFn(goods.points, goods.money);
-    goods.tplUtil = tplUtil;
-
-    // View: goods info
-    var mainTmpl = require("app/client/mall/tpl/detail-page/goods-detail.tpl");
-    this.$el.html(mainTmpl(goods));
-
-    // View: copyright
-    new FooterView().render();
-  },
   renderMainPanel: function(goods) {
 
     // router: use it as backbone view cache
     this.cache.goods = goods;
     this.title = goods.title;
+
     widget.updateViewTitle(goods.title);
 
-    if (goods.showprice) {
-      this.renderOldGoods(goods);
-    } else {
-      this.renderNewGoods(goods);
-    }
-
+    this.renderOldGoods(goods);
     this.$button = this.$el.find(".js-purchase");
 
     if ( UrlUtil.parseUrlSearch().gotoView ) {
@@ -425,7 +399,7 @@ var AppView = BaseView.extend({
           var payParams = {
             quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
             title: "支付订单",
-            price: goods.mprice,
+            price: goods.payprice,
             orderid: orderInfo.payorderid,
             productdesc: orderInfo.paydesc,
             url: payUrl,

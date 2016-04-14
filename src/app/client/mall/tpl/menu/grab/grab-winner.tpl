@@ -13,7 +13,7 @@
 </div>
 <a 
   data-productid="<%= pId%>"
-  data-title="开奖记录"
+  data-title="夺宝记录"
   data-classify=""
   class="js-new-page crowd-history"
   href="/fe/app/client/mall/html/list-page/grab/grab-record.html"

@@ -30,8 +30,10 @@ var AppView = Backbone.View.extend({
     var self = this;
 
     if (options.previousView === "" && UrlUtil.parseUrlSearch().action === void 0) {
-      this.router.switchTo("goods-detail");
-      pageAction.setClose();
+      setTimeout(function() {
+        this.router.switchTo("goods-detail");
+        pageAction.setClose();
+      }.bind(this), 0);
       return;
     }
 
