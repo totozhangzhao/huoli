@@ -18,13 +18,17 @@ var GoodsItemView = require("app/client/mall/js/menu/views/goods-item.js");
 var BannerView    = require("app/client/mall/js/menu/views/banner.js");
 var WinnerView    = require("app/client/mall/js/menu/views/winner-label.js");
 var Footer        = require("app/client/mall/js/common/views/footer.js");
+var BaseView      = require("app/client/mall/js/common/views/BaseView.js");
 
 require("app/client/mall/js/lib/common.js");
 
-var AppView = Backbone.View.extend({
+var AppView = BaseView.extend({
   el: "#main",
 
-  events:{},
+  events: {
+    "click .js-new-page": "createNewPage",
+    "click .js-get-url" : "handleGetUrl"
+  },
 
   initialize: function () {
     this.$initial = ui.initial().show();

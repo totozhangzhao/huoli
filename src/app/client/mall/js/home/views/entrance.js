@@ -2,13 +2,13 @@
   首页顶部固定入口位
 */
 var $        = require("jquery");
+var Backbone = require("backbone");
 var _        = require("lodash");
 
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 
-var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
-var EntranceView = BaseView.extend({
+var EntranceView = Backbone.View.extend({
 
   el: "#home-entrance",
 

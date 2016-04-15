@@ -2,6 +2,7 @@
   首页banner视图
 */
 var $           = require("jquery");
+var Backbone    = require("backbone");
 var _           = require("lodash");
 
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
@@ -13,9 +14,7 @@ var mallUitl    = require("app/client/mall/js/lib/util.js");
 var toast       = require("com/mobile/widget/hint/hint.js").toast;
 var Swipe       = require("com/mobile/lib/swipe/swipe.js");
 
-var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
-
-var BannerView = BaseView.extend({
+var BannerView = Backbone.View.extend({
 
   el: "#home-banner",
 

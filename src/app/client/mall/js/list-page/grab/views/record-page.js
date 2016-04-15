@@ -14,6 +14,11 @@ var app = BaseView.extend({
 
   el:"#main",
 
+  events: {
+    "click .js-new-page": "createNewPage",
+    "click .js-get-url" : "handleGetUrl"
+  },
+
   initialize: function () {
     // new Footer().render();
     this.navView = new NavView();

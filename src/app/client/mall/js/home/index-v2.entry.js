@@ -21,6 +21,7 @@ var logger        = require("com/mobile/lib/log/log.js");
 // models
 var StateModel = require("app/client/mall/js/common/models/state.js");
 // views
+var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 var BannerView    = require("app/client/mall/js/home/views/banner.js");
 var EntranceView  = require("app/client/mall/js/home/views/entrance.js");
 var PromotionView = require("app/client/mall/js/home/views/promotion.js");
@@ -30,10 +31,12 @@ var Footer        = require("app/client/mall/js/common/views/footer.js");
 var PointsView    = require("app/client/mall/js/home/views/points.js");
 require("com/mobile/widget/button/back-to-top.js");
 
-var AppView = Backbone.View.extend({
+var AppView = BaseView.extend({
   el: "#main",
 
   events:{
+    "click .js-new-page": "createNewPage",
+    "click .js-get-url" : "handleGetUrl",
     "click .classify-item[state!=on]": "updateClassify" // 切换频道
   },
 
