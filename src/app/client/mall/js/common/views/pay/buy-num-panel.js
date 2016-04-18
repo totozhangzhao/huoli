@@ -14,6 +14,7 @@ var BuyNumPanelView = Backbone.View.extend({
     "keydown .number-input"      : "inputKeyDown",
     "blur .number-input"         : "inputBlur",
     "click .common-buy-close-btn": "close",
+    "click .common-shadow"       : "close",
     "click .charge-btn"          : "purchase"
   },
 
@@ -136,7 +137,10 @@ var BuyNumPanelView = Backbone.View.extend({
     if(this.model.get("closeAll")) {
       this.model.destroy();
     }else{
-      this.model.set({type: 0});
+      this.model.set({
+        type: 0,
+        hasMask: false
+      });
     }
   }
 

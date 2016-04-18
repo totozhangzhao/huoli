@@ -9,6 +9,7 @@ var BuyNumModel = Backbone.Model.extend({
     step: 1,                  // 按住加减每次改变的个数
     title: "购买数量",          // 标题
     payText: "立即购买",        // 购买按钮文案
+    payNumText: "去支付",       // 可以选择数量的购买按钮文案
     number: 1,                 // 购买个数
     minNum: 1,                 // 最小购买数量
     limitNum: 99,              // 可购买数量
@@ -70,7 +71,7 @@ var BuyNumModel = Backbone.Model.extend({
 
   getPayBtnText: function () {
     // return this.get("type") === 1 ? "去支付" : this.get("price") > 0 ? "立即购买" : "立即兑换";
-    return this.get("type") === 1 ? "去支付" : this.get("payText");
+    return this.get("type") === 1 ? this.get("payNumText") : this.get("payText");
   }
 
 

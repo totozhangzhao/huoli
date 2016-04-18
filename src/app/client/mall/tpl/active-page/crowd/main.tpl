@@ -94,7 +94,8 @@ stat  int 状态
 <% if (data.stat === 4) { %>
 <div class="js-fix-text fix-hint">还有机会，有未完成支付的订单，5分钟内未支付的订单将被取消。</div>
 <% } %>
-<div class="snap-join-bar">
+
+<!-- <div class="snap-join-bar">
   <p class="js-model-money"><%= data.showprice %></p>
   <% var buttonText = { "0": "已结束", "1": "立即参与", "2": "已结束", "4": "余量不足" } %>
   <button <%= data.stat === 1 ? "" : "disabled" %> class="js-submit" type="button"
@@ -117,7 +118,7 @@ stat  int 状态
       <p class="common-buy-tip"><span>多买一份</span><span>，中奖概率就增大一倍</span></p>
     </div>
   </div>
-</div>
+</div> -->
 <!-- 
 <div class="js-pop-shadow common-shadow">
   <div class="js-pop-panel snap-buy-box">
