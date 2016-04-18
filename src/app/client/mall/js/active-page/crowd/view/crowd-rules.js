@@ -9,7 +9,8 @@ var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 
 var AppView = Backbone.View.extend({
   el: "#crowd-rules",
-  initialize: function() {
+  initialize: function(commonData) {
+    _.extend(this, commonData);
 
     // 活动ID
     this.id = UrlUtil.parseUrlSearch().productid;

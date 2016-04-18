@@ -30,7 +30,8 @@ var AppView = Backbone.View.extend({
     "keydown .js-goods-num"                            : "inputKeyDown",
     "blur .js-goods-num"                               : "inputBlur"
   },
-  initialize: function() {
+  initialize: function(commonData) {
+    _.extend(this, commonData);
 
     // 活动ID
     this.id = UrlUtil.parseUrlSearch().productid;
