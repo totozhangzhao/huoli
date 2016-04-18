@@ -26,7 +26,7 @@ var BuyNumPanelView = Backbone.View.extend({
     this.exchange = options.exchange || function (){};
     this.buy = options.buy || function () {};
     this.pay = options.pay || function () {};
-    this.$el.appendTo('body');
+    this.$el.appendTo(this.model.get("parentDom"));
     this.listenTo(this.model, "change", this.render);
     this.listenTo(this.model, "destroy", this.remove);
     this.render();

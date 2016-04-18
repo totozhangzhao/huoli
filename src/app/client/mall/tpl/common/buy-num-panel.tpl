@@ -1,3 +1,4 @@
+<% if(visible) { %>
 <% if(hasMask) {%>
 <div class="common-shadow" style="display: block;">
 </div>
@@ -26,3 +27,4 @@
     <button class="charge-btn" type="button" <% if(!canPay || (price === 0 && points === 0)) {%>disabled<% } %>>立即支付</button>
   </div>
 </div>
+<% } %>

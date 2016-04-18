@@ -36,7 +36,7 @@ var AppView = Backbone.View.extend({
   },
   resume: function() {
     var title = this.urlTitle;
-
+    this.buyNumModel.set({visible: true});
     if (this.title) {
       title = this.title;
 
@@ -56,6 +56,7 @@ var AppView = Backbone.View.extend({
     $(e.currentTarget).hide();
   },
   gotoRulesPage: function() {
+    this.buyNumModel.set({visible: false});
     this.router.switchTo("crowd-rules");
 
   },
@@ -221,7 +222,8 @@ var AppView = Backbone.View.extend({
       price: crowd.price,
       limitNum: this.getMaxNum(crowd.totalcount),
       showBuyTip: true,
-      canPay: crowd.stat === 1
+      canPay: crowd.stat === 1,
+      parentDom: "#crowd-detail"
     });
     this.payView = new BuyPanelView({
       model: this.buyNumModel,

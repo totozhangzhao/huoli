@@ -3,6 +3,8 @@ var Backbone  = require("backbone");
 
 var BuyNumModel = Backbone.Model.extend({
   defaults:{
+    parentDom: "body",
+    visible: true,            // 是否显示
     type: 1,                  // 0 不可选择数量， 1 可以选择数量
     showBuyTip: false,        // 是否显示一元夺宝的提示文案 （多买一份，中奖概率就增大一倍）暂时不支持文案内容配置
     hasMask: true,            // 是否有遮罩
