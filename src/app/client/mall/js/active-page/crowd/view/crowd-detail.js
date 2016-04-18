@@ -24,7 +24,9 @@ var AppView = Backbone.View.extend({
     "click .js-fix-text"                               : "hideFixPanel",
     "click .js-tab-wrapper [data-tab-name=goodsDetail]": "renderDetail"
   },
-  initialize: function() {
+  initialize: function(options) {
+    _.extend(this, options);
+
     this.buyNumModel = new BuyNumModel();
     // 活动ID
     this.id = UrlUtil.parseUrlSearch().productid;
@@ -80,6 +82,7 @@ var AppView = Backbone.View.extend({
       })
         .then(function(data) {
           var crowd = data.crowd;
+          crowd.stat = 2;
           self.renderBuyNumView(crowd);
           self.renderMainPanel(crowd);
           new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
