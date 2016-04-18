@@ -1643,10 +1643,12 @@ img.touch-img {
 .goods-desc-box .desc-container {
   font-size: 0.48rem;
   color: #333;
-  padding: 0.53333rem 0 0 0;
 }
 .goods-desc-box .desc-container p {
   margin: 0 0.42667rem 0.21333rem 0.42667rem;
+}
+.goods-desc-box .desc-container p:first-child {
+  margin: 0.42667rem 0.42667rem 0.21333rem 0.42667rem;
 }
 .goods-desc-box .desc-container img {
   width: 100%;
