@@ -10,9 +10,9 @@ var BuyNumPanelView = Backbone.View.extend({
   events: {
     "touchstart [data-operator]" : "beginTouch",
     "touchend [data-operator]"   : "endTouch",
-    "keyup .number-input"   : "inputKeyUp",
-    "keydown .number-input" : "inputKeyDown",
-    "blur .number-input"    : "inputBlur",
+    "keyup .number-input"        : "inputKeyUp",
+    "keydown .number-input"      : "inputKeyDown",
+    "blur .number-input"         : "inputBlur",
     "click .common-buy-close-btn": "close",
     "click .charge-btn"          : "purchase"
   },
@@ -122,16 +122,12 @@ var BuyNumPanelView = Backbone.View.extend({
   },
 
   purchase: function (e) {
-    var text = $(e.currentTarget).data("payBtnType");
-    switch(text) {
-      case "去支付":
-        this.pay();
-        break;
-      case "立即兑换":
-        this.exchange();
-        break;
-      case "立即购买":
+    switch(this.model.get("type")) {
+      case 0:
         this.buy();
+        break;
+      case 1:
+        this.pay();
         break;
     }
   },

@@ -17,13 +17,12 @@ var AppView = BaseView.extend({
     });
     var buyView = new BuyPanelView({
       model: buyNumModel,
-      exchange: function (){    // 立即兑换
+      buy: function (){    // 立即兑换 没有显示数量选择面板时，点击购买按钮的操作
         buyNumModel.set("type",1);
       },
-      buy: function () {        // 立即购买
-        buyNumModel.set("type",1);
-      },
-      pay: function () {}      // 去支付
+      pay: function () {
+        buyNumModel.set("type",0);
+      }      // 去支付 显示数量选择面板时, 点击购买按钮的操作
     });
 
   }
