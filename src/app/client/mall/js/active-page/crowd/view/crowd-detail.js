@@ -82,7 +82,6 @@ var AppView = Backbone.View.extend({
       })
         .then(function(data) {
           var crowd = data.crowd;
-          crowd.stat = 2;
           self.renderBuyNumView(crowd);
           self.renderMainPanel(crowd);
           new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
