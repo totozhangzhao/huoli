@@ -24,8 +24,9 @@ var AppView = Backbone.View.extend({
     "click .js-fix-text"                               : "hideFixPanel",
     "click .js-tab-wrapper [data-tab-name=goodsDetail]": "renderDetail"
   },
-  initialize: function(options) {
-    _.extend(this, options);
+
+  initialize: function(commonData) {
+    _.extend(this, commonData);
 
     this.buyNumModel = new BuyNumModel();
     // 活动ID
