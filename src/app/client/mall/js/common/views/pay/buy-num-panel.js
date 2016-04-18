@@ -29,7 +29,6 @@ var BuyNumPanelView = Backbone.View.extend({
     this.$el.appendTo('body');
     this.listenTo(this.model, "change", this.render);
     this.listenTo(this.model, "destroy", this.remove);
-    window.aaaaa = this;
     this.render();
   },
 
