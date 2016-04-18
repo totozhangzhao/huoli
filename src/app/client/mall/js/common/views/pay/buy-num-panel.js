@@ -10,20 +10,25 @@ var BuyNumPanelView = Backbone.View.extend({
   events: {
     "touchstart [data-operator]" : "beginTouch",
     "touchend [data-operator]"   : "endTouch",
-    "keyup input"                : "inputKeyUp",
-    "keydown input"              : "inputKeyDown",
-    "blur input"                 : "inputBlur"
+    "keyup .number-input"   : "inputKeyUp",
+    "keydown .number-input" : "inputKeyDown",
+    "blur .number-input"    : "inputBlur",
+    "click .common-buy-close-btn": "close",
+    "click .charge-btn"          : "purchase"
   },
 
   template: require("app/client/mall/tpl/common/buy-num-panel.tpl"),
 
   priceTemplate: require("app/client/mall/tpl/common/price-text.tpl"),
 
-  initialize: function () {
+  initialize: function (options) {
+    this.exchange = options.exchange || function (){};
+    this.buy = options.buy || function () {};
+    this.pay = options.pay || function () {};
     this.$el.appendTo('body');
     this.listenTo(this.model, "change", this.render);
-
-    window.aaaaa=this;
+    this.listenTo(this.model, "destroy", this.remove);
+    window.aaaaa = this;
     this.render();
   },
 
@@ -31,11 +36,14 @@ var BuyNumPanelView = Backbone.View.extend({
   render: function () {
     this.$el.html(this.template(this.model.toJSON()));
     this.$el.find(".goods-charge-bar .goods-charge-info").html(this.priceTemplate(this.model.toJSON()));
+    this.$el.find(".charge-btn")
+    .text(this.model.getPayBtnText())
+    .data("payBtnType", this.model.getPayBtnText());
   },
 
   refresh: function () {
     this.$el.find(".goods-charge-bar .goods-charge-info").html(this.priceTemplate(this.model.toJSON()));
-    this.$el.find("input").val(this.model.get("number"));
+    this.$el.find(".number-input").val(this.model.get("number"));
   },
 
   setNumber: function (number) {
@@ -50,8 +58,8 @@ var BuyNumPanelView = Backbone.View.extend({
       }else{
         number--;
       }
-      if(this.checkNum(number)){
-        this.setNumber(number);
+      if(this.validateNum(number)){
+        this.setNumber(this.checkNum(number));
         setTimeout(function () {
           this.combo(100);
         }.bind(this),delay);
@@ -59,17 +67,21 @@ var BuyNumPanelView = Backbone.View.extend({
     }
   },
 
+  validateNum: function (number) {
+    var limitNum = this.model.get("limitNum");
+    var minNum = this.model.get("minNum");
+    return number <= limitNum && number >= minNum;
+  },
+
   checkNum: function (number) {
-    var limitNum = this.limitNum;
-    var minNum = 1;
-    if(number > this.model.get("limitNum")){
+    var limitNum = this.model.get("limitNum");
+    var minNum = this.model.get("minNum");
+    if(number > limitNum){
       number = limitNum;
-      return false;
-    }else if(number < this.model.get("minNum")){
+    }else if(number < minNum){
       number = minNum;
-      return false;
     }
-    return true;
+    return number;
   },
 
   beginTouch: function (e) {
@@ -84,15 +96,13 @@ var BuyNumPanelView = Backbone.View.extend({
     this.comboMode = false;
   },
 
-  inputKeyUp: function () {
-
-    var val = this.$el.find("input").val();
-    if ( !val || isNaN(val) ) {
+  inputKeyUp: function (e) {
+    var val = this.$el.find(".number-input").val();
+    if ( !val || isNaN(val)) {
       return ;
     }
-
     if (val !== "") {
-      return this.setNumber(val);
+      return this.setNumber(this.checkNum(val));
     }
   },
 
@@ -104,11 +114,34 @@ var BuyNumPanelView = Backbone.View.extend({
   },
 
   inputBlur: function () {
-    var val = this.$el.find("input").val();
+    var val = this.$el.find(".number-input").val();
     if ( !val || isNaN(val) ) {
       return this.setNumber(1);
     }
     return this.setNumber(val);
+  },
+
+  purchase: function (e) {
+    var text = $(e.currentTarget).data("payBtnType");
+    switch(text) {
+      case "去支付":
+        this.pay();
+        break;
+      case "立即兑换":
+        this.exchange();
+        break;
+      case "立即购买":
+        this.buy();
+        break;
+    }
+  },
+
+  close: function () {
+    if(this.model.get("closeAll")) {
+      this.model.destroy();
+    }else{
+      this.model.set({type: 0});
+    }
   }
 
 });

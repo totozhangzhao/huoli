@@ -13,7 +13,7 @@
     </div>
     <div class="common-buy-num">
       <div class="common-buy-choice">
-        <i class="unable" data-operator="subtract">-</i><i><input type="number" value="<%= number %>"></i><i data-operator="add">+</i>
+        <i class="unable" data-operator="subtract">-</i><i><input type="number" class="number-input" value="<%= number %>"></i><i data-operator="add">+</i>
       </div>
       <% if(showBuyTip) { %>
       <p class="common-buy-tip"><span>多买一份</span><span>，中奖概率就增大一倍</span></p>
@@ -23,6 +23,6 @@
   <% } %>
   <div class="goods-charge-bar">
     <p class="goods-charge-info num-font"></p>
-    <button type="button" disabled="">立即支付</button>
+    <button class="charge-btn" type="button" <% if(!canPay || (price === 0 && points === 0)) {%>disabled<% } %>>立即支付</button>
   </div>
 </div>
