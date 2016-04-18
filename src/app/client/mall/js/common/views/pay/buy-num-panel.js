@@ -2,6 +2,7 @@ var $           = require("jquery");
 var Backbone    = require("backbone");
 var _           = require("lodash");
 
+var toast       = require("com/mobile/widget/hint/hint.js").toast;
 
 var BuyNumPanelView = Backbone.View.extend({
 
@@ -70,7 +71,15 @@ var BuyNumPanelView = Backbone.View.extend({
   validateNum: function (number) {
     var limitNum = this.model.get("limitNum");
     var minNum = this.model.get("minNum");
-    return number <= limitNum && number >= minNum;
+    var result = true;
+    if(number > limitNum){
+      toast("已到单笔订单数量上限", 1500);
+      result = false;
+    }else if(number < minNum){
+      result = false;
+    }
+    return result;
+    // return number <= limitNum && number >= minNum;
   },
 
   checkNum: function (number) {
@@ -78,6 +87,7 @@ var BuyNumPanelView = Backbone.View.extend({
     var minNum = this.model.get("minNum");
     if(number > limitNum){
       number = limitNum;
+      toast("已到单笔订单数量上限", 1500);
     }else if(number < minNum){
       number = minNum;
     }

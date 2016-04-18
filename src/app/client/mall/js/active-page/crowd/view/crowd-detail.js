@@ -37,7 +37,6 @@ var AppView = Backbone.View.extend({
   },
   resume: function() {
     var title = this.urlTitle;
-    this.buyNumModel.set({visible: true});
     if (this.title) {
       title = this.title;
 
@@ -57,7 +56,6 @@ var AppView = Backbone.View.extend({
     $(e.currentTarget).hide();
   },
   gotoRulesPage: function() {
-    this.buyNumModel.set({visible: false});
     this.router.switchTo("crowd-rules");
 
   },
@@ -84,8 +82,8 @@ var AppView = Backbone.View.extend({
       })
         .then(function(data) {
           var crowd = data.crowd;
-          self.renderBuyNumView(crowd);
           self.renderMainPanel(crowd);
+          self.renderBuyNumView(crowd);
           new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
           return data.userData;
         })
