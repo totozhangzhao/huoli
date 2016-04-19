@@ -40,7 +40,9 @@ var AppView = BaseView.extend({
   initialize: function(commonData) {
     _.extend(this, commonData);
 
+
     this.buyNumModel = new BuyNumModel();
+    this.model.buyNumModel = this.buyNumModel;
     this.payView = new BuyPanelView({
       model: this.buyNumModel,
       buy: function() {this.buy();}.bind(this),
@@ -177,8 +179,6 @@ var AppView = BaseView.extend({
     });
   },
 
-
-
   renderBuyNumView: function (goods) {
     this.buyNumModel.set({
       type:0,
@@ -194,6 +194,7 @@ var AppView = BaseView.extend({
       parentDom: "#goods-detail"
     });
   },
+
   buy: function () {
     this.buyNumModel.set({
       type: 1,
@@ -204,6 +205,7 @@ var AppView = BaseView.extend({
   pay: function() {
     this.exchangeHandler();
   },
+
   exchangeHandler: function() {
     var self = this;
     var appName = cookie.get("appName");

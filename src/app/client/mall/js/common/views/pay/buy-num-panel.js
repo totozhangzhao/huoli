@@ -27,13 +27,13 @@ var BuyNumPanelView = Backbone.View.extend({
     this.exchange = options.exchange || function (){};
     this.buy = options.buy || function () {};
     this.pay = options.pay || function () {};
-    this.$el.appendTo(this.model.get("parentDom"));
     this.listenTo(this.model, "change", this.render);
     this.listenTo(this.model, "destroy", this.remove);
   },
 
   // 渲染视图
   render: function () {
+    this.$el.appendTo(this.model.get("parentDom"));
     this.$el.html(this.template(this.model.toJSON()));
     this.$el.find(".goods-charge-bar .goods-charge-info").html(this.priceTemplate(this.model.toJSON()));
     this.$el.find(".charge-btn")

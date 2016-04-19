@@ -37,36 +37,36 @@ var BuyNumModel = Backbone.Model.extend({
   // 获取显示的价格文案
   getPriceText: function () {
     var result = "";
-    if(this.price > 0){
-      result = this.number * this.price + this.currency;
+    if(this.get("price") > 0){
+      result = this.get("number") * this.get("price") + this.get("currency");
     }
     return result;
   },
   // 获取显示的积分文案
   getPointsText: function () {
     var result = "";
-    if(this.points > 0) {
-      result = this.number * this.points + this.pointsUnit;
+    if(this.get("points") > 0) {
+      result = this.get("number") * this.get("points") + this.get("pointsUnit");
     }
     return result;
   },
 
   // 获取总价
   getTotalPrice: function () {
-    return this.number * this.price;
+    return this.get("number") * this.get("price");
   },
 
   // 获取总积分
   getTotalPoints: function () {
-    return this.number * this.points;
+    return this.get("number") * this.get("points");
   },
 
   getPriceType: function () {
-    if(this.price > 0 && this.points > 0){
+    if(this.get("price") > 0 && this.get("points") > 0){
       return 0;
-    }else if(this.price > 0) {
+    }else if(this.get("price") > 0) {
       return 1;
-    }else if (this.points > 0){
+    }else if (this.get("points") > 0){
       return 2;
     }
   },
