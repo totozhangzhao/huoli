@@ -29,6 +29,7 @@ var BuyNumPanelView = Backbone.View.extend({
     this.pay = options.pay || function () {};
     this.listenTo(this.model, "change", this.render);
     this.listenTo(this.model, "destroy", this.remove);
+    this.comboId = null;
   },
 
   // 渲染视图
@@ -61,7 +62,7 @@ var BuyNumPanelView = Backbone.View.extend({
       }
       if(this.validateNum(number)){
         this.setNumber(this.checkNum(number));
-        setTimeout(function () {
+        this.comboId = setTimeout(function () {
           this.combo(100);
         }.bind(this),delay);
       }
@@ -98,6 +99,7 @@ var BuyNumPanelView = Backbone.View.extend({
     // 开始连续增减模式
     this.computeMode = $(e.currentTarget).data("operator");
     this.comboMode = true;
+    window.clearTimeout(this.comboId);
     this.combo(500);
   },
 
