@@ -41,7 +41,11 @@ var AppView = BaseView.extend({
     _.extend(this, commonData);
 
     this.buyNumModel = new BuyNumModel();
-
+    this.payView = new BuyPanelView({
+      model: this.buyNumModel,
+      buy: function() {this.buy();}.bind(this),
+      pay: function() {this.pay();}.bind(this)
+    });
     this.$initial = ui.initial();
 
     this.resetAppView = false;
@@ -179,6 +183,7 @@ var AppView = BaseView.extend({
     this.buyNumModel.set({
       type:0,
       hasMask: false,
+      visible: true,
       title: "购买数量",
       payText:goods.button,
       payNumText: "去支付",
@@ -188,12 +193,6 @@ var AppView = BaseView.extend({
       canPay: goods.stat === 0,
       parentDom: "#goods-detail"
     });
-    this.payView = new BuyPanelView({
-      model: this.buyNumModel,
-      buy: function() {this.buy();}.bind(this),
-      pay: function() {this.pay();}.bind(this)
-    });
-
   },
   buy: function () {
     this.buyNumModel.set({

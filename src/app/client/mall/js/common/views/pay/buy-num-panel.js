@@ -30,7 +30,6 @@ var BuyNumPanelView = Backbone.View.extend({
     this.$el.appendTo(this.model.get("parentDom"));
     this.listenTo(this.model, "change", this.render);
     this.listenTo(this.model, "destroy", this.remove);
-    this.render();
   },
 
   // 渲染视图
@@ -40,6 +39,7 @@ var BuyNumPanelView = Backbone.View.extend({
     this.$el.find(".charge-btn")
     .text(this.model.getPayBtnText())
     .data("payBtnType", this.model.getPayBtnText());
+    return this;
   },
 
   refresh: function () {

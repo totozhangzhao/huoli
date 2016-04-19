@@ -29,6 +29,11 @@ var AppView = Backbone.View.extend({
     _.extend(this, commonData);
 
     this.buyNumModel = new BuyNumModel();
+    this.payView = new BuyPanelView({
+      model: this.buyNumModel,
+      buy: function() {this.buy();}.bind(this),
+      pay: function() {this.pay();}.bind(this)
+    });
     // 活动ID
     this.id = UrlUtil.parseUrlSearch().productid;
     this.title = "";
@@ -215,6 +220,7 @@ var AppView = Backbone.View.extend({
     this.buyNumModel.set({
       type:0,
       hasMask: false,
+      visible: true,
       title: "购买份数",
       payText:buttonText[crowd.stat],
       payNumText: "去支付",
@@ -223,11 +229,6 @@ var AppView = Backbone.View.extend({
       showBuyTip: true,
       canPay: crowd.stat === 1,
       parentDom: "#crowd-detail"
-    });
-    this.payView = new BuyPanelView({
-      model: this.buyNumModel,
-      buy: function() {this.buy();}.bind(this),
-      pay: function() {this.pay();}.bind(this)
     });
   },
 

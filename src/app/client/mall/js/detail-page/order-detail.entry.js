@@ -37,6 +37,11 @@ var AppView = Backbone.View.extend({
       text: "订单详情"
     });
     this.buyNumModel = new BuyNumModel();
+    this.payView = new BuyPanelView({
+      model: this.buyNumModel,
+      buy: function() {this.buy();}.bind(this),
+      pay: function() {}
+    });
     this.$initial = ui.initial().show();
     this.orderDetail = {};
     this.isPaying = false;
@@ -166,18 +171,13 @@ var AppView = Backbone.View.extend({
     this.buyNumModel.set({
       type:0,
       hasMask: false,
+      visible: true,
       payText:"去支付",
       points: order.points,
       price: order.money,
       canPay: true,
       parentDom: "#order-detail-container"
     });
-    this.payView = new BuyPanelView({
-      model: this.buyNumModel,
-      buy: function() {this.buy();}.bind(this),
-      pay: function() {}
-    });
-
   },
   buy: function () {
     this.payOrder();
