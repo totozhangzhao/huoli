@@ -26,6 +26,7 @@
     "gulp-notify": "^2.2.0",
     "gulp-shell": "^0.5.1",
     "gulp-util": "^3.0.7",
+    "jquery": "^2.2.3",
     "jshint-stylish": "^1.0.1",
     "lodash": "^3.8.0",
     "raw-loader": "^0.5.1",
