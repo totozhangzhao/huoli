@@ -375,8 +375,7 @@ var AppView = BaseView.extend({
     ], function(err, result) {
       if (err) {
         hint.hideLoading();
-
-        var alert = new Popover({
+        var alertOptions = {
           type: "alert",
           title: "兑换失败",
           message: err.message,
@@ -387,8 +386,13 @@ var AppView = BaseView.extend({
               window.location.href = mallUitl.getUpgradeUrl();
             }
           }
-        });
-        alert.show();
+        };
+        if(self.errAlert){
+          self.errAlert.model.set(alertOptions);
+        }else{
+          self.errAlert = new Popover(alertOptions);
+        }
+        self.errAlert.show();
         return;
       }
 
