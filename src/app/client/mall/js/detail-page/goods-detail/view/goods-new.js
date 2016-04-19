@@ -39,8 +39,6 @@ var AppView = BaseView.extend({
   },
   initialize: function(commonData) {
     _.extend(this, commonData);
-
-
     this.buyNumModel = new BuyNumModel();
     this.model.buyNumModel = this.buyNumModel;
     this.payView = new BuyPanelView({
