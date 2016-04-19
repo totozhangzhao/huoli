@@ -203,7 +203,7 @@ p {
   display: none;
 }
 .common-shadow.improve-zindex {
-  z-index: 7;
+  z-index: 12;
 }
 .ui-confirm {
   width: 74.6%;
