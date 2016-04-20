@@ -2595,58 +2595,56 @@ img.touch-img {
   padding-right: 0.13333rem;
 }
 .address-page-box {
-  color: #666;
+  color: #333;
   background-color: #f3f3f3;
+  font-size: 0.4rem;
+}
+.address-content-box {
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  background-color: #fff;
 }
 .address-username-bar,
 .address-usertel-bar,
 .address-option-bar {
-  height: 1.12rem;
-  line-height: 1.12rem;
-  background-color: #fff;
-  padding-top: 0;
-  padding-right: 0.26667rem;
-  padding-bottom: 0;
-  padding-left: 0.26667rem;
+  height: 1.17333rem;
+  line-height: 1.17333rem;
   position: relative;
   left: 0;
   top: 0;
+  border-bottom: 1px solid #f0f0f0;
 }
-.address-username-bar,
-.address-option-bar,
-.address-option-area,
-.address-detail-bar,
-.address-usertel-bar {
-  border-bottom: 1px solid #ccc;
+.address-username-bar input,
+.address-option-bar input,
+.address-option-area input,
+.address-detail-bar input,
+.address-usertel-bar input,
+.address-username-bar textarea,
+.address-option-bar textarea,
+.address-option-area textarea,
+.address-detail-bar textarea,
+.address-usertel-bar textarea {
+  color: #333;
 }
 .address-option-area:last-child {
   border: none;
 }
-.border-l {
-  border-left: 1px solid #ccc;
-}
 .address-option-se {
   width: 100%;
   height: 100%;
-  color: #666;
+  color: #333;
   background-color: #fff;
 }
-@media only screen and (max-width: 374px) {
+@media only screen and (max-width: 320px) {
   .address-option-area {
     width: 100%;
-    padding-top: 0;
-    padding-right: 0.26667rem;
-    padding-bottom: 0;
-    padding-left: 0.26667rem;
     position: relative;
     left: 0;
     top: 0;
-  }
-  .address-option-bar .border-l {
-    border-width: 0;
+    border-bottom: 1px solid #f0f0f0;
   }
   .address-option-bar {
-    height: 3.36rem;
+    height: 3.52rem;
     padding-top: 0;
     padding-right: 0;
     padding-bottom: 0;
@@ -2656,23 +2654,17 @@ img.touch-img {
   }
   .address-option-area:after {
     content: '';
-    width: 0.34667rem;
+    width: 0.32rem;
     height: 0.18667rem;
-    background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -3.86667rem -3.2rem;
-    background-size: 8.32rem 7.46667rem;
+    background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon.png') no-repeat -7.68rem 0;
+    background-size: 10.66667rem 10.66667rem;
     position: absolute;
-    right: 0.26667rem;
+    right: 0;
     top: 50%;
     margin-top: -0.08rem;
   }
-  .address-se-la {
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-  }
 }
-@media only screen and (min-width: 375px) {
+@media only screen and (min-width: 321px) {
   .address-option-bar {
     display: flex;
     display: -webkit-flex;
@@ -2683,59 +2675,45 @@ img.touch-img {
     position: relative;
     left: 0;
     top: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0.26667rem;
   }
-  .address-option-bar .border-b {
-    border-width: 0;
+  .address-option-area:first-child {
+    padding-left: 0;
   }
   .address-option-area:after {
     content: '';
-    width: 0.34667rem;
-    height: 0.18667rem;
-    background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -3.86667rem -3.2rem;
-    background-size: 8.32rem 7.46667rem;
+    width: 0.53333rem;
+    height: 0.42667rem;
+    background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon.png') no-repeat -7.68rem 0.16rem;
+    background-size: 10.66667rem 10.66667rem;
     position: absolute;
-    right: 0.26667rem;
+    right: 0;
     top: 50%;
-    margin-top: -0.08rem;
+    margin-top: -0.21333rem;
+    border-right: 1px solid #f0f0f0;
   }
-  .address-option-area:nth-child(3):after {
-    right: -0.05333rem;
-  }
-  .address-se-la {
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0.16rem;
-  }
-  .address-option-area:nth-child(1) .address-se-la {
-    width: 100%;
-    position: relative;
-    left: 0;
-    top: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0.16rem;
+  .address-option-area:last-child:after {
+    width: 0.32rem;
+    right: 0;
+    border-right: none;
   }
 }
 .address-option-se[disabled] {
-  color: #ccc;
+  color: #a5a5a5;
 }
 .address-detail-bar {
-  line-height: 1.12rem;
-  background-color: #fff;
-  padding-top: 0;
-  padding-right: 0.26667rem;
-  padding-bottom: 0;
-  padding-left: 0.26667rem;
+  line-height: 1.17333rem;
 }
 .address-detail-insert {
-  width: 66%;
-  height: 1.68rem;
-  padding-top: 0.24rem;
-  padding-right: 0.21333rem;
-  padding-bottom: 0.24rem;
-  padding-left: 0.21333rem;
+  width: 100%;
+  height: 1.81333rem;
+  padding-top: 0.29333rem;
+  padding-right: 0;
+  padding-bottom: 0.29333rem;
+  padding-left: 0;
 }
 .address-username-insert,
 .address-usertel-insert {
@@ -2753,6 +2731,7 @@ img.touch-img {
   text-align: center;
   display: block;
   height: 1.06667rem;
+  background-color: #039ef0;
   line-height: 1.06667rem;
   border-radius: 0.13333rem;
   font-size: 0.48rem;
@@ -2762,36 +2741,35 @@ img.touch-img {
   margin-bottom: 0;
   margin-left: auto;
 }
-.address-foot-box .forbidden-color {
-  color: #999;
+.address-foot-btn[disabled] {
+  background-color: #d4d4d4;
 }
+/**/
 .address-exist-fatherbar {
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 1.06667rem;
   padding-left: 0;
+  font-size: 0.4rem;
 }
 .address-exist-bar {
   font-size: 0.37333rem;
   line-height: 0.90667rem;
 }
 .address-exist-area {
-  padding-top: 0.10667rem;
-  padding-right: 0.26667rem;
-  padding-bottom: 0;
-  padding-left: 0.26667rem;
-  margin-bottom: 0.26667rem;
+  padding-top: 0.26667rem;
+  margin-bottom: 0.16rem;
   position: relative;
   left: 0;
   top: 0;
   background-color: #fff;
 }
-.address-exist-info {
-  font-size: 0.42667rem;
-  color: #111;
+.address-exist-area div {
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
 }
 .address-exist-username {
-  width: 35%;
+  width: 60%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2799,31 +2777,12 @@ img.touch-img {
 .address-exist-usertel {
   margin-left: 0.13333rem;
 }
-.address-exist-nameicon {
-  width: 0.4rem;
-  height: 0.4rem;
-  display: inline-block;
-  margin-right: 0.26667rem;
-  background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -2.64rem -3.2rem;
-  background-size: 8.32rem 7.46667rem;
-}
-.address-exist-telicon {
-  width: 0.29333rem;
-  height: 0.45333rem;
-  display: inline-block;
-  margin-right: 0.26667rem;
-  background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -3.30667rem -3.2rem;
-  background-size: 8.32rem 7.46667rem;
-  position: relative;
-  left: 0;
-  top: 0.05333rem;
-}
 .address-exist-text {
   line-height: 0.64rem;
-  padding-top: 0;
-  padding-right: 0;
-  padding-bottom: 0.16rem;
-  padding-left: 0;
+  padding-bottom: 0.4rem;
+  color: #a5a5a5;
+  font-size: 0.34667rem;
+  border-bottom: 1px solid #f0f0f0;
 }
 .address-page-box .pay-order-box {
   margin-top: 0.26667rem;
@@ -2854,11 +2813,13 @@ img.touch-img {
 }
 .address-control-bar {
   width: 100%;
-  height: 1.06667rem;
-  line-height: 1.06667rem;
+  height: 1.2rem;
+  line-height: 1.2rem;
   position: relative;
   left: 0;
   top: 0;
+  color: #a5a5a5;
+  font-size: 0.32rem;
 }
 .address-set-area {
   height: 100%;
@@ -2867,20 +2828,22 @@ img.touch-img {
   position: relative;
   left: 0;
   top: 0;
-  height: 0.37333rem;
+  display: inline-block;
+  height: 0.48rem;
+  line-height: 0.48rem;
 }
 .address-custom-common {
-  width: 0.34667rem;
-  height: 0.34667rem;
+  width: 0.48rem;
+  height: 0.48rem;
   position: absolute;
   left: 0;
   top: 0;
-  background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -1.84rem -3.89333rem;
-  background-size: 8.32rem 7.46667rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon.png') no-repeat -8.21333rem 0;
+  background-size: 10.66667rem 10.66667rem;
 }
 .address-radio-group input[type="radio"]:checked + .address-custom-common {
-  background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -1.22667rem -3.89333rem;
-  background-size: 8.32rem 7.46667rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon.png') no-repeat -8.90667rem 0;
+  background-size: 10.66667rem 10.66667rem;
 }
 .address-set-inp {
   position: absolute;
@@ -2889,33 +2852,47 @@ img.touch-img {
   opacity: 0.01;
 }
 .address-set-default {
-  margin-left: 0.53333rem;
+  margin-left: 0.64rem;
 }
 .address-edit-area {
+  height: 100%;
   position: absolute;
-  right: 1.86667rem;
+  right: 2.26667rem;
   top: 0;
 }
+.address-edit-area a {
+  color: #a5a5a5;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 .address-delete-area {
+  height: 100%;
   position: absolute;
-  right: 0;
+  right: 0.4rem;
   top: 0;
 }
 .address-edit-icon {
-  width: 0.34667rem;
-  height: 0.34667rem;
+  width: 0.42667rem;
+  height: 0.42667rem;
   display: inline-block;
-  background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat -0.61333rem -3.89333rem;
-  background-size: 8.32rem 7.46667rem;
-  margin-right: 0.16rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon.png') no-repeat -9.6rem 0;
+  background-size: 10.66667rem 10.66667rem;
+  margin-right: 0.10667rem;
+  position: relative;
+  top: 0.10667rem;
+  left: 0;
 }
 .address-delete-icon {
-  width: 0.34667rem;
-  height: 0.34667rem;
+  width: 0.4rem;
+  height: 0.45333rem;
   display: inline-block;
-  background: url('http://cdn.rsscc.cn/guanggao/img/mall/icon/index-icon.png') no-repeat 0 -3.89333rem;
-  background-size: 8.32rem 7.46667rem;
-  margin-right: 0.16rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon.png') no-repeat -10.29333rem 0;
+  background-size: 10.66667rem 10.66667rem;
+  margin-right: 0.10667rem;
+  position: relative;
+  top: 0.10667rem;
+  left: 0;
 }
 .delivery-nav {
   height: 1.06667rem;

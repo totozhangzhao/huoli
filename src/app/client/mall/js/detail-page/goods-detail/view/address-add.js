@@ -25,6 +25,7 @@ var AppView = Backbone.View.extend({
   initialize: function(commonData) {
     _.extend(this, commonData);
     this.curAddress = {};
+    alert(22)
   },
   resume: function(options) {
     if (options.previousView === "") {
