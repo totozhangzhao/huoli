@@ -4,7 +4,7 @@
     <li class="js-item address-exist-area"
       data-addressid="<%= addressInfo.addressid || "" %>"
     >
-      <div class="js-address-info">
+      <div class="js-address-info address-exist-son">
         <div class="address-exist-info clearfix">
           <p class="address-exist-username fl">
             <span>收货人：<%- addressInfo.name || "" %></span>

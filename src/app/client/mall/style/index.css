@@ -2614,6 +2614,11 @@ img.touch-img {
   top: 0;
   border-bottom: 1px solid #f0f0f0;
 }
+.address-username-bar label,
+.address-usertel-bar label,
+.address-option-bar label {
+  display: block;
+}
 .address-username-bar input,
 .address-option-bar input,
 .address-option-area input,
@@ -2717,7 +2722,7 @@ img.touch-img {
 }
 .address-username-insert,
 .address-usertel-insert {
-  width: 70%;
+  width: 100%;
 }
 .address-foot-box {
   width: 100%;
@@ -2764,7 +2769,7 @@ img.touch-img {
   top: 0;
   background-color: #fff;
 }
-.address-exist-area div {
+.address-exist-area .address-exist-info {
   padding-left: 0.4rem;
   padding-right: 0.4rem;
 }
@@ -2780,6 +2785,8 @@ img.touch-img {
 .address-exist-text {
   line-height: 0.64rem;
   padding-bottom: 0.4rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
   color: #a5a5a5;
   font-size: 0.34667rem;
   border-bottom: 1px solid #f0f0f0;
@@ -2820,6 +2827,8 @@ img.touch-img {
   top: 0;
   color: #a5a5a5;
   font-size: 0.32rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
 }
 .address-set-area {
   height: 100%;
