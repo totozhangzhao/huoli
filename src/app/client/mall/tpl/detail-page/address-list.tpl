@@ -9,7 +9,7 @@
           <p class="address-exist-username fl">
             <span>收货人：<%- addressInfo.name || "" %></span>
           </p>
-          <p class="address-exist-usertel fl">
+          <p class="address-exist-usertel fr">
             <span class="num-font"><%- addressInfo.pphone || "" %></span>
           </p>
         </div>
