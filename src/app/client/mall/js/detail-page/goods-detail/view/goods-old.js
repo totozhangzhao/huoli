@@ -399,7 +399,7 @@ var AppView = BaseView.extend({
           var payParams = {
             quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
             title: "支付订单",
-            price: goods.payprice,
+            price: orderInfo.payprice,
             orderid: orderInfo.payorderid,
             productdesc: orderInfo.paydesc,
             url: payUrl,
