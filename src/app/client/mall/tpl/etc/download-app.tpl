@@ -1,4 +1,4 @@
-<div style="display: none; width: 100%; position: fixed; top: 0; left: 0;">
+<div style="display: none; width: 100%; position: fixed; top: 0; left: 0; transform: translate3d(0,-100%,0); -webkit-transform: translate3d(0,-100%,0);">
   <div style="positon: relative; top: 0; left: 0;">
     <div>
       <img src="<%= img %>" alt="" style="width: 100%">
