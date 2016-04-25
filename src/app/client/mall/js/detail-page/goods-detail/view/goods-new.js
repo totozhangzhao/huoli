@@ -21,21 +21,19 @@ var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detai
 var Popover     = require("com/mobile/widget/popover/popover.js");
 var pageAction  = require("app/client/mall/js/lib/page-action.js");
 var ui          = require("app/client/mall/js/lib/ui.js");
-var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
+var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 var FooterView  = require("app/client/mall/js/common/views/footer.js");
-
-var BuyNumModel     = require("app/client/mall/js/common/models/buy-num-model.js");
 var BuyPanelView = require("app/client/mall/js/common/views/pay/buy-num-panel.js");
-
+var BuyNumModel  = require("app/client/mall/js/common/models/buy-num-model.js");
 
 var AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
-    "click .js-new-page"       : "createNewPage",
-    "click .js-get-url"        : "handleGetUrl",
-    "click .js-webview a"      : "createNewPage",
-    "click .js-detail-bar"     : "showDetailInfo"
+    "click .js-new-page"  : "createNewPage",
+    "click .js-get-url"   : "handleGetUrl",
+    "click .js-webview a" : "createNewPage",
+    "click .js-detail-bar": "showDetailInfo"
   },
   initialize: function(commonData) {
     _.extend(this, commonData);
@@ -54,11 +52,6 @@ var AppView = BaseView.extend({
     this.action = UrlUtil.parseUrlSearch().action;
     this.mallGoodsDetail();
   },
-  showDetailInfo: function() {
-    this.router.switchTo("goods-desc");
-  },
-
-
   resume: function() {
     this.$initial.show();
 
@@ -80,6 +73,9 @@ var AppView = BaseView.extend({
   },
   createNewPage: function(e) {
     widget.createAView(e);
+  },
+  showDetailInfo: function() {
+    this.router.switchTo("goods-desc");
   },
   mallGoodsDetail: function() {
     var self = this;

@@ -16,7 +16,7 @@ var $download = $(tmpl({
 }))
   .appendTo("body")
   .show()
-  .css({ "animation": "move 0.3s ease-out 0.5s forwards" })
+  .css({ "animation": "move 0.3s ease-out 0.7s forwards" })
   .on("click", ".js-close", function() {
     $download.hide();
   });
