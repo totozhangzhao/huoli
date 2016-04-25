@@ -45,7 +45,9 @@
 </div>
 <% } %>
 
+<% if (Array.isArray(detail) && detail.length > 0) { %>
 <a class="js-detail-bar goods-detail-bar bold-tit">图文详情<span>建议在WiFi下查看</span></a>
+<% } %>
 
 <% if (Array.isArray(rules) && rules.length > 0) { %>
 <div class="js-webview goods-desc-bar">
