@@ -3,6 +3,7 @@ var Backbone      = require("backbone");
 var _             = require("lodash");
 var Promise       = require("com/mobile/lib/promise/npo.js");
 
+var NativeAPI     = require("app/client/common/lib/native/native-api.js");
 var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
 var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var Util          = require("com/mobile/lib/util/util.js");
@@ -45,6 +46,9 @@ var AppView = BaseView.extend({
     // this.listenTo(this.$goods,"set",this.addGoodsItem);
     this.fetchData();
 
+    NativeAPI.registerHandler("resume", function() {
+      window.location.reload();
+    });
   },
 
   fetchData: function () {
