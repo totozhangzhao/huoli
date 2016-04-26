@@ -3,6 +3,7 @@ var _         = require("lodash");
 var Backbone  = require("backbone");
 var toast     = require("com/mobile/widget/hint/hint.js").toast;
 var hint      = require("com/mobile/widget/hint/hint.js");
+var ui        = require("app/client/mall/js/lib/ui.js");
 var UrlUtil   = require("com/mobile/lib/url/url.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
@@ -27,9 +28,9 @@ var AppView = Backbone.View.extend({
 
   initialize: function(commonData) {
     _.extend(this, commonData);
-
+    this.$initial    = ui.initial().show();
     this.buyNumModel = new BuyNumModel();
-    this.payView = new BuyPanelView({
+    this.payView     = new BuyPanelView({
       model: this.buyNumModel,
       buy: function() {this.buy();}.bind(this),
       pay: function() {this.pay();}.bind(this)
@@ -179,12 +180,21 @@ var AppView = Backbone.View.extend({
       barWidth: showAnimation ? minBarWidth : barWidth
     }));
 
+    var ani = new Promise(function(resolve, reject) {
+      setTimeout(function() {
+        self.$initial.hide();
+        resolve();
+      }, 0);
+    });
+
     if (showAnimation) {
-      _.defer(function() {
-        self.$el
-          .find(".js-bar")
-            .css("width", barWidth + "%");
-      }, 300);
+      ani.then(function() {
+        setTimeout(function() {
+          self.$el
+            .find(".js-bar")
+              .css("width", barWidth + "%");
+        }, 0);
+      });
     }
 
     detailLog({

@@ -75,12 +75,18 @@ var AppView = BaseView.extend({
   },
 
   render: function (data) {
+    var self = this;
+
     this.initBanner(data.banner);
     this.initWinnerLabel(data.winner);
     // this.$goods.set(data.product);
     this.renderGoodsList(data.product);
     this.$footer.render();
-    this.$initial.hide();
+
+    setTimeout(function() {
+      self.$initial.hide();
+    }, 0);
+
     menuLog({
       title: UrlUtil.parseUrlSearch().classify || window.document.title,
       from: UrlUtil.parseUrlSearch().from || "--"
