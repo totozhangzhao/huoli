@@ -32,6 +32,8 @@ var AppView = BaseView.extend({
   },
 
   initialize: function () {
+    var self = this;
+
     this.$initial = ui.initial().show();
 
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
@@ -47,12 +49,14 @@ var AppView = BaseView.extend({
     this.fetchData();
 
     NativeAPI.registerHandler("resume", function() {
-      window.location.reload();
+      self.fetchData({ resume: true });
     });
   },
 
-  fetchData: function () {
+  fetchData: function (opts) {
     var self = this;
+    var options = opts || {};
+
     mallPromise.getAppInfo()
     .then(function (userData) {
       var params = _.extend({}, userData.userInfo, {
@@ -69,7 +73,11 @@ var AppView = BaseView.extend({
       });
     })
     .then(function (data) {
-      self.render(data);
+      if (options.resume) {
+        self.renderGoodsList(data.product);
+      } else {
+        self.render(data);
+      }
     })
     .catch(mallPromise.catchFn);
   },

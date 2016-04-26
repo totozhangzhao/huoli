@@ -69,8 +69,6 @@ var PromotionView = Backbone.View.extend({
       return;
     }
     this.getGoods(model, params);
-
-
   },
 
   getGoods: function (model, params) {
