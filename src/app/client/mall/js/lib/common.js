@@ -67,6 +67,10 @@ exports.createNewView = (function() {
       return;
     }
 
+    if ( url === decodeURI(url) ) {
+      url = encodeURI(url);
+    }
+
     NativeAPI.invoke("createWebView", {
       url: url,
       controls: [
@@ -77,7 +81,7 @@ exports.createNewView = (function() {
       ]
     }, function(err) {
       if ( err && (err.code === -32603) ) {
-        window.location.href = options.url;
+        window.location.href = url;
       }
     });
   }, 1000, true);
