@@ -11,7 +11,6 @@ var widget     = require("app/client/mall/js/lib/common.js");
 var pageAction = require("app/client/mall/js/lib/page-action.js");
 var UrlUtil    = require("com/mobile/lib/url/url.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
-var moneyModel = require("app/client/mall/js/detail-page/goods-detail/model/money.js").money;
 
 var AppView = Backbone.View.extend({
   el: "#address-confirm",
@@ -52,16 +51,15 @@ var AppView = Backbone.View.extend({
   },
   initView: function(addressInfo) {
     var addressListTpl = require("app/client/mall/tpl/detail-page/address-confirm.tpl");
-    var model = moneyModel.toJSON();
-
+    var model  = this.model.buyNumModel;
     this.$el.html(addressListTpl({
       addressInfo: addressInfo,
       goods: this.cache.goods,
-      points: model.points,
-      ptotal: model.points * model.num,
-      money: model.money,
-      mtotal: model.money * model.num,
-      num: model.num
+      points: model.get("points"),
+      ptotal: model.getTotalPoints(),
+      money: model.get("price"),
+      mtotal: model.getTotalPrice(),
+      num: model.get("number")
     }));
   },
   selectAddress: function() {
@@ -90,7 +88,7 @@ var AppView = Backbone.View.extend({
           p: userData.deviceInfo.p,
           productid: UrlUtil.parseUrlSearch().productid,
           address: self.curAddress,
-          num: moneyModel.get("num")
+          num: self.model.buyNumModel.get("number")
         });
 
         sendPost("createOrder", params, function(err, data) {
@@ -126,7 +124,7 @@ var AppView = Backbone.View.extend({
           var payParams = {
             quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
             title: "支付订单",
-            price: goods.payprice,
+            price: orderInfo.payprice,
             orderid: orderInfo.payorderid,
             productdesc: orderInfo.paydesc,
             url: payUrl,

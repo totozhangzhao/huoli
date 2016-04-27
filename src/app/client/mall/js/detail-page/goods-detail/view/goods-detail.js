@@ -10,10 +10,10 @@ var AppView = Backbone.View.extend({
     this.commonData = commonData;
     this.action = UrlUtil.parseUrlSearch().action;
     this.goodsView;
-    this.isInit = false;
+    this.isInited = false;
   },
   resume: function(options) {
-    if (!this.isInit) {
+    if (!this.isInited) {
       if ( String(this.action) === "9" ) {
         this.goodsView = new GoodsNewView(this.commonData);
       } else {
@@ -21,7 +21,7 @@ var AppView = Backbone.View.extend({
       }
     }
 
-    this.isInit = true;
+    this.isInited = true;
     this.goodsView.resume(options);
   }
 });

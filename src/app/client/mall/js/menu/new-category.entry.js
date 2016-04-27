@@ -21,7 +21,10 @@ var Footer     = require("app/client/mall/js/common/views/footer.js");
 var AppView = BaseView.extend({
   el: "#main",
 
-  events: {},
+  events: {
+    "click .js-new-page": "createNewPage",
+    "click .js-get-url" : "handleGetUrl"
+  },
 
   initialize: function() {
     var title       = parseUrl().title;

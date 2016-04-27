@@ -21,146 +21,36 @@ var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detai
 var Popover     = require("com/mobile/widget/popover/popover.js");
 var pageAction  = require("app/client/mall/js/lib/page-action.js");
 var ui          = require("app/client/mall/js/lib/ui.js");
-var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
+var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 var FooterView  = require("app/client/mall/js/common/views/footer.js");
-var moneyModel  = require("app/client/mall/js/detail-page/goods-detail/model/money.js").money;
+var BuyPanelView = require("app/client/mall/js/common/views/pay/buy-num-panel.js");
+var BuyNumModel  = require("app/client/mall/js/common/models/buy-num-model.js");
 
 var AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
-    "click .js-new-page"       : "createNewPage",
-    "click .js-get-url"        : "handleGetUrl",
-    "click .js-webview a"      : "createNewPage",
-    "click .js-detail-bar"     : "showDetailInfo",
-    "click .js-pop-shadow"     : "hidePurchasePanel",
-    "click .js-hide-panel"     : "hidePurchasePanel",
-    "touchstart .js-change-num": "combo",
-    "touchend .js-change-num"  : "setNum",
-    "keyup .js-goods-num"      : "inputKeyUp",
-    "keydown .js-goods-num"    : "inputKeyDown",
-    "blur .js-goods-num"       : "inputBlur",
-    "click .js-purchase"       : "submitButtonEvent"
+    "click .js-new-page"  : "createNewPage",
+    "click .js-get-url"   : "handleGetUrl",
+    "click .js-webview a" : "createNewPage",
+    "click .js-detail-bar": "showDetailInfo"
   },
   initialize: function(commonData) {
     _.extend(this, commonData);
-
+    this.buyNumModel = new BuyNumModel();
+    this.model.buyNumModel = this.buyNumModel;
+    this.payView = new BuyPanelView({
+      model: this.buyNumModel,
+      buy: function() {this.buy();}.bind(this),
+      pay: function() {this.pay();}.bind(this)
+    });
     this.$initial = ui.initial();
-    this.$popShadow;
-    this.$popPanel;
-    this.$goodsNum;
-    this.$button;
-
-    this.comboMode = false;
-    this.comboFuncTimer = null;
-
-    // 购买数量上限
-    // 每个订单可购数量
-    // 0为不可购买
-    // 大于1时则限制当前订单可购数量
-    // 等于1时不多选
-    this.limitNum = null;
-
-    this.unitPoints = null;
-    this.unitMoney = null;
 
     this.resetAppView = false;
     this.title = "";
     this.userDataOpitons = { reset: false };
     this.action = UrlUtil.parseUrlSearch().action;
-    this.listenTo(moneyModel, "change", this.renderMoney);
     this.mallGoodsDetail();
-  },
-  showDetailInfo: function() {
-    this.router.switchTo("goods-desc");
-  },
-  combo: function(e) {
-    var self = this;
-
-    if (this.comboMode) {
-      return;
-    }
-
-    var emit = function() {
-      setTimeout(function() {
-        self.updateMoneyModel( $(e.currentTarget) );
-        if (self.comboMode) {
-          emit();
-        }
-      }, 100);
-    };
-
-    this.comboFuncTimer = setTimeout(function() {
-      self.comboMode = true;
-      emit();
-    }, 500);
-  },
-  updateMoneyModel: function($button) {
-    var number = Number( this.$goodsNum.val() );
-
-    if ( $button.data("operator") === "add" ) {
-      number += 1;
-    } else {
-      number -= 1;
-    }
-
-    this.checkNum(number);
-  },
-  checkNum: function (number) {
-    var limitNum = this.limitNum;
-    var minNum = 1;
-
-    if ( number > limitNum ) {
-
-      // 数量为 0 时应该点不开这个界面
-      number = limitNum || 1;
-      toast("已到单笔订单数量上限", 1500);
-    } else if ( number < minNum ) {
-      number = minNum;
-    }
-
-    moneyModel.set({
-      num: number,
-      _t: Date.now()
-    });
-  },
-  renderMoney: function() {
-    this.$goodsNum.val(moneyModel.get("num"));
-    this.$el.find(".js-m-points").text(moneyModel.get("points") * moneyModel.get("num"));
-    this.$el.find(".js-m-money").text(moneyModel.get("money") * moneyModel.get("num"));
-  },
-  inputKeyUp: function (e) {
-    var val = parseInt( this.$goodsNum.val() ) || "";
-
-    if ( isNaN(val) ) {
-      return;
-    }
-
-    if (val !== "") {
-      this.checkNum(val);
-    }
-  },
-
-  inputBlur: function (e){
-    var val = parseInt( this.$goodsNum.val() ) || 1;
-    if ( isNaN(val) ) {
-      return;
-    }
-    this.checkNum(val);
-  },
-
-  // 只能输入数字
-  inputKeyDown: function (e) {
-    if ( e.which !== 8 && (e.which < 48 || e.which > 57 ) ) {
-      e.preventDefault();
-      return;
-    }
-  },
-  setNum: function(e) {
-    this.comboMode = false;
-    clearTimeout(this.comboFuncTimer);
-    var $cur = $(e.currentTarget);
-    this.updateMoneyModel($cur);
   },
   resume: function() {
     this.$initial.show();
@@ -183,6 +73,9 @@ var AppView = BaseView.extend({
   },
   createNewPage: function(e) {
     widget.createAView(e);
+  },
+  showDetailInfo: function() {
+    this.router.switchTo("goods-desc");
   },
   mallGoodsDetail: function() {
     var self = this;
@@ -238,20 +131,12 @@ var AppView = BaseView.extend({
     this.title = goods.title;
     widget.updateViewTitle(goods.title);
 
-    this.limitNum = goods.limit;
-    this.unitPoints = goods.points;
-    this.unitMoney = goods.money;
-
     this.renderNewGoods(goods);
+    this.renderBuyNumView(goods);
 
     if (goods.wechatshare) {
       wechatUtil.setShareInfo(goods.wechatshare);
     }
-
-    this.$popShadow = this.$el.find(".js-pop-shadow");
-    this.$popPanel = this.$el.find(".js-pop-panel");
-    this.$goodsNum = this.$el.find(".js-goods-num");
-    this.$button = this.$el.find(".js-purchase");
 
     if ( UrlUtil.parseUrlSearch().gotoView ) {
       this.router.switchTo( UrlUtil.parseUrlSearch().gotoView );
@@ -263,11 +148,6 @@ var AppView = BaseView.extend({
       // 2: 未开始;
       // 3: 已兑完;
       // 4: 今日已兑完。
-      if ( String(goods.stat) === "0" ) {
-        isDisabled = false;
-      }
-
-      this.$button.prop("disabled", isDisabled);
 
       if ( wechatUtil.isWechatFunc() ) {
         wechatUtil.setTitle(goods.title);
@@ -292,41 +172,34 @@ var AppView = BaseView.extend({
       from: UrlUtil.parseUrlSearch().from || "--"
     });
   },
-  hidePurchasePanel: function(e) {
-    var self = this;
-    var $cur = $(e.currentTarget);
 
-    var close = function() {
-      self.$popShadow.hide();
-      self.$button.text( self.$button.data("activeText") );
-    };
-
-    if ( $cur.hasClass("js-hide-panel") ) {
-      close();
-    } else if ( !$.contains(this.$popPanel.get(0), e.target) ) {
-      close();
-    }
-  },
-  showPurchasePanel: function() {
-    var number = Number( this.$goodsNum.val() );
-    moneyModel.set({
-      points: this.unitPoints,
-      money: this.unitMoney,
-      num: number
-    }, {
-      silent: true
+  renderBuyNumView: function (goods) {
+    this.buyNumModel.set({
+      type:0,
+      hasMask: false,
+      visible: true,
+      title: "购买数量",
+      payText:goods.button,
+      payNumText: "去支付",
+      points: goods.points,
+      price: goods.money,
+      limitNum: goods.limit,
+      canPay: goods.stat === 0,
+      parentDom: "#goods-detail"
     });
+  },
 
-    this.$popShadow.show();
-    this.$button.text( this.$button.data("payText") );
+  buy: function () {
+    this.buyNumModel.set({
+      type: 1,
+      hasMask: true
+    });
   },
-  submitButtonEvent: function() {
-    if ( this.$popShadow.is(":visible") ) {
-      this.exchangeHandler();
-    } else {
-      this.showPurchasePanel();
-    }
+
+  pay: function() {
+    this.exchangeHandler();
   },
+
   exchangeHandler: function() {
     var self = this;
     var appName = cookie.get("appName");
@@ -488,7 +361,7 @@ var AppView = BaseView.extend({
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: UrlUtil.parseUrlSearch().productid,
-          num: Number( self.$goodsNum.val() )
+          num: self.buyNumModel.get("number")
         });
 
         sendPost("createOrder", params, function(err, data) {
@@ -498,8 +371,7 @@ var AppView = BaseView.extend({
     ], function(err, result) {
       if (err) {
         hint.hideLoading();
-
-        var alert = new Popover({
+        var alertOptions = {
           type: "alert",
           title: "兑换失败",
           message: err.message,
@@ -510,8 +382,13 @@ var AppView = BaseView.extend({
               window.location.href = mallUitl.getUpgradeUrl();
             }
           }
-        });
-        alert.show();
+        };
+        if(self.errAlert){
+          self.errAlert.model.set(alertOptions);
+        }else{
+          self.errAlert = new Popover(alertOptions);
+        }
+        self.errAlert.show();
         return;
       }
 
@@ -540,7 +417,7 @@ var AppView = BaseView.extend({
           var payParams = {
             quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
             title: "支付订单",
-            price: goods.payprice,
+            price: orderInfo.payprice,
             orderid: orderInfo.payorderid,
             productdesc: orderInfo.paydesc,
             url: payUrl,

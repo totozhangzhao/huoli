@@ -15,13 +15,15 @@ var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var menuLog  = require("app/client/mall/js/lib/common.js").initTracker("menu");
 var ui       = require("app/client/mall/js/lib/ui.js");
 var FooterView = require("app/client/mall/js/common/views/footer.js");
-
-var AppView = Backbone.View.extend({
+var BaseView = require("app/client/mall/js/common/views/BaseView.js");
+var AppView = BaseView.extend({
   el: "#main",
+
   events: {
     "click .js-new-page": "createNewPage",
     "click .js-get-url" : "handleGetUrl"
   },
+
   initialize: function() {
     this.$initial = ui.initial().show();
     this.mallMainProductList();

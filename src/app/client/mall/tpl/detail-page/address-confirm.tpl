@@ -37,5 +37,5 @@
   <% } else { %>
   <p class="goods-charge-info num-font"><span>0</span>元</p>
   <% } %>
-  <button id="confirm-order" type="button" class="goods-charge-btn"><%= goods.confirm || "去支付" %></button>
+  <button id="confirm-order" type="button" class="charge-btn"><%= goods.confirm || "去支付" %></button>
 </div>

@@ -4,16 +4,16 @@
     <li class="js-item address-exist-area"
       data-addressid="<%= addressInfo.addressid || "" %>"
     >
-      <div class="js-address-info">
+      <div class="js-address-info address-exist-son">
         <div class="address-exist-info clearfix">
           <p class="address-exist-username fl">
-            <b class="address-exist-nameicon"></b><span><%- addressInfo.name || "" %></span>
+            <span>收货人：<%- addressInfo.name || "" %></span>
           </p>
-          <p class="address-exist-usertel fl">
-            <b class="address-exist-telicon"></b><span class="num-font"><%- addressInfo.pphone || "" %></span>
+          <p class="address-exist-usertel fr">
+            <span class="num-font"><%- addressInfo.pphone || "" %></span>
           </p>
         </div>
-        <p class="address-exist-text num-font border-b"><%- addressInfo.province.name + " " + addressInfo.city.name + " " + addressInfo.area.name + " " + addressInfo.address || "" %></p>
+        <div class="address-exist-text num-font">收货地址：<%- addressInfo.province.name + " " + addressInfo.city.name + " " + addressInfo.area.name + " " + addressInfo.address || "" %></div>
       </div>
       <div class="address-control-bar">
         <p class="address-set-area">

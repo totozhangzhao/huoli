@@ -20,20 +20,28 @@ var orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order"
 var ui         = require("app/client/mall/js/lib/ui.js");
 var FooterView = require("app/client/mall/js/common/views/footer.js");
 
+
+var BuyNumModel     = require("app/client/mall/js/common/models/buy-num-model.js");
+var BuyPanelView = require("app/client/mall/js/common/views/pay/buy-num-panel.js");
+
 var AppView = Backbone.View.extend({
   el: "#order-detail-container",
   events: {
     "click a"              : "createNewPage",
     "touchstart .js-copy"  : "copyText",
     "click .js-crowd-page" : "gotoCrowd",
-    "click .js-address-box": "handleAddressInfo",
-    "click #pay-button"    : "payOrder"
+    "click .js-address-box": "handleAddressInfo"
   },
   initialize: function() {
     NativeAPI.invoke("updateTitle", {
       text: "订单详情"
     });
-
+    this.buyNumModel = new BuyNumModel();
+    this.payView = new BuyPanelView({
+      model: this.buyNumModel,
+      buy: function() {this.buy();}.bind(this),
+      pay: function() {}
+    });
     this.$initial = ui.initial().show();
     this.orderDetail = {};
     this.isPaying = false;
@@ -146,6 +154,7 @@ var AppView = Backbone.View.extend({
       };
 
       $("#order-detail-container").html( compiled(tmplData) );
+      self.renderBuyNumView(result);
       new FooterView().render();
       self.$initial.hide();
       orderLog({
@@ -153,6 +162,26 @@ var AppView = Backbone.View.extend({
         from: parseUrl().from || "--"
       });
     });
+  },
+
+  renderBuyNumView: function (order) {
+    if(order.needpay !== 1){
+      return;
+    }
+    this.buyNumModel.set({
+      type:0,
+      hasMask: false,
+      visible: true,
+      payText:"去支付",
+      points: order.points,
+      price: order.money,
+      number: order.num,
+      canPay: true,
+      parentDom: "#order-detail-container"
+    });
+  },
+  buy: function () {
+    this.payOrder();
   },
   payOrder: function() {
     var self = this;
