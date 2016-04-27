@@ -2,6 +2,7 @@
   首页商品视图
 */
 var $           = require("jquery");
+var Backbone    = require("backbone");
 var _           = require("lodash");
 
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
@@ -14,9 +15,7 @@ var mallUitl    = require("app/client/mall/js/lib/util.js");
 
 var imageDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
 
-var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
-
-var PromotionView = BaseView.extend({
+var PromotionView = Backbone.View.extend({
 
   el: "#home-goods",
 
@@ -70,8 +69,6 @@ var PromotionView = BaseView.extend({
       return;
     }
     this.getGoods(model, params);
-
-
   },
 
   getGoods: function (model, params) {

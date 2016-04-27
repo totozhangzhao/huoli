@@ -202,6 +202,9 @@ p {
   z-index: 5;
   display: none;
 }
+.common-shadow.improve-zindex {
+  z-index: 12;
+}
 .ui-confirm {
   width: 74.6%;
   text-align: center;
@@ -317,9 +320,7 @@ p {
   font-size: 0.37333rem;
   line-height: 0.53333rem;
 }
-.time-bar,
-.goods-pay-bar,
-.goods-charge-bar {
+.time-bar {
   width: 100%;
   height: 1.6rem;
   line-height: 1.6rem;
@@ -328,29 +329,49 @@ p {
   position: fixed;
   left: 0;
   bottom: 0;
-  z-index: 6;
+  z-index: 4;
 }
 .goods-charge-bar {
-  font-size: 0.48rem;
-  padding-left: 0.26667rem;
-}
-.goods-charge-bar .goods-charge-btn {
+  width: 100%;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  background-color: #fff;
+  font-size: 0.42667rem;
+  border-top: 1px solid #dededf;
   position: absolute;
-  right: 0;
-  top: 0;
-  background-color: #4889db;
+  left: 0;
+  bottom: 0;
+  padding-top: left;
+  padding-right: 0.53333rem;
+  padding-bottom: 0;
+  padding-left: 0.26667rem;
+  z-index: 6;
 }
-.goods-charge-bar .goods-charge-btn[disabled] {
-  background-color: #c0c0c0;
-}
-.goods-charge-info {
-  color: #a5a5a5;
-}
-.goods-charge-info span {
+.goods-charge-bar p {
   color: #ff5a44;
 }
-.time-area,
-.goods-pay-bar .goods-pay-area {
+.goods-charge-bar p.goods-charge-info {
+  color: #bfbfbf;
+}
+.goods-charge-bar p.goods-charge-info span {
+  color: #ff5a44;
+}
+.goods-charge-bar button {
+  padding-top: 0.21333rem;
+  padding-right: 1.2rem;
+  padding-bottom: 0.21333rem;
+  padding-left: 1.2rem;
+  background-color: #039ef0;
+  color: #fff;
+  border-radius: 0.10667rem;
+  position: absolute;
+  right: 0.26667rem;
+  top: 0.24rem;
+}
+.goods-charge-bar button[disabled] {
+  background-color: #d4d4d4;
+}
+.time-area {
   height: 100%;
 }
 .time-area {
@@ -362,7 +383,6 @@ p {
   margin-left: 0.32rem;
 }
 .operate-btn,
-.goods-pay-bar .goods-pay-btn,
 .goods-charge-btn {
   text-align: center;
   padding-top: 0.26667rem;
@@ -405,7 +425,7 @@ p {
   top: 50%;
   margin-left: -40%;
   margin-top: -2rem;
-  z-index: 6;
+  z-index: 8;
   display: none;
 }
 .del-tip-box {
@@ -502,12 +522,18 @@ p {
 .flip-go-check {
   margin-top: 0.4rem;
 }
+.common-charge-content {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
 .common-buy-box {
   width: 100%;
   position: absolute;
   bottom: 1.6rem;
   left: 0;
-  z-index: 20;
   background-color: #fff;
 }
 .common-buy-box .common-buy-nav {
@@ -596,6 +622,37 @@ p {
 .common-buy-box .common-buy-num .common-buy-tip span {
   display: inline-block;
 }
+.more-loading-padding {
+  padding-bottom: 1.6rem;
+}
+.more-loading {
+  width: 100%;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  display: none;
+  font-size: 0.32rem;
+  color: #a5a5a5;
+  background-color: #f3f3f3;
+  position: fixed;
+  left: 0;
+  bottom: 0px;
+}
+.more-loading div {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0);
+}
+.more-loading div img {
+  width: 0.53333rem;
+  vertical-align: middle;
+  display: inline-block;
+}
+.more-loading div span {
+  height: 100%;
+  display: inline-block;
+  margin-left: 0.34667rem;
+}
 .snap-up-box {
   min-height: 100%;
   margin-top: 0;
@@ -612,6 +669,7 @@ p {
 .snap-up-box .snap-banner-bar,
 .snap-up-box .snap-banner-bar img {
   width: 100%;
+  height: 5.62667rem;
 }
 .snap-up-box .snap-status-bar,
 .snap-up-box .snap-desc-bar {
@@ -728,6 +786,12 @@ p {
   flex: 1;
   padding-right: 0.13333rem;
 }
+.snap-winner-flex:nth-child(2) .snap-winner-tel {
+  color: #039ef0;
+}
+.snap-winner-flex:nth-child(2) .snap-winner-time {
+  color: #ff5a44;
+}
 .snap-winner-flex:nth-child(3) {
   height: 0.58667rem;
   line-height: 0.58667rem;
@@ -741,7 +805,7 @@ p {
   border-radius: 0.08rem;
   position: relative;
   right: 0;
-  top: 0.18667rem;
+  top: 0.42667rem;
 }
 .snap-status-num {
   padding-top: 0.26667rem;

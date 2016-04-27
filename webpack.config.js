@@ -27,7 +27,6 @@ module.exports = {
   resolve: {
     root: __dirname + "/src",
     alias: {
-      "jquery"  : "com/mobile/lib/jquery/jquery.js",
       "backbone": "com/mobile/lib/backbone/backbone.js",
       "async"   : "com/mobile/lib/async/async.js",
       "jsonrpc" : "com/mobile/lib/jsonrpc/jsonrpc.js"

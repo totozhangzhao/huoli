@@ -1,5 +1,7 @@
 var Popover = require("com/mobile/widget/popover/popover.js");
 
+require("app/client/mall/js/lib/common.js");
+
 /* 
   更新model 只支持修改文案和方法
   暂不支持修改弹窗的类型

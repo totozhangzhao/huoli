@@ -28,10 +28,10 @@ var FooterView  = require("app/client/mall/js/common/views/footer.js");
 var AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
-    "click .js-new-page": "createNewPage",
-    "click .js-get-url" : "handleGetUrl",
-    "click .js-desc a"  : "createNewPage",
-    "click .js-purchase": "exchangeHandler"
+    "click .js-new-page" : "createNewPage",
+    "click .js-get-url"  : "handleGetUrl",
+    "click .js-webview a": "createNewPage",
+    "click .js-purchase" : "exchangeHandler"
   },
   initialize: function(commonData) {
     _.extend(this, commonData);
@@ -399,7 +399,7 @@ var AppView = BaseView.extend({
           var payParams = {
             quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
             title: "支付订单",
-            price: goods.mprice,
+            price: orderInfo.payprice,
             orderid: orderInfo.payorderid,
             productdesc: orderInfo.paydesc,
             url: payUrl,

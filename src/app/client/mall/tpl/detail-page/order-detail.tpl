@@ -1,16 +1,34 @@
 <div class="<%= orderDetail.needpay === 1 ? "pay-status-bar" : "pay-after-bar" %>">
-  <div class="goods-detail">
+  <div class="goods-detail clearfix">
     <img src="<%= orderDetail.img %>" class="goods-show-pic fl">
     <p class="goods-name"><%= orderDetail.title %></p>
-    <p class="goods-desc"><%= orderDetail.shotdesc %></p>
-    <p class="goods-price"><%= orderDetail.orderprice %></p>
+    <div class="goods-charge-info-fa">
+      <!-- <p class="goods-charge-info num-font"><span>100</span> 积分 + <span>100</span> 元</p> -->
+      <% if ( orderDetail.points > 0 && orderDetail.money > 0 ) { %>
+      <p class="goods-charge-info num-font"><span><%= orderDetail.points %></span>积分 + <span><%= orderDetail.money %></span>元</p>
+      <% } else if ( orderDetail.points > 0 ) { %>
+      <p class="goods-charge-info num-font"><span><%= orderDetail.points %></span>积分</p>
+      <% } else if ( orderDetail.money > 0 ) { %>
+      <p class="goods-charge-info num-font"><span><%= orderDetail.money %></span>元</p>
+      <% } else { %>
+      <p class="goods-charge-info num-font"><span>0</span>元</p>
+      <% } %>
+      <em class="goods-charge-count">数量 x <%= orderDetail.num %></em>
+    </div>
     <span class="trade-status <%= orderDetail.stattpl %> "><%= orderDetail.statusstr %></span>
-    <!-- <span class="trade-status trade-status-fail">交易失败&nbsp;</span> -->
-    <!-- <span class="trade-status trade-status-confirm">交易待确认</span> -->
-    <!-- <span class="trade-status trade-status-waiting">等待付款..</span> -->
   </div>
-  
+
   <div class="order-detail-bar">
+    <!-- <p class="order-detail-info">订单总额：<span class="order-detail-num fr">200积分+200元</span></p> -->
+    <% if ( orderDetail.ptotal > 0 && orderDetail.mtotal > 0 ) { %>
+    <p class="order-detail-info">订单总额：<span class="order-detail-num fr"><%= orderDetail.ptotal %>积分 + <%= orderDetail.mtotal %>元</span></p>
+    <% } else if ( orderDetail.ptotal > 0 ) { %>
+    <p class="order-detail-info">订单总额：<span class="order-detail-num fr"><%= orderDetail.ptotal %>积分</span></p>
+    <% } else if ( orderDetail.mtotal > 0 ) { %>
+    <p class="order-detail-info">订单总额：<span class="order-detail-num fr"><%= orderDetail.mtotal %>元</span></p>
+    <% } else { %>
+    <p class="order-detail-info">订单总额：<span class="order-detail-num fr">0元</span></p>
+    <% } %>
     <p class="order-detail-info">订单编号：<span class="order-detail-num fr"><%= orderDetail.orderid %></span></p>
     <p class="order-detail-info">成交时间：<span class="order-detail-num fr"><%= orderDetail.createtime %></span></p>
   </div>
@@ -99,13 +117,4 @@
     <!-- // -->
   </div>
   
-  <% if (orderDetail.needpay === 1) { %>
-  <div class="order-pay-bar">
-    <div class="order-pay-area clearfix">
-      <div class="scoring-bar fl">实付款：<span class="scoring-num num-font"><%= orderDetail.orderprice %></span>
-      </div>
-      <button id="pay-button" class="order-pay-btn fr">付款</button> 
-    </div> 
-  </div> 
-  <% } %>
 </div>

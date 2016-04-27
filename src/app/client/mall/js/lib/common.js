@@ -7,13 +7,13 @@ var logger    = require("com/mobile/lib/log/log.js");
 var UrlUtil   = require("com/mobile/lib/url/url.js");
 
 exports.initRem = function() {
+  var docEl = document.documentElement;
   var setRoot = function() {
-    var rootSize = ($("body").width() / 10).toFixed(1);
-    $("html").css({ "font-size": rootSize + "px" });
+    docEl.style.fontSize = (docEl.clientWidth / 10) + "px";
   };
-
   setRoot();
-  window.onresize = _.debounce(setRoot, 150);
+  var resizeEvent = "orientationchange" in window ? "orientationchange" : "resize";
+  window.addEventListener(resizeEvent, _.debounce(setRoot, 150), false);
 };
 
 exports.initRem();
@@ -67,6 +67,10 @@ exports.createNewView = (function() {
       return;
     }
 
+    if ( url === decodeURI(url) ) {
+      url = encodeURI(url);
+    }
+
     NativeAPI.invoke("createWebView", {
       url: url,
       controls: [
@@ -77,7 +81,7 @@ exports.createNewView = (function() {
       ]
     }, function(err) {
       if ( err && (err.code === -32603) ) {
-        window.location.href = options.url;
+        window.location.href = url;
       }
     });
   }, 1000, true);

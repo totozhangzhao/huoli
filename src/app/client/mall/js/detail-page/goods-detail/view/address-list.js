@@ -30,8 +30,10 @@ var AppView = Backbone.View.extend({
     var self = this;
 
     if (options.previousView === "" && UrlUtil.parseUrlSearch().action === void 0) {
-      this.router.switchTo("goods-detail");
-      pageAction.setClose();
+      setTimeout(function() {
+        this.router.switchTo("goods-detail");
+        pageAction.setClose();
+      }.bind(this), 0);
       return;
     }
 
@@ -250,24 +252,39 @@ var AppView = Backbone.View.extend({
     this.router.switchTo("address-add");
   },
   removeAddress: function(e) {
-    hint.showLoading();
+    var doRemove = function() {
+      hint.showLoading();
 
-    var $cur = $(e.currentTarget);
-    var $item = $cur.closest(".js-item");
-    var addressId = $item.data("addressid");
+      var $cur = $(e.currentTarget);
+      var $item = $cur.closest(".js-item");
+      var addressId = $item.data("addressid");
 
-    addressUtil.remove(addressId, function(err, result) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
+      addressUtil.remove(addressId, function(err, result) {
+        if (err) {
+          toast(err.message, 1500);
+          return;
+        }
 
-      hint.hideLoading();
+        hint.hideLoading();
 
-      if (result !== void 0) {
-        $item.remove();
-      }
+        if (result !== void 0) {
+          $item.remove();
+        }
+      });
+    };
+
+    var confirm = new Popover({
+      type: "confirm",
+      title: "确定删除此地址吗？",
+      message: "",
+      agreeText: "确定",
+      cancelText: "取消",
+      agreeFunc: function() {
+        doRemove();
+      },
+      cancelFunc: function() {}
     });
+    confirm.show();
   }
 });
 

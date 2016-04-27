@@ -3,6 +3,7 @@ var Backbone      = require("backbone");
 var _             = require("lodash");
 var Promise       = require("com/mobile/lib/promise/npo.js");
 
+var NativeAPI     = require("app/client/common/lib/native/native-api.js");
 var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
 var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var Util          = require("com/mobile/lib/util/util.js");
@@ -18,15 +19,21 @@ var GoodsItemView = require("app/client/mall/js/menu/views/goods-item.js");
 var BannerView    = require("app/client/mall/js/menu/views/banner.js");
 var WinnerView    = require("app/client/mall/js/menu/views/winner-label.js");
 var Footer        = require("app/client/mall/js/common/views/footer.js");
+var BaseView      = require("app/client/mall/js/common/views/BaseView.js");
 
 require("app/client/mall/js/lib/common.js");
 
-var AppView = Backbone.View.extend({
+var AppView = BaseView.extend({
   el: "#main",
 
-  events:{},
+  events: {
+    "click .js-new-page": "createNewPage",
+    "click .js-get-url" : "handleGetUrl"
+  },
 
   initialize: function () {
+    var self = this;
+
     this.$initial = ui.initial().show();
 
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
@@ -41,10 +48,15 @@ var AppView = Backbone.View.extend({
     // this.listenTo(this.$goods,"set",this.addGoodsItem);
     this.fetchData();
 
+    NativeAPI.registerHandler("resume", function() {
+      self.fetchData({ resume: true });
+    });
   },
 
-  fetchData: function () {
+  fetchData: function (opts) {
     var self = this;
+    var options = opts || {};
+
     mallPromise.getAppInfo()
     .then(function (userData) {
       var params = _.extend({}, userData.userInfo, {
@@ -61,18 +73,28 @@ var AppView = Backbone.View.extend({
       });
     })
     .then(function (data) {
-      self.render(data);
+      if (options.resume) {
+        self.renderGoodsList(data.product);
+      } else {
+        self.render(data);
+      }
     })
     .catch(mallPromise.catchFn);
   },
 
   render: function (data) {
+    var self = this;
+
     this.initBanner(data.banner);
     this.initWinnerLabel(data.winner);
     // this.$goods.set(data.product);
     this.renderGoodsList(data.product);
     this.$footer.render();
-    this.$initial.hide();
+
+    setTimeout(function() {
+      self.$initial.hide();
+    }, 0);
+
     menuLog({
       title: UrlUtil.parseUrlSearch().classify || window.document.title,
       from: UrlUtil.parseUrlSearch().from || "--"

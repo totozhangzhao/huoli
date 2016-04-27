@@ -24,8 +24,10 @@ var AppView = Backbone.View.extend({
   },
   resume: function(options) {
     if (options.previousView === "") {
-      this.router.switchTo("goods-detail");
-      pageAction.setClose();
+      setTimeout(function() {
+        this.router.switchTo("goods-detail");
+        pageAction.setClose();
+      }.bind(this), 0);
       return;
     }
 
@@ -49,10 +51,15 @@ var AppView = Backbone.View.extend({
   },
   initView: function(addressInfo) {
     var addressListTpl = require("app/client/mall/tpl/detail-page/address-confirm.tpl");
-
+    var model  = this.model.buyNumModel;
     this.$el.html(addressListTpl({
       addressInfo: addressInfo,
-      goods: this.cache.goods
+      goods: this.cache.goods,
+      points: model.get("points"),
+      ptotal: model.getTotalPoints(),
+      money: model.get("price"),
+      mtotal: model.getTotalPrice(),
+      num: model.get("number")
     }));
   },
   selectAddress: function() {
@@ -80,7 +87,8 @@ var AppView = Backbone.View.extend({
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: UrlUtil.parseUrlSearch().productid,
-          address: self.curAddress
+          address: self.curAddress,
+          num: self.model.buyNumModel.get("number")
         });
 
         sendPost("createOrder", params, function(err, data) {
@@ -116,7 +124,7 @@ var AppView = Backbone.View.extend({
           var payParams = {
             quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
             title: "支付订单",
-            price: goods.mprice,
+            price: orderInfo.payprice,
             orderid: orderInfo.payorderid,
             productdesc: orderInfo.paydesc,
             url: payUrl,

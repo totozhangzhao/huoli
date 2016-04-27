@@ -2,15 +2,14 @@
   首页商品分类视图
 */
 var $        = require("jquery");
+var Backbone = require("backbone");
 var _        = require("lodash");
 
 
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 
-var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
-
-var CategoryView = BaseView.extend({
+var CategoryView = Backbone.View.extend({
 
   el: "#home-category",
 
@@ -55,10 +54,11 @@ var CategoryView = BaseView.extend({
     _.each(scrollItems, function (item, index) {
       width += item.offsetWidth;
     });
-    scrollCnt.find("p").css({width:width + 10});
+    var uWidth = width/scrollItems.length; // 每一项的平均宽度
+    scrollCnt.find("p").css({width:width + 30}); // 增加滚动元素外容器30像素 用来修正移动后 第一项位置的不同
     var widthFix = width - scrollCnt.get(0).offsetWidth;
     // 最大滚动位移
-    var maxScrollLeft = widthFix + (80 - (widthFix % 80));
+    var maxScrollLeft = widthFix + (uWidth - (widthFix % uWidth));
     this.scrollObj = {
       scrollCnt: scrollCnt,
       allCategory: allCategory,
@@ -89,7 +89,8 @@ var CategoryView = BaseView.extend({
     });
 
     if(_el.data("scrollItem")){
-      return;
+      //点击滚动区域的分类时，不滚动
+      // return;
     }
     // 滚动
     // 设置滚动位置
@@ -116,7 +117,6 @@ var CategoryView = BaseView.extend({
 
   showPannel: function () {
     $(".home-list-switch", this.$el).addClass("home-rotate-switch");
-    $(".home-pull-area", this.$el).fadeIn('fast');
     return $(".home-goods-shadow")
             .show()
             .off("click")
@@ -126,7 +126,6 @@ var CategoryView = BaseView.extend({
   },
   hidePannel: function () {
     $(".home-list-switch", this.$el).removeClass("home-rotate-switch");
-    $(".home-pull-area", this.$el).fadeOut('fast');
     return $(".home-goods-shadow").hide();
   },
 
