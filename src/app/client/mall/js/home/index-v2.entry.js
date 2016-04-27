@@ -78,6 +78,9 @@ var AppView = BaseView.extend({
     })
     .then(function (data) {
       self.render(data);
+      NativeAPI.registerHandler("resume", function() {
+        self.getUserInfo({ resume: true });
+      });
     })
     .catch(mallPromise.catchFn);
   },
@@ -102,8 +105,10 @@ var AppView = BaseView.extend({
     $warning.insertBefore("#home-banner");
   },
 
-  getUserInfo: function () {
+  getUserInfo: function (opts) {
     var self = this;
+    var options = opts || {};
+
     mallPromise.getAppInfo()
     .then(function (userData) {
       var params = _.extend({}, userData.userInfo, {
@@ -113,8 +118,12 @@ var AppView = BaseView.extend({
         if(err){
           return;
         }
+
         self.$pointsView.render(data);
-        self.showCheckinBtn();
+
+        if (!options.resume) {
+          self.showCheckinBtn();
+        }
       });
     })
     .catch(mallPromise.catchFn);

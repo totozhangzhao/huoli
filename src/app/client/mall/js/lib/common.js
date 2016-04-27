@@ -67,6 +67,10 @@ exports.createNewView = (function() {
       return;
     }
 
+    if ( url === decodeURI(url) ) {
+      url = encodeURI(url);
+    }
+
     NativeAPI.invoke("createWebView", {
       url: url,
       controls: [
@@ -77,7 +81,7 @@ exports.createNewView = (function() {
       ]
     }, function(err) {
       if ( err && (err.code === -32603) ) {
-        window.location.href = options.url;
+        window.location.href = url;
       }
     });
   }, 1000, true);
@@ -146,6 +150,7 @@ exports.initTracker = function(tag) {
 /**
  * 示例：
  * gtgj-ev-高铁商城-index-entrance_积分兑换
+ * gtgj-ev-高铁商城-index-entrance_再玩一次-1000907
  * gtgj-ev-御泥坊刮刮卡_再玩一次_1000907
  */
 $("body").on("click", "a, button, [data-log-mall-click]", function(e) {
@@ -155,6 +160,7 @@ $("body").on("click", "a, button, [data-log-mall-click]", function(e) {
 
   if ( $cur.data("logMallClick") ) {
     category = prefix + "-" + $cur.data("logMallClick");
+    category = category.replace(/-$/, "");
   } else {
     category = $cur.data("title") || $cur.text() || $cur.val() || "btn";
     category = category.replace(/\r?\n|\r/g, "").replace(/\s+/g, " ").trim();
@@ -163,7 +169,7 @@ $("body").on("click", "a, button, [data-log-mall-click]", function(e) {
 
   var urlObj = UrlUtil.parseUrlSearch();
 
-  if (urlObj.productid) {
+  if ( "productid" in urlObj) {
     category = category + "_" + urlObj.productid;
   }
 
