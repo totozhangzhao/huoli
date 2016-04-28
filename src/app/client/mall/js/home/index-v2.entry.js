@@ -57,7 +57,7 @@ var AppView = BaseView.extend({
 
     this.bindEvents();
     this.fetchData();
-
+    this.showCheckinBtn();
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
   },
 
@@ -121,9 +121,9 @@ var AppView = BaseView.extend({
 
         self.$pointsView.render(data);
 
-        if (!options.resume) {
+        /*if (!options.resume) {
           self.showCheckinBtn();
-        }
+        }*/
       });
     })
     .catch(mallPromise.catchFn);
