@@ -682,7 +682,7 @@ p {
   padding-left: 0.4rem;
   margin-bottom: 0.26667rem;
 }
-.snap-status-bar[disabled] .snap-status-tip p {
+.snap-status-bar .snap-status-tip p {
   max-width: 7.2rem;
   height: 0.53333rem;
   white-space: nowrap;
