@@ -6,7 +6,6 @@
  *
  */
 
-// Load plugins
 var gulp           = require("gulp");
 var autoprefixer   = require("gulp-autoprefixer");
 var minifyHTML     = require("gulp-minify-html");
@@ -18,9 +17,9 @@ var runSequence    = require("run-sequence");
 var webpackBuilder = require("./builder/webpack/index.js");
 var versionRef     = require("./builder/version/version-ref.js");
 var shell          = require("gulp-shell");
-
 var rev            = require("gulp-rev");
 var revReplace     = require("gulp-rev-replace");
+
 var config = {
   src : "./src/",
   dest: "./dest/"
@@ -86,8 +85,21 @@ gulp.task("js", function() {
   runSequence("js:lint", "js:bundle");
 });
 
-gulp.task("static", function() {
-  runSequence(["html", "styles", "images"]);
+gulp.task("rev", function (cb) {
+  return gulp.src([config.dest + "**/*.bundle.js", config.dest + "**/*.css"])
+    .pipe(rev())
+    .pipe(gulp.dest(config.dest))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest(config.dest));
+});
+
+gulp.task("rev:replace", ["rev"], function () {
+  var manifest = gulp.src(config.dest + "rev-manifest.json");
+  return gulp.src(config.dest + "**/*.html")
+    .pipe(revReplace({
+      manifest: manifest
+    }))
+    .pipe(gulp.dest(config.dest));
 });
 
 // Clean
@@ -98,15 +110,16 @@ gulp.task("clean", function(cb) {
 // Compress
 gulp.task("compress", function() {
   return gulp.src("")
-      .pipe(shell([
-        "tar -cvzf ~/Downloads/dest-" + Date.now() + ".tgz ./dest",
-        "open ~/Downloads/"
-      ]));
+    .pipe(shell([
+      "tar -cvzf ~/Downloads/dest-" + Date.now() + ".tgz " + config.dest,
+      "open ~/Downloads/"
+    ]));
 });
 
-gulp.task("dev", ["clean"], function () {
-  runSequence("html", "styles", "images", "js");
+gulp.task("static", function() {
+  runSequence(["html", "styles", "images"]);
 });
+
 gulp.task("build", ["clean"], function() {
   runSequence(["html", "styles", "images", "js"], "rev:replace", "compress", "html");
 });
@@ -125,24 +138,5 @@ gulp.task("watch", function() {
 
   // JavaScript
   gulp.watch(config.src + "**/*.js", ["js:lint"]);
-
-});
-
-
-gulp.task("rev", function (cb) {
-  return gulp.src([config.dest + "**/*.bundle.js", config.dest + "**/*.css"])
-  .pipe(rev())
-  .pipe(gulp.dest(config.dest))
-  .pipe(rev.manifest())
-  .pipe(gulp.dest(config.dest))
-
-});
-gulp.task("rev:replace", ["rev"], function () {
-  var manifest = gulp.src(config.dest + "rev-manifest.json");
-  return gulp.src(config.dest + "**/*.html")
-  .pipe(revReplace({
-    manifest: manifest
-  }))
-  .pipe(gulp.dest(config.dest))
 
 });
