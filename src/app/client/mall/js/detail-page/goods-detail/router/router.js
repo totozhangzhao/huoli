@@ -1,8 +1,3 @@
-var $         = require("jquery");
-var Backbone  = require("backbone");
-var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var logger    = require("com/mobile/lib/log/log.js");
-var mallUitl  = require("app/client/mall/js/lib/util.js");
 var GoodsView          = require("app/client/mall/js/detail-page/goods-detail/view/goods-detail.js");
 var DescView           = require("app/client/mall/js/detail-page/goods-detail/view/goods-desc.js");
 var OrderView          = require("app/client/mall/js/detail-page/goods-detail/view/form-phone.js");
@@ -10,8 +5,9 @@ var FormCustomView     = require("app/client/mall/js/detail-page/goods-detail/vi
 var AddAddressView     = require("app/client/mall/js/detail-page/goods-detail/view/address-add.js");
 var ConfirmAddressView = require("app/client/mall/js/detail-page/goods-detail/view/address-confirm.js");
 var AddressListView    = require("app/client/mall/js/detail-page/goods-detail/view/address-list.js");
+var createRouter       = require("app/client/mall/js/common/router/router-factory.js").createRouter;
 
-var ViewDic = {
+var viewDic = {
   "goods-detail"   : GoodsView,
   "goods-desc"     : DescView,
   "form-phone"     : OrderView,
@@ -21,66 +17,7 @@ var ViewDic = {
   "address-list"   : AddressListView
 };
 
-var cache = {};
-var model = {};
-var collection = {};
-
-module.exports = Backbone.Router.extend({
-  routes: {
-    "": "default",
-    ":action": "dispatch"
-  },
-  initialize: function() {
-    this.bbViews = {};
-    this.$panel = $(".bb-panel");
-    this.previousView = "";
-  },
-  default: function() {
-    var view = parseUrl().view;
-
-    if (view in ViewDic) {
-      this.switchTo(view);
-    } else {
-      this.switchTo("goods-detail");
-    }
-  },
-
-  // Dispatch pannels
-  dispatch: function(action) {
-    this.$panel
-      .filter(".active")
-        .removeClass("active")
-      .end()
-        .filter("#" + action)
-          .addClass("active");
-
-    var bbViews = this.bbViews;
-
-    if ( ViewDic[action] ) {
-      if ( !bbViews[action] ) {
-        bbViews[action] = new ViewDic[action]({
-          router: this,
-          cache: cache,
-          model: model,
-          collection: collection
-        });
-      }
-
-      bbViews[action].resume({
-        previousView: this.previousView
-      });
-
-      this.previousView = action;
-    } else {
-      window.console.log("-- [Backbone View] not found! action: " + action + " --");
-      this.switchTo("goods-detail");
-    }
-
-    logger.track(mallUitl.getAppName() + "PV", "View PV", action);
-  },
-  switchTo: function(panelId) {
-    this.navigate(panelId, {
-      trigger: true
-    });
-  }
+module.exports = createRouter({
+  viewDic: viewDic,
+  defaultView: "goods-detail"
 });

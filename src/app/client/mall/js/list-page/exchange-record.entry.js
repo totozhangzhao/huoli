@@ -298,11 +298,23 @@ var AppView = Backbone.View.extend({
       },
       function(userData, next) {
         if (userData.userInfo && userData.userInfo.userid) {
+
+          // style:
+          //
+          // String 类型
+          //
+          // 1 商城
+          // 2 一元夺宝
+          // 3 保险
+          // 4 优惠券
+          var style = UrlUtil.parseUrlSearch().style || "1";
+
           var params = _.extend({}, userData.userInfo, {
-            p: userData.deviceInfo.p,
-            last: options.lastOrderId || "",
-            type: options.listType,
-            key: options.keywords
+            p    : userData.deviceInfo.p,
+            last : options.lastOrderId || "",
+            type : options.listType,
+            style: style,
+            key  : options.keywords
           });
 
           sendPost("orderList", params, function(err, data) {

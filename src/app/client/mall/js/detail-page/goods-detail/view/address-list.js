@@ -195,11 +195,13 @@ var AppView = Backbone.View.extend({
   gotoConfirmPage: function(e) {
     var self = this;
     var $cur = $(e.currentTarget);
+    var action = UrlUtil.parseUrlSearch().action;
+
     this.cache.curAddressId = $cur.closest(".js-item").data("addressid");
 
-    if (UrlUtil.parseUrlSearch().action === "order") {
+    if (action === "order") {
       this.showConfirm();
-    } else {
+    } else if (action === void 0) {
       this.router.switchTo("address-confirm");
     }
   },
