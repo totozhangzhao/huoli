@@ -682,15 +682,21 @@ p {
   padding-left: 0.4rem;
   margin-bottom: 0.26667rem;
 }
-.snap-status-bar[disabled] .snap-status-tip span:nth-child(1) {
+.snap-status-bar .snap-status-tip p {
+  max-width: 7.2rem;
+  height: 0.53333rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.snap-status-bar[disabled] .snap-status-tip p:nth-child(1) {
   background-color: #d4d4d4;
 }
 .snap-status-bar[disabled] .snap-status-show div {
   background-color: #ffb0a6;
 }
-.snap-status-bar .snap-status-tip span:nth-child(1) {
+.snap-status-bar .snap-status-tip p:nth-child(1) {
   height: 0.53333rem;
-  line-height: 0.53333rem;
   font-size: 0.32rem;
   color: #fff;
   padding-top: 0;
@@ -701,7 +707,7 @@ p {
   border-radius: 0.05333rem;
   margin-right: 0.26667rem;
 }
-.snap-status-bar .snap-status-tip span:nth-child(2) {
+.snap-status-bar .snap-status-tip p:nth-child(2) {
   font-size: 0.42667rem;
   line-height: 0.53333rem;
 }
@@ -993,11 +999,12 @@ p {
   margin-left: 0;
 }
 .snap-desc-area li .snap-desc-info p:nth-child(1) {
+  max-width: 7.73333rem;
   height: 0.64rem;
   line-height: 0.64rem;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 .snap-desc-area li .snap-desc-info p:nth-child(2),
 .snap-desc-time {

@@ -12,8 +12,8 @@ stat  int 状态
 <div <%= (data.stat === 1 || data.stat === 4) ? "" : "disabled" %> class="snap-status-bar">
   <div class="snap-status-tip clearfix">
     <% var statText = { "0": "待开奖", "1": "进行中", "2": "已结束", "4": "进行中" } %>
-    <span class="fl"><%= statText[data.stat] %></span>
-    <span class="fl"><%= data.hint %></span>
+    <p class="fl"><%= statText[data.stat] %></p>
+    <p class="fl"><%= data.hint %></p>
   </div>
   <div class="snap-status-show">
     <div class="js-bar" style="width: <%=  barWidth %>%;"></div>
