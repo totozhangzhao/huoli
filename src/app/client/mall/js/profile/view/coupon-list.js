@@ -1,4 +1,4 @@
-// var $           = require("jquery");
+var $           = require("jquery");
 var _           = require("lodash");
 var Backbone    = require("backbone");
 var UrlUtil     = require("com/mobile/lib/url/url.js");
@@ -9,12 +9,19 @@ var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 require("app/client/mall/js/lib/common.js");
 
 var AppView = Backbone.View.extend({
-  el: "#profile-index",
+  el: "#coupon-list",
+  events: {
+    "click .js-item": "showCoupon"
+  },
   initialize: function(commonData) {
     _.extend(this, commonData);
-    this.fetchData();
   },
   resume: function() {
+    this.fetchData();
+  },
+  showCoupon: function(e) {
+    this.cache.couponIndex = $(e.currentTarget).data("index");
+    this.router.switchTo("coupon-detail");
   },
   fetchData: function() {
     var self = this;
@@ -25,27 +32,26 @@ var AppView = Backbone.View.extend({
         });
 
         return new Promise(function(resolve, reject) {
-          sendPost("getUserInfo", params, function(err, data) {
+          sendPost("couponList", params, function(err, data) {
             if (err) {
               reject(err);
             } else {
-              resolve({
-                points: data.points,
-                level: data.level,
-                phone: userData.userInfo.phone
-              });
+              resolve(data);
             }
           });
         });
       })
       .then(function(data) {
+        self.cache.couponList = data;
         self.render(data);
       })
       .catch(mallPromise.catchFn);
   },
   render: function(data) {
-    var tmpl = require("app/client/mall/tpl/profile/user-level.tpl");
-    this.$el.find(".js-top-container").html(tmpl(data));
+    var tmpl = require("app/client/mall/tpl/profile/coupon-list.tpl");
+    this.$el.html(tmpl({
+      couponList: data
+    }));
   }
 });
 

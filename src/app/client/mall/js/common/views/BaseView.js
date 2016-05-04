@@ -8,7 +8,6 @@ var widget      = require("app/client/mall/js/lib/common.js");
 var toast       = require("com/mobile/widget/hint/hint.js").toast;
 
 var BaseView = Backbone.View.extend({
-
   createNewPage: function (e) {
     widget.createAView(e);
   },

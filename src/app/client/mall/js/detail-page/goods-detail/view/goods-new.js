@@ -71,9 +71,6 @@ var AppView = BaseView.extend({
 
     hint.hideLoading();
   },
-  createNewPage: function(e) {
-    widget.createAView(e);
-  },
   showDetailInfo: function() {
     this.router.switchTo("goods-desc");
   },

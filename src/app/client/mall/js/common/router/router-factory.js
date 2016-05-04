@@ -4,7 +4,6 @@ var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var logger    = require("com/mobile/lib/log/log.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 
-
 exports.createRouter = function(opts) {
   if (!opts) {
     throw new Error("Router Factory Error: Parameter Missing or Invalid.");
@@ -12,9 +11,8 @@ exports.createRouter = function(opts) {
 
   var viewDic = opts.viewDic;
   var defaultView = opts.defaultView;
-
-  var cache   = opts.cache || {};
-  var model   = opts.model || {};
+  var cache = opts.cache || {};
+  var model = opts.model || {};
   var collection = opts.collection || {};
 
   return Backbone.Router.extend({
@@ -33,7 +31,7 @@ exports.createRouter = function(opts) {
       if (view in viewDic) {
         this.switchTo(view);
       } else {
-        this.switchTo(defaultView);
+        this.replaceTo(defaultView);
       }
     },
 
@@ -65,7 +63,7 @@ exports.createRouter = function(opts) {
         this.previousView = action;
       } else {
         window.console.log("-- [Backbone View] not found! action: " + action + " --");
-        this.switchTo(defaultView);
+        this.replaceTo(defaultView);
       }
 
       logger.track(mallUitl.getAppName() + "PV", "View PV", action);
@@ -73,6 +71,12 @@ exports.createRouter = function(opts) {
     switchTo: function(panelId) {
       this.navigate(panelId, {
         trigger: true
+      });
+    },
+    replaceTo: function(panelId) {
+      this.navigate(panelId, {
+        trigger: true,
+        replace: true
       });
     }
   });
