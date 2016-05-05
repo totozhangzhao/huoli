@@ -91,6 +91,12 @@ var AppView = Backbone.View.extend({
           num: self.model.buyNumModel.get("number")
         });
 
+        // 一元夺宝特权券
+        if (goods.userprivilresp && goods.userprivilresp.privilid) {
+          params.privilid = goods.userprivilresp.privilid;
+          params.privilprice = goods.userprivilresp.privilprice;
+        }
+
         sendPost("createOrder", params, function(err, data) {
           next(err, data);
         });

@@ -161,7 +161,7 @@ var AppView = BaseView.extend({
     widget.updateViewTitle(goods.title);
 
     // 一元夺宝特权券
-    if (goods.userprivilresp && goods.userprivilresp.productid) {
+    if (goods.userprivilresp && goods.userprivilresp.privilid) {
       this.privilid = goods.userprivilresp.privilid;
       this.privilprice = goods.userprivilresp.privilprice;
       this.privilege = goods.userprivilresp;
