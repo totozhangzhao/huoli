@@ -1471,6 +1471,8 @@ img.touch-img {
 .goods-detail-box .goods-preferent-content .goods-preferent-block .goods-preferent-show {
   max-height: 5.65333rem;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  /* lets it scroll lazy */
 }
 .goods-detail-box .goods-preferent-content .goods-preferent-block .goods-preferent-show::-webkit-scrollbar {
   background: none;
