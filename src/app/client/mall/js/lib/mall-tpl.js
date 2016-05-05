@@ -17,7 +17,8 @@ exports.getBlockUrl = function(item) {
     "5": "/fe/app/client/mall/html/menu/category.html",
     "6": "/fe/app/client/mall/html/active-page/crowd/main.html",
     "7": "/fe/app/client/mall/html/menu/grab.html",
-    "8": "/fe/app/client/mall/html/menu/new-category.html"
+    "8": "/fe/app/client/mall/html/menu/new-category.html",
+    "5001": "/fe/app/client/mall/html/menu/promotion/promotion.html"
   };
   var jsUrl;
 

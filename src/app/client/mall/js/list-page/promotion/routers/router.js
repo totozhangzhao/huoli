@@ -9,7 +9,6 @@ var Router = Backbone.Router.extend({
     ":active": "dispatch"
   },
   initialize: function() {
-    window.console.log(App);
     this.app = new App();
   },
 

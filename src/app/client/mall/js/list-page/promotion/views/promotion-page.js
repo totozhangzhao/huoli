@@ -17,7 +17,6 @@ var app = BaseView.extend({
   },
 
   initialize: function () {
-    window.console.log("111");
     this.ViewDic = {
 
     };
@@ -32,10 +31,6 @@ var app = BaseView.extend({
         this.views[action] = new this.ViewDic[action].view();
       }
       this.render(action);
-      this.navView.update(action);
-      if(isLoaded){
-
-      }
       logger.track(mallUitl.getAppName() + "PV", "View PV", this.ViewDic[action].title);
     } else {
       window.console.log("-- [Backbone View] not found! action: " + action + " --");
