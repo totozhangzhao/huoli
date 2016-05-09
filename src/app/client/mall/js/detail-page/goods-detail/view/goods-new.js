@@ -1,5 +1,4 @@
 var $           = require("jquery");
-var Backbone    = require("backbone");
 var _           = require("lodash");
 var async       = require("async");
 var NativeAPI   = require("app/client/common/lib/native/native-api.js");
@@ -8,7 +7,6 @@ var appInfo     = require("app/client/mall/js/lib/app-info.js");
 var toast       = require("com/mobile/widget/hint/hint.js").toast;
 var hint        = require("com/mobile/widget/hint/hint.js");
 var UrlUtil     = require("com/mobile/lib/url/url.js");
-var Util        = require("com/mobile/lib/util/util.js");
 var widget      = require("app/client/mall/js/lib/common.js");
 var mallUitl    = require("app/client/mall/js/lib/util.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");

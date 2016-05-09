@@ -1,5 +1,4 @@
 var _           = require("lodash");
-var $           = require("jquery");
 var Backbone    = require("backbone");
 var widget      = require("app/client/mall/js/lib/common.js");
 

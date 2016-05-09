@@ -1,10 +1,4 @@
-// var $           = require("jquery");
 var _           = require("lodash");
-var Backbone    = require("backbone");
-var UrlUtil     = require("com/mobile/lib/url/url.js");
-var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var Promise     = require("com/mobile/lib/promise/npo.js");
-var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
 

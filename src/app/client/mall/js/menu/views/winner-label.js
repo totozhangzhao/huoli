@@ -1,6 +1,5 @@
 var $        = require("jquery");
 var Backbone = require("backbone");
-var _        = require("lodash");
 var widget   = require("app/client/mall/js/lib/common.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
@@ -18,7 +17,7 @@ var WinnerView = Backbone.View.extend({
     this.render();
   },
 
-  render: function (data) {
+  render: function () {
     this.$el.html(this.template({
       dataList: this.model,
       pId: UrlUtil.parseUrlSearch().productid,

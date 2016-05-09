@@ -193,7 +193,6 @@ var AppView = Backbone.View.extend({
     });
   },
   gotoConfirmPage: function(e) {
-    var self = this;
     var $cur = $(e.currentTarget);
     var action = UrlUtil.parseUrlSearch().action;
 

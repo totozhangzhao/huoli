@@ -309,10 +309,8 @@ var AppView = Backbone.View.extend({
   mallCheckin: function() {
 
     // 取消分享奖励
-    if (true) {
-      return;
-    }
 
+    /*
     var self = this;
     async.waterfall([
       function(next) {
@@ -372,6 +370,7 @@ var AppView = Backbone.View.extend({
         .find(".js-points")
           .text(result.points);
     });
+    */
   },
   loginApp: function() {
     async.waterfall([

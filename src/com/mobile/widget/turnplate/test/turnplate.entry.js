@@ -37,6 +37,11 @@ var rotateFn = function(item, txt) {
   });
 };
 
+function rnd(n, m) {
+  var random = Math.floor(Math.random() * (m - n + 1) + n);
+  return random;
+}
+
 $(".pointer").click(function() {
   if (turnplate.bRotate) {
     return;
@@ -84,16 +89,6 @@ $(".pointer").click(function() {
   } */
   window.console.log(item);
 });
-
-function rnd(n, m) {
-  var random = Math.floor(Math.random() * (m - n + 1) + n);
-  return random;
-}
-
-//页面所有元素加载完毕后执行drawRouletteWheel()方法对转盘进行渲染
-window.onload = function() {
-  drawRouletteWheel();
-};
 
 function drawRouletteWheel() {
   var canvas = document.getElementById("wheelcanvas");
@@ -182,3 +177,8 @@ function drawRouletteWheel() {
     }
   }
 }
+
+//页面所有元素加载完毕后执行drawRouletteWheel()方法对转盘进行渲染
+window.onload = function() {
+  drawRouletteWheel();
+};

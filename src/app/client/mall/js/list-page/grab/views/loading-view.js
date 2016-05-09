@@ -1,7 +1,4 @@
-var $        = require("jquery");
 var Backbone = require("backbone");
-var _        = require("lodash");
-
 
 var LoadingView = Backbone.View.extend({
 
@@ -18,4 +15,5 @@ var LoadingView = Backbone.View.extend({
     this.$el.hide();
   }
 });
+
 module.exports = LoadingView;

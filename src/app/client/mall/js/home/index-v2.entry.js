@@ -1,5 +1,4 @@
 var $             = require("jquery");
-var Backbone      = require("backbone");
 var _             = require("lodash");
 var Promise       = require("com/mobile/lib/promise/npo.js");
 
@@ -8,14 +7,10 @@ var toast         = require("com/mobile/widget/hint/hint.js").toast;
 
 var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
 var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var Util          = require("com/mobile/lib/util/util.js");
 var mallUitl      = require("app/client/mall/js/lib/util.js");
-var UrlUtil       = require("com/mobile/lib/url/url.js");
 var ui            = require("app/client/mall/js/lib/ui.js");
 
 var widget        = require("app/client/mall/js/lib/common.js");
-var imgDelay      = require("app/client/mall/js/lib/common.js").imageDelay;
-
 var logger        = require("com/mobile/lib/log/log.js");
 
 // models
@@ -65,7 +60,7 @@ var AppView = BaseView.extend({
     var self = this;
 
     mallPromise.getAppInfo(true)
-    .then(function (userData) {
+    .then(function () {
       return new Promise(function(resolve, reject) {
         sendPost("indexPageData", null, function(err, data) {
           if (err) {
@@ -105,25 +100,21 @@ var AppView = BaseView.extend({
     $warning.insertBefore("#home-banner");
   },
 
-  getUserInfo: function (opts) {
+  getUserInfo: function () {
     var self = this;
-    var options = opts || {};
 
     mallPromise.getAppInfo()
     .then(function (userData) {
       var params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p
       });
+
       sendPost("getUserInfo", params, function(err, data) {
         if(err){
           return;
         }
 
         self.$pointsView.render(data);
-
-        /*if (!options.resume) {
-          self.showCheckinBtn();
-        }*/
       });
     })
     .catch(mallPromise.catchFn);
@@ -162,7 +153,7 @@ var AppView = BaseView.extend({
   },
 
   bindEvents: function () {
-    $(window).scroll(function(event) {
+    $(window).scroll(function() {
       var height = this.getFixTop();
       if($(window).scrollTop() > height){
         this.$categoryView.fix();

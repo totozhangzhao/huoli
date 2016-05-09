@@ -1,6 +1,5 @@
 var $        = require("jquery");
 var Backbone = require("backbone");
-var _        = require("lodash");
 var Swipe    = require("com/mobile/lib/swipe/swipe.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var mallUitl = require("app/client/mall/js/lib/util.js");

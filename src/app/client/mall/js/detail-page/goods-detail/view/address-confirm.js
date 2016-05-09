@@ -110,7 +110,7 @@ var AppView = Backbone.View.extend({
       self.handleCreateOrder(result, goods);
     });
   },
-  handleCreateOrder: function(orderInfo, goods) {
+  handleCreateOrder: function(orderInfo) {
     async.waterfall([
       function(next) {
         if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {

@@ -21,7 +21,7 @@ var CategoryView = Backbone.View.extend({
 
   template: require("app/client/mall/tpl/home/v2/category.tpl"),
 
-  initialize: function (options) {
+  initialize: function () {
     this.listenTo(this.model, "change:status", this.stateChange);
   },
 
@@ -45,13 +45,13 @@ var CategoryView = Backbone.View.extend({
     // 滚动列表
     var scrollItems  = $("span[data-group-id]", this.$el);
     // 数据列表
-    var categoryList = $("a[data-group-id]", this.$el);
+    // var categoryList = $("a[data-group-id]", this.$el);
     // 滚动列表和数据列表
     var allCategory  = $("[data-group-id]", this.$el);
 
     // 滚动容器总宽度
     var width = 0;
-    _.each(scrollItems, function (item, index) {
+    _.each(scrollItems, function (item) {
       width += item.offsetWidth;
     });
     var uWidth = width/scrollItems.length; // 每一项的平均宽度
@@ -120,7 +120,7 @@ var CategoryView = Backbone.View.extend({
     return $(".home-goods-shadow")
             .show()
             .off("click")
-            .one('click', function(event) {
+            .one('click', function() {
               this.hidePannel();
             }.bind(this));
   },

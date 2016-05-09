@@ -90,7 +90,7 @@ exports.getUserData = (function() {
                 deviceInfo: deviceInfo,
                 userInfo: USER_INFO
               });
-              return;            
+              return;
             }
 
             data = Util.isObject(data) ? data : {};
@@ -119,7 +119,7 @@ exports.getUserData = (function() {
             }, function(err, data) {
               if (err) {
                 next(null, userData);
-                return;            
+                return;
               }
 
               data = Util.isObject(data) ? data : {};

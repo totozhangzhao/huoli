@@ -249,7 +249,7 @@ var AppView = Backbone.View.extend({
         appInfo.getUserData(function(err, userData) {
           next(err, userData);
         });
-      },
+      }
     ], function(err, result) {
       if (err) {
         return;

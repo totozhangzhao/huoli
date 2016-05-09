@@ -1,4 +1,5 @@
 (function(root, factory) {
+  /*global define*/
   if (typeof exports === "object" && typeof module !== "undefined") {
     var cookie = require("com/mobile/lib/cookie/cookie.js");
     factory(root, exports, cookie);

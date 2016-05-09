@@ -1,29 +1,27 @@
-var $         = require("jquery");
-var _         = require("lodash");
-var NativeAPI = require("app/client/common/lib/native/native-api.js");
-var echo      = require("com/mobile/lib/echo/echo.js");
-var mallUitl  = require("app/client/mall/js/lib/util.js");
-var logger    = require("com/mobile/lib/log/log.js");
-var UrlUtil   = require("com/mobile/lib/url/url.js");
+import $ from "jquery";
+import _ from "lodash";
+import NativeAPI from "app/client/common/lib/native/native-api.js";
+import echo from "com/mobile/lib/echo/echo.js";
+import mallUitl from "app/client/mall/js/lib/util.js";
+import logger from "com/mobile/lib/log/log.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
 
-exports.initRem = function() {
-  var docEl = document.documentElement;
-  var setRoot = function() {
-    docEl.style.fontSize = (docEl.clientWidth / 10) + "px";
+exports.initRem = () => {
+  const docEl = document.documentElement;
+  const setRoot = () => {
+    docEl.style.fontSize = `${docEl.clientWidth / 10}px`;
   };
   setRoot();
-  var resizeEvent = "orientationchange" in window ? "orientationchange" : "resize";
+  const resizeEvent = "orientationchange" in window ? "orientationchange" : "resize";
   window.addEventListener(resizeEvent, _.debounce(setRoot, 150), false);
 };
 
 exports.initRem();
 
-exports.createAView = function(e) {
-  var $cur = $(e.currentTarget);
-  var url = $cur.prop("href");
-  var isEmpty = function(str) {
-    return str === "" || str === null || str === undefined;
-  };
+exports.createAView = e => {
+  const $cur = $(e.currentTarget);
+  let url = $cur.prop("href");
+  const isEmpty = str => str === "" || str === null || str === undefined;
 
   if ( isEmpty(url) ) {
     url = $cur.data("href");
@@ -40,16 +38,16 @@ exports.createAView = function(e) {
 
   e.preventDefault();
 
-  var separateHash = url.split("#");
-  var hash = "";
+  const separateHash = url.split("#");
+  let hash = "";
 
   if ( separateHash.length > 1 ) {
-    url  = separateHash[0];
-    hash = "#" + separateHash[1];
+    url = separateHash[0];
+    hash = `#${separateHash[1]}`;
   }
 
   if ( $cur.data() && /\/fe\//.test(url) ) {
-    url = url.indexOf("?") >= 0 ? url + "&" : url + "?";
+    url = url.indexOf("?") >= 0 ? `${url}&` : `${url}?`;
     url = url + $.param( $cur.data() );
   }
 
@@ -59,36 +57,34 @@ exports.createAView = function(e) {
   });
 };
 
-exports.createNewView = (function() {
-  return _.debounce(function(options) {
-    var url = options.url;
+exports.createNewView = (() => _.debounce(options => {
+  let url = options.url;
 
-    if (url === "" || url === null || url === undefined) {
-      return;
-    }
+  if (url === "" || url === null || url === undefined) {
+    return;
+  }
 
-    if ( url === decodeURI(url) ) {
-      url = encodeURI(url);
-    }
+  if ( url === decodeURI(url) ) {
+    url = encodeURI(url);
+  }
 
-    NativeAPI.invoke("createWebView", {
-      url: url,
-      controls: [
-        {
-          type: options.type || "title",
-          text: options.title || ""
-        }
-      ]
-    }, function(err) {
-      if ( err && (err.code === -32603) ) {
-        window.location.href = url;
+  NativeAPI.invoke("createWebView", {
+    url,
+    controls: [
+      {
+        type: options.type || "title",
+        text: options.title || ""
       }
-    });
-  }, 1000, true);
-}());
+    ]
+  }, err => {
+    if ( err && (err.code === -32603) ) {
+      window.location.href = url;
+    }
+  });
+}, 1000, true))();
 
-exports.updateViewTitle = function(title) {
-  var doc = window.document;
+exports.updateViewTitle = title => {
+  const doc = window.document;
   title = title || doc.title;
   doc.title = title;
   NativeAPI.invoke("updateTitle", {
@@ -96,26 +92,26 @@ exports.updateViewTitle = function(title) {
   });
 };
 
-exports.imageDelay = function(options) {
-  var config = _.extend({
+exports.imageDelay = options => {
+  const config = _.extend({
     offset: 250,
     throttle: 250,
     unload: false,
-    callback: function(elem) {
-      var $elem = $(elem);
+    callback(elem) {
+      const $elem = $(elem);
 
       if ( !$elem.hasClass("op0") ) {
         return;
       }
 
       if ( $elem.is("img") ) {
-        $elem.on("load", function() {
-          setTimeout(function() {
+        $elem.on("load", () => {
+          setTimeout(() => {
             $elem.addClass("op1");
           }, 150);
         });
       } else {
-        setTimeout(function() {
+        setTimeout(() => {
           $elem.addClass("op1");
         }, 150);
       }
@@ -137,14 +133,12 @@ exports.imageDelay = function(options) {
  * gtgj-detail_Jeep男士钱包优惠券_1000901
  * gtgj-detail_[第15期]IPhone6s Plus_1100259
  */
-exports.initTracker = function(tag) {
-  return function(data) {
-    var category = mallUitl.getAppName() + "-" + tag + "_" + data.title;
-    if (data.productid) {
-      category += "_" + data.productid;
-    }
-    logger.track(category, "View PV", data.from);
-  };
+exports.initTracker = tag => data => {
+  let category = `${mallUitl.getAppName()}-${tag}_${data.title}`;
+  if (data.productid) {
+    category += `_${data.productid}`;
+  }
+  logger.track(category, "View PV", data.from);
 };
 
 /**
@@ -153,24 +147,24 @@ exports.initTracker = function(tag) {
  * gtgj-ev-高铁商城-index-entrance_再玩一次-1000907
  * gtgj-ev-御泥坊刮刮卡_再玩一次_1000907
  */
-$("body").on("click", "a, button, [data-log-mall-click]", function(e) {
-  var $cur = $(e.currentTarget);
-  var prefix = mallUitl.getAppName() + "-ev-" + window.document.title;
-  var category;
+$("body").on("click", "a, button, [data-log-mall-click]", e => {
+  const $cur = $(e.currentTarget);
+  const prefix = `${mallUitl.getAppName()}-ev-${window.document.title}`;
+  let category;
 
   if ( $cur.data("logMallClick") ) {
-    category = prefix + "-" + $cur.data("logMallClick");
+    category = `${prefix}-${$cur.data("logMallClick")}`;
     category = category.replace(/-$/, "");
   } else {
     category = $cur.data("title") || $cur.text() || $cur.val() || "btn";
     category = category.replace(/\r?\n|\r/g, "").replace(/\s+/g, " ").trim();
-    category = prefix + "_" + category;
+    category = `${prefix}_${category}`;
   }
 
-  var urlObj = UrlUtil.parseUrlSearch();
+  const urlObj = UrlUtil.parseUrlSearch();
 
   if ( "productid" in urlObj) {
-    category = category + "_" + urlObj.productid;
+    category = `${category}_${urlObj.productid}`;
   }
 
   logger.track(category, "EV click", urlObj.from || "--");

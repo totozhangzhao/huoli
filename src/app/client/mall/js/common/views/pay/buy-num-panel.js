@@ -1,7 +1,5 @@
 var $           = require("jquery");
 var Backbone    = require("backbone");
-var _           = require("lodash");
-
 var toast       = require("com/mobile/widget/hint/hint.js").toast;
 
 var BuyNumPanelView = Backbone.View.extend({
@@ -108,7 +106,7 @@ var BuyNumPanelView = Backbone.View.extend({
     this.comboMode = false;
   },
 
-  inputKeyUp: function (e) {
+  inputKeyUp: function () {
     var val = this.$el.find(".number-input").val();
     if ( !val || isNaN(val)) {
       return ;
@@ -133,7 +131,7 @@ var BuyNumPanelView = Backbone.View.extend({
     return this.setNumber(val);
   },
 
-  purchase: function (e) {
+  purchase: function () {
     switch(this.model.get("type")) {
       case 0:
         this.buy();

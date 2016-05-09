@@ -1,12 +1,10 @@
 var $             = require("jquery");
-var Backbone      = require("backbone");
 var _             = require("lodash");
 var Promise       = require("com/mobile/lib/promise/npo.js");
 
 var NativeAPI     = require("app/client/common/lib/native/native-api.js");
 var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
 var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var Util          = require("com/mobile/lib/util/util.js");
 var mallUitl      = require("app/client/mall/js/lib/util.js");
 var UrlUtil       = require("com/mobile/lib/url/url.js");
 var ui            = require("app/client/mall/js/lib/ui.js");
@@ -14,7 +12,6 @@ var ui            = require("app/client/mall/js/lib/ui.js");
 var logger        = require("com/mobile/lib/log/log.js");
 var menuLog       = require("app/client/mall/js/lib/common.js").initTracker("menu");
 
-var Goods         = require("app/client/mall/js/menu/collections/goods.js");
 var GoodsItemView = require("app/client/mall/js/menu/views/goods-item.js");
 var BannerView    = require("app/client/mall/js/menu/views/banner.js");
 var WinnerView    = require("app/client/mall/js/menu/views/winner-label.js");
@@ -103,7 +100,7 @@ var AppView = BaseView.extend({
   },
 
   // 增加一个商品视图
-  addGoodsItem: function (data) {
+  addGoodsItem: function () {
 
     // var itemView = new GoodsItemView();
     // this.$goodsPannel.append(itemView.render(data).el);

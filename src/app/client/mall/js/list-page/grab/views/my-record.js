@@ -5,11 +5,8 @@ var Promise       = require("com/mobile/lib/promise/npo.js");
 
 var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
 var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var tplUtil       = require("app/client/mall/js/lib/mall-tpl.js");
-var mallUitl      = require("app/client/mall/js/lib/util.js");
 var UrlUtil       = require("com/mobile/lib/url/url.js");
 
-var Goods         = require("app/client/mall/js/list-page/grab/collections/goods.js");
 var LoadingView   = require("app/client/mall/js/list-page/grab/views/loading-view.js");
 var ListBaseView      = require("app/client/mall/js/list-page/grab/views/base-list.js");
 
@@ -115,7 +112,7 @@ var AppView = ListBaseView.extend({
 
   bindEvent: function () {
     $(window).scroll((function (_this) {
-      return function (e) {
+      return function () {
         if(Backbone.history.getHash() === "my-record"){
           var bottom = $("#main").height() - $(window).scrollTop() - document.body.offsetHeight;
           if(bottom < 100) { // 距离底部200像素时 加载更多数据

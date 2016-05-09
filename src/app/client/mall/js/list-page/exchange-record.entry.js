@@ -5,7 +5,6 @@ var async     = require("async");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var toast     = require("com/mobile/widget/hint/hint.js").toast;
-var hint      = require("com/mobile/widget/hint/hint.js");
 var appInfo   = require("app/client/mall/js/lib/app-info.js");
 var widget    = require("app/client/mall/js/lib/common.js");
 var imgDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
@@ -360,9 +359,9 @@ var AppView = Backbone.View.extend({
           });
         }
       ], function(err, result) {
-          if (result) {
-            window.location.reload();
-          }
+        if (result) {
+          window.location.reload();
+        }
       });
     });
   },
