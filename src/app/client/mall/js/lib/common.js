@@ -6,7 +6,7 @@ import mallUitl from "app/client/mall/js/lib/util.js";
 import logger from "com/mobile/lib/log/log.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 
-exports.initRem = () => {
+export function initRem() {
   const docEl = document.documentElement;
   const setRoot = () => {
     docEl.style.fontSize = `${docEl.clientWidth / 10}px`;
@@ -14,11 +14,11 @@ exports.initRem = () => {
   setRoot();
   const resizeEvent = "orientationchange" in window ? "orientationchange" : "resize";
   window.addEventListener(resizeEvent, _.debounce(setRoot, 150), false);
-};
+}
 
-exports.initRem();
+initRem();
 
-exports.createAView = e => {
+export function createAView(e) {
   const $cur = $(e.currentTarget);
   let url = $cur.prop("href");
   const isEmpty = str => str === "" || str === null || str === undefined;
@@ -55,9 +55,9 @@ exports.createAView = e => {
     url: url + hash,
     title: $cur.data("title")
   });
-};
+}
 
-exports.createNewView = (() => _.debounce(options => {
+export var createNewView = _.debounce(options => {
   let url = options.url;
 
   if (url === "" || url === null || url === undefined) {
@@ -81,7 +81,7 @@ exports.createNewView = (() => _.debounce(options => {
       window.location.href = url;
     }
   });
-}, 1000, true))();
+}, 1000, true);
 
 exports.updateViewTitle = title => {
   const doc = window.document;
@@ -92,7 +92,7 @@ exports.updateViewTitle = title => {
   });
 };
 
-exports.imageDelay = options => {
+export function imageDelay(options) {
   const config = _.extend({
     offset: 250,
     throttle: 250,
@@ -119,7 +119,7 @@ exports.imageDelay = options => {
   }, options || {});
 
   echo.init(config);
-};
+}
 
 /**
  * 数据统计
@@ -133,13 +133,15 @@ exports.imageDelay = options => {
  * gtgj-detail_Jeep男士钱包优惠券_1000901
  * gtgj-detail_[第15期]IPhone6s Plus_1100259
  */
-exports.initTracker = tag => data => {
-  let category = `${mallUitl.getAppName()}-${tag}_${data.title}`;
-  if (data.productid) {
-    category += `_${data.productid}`;
-  }
-  logger.track(category, "View PV", data.from);
-};
+export function initTracker(tag) {
+  return data => {
+    let category = `${mallUitl.getAppName()}-${tag}_${data.title}`;
+    if (data.productid) {
+      category += `_${data.productid}`;
+    }
+    logger.track(category, "View PV", data.from);
+  };
+}
 
 /**
  * 示例：

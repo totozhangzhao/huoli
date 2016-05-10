@@ -4,7 +4,7 @@ import appInfo from "app/client/mall/js/lib/app-info.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import _ from "lodash";
 
-exports.getList = callback => {
+export function getList(callback) {
   async.waterfall([
     next => {
       appInfo.getUserData((err, userData) => {
@@ -30,9 +30,9 @@ exports.getList = callback => {
       callback(err, result);
     }
   });
-};
+}
 
-exports.setDefault = (addressData, callback) => {
+export function setDefault(addressData, callback) {
   async.waterfall([
     next => {
       appInfo.getUserData((err, userData) => {
@@ -63,13 +63,13 @@ exports.setDefault = (addressData, callback) => {
       callback(err, result);
     }
   });
-};
+}
 
-exports.remove = (id, callback) => {
+export function remove(id, callback) {
   exports.handleAddress("delAddress", id, callback);
-};
+}
 
-exports.handleAddress = (method, id, callback) => {
+export function handleAddress(method, id, callback) {
   async.waterfall([
     next => {
       appInfo.getUserData((err, userData) => {
@@ -96,4 +96,4 @@ exports.handleAddress = (method, id, callback) => {
       callback(err, result);
     }
   });
-};
+}
