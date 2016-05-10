@@ -93,10 +93,6 @@ gulp.task("js:bundle", function() {
     }));
 });
 
-gulp.task("js", function() {
-  runSequence("js:lint", "js:bundle");
-});
-
 gulp.task("rev", function (cb) {
   return gulp.src([config.dest + "**/*.bundle.js", config.dest + "**/*.css"])
     .pipe(rev())
@@ -133,7 +129,7 @@ gulp.task("static", function() {
 });
 
 gulp.task("build", ["clean"], function() {
-  runSequence(["html", "styles", "images", "js"], "rev:replace", "compress", "html");
+  runSequence(["html", "styles", "images", "js:bundle"], "rev:replace", "compress", "html");
 });
 
 // Watch
