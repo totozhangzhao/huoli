@@ -4,6 +4,7 @@ var Backbone    = require("backbone");
 var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var Promise     = require("com/mobile/lib/promise/npo.js");
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
+var ui          = require("app/client/mall/js/lib/ui.js");
 
 require("app/client/mall/js/lib/common.js");
 
@@ -14,6 +15,7 @@ var AppView = Backbone.View.extend({
   },
   initialize: function(commonData) {
     _.extend(this, commonData);
+    this.$blank = ui.blank("您还没有优惠券");
   },
   resume: function() {
     this.fetchData();
@@ -47,10 +49,14 @@ var AppView = Backbone.View.extend({
       .catch(mallPromise.catchFn);
   },
   render: function(data) {
-    var tmpl = require("app/client/mall/tpl/profile/coupon-list.tpl");
-    this.$el.html(tmpl({
-      couponList: data
-    }));
+    if (data.length > 0) {
+      var tmpl = require("app/client/mall/tpl/profile/coupon-list.tpl");
+      this.$el.html(tmpl({
+        couponList: data
+      }));
+    } else {
+      this.$el.html( this.$blank );
+    }
   }
 });
 
