@@ -1,6 +1,6 @@
-var $        = require("jquery");
-var Backbone = require("backbone");
-var _        = require("lodash");
+// var $        = require("jquery");
+import Backbone from "backbone";
+// var _        = require("lodash");
 
 var BottomView  = Backbone.View.extend({
 

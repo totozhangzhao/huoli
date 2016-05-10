@@ -1,6 +1,4 @@
-var $             = require("jquery");
 var Backbone      = require("backbone");
-var _             = require("lodash");
 
 var BannerItem = require("app/client/mall/js/menu/promotion/models/banner.js");
 
