@@ -12,9 +12,9 @@ var ui            = require("app/client/mall/js/lib/ui.js");
 var logger        = require("com/mobile/lib/log/log.js");
 var menuLog       = require("app/client/mall/js/lib/common.js").initTracker("menu");
 
-var GoodsItemView = require("app/client/mall/js/menu/views/goods-item.js");
-var BannerView    = require("app/client/mall/js/menu/views/banner.js");
-var WinnerView    = require("app/client/mall/js/menu/views/winner-label.js");
+var GoodsItemView = require("app/client/mall/js/menu/grab/views/goods-item.js");
+var BannerView    = require("app/client/mall/js/menu/grab/views/banner.js");
+var WinnerView    = require("app/client/mall/js/menu/grab/views/winner-label.js");
 var Footer        = require("app/client/mall/js/common/views/footer.js");
 var BaseView      = require("app/client/mall/js/common/views/BaseView.js");
 

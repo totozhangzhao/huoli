@@ -24,7 +24,7 @@
     <% } %>
     <div class="goods-charge-bar">
       <p class="goods-charge-info num-font"></p>
-      <button class="charge-btn" type="button" <% if(!canPay || (price === 0 && points === 0)) {%>disabled<% } %>>立即支付</button>
+      <button class="charge-btn" type="button" <% if(!canPay) {%>disabled<% } %>>立即支付</button>
     </div>
   </div>
 <% } %>
