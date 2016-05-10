@@ -221,6 +221,7 @@ var AppView = BaseView.extend({
   },
 
   buy: function () {
+    // 购买上限为1的情况
     if(this.buyNumModel.get("limitNum") === 1) {
       return this.pay();
     }
