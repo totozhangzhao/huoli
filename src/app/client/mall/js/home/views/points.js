@@ -1,7 +1,8 @@
 /*
   首页推广位视图
 */
-var Backbone = require("backbone");
+var $          = require("jquery");
+var Backbone   = require("backbone");
 var PointsView = Backbone.View.extend({
 
   el: "#home-points",
