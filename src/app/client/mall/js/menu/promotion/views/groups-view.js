@@ -1,7 +1,4 @@
-// var $        = require("jquery");
 import Backbone from "backbone";
-// var _        = require("lodash");
-//
 import template from "app/client/mall/tpl/menu/promotion/groups.tpl";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 var GroupView  = Backbone.View.extend({
