@@ -83,14 +83,14 @@ export var createNewView = _.debounce(options => {
   });
 }, 1000, true);
 
-exports.updateViewTitle = title => {
+export function updateViewTitle (title){
   const doc = window.document;
   title = title || doc.title;
   doc.title = title;
   NativeAPI.invoke("updateTitle", {
     text: title
   });
-};
+}
 
 export function imageDelay(options) {
   const config = _.extend({

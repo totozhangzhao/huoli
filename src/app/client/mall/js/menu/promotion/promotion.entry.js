@@ -1,17 +1,8 @@
-// var $             = require("jquery");
-// var Backbone      = require("backbone");
-// var _             = require("lodash");
-// var Promise       = require("com/mobile/lib/promise/npo.js");
-
-// var NativeAPI     = require("app/client/common/lib/native/native-api.js");
-// var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
-// var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
-// var Util          = require("com/mobile/lib/util/util.js");
-// var mallUitl      = require("app/client/mall/js/lib/util.js");
-// var UrlUtil       = require("com/mobile/lib/url/url.js");
-// var ui            = require("app/client/mall/js/lib/ui.js");
-
-// var logger        = require("com/mobile/lib/log/log.js");
+import mallUitl       from "app/client/mall/js/lib/util.js";
+import UrlUtil        from "com/mobile/lib/url/url.js";
+import {updateViewTitle}         from "app/client/mall/js/lib/common.js";
+import logger         from "com/mobile/lib/log/log.js";
+import ui             from "app/client/mall/js/lib/ui.js";
 
 // Views
 import GroupListView  from "app/client/mall/js/menu/promotion/views/groups-view.js";
@@ -20,7 +11,6 @@ import RuleView       from "app/client/mall/js/menu/promotion/views/rule-view.js
 // var Footer        = require("app/client/mall/js/common/views/footer.js");
 import BaseView       from "app/client/mall/js/common/views/BaseView.js";
 
-require("app/client/mall/js/lib/common.js");
 
 var AppView = BaseView.extend({
   el: "#main",
@@ -31,11 +21,16 @@ var AppView = BaseView.extend({
   },
 
   initialize() {
+    let title = UrlUtil.parseUrlSearch().title;
+    updateViewTitle(title);
+
     this.bannerView = new BannerView();
     this.groupView  = new GroupListView();
     this.ruleView   = new RuleView();
-
+    this.$initial = ui.initial().show();
     this.fetchData();
+
+    logger.track(mallUitl.getAppName() + "PV", "View PV", title);
   },
 
   fetchData() {
@@ -47,6 +42,7 @@ var AppView = BaseView.extend({
     this.bannerView.render(this.result);
     this.groupView.render(this.result.goods);
     this.ruleView.render(this.result);
+    this.$initial.hide();
   },
 
 
