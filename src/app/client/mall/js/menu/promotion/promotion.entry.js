@@ -35,8 +35,7 @@ var AppView = BaseView.extend({
     "click .js-get-url" : "handleGetUrl"
   },
 
-  initialize: function () {
-    window.console.log(123);
+  initialize() {
     this.$banners = new Banners();
     this.$groups  = new Groups();
 
@@ -47,7 +46,7 @@ var AppView = BaseView.extend({
     // this.fetchData();
   },
 
-  fetchData: function () {
+  fetchData() {
 
     var banners = [
       {

@@ -1,12 +1,15 @@
 import Backbone from "backbone";
-
+import template from "app/client/mall/tpl/menu/promotion/baner.tpl";
 var BannerView  = Backbone.View.extend({
 
   el: "#banner",
 
   events: {},
 
+  template: template,
+
   initialize: function () {
+    window.console.log(this.template);
     this.listenTo(this.collection, "add", this.render);
   },
 

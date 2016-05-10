@@ -221,7 +221,10 @@ var AppView = BaseView.extend({
   },
 
   buy: function () {
-    this.buyNumModel.set({
+    if(this.buyNumModel.get("limitNum") === 1) {
+      return this.pay();
+    }
+    return this.buyNumModel.set({
       type: 1,
       hasMask: true
     });
@@ -264,6 +267,9 @@ var AppView = BaseView.extend({
           // 9--点击跳转第三方链接（ thirdparturl ）
           // 13--转入自定义表单页面
           switch ( String(goods.type) ) {
+            case "1":
+              self.exchange();
+              break;
             case "2":
               self.router.switchTo("form-phone");
               return;
@@ -277,9 +283,6 @@ var AppView = BaseView.extend({
               return;
             case "13":
               self.router.switchTo("form-custom");
-              return;
-            default:
-              self.exchange(goods);
               return;
           }
         } else {
@@ -316,34 +319,29 @@ var AppView = BaseView.extend({
       self.userDataOpitons.reset = true;
     });
   },
-  exchange: function(goods) {
 
-    // type：兑换类型
-    // 1--直接调用创建订单接口
-    // 2--转入输入手机号页面（预留，金融类）
-    // 3--转入输入地址页面（预留）
-    // 9--点击跳转第三方链接（ thirdparturl ）
-    // 13--转入输入手机号页面（预留，金融类）
-    switch ( String(goods.type) ) {
-      case "1":
-        this.mallCreateOrder();
-        break;
-      case "2":
-        this.router.switchTo("form-phone");
-        break;
-      case "3":
-        this.gotoAddress();
-        break;
-      case "9":
-        this.gotoNewView({
-          url: goods.thirdparturl
-        });
-        break;
-      case "13":
-        this.router.switchTo("form-custom");
-        break;
+  exchange: function() {
+    if(this.buyNumModel.get("type") === 0) { // 不能选择数量的情况 需要弹出提示
+      var titleText = this.cache.goods.confirm || "是否确认兑换？";
+
+      // 确认兑换弹窗
+      var confirm = new Popover({
+        type: "confirm",
+        title: titleText,
+        message: "",
+        agreeText: "确定",
+        cancelText: "取消",
+        agreeFunc: function() {
+          this.mallCreateOrder();
+        }.bind(this),
+        cancelFunc: function() {}
+      });
+      confirm.show();
+      return;
     }
+    return this.mallCreateOrder();
   },
+
   gotoAddress: function() {
     var self = this;
 
