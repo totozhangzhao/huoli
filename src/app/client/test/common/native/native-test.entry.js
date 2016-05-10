@@ -8,6 +8,8 @@ var handleError = require("app/client/test/common/native/util.js").handleError;
 var loadScript  = require("com/mobile/lib/load-script/load-script.js");
 var shareUtil   = require("com/mobile/widget/wechat/util.js");
 var cookie      = require("com/mobile/lib/cookie/cookie.js");
+var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
+var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 
 // nInvoke("myFunc", {a: 1}, function(err, data) { console.log(err); console.log(data); });
 window.nInvoke = _.bind(NativeAPI.invoke, NativeAPI);
@@ -66,6 +68,7 @@ var AppView = Backbone.View.extend({
     "click .js-goods-detail-hb": "gotoGoods",
     "click .js-crowd"          : "gotoGoods",
     "click .js-crowd-column"   : "gotoCrowdColumn",
+    "click .js-get-coupon"     : "getCoupon",
     "click .js-test-url"       : "mallTestUrl"
   },
   initialize: function() {
@@ -135,7 +138,7 @@ var AppView = Backbone.View.extend({
     }
 
     var url = "/fe/app/client/mall/html/detail-page/goods-detail.html" +
-      "?productid=" + id;
+      "?action=9&productid=" + id;
 
     if ( $cur.hasClass("js-crowd") ) {
       url = "/fe/app/client/mall/html/active-page/crowd/main.html" +
@@ -159,6 +162,37 @@ var AppView = Backbone.View.extend({
         window.location.href = url;
       }
     });
+  },
+  getCoupon: function() {
+    var id = $("#get-coupon").val();
+
+    mallPromise.getAppInfo()
+      .then(function(userData) {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p,
+          productid: id
+        });
+
+        return new Promise(function(resolve, reject) {
+          sendPost("getCoupon", params, function(err, data) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(data);
+            }
+          });
+        });
+      })
+      .then(function(data) {
+        echo(JSON.stringify(data));
+      })
+      .catch(function(err) {
+        if (err.message) {
+          echo(err.message);
+        } else {
+          echo(JSON.stringify(err));
+        }
+      });
   },
   showAppNameFromCookie: function() {
     echo( cookie.get("appName") );
