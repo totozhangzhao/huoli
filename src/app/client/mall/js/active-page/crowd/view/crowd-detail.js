@@ -11,10 +11,9 @@ var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var Promise   = require("com/mobile/lib/promise/npo.js");
 var Tab       = require("com/mobile/widget/button/tab.js");
 var widget    = require("app/client/mall/js/lib/common.js");
-var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
-var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
-
-var BuyNumModel     = require("app/client/mall/js/common/models/buy-num-model.js");
+var mallPromise  = require("app/client/mall/js/lib/mall-promise.js");
+var detailLog    = require("app/client/mall/js/lib/common.js").initTracker("detail");
+var BuyNumModel  = require("app/client/mall/js/common/models/buy-num-model.js");
 var BuyPanelView = require("app/client/mall/js/common/views/pay/buy-num-panel.js");
 
 var AppView = Backbone.View.extend({
@@ -63,9 +62,7 @@ var AppView = Backbone.View.extend({
   },
   gotoRulesPage: function() {
     this.router.switchTo("crowd-rules");
-
   },
-
   mallCrowdDetail: function() {
     var self = this;
     var render = function(userData) {
