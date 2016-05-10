@@ -1,24 +1,27 @@
 // var $        = require("jquery");
 import Backbone from "backbone";
 // var _        = require("lodash");
-
+//
+import template from "app/client/mall/tpl/menu/promotion/groups.tpl";
+import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 var GroupView  = Backbone.View.extend({
 
-  el: "#group",
+  el: "#groups",
 
   events: {},
 
-  initialize: function () {
+  template: template,
 
-    this.listenTo(this.collection, "add", this.render);
+  initialize: function () {
 
   },
 
-  render: (item, list, option) => {
-    // 只有集合add的model是最后一个的时候才执行渲染 set集合元素时需要传入lastIndex值
-    if(list.at(option.lastIndex) === item){
-      window.console.log(list);
-    }
+  render(groups) {
+    groups.push(groups.slice(0)[0]);
+    this.$el.html(this.template({
+      groups: groups,
+      tplUtil: tplUtil
+    }));
   }
 });
 

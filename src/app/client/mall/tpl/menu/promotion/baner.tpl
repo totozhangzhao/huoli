@@ -1,1 +1,1 @@
-<div></div>
+<img src="<%= data.activebanner.bannerimg%>" />
