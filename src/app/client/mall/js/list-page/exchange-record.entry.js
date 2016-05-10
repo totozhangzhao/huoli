@@ -5,7 +5,6 @@ var async     = require("async");
 var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var toast     = require("com/mobile/widget/hint/hint.js").toast;
-var hint      = require("com/mobile/widget/hint/hint.js");
 var appInfo   = require("app/client/mall/js/lib/app-info.js");
 var widget    = require("app/client/mall/js/lib/common.js");
 var imgDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
@@ -298,11 +297,23 @@ var AppView = Backbone.View.extend({
       },
       function(userData, next) {
         if (userData.userInfo && userData.userInfo.userid) {
+
+          // style:
+          //
+          // String 类型
+          //
+          // 1 商城
+          // 2 一元夺宝
+          // 3 保险
+          // 4 优惠券
+          var style = UrlUtil.parseUrlSearch().style || "1";
+
           var params = _.extend({}, userData.userInfo, {
-            p: userData.deviceInfo.p,
-            last: options.lastOrderId || "",
-            type: options.listType,
-            key: options.keywords
+            p    : userData.deviceInfo.p,
+            last : options.lastOrderId || "",
+            type : options.listType,
+            style: style,
+            key  : options.keywords
           });
 
           sendPost("orderList", params, function(err, data) {
@@ -348,9 +359,9 @@ var AppView = Backbone.View.extend({
           });
         }
       ], function(err, result) {
-          if (result) {
-            window.location.reload();
-          }
+        if (result) {
+          window.location.reload();
+        }
       });
     });
   },

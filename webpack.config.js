@@ -44,9 +44,29 @@ module.exports = {
   },
   module: {
     loaders: [
+      {
+        test: /\.js$/,
+        exclude: ["node_modules", __dirname + "/src/com/mobile/lib"],
+        loader: "babel-loader",
+        query: {
+          compact: false,
+          presets: ["es2015"]
+        }
+      },
       { test: /\.tpl$/, loader: "tpl-loader" },
       { test: /\.css$/, loader: "style-loader!css-loader?minimize!autoprefixer-loader" }
+    ],
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: "eslint-loader",
+        exclude: ["node_modules", __dirname + "/src/com/mobile/lib"],
+      }
     ]
+  },
+  eslint: {
+    configFile: ".eslintrc",
+    formatter: require("eslint-friendly-formatter")
   },
   plugins: [
     // add it in build task

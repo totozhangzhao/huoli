@@ -323,16 +323,16 @@ var AppView = Backbone.View.extend({
         });
       }
     ], function(err) {
-        if (err) {
-          toast(err.message, 1500);
-          return;
-        }
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
 
-        setTimeout(function() {
-          self.mallGetUserInfo({
-            rightButtonReady: true
-          });
-        }, 500);
+      setTimeout(function() {
+        self.mallGetUserInfo({
+          rightButtonReady: true
+        });
+      }, 500);
     });
   },
   initBanner: function() {

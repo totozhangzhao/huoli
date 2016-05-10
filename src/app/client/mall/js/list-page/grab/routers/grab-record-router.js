@@ -1,6 +1,4 @@
-var $            = require("jquery");
 var Backbone     = require("backbone");
-
 var App          = require("app/client/mall/js/list-page/grab/views/record-page.js");
 
 module.exports = Backbone.Router.extend({

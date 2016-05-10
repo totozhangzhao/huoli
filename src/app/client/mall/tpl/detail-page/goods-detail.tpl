@@ -18,6 +18,27 @@
 </div>
 <% } %>
 
+<%
+  if ( (userprivilresp && userprivilresp.privilid) ||
+    (Array.isArray(couponrecords) && couponrecords.length > 0) ) {
+%>
+<div class="goods-coupons-bar">
+  <% if (userprivilresp && userprivilresp.privilid) { %>
+  <a class="js-privilege goods-coupons-privilege">
+    <span>特权</span>可使用一个夺宝币，下单直减1元
+    <strong class="goods-tip-dot"><b></b><b></b><b></b></strong>
+  </a>
+  <% } %>
+  <% if (Array.isArray(couponrecords) && couponrecords.length > 0) { %>
+  <a class="js-coupon goods-coupons-preferent">
+    <span>优惠</span>有可用优惠券
+    <em class="goods-bg-icon"></em>
+    <strong class="goods-tip-dot"><b></b><b></b><b></b></strong>
+  </a>
+  <% } %>
+</div>
+<% } %>
+
 <% if (relevance) { %>
 <div class="goods-buy-bar">
   <div class="goods-buy-price">

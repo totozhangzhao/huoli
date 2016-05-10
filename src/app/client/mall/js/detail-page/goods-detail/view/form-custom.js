@@ -24,7 +24,7 @@ var AppView = Backbone.View.extend({
     this.$el.$shade         = this.$el.find(".js-shade");
     this.$el.$successPrompt = this.$el.find(".js-success-prompt");
   },
-  resume: function(opts, callback) {
+  resume: function(opts) {
     if (opts.previousView !== "goods-detail") {
       NativeAPI.invoke("close");
       return;
@@ -118,7 +118,7 @@ var AppView = Backbone.View.extend({
         appInfo.getUserData(function(err, userData) {
           next(err, userData);
         });
-      },
+      }
     ], function(err, result) {
       if (err) {
         return;

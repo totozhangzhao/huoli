@@ -217,7 +217,7 @@ var AppView = Backbone.View.extend({
           def: 1
         };
         var params = _.extend({}, userData.userInfo, addressData, {
-          p: userData.deviceInfo.p,
+          p: userData.deviceInfo.p
         });
         var method = "newAddress";
 

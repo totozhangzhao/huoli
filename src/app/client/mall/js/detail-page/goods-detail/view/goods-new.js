@@ -1,5 +1,4 @@
 var $           = require("jquery");
-var Backbone    = require("backbone");
 var _           = require("lodash");
 var async       = require("async");
 var NativeAPI   = require("app/client/common/lib/native/native-api.js");
@@ -8,7 +7,6 @@ var appInfo     = require("app/client/mall/js/lib/app-info.js");
 var toast       = require("com/mobile/widget/hint/hint.js").toast;
 var hint        = require("com/mobile/widget/hint/hint.js");
 var UrlUtil     = require("com/mobile/lib/url/url.js");
-var Util        = require("com/mobile/lib/util/util.js");
 var widget      = require("app/client/mall/js/lib/common.js");
 var mallUitl    = require("app/client/mall/js/lib/util.js");
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
@@ -33,6 +31,8 @@ var AppView = BaseView.extend({
     "click .js-new-page"  : "createNewPage",
     "click .js-get-url"   : "handleGetUrl",
     "click .js-webview a" : "createNewPage",
+    "click .js-privilege" : "showPrivilegePanel",
+    "click .js-coupon"    : "showCouponPanel",
     "click .js-detail-bar": "showDetailInfo"
   },
   initialize: function(commonData) {
@@ -71,12 +71,6 @@ var AppView = BaseView.extend({
 
     hint.hideLoading();
   },
-  createNewPage: function(e) {
-    widget.createAView(e);
-  },
-  showDetailInfo: function() {
-    this.router.switchTo("goods-desc");
-  },
   mallGoodsDetail: function() {
     var self = this;
 
@@ -108,11 +102,36 @@ var AppView = BaseView.extend({
         return;
       }
 
-      self.renderMainPanel(result);
+      self.render(result);
       self.$initial.hide();
     });
   },
-  renderNewGoods: function(goods) {
+  showPrivilegePanel: function() {
+    this.$privilegePanel.show();
+  },
+  showCouponPanel: function() {
+    this.$couponPanel.show();
+  },
+  showDetailInfo: function() {
+    this.router.switchTo("goods-desc");
+  },
+  renderPrivilegePanle: function(data) {
+    var self = this;
+    var tmpl = require("app/client/mall/tpl/detail-page/goods-privilege.tpl");
+    this.$privilegePanel = $(tmpl({ item: data })).hide().appendTo(this.$el);
+    this.$privilegePanel.on("click", function() {
+      self.$privilegePanel.hide();
+    });
+  },
+  renderCouponPanel: function(data) {
+    var self = this;
+    var tmpl = require("app/client/mall/tpl/detail-page/goods-coupon.tpl");
+    this.$couponPanel = $(tmpl({ couponList: data })).hide().appendTo(this.$el);
+    this.$couponPanel.on("click", function() {
+      self.$couponPanel.hide();
+    });
+  },
+  renderGoodsInfo: function(goods) {
 
     // View: goods info
     var mainTmpl = require("app/client/mall/tpl/detail-page/goods-detail.tpl");
@@ -122,8 +141,16 @@ var AppView = BaseView.extend({
 
     // View: copyright
     new FooterView().render();
+
+    if (this.privilege) {
+      this.renderPrivilegePanle(this.privilege);
+    }
+
+    if (this.couponList) {
+      this.renderCouponPanel(this.couponList);
+    }
   },
-  renderMainPanel: function(goods) {
+  render: function(goods) {
 
     // router: use it as backbone view cache
     this.cache.goods = goods;
@@ -131,7 +158,19 @@ var AppView = BaseView.extend({
     this.title = goods.title;
     widget.updateViewTitle(goods.title);
 
-    this.renderNewGoods(goods);
+    // 一元夺宝特权券
+    if (goods.userprivilresp && goods.userprivilresp.privilid) {
+      this.privilid = goods.userprivilresp.privilid;
+      this.privilprice = goods.userprivilresp.privilprice;
+      this.privilege = goods.userprivilresp;
+    }
+
+    // 商品优惠券
+    if (goods.couponrecords && goods.couponrecords.length > 0) {
+      this.couponList = goods.couponrecords;
+    }
+
+    this.renderGoodsInfo(goods);
     this.renderBuyNumView(goods);
 
     if (goods.wechatshare) {
@@ -141,14 +180,6 @@ var AppView = BaseView.extend({
     if ( UrlUtil.parseUrlSearch().gotoView ) {
       this.router.switchTo( UrlUtil.parseUrlSearch().gotoView );
     } else {
-      var isDisabled = true;
-
-      // 0: 正常兑换;
-      // 1: 已结束;
-      // 2: 未开始;
-      // 3: 已兑完;
-      // 4: 今日已兑完。
-
       if ( wechatUtil.isWechatFunc() ) {
         wechatUtil.setTitle(goods.title);
         if ( shareUtil.hasShareInfo() ) {
@@ -295,7 +326,7 @@ var AppView = BaseView.extend({
     // 13--转入输入手机号页面（预留，金融类）
     switch ( String(goods.type) ) {
       case "1":
-        this.mallCreateOrder(goods);
+        this.mallCreateOrder();
         break;
       case "2":
         this.router.switchTo("form-phone");
@@ -341,7 +372,7 @@ var AppView = BaseView.extend({
       }
     });
   },
-  mallCreateOrder: function(goods) {
+  mallCreateOrder: function() {
     var self = this;
 
     hint.showLoading();
@@ -363,6 +394,11 @@ var AppView = BaseView.extend({
           productid: UrlUtil.parseUrlSearch().productid,
           num: self.buyNumModel.get("number")
         });
+
+        if (self.privilid) {
+          params.privilid = self.privilid;
+          params.privilprice = self.privilprice;
+        }
 
         sendPost("createOrder", params, function(err, data) {
           next(err, data);
@@ -392,10 +428,10 @@ var AppView = BaseView.extend({
         return;
       }
 
-      self.handleCreateOrder(result, goods);
+      self.handleCreateOrder(result);
     });
   },
-  handleCreateOrder: function(orderInfo, goods) {
+  handleCreateOrder: function(orderInfo) {
     var self = this;
 
     async.waterfall([

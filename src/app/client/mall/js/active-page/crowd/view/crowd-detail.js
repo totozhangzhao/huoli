@@ -180,7 +180,7 @@ var AppView = Backbone.View.extend({
       barWidth: showAnimation ? minBarWidth : barWidth
     }));
 
-    var ani = new Promise(function(resolve, reject) {
+    var ani = new Promise(function(resolve) {
       setTimeout(function() {
         self.$initial.hide();
         resolve();

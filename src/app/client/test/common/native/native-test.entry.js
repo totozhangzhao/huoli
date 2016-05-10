@@ -136,7 +136,7 @@ var AppView = Backbone.View.extend({
 
     var url = "/fe/app/client/mall/html/detail-page/goods-detail.html" +
       "?productid=" + id;
-    
+
     if ( $cur.hasClass("js-crowd") ) {
       url = "/fe/app/client/mall/html/active-page/crowd/main.html" +
         "?productid=" + id;
@@ -285,11 +285,11 @@ var AppView = Backbone.View.extend({
     var backObj = {
       preventDefault: this.jsBackFlag
     };
-    
+
     NativeAPI.registerHandler("back", function(params, callback) {
       callback(null, backObj);
 
-      if (backObj.preventDefault) {      
+      if (backObj.preventDefault) {
         NativeAPI.invoke("close");
       }
     });
@@ -314,7 +314,7 @@ var AppView = Backbone.View.extend({
     var params = {
       preventDefault: this.jsBackFlag
     };
-    
+
     NativeAPI.invoke("setGestureBack", params, function(err, data) {
       if (err) {
         return handleError(err);
@@ -403,21 +403,21 @@ var AppView = Backbone.View.extend({
         }
       ]
     }, function(err, data) {
-        if (err) {
-          return handleError(err);
-        }
+      if (err) {
+        return handleError(err);
+      }
 
-        echo(JSON.stringify(data));
+      echo(JSON.stringify(data));
 
-        NativeAPI.invoke("createWebView", {
-          url: window.location.origin + "/fe/app/client/test/common/native/native-b.html",
-          controls: [
-            {
-              type: "title",
-              text: "Native B ~"
-            }
-          ]
-        });
+      NativeAPI.invoke("createWebView", {
+        url: window.location.origin + "/fe/app/client/test/common/native/native-b.html",
+        controls: [
+          {
+            type: "title",
+            text: "Native B ~"
+          }
+        ]
+      });
     });
   },
   newPageHash: function() {

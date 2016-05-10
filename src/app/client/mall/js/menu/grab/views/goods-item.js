@@ -1,7 +1,4 @@
-var $        = require("jquery");
 var Backbone = require("backbone");
-var _        = require("lodash");
-
 var mallUitl = require("app/client/mall/js/lib/util.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
 var imgDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
@@ -11,7 +8,7 @@ var GoodsItemView = Backbone.View.extend({
   template: require("app/client/mall/tpl/menu/grab/goods-item.tpl"),
 
 
-  initialize: function (options) {
+  initialize: function () {
 
   },
 

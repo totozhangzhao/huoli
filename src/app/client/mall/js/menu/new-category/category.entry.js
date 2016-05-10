@@ -1,9 +1,6 @@
-var $          = require("jquery");
-
 var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var widget     = require("app/client/mall/js/lib/common.js");
 
-var Util       = require("com/mobile/lib/util/util.js");
 var mallUitl   = require("app/client/mall/js/lib/util.js");
 var ui         = require("app/client/mall/js/lib/ui.js");
 

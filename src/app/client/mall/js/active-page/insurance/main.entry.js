@@ -6,7 +6,6 @@ var hint      = require("com/mobile/widget/hint/hint.js");
 var UrlUtil   = require("com/mobile/lib/url/url.js");
 var logger    = require("com/mobile/lib/log/log.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
-var hint      = require("com/mobile/widget/hint/hint.js");
 var async     = require("async");
 var appInfo   = require("app/client/mall/js/lib/app-info.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;

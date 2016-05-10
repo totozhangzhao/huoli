@@ -20,25 +20,18 @@
               <p class="hmoe-goods-name"><%= item.title %></p>
             </div>
             <p class="home-goods-price">
-              <% if(item.points) {%>
-                <em class="home-point-icon"></em>
+              <% if ( item.points > 0 && item.money > 0 ) { %>
+                <span><%= item.points %></span> 积分 + <span><%= item.money %></span> 元
+              <% } else if ( item.points > 0 ) { %>
+                <span><%= item.points %></span> 积分
+              <% } else if ( item.money > 0 ) { %>
+                <span><%= item.money %></span> 元
+              <% } else if ( item.action === 0 || item.action === 9 ) { %>
+                <span>0</span> 元
               <% } %>
-              <%
-                var p = [];
-                if(item.points){
-                  p.push(item.points);
-                }
-                if(item.money){
-                  p.push(item.money);
-                }
-                var price = p.join(" + "); 
-              %>
-              <span><%= price %></span>
-              <%= !!item.money ? '元' : ''%>
             </p>
           </div>
         </a>
       </li>
   <% }); %>
-
 </ul>

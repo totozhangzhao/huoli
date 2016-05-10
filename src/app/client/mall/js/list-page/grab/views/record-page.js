@@ -1,7 +1,4 @@
-var $             = require("jquery");
 var Backbone      = require("backbone");
-var _             = require("lodash");
-
 var logger       = require("com/mobile/lib/log/log.js");
 var mallUitl     = require("app/client/mall/js/lib/util.js");
 
@@ -37,9 +34,6 @@ var app = BaseView.extend({
       }
       this.render(action);
       this.navView.update(action);
-      if(isLoaded){
-
-      }
       logger.track(mallUitl.getAppName() + "PV", "View PV", this.ViewDic[action].title);
     } else {
       window.console.log("-- [Backbone View] not found! action: " + action + " --");

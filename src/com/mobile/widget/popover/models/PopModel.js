@@ -1,4 +1,3 @@
-var $        = require("jquery");
 var Backbone = require("backbone");
 var PopModel = Backbone.Model.extend({
   defaults:{
