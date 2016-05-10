@@ -1,0 +1,1 @@
+<img src="<%= data.rule.ruleimg%>" />

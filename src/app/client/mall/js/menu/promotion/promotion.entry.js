@@ -13,15 +13,10 @@
 
 // var logger        = require("com/mobile/lib/log/log.js");
 
-//collections
-import Banners        from "app/client/mall/js/menu/promotion/collections/banners.js";
-import Groups         from "app/client/mall/js/menu/promotion/collections/groups.js";
-
 // Views
-import BannerView     from "app/client/mall/js/menu/promotion/views/banner-view.js";
 import GroupListView  from "app/client/mall/js/menu/promotion/views/groups-view.js";
-import BottomView     from "app/client/mall/js/menu/promotion/views/bottom-view.js";
-
+import BannerView     from "app/client/mall/js/menu/promotion/views/banner-view.js";
+import RuleView       from "app/client/mall/js/menu/promotion/views/rule-view.js";
 // var Footer        = require("app/client/mall/js/common/views/footer.js");
 import BaseView       from "app/client/mall/js/common/views/BaseView.js";
 
@@ -36,45 +31,37 @@ var AppView = BaseView.extend({
   },
 
   initialize() {
-    this.$banners = new Banners();
-    this.$groups  = new Groups();
+    this.bannerView = new BannerView();
+    this.groupView  = new GroupListView();
+    this.ruleView   = new RuleView();
 
-    this.bannerView = new BannerView({collection: this.$banners});
-    this.groupView  = new GroupListView({collection: this.$groups});
-    this.bottomView = new BottomView();
-
-    // this.fetchData();
+    this.fetchData();
   },
 
   fetchData() {
+    this.result = this.getTestData();
+    this.render();
+  },
 
-    var banners = [
-      {
-        "img":"http://cdn.rsscc.cn/guanggao/img/gaotie/gt-index-banner-1000903.jpg?a=b",
-        "title":"商品详情",
-        "productid":1000903,
-        "url":"/fe/app/client/mall/html/detail-page/goods-detail.html",
-        "action":99,
-        "groupId":0
-      },
-      {
-        "img":"http://cdn.rsscc.cn/guanggao/img/gaotie/gt-index-banner-1000863.jpg",
-        "title":"商品详情",
-        "productid":1000863,
-        "url":"/fe/app/client/mall/html/detail-page/goods-detail.html",
-        "action":99,
-        "groupId":0
-      },
-      {
-        "img":"http://cdn.rsscc.cn/guanggao/img/gaotie/gt-index-banner-1000904.png",
-        "title":"商品详情",
-        "productid":1000904,
-        "url":"/fe/app/client/mall/html/detail-page/goods-detail.html",
-        "action":2,
-        "groupId":0
-      }
-    ];
-    var goods = [
+  render() {
+    this.bannerView.render(this.result);
+    this.groupView.render(this.result.goods);
+    this.ruleView.render(this.result);
+  },
+
+
+  getTestData(){
+    const activebanner = {
+      "name":"",
+      "bannerimg": "http://cdn.rsscc.cn/guanggao/img/secondary/gaotie/gt-10000194-1.png"
+    };
+
+    const rule = {
+      "text": "",
+      "ruleimg": "http://cdn.rsscc.cn/guanggao/img/secondary/gaotie/gt-10000194-1.png"
+    };
+
+    const goods = [
       {
         "title": {
           "title": "斤斤计较",
@@ -120,9 +107,7 @@ var AppView = BaseView.extend({
         ]
       }
     ];
-    this.$banners.set(banners,{lastIndex: banners.length - 1});
-    this.$groups.set(goods, {lastIndex: goods.length - 1});
-
+    return {activebanner, goods, rule};
   }
 
 });
