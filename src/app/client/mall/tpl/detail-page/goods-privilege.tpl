@@ -6,7 +6,11 @@
     <div class="goods-coupons-desc">
       <div class="goods-coupons-text">
         <h5><%= item.name %></h5>
-        <p><%= item.content %></p>
+        <% item.content = _.escape(item.content) %>
+        <% var cList = item.content.split("$$$$") %>
+        <% _.each(cList, function(text, index) { %>
+        <p><%= text %></p>
+        <% }) %>
       </div>
     </div>
   </div>

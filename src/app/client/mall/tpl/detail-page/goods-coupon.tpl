@@ -8,7 +8,11 @@
       <% couponList.forEach(function(item) { %>
       <a class="goods-preferent-detail">
         <h5><%= item.name %></h5>
-        <p><%= item.content %></p>
+        <% item.content = _.escape(item.content) %>
+        <% var cList = item.content.split("$$$$") %>
+        <% _.each(cList, function(text, index) { %>
+        <p><%= text %></p>
+        <% }); %>        
         <button><%= item.amount %>元</button>
       </a>
       <% }); %>
