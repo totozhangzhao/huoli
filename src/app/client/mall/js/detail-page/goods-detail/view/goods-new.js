@@ -504,3 +504,5 @@ var AppView = BaseView.extend({
 });
 
 module.exports = AppView;
+
+
