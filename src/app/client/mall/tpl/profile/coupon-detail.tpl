@@ -10,7 +10,11 @@
       </div>
     </div>
     <div class="coupons-use-below">
-      <p><%- item.content %></p>
+      <% item.content = _.escape(item.content) %>
+      <% var cList = item.content.split("$$$$") %>
+      <% _.each(cList, function(text, index) { %>
+      <p><%= text %></p>
+      <% }); %>
     </div>
   </div>
   <a
