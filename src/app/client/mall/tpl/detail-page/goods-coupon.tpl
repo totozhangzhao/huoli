@@ -9,7 +9,8 @@
       <a class="goods-preferent-detail">
         <h5><%= item.name %></h5>
         <% item.content = _.escape(item.content) %>
-        <% var cList = item.content.split("$$$$") %>
+        <% var splitStr = item.content.indexOf("$$$$") === -1 ? "\n" : "$$$$" %>
+        <% var cList = item.content.split(splitStr) %>
         <% _.each(cList, function(text, index) { %>
         <p><%= text %></p>
         <% }); %>        

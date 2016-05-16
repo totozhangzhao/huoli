@@ -11,7 +11,8 @@
     </div>
     <div class="coupons-use-below">
       <% item.content = _.escape(item.content) %>
-      <% var cList = item.content.split("$$$$") %>
+      <% var splitStr = item.content.indexOf("$$$$") === -1 ? "\n" : "$$$$" %>
+      <% var cList = item.content.split(splitStr) %>
       <% _.each(cList, function(text, index) { %>
       <p><%= text %></p>
       <% }); %>
