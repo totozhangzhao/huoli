@@ -1,1 +1,9 @@
-<img src="<%= data.rule.ruleimg%>" />
+<% 
+  _.each(data.rules, function (rule, index){
+    if(index === 0 ){
+%>
+      <img src="<%= rule.img %>" />
+<%
+    }
+  });
+%>

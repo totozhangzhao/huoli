@@ -1,7 +1,7 @@
 <% _.each(groups, function(group, index) { %>
-<div class="group">
+<div class="group" style="background-color: #<%=group.backcolor %>">
   <div class="mall-active-img">
-    <img src="http://cdn.rsscc.cn/guanggao/img/secondary/gaotie/gt-10000194-2.png" alt="">
+    <img src="<%= group.topimg %>" alt="">
   </div>
   <div class="mall-active-bar">
     <div class="mall-active-area clearfix">
