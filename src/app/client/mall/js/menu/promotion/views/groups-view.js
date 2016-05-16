@@ -14,7 +14,6 @@ var GroupView  = Backbone.View.extend({
   },
 
   render(groups) {
-    groups.push(groups.slice(0)[0]);
     this.$el.html(this.template({
       groups: groups,
       tplUtil: tplUtil
