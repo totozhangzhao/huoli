@@ -25,7 +25,6 @@ var AppView = BaseView.extend({
 
   initialize: function() {
     var title       = parseUrl().title || document.title;
-    widget.updateViewTitle(title);
     this.$initial = ui.initial().show();
     this.groupId    = parseUrl().groupId;
     this.stateModel = new StateModel();
@@ -34,11 +33,6 @@ var AppView = BaseView.extend({
     this.listenTo(this.stateModel, "change", this.stateChange);
     this.render();
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
-    menuLog({
-      productid: this.groupId,
-      title: title,
-      from: parseUrl().from || "--"
-    });
   },
 
   render: function () {
@@ -53,8 +47,18 @@ var AppView = BaseView.extend({
   stateChange: function (e) {
     if(e.hasChanged("status") && e.get("status") !== 1){
       this.$initial.hide();
+      this.logger(e.get("title") || document.title);
     }
     // 数据加载完成
+  },
+
+  logger: function (title) {
+    widget.updateViewTitle(title);
+    menuLog({
+      productid: this.groupId,
+      title: title,
+      from: parseUrl().from || "--"
+    });
   }
 });
 
