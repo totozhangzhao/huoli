@@ -6,6 +6,8 @@ import mallUitl from "app/client/mall/js/lib/util.js";
 import logger from "com/mobile/lib/log/log.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 
+window.jQuery = window.$ = $;
+
 export function initRem() {
   const docEl = document.documentElement;
   const setRoot = () => {

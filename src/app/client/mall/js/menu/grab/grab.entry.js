@@ -93,7 +93,7 @@ var AppView = BaseView.extend({
     }, 0);
 
     menuLog({
-      title: UrlUtil.parseUrlSearch().classify || window.document.title,
+      title: window.document.title,
       from: UrlUtil.parseUrlSearch().from || "--"
     });
     return this;
