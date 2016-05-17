@@ -19,8 +19,8 @@
 <% } %>
 
 <%
-  if ( (userprivilresp && userprivilresp.privilid) ||
-    (Array.isArray(couponrecords) && couponrecords.length > 0) ) {
+  if ( (typeof userprivilresp !== "undefined" && userprivilresp.privilid) ||
+    (typeof couponrecords !== "undefined" && Array.isArray(couponrecords) && couponrecords.length > 0) ) {
 %>
 <div class="goods-coupons-bar">
   <% if (userprivilresp && userprivilresp.privilid) { %>
