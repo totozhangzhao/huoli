@@ -38,6 +38,7 @@ var AppView = BaseView.extend({
     this.render();
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
     menuLog({
+      productid: this.groupId,
       title: title,
       from: parseUrl().from || "--"
     });
