@@ -233,13 +233,13 @@ var AppView = Backbone.View.extend({
               case 3:
                 nextUrl = window.location.origin +
                   "/fe/app/client/mall/html/detail-page/goods-detail.html" +
-                  "?productid=" + lotteryInfo.productid;
+                  "?action=9&productid=" + lotteryInfo.productid;
                 widget.createNewView({ url: nextUrl });
                 break;
               case 4:
                 nextUrl = window.location.origin +
                   "/fe/app/client/mall/html/detail-page/goods-detail.html" +
-                  "?productid=" + lotteryInfo.productid +
+                  "?action=9&productid=" + lotteryInfo.productid +
                   "&gotoView=form-phone";
                 widget.createNewView({ url: nextUrl });
                 break;
