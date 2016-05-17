@@ -79,15 +79,14 @@ var PromotionView = Backbone.View.extend({
           status: -1,
           groupId: ""
         });
-        if(err){
-          toast(err.message, 1500);
-        }
+        toast(err.message, 1500);
         return;
       }
       this.render(result.goods || []);
       model.set({
         status: 2,
-        groupId:""
+        groupId:"",
+        title: result.title
       });
     }.bind(this));
   }
