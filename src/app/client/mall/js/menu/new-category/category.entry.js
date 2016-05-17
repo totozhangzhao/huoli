@@ -24,7 +24,7 @@ var AppView = BaseView.extend({
   },
 
   initialize: function() {
-    var title       = parseUrl().title;
+    var title       = parseUrl().title || document.title;
     widget.updateViewTitle(title);
     this.$initial = ui.initial().show();
     this.groupId    = parseUrl().groupId;
@@ -35,7 +35,8 @@ var AppView = BaseView.extend({
     this.render();
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
     menuLog({
-      title: parseUrl().classify,
+      productid: this.groupId,
+      title: title,
       from: parseUrl().from || "--"
     });
   },
