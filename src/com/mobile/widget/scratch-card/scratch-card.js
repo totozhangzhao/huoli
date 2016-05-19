@@ -1,5 +1,6 @@
 var Backbone = require("backbone");
 var _ = require("lodash");
+var Util = require("com/mobile/lib/util/util.js");
 
 /**
  * # 刮刮卡 canvas
@@ -63,8 +64,8 @@ module.exports = Backbone.View.extend({
 
     // this[funcName](canvas);
     if (!config.getImageFlag) {
-      this.$el.trigger(funcName, [canvas, this.initCard]);
       config.getImageFlag = true;
+      this.$el.trigger(funcName, [canvas, this.initCard]);
     }
     config.drawFlag = true;
   },
@@ -97,8 +98,8 @@ module.exports = Backbone.View.extend({
       }
     }
 
-    if (!config.resultFlag) {
-      if (j <= particle * 0.1) {
+    if (config.getImageFlag && !config.resultFlag) {
+      if ((Util.getMobileSystem() === "iOS" && j <= particle * 0.1) ||  j <= particle * 0.6) {
         config.resultFlag = true;
 
         var ctx = config.ctx;

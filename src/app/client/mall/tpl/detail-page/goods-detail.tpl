@@ -18,10 +18,7 @@
 </div>
 <% } %>
 
-<%
-  if ( (typeof userprivilresp !== "undefined" && userprivilresp.privilid) ||
-    (typeof couponrecords !== "undefined" && Array.isArray(couponrecords) && couponrecords.length > 0) ) {
-%>
+<% if ( userprivilresp.privilid || couponrecords.length > 0 ) { %>
 <div class="goods-coupons-bar">
   <% if (userprivilresp && userprivilresp.privilid) { %>
   <a class="js-privilege goods-coupons-privilege">

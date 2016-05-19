@@ -53,16 +53,6 @@ var AppView = Backbone.View.extend({
       from: parseUrl().from || "--"
     });
   },
-  doPointsAnimate: function() {
-    var $points = this.$el.find(".js-points");
-
-    $points
-      .addClass("animaion-blink");
-
-    setTimeout(function() {
-      $points.removeClass("animaion-blink");
-    }, 2000);
-  },
   initCard: function() {
     var self = this;
     var cardTmpl = require("app/client/mall/tpl/active-page/scratch-card/main-card.tpl");
@@ -80,9 +70,11 @@ var AppView = Backbone.View.extend({
 
           // 重置刮刮卡
           resetCard();
-        } else {
-          self.getResultImage(canvas, resetCard);
+          toast("您的刮奖机会已用完", 1500);
+          return;
         }
+
+        self.getResultImage(canvas, resetCard);
       })
       .on("showResult", function(e, resetCard) {
         self.showResult(resetCard);
@@ -194,6 +186,16 @@ var AppView = Backbone.View.extend({
             .text(userInfoResult.points);
       }
     });
+  },
+  doPointsAnimate: function() {
+    var $points = this.$el.find(".js-points");
+
+    $points
+      .addClass("animaion-blink");
+
+    setTimeout(function() {
+      $points.removeClass("animaion-blink");
+    }, 2000);
   },
   showResult: function(resetCard) {
     var self = this;

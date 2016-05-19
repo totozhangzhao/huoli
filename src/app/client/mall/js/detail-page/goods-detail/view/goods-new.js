@@ -159,15 +159,19 @@ var AppView = BaseView.extend({
     widget.updateViewTitle(goods.title);
 
     // 一元夺宝特权券
-    if (goods.userprivilresp && goods.userprivilresp.privilid) {
+    if (_.isObject(goods.userprivilresp) && goods.userprivilresp.privilid) {
       this.privilid = goods.userprivilresp.privilid;
       this.privilprice = goods.userprivilresp.privilprice;
       this.privilege = goods.userprivilresp;
+    } else {
+      goods.userprivilresp = {};
     }
 
     // 商品优惠券
-    if (goods.couponrecords && goods.couponrecords.length > 0) {
+    if (Array.isArray(goods.couponrecords) && goods.couponrecords.length > 0) {
       this.couponList = goods.couponrecords;
+    } else {
+      goods.couponrecords = [];
     }
 
     this.renderGoodsInfo(goods);
