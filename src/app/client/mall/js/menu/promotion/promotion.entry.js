@@ -19,7 +19,7 @@ import RuleView       from "app/client/mall/js/menu/promotion/views/rule-view.js
 // var Footer        = require("app/client/mall/js/common/views/footer.js");
 import BaseView       from "app/client/mall/js/common/views/BaseView.js";
 import {initTracker}  from "app/client/mall/js/lib/common.js";
-
+import * as downloadUtil   from "app/client/mall/js/lib/download-app.js";
 const promotionLog = initTracker("active");
 
 
@@ -40,6 +40,12 @@ var AppView = BaseView.extend({
     this.$initial = ui.initial().show();
     this.fetchData();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+
+    var isApp = mallUitl.isAppFunc();
+
+    if ( !isApp ) {
+      downloadUtil.init( isApp );
+    }
   },
 
   render() {
