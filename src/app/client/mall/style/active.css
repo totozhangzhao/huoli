@@ -682,6 +682,14 @@ p {
   display: inline-block;
   margin-left: 0.34667rem;
 }
+@keyframes move {
+  0% {
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
 .mall-active-box {
   min-height: 100%;
   margin-top: 0;
