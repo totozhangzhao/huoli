@@ -29,12 +29,13 @@ var AppView = Backbone.View.extend({
   resume: function(options) {
     if (options.previousView === "") {
       setTimeout(function() {
-        this.router.switchTo("goods-detail");
+        this.router.replaceTo("goods-detail");
         pageAction.setClose();
       }.bind(this), 0);
       return;
     }
 
+    this.urlObj = UrlUtil.parseUrlSearch();
     pageAction.hideRightButton();
     hint.showLoading();
 
@@ -234,8 +235,9 @@ var AppView = Backbone.View.extend({
         });
       },
       function(addressData, next) {
-        if (UrlUtil.parseUrlSearch().action === "order") {
-          self.router.switchTo("address-list");
+        if (self.urlObj.mold !== void 0) {
+          self.router.replaceTo("address-list");
+          return;
         } else {
           next(null, addressData);
         }
@@ -258,7 +260,7 @@ var AppView = Backbone.View.extend({
       }
 
       hint.hideLoading();
-      self.router.switchTo("address-confirm");
+      self.router.replaceTo("address-confirm");
     });
   }
 });
