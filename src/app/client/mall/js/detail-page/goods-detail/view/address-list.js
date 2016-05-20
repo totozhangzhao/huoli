@@ -11,8 +11,7 @@ var UrlUtil    = require("com/mobile/lib/url/url.js");
 var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 var Popover     = require("com/mobile/widget/popover/popover.js");
-
-require("app/client/mall/js/lib/common.js");
+var widget      = require("app/client/mall/js/lib/common.js");
 
 var AppView = Backbone.View.extend({
   el: "#address-list",
@@ -29,14 +28,17 @@ var AppView = Backbone.View.extend({
   resume: function(options) {
     var self = this;
 
-    if (options.previousView === "" && UrlUtil.parseUrlSearch().action === void 0) {
+    this.urlObj = UrlUtil.parseUrlSearch();
+
+    if (options.previousView === "" && this.urlObj.mold === void 0) {
       setTimeout(function() {
-        this.router.switchTo("goods-detail");
+        this.router.replaceTo("goods-detail");
         pageAction.setClose();
       }.bind(this), 0);
       return;
     }
 
+    widget.updateViewTitle("地址管理");
     pageAction.hideRightButton();
     hint.showLoading();
 
@@ -98,7 +100,7 @@ var AppView = Backbone.View.extend({
       if (result.userInfo.authcode) {
         showAddressHelper();
 
-        if (UrlUtil.parseUrlSearch().action === "order") {
+        if (self.urlObj.mold === "order") {
           addLeftButtonListener();
         }
       } else {
@@ -194,14 +196,13 @@ var AppView = Backbone.View.extend({
   },
   gotoConfirmPage: function(e) {
     var $cur = $(e.currentTarget);
-    var action = UrlUtil.parseUrlSearch().action;
 
     this.cache.curAddressId = $cur.closest(".js-item").data("addressid");
 
-    if (action === "order") {
+    if (this.urlObj.mold === "order") {
       this.showConfirm();
-    } else if (action === void 0) {
-      this.router.switchTo("address-confirm");
+    } else if (this.urlObj.mold === void 0) {
+      this.router.replaceTo("address-confirm");
     }
   },
   showConfirm: function() {
@@ -243,14 +244,14 @@ var AppView = Backbone.View.extend({
   },
   addAddress: function() {
     this.cache.addressAction = "add";
-    this.router.switchTo("address-add");
+    this.router.replaceTo("address-add");
   },
   editAddress: function(e) {
     var $cur = $(e.currentTarget);
 
     this.cache.addressAction = "update";
     this.cache.curAddressId = $cur.closest(".js-item").data("addressid");
-    this.router.switchTo("address-add");
+    this.router.replaceTo("address-add");
   },
   removeAddress: function(e) {
     var doRemove = function() {

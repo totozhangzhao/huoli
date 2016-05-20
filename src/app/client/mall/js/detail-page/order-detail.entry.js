@@ -78,7 +78,7 @@ var AppView = Backbone.View.extend({
   gotoAddressList: function() {
     var id = this.orderDetail.orderid;
     var url = "/fe/app/client/mall/html/detail-page/goods-detail.html" +
-        "?action=order&orderid=" + id +
+        "?mold=order&orderid=" + id +
         "#address-list";
 
     window.location.href = url;
