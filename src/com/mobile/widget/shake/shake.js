@@ -6,6 +6,7 @@ import _ from "lodash";
  */
 class Shake {
   constructor(hanlder, config) {
+    this.canPlay = false;
     this.createAudio();
     let x = 0, y = 0, z = 0, _x = 0, _y = 0, _z = 0;
     this.config = {};
@@ -27,9 +28,7 @@ class Shake {
       z = acceleration.z;
       var change = Math.abs(x + y + z - _x - _y - _z);
       if(change > this.config.SHAKE_THRESHOLD){
-        if(this.audio){
-          window.console.log(this.audio.play());
-        }
+        this.canPlay && this.audio.play();
         shakeHanlder();
       }
       _x = x;
@@ -45,15 +44,32 @@ class Shake {
   createAudio() {
     this.audio = document.createElement("audio");
     this.audio.setAttribute("src", "http://zjyd.sc.chinaz.com/files/download/sound1/201410/5018.wav");
-    // this.audio.setAttribute("controls", "controls");
+    this.audio.setAttribute("controls", "controls");
+    this.audio.className = "shake-audio";
     // this.audio.setAttribute("autoplay", "autoplay");
     this.audio.setAttribute("preload", "auto");
-
+    window.document.body.appendChild(this.audio);
   }
   play() {
-    window.console.log(this.audio);
-    this.audio.play();
+    if(this.audio && this.audio.paused){
+      this.audio.play();
+    }
 
+  }
+
+  pause() {
+    this.audio.pause();
+  }
+
+  togglePlay () {
+    if(this.canPlay) {
+      this.canPlay = false;
+    }else{
+      this.canPlay = true;
+      this.play();
+      this.pause();
+    }
+    return this.canPlay;
   }
 
   stop() {
