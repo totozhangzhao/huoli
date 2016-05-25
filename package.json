@@ -2,10 +2,16 @@
   "name": "fe-space",
   "version": "0.1.0",
   "description": "Front-end Space",
-  "author": {
-    "name": "baoyide",
-    "email": "baoyd@133.cn"
-  },
+  "author": [
+    {
+      "name": "baoyide",
+      "email": "baoyd@133.cn"
+    },
+    {
+      "name": "yujindong",
+      "email": "yujd@133.cn"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "http://gitlab.huoli.com/front-end/fe-space.git"
