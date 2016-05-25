@@ -1,17 +1,18 @@
-import $            from "jquery";
-import _            from "lodash";
-import Backbone     from "backbone";
-import mallPromise  from "app/client/mall/js/lib/mall-promise.js";
-import Promise      from "com/mobile/lib/promise/npo.js";
+import $                        from "jquery";
+import _                        from "lodash";
+import Backbone                 from "backbone";
+import mallPromise              from "app/client/mall/js/lib/mall-promise.js";
+import Promise                  from "com/mobile/lib/promise/npo.js";
 
-import async                  from "async";
-import {sendPost}             from "app/client/mall/js/lib/mall-request.js";
-import {toast}                from "com/mobile/widget/hint/hint.js";
-import NativeAPI              from "app/client/common/lib/native/native-api.js";
-import * as widget            from "app/client/mall/js/lib/common.js";
+import async                    from "async";
+import {sendPost}               from "app/client/mall/js/lib/mall-request.js";
+import {toast}                  from "com/mobile/widget/hint/hint.js";
+import NativeAPI                from "app/client/common/lib/native/native-api.js";
+import * as widget              from "app/client/mall/js/lib/common.js";
 
 import {parseUrlSearch as parseUrl}   from "com/mobile/lib/url/url.js";
 import Shake                          from "com/mobile/widget/shake/shake.js";
+import ui                             from "app/client/mall/js/lib/ui.js";
 
 var AppView = Backbone.View.extend({
   el: "#shake-main",
@@ -21,9 +22,11 @@ var AppView = Backbone.View.extend({
   },
 
   initialize: function () {
-    let btn = $("<button class='audio-toggle' style='border: 1px solid;margin: 50px;'>测试按钮</div>");
+    this.$initial = ui.initial().show();
+    let btn = $("<button class='audio-toggle' style='position: fixed;width:80%; height:50px;border: 1px solid;left: 10%;top:0;'>测试按钮</div>");
     this.$el.append(btn);
     this.shake = new Shake(this.shakeHandler.bind(this), {});
+    this.$initial.hide();
   },
 
   shakeHandler: function () {
