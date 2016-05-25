@@ -185,7 +185,9 @@ var AppView = BaseView.extend({
 
     if ( this.urlObj.gotoView ) {
       if (this.urlObj.gotoView === "address-confirm") {
-        this.gotoAddress();
+        if (goods.type === 3) {
+          this.gotoAddress();
+        }
       } else {
         this.router.switchTo( this.urlObj.gotoView );
       }
@@ -277,22 +279,22 @@ var AppView = BaseView.extend({
           // 3--转入输入地址页面（预留）
           // 9--点击跳转第三方链接（ thirdparturl ）
           // 13--转入自定义表单页面
-          switch ( String(goods.type) ) {
-            case "1":
+          switch (goods.type) {
+            case 1:
               self.exchange();
               break;
-            case "2":
+            case 2:
               self.router.switchTo("form-phone");
               return;
-            case "3":
+            case 3:
               self.gotoAddress();
               return;
-            case "9":
+            case 9:
               self.gotoNewView({
                 url: goods.thirdparturl
               });
               return;
-            case "13":
+            case 13:
               self.router.switchTo("form-custom");
               return;
           }
@@ -491,5 +493,3 @@ var AppView = BaseView.extend({
 });
 
 module.exports = AppView;
-
-
