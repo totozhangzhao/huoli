@@ -12,6 +12,7 @@ var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 var Popover     = require("com/mobile/widget/popover/popover.js");
 var widget      = require("app/client/mall/js/lib/common.js");
+var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 
 var AppView = Backbone.View.extend({
   el: "#address-list",
@@ -105,7 +106,7 @@ var AppView = Backbone.View.extend({
         }
       } else {
         hint.hideLoading();
-        self.loginApp();
+        mallPromise.login();
       }
     });
   },
@@ -119,32 +120,6 @@ var AppView = Backbone.View.extend({
         }));
 
     hint.hideLoading();
-  },
-  loginApp: function() {
-    async.waterfall([
-      function(next) {
-
-        // window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
-        //   window.btoa(unescape(encodeURIComponent( window.location.href )));
-
-        NativeAPI.invoke("login", null, function(err, data) {
-          next(err, data);
-        });
-      }
-    ], function(err, result) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      if ( String(result.succ) === "1" || result.value === result.SUCC ) {
-        window.location.reload();
-      } else {
-        // hint.hideLoading();
-        window.console.log(JSON.stringify(result));
-        NativeAPI.invoke("close");
-      }
-    });
   },
   hidePrompt: function() {
     var $el = this.$el;

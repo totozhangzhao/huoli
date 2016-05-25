@@ -96,7 +96,7 @@ var AppView = Backbone.View.extend({
       if (userData.userInfo && userData.userInfo.userid) {
         return render(userData);
       } else {
-        return self.loginApp();
+        return mallPromise.login();
       }
     };
 
@@ -200,28 +200,6 @@ var AppView = Backbone.View.extend({
       from: UrlUtil.parseUrlSearch().from || "--"
     });
   },
-  loginApp: function() {
-    return new Promise(function(resolve, reject) {
-      NativeAPI.invoke("login", null, function(err, data) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    })
-      .then(function(result) {
-        if ( String(result.succ) === "1" || result.value === result.SUCC ) {
-          window.location.reload();
-        } else {
-          // hint.hideLoading();
-          window.console.log(JSON.stringify(result));
-          NativeAPI.invoke("close");
-        }
-      })
-      .catch(mallPromise.catchFn);
-  },
-
   renderBuyNumView: function (crowd) {
     var buttonText = { "0": "已结束", "1": "立即参与", "2": "已结束", "4": "余量不足" };
     this.buyNumModel.set({

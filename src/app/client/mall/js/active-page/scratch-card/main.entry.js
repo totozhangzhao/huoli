@@ -2,7 +2,6 @@ var $           = require("jquery");
 var Backbone    = require("backbone");
 var _           = require("lodash");
 var async       = require("async");
-var NativeAPI   = require("app/client/common/lib/native/native-api.js");
 var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var toast       = require("com/mobile/widget/hint/hint.js").toast;
 var parseUrl    = require("com/mobile/lib/url/url.js").parseUrlSearch;
@@ -17,6 +16,7 @@ var logger      = require("com/mobile/lib/log/log.js");
 var mallUitl    = require("app/client/mall/js/lib/util.js");
 var ui          = require("app/client/mall/js/lib/ui.js");
 var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
+var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 
 var AppView = Backbone.View.extend({
   el: "#lottery-main",
@@ -133,8 +133,6 @@ var AppView = Backbone.View.extend({
     });
   },
   mallGetUserInfo: function(callback) {
-    var self = this;
-
     async.waterfall([
       function(next) {
         appInfo.getUserData(function(err, userData) {
@@ -161,7 +159,7 @@ var AppView = Backbone.View.extend({
             next(null, data);
           });
         } else {
-          self.loginApp();
+          mallPromise.login();
         }
       }
     ], function(err, result) {
@@ -340,7 +338,7 @@ var AppView = Backbone.View.extend({
             next(null, data);
           });
         } else {
-          self.loginApp();
+          mallPromise.login();
         }
       }
     ], function(err, result) {
@@ -373,32 +371,6 @@ var AppView = Backbone.View.extend({
           .text(result.points);
     });
     */
-  },
-  loginApp: function() {
-    async.waterfall([
-      function(next) {
-
-        // window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
-        //   window.btoa(unescape(encodeURIComponent( window.location.href )));
-
-        NativeAPI.invoke("login", null, function(err, data) {
-          next(err, data);
-        });
-      }
-    ], function(err, result) {
-      if (err) {
-        window.console.log(err.message);
-        return;
-      }
-
-      if ( String(result.succ) === "1" || result.value === result.SUCC ) {
-        window.location.reload();
-      } else {
-        // hint.hideLoading();
-        window.console.log(JSON.stringify(result));
-        NativeAPI.invoke("close");
-      }
-    });
   }
 });
 

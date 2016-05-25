@@ -24,6 +24,7 @@ var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
 var FooterView  = require("app/client/mall/js/common/views/footer.js");
 var BuyPanelView = require("app/client/mall/js/common/views/pay/buy-num-panel.js");
 var BuyNumModel  = require("app/client/mall/js/common/models/buy-num-model.js");
+var mallPromise  = require("app/client/mall/js/lib/mall-promise.js");
 
 var AppView = BaseView.extend({
   el: "#goods-detail",
@@ -291,7 +292,7 @@ var AppView = BaseView.extend({
               return;
           }
         } else {
-          self.loginApp();
+          mallPromise.login();
         }
       });
     } else {
@@ -302,29 +303,6 @@ var AppView = BaseView.extend({
       }
     }
   },
-  loginApp: function() {
-    var self = this;
-
-    async.waterfall([
-      function(next) {
-
-        // window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
-        //   window.btoa(unescape(encodeURIComponent( window.location.href )));
-
-        NativeAPI.invoke("login", null, function(err, data) {
-          next(err, data);
-        });
-      }
-    ], function(err) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      self.userDataOpitons.reset = true;
-    });
-  },
-
   exchange: function() {
     if(this.buyNumModel.get("type") === 0) { // 不能选择数量的情况 需要弹出提示
       var titleText = this.cache.goods.confirm || "是否确认兑换？";
