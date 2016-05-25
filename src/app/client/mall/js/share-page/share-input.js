@@ -7,6 +7,8 @@ import Promise      from "com/mobile/lib/promise/npo.js";
 import {sendPost}             from "app/client/mall/js/lib/mall-request.js";
 import * as widget            from "app/client/mall/js/lib/common.js";
 import template               from "app/client/mall/tpl/share/caimi.tpl";
+import Popover                from "com/mobile/widget/popover/popover.js";
+
 var AppView = Backbone.View.extend({
   events: {
     "click button.js-click-caimi": "exchange"
@@ -14,6 +16,15 @@ var AppView = Backbone.View.extend({
 
   initialize: function() {
     this.initView();
+    this.alert = new Popover({
+      type: "alert",
+      title: "领取成功",
+      message: "您成功领取15888元体验金优惠码",
+      agreeText: "马上使用",
+      agreeFunc: function() {
+        window.console.log("alert: agree default ");
+      }
+    });
   },
 
   exchange: function () {
@@ -36,9 +47,12 @@ var AppView = Backbone.View.extend({
     })
     .then(function (data) {
       if(data.useurl){
-        self.gotoNewView({
-          url: data.useurl
-        });
+        self.alert.model.set({agreeFunc: function () {
+          self.gotoNewView({
+            url: data.useurl
+          });
+        }});
+        self.alert.show();
       }
     })
     .catch(function (err) {
