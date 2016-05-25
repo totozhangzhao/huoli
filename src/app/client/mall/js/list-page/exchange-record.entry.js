@@ -14,6 +14,7 @@ var storage   = require("app/client/mall/js/lib/storage.js");
 var UrlUtil   = require("com/mobile/lib/url/url.js");
 var ui        = require("app/client/mall/js/lib/ui.js");
 var orderListLog = require("app/client/mall/js/lib/common.js").initTracker("orderList");
+var mallPromise  = require("app/client/mall/js/lib/mall-promise.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-list",
@@ -182,31 +183,6 @@ var AppView = Backbone.View.extend({
   refreshPage: function() {
     window.location.reload();
   },
-  loginApp: function() {
-    async.waterfall([
-      function(next) {
-
-        // window.location.href = "gtgj://?type=gtlogin&bindflag=1&callback=" +
-        //   window.btoa(unescape(encodeURIComponent( window.location.href )));
-
-        NativeAPI.invoke("login", null, function(err, data) {
-          next(err, data);
-        });
-      }
-    ], function(err, result) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      if ( String(result.succ) === "1" || result.value === result.SUCC ) {
-        window.location.reload();
-      } else {
-        window.console.log(JSON.stringify(result));
-        NativeAPI.invoke("close");
-      }
-    });
-  },
   loadMore: function() {
     var $listBox = this.$el.find(".js-container.on");
     var lastOrderId = $listBox
@@ -326,7 +302,7 @@ var AppView = Backbone.View.extend({
           });
         } else {
           self.$initial.hide();
-          self.loginApp();
+          mallPromise.login();
         }
       }
     ], function(err, result) {
