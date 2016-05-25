@@ -6,15 +6,14 @@ import Promise      from "com/mobile/lib/promise/npo.js";
 
 import {sendPost}             from "app/client/mall/js/lib/mall-request.js";
 import * as widget            from "app/client/mall/js/lib/common.js";
-
-import template from "app/client/mall/tpl/share/caimi.tpl";
+import template               from "app/client/mall/tpl/share/caimi.tpl";
 var AppView = Backbone.View.extend({
   events: {
     "click button.js-click-caimi": "exchange"
   },
 
   initialize: function() {
-    // this.initView();
+    this.initView();
   },
 
   exchange: function () {
