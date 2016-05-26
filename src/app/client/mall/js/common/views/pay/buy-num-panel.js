@@ -34,16 +34,21 @@ var BuyNumPanelView = Backbone.View.extend({
   render: function () {
     this.$el.appendTo(this.model.get("parentDom"));
     this.$el.html(this.template(this.model.toJSON()));
-    this.$el.find(".goods-charge-bar .goods-charge-info").html(this.priceTemplate(this.model.toJSON()));
-    this.$el.find(".charge-btn")
-    .text(this.model.getPayBtnText())
-    .data("payBtnType", this.model.getPayBtnText());
+
+    this.$priceView = this.$el.find(".goods-charge-bar .goods-charge-info");
+    this.$chargeBtn = this.$el.find(".charge-btn");
+    this.$numberInput = this.$el.find(".number-input");
+
+    this.$priceView.html(this.priceTemplate(this.model.toJSON()));
+    this.$chargeBtn
+      .text(this.model.getPayBtnText())
+      .data("payBtnType", this.model.getPayBtnText());
     return this;
   },
 
   refresh: function () {
-    this.$el.find(".goods-charge-bar .goods-charge-info").html(this.priceTemplate(this.model.toJSON()));
-    this.$el.find(".number-input").val(this.model.get("number"));
+    this.priceView.html(this.priceTemplate(this.model.toJSON()));
+    this.$numberInput.val(this.model.get("number"));
   },
 
   setNumber: function (number) {
@@ -107,7 +112,7 @@ var BuyNumPanelView = Backbone.View.extend({
   },
 
   inputKeyUp: function () {
-    var val = this.$el.find(".number-input").val();
+    var val = this.$numberInput.val();
     if ( !val || isNaN(val)) {
       return ;
     }
@@ -124,7 +129,7 @@ var BuyNumPanelView = Backbone.View.extend({
   },
 
   inputBlur: function () {
-    var val = this.$el.find(".number-input").val();
+    var val = this.$numberInput.val();
     if ( !val || isNaN(val) ) {
       return this.setNumber(1);
     }
