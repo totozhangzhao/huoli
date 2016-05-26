@@ -50,7 +50,8 @@ var AppView = BaseView.extend({
     this.resetAppView = false;
     this.title = "";
     this.userDataOpitons = { reset: false };
-    this.action = UrlUtil.parseUrlSearch().action;
+    this.urlObj = UrlUtil.parseUrlSearch();
+    this.action = this.urlObj.action;
     this.mallGoodsDetail();
   },
   resume: function() {
@@ -61,8 +62,8 @@ var AppView = BaseView.extend({
       this.$initial.hide();
       detailLog({
         title: this.title,
-        productid: UrlUtil.parseUrlSearch().productid,
-        from: UrlUtil.parseUrlSearch().from || "--"
+        productid: this.urlObj.productid,
+        from: this.urlObj.from || "--"
       });
     }
 
@@ -90,7 +91,7 @@ var AppView = BaseView.extend({
         var params = _.extend({}, userData.userInfo, {
           imei: userData.deviceInfo.imei,
           p: userData.deviceInfo.p,
-          productid: UrlUtil.parseUrlSearch().productid
+          productid: self.urlObj.productid
         });
 
         sendPost("goodsDetail", params, function(err, data) {
@@ -182,8 +183,14 @@ var AppView = BaseView.extend({
       wechatUtil.setShareInfo(goods.wechatshare);
     }
 
-    if ( UrlUtil.parseUrlSearch().gotoView ) {
-      this.router.switchTo( UrlUtil.parseUrlSearch().gotoView );
+    if ( this.urlObj.gotoView ) {
+      if (this.urlObj.gotoView === "address-confirm") {
+        if (goods.type === 3) {
+          this.gotoAddress();
+        }
+      } else {
+        this.router.switchTo( this.urlObj.gotoView );
+      }
     } else {
       if ( wechatUtil.isWechatFunc() ) {
         wechatUtil.setTitle(goods.title);
@@ -204,8 +211,8 @@ var AppView = BaseView.extend({
 
     detailLog({
       title: goods.title,
-      productid: UrlUtil.parseUrlSearch().productid,
-      from: UrlUtil.parseUrlSearch().from || "--"
+      productid: this.urlObj.productid,
+      from: this.urlObj.from || "--"
     });
   },
 
@@ -272,22 +279,22 @@ var AppView = BaseView.extend({
           // 3--转入输入地址页面（预留）
           // 9--点击跳转第三方链接（ thirdparturl ）
           // 13--转入自定义表单页面
-          switch ( String(goods.type) ) {
-            case "1":
+          switch (goods.type) {
+            case 1:
               self.exchange();
               break;
-            case "2":
+            case 2:
               self.router.switchTo("form-phone");
               return;
-            case "3":
+            case 3:
               self.gotoAddress();
               return;
-            case "9":
+            case 9:
               self.gotoNewView({
                 url: goods.thirdparturl
               });
               return;
-            case "13":
+            case 13:
               self.router.switchTo("form-custom");
               return;
           }
@@ -372,7 +379,7 @@ var AppView = BaseView.extend({
       function(userData, next) {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: UrlUtil.parseUrlSearch().productid,
+          productid: self.urlObj.productid,
           num: self.buyNumModel.get("number")
         });
 
@@ -486,5 +493,3 @@ var AppView = BaseView.extend({
 });
 
 module.exports = AppView;
-
-
