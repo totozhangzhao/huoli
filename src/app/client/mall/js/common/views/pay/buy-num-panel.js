@@ -47,7 +47,7 @@ var BuyNumPanelView = Backbone.View.extend({
   },
 
   refresh: function () {
-    this.priceView.html(this.priceTemplate(this.model.toJSON()));
+    this.$priceView.html(this.priceTemplate(this.model.toJSON()));
     this.$numberInput.val(this.model.get("number"));
   },
 
