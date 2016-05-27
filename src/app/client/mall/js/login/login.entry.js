@@ -5,7 +5,7 @@ import {sendPost}  from "app/client/mall/js/lib/mall-request.js";
 import UrlUtil     from "com/mobile/lib/url/url.js";
 import wechatUtil  from "com/mobile/widget/wechat-hack/util.js";
 import validator   from "app/client/mall/js/lib/validator.js";
-import cookie      from "com/mobile/lib/cookie/cookie.js";
+// import cookie      from "com/mobile/lib/cookie/cookie.js";
 import mallUitl    from "app/client/mall/js/lib/util.js";
 import logger      from "com/mobile/lib/log/log.js";
 import tmpl        from "app/client/mall/tpl/login/login.tpl";
@@ -105,41 +105,11 @@ var AppView = Backbone.View.extend({
       });
   },
   login() {
-    let phone = this.$el.$phoneInput.val();
-    new Promise((resovle, reject) => {
-      let openid = this.urlObj.openid;
-      let params = {
-        phone: phone,
-        code: this.$el.$captchaInput.val()
-      };
-
-      if (openid) {
-        params.openid = openid;
-      }
-
-      sendPost("weixinLogin", params, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resovle(data);
-        }
-      });
-    })
-      .then(data => {
-        let cookieConfig = {
-          expires: 86400,
-          domain: location.hostname,
-          path: "/"
-        };
-        cookie.set("token", data.token, cookieConfig);
-        cookie.set("points", data.points, cookieConfig);
-        cookie.set("level", data.level, cookieConfig);
-        cookie.set("phone", phone, cookieConfig);
-      })
-      .then(() => {
-        window.location.href = "/fe/app/client/mall/index.html";
-      })
-      .catch(mallPromise.catchFn);
+    loginUtil.login({
+      phone: this.$el.$phoneInput.val(),
+      captcha: this.$el.$captchaInput.val(),
+      openid: this.urlObj.openid
+    });
   }
 });
 

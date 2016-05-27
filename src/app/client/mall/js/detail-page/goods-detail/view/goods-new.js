@@ -9,12 +9,12 @@ import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
-import addressUtil from "app/client/mall/js/lib/address-util.js";
+import * as addressUtil from "app/client/mall/js/lib/address-util.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import shareUtil from "com/mobile/widget/wechat/util.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
-import mallWechat from "app/client/mall/js/lib/wechat.js";
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import {initTracker} from "app/client/mall/js/lib/common.js";
 import Popover from "com/mobile/widget/popover/popover.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
@@ -24,7 +24,8 @@ import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import FooterView from "app/client/mall/js/common/views/footer.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
-import mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 
 const detailLog = initTracker("detail");
 const AppView = BaseView.extend({
@@ -67,6 +68,8 @@ const AppView = BaseView.extend({
         from: this.urlObj.from || "--"
       });
     }
+
+    this.token = cookie.get("token");
 
     if (this.resetAppView) {
       pageAction.showRightButton({ text: "分享" });
@@ -234,6 +237,10 @@ const AppView = BaseView.extend({
   },
 
   buy() {
+    if ( wechatUtil.isWechatFunc() && !this.token ) {
+      this.getOpenid();
+      return;
+    }
     // 购买上限为1的情况
     if(this.buyNumModel.get("limitNum") === 1) {
       return this.pay();
@@ -250,10 +257,9 @@ const AppView = BaseView.extend({
 
   exchangeHandler() {
     const self = this;
-    const appName = cookie.get("appName");
     const goods = this.cache.goods;
 
-    if ( /hbgj/i.test(appName) || /gtgj/i.test(appName) ) {
+    if ( mallUitl.isAppFunc() || this.token ) {
       if ( String(goods.stat) !== "0" ) {
         return;
       }
@@ -272,7 +278,7 @@ const AppView = BaseView.extend({
       ], (err, result) => {
         self.userDataOpitons.reset = false;
 
-        if (result.userInfo.authcode) {
+        if ( result.userInfo.authcode || self.token ) {
 
           // type：兑换类型
           // 1--直接调用创建订单接口
@@ -303,12 +309,24 @@ const AppView = BaseView.extend({
           mallPromise.login();
         }
       });
+    } else if ( wechatUtil.isWechatFunc() ) {
+      self.getOpenid();
     } else {
-      if ( /hb/.test(window.location.hostname) ) {
-        window.location.href = mallUitl.getHangbanAppUrl();
-      } else {
-        window.location.href = mallUitl.getGaotieAppUrl();
+      loginUtil.goLogin();
+    }
+  },
+  getOpenid() {
+    if (this.urlObj.openid) {
+      if (this.token) {
+        return;
       }
+      loginUtil.login({
+        openid: this.urlObj.openid,
+        pageUrl: window.location.href
+      });
+    } else {
+      window.location.href = loginUtil.getWechatAuthUrl();
+      return;
     }
   },
   exchange() {
