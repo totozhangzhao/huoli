@@ -7,7 +7,7 @@ import _ from "lodash";
 class Shake {
   constructor(hanlder, config) {
     this.canPlay = false;
-    this.createAudio();
+    // this.createAudio();
     let x = 0, y = 0, z = 0, _x = 0, _y = 0, _z = 0;
     this.config = {};
     this.defaultConfig = {
