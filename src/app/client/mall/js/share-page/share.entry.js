@@ -108,7 +108,7 @@ var AppView = Backbone.View.extend({
   initActive: function() {
     var id = parseUrl().productid;
 
-    if ( String(id) === "10000184" || String(id) === "22000003") {
+    if ( String(id) === "10000212") {
       new ShareInput({ el: "#interlayer" });
     }
   }
