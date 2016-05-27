@@ -62,25 +62,6 @@ var AppView = ListBaseView.extend({
         });
       });
     })
-      /*var params = {
-        // userid: userData.userInfo.userid,
-        userid: "1215787082202880",
-        authcode: "373101894604160/web/1460343718/AF1C625478B14DBD0754CFD8E44E9495",
-        uid: "23112f6bcb0100003",
-        limit: 10,
-        last: self.last
-      };
-      var a = new Promise(function(resolve, reject) {
-        sendPost("userInvolvedCrowd", params, function(err, data) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data);
-          }
-        });
-      });
-
-    a*/
     .then(function (data) {
       self.loadingView.hide();
       self.isLoading = false;
@@ -90,7 +71,13 @@ var AppView = ListBaseView.extend({
       }
       return self.render(data);
     })
-    .catch(mallPromise.catchFn);
+    .catch(function (err) {
+      if( err.code === -3330) {
+        mallPromise.login();
+      }else{
+        mallPromise.catchFn(err);
+      }
+    });
   },
 
   render: function (data) {
