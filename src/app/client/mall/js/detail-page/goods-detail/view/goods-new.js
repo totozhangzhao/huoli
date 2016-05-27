@@ -9,7 +9,7 @@ import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
-import addressUtil from "app/client/mall/js/lib/address-util.js";
+import * as addressUtil from "app/client/mall/js/lib/address-util.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import shareUtil from "com/mobile/widget/wechat/util.js";
@@ -24,7 +24,7 @@ import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import FooterView from "app/client/mall/js/common/views/footer.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
-import mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 
 const detailLog = initTracker("detail");
 const AppView = BaseView.extend({
