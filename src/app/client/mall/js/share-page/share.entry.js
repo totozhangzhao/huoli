@@ -20,13 +20,63 @@ var ui         = require("app/client/mall/js/lib/ui.js");
 var AppView = Backbone.View.extend({
   el: "#interlayer",
   events: {
+    "click .js-get-coupon": "getMallCoupon",
     "click .js-common-share": "handleShareButton",
     "click a": "createNewPage"
   },
   initialize: function() {
     this.$initial = ui.initial().show();
     this.mallInterlayer();
+    this.$getCouponButton = this.$el.find(".js-get-coupon");
+    this.couponId = this.$getCouponButton.data("couponId");
+    this.checkCouponButton();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+  },
+  checkCouponButton: function() {
+    if ( cookie.get("coupon" + this.couponId) ) {
+      this.$getCouponButton.addClass("active");
+    } else {
+      this.$getCouponButton.removeClass("active");
+    }
+  },
+  getMallCoupon: function() {
+    var self = this;
+
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
+          if (err) {
+            toast(err.message, 1500);
+            return;
+          }
+
+          next(null, userData);
+        });
+      },
+      function(userData, next) {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p,
+          productid: self.couponId
+        });
+
+        sendPost("getCoupon", params, function(err, data) {
+          next(err, data);
+        });
+      }
+    ], function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      toast(result.message, 1500);
+
+      cookie.set("coupon" + self.couponId, 1, {
+        domain: window.location.hostname,
+        expires: 86400 * 7,
+        path: "/"
+      });
+    });
   },
   handleShareButton: function(e) {
     var urlObj = $(e.currentTarget).data();
