@@ -1,9 +1,12 @@
 import $ from "jquery";
+import _ from "lodash";
 import Promise from "com/mobile/lib/promise/npo.js";
 import appInfo from "app/client/mall/js/lib/app-info.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 
 export function getAppInfo(reset) {
   return new Promise((resolve, reject) => {
@@ -28,6 +31,36 @@ export function catchFn(err) {
     window.console.log(`Error Message: \n${err.message}`);
     window.console.log(`Error Stack: \n${err.stack}`);
   }
+}
+
+export function order(orderParams) {
+  return getAppInfo()
+    .then(userData => {
+      const params = _.extend({}, userData.userInfo, {
+        p: userData.deviceInfo.p,
+        productid: self.id
+      }, orderParams);
+
+      return new Promise((resolve, reject) => {
+        sendPost("createOrder", params, (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        });
+      });
+    })
+    .catch(err => {
+      if (err.code === -3331) {
+        loginUtil.login({
+          openid: this.urlObj.openid,
+          pageUrl: window.location.href
+        });
+      } else {
+        catchFn(err);
+      }
+    });
 }
 
 export function initPay(orderInfo) {
@@ -77,32 +110,4 @@ export function initPay(orderInfo) {
   }
 
   return new Promise(mallUitl.isAppFunc() ? appPay : webPay);
-}
-
-export function login() {
-  return new Promise((resolve, reject) => {
-    NativeAPI.invoke("login", null, (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
-  })
-    .then(result => {
-      if ( String(result.succ) === "1" || result.value === result.SUCC ) {
-        window.location.reload();
-      } else {
-        // hint.hideLoading();
-        window.console.log(JSON.stringify(result));
-        NativeAPI.invoke("close");
-      }
-    })
-    .catch(err => {
-      if (err.code === -32603) {
-        window.console.log("go to login page……");
-      } else {
-        catchFn(err);
-      }
-    });
 }

@@ -11,6 +11,8 @@ import {parseUrlSearch as parseUrl}   from "com/mobile/lib/url/url.js";
 import Shake                          from "com/mobile/widget/shake/shake.js";
 import ui                             from "app/client/mall/js/lib/ui.js";
 import Popover                from "com/mobile/widget/popover/popover.js";
+import * as loginUtil         from "app/client/mall/js/lib/login-util.js";
+
 var AppView = Backbone.View.extend({
   el: "#shake-main",
 
@@ -56,7 +58,7 @@ var AppView = Backbone.View.extend({
     })
     .catch(function (err) {
       if( err.code === -3330) {
-        mallPromise.login();
+        loginUtil.login();
       }else{
         mallPromise.catchFn(err);
       }

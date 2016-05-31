@@ -1,7 +1,9 @@
 import $ from "jquery";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
-import {sendPost}  from "app/client/mall/js/lib/mall-request.js";
-import cookie      from "com/mobile/lib/cookie/cookie.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
+import NativeAPI from "app/client/common/lib/native/native-api.js";
+import mallUitl from "app/client/mall/js/lib/util.js";
 
 export function getWechatAuthUrl(pageUrl) {
   const authUrl = "http://wx.133.cn/hbrobot/wxoauth?" + $.param({
@@ -25,42 +27,74 @@ export function goLogin() {
   window.location.href = "/fe/app/client/mall/html/login/login.html";
 }
 
-export function login(opts) {
-  let options = opts || {};
-  new Promise((resovle, reject) => {
-    let params = {
-      phone: options.phone,
-      code: options.captcha,
-      openid: options.openid
-    };
+export function login(loginOpts) {
+  function appLogin() {
+    return new Promise((resolve, reject) => {
+      NativeAPI.invoke("login", null, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    })
+      .then(result => {
+        if ( String(result.succ) === "1" || result.value === result.SUCC ) {
+          window.location.reload();
+        } else {
+          // hint.hideLoading();
+          window.console.log(JSON.stringify(result));
+          NativeAPI.invoke("close");
+        }
+      })
+      .catch(err => {
+        if (err.code === -32603) {
+          goLogin();
+        } else {
+          mallPromise.catchFn(err);
+        }
+      });
+  }
 
-    sendPost("weixinLogin", params, (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resovle(data);
-      }
-    });
-  })
-    .then(data => {
-      const cookieConfig = {
-        expires: 86400,
-        domain: location.hostname,
-        path: "/"
+  function webLogin(opts) {
+    let options = opts || {};
+    return new Promise((resovle, reject) => {
+      let params = {
+        phone: options.phone,
+        code: options.captcha,
+        openid: options.openid
       };
-      cookie.set("token", data.token, cookieConfig);
-      cookie.set("points", data.points, cookieConfig);
-      cookie.set("level", data.level, cookieConfig);
-      cookie.set("phone", data.phone || opts.phone, cookieConfig);
+
+      sendPost("weixinLogin", params, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resovle(data);
+        }
+      });
     })
-    .then(() => {
-      window.location.replace(options.pageUrl || "/fe/app/client/mall/index.html");
-    })
-    .catch(err => {
-      if (err.code === - 3330) {
-        goLogin();
-      } else {
-        mallPromise.catchFn(err);
-      }
-    });
+      .then(data => {
+        const cookieConfig = {
+          expires: 86400,
+          domain: location.hostname,
+          path: "/"
+        };
+        cookie.set("token", data.token, cookieConfig);
+        cookie.set("points", data.points, cookieConfig);
+        cookie.set("level", data.level, cookieConfig);
+        cookie.set("phone", data.phone || opts.phone, cookieConfig);
+      })
+      .then(() => {
+        window.location.replace(options.pageUrl || "/fe/app/client/mall/index.html");
+      })
+      .catch(err => {
+        if (err.code === - 3330) {
+          goLogin();
+        } else {
+          mallPromise.catchFn(err);
+        }
+      });
+  }
+
+  return mallUitl.isAppFunc() ? appLogin() : webLogin(loginOpts);
 }

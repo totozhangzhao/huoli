@@ -125,12 +125,12 @@ const AppView = Backbone.View.extend({
     if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
       orderInfo.token = cookie.get("token");
       orderInfo.returnUrl = orderDetailUrl;
-      mallPromise
+      return mallPromise
         .initPay(orderInfo)
         .then(success)
         .catch(mallPromise.catchFn);
     } else {
-      success();
+      return success();
     }
   }
 });

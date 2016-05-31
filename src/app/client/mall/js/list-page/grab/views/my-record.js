@@ -6,6 +6,7 @@ var Promise       = require("com/mobile/lib/promise/npo.js");
 var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
 var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var UrlUtil       = require("com/mobile/lib/url/url.js");
+var loginUtil     = require("app/client/mall/js/lib/login-util.js");
 
 var LoadingView   = require("app/client/mall/js/list-page/grab/views/loading-view.js");
 var ListBaseView      = require("app/client/mall/js/list-page/grab/views/base-list.js");
@@ -73,7 +74,7 @@ var AppView = ListBaseView.extend({
     })
     .catch(function (err) {
       if( err.code === -3330) {
-        mallPromise.login();
+        loginUtil.login();
       }else{
         mallPromise.catchFn(err);
       }
