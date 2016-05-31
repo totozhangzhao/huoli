@@ -38,9 +38,9 @@ var AppView = Backbone.View.extend({
 
   checkCouponButton: function() {
     if ( cookie.get("coupon" + this.couponId) ) {
-      this.$getCouponButton.addClass("active");
-    } else {
       this.$getCouponButton.removeClass("active");
+    } else {
+      this.$getCouponButton.addClass("active");
     }
   },
 
