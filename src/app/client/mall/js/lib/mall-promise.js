@@ -7,6 +7,7 @@ import NativeAPI from "app/client/common/lib/native/native-api.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
 
 export function getAppInfo(reset) {
   return new Promise((resolve, reject) => {
@@ -54,7 +55,7 @@ export function order(orderParams) {
     .catch(err => {
       if (err.code === -3331) {
         loginUtil.login({
-          openid: this.urlObj.openid,
+          openid: UrlUtil.parseUrlSearch().openid,
           pageUrl: window.location.href
         });
       } else {
