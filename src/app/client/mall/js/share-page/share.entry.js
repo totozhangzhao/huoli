@@ -81,6 +81,7 @@ var AppView = Backbone.View.extend({
         expires: 86400 * 7,
         path: "/"
       });
+      self.checkCouponButton();
     });
   },
   handleShareButton: function(e) {
