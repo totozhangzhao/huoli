@@ -27,11 +27,15 @@ var AppView = Backbone.View.extend({
   initialize: function() {
     this.$initial = ui.initial().show();
     this.mallInterlayer();
+    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+  },
+
+  initCoupon: function () {
     this.$getCouponButton = this.$el.find(".js-get-coupon");
     this.couponId = this.$getCouponButton.data("couponId");
     this.checkCouponButton();
-    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
   },
+
   checkCouponButton: function() {
     if ( cookie.get("coupon" + this.couponId) ) {
       this.$getCouponButton.addClass("active");
@@ -39,6 +43,7 @@ var AppView = Backbone.View.extend({
       this.$getCouponButton.removeClass("active");
     }
   },
+
   getMallCoupon: function() {
     var self = this;
 
@@ -133,6 +138,7 @@ var AppView = Backbone.View.extend({
 
       self.$el.append(result.tpl);
       self.initActive();
+      self.initCoupon();
 
       if ( wechatUtil.isWechatFunc() ) {
         wechatUtil.setTitle(result.title);
