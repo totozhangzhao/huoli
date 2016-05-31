@@ -1,10 +1,10 @@
-var BuyNumModel     = require("app/client/mall/js/common/models/buy-num-model.js");
-var BuyPanelView = require("app/client/mall/js/common/views/pay/buy-num-panel.js");
-var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
+import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
+import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
+import BaseView from "app/client/mall/js/common/views/BaseView.js";
 
-var AppView = BaseView.extend({
-  initialize: function () {
-    var buyNumModel = new BuyNumModel({
+const AppView = BaseView.extend({
+  initialize() {
+    const buyNumModel = new BuyNumModel({
       type: 0,
       title: "购买份数",
       limitNum: 99,
@@ -13,10 +13,10 @@ var AppView = BaseView.extend({
     });
     new BuyPanelView({
       model: buyNumModel,
-      buy: function (){    // 没有显示数量选择面板时，点击购买按钮的操作
+      buy() {    // 没有显示数量选择面板时，点击购买按钮的操作
         buyNumModel.set("type",1);
       },
-      pay: function () {  // 显示数量选择面板时, 点击购买按钮的操作
+      pay() {  // 显示数量选择面板时, 点击购买按钮的操作
         buyNumModel.set("type",0);
       }
     });

@@ -1,7 +1,7 @@
-var Backbone  = require("backbone");
+import Backbone from "backbone";
 
 // 商品
-var BaseGoods = Backbone.Model.extend({
+const BaseGoods = Backbone.Model.extend({
 
 });
 

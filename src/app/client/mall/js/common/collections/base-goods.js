@@ -1,5 +1,5 @@
-var Backbone  = require("backbone");
-var BaseGoods = Backbone.Collection.extend({
+import Backbone from "backbone";
+const BaseGoods = Backbone.Collection.extend({
 
 });
 

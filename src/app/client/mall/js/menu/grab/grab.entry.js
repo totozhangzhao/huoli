@@ -1,26 +1,24 @@
-var $             = require("jquery");
-var _             = require("lodash");
-var Promise       = require("com/mobile/lib/promise/npo.js");
+import $ from "jquery";
+import _ from "lodash";
+import Promise from "com/mobile/lib/promise/npo.js";
+import NativeAPI from "app/client/common/lib/native/native-api.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
+import ui from "app/client/mall/js/lib/ui.js";
+import logger from "com/mobile/lib/log/log.js";
+import {initTracker} from "app/client/mall/js/lib/common.js";
+import GoodsItemView from "app/client/mall/js/menu/grab/views/goods-item.js";
+import BannerView from "app/client/mall/js/menu/grab/views/banner.js";
+import WinnerView from "app/client/mall/js/menu/grab/views/winner-label.js";
+import Footer from "app/client/mall/js/common/views/footer.js";
+import BaseView from "app/client/mall/js/common/views/BaseView.js";
 
-var NativeAPI     = require("app/client/common/lib/native/native-api.js");
-var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
-var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var mallUitl      = require("app/client/mall/js/lib/util.js");
-var UrlUtil       = require("com/mobile/lib/url/url.js");
-var ui            = require("app/client/mall/js/lib/ui.js");
+const menuLog = initTracker("menu");
+import "app/client/mall/js/lib/common.js";
 
-var logger        = require("com/mobile/lib/log/log.js");
-var menuLog       = require("app/client/mall/js/lib/common.js").initTracker("menu");
-
-var GoodsItemView = require("app/client/mall/js/menu/grab/views/goods-item.js");
-var BannerView    = require("app/client/mall/js/menu/grab/views/banner.js");
-var WinnerView    = require("app/client/mall/js/menu/grab/views/winner-label.js");
-var Footer        = require("app/client/mall/js/common/views/footer.js");
-var BaseView      = require("app/client/mall/js/common/views/BaseView.js");
-
-require("app/client/mall/js/lib/common.js");
-
-var AppView = BaseView.extend({
+const AppView = BaseView.extend({
   el: "#main",
 
   events: {
@@ -28,12 +26,12 @@ var AppView = BaseView.extend({
     "click .js-get-url" : "handleGetUrl"
   },
 
-  initialize: function () {
-    var self = this;
+  initialize() {
+    const self = this;
 
     this.$initial = ui.initial().show();
 
-    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+    logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
 
     this.id = UrlUtil.parseUrlSearch().productid;
     // 商品列表容器
@@ -45,22 +43,22 @@ var AppView = BaseView.extend({
     // this.listenTo(this.$goods,"set",this.addGoodsItem);
     this.fetchData();
 
-    NativeAPI.registerHandler("resume", function() {
+    NativeAPI.registerHandler("resume", () => {
       self.fetchData({ resume: true });
     });
   },
 
-  fetchData: function (opts) {
-    var self = this;
-    var options = opts || {};
+  fetchData(opts) {
+    const self = this;
+    const options = opts || {};
 
     mallPromise.getAppInfo()
-    .then(function (userData) {
-      var params = _.extend({}, userData.userInfo, {
+    .then(userData => {
+      const params = _.extend({}, userData.userInfo, {
         productid: self.id
       });
-      return new Promise(function(resolve, reject) {
-        sendPost("crowdColumn", params, function(err, data) {
+      return new Promise((resolve, reject) => {
+        sendPost("crowdColumn", params, (err, data) => {
           if (err) {
             reject(err);
           } else {
@@ -69,7 +67,7 @@ var AppView = BaseView.extend({
         });
       });
     })
-    .then(function (data) {
+    .then(data => {
       if (options.resume) {
         self.renderGoodsList(data.product);
       } else {
@@ -79,8 +77,8 @@ var AppView = BaseView.extend({
     .catch(mallPromise.catchFn);
   },
 
-  render: function (data) {
-    var self = this;
+  render(data) {
+    const self = this;
 
     this.initBanner(data.banner);
     this.initWinnerLabel(data.winner);
@@ -88,7 +86,7 @@ var AppView = BaseView.extend({
     this.renderGoodsList(data.product);
     this.$footer.render();
 
-    setTimeout(function() {
+    setTimeout(() => {
       self.$initial.hide();
     }, 0);
 
@@ -100,22 +98,22 @@ var AppView = BaseView.extend({
   },
 
   // 增加一个商品视图
-  addGoodsItem: function () {
+  addGoodsItem() {
 
     // var itemView = new GoodsItemView();
     // this.$goodsPannel.append(itemView.render(data).el);
   },
 
   // 加载商品列表
-  renderGoodsList: function (data) {
+  renderGoodsList(data) {
     this.goodsView.render(data);
   },
   // 初始化banner
-  initBanner: function(bannerData) {
+  initBanner(bannerData) {
     new BannerView({model: bannerData});
   },
   // 初始化获奖名单滚动显示条
-  initWinnerLabel: function (winnerData) {
+  initWinnerLabel(winnerData) {
     new WinnerView({model: winnerData});
   }
 });

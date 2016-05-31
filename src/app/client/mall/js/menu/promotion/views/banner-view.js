@@ -1,18 +1,18 @@
 import Backbone from "backbone";
 import template from "app/client/mall/tpl/menu/promotion/baner.tpl";
-var BannerView  = Backbone.View.extend({
+const BannerView  = Backbone.View.extend({
 
   el: "#banner",
 
   events: {},
 
-  template: template,
+  template,
 
-  initialize: function () {
+  initialize() {
   },
 
   render(data) {
-    this.$el.html(this.template({data:data}));
+    this.$el.html(this.template({data}));
   }
 });
-module.exports = BannerView;
+export default BannerView;

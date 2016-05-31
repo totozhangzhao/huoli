@@ -1,23 +1,23 @@
-var Backbone     = require("backbone");
-var App          = require("app/client/mall/js/list-page/grab/views/record-page.js");
+import Backbone from "backbone";
+import App from "app/client/mall/js/list-page/grab/views/record-page.js";
 
-module.exports = Backbone.Router.extend({
+export default Backbone.Router.extend({
   routes: {
     "": "default",
     ":active": "dispatch"
   },
-  initialize: function() {
+  initialize() {
     this.app = new App();
   },
 
-  default: function () {
+  default() {
     this.switchTo("record", true, true);
   },
 
-  dispatch: function (action) {
+  dispatch(action) {
     this.app.changeView(action);
   },
-  switchTo: function (view, trigger, replace) {
+  switchTo(view, trigger, replace) {
     this.navigate(view, {
       trigger: !!trigger,
       replace: !!replace

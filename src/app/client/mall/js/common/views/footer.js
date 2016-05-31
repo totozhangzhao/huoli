@@ -1,8 +1,8 @@
-var Util      = require("com/mobile/lib/util/util.js");
-var mallUitl  = require("app/client/mall/js/lib/util.js");
-var BaseView  = require("app/client/mall/js/common/views/BaseView.js");
+import Util from "com/mobile/lib/util/util.js";
+import mallUitl from "app/client/mall/js/lib/util.js";
+import BaseView from "app/client/mall/js/common/views/BaseView.js";
 
-var Footer = BaseView.extend({
+const Footer = BaseView.extend({
 
   el: '#copyright',
 
@@ -12,10 +12,10 @@ var Footer = BaseView.extend({
 
   template: require("app/client/mall/tpl/copyright.tpl"),
 
-  initialize: function () {
+  initialize() {
   },
 
-  render: function () {
+  render() {
     this.$el.html(this.template({
       system: Util.getMobileSystem(),
       isHangbanFunc: mallUitl.isHangbanFunc()

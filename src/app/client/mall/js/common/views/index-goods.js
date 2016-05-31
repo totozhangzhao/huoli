@@ -2,75 +2,73 @@
 /*
   首页商品视图
 */
-var Backbone    = require("backbone");
-var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
-var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast       = require("com/mobile/widget/hint/hint.js").toast;
-var hint        = require("com/mobile/widget/hint/hint.js");
+import Backbone from "backbone";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
+import hint from "com/mobile/widget/hint/hint.js";
+import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import mallUitl from "app/client/mall/js/lib/util.js";
+import {imageDelay} from "app/client/mall/js/lib/common.js";
 
-var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
-var mallUitl    = require("app/client/mall/js/lib/util.js");
-
-var imageDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
-
-var PromotionView = Backbone.View.extend({
+const PromotionView = Backbone.View.extend({
 
   el: "#home-goods",
 
   template: require("app/client/mall/tpl/home/v2/goods.tpl"),
 
-  initialize: function (options){
+  initialize(options) {
     this.showLoading = options.showLoading || false;
     this.listenTo(this.model, "change:status", this.fetch);
     imageDelay();
   },
 
-  render: function (data) {
+  render(data) {
     this.$el.html(this.template({
       dataList: data,
       appName : mallUitl.getAppName(),
-      tplUtil : tplUtil
+      tplUtil
     }));
     imageDelay();
     return this;
   },
 
-  showMask: function () {
+  showMask() {
     this.$el.find(".home-goods-shadow").show();
   },
 
-  hideMask: function () {
+  hideMask() {
     this.$el.find(".home-goods-shadow").hide();
   },
 
-  fetch: function (model) {
+  fetch(model) {
     if(model.get("status") !== 1){
       return;
     }
     if(this.showLoading){
       hint.showLoading();
     }
-    var params = {
+    const params = {
       groupId: model.get("groupId")
     };
     if(!params.groupId || params.groupId === ""){
       mallPromise.getAppInfo()
-      .then(function(userData) {
+      .then(userData => {
         params["logger"] = {
           url: encodeURIComponent(window.location.href),
-          userData: userData,
+          userData,
           logger: model.get("logger")
         };
         this.getGoods(model, params);
-      }.bind(this));
+      });
 
       return;
     }
     this.getGoods(model, params);
   },
 
-  getGoods: function (model, params) {
-    sendPost("classifyGoods", params, function(err, result) {
+  getGoods(model, params) {
+    sendPost("classifyGoods", params, (err, result) => {
       if(this.showLoading){
         hint.hideLoading();
       }
@@ -88,7 +86,7 @@ var PromotionView = Backbone.View.extend({
         groupId:"",
         title: result.title
       });
-    }.bind(this));
+    });
   }
 });
 

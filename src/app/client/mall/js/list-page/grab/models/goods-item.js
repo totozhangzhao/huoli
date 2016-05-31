@@ -1,5 +1,5 @@
-var BaseGoods = require("app/client/mall/js/common/models/base-goods.js");
-var GoodsItem = BaseGoods.extend({
+import BaseGoods from "app/client/mall/js/common/models/base-goods.js";
+const GoodsItem = BaseGoods.extend({
 
 });
-module.exports = GoodsItem;
+export default GoodsItem;
