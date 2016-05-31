@@ -38,9 +38,9 @@ var AppView = Backbone.View.extend({
 
   checkCouponButton: function() {
     if ( cookie.get("coupon" + this.couponId) ) {
-      this.$getCouponButton.addClass("active");
-    } else {
       this.$getCouponButton.removeClass("active");
+    } else {
+      this.$getCouponButton.addClass("active");
     }
   },
 
@@ -81,6 +81,7 @@ var AppView = Backbone.View.extend({
         expires: 86400 * 7,
         path: "/"
       });
+      self.checkCouponButton();
     });
   },
   handleShareButton: function(e) {
