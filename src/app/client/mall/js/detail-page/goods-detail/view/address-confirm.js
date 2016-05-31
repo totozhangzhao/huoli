@@ -6,11 +6,12 @@ import appInfo from "app/client/mall/js/lib/app-info.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
-import widget from "app/client/mall/js/lib/common.js";
+import * as widget from "app/client/mall/js/lib/common.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 // import mallUitl from "app/client/mall/js/lib/util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
 
 const AppView = Backbone.View.extend({
   el: "#address-confirm",
@@ -107,10 +108,10 @@ const AppView = Backbone.View.extend({
         return;
       }
 
-      self.handleCreateOrder(result, goods);
+      self.afterCreateOrder(result, goods);
     });
   },
-  handleCreateOrder(orderInfo) {
+  afterCreateOrder(orderInfo) {
     let orderDetailUrl = window.location.origin +
       `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${orderInfo.orderid}`;
 
@@ -122,6 +123,7 @@ const AppView = Backbone.View.extend({
     }
 
     if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
+      orderInfo.token = cookie.get("token");
       orderInfo.returnUrl = orderDetailUrl;
       mallPromise
         .initPay(orderInfo)

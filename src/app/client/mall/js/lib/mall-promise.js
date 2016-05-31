@@ -19,9 +19,9 @@ export function getAppInfo(reset) {
 
 export function catchFn(err) {
   if (err.message) {
-    toast(err.message, 1500);
+    toast(err.message, 3000);
   } else {
-    toast(JSON.stringify(err), 1500);
+    toast(JSON.stringify(err), 3000);
   }
 
   if (err instanceof Error) {
@@ -68,9 +68,10 @@ export function initPay(orderInfo) {
   function webPay() {
     let baseUrl = "//wtest.133.cn/hangban/payment/new?";
     let params = {
+      token: orderInfo.token,
+      ru: orderInfo.returnUrl,
       orderId: orderInfo.payorderid,
-      orderType: 2,
-      ru: orderInfo.returnUrl
+      orderType: 2
     };
     window.location.href = baseUrl + $.param(params);
   }

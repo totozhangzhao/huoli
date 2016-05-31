@@ -1,7 +1,7 @@
 import $ from "jquery";
 import _ from "lodash";
 import async from "async";
-import NativeAPI from "app/client/common/lib/native/native-api.js";
+// import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import appInfo from "app/client/mall/js/lib/app-info.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
@@ -435,54 +435,16 @@ const AppView = BaseView.extend({
         return;
       }
 
-      self.handleCreateOrder(result);
+      self.afterCreateOrder(result);
     });
   },
-  handleCreateOrder(orderInfo) {
-    const self = this;
+  afterCreateOrder(orderInfo) {
+    let self = this;
+    let orderDetailUrl = window.location.origin +
+      `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${orderInfo.orderid}`;
 
-    async.waterfall([
-      next => {
-        if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
-          let payUrl = `${window.location.origin}/bmall/payview.do?orderid=${orderInfo.orderid}`;
-
-          if ( mallUitl.isHangbanFunc() ) {
-            payUrl = `${window.location.origin}/bmall/hbpayview.do?orderid=${orderInfo.orderid}`;
-          }
-
-          // quitpaymsg  String 退出时候的提示
-          // title       String 支付标题
-          // price       String 商品价格
-          // orderid     String 订单号
-          // productdesc String 商品描述
-          // url         String 显示订单基本信息的Wap页面
-          // subdesc     String 商品详情描述
-          const payParams = {
-            quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
-            title: "支付订单",
-            price: orderInfo.payprice,
-            orderid: orderInfo.payorderid,
-            productdesc: orderInfo.paydesc,
-            url: payUrl,
-            subdesc: orderInfo.paysubdesc
-          };
-
-          NativeAPI.invoke("startPay", payParams, (err, payData) => {
-            next(err, payData);
-          });
-        } else {
-          next(null, null);
-        }
-      }
-    ], (err, result) => {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      const orderDetailUrl = `${window.location.origin}/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${orderInfo.orderid}`;
-
-      if (result) {
+    function success(payResult) {
+      if (payResult) {
         self.gotoNewView({
           url: orderDetailUrl
         });
@@ -502,7 +464,18 @@ const AppView = BaseView.extend({
       }
 
       hint.hideLoading();
-    });
+    }
+
+    if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
+      orderInfo.token = cookie.get("token");
+      orderInfo.returnUrl = orderDetailUrl;
+      mallPromise
+        .initPay(orderInfo)
+        .then(success)
+        .catch(mallPromise.catchFn);
+    } else {
+      success();
+    }
   },
   gotoNewView(options) {
     widget.createNewView(options);
