@@ -40,6 +40,11 @@ const AppView = BaseView.extend({
   },
   initialize(commonData) {
     _.extend(this, commonData);
+    this.urlObj = UrlUtil.parseUrlSearch();
+    if ( wechatUtil.isWechatFunc() && !this.urlObj.openid) {
+      window.location.href = loginUtil.getWechatAuthUrl();
+      return;
+    }
     this.buyNumModel = new BuyNumModel();
     this.model.buyNumModel = this.buyNumModel;
     this.payView = new BuyPanelView({
@@ -52,7 +57,6 @@ const AppView = BaseView.extend({
     this.resetAppView = false;
     this.title = "";
     this.userDataOpitons = { reset: false };
-    this.urlObj = UrlUtil.parseUrlSearch();
     this.action = this.urlObj.action;
     this.mallGoodsDetail();
   },

@@ -74,7 +74,7 @@ export function login(loginOpts) {
       });
     })
       .then(data => {
-        const cookieConfig = {
+        let cookieConfig = {
           expires: 86400,
           domain: location.hostname,
           path: "/"
@@ -88,6 +88,7 @@ export function login(loginOpts) {
         window.location.replace(options.pageUrl || "/fe/app/client/mall/index.html");
       })
       .catch(err => {
+        // -3330: 转入发送手机验证码登录
         if (err.code === - 3330) {
           goLogin();
         } else {

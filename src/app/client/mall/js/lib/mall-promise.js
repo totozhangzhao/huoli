@@ -53,6 +53,7 @@ export function order(orderParams) {
       });
     })
     .catch(err => {
+      // -3331: token 过期
       if (err.code === -3331) {
         loginUtil.login({
           openid: UrlUtil.parseUrlSearch().openid,
