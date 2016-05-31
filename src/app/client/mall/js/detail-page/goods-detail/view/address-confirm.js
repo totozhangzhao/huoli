@@ -1,33 +1,34 @@
-// var $          = require("jquery");
-var Backbone   = require("backbone");
-var _          = require("lodash");
-var async      = require("async");
-var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast      = require("com/mobile/widget/hint/hint.js").toast;
-var hint       = require("com/mobile/widget/hint/hint.js");
-var widget     = require("app/client/mall/js/lib/common.js");
-var pageAction = require("app/client/mall/js/lib/page-action.js");
-var UrlUtil    = require("com/mobile/lib/url/url.js");
-var mallUitl   = require("app/client/mall/js/lib/util.js");
+import Backbone from "backbone";
+import _ from "lodash";
+import async from "async";
+import appInfo from "app/client/mall/js/lib/app-info.js";
+// import NativeAPI from "app/client/common/lib/native/native-api.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
+import hint from "com/mobile/widget/hint/hint.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+import pageAction from "app/client/mall/js/lib/page-action.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
+// import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
 
-var AppView = Backbone.View.extend({
+const AppView = Backbone.View.extend({
   el: "#address-confirm",
   events: {
     "click #confirm-order": "confirmOrder",
     "click #address-entry": "selectAddress"
   },
-  initialize: function(commonData) {
+  initialize(commonData) {
     _.extend(this, commonData);
     this.curAddress = {};
   },
-  resume: function(options) {
+  resume(options) {
     if (options.previousView === "") {
-      setTimeout(function() {
+      setTimeout(() => {
         this.router.replaceTo("goods-detail");
         pageAction.setClose();
-      }.bind(this), 0);
+      }, 0);
       return;
     }
 
@@ -37,8 +38,8 @@ var AppView = Backbone.View.extend({
       pageAction.setClose();
     }
 
-    var curAddressId = this.cache.curAddressId;
-    var addressList = this.collection.addressList;
+    const curAddressId = this.cache.curAddressId;
+    const addressList = this.collection.addressList;
 
     if (curAddressId) {
       this.cache.curAddressId = null;
@@ -49,11 +50,11 @@ var AppView = Backbone.View.extend({
 
     this.initView(this.curAddress);
   },
-  initView: function(addressInfo) {
-    var addressListTpl = require("app/client/mall/tpl/detail-page/address-confirm.tpl");
-    var model  = this.model.buyNumModel;
+  initView(addressInfo) {
+    const addressListTpl = require("app/client/mall/tpl/detail-page/address-confirm.tpl");
+    const model  = this.model.buyNumModel;
     this.$el.html(addressListTpl({
-      addressInfo: addressInfo,
+      addressInfo,
       goods: this.cache.goods,
       points: model.get("points"),
       ptotal: model.getTotalPoints(),
@@ -62,19 +63,19 @@ var AppView = Backbone.View.extend({
       num: model.get("number")
     }));
   },
-  selectAddress: function() {
+  selectAddress() {
     this.router.switchTo("address-list");
   },
-  confirmOrder: function() {
+  confirmOrder() {
     hint.showLoading();
     this.mallCreateOrder(this.cache.goods);
   },
-  mallCreateOrder: function(goods) {
-    var self = this;
+  mallCreateOrder(goods) {
+    const self = this;
 
     async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
+      next => {
+        appInfo.getUserData((err, userData) => {
           if (err) {
             next(err);
             return;
@@ -83,8 +84,8 @@ var AppView = Backbone.View.extend({
           next(null, userData);
         });
       },
-      function(userData, next) {
-        var params = _.extend({}, userData.userInfo, {
+      (userData, next) => {
+        const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: UrlUtil.parseUrlSearch().productid,
           address: self.curAddress,
@@ -97,69 +98,40 @@ var AppView = Backbone.View.extend({
           params.privilprice = goods.userprivilresp.privilprice;
         }
 
-        sendPost("createOrder", params, function(err, data) {
+        sendPost("createOrder", params, (err, data) => {
           next(err, data);
         });
       }
-    ], function(err, result) {
+    ], (err, result) => {
       if (err) {
         toast(err.message, 1500);
         return;
       }
 
-      self.handleCreateOrder(result, goods);
+      self.afterCreateOrder(result, goods);
     });
   },
-  handleCreateOrder: function(orderInfo) {
-    async.waterfall([
-      function(next) {
-        if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
-          var payUrl = window.location.origin + "/bmall/payview.do?orderid=" + orderInfo.orderid;
+  afterCreateOrder(orderInfo) {
+    let orderDetailUrl = window.location.origin +
+      `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${orderInfo.orderid}`;
 
-          if ( mallUitl.isHangbanFunc() ) {
-            payUrl = window.location.origin + "/bmall/hbpayview.do?orderid=" + orderInfo.orderid;
-          }
-
-          // quitpaymsg  String 退出时候的提示
-          // title       String 支付标题
-          // price       String 商品价格
-          // orderid     String 订单号
-          // productdesc String 商品描述
-          // url         String 显示订单基本信息的Wap页面
-          // subdesc     String 商品详情描述
-          var payParams = {
-            quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
-            title: "支付订单",
-            price: orderInfo.payprice,
-            orderid: orderInfo.payorderid,
-            productdesc: orderInfo.paydesc,
-            url: payUrl,
-            subdesc: orderInfo.paysubdesc
-          };
-
-          NativeAPI.invoke("startPay", payParams, function(err, payData) {
-            next(err, payData);
-          });
-        } else {
-          next(null, null);
-        }
-      }
-    ], function(err) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      var orderDetailUrl = window.location.origin +
-          "/fe/app/client/mall/html/detail-page/order-detail.html" +
-          "?orderid=" + orderInfo.orderid;
-
+    function success() {
       widget.createNewView({
         url: orderDetailUrl
       });
-
       hint.hideLoading();
-    });
+    }
+
+    if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
+      orderInfo.token = cookie.get("token");
+      orderInfo.returnUrl = orderDetailUrl;
+      return mallPromise
+        .initPay(orderInfo)
+        .then(success)
+        .catch(mallPromise.catchFn);
+    } else {
+      return success();
+    }
   }
 });
 

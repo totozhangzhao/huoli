@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
@@ -8,6 +9,7 @@ import UrlUtil from "com/mobile/lib/url/url.js";
 import LoadingView from "app/client/mall/js/list-page/grab/views/loading-view.js";
 import ListBaseView from "app/client/mall/js/list-page/grab/views/base-list.js";
 import ui from "app/client/mall/js/lib/ui.js";
+import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 
 require("app/client/mall/js/lib/common.js");
 
@@ -70,7 +72,7 @@ const AppView = ListBaseView.extend({
     })
     .catch(err => {
       if( err.code === -3330) {
-        mallPromise.login();
+        loginUtil.login();
       }else{
         mallPromise.catchFn(err);
       }

@@ -1,22 +1,25 @@
-var $         = require("jquery");
-var _         = require("lodash");
-var Backbone  = require("backbone");
-var toast     = require("com/mobile/widget/hint/hint.js").toast;
-var hint      = require("com/mobile/widget/hint/hint.js");
-var ui        = require("app/client/mall/js/lib/ui.js");
-var UrlUtil   = require("com/mobile/lib/url/url.js");
-var mallUitl  = require("app/client/mall/js/lib/util.js");
-var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var NativeAPI = require("app/client/common/lib/native/native-api.js");
-var Promise   = require("com/mobile/lib/promise/npo.js");
-var Tab       = require("com/mobile/widget/button/tab.js");
-var widget    = require("app/client/mall/js/lib/common.js");
-var mallPromise  = require("app/client/mall/js/lib/mall-promise.js");
-var detailLog    = require("app/client/mall/js/lib/common.js").initTracker("detail");
-var BuyNumModel  = require("app/client/mall/js/common/models/buy-num-model.js");
-var BuyPanelView = require("app/client/mall/js/common/views/pay/buy-num-panel.js");
+import $ from "jquery";
+import _ from "lodash";
+import Backbone from "backbone";
+import {toast} from "com/mobile/widget/hint/hint.js";
+import hint from "com/mobile/widget/hint/hint.js";
+import ui from "app/client/mall/js/lib/ui.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
+// import mallUitl from "app/client/mall/js/lib/util.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+// import NativeAPI from "app/client/common/lib/native/native-api.js";
+import Promise from "com/mobile/lib/promise/npo.js";
+import Tab from "com/mobile/widget/button/tab.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import {initTracker} from "app/client/mall/js/lib/common.js";
+import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
+import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
+import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 
-var AppView = Backbone.View.extend({
+const detailLog = initTracker("detail");
+const AppView = Backbone.View.extend({
   el: "#crowd-detail",
   events: {
     "click .js-webview a"                              : "createNewPage",
@@ -25,14 +28,14 @@ var AppView = Backbone.View.extend({
     "click .js-tab-wrapper [data-tab-name=goodsDetail]": "renderDetail"
   },
 
-  initialize: function(commonData) {
+  initialize(commonData) {
     _.extend(this, commonData);
     this.$initial    = ui.initial().show();
     this.buyNumModel = new BuyNumModel();
     this.payView     = new BuyPanelView({
       model: this.buyNumModel,
-      buy: function() {this.buy();}.bind(this),
-      pay: function() {this.pay();}.bind(this)
+      buy: () => {this.buy();},
+      pay: () => {this.pay();}
     });
     // 活动ID
     this.id = UrlUtil.parseUrlSearch().productid;
@@ -40,8 +43,8 @@ var AppView = Backbone.View.extend({
     this.urlTitle = UrlUtil.parseUrlSearch().title || this.$el.data("title");
     this.mallCrowdDetail();
   },
-  resume: function() {
-    var title = this.urlTitle;
+  resume() {
+    let title = this.urlTitle;
     if (this.title) {
       title = this.title;
 
@@ -54,37 +57,37 @@ var AppView = Backbone.View.extend({
 
     widget.updateViewTitle(title);
   },
-  createNewPage: function(e) {
+  createNewPage(e) {
     widget.createAView(e);
   },
-  hideFixPanel: function(e) {
+  hideFixPanel(e) {
     $(e.currentTarget).hide();
   },
-  gotoRulesPage: function() {
+  gotoRulesPage() {
     this.router.switchTo("crowd-rules");
   },
-  mallCrowdDetail: function() {
-    var self = this;
-    var render = function(userData) {
-      var params = _.extend({}, userData.userInfo, {
+  mallCrowdDetail() {
+    const self = this;
+    const render = userData => {
+      const params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p,
         productid: self.id
       });
 
-      return new Promise(function(resolve, reject) {
-        sendPost("crowdDetail", params, function(err, data) {
+      return new Promise((resolve, reject) => {
+        sendPost("crowdDetail", params, (err, data) => {
           if (err) {
             reject(err);
           } else {
             resolve({
               crowd: data,
-              userData: userData
+              userData
             });
           }
         });
       })
-        .then(function(data) {
-          var crowd = data.crowd;
+        .then(data => {
+          const crowd = data.crowd;
           self.renderMainPanel(crowd);
           self.renderBuyNumView(crowd);
           new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
@@ -92,22 +95,20 @@ var AppView = Backbone.View.extend({
         })
         .catch(mallPromise.catchFn);
     };
-    var start = function(userData) {
+    const start = userData => {
       if (userData.userInfo && userData.userInfo.userid) {
         return render(userData);
       } else {
-        return mallPromise.login();
+        return loginUtil.login();
       }
     };
 
     mallPromise.getAppInfo()
-      .then(function(userData) {
-        return start(userData);
-      })
+      .then(userData => start(userData))
       .catch(mallPromise.catchFn);
   },
-  getMaxNum: function(total) {
-    var maxNum = Math.floor(total * 0.05);
+  getMaxNum(total) {
+    let maxNum = Math.floor(total * 0.05);
 
     if (maxNum < 10) {
       maxNum = 10;
@@ -118,22 +119,22 @@ var AppView = Backbone.View.extend({
     return maxNum;
   },
   // 加载商品详情
-  renderDetail: function (e) {
-    var $cur = $(e.currentTarget);
+  renderDetail(e) {
+    const $cur = $(e.currentTarget);
     if($cur.data("loaded")){
       return;
     }
     hint.showLoading();
-    var self = this;
+    const self = this;
     mallPromise.getAppInfo()
-      .then(function(userData) {
-        var params = _.extend({}, userData.userInfo, {
+      .then(userData => {
+        const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: self.id
         });
 
-        return new Promise(function(resolve, reject) {
-          sendPost("tplProduct", params, function(err, data) {
+        return new Promise((resolve, reject) => {
+          sendPost("tplProduct", params, (err, data) => {
             if (err) {
               reject(err);
             } else {
@@ -142,7 +143,7 @@ var AppView = Backbone.View.extend({
           });
         });
       })
-      .then(function(data) {
+      .then(data => {
         $cur.data("loaded", true);
         hint.hideLoading();
         self.$el
@@ -151,9 +152,9 @@ var AppView = Backbone.View.extend({
       })
       .catch(mallPromise.catchFn);
   },
-  renderMainPanel: function(productDetail) {
-    var self = this;
-    var title = this.urlTitle;
+  renderMainPanel(productDetail) {
+    const self = this;
+    let title = this.urlTitle;
 
     if (productDetail.title) {
       this.title = productDetail.title;
@@ -161,47 +162,47 @@ var AppView = Backbone.View.extend({
       widget.updateViewTitle(title);
     }
 
-    var minBarWidth = 4;
-    var maxBarWidth = 100;
-    var barWidth = (productDetail.totalcount - productDetail.remaincount) / productDetail.totalcount * 100;
+    const minBarWidth = 4;
+    const maxBarWidth = 100;
+    let barWidth = (productDetail.totalcount - productDetail.remaincount) / productDetail.totalcount * 100;
 
     barWidth = barWidth > minBarWidth ? barWidth : minBarWidth;
     barWidth = barWidth < maxBarWidth ? barWidth : maxBarWidth;
 
-    var isSelling = productDetail.stat === 1 || productDetail.stat === 4;
-    var showAnimation = isSelling && (barWidth !== maxBarWidth && barWidth !== minBarWidth);
-    var tmpl = require("app/client/mall/tpl/active-page/crowd/main.tpl");
+    const isSelling = productDetail.stat === 1 || productDetail.stat === 4;
+    const showAnimation = isSelling && (barWidth !== maxBarWidth && barWidth !== minBarWidth);
+    const tmpl = require("app/client/mall/tpl/active-page/crowd/main.tpl");
 
     this.$el.html(tmpl({
       data: productDetail,
       barWidth: showAnimation ? minBarWidth : barWidth
     }));
 
-    var ani = new Promise(function(resolve) {
-      setTimeout(function() {
+    const ani = new Promise(resolve => {
+      setTimeout(() => {
         self.$initial.hide();
         resolve();
       }, 0);
     });
 
     if (showAnimation) {
-      ani.then(function() {
-        setTimeout(function() {
+      ani.then(() => {
+        setTimeout(() => {
           self.$el
             .find(".js-bar")
-              .css("width", barWidth + "%");
+              .css("width", `${barWidth}%`);
         }, 0);
       });
     }
 
     detailLog({
-      title: title,
+      title,
       productid: UrlUtil.parseUrlSearch().productid,
       from: UrlUtil.parseUrlSearch().from || "--"
     });
   },
-  renderBuyNumView: function (crowd) {
-    var buttonText = { "0": "已结束", "1": "立即参与", "2": "已结束", "4": "余量不足" };
+  renderBuyNumView(crowd) {
+    const buttonText = { "0": "已结束", "1": "立即参与", "2": "已结束", "4": "余量不足" };
     this.buyNumModel.set({
       type:0,
       hasMask: false,
@@ -217,15 +218,14 @@ var AppView = Backbone.View.extend({
     });
   },
 
-  buy: function () {
+  buy() {
     this.buyNumModel.set({
       hasMask: true,
       type:1
     });
   },
-  pay: function () {
-    var self = this;
-    var num = this.buyNumModel.get("number");
+  pay() {
+    const num = this.buyNumModel.get("number");
 
     if (num <= 0) {
       toast("不能选择0个");
@@ -234,67 +234,32 @@ var AppView = Backbone.View.extend({
 
     hint.showLoading();
 
-    mallPromise.getAppInfo()
-      .then(function(userData) {
-        var params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p,
-          productid: self.id,
-          num: num
-        });
-
-        return new Promise(function(resolve, reject) {
-          sendPost("createOrder", params, function(err, data) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(data);
-            }
-          });
-        });
-      })
-      .then(function(orderInfo) {
-        if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
-          var payUrl = window.location.origin + "/bmall/payview.do?orderid=" + orderInfo.orderid;
-
-          if ( mallUitl.isHangbanFunc() ) {
-            payUrl = window.location.origin + "/bmall/hbpayview.do?orderid=" + orderInfo.orderid;
-          }
-
-          // quitpaymsg  String 退出时候的提示
-          // title       String 支付标题
-          // price       String 商品价格
-          // orderid     String 订单号
-          // productdesc String 商品描述
-          // url         String 显示订单基本信息的Wap页面
-          // subdesc     String 商品详情描述
-          var payParams = {
-            quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
-            title: "支付订单",
-            price: self.buyNumModel.getTotalPrice(),
-            orderid: orderInfo.payorderid,
-            productdesc: orderInfo.paydesc,
-            url: payUrl,
-            subdesc: orderInfo.paysubdesc
-          };
-
-          return new Promise(function(resolve, reject) {
-            NativeAPI.invoke("startPay", payParams, function(err, payData) {
-              if (err) {
-                reject(err);
-              } else {
-                resolve(payData);
-              }
-            });
-          });
-        } else {
-          return null;
-        }
-      })
-      .then(function() {
-        // hint.hideLoading();
-        window.location.reload();
+    mallPromise
+      .order({num})
+      .then(orderInfo => {
+        return this.afterCreateOrder(orderInfo);
       })
       .catch(mallPromise.catchFn);
+  },
+  afterCreateOrder(orderInfo) {
+    let orderDetailUrl = window.location.origin +
+      `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${orderInfo.orderid}`;
+
+    function success() {
+      // hint.hideLoading();
+      window.location.reload();
+    }
+
+    if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
+      orderInfo.token = cookie.get("token");
+      orderInfo.returnUrl = orderDetailUrl;
+      return mallPromise
+        .initPay(orderInfo)
+        .then(success)
+        .catch(mallPromise.catchFn);
+    } else {
+      return null;
+    }
   }
 });
 
