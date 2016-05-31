@@ -20,6 +20,7 @@ var ui         = require("app/client/mall/js/lib/ui.js");
 var AppView = Backbone.View.extend({
   el: "#interlayer",
   events: {
+    "click .js-get-coupon": "getMallCoupon",
     "click .js-common-share": "handleShareButton",
     "click a": "createNewPage"
   },
@@ -27,6 +28,60 @@ var AppView = Backbone.View.extend({
     this.$initial = ui.initial().show();
     this.mallInterlayer();
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+  },
+
+  initCoupon: function () {
+    this.$getCouponButton = this.$el.find(".js-get-coupon");
+    this.couponId = this.$getCouponButton.data("couponId");
+    this.checkCouponButton();
+  },
+
+  checkCouponButton: function() {
+    if ( cookie.get("coupon" + this.couponId) ) {
+      this.$getCouponButton.addClass("active");
+    } else {
+      this.$getCouponButton.removeClass("active");
+    }
+  },
+
+  getMallCoupon: function() {
+    var self = this;
+
+    async.waterfall([
+      function(next) {
+        appInfo.getUserData(function(err, userData) {
+          if (err) {
+            toast(err.message, 1500);
+            return;
+          }
+
+          next(null, userData);
+        });
+      },
+      function(userData, next) {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p,
+          productid: self.couponId
+        });
+
+        sendPost("getCoupon", params, function(err, data) {
+          next(err, data);
+        });
+      }
+    ], function(err, result) {
+      if (err) {
+        toast(err.message, 1500);
+        return;
+      }
+
+      toast(result.message, 1500);
+
+      cookie.set("coupon" + self.couponId, 1, {
+        domain: window.location.hostname,
+        expires: 86400 * 7,
+        path: "/"
+      });
+    });
   },
   handleShareButton: function(e) {
     var urlObj = $(e.currentTarget).data();
@@ -83,6 +138,7 @@ var AppView = Backbone.View.extend({
 
       self.$el.append(result.tpl);
       self.initActive();
+      self.initCoupon();
 
       if ( wechatUtil.isWechatFunc() ) {
         wechatUtil.setTitle(result.title);
@@ -108,7 +164,7 @@ var AppView = Backbone.View.extend({
   initActive: function() {
     var id = parseUrl().productid;
 
-    if ( String(id) === "10000184" || String(id) === "22000003") {
+    if ( String(id) === "10000212") {
       new ShareInput({ el: "#interlayer" });
     }
   }
