@@ -12,14 +12,18 @@ import tmpl        from "app/client/mall/tpl/login/login.tpl";
 // import {toast}     from "com/mobile/widget/hint/hint.js";
 import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
+
 import "app/client/mall/js/lib/common.js";
 
-var AppView = Backbone.View.extend({
+const AppView = Backbone.View.extend({
   el: "#login-main",
   events: {
-    "input .js-phone-num": "inputPhoneNum",
+    "input .js-phone-num"     : "inputPhoneNum",
+    "input .js-input"         : "inputInput",
+    "blur  .js-input"         : "blurInput",
     "click .js-captcha-button": "sendCaptcha",
-    "click .js-login": "login"
+    "click .js-login"         : "login"
   },
   initialize(commonData) {
     _.extend(this, commonData);
@@ -40,8 +44,8 @@ var AppView = Backbone.View.extend({
     this.$el.$captchaInput  = $("#login-main .js-captcha");
     this.$el.$captchaButton = $("#login-main .js-captcha-button");
   },
-  inputPhoneNum: function() {
-    var phoneNum = this.$el.$phoneInput.val();
+  inputPhoneNum() {
+    let phoneNum = this.$el.$phoneInput.val();
 
     if ( validator.checkPhoneNum(phoneNum) ) {
       this.$el.$captchaButton.prop("disabled", false);
@@ -49,34 +53,48 @@ var AppView = Backbone.View.extend({
       this.$el.$captchaButton.prop("disabled", true);
     }
   },
-  sendCaptcha: function() {
-    var $btn = this.$el.$captchaButton;
+  inputInput: function(e) {
+    $(e.currentTarget).removeClass("js-input-error");
+  },
+  blurInput: function(e) {
+    var $input = $(e.currentTarget);
+    var val = $input.val();
+    var method = $input.data("checkMethod");
+
+    if ( validator[method](val) ) {
+      $input.removeClass("js-input-error");
+    } else {
+      $input.addClass("js-input-error");
+    }
+  },
+  sendCaptcha() {
+    let $btn = this.$el.$captchaButton;
 
     if ( $btn.prop("disabled") ) {
       return;
     }
 
-    var $phoneInput = this.$el.$phoneInput;
+    let $phoneInput = this.$el.$phoneInput;
 
-    var lock = function() {
+    function lock() {
       $phoneInput.prop("readonly", true);
       $btn.prop("disabled", true);
-    };
+    }
 
-    var unlock = function() {
+    function unlock() {
       $phoneInput.prop("readonly", false);
       $btn.prop("disabled", false).text("获取验证码");
-    };
+    }
 
     lock();
 
     $btn.text("发送中...");
 
     new Promise((resovle, reject) => {
-      var params = {
+      let params = {
         phone: $phoneInput.val()
       };
-      sendPost("sendLoginCode", params, function(err, data) {
+      sendPost("sendLoginCode", params, (err, data) => {
         if (err) {
           reject(err);
         } else {
@@ -85,7 +103,7 @@ var AppView = Backbone.View.extend({
       });
     })
       .then(() => {
-        var count = $btn.data("timeout") || 90;
+        let count = $btn.data("timeout") || 90;
 
         this.captchaTimer = setInterval(() => {
           count -= 1;
@@ -105,6 +123,13 @@ var AppView = Backbone.View.extend({
       });
   },
   login() {
+    this.$el.find(".js-input").trigger("blur");
+
+    if (this.$el.find(".js-input-error").length > 0) {
+      toast("请输入正确的登录信息", 1500);
+      return;
+    }
+
     loginUtil.login({
       phone: this.$el.$phoneInput.val(),
       captcha: this.$el.$captchaInput.val(),
