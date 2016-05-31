@@ -1,20 +1,17 @@
-var $             = require("jquery");
-var Backbone      = require("backbone");
-var _             = require("lodash");
-var Promise       = require("com/mobile/lib/promise/npo.js");
-
-var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
-var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var UrlUtil       = require("com/mobile/lib/url/url.js");
-
-var LoadingView   = require("app/client/mall/js/list-page/grab/views/loading-view.js");
-var ListBaseView      = require("app/client/mall/js/list-page/grab/views/base-list.js");
-
-var ui            = require("app/client/mall/js/lib/ui.js");
+import $ from "jquery";
+import Backbone from "backbone";
+import _ from "lodash";
+import Promise from "com/mobile/lib/promise/npo.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
+import LoadingView from "app/client/mall/js/list-page/grab/views/loading-view.js";
+import ListBaseView from "app/client/mall/js/list-page/grab/views/base-list.js";
+import ui from "app/client/mall/js/lib/ui.js";
 
 require("app/client/mall/js/lib/common.js");
 
-var AppView = ListBaseView.extend({
+const AppView = ListBaseView.extend({
 
   tagName: "ul",
 
@@ -23,7 +20,7 @@ var AppView = ListBaseView.extend({
   template: require("app/client/mall/tpl/list-page/grab/my-record-goods.tpl"),
 
 
-  initialize: function () {
+  initialize() {
     this.$initial = ui.initial().show();
     this.last = null;       // 更多数据起始位置
     this.hasMore = true;    // 有更多数据
@@ -35,8 +32,8 @@ var AppView = ListBaseView.extend({
 
   },
 
-  fetchData: function () {
-    var self = this;
+  fetchData() {
+    const self = this;
     if(!this.hasMore || this.isLoading){
       return;
     }
@@ -44,16 +41,16 @@ var AppView = ListBaseView.extend({
     this.loadingView.show();
 
     mallPromise.getAppInfo()
-    .then(function (userData) {
-      var params = {
+    .then(userData => {
+      const params = {
         userid: userData.userInfo.userid,
         authcode: userData.userInfo.authcode,
         uid: userData.userInfo.uid,
         limit: 10,
         last: self.last
       };
-      return new Promise(function(resolve, reject) {
-        sendPost("userInvolvedCrowd", params, function(err, data) {
+      return new Promise((resolve, reject) => {
+        sendPost("userInvolvedCrowd", params, (err, data) => {
           if (err) {
             reject(err);
           } else {
@@ -62,7 +59,7 @@ var AppView = ListBaseView.extend({
         });
       });
     })
-    .then(function (data) {
+    .then(data => {
       self.loadingView.hide();
       self.isLoading = false;
       if(!data || data.length === 0){
@@ -71,7 +68,7 @@ var AppView = ListBaseView.extend({
       }
       return self.render(data);
     })
-    .catch(function (err) {
+    .catch(err => {
       if( err.code === -3330) {
         mallPromise.login();
       }else{
@@ -80,9 +77,9 @@ var AppView = ListBaseView.extend({
     });
   },
 
-  render: function (data) {
+  render(data) {
 
-    var isNotFirstPage = !!this.last;
+    const isNotFirstPage = !!this.last;
 
     if(data.length > 0){
       this.last = _.last(data).orderid;
@@ -97,17 +94,15 @@ var AppView = ListBaseView.extend({
     return this;
   },
 
-  bindEvent: function () {
-    $(window).scroll((function (_this) {
-      return function () {
-        if(Backbone.history.getHash() === "my-record"){
-          var bottom = $("#main").height() - $(window).scrollTop() - document.body.offsetHeight;
-          if(bottom < 100) { // 距离底部200像素时 加载更多数据
-            return _this.fetchData();
-          }
+  bindEvent() {
+    $(window).scroll(((_this => () => {
+      if(Backbone.history.getHash() === "my-record"){
+        const bottom = $("#main").height() - $(window).scrollTop() - document.body.offsetHeight;
+        if(bottom < 100) { // 距离底部200像素时 加载更多数据
+          return _this.fetchData();
         }
-      };
-    })(this));
+      }
+    }))(this));
   }
 });
-module.exports = AppView;
+export default AppView;

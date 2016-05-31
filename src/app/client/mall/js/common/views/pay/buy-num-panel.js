@@ -1,8 +1,8 @@
-var $           = require("jquery");
-var Backbone    = require("backbone");
-var toast       = require("com/mobile/widget/hint/hint.js").toast;
+import $ from "jquery";
+import Backbone from "backbone";
+import {toast} from "com/mobile/widget/hint/hint.js";
 
-var BuyNumPanelView = Backbone.View.extend({
+const BuyNumPanelView = Backbone.View.extend({
 
   tagName: "div",
 
@@ -21,17 +21,17 @@ var BuyNumPanelView = Backbone.View.extend({
 
   priceTemplate: require("app/client/mall/tpl/common/price-text.tpl"),
 
-  initialize: function (options) {
-    this.exchange = options.exchange || function (){};
-    this.buy = options.buy || function () {};
-    this.pay = options.pay || function () {};
+  initialize(options) {
+    this.exchange = options.exchange || (() => {});
+    this.buy = options.buy || (() => {});
+    this.pay = options.pay || (() => {});
     this.listenTo(this.model, "change", this.render);
     this.listenTo(this.model, "destroy", this.remove);
     this.comboId = null;
   },
 
   // 渲染视图
-  render: function () {
+  render() {
     this.$el.appendTo(this.model.get("parentDom"));
     this.$el.html(this.template(this.model.toJSON()));
 
@@ -46,18 +46,18 @@ var BuyNumPanelView = Backbone.View.extend({
     return this;
   },
 
-  refresh: function () {
+  refresh() {
     this.$priceView.html(this.priceTemplate(this.model.toJSON()));
     this.$numberInput.val(this.model.get("number"));
   },
 
-  setNumber: function (number) {
-    this.model.set({number: number},{silent: true});
+  setNumber(number) {
+    this.model.set({number},{silent: true});
     this.refresh();
   },
-  combo: function (delay) {
+  combo(delay) {
     if( this.comboMode ) {
-      var number = this.model.get("number");
+      let number = this.model.get("number");
       if(this.computeMode === "add"){
         number++;
       }else{
@@ -65,17 +65,17 @@ var BuyNumPanelView = Backbone.View.extend({
       }
       if(this.validateNum(number)){
         this.setNumber(this.checkNum(number));
-        this.comboId = setTimeout(function () {
+        this.comboId = setTimeout(() => {
           this.combo(100);
-        }.bind(this),delay);
+        },delay);
       }
     }
   },
 
-  validateNum: function (number) {
-    var limitNum = this.model.get("limitNum");
-    var minNum = this.model.get("minNum");
-    var result = true;
+  validateNum(number) {
+    const limitNum = this.model.get("limitNum");
+    const minNum = this.model.get("minNum");
+    let result = true;
     if(number > limitNum){
       toast("已到单笔订单数量上限", 1500);
       result = false;
@@ -86,9 +86,9 @@ var BuyNumPanelView = Backbone.View.extend({
     // return number <= limitNum && number >= minNum;
   },
 
-  checkNum: function (number) {
-    var limitNum = this.model.get("limitNum");
-    var minNum = this.model.get("minNum");
+  checkNum(number) {
+    const limitNum = this.model.get("limitNum");
+    const minNum = this.model.get("minNum");
     if(number > limitNum){
       number = limitNum;
       toast("已到单笔订单数量上限", 1500);
@@ -98,7 +98,7 @@ var BuyNumPanelView = Backbone.View.extend({
     return number;
   },
 
-  beginTouch: function (e) {
+  beginTouch(e) {
     // 开始连续增减模式
     this.computeMode = $(e.currentTarget).data("operator");
     this.comboMode = true;
@@ -106,13 +106,13 @@ var BuyNumPanelView = Backbone.View.extend({
     this.combo(500);
   },
 
-  endTouch: function () {
+  endTouch() {
     // 结束连续增减模式
     this.comboMode = false;
   },
 
-  inputKeyUp: function () {
-    var val = this.$numberInput.val();
+  inputKeyUp() {
+    const val = this.$numberInput.val();
     if ( !val || isNaN(val)) {
       return ;
     }
@@ -121,22 +121,22 @@ var BuyNumPanelView = Backbone.View.extend({
     }
   },
 
-  inputKeyDown: function (e) {
+  inputKeyDown(e) {
     if ( e.which !== 8 && (e.which < 48 || e.which > 57 ) ) {
       e.preventDefault();
       return;
     }
   },
 
-  inputBlur: function () {
-    var val = this.$numberInput.val();
+  inputBlur() {
+    const val = this.$numberInput.val();
     if ( !val || isNaN(val) ) {
       return this.setNumber(1);
     }
     return this.setNumber(val);
   },
 
-  purchase: function () {
+  purchase() {
     switch(this.model.get("type")) {
       case 0:
         this.buy();
@@ -147,7 +147,7 @@ var BuyNumPanelView = Backbone.View.extend({
     }
   },
 
-  close: function () {
+  close() {
     if(this.model.get("closeAll")) {
       this.model.destroy();
     }else{
@@ -159,5 +159,4 @@ var BuyNumPanelView = Backbone.View.extend({
   }
 
 });
-
 module.exports = BuyNumPanelView;

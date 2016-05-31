@@ -63,7 +63,7 @@ var PopView = Backbone.View.extend({
   },
   // 更新消息内容
   updateMessage: function () {
-    return $(".ui-confirm>.ui-confirm-tip>p:last", this.$el).html(this.model.get('title'));
+    return $(".ui-confirm>.ui-confirm-tip>p:last", this.$el).html(this.model.get('message'));
   },
   // 更新确定按钮文案
   updateagreeText: function () {

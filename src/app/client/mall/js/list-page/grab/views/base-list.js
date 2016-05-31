@@ -1,31 +1,31 @@
-var Backbone = require("backbone");
-var mallUitl = require("app/client/mall/js/lib/util.js");
-var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
-var imgDelay = require("app/client/mall/js/lib/common.js").imageDelay;
+import Backbone from "backbone";
+import mallUitl from "app/client/mall/js/lib/util.js";
+import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import {imageDelay as imgDelay} from "app/client/mall/js/lib/common.js";
 
-var GoodsListView = Backbone.View.extend({
+const GoodsListView = Backbone.View.extend({
 
-  initialize: function () {
+  initialize() {
 
   },
 
-  renderGoods: function (data) {
+  renderGoods(data) {
     this.$el.html(this.template({
       dataList: data,
       appName: mallUitl.getAppName(),
-      tplUtil: tplUtil
+      tplUtil
     }));
     imgDelay();
     return this;
   },
 
-  addMore: function (data){
+  addMore(data) {
     this.$el.append(this.template({
       dataList: data,
       appName: mallUitl.getAppName(),
-      tplUtil: tplUtil
+      tplUtil
     }));
 
   }
 });
-module.exports = GoodsListView;
+export default GoodsListView;

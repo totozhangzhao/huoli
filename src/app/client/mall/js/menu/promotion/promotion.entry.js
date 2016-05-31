@@ -1,4 +1,4 @@
-import mallPromise    from "app/client/mall/js/lib/mall-promise.js";
+import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import Promise        from "com/mobile/lib/promise/npo.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
 import mallUitl       from "app/client/mall/js/lib/util.js";
@@ -23,7 +23,7 @@ import * as downloadUtil   from "app/client/mall/js/lib/download-app.js";
 const promotionLog = initTracker("active");
 
 
-var AppView = BaseView.extend({
+const AppView = BaseView.extend({
   el: "#main",
 
   events: {
@@ -39,9 +39,9 @@ var AppView = BaseView.extend({
     this.ruleView   = new RuleView();
     this.$initial = ui.initial().show();
     this.fetchData();
-    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+    logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
 
-    var isApp = mallUitl.isAppFunc();
+    const isApp = mallUitl.isAppFunc();
 
     if ( !isApp ) {
       downloadUtil.init( isApp );
@@ -59,7 +59,7 @@ var AppView = BaseView.extend({
     if( shareUtil.hasShareInfo() ) {
       if( wechatUtil.isWechatFunc() ) {
         wechatUtil.setTitle(this.result.title);
-        return loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
+        return loadScript(`${window.location.origin}/fe/com/mobile/widget/wechat/wechat.bundle.js`);
       }
       return mallWechat.initNativeShare();
     }
@@ -68,12 +68,12 @@ var AppView = BaseView.extend({
 
 
   fetchData(){
-    var self = this;
-    var params = {
+    const self = this;
+    const params = {
       activeid: self.activeId
     };
-    var promise = new Promise(function(resolve, reject) {
-      sendPost("getActive", params, function(err, data) {
+    const promise = new Promise((resolve, reject) => {
+      sendPost("getActive", params, (err, data) => {
         if (err) {
           reject(err);
         } else {
@@ -81,7 +81,7 @@ var AppView = BaseView.extend({
         }
       });
     });
-    promise.then(function (data){
+    promise.then(data => {
       self.result = data;
       self.$initial.hide();
       self.render();

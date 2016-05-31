@@ -3,20 +3,20 @@ import Backbone from "backbone";
 // var _        = require("lodash");
 import template from "app/client/mall/tpl/menu/promotion/rules.tpl";
 
-var BottomView  = Backbone.View.extend({
+const BottomView  = Backbone.View.extend({
 
   el: "#bottom",
 
-  template: template,
+  template,
 
   events: {},
 
-  initialize: function () {
+  initialize() {
 
   },
 
   render(data) {
-    this.$el.html(this.template({data:data}));
+    this.$el.html(this.template({data}));
   }
 });
-module.exports = BottomView;
+export default BottomView;

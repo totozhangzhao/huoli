@@ -1,24 +1,24 @@
 import Backbone from "backbone";
 import template from "app/client/mall/tpl/menu/promotion/groups.tpl";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
-var GroupView  = Backbone.View.extend({
+const GroupView  = Backbone.View.extend({
 
   el: "#groups",
 
   events: {},
 
-  template: template,
+  template,
 
-  initialize: function () {
+  initialize() {
 
   },
 
   render(groups) {
     this.$el.html(this.template({
-      groups: groups,
-      tplUtil: tplUtil
+      groups,
+      tplUtil
     }));
   }
 });
 
-module.exports = GroupView;
+export default GroupView;
