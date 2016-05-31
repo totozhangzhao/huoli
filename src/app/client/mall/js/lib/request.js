@@ -26,13 +26,14 @@ var callbackWraper = function(callback) {
     switch (data.type) {
       case "success":
         var result = data.payload.result;
-        if (result.token) {
+        var token = data.payload.token || result.token;
+        if (token) {
           let cookieConfig = {
             expires: 86400,
             domain: location.hostname,
             path: "/"
           };
-          cookie.set("token", result.token, cookieConfig);
+          cookie.set("token", token, cookieConfig);
         }
         callback(null, result);
         dispatch(result);
