@@ -1,7 +1,7 @@
 <div class="copyright-block">
   <div class="copyright-bar">
     <p class="copyright-bar-text">
-      <a class="js-new-page-footer" href="https://dl.rsscc.cn/guanggao/active/crowd-agreement.html"><br/>《<%= isHangbanFunc ? "航班" : "高铁" %>商城声明 一元夺宝》</a>
+      <a class="js-new-page-footer" href="https://dl.rsscc.cn/guanggao/active/crowd-agreement.html"><br/>《<%= isHangbanFunc ? "航班" : "高铁" %>商城 一元夺宝服务协议》</a>
     </p>
     <p class="copyright-bar-text"><span></span></p>
     <% if (system === "iOS") { %>
