@@ -88,7 +88,7 @@ export function login(loginOpts) {
         window.location.replace(options.pageUrl || "/fe/app/client/mall/index.html");
       })
       .catch(err => {
-        // -3330: 转入发送手机验证码登录
+        // -3330: 需要转入登录页面的情况（例如：没有绑定过的 openid）
         if (err.code === - 3330) {
           goLogin();
         } else {

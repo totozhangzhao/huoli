@@ -46,6 +46,7 @@ const AppView = BaseView.extend({
       window.location.href = loginUtil.getWechatAuthUrl();
       return;
     }
+    this.cache.urlObj = this.urlObj;
     this.buyNumModel = new BuyNumModel();
     this.model.buyNumModel = this.buyNumModel;
     this.payView = new BuyPanelView({
@@ -386,39 +387,28 @@ const AppView = BaseView.extend({
     });
   },
   mallCreateOrder() {
-    const self = this;
+    let params = {
+      openid: this.urlObj.openid,
+      num: this.buyNumModel.get("number"),
+      productid: this.urlObj.productid
+    };
+
+    if (this.privilid) {
+      params.privilid = this.privilid;
+      params.privilprice = this.privilprice;
+    }
 
     hint.showLoading();
 
-    async.waterfall([
-      next => {
-        appInfo.getUserData((err, userData) => {
-          if (err) {
-            toast(err.message, 1500);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      (userData, next) => {
-        const params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p,
-          productid: self.urlObj.productid,
-          num: self.buyNumModel.get("number")
-        });
-
-        if (self.privilid) {
-          params.privilid = self.privilid;
-          params.privilprice = self.privilprice;
+    mallPromise
+      .order(params)
+      .then(orderInfo => {
+        if (orderInfo === void 0) {
+          return;
         }
-
-        sendPost("createOrder", params, (err, data) => {
-          next(err, data);
-        });
-      }
-    ], (err, result) => {
-      if (err) {
+        return this.afterCreateOrder(orderInfo);
+      })
+      .catch(err => {
         hint.hideLoading();
         const alertOptions = {
           type: "alert",
@@ -432,17 +422,13 @@ const AppView = BaseView.extend({
             }
           }
         };
-        if(self.errAlert){
-          self.errAlert.model.set(alertOptions);
-        }else{
-          self.errAlert = new Popover(alertOptions);
+        if (this.errAlert) {
+          this.errAlert.model.set(alertOptions);
+        } else {
+          this.errAlert = new Popover(alertOptions);
         }
-        self.errAlert.show();
-        return;
-      }
-
-      self.afterCreateOrder(result);
-    });
+        this.errAlert.show();
+      });
   },
   afterCreateOrder(orderInfo) {
     let self = this;
