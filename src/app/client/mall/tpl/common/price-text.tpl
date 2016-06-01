@@ -7,19 +7,22 @@ if(price > 0 && points > 0){
 }else if (points > 0){
   type = 2;
 }
+
+var tPoints = number * points;
+var tPrice  = number * price;
   if(type === 0){ 
 %>
-  <span><%= number * points %></span> <%= pointsUnit %> + <span><%= number * price %></span> <%= currency %>
+  <span><%= tPoints %></span> <%= pointsUnit %> + <span><%= Number( tPrice ).toFixed(2) %></span> <%= currency %>
 <% } %>
 
 <% if(type === 1){ %>
-  <span><%= number * price %></span> <%= currency %>
+  <span><%= Number( tPrice ).toFixed(2) %></span> <%= currency %>
 <% } %>
 
 <% if(type === 2){ %>
-  <span><%= number * points %></span> <%= pointsUnit %>
+  <span><%= tPoints %></span> <%= pointsUnit %>
 <% } %>
 
 <% if(type === -1){ %>
-  <span><%= number * price %></span> <%= currency %>
+  <span><%= Number( tPrice ).toFixed(2) %></span> <%= currency %>
 <% } %>
