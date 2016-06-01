@@ -236,6 +236,9 @@ const AppView = Backbone.View.extend({
         num
       })
       .then(orderInfo => {
+        if (orderInfo === void 0) {
+          return;
+        }
         return this.afterCreateOrder(orderInfo);
       })
       .catch(mallPromise.catchFn);
