@@ -76,7 +76,6 @@ const AppView = Backbone.View.extend({
        */
       if (err) {
         if(err.code === -3330) {
-          window.console.log(111);
           mallPromise.login();
           return;
         }
