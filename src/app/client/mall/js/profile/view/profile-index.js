@@ -4,6 +4,7 @@ var Backbone    = require("backbone");
 var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var Promise     = require("com/mobile/lib/promise/npo.js");
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
+var pageAction  = require("app/client/mall/js/lib/page-action.js");
 
 require("app/client/mall/js/lib/common.js");
 
@@ -14,6 +15,7 @@ var AppView = Backbone.View.extend({
     this.fetchData();
   },
   resume: function() {
+    pageAction.hideRightButton();
   },
   fetchData: function() {
     var self = this;
