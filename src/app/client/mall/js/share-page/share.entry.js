@@ -12,7 +12,7 @@ import loadScript from "com/mobile/lib/load-script/load-script.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import shareUtil from "com/mobile/widget/wechat/util.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
-import mallWechat from "app/client/mall/js/lib/wechat.js";
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import logger from "com/mobile/lib/log/log.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
 import ShareInput from "app/client/mall/js/share-page/share-input.js";
