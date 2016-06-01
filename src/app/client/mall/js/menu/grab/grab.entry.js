@@ -84,7 +84,7 @@ const AppView = BaseView.extend({
     this.initWinnerLabel(data.winner);
     // this.$goods.set(data.product);
     this.renderGoodsList(data.product);
-    this.$footer.render();
+    this.$footer.renderCrowd();
 
     setTimeout(() => {
       self.$initial.hide();
