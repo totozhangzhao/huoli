@@ -16,7 +16,7 @@ var logger      = require("com/mobile/lib/log/log.js");
 var mallUitl    = require("app/client/mall/js/lib/util.js");
 var ui          = require("app/client/mall/js/lib/ui.js");
 var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
-var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
+var loginUtil   = require("app/client/mall/js/lib/login-util.js");
 
 var AppView = Backbone.View.extend({
   el: "#lottery-main",
@@ -159,7 +159,7 @@ var AppView = Backbone.View.extend({
             next(null, data);
           });
         } else {
-          mallPromise.login();
+          loginUtil.login();
         }
       }
     ], function(err, result) {
@@ -338,7 +338,7 @@ var AppView = Backbone.View.extend({
             next(null, data);
           });
         } else {
-          mallPromise.login();
+          loginUtil.login();
         }
       }
     ], function(err, result) {

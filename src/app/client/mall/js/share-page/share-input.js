@@ -8,6 +8,7 @@ import {sendPost}             from "app/client/mall/js/lib/mall-request.js";
 import * as widget            from "app/client/mall/js/lib/common.js";
 import template               from "app/client/mall/tpl/share/caimi.tpl";
 import Popover                from "com/mobile/widget/popover/popover.js";
+import * as loginUtil         from "app/client/mall/js/lib/login-util.js";
 
 const AppView = Backbone.View.extend({
   events: {
@@ -57,7 +58,7 @@ const AppView = Backbone.View.extend({
     })
     .catch(err => {
       if( err.code === -3330) {
-        mallPromise.login();
+        loginUtil.login();
       }else{
         mallPromise.catchFn(err);
       }

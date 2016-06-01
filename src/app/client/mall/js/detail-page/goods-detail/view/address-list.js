@@ -12,7 +12,7 @@ var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var addressUtil = require("app/client/mall/js/lib/address-util.js");
 var Popover     = require("com/mobile/widget/popover/popover.js");
 var widget      = require("app/client/mall/js/lib/common.js");
-var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
+var loginUtil   = require("app/client/mall/js/lib/login-util.js");
 
 var AppView = Backbone.View.extend({
   el: "#address-list",
@@ -106,7 +106,7 @@ var AppView = Backbone.View.extend({
         }
       } else {
         hint.hideLoading();
-        mallPromise.login();
+        loginUtil.login();
       }
     });
   },
