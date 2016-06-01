@@ -83,11 +83,11 @@ const AppView = Backbone.View.extend({
         return toast(err.message, 1500);
       }
       switch(result.code) {
-        case 1:
-          self.$getCouponButton.addClass("active");
-          break;
-        case -601:
         case -602:
+          self.$getCouponButton.removeClass("active");
+          break;
+        case 1:
+        case -601:
         case -104:
         case -103:
         case -114:
@@ -96,7 +96,7 @@ const AppView = Backbone.View.extend({
         case -116:
         case -3330:
         default: {
-          self.$getCouponButton.removeClass("active");
+          self.$getCouponButton.addClass("active");
           break;
         }
       }
