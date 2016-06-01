@@ -7,7 +7,6 @@ import NativeAPI from "app/client/common/lib/native/native-api.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
-import UrlUtil from "com/mobile/lib/url/url.js";
 
 export function getAppInfo(reset) {
   return new Promise((resolve, reject) => {
@@ -37,9 +36,9 @@ export function catchFn(err) {
 export function order(orderParams) {
   return getAppInfo()
     .then(userData => {
-      const params = _.extend({}, userData.userInfo, {
+      let params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p,
-        productid: self.id
+        productid: orderParams.productid
       }, orderParams);
 
       return new Promise((resolve, reject) => {
@@ -53,10 +52,9 @@ export function order(orderParams) {
       });
     })
     .catch(err => {
-      // -3331: token 过期
       if (err.code === -3331) {
         loginUtil.login({
-          openid: UrlUtil.parseUrlSearch().openid,
+          openid: orderParams.openid,
           pageUrl: window.location.href
         });
       } else {
@@ -80,7 +78,7 @@ export function initPay(orderInfo) {
     // productdesc String 商品描述
     // url         String 显示订单基本信息的Wap页面
     // subdesc     String 商品详情描述
-    const payParams = {
+    let payParams = {
       quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
       title: "支付订单",
       price: orderInfo.payprice,

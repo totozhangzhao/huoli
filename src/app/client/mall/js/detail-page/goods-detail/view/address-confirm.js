@@ -1,14 +1,14 @@
 import Backbone from "backbone";
 import _ from "lodash";
-import async from "async";
-import appInfo from "app/client/mall/js/lib/app-info.js";
+// import async from "async";
+// import appInfo from "app/client/mall/js/lib/app-info.js";
 // import NativeAPI from "app/client/common/lib/native/native-api.js";
-import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import {toast} from "com/mobile/widget/hint/hint.js";
+// import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+// import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
-import UrlUtil from "com/mobile/lib/url/url.js";
+// import UrlUtil from "com/mobile/lib/url/url.js";
 // import mallUitl from "app/client/mall/js/lib/util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
@@ -71,45 +71,31 @@ const AppView = Backbone.View.extend({
     this.mallCreateOrder(this.cache.goods);
   },
   mallCreateOrder(goods) {
-    const self = this;
+    let params = {
+      openid: this.cache.urlObj.openid,
+      address: this.curAddress,
+      num: this.model.buyNumModel.get("number"),
+      productid: this.cache.urlObj.productid
+    };
 
-    async.waterfall([
-      next => {
-        appInfo.getUserData((err, userData) => {
-          if (err) {
-            next(err);
-            return;
-          }
+    // 一元夺宝特权券
+    if (goods.userprivilresp && goods.userprivilresp.privilid) {
+      params.privilid = goods.userprivilresp.privilid;
+      params.privilprice = goods.userprivilresp.privilprice;
+    }
 
-          next(null, userData);
-        });
-      },
-      (userData, next) => {
-        const params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p,
-          productid: UrlUtil.parseUrlSearch().productid,
-          address: self.curAddress,
-          num: self.model.buyNumModel.get("number")
-        });
-
-        // 一元夺宝特权券
-        if (goods.userprivilresp && goods.userprivilresp.privilid) {
-          params.privilid = goods.userprivilresp.privilid;
-          params.privilprice = goods.userprivilresp.privilprice;
+    mallPromise
+      .order(params)
+      .then(orderInfo => {
+        if (orderInfo === void 0) {
+          return;
         }
-
-        sendPost("createOrder", params, (err, data) => {
-          next(err, data);
-        });
-      }
-    ], (err, result) => {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      self.afterCreateOrder(result, goods);
-    });
+        return this.afterCreateOrder(orderInfo);
+      })
+      .catch(err => {
+        hint.hideLoading();
+        mallPromise.catchFn(err);
+      });
   },
   afterCreateOrder(orderInfo) {
     let orderDetailUrl = window.location.origin +
