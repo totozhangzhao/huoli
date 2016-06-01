@@ -25,7 +25,8 @@ const AppView = Backbone.View.extend({
     "touchend [data-operator]"    : "endTouch",
     "keyup .address-num-input"    : "inputKeyUp",
     "keydown .address-num-input"  : "inputKeyDown",
-    "blur .address-num-input"     : "inputBlur"
+    "blur .address-num-input"     : "inputBlur",
+    "focus .address-num-input"     : "inputFocus"
   },
   initialize(commonData) {
     _.extend(this, commonData);
@@ -146,20 +147,17 @@ const AppView = Backbone.View.extend({
   },
 
   beginTouch(e) {
-    const self = this;
-    this.model.buyNumModel.set({
-      "refresh": function () {
-        self.refreshNumber();
-      }
-    });
+    this.canRefresh(true);
     this.model.payView.beginTouch(e);
   },
 
   endTouch(e) {
     this.model.payView.endTouch(e);
-    this.model.buyNumModel.set({
-      "refresh": false
-    });
+    this.canRefresh(false);
+  },
+
+  inputFocus() {
+    this.canRefresh(true);
   },
 
   inputKeyUp(e) {
@@ -172,6 +170,22 @@ const AppView = Backbone.View.extend({
 
   inputBlur(e) {
     this.model.payView.inputBlur(e);
+    this.canRefresh(false);
+  },
+
+  canRefresh(flag) {
+    const self = this;
+    if(flag){
+      this.model.buyNumModel.set({
+        "refresh": function () {
+          self.refreshNumber();
+        }
+      });
+    }else{
+      this.model.buyNumModel.set({
+        "refresh": false
+      });
+    }
   }
 
 });
