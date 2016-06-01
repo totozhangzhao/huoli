@@ -605,6 +605,7 @@ p {
 }
 .common-buy-num .common-buy-choice {
   font-size: 0.53333rem;
+  display: flex;
 }
 .common-buy-num i {
   display: inline-block;
@@ -2110,7 +2111,6 @@ img.touch-img {
 }
 .confirm-goods-detail .common-buy-num .common-buy-choice {
   height: 0.8rem;
-  display: flex;
 }
 .confirm-goods-detail .common-buy-num .common-buy-choice i {
   width: 1.01333rem;

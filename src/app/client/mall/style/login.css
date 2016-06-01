@@ -605,6 +605,7 @@ p {
 }
 .common-buy-num .common-buy-choice {
   font-size: 0.53333rem;
+  display: flex;
 }
 .common-buy-num i {
   display: inline-block;
