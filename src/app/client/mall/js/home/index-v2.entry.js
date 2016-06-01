@@ -120,7 +120,11 @@ const AppView = BaseView.extend({
         text: "签到"
       }, err => {
         if (err) {
-          toast(err.message, 1500);
+          if ( mallUitl.isAppFunc() ) {
+            toast(err.message, 1500);
+          } else {
+            window.console.log(err.message);
+          }
           return;
         }
       });

@@ -1,6 +1,8 @@
 var jsonrpc  = require("jsonrpc");
 var BasicRequest = require("app/client/common/lib/http/http.js").BasicRequest;
 var dispatch = require("app/client/mall/js/lib/mall-callback.js").dispatch;
+var UrlUtil = require("com/mobile/lib/url/url.js");
+var cookie = require("com/mobile/lib/cookie/cookie.js");
 
 var idGenerator = (function() {
   var count = 0;
@@ -24,6 +26,14 @@ var callbackWraper = function(callback) {
     switch (data.type) {
       case "success":
         var result = data.payload.result;
+        if (result.token) {
+          let cookieConfig = {
+            expires: 86400,
+            domain: location.hostname,
+            path: "/"
+          };
+          cookie.set("token", result.token, cookieConfig);
+        }
         callback(null, result);
         dispatch(result);
         break;
@@ -42,6 +52,10 @@ exports.createSendPost = function(options) {
   });
 
   return function(method, params, callback) {
+    var openid = UrlUtil.parseUrlSearch().openid;
+    if (openid) {
+      params.openid = openid;
+    }
     var data    = jsonrpc.request(idGenerator(), method, params);
     var dataStr = JSON.stringify(data);
     var cb      = callbackWraper(callback);

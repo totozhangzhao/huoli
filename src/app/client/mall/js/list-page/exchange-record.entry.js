@@ -14,7 +14,7 @@ var storage   = require("app/client/mall/js/lib/storage.js");
 var UrlUtil   = require("com/mobile/lib/url/url.js");
 var ui        = require("app/client/mall/js/lib/ui.js");
 var orderListLog = require("app/client/mall/js/lib/common.js").initTracker("orderList");
-var mallPromise  = require("app/client/mall/js/lib/mall-promise.js");
+var loginUtil    = require("app/client/mall/js/lib/login-util.js");
 
 var AppView = Backbone.View.extend({
   el: "#order-list",
@@ -302,7 +302,7 @@ var AppView = Backbone.View.extend({
           });
         } else {
           self.$initial.hide();
-          mallPromise.login();
+          loginUtil.login();
         }
       }
     ], function(err, result) {
