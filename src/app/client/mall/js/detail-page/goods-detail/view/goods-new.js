@@ -1,32 +1,33 @@
-var $           = require("jquery");
-var _           = require("lodash");
-var async       = require("async");
-var NativeAPI   = require("app/client/common/lib/native/native-api.js");
-var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var appInfo     = require("app/client/mall/js/lib/app-info.js");
-var toast       = require("com/mobile/widget/hint/hint.js").toast;
-var hint        = require("com/mobile/widget/hint/hint.js");
-var UrlUtil     = require("com/mobile/lib/url/url.js");
-var widget      = require("app/client/mall/js/lib/common.js");
-var mallUitl    = require("app/client/mall/js/lib/util.js");
-var addressUtil = require("app/client/mall/js/lib/address-util.js");
-var loadScript  = require("com/mobile/lib/load-script/load-script.js");
-var cookie      = require("com/mobile/lib/cookie/cookie.js");
-var shareUtil   = require("com/mobile/widget/wechat/util.js");
-var wechatUtil  = require("com/mobile/widget/wechat-hack/util.js");
-var mallWechat  = require("app/client/mall/js/lib/wechat.js");
-var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
-var Popover     = require("com/mobile/widget/popover/popover.js");
-var pageAction  = require("app/client/mall/js/lib/page-action.js");
-var ui          = require("app/client/mall/js/lib/ui.js");
-var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
-var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
-var FooterView  = require("app/client/mall/js/common/views/footer.js");
-var BuyPanelView = require("app/client/mall/js/common/views/pay/buy-num-panel.js");
-var BuyNumModel  = require("app/client/mall/js/common/models/buy-num-model.js");
-var mallPromise  = require("app/client/mall/js/lib/mall-promise.js");
+import $ from "jquery";
+import _ from "lodash";
+import async from "async";
+import NativeAPI from "app/client/common/lib/native/native-api.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import appInfo from "app/client/mall/js/lib/app-info.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
+import hint from "com/mobile/widget/hint/hint.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+import mallUitl from "app/client/mall/js/lib/util.js";
+import * as addressUtil from "app/client/mall/js/lib/address-util.js";
+import loadScript from "com/mobile/lib/load-script/load-script.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
+import shareUtil from "com/mobile/widget/wechat/util.js";
+import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
+import mallWechat from "app/client/mall/js/lib/wechat.js";
+import {initTracker} from "app/client/mall/js/lib/common.js";
+import Popover from "com/mobile/widget/popover/popover.js";
+import pageAction from "app/client/mall/js/lib/page-action.js";
+import ui from "app/client/mall/js/lib/ui.js";
+import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import BaseView from "app/client/mall/js/common/views/BaseView.js";
+import FooterView from "app/client/mall/js/common/views/footer.js";
+import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
+import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 
-var AppView = BaseView.extend({
+const detailLog = initTracker("detail");
+const AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
     "click .js-new-page"  : "createNewPage",
@@ -36,14 +37,14 @@ var AppView = BaseView.extend({
     "click .js-coupon"    : "showCouponPanel",
     "click .js-detail-bar": "showDetailInfo"
   },
-  initialize: function(commonData) {
+  initialize(commonData) {
     _.extend(this, commonData);
     this.buyNumModel = new BuyNumModel();
     this.model.buyNumModel = this.buyNumModel;
     this.payView = new BuyPanelView({
       model: this.buyNumModel,
-      buy: function() {this.buy();}.bind(this),
-      pay: function() {this.pay();}.bind(this)
+      buy: () => {this.buy();},
+      pay: () => {this.pay();}
     });
     this.$initial = ui.initial();
 
@@ -54,7 +55,7 @@ var AppView = BaseView.extend({
     this.action = this.urlObj.action;
     this.mallGoodsDetail();
   },
-  resume: function() {
+  resume() {
     this.$initial.show();
 
     if (this.title) {
@@ -73,12 +74,12 @@ var AppView = BaseView.extend({
 
     hint.hideLoading();
   },
-  mallGoodsDetail: function() {
-    var self = this;
+  mallGoodsDetail() {
+    const self = this;
 
     async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
+      next => {
+        appInfo.getUserData((err, userData) => {
           if (err) {
             toast(err.message, 1500);
             return;
@@ -87,18 +88,18 @@ var AppView = BaseView.extend({
           next(null, userData);
         });
       },
-      function(userData, next) {
-        var params = _.extend({}, userData.userInfo, {
+      (userData, next) => {
+        const params = _.extend({}, userData.userInfo, {
           imei: userData.deviceInfo.imei,
           p: userData.deviceInfo.p,
           productid: self.urlObj.productid
         });
 
-        sendPost("goodsDetail", params, function(err, data) {
+        sendPost("goodsDetail", params, (err, data) => {
           next(err, data);
         });
       }
-    ], function(err, result) {
+    ], (err, result) => {
       if (err) {
         toast(err.message, 1500);
         return;
@@ -108,35 +109,35 @@ var AppView = BaseView.extend({
       self.$initial.hide();
     });
   },
-  showPrivilegePanel: function() {
+  showPrivilegePanel() {
     this.$privilegePanel.show();
   },
-  showCouponPanel: function() {
+  showCouponPanel() {
     this.$couponPanel.show();
   },
-  showDetailInfo: function() {
+  showDetailInfo() {
     this.router.switchTo("goods-desc");
   },
-  renderPrivilegePanle: function(data) {
-    var self = this;
-    var tmpl = require("app/client/mall/tpl/detail-page/goods-privilege.tpl");
+  renderPrivilegePanle(data) {
+    const self = this;
+    const tmpl = require("app/client/mall/tpl/detail-page/goods-privilege.tpl");
     this.$privilegePanel = $(tmpl({ item: data })).hide().appendTo(this.$el);
-    this.$privilegePanel.on("click", function() {
+    this.$privilegePanel.on("click", () => {
       self.$privilegePanel.hide();
     });
   },
-  renderCouponPanel: function(data) {
-    var self = this;
-    var tmpl = require("app/client/mall/tpl/detail-page/goods-coupon.tpl");
+  renderCouponPanel(data) {
+    const self = this;
+    const tmpl = require("app/client/mall/tpl/detail-page/goods-coupon.tpl");
     this.$couponPanel = $(tmpl({ couponList: data })).hide().appendTo(this.$el);
-    this.$couponPanel.on("click", function() {
+    this.$couponPanel.on("click", () => {
       self.$couponPanel.hide();
     });
   },
-  renderGoodsInfo: function(goods) {
+  renderGoodsInfo(goods) {
 
     // View: goods info
-    var mainTmpl = require("app/client/mall/tpl/detail-page/goods-detail.tpl");
+    const mainTmpl = require("app/client/mall/tpl/detail-page/goods-detail.tpl");
 
     goods.tplUtil = tplUtil;
     this.$el.html(mainTmpl(goods));
@@ -152,7 +153,7 @@ var AppView = BaseView.extend({
       this.renderCouponPanel(this.couponList);
     }
   },
-  render: function(goods) {
+  render(goods) {
 
     // router: use it as backbone view cache
     this.cache.goods = goods;
@@ -195,14 +196,14 @@ var AppView = BaseView.extend({
       if ( wechatUtil.isWechatFunc() ) {
         wechatUtil.setTitle(goods.title);
         if ( shareUtil.hasShareInfo() ) {
-          loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
+          loadScript(`${window.location.origin}/fe/com/mobile/widget/wechat/wechat.bundle.js`);
         }
       } else if ( shareUtil.hasShareInfo() ) {
         mallWechat.initNativeShare();
         this.resetAppView = true;
       }
 
-      var isApp = mallUitl.isAppFunc();
+      const isApp = mallUitl.isAppFunc();
 
       if ( !isApp ) {
         require("app/client/mall/js/lib/download-app.js").init( isApp );
@@ -216,7 +217,7 @@ var AppView = BaseView.extend({
     });
   },
 
-  renderBuyNumView: function (goods) {
+  renderBuyNumView(goods) {
     this.buyNumModel.set({
       type: 0,
       hasMask: false,
@@ -232,7 +233,7 @@ var AppView = BaseView.extend({
     });
   },
 
-  buy: function () {
+  buy() {
     // 购买上限为1的情况
     if(this.buyNumModel.get("limitNum") === 1) {
       return this.pay();
@@ -243,14 +244,14 @@ var AppView = BaseView.extend({
     });
   },
 
-  pay: function() {
+  pay() {
     this.exchangeHandler();
   },
 
-  exchangeHandler: function() {
-    var self = this;
-    var appName = cookie.get("appName");
-    var goods = this.cache.goods;
+  exchangeHandler() {
+    const self = this;
+    const appName = cookie.get("appName");
+    const goods = this.cache.goods;
 
     if ( /hbgj/i.test(appName) || /gtgj/i.test(appName) ) {
       if ( String(goods.stat) !== "0" ) {
@@ -258,8 +259,8 @@ var AppView = BaseView.extend({
       }
 
       async.waterfall([
-        function(next) {
-          appInfo.getUserData(function(err, userData) {
+        next => {
+          appInfo.getUserData((err, userData) => {
             if (err) {
               toast(err.message, 1500);
               return;
@@ -268,7 +269,7 @@ var AppView = BaseView.extend({
             next(null, userData);
           }, self.userDataOpitons);
         }
-      ], function(err, result) {
+      ], (err, result) => {
         self.userDataOpitons.reset = false;
 
         if (result.userInfo.authcode) {
@@ -310,21 +311,21 @@ var AppView = BaseView.extend({
       }
     }
   },
-  exchange: function() {
+  exchange() {
     if(this.buyNumModel.get("type") === 0) { // 不能选择数量的情况 需要弹出提示
-      var titleText = this.cache.goods.confirm || "是否确认兑换？";
+      const titleText = this.cache.goods.confirm || "是否确认兑换？";
 
       // 确认兑换弹窗
-      var confirm = new Popover({
+      const confirm = new Popover({
         type: "confirm",
         title: titleText,
         message: "",
         agreeText: "确定",
         cancelText: "取消",
-        agreeFunc: function() {
+        agreeFunc: () => {
           this.mallCreateOrder();
-        }.bind(this),
-        cancelFunc: function() {}
+        },
+        cancelFunc() {}
       });
       confirm.show();
       return;
@@ -332,19 +333,19 @@ var AppView = BaseView.extend({
     return this.mallCreateOrder();
   },
 
-  gotoAddress: function() {
-    var self = this;
+  gotoAddress() {
+    const self = this;
 
     hint.showLoading();
 
-    addressUtil.getList(function(err, result) {
+    addressUtil.getList((err, result) => {
       if (err) {
         toast(err.message, 1500);
         return;
       }
 
-      var AddressList = require("app/client/mall/js/detail-page/goods-detail/collection/address-list.js");
-      var addressList = new AddressList();
+      const AddressList = require("app/client/mall/js/detail-page/goods-detail/collection/address-list.js");
+      const addressList = new AddressList();
 
       if (result.length > 0) {
         addressList.add(result);
@@ -360,14 +361,14 @@ var AppView = BaseView.extend({
       }
     });
   },
-  mallCreateOrder: function() {
-    var self = this;
+  mallCreateOrder() {
+    const self = this;
 
     hint.showLoading();
 
     async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
+      next => {
+        appInfo.getUserData((err, userData) => {
           if (err) {
             toast(err.message, 1500);
             return;
@@ -376,8 +377,8 @@ var AppView = BaseView.extend({
           next(null, userData);
         });
       },
-      function(userData, next) {
-        var params = _.extend({}, userData.userInfo, {
+      (userData, next) => {
+        const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: self.urlObj.productid,
           num: self.buyNumModel.get("number")
@@ -388,19 +389,19 @@ var AppView = BaseView.extend({
           params.privilprice = self.privilprice;
         }
 
-        sendPost("createOrder", params, function(err, data) {
+        sendPost("createOrder", params, (err, data) => {
           next(err, data);
         });
       }
-    ], function(err, result) {
+    ], (err, result) => {
       if (err) {
         hint.hideLoading();
-        var alertOptions = {
+        const alertOptions = {
           type: "alert",
           title: "兑换失败",
           message: err.message,
           agreeText: "确定",
-          agreeFunc: function() {
+          agreeFunc() {
             // version 3.1 未实现 startPay 接口
             if (err.code === -99) {
               window.location.href = mallUitl.getUpgradeUrl();
@@ -419,16 +420,16 @@ var AppView = BaseView.extend({
       self.handleCreateOrder(result);
     });
   },
-  handleCreateOrder: function(orderInfo) {
-    var self = this;
+  handleCreateOrder(orderInfo) {
+    const self = this;
 
     async.waterfall([
-      function(next) {
+      next => {
         if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
-          var payUrl = window.location.origin + "/bmall/payview.do?orderid=" + orderInfo.orderid;
+          let payUrl = `${window.location.origin}/bmall/payview.do?orderid=${orderInfo.orderid}`;
 
           if ( mallUitl.isHangbanFunc() ) {
-            payUrl = window.location.origin + "/bmall/hbpayview.do?orderid=" + orderInfo.orderid;
+            payUrl = `${window.location.origin}/bmall/hbpayview.do?orderid=${orderInfo.orderid}`;
           }
 
           // quitpaymsg  String 退出时候的提示
@@ -438,7 +439,7 @@ var AppView = BaseView.extend({
           // productdesc String 商品描述
           // url         String 显示订单基本信息的Wap页面
           // subdesc     String 商品详情描述
-          var payParams = {
+          const payParams = {
             quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
             title: "支付订单",
             price: orderInfo.payprice,
@@ -448,34 +449,32 @@ var AppView = BaseView.extend({
             subdesc: orderInfo.paysubdesc
           };
 
-          NativeAPI.invoke("startPay", payParams, function(err, payData) {
+          NativeAPI.invoke("startPay", payParams, (err, payData) => {
             next(err, payData);
           });
         } else {
           next(null, null);
         }
       }
-    ], function(err, result) {
+    ], (err, result) => {
       if (err) {
         toast(err.message, 1500);
         return;
       }
 
-      var orderDetailUrl = window.location.origin +
-          "/fe/app/client/mall/html/detail-page/order-detail.html" +
-          "?orderid=" + orderInfo.orderid;
+      const orderDetailUrl = `${window.location.origin}/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${orderInfo.orderid}`;
 
       if (result) {
         self.gotoNewView({
           url: orderDetailUrl
         });
       } else {
-        var alert = new Popover({
+        const alert = new Popover({
           type: "alert",
           title: "兑换成功",
           message: orderInfo.message,
           agreeText: "查看订单",
-          agreeFunc: function() {
+          agreeFunc() {
             self.gotoNewView({
               url: orderDetailUrl
             });
@@ -487,7 +486,7 @@ var AppView = BaseView.extend({
       hint.hideLoading();
     });
   },
-  gotoNewView: function(options) {
+  gotoNewView(options) {
     widget.createNewView(options);
   }
 });

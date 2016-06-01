@@ -1,23 +1,23 @@
-var $        = require("jquery");
-var Backbone = require("backbone");
-var Swipe    = require("com/mobile/lib/swipe/swipe.js");
-var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
-var mallUitl = require("app/client/mall/js/lib/util.js");
+import $ from "jquery";
+import Backbone from "backbone";
+import Swipe from "com/mobile/lib/swipe/swipe.js";
+import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import mallUitl from "app/client/mall/js/lib/util.js";
 
-var AppView = Backbone.View.extend({
+const AppView = Backbone.View.extend({
   el: "#top-banner",
 
   template: require("app/client/mall/tpl/menu/grab/grab-banner.tpl"),
 
-  initialize: function () {
+  initialize() {
     this.$el.html(this.template({
       bannerList: this.model,
       appName: mallUitl.getAppName(),
-      tplUtil: tplUtil
+      tplUtil
     }));
 
-    var $SwipeBox = $("#top-banner .js-banner-box");
-    var $index    = $("#top-banner .js-banner-index");
+    const $SwipeBox = $("#top-banner .js-banner-box");
+    const $index    = $("#top-banner .js-banner-index");
 
     new Swipe($SwipeBox.get(0), {
       startSlide: 0,
@@ -26,14 +26,14 @@ var AppView = Backbone.View.extend({
       continuous: true,
       disableScroll: false,
       stopPropagation: false,
-      callback: function(index) {
+      callback(index) {
         $index
           .removeClass("active")
             .eq(index)
             .addClass("active");
       },
-      transitionEnd: function() {}
+      transitionEnd() {}
     });
   }
 });
-module.exports = AppView;
+export default AppView;

@@ -1,32 +1,26 @@
-var $             = require("jquery");
-var _             = require("lodash");
-var Promise       = require("com/mobile/lib/promise/npo.js");
-
-var NativeAPI     = require("app/client/common/lib/native/native-api.js");
-var toast         = require("com/mobile/widget/hint/hint.js").toast;
-
-var mallPromise   = require("app/client/mall/js/lib/mall-promise.js");
-var sendPost      = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var mallUitl      = require("app/client/mall/js/lib/util.js");
-var ui            = require("app/client/mall/js/lib/ui.js");
-
-var widget        = require("app/client/mall/js/lib/common.js");
-var logger        = require("com/mobile/lib/log/log.js");
-
-// models
-var StateModel = require("app/client/mall/js/common/models/state.js");
-// views
-var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
-var BannerView    = require("app/client/mall/js/home/views/banner.js");
-var EntranceView  = require("app/client/mall/js/home/views/entrance.js");
-var PromotionView = require("app/client/mall/js/home/views/promotion.js");
-var CategoryView  = require("app/client/mall/js/home/views/category.js");
-var GoodsView     = require("app/client/mall/js/common/views/index-goods.js");
-var Footer        = require("app/client/mall/js/common/views/footer.js");
-var PointsView    = require("app/client/mall/js/home/views/points.js");
+import $ from "jquery";
+import _ from "lodash";
+import Promise from "com/mobile/lib/promise/npo.js";
+import NativeAPI from "app/client/common/lib/native/native-api.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import mallUitl from "app/client/mall/js/lib/util.js";
+import ui from "app/client/mall/js/lib/ui.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+import logger from "com/mobile/lib/log/log.js";
+import StateModel from "app/client/mall/js/common/models/state.js";
+import BaseView from "app/client/mall/js/common/views/BaseView.js";
+import BannerView from "app/client/mall/js/home/views/banner.js";
+import EntranceView from "app/client/mall/js/home/views/entrance.js";
+import PromotionView from "app/client/mall/js/home/views/promotion.js";
+import CategoryView from "app/client/mall/js/home/views/category.js";
+import GoodsView from "app/client/mall/js/common/views/index-goods.js";
+import Footer from "app/client/mall/js/common/views/footer.js";
+import PointsView from "app/client/mall/js/home/views/points.js";
 require("com/mobile/widget/button/back-to-top.js");
 
-var AppView = BaseView.extend({
+const AppView = BaseView.extend({
   el: "#main",
 
   events:{
@@ -35,8 +29,8 @@ var AppView = BaseView.extend({
     "click .classify-item[state!=on]": "updateClassify" // 切换频道
   },
 
-  initialize: function () {
-    var title = mallUitl.isHangbanFunc() ? "航班商城" : "高铁商城";
+  initialize() {
+    const title = mallUitl.isHangbanFunc() ? "航班商城" : "高铁商城";
     widget.updateViewTitle(title);
 
     this.$initial       = ui.initial().show();
@@ -53,35 +47,33 @@ var AppView = BaseView.extend({
     this.bindEvents();
     this.fetchData();
     this.showCheckinBtn();
-    logger.track(mallUitl.getAppName() + "PV", "View PV", title);
+    logger.track(`${mallUitl.getAppName()}PV`, "View PV", title);
   },
 
-  fetchData: function () {
-    var self = this;
+  fetchData() {
+    const self = this;
 
     mallPromise.getAppInfo(true)
-    .then(function () {
-      return new Promise(function(resolve, reject) {
-        sendPost("indexPageData", null, function(err, data) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data);
-          }
-        });
+    .then(() => new Promise((resolve, reject) => {
+      sendPost("indexPageData", null, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
       });
-    })
-    .then(function (data) {
+    }))
+    .then(data => {
       self.render(data);
-      NativeAPI.registerHandler("resume", function() {
+      NativeAPI.registerHandler("resume", () => {
         self.getUserInfo({ resume: true });
       });
     })
     .catch(mallPromise.catchFn);
   },
 
-  render: function (data) {
-    var self = this;
+  render(data) {
+    const self = this;
     this.$entranceView.render(data.topmenu || []);
     this.$promotionView.render(data.topgoods || []);
     this.$categoryView.render(data.menu || []);
@@ -89,27 +81,27 @@ var AppView = BaseView.extend({
     this.$footer.render();
     // this.initWarning();
     this.getUserInfo();
-    setTimeout(function() {
+    setTimeout(() => {
       self.$initial.hide();
     }, 600);
     return this;
   },
 
-  initWarning: function() {
-    var $warning = require("app/client/mall/js/lib/warning.js").init("顶部提示信息");
+  initWarning() {
+    const $warning = require("app/client/mall/js/lib/warning.js").init("顶部提示信息");
     $warning.insertBefore("#home-banner");
   },
 
-  getUserInfo: function () {
-    var self = this;
+  getUserInfo() {
+    const self = this;
 
     mallPromise.getAppInfo()
-    .then(function (userData) {
-      var params = _.extend({}, userData.userInfo, {
+    .then(userData => {
+      const params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p
       });
 
-      sendPost("getUserInfo", params, function(err, data) {
+      sendPost("getUserInfo", params, (err, data) => {
         if(err){
           return;
         }
@@ -121,29 +113,29 @@ var AppView = BaseView.extend({
   },
 
   // 显示签到按钮
-  showCheckinBtn: function () {
+  showCheckinBtn() {
     if ( !mallUitl.isHangbanFunc() ) {
       NativeAPI.invoke("updateHeaderRightBtn", {
         action: "show",
         text: "签到"
-      }, function(err) {
+      }, err => {
         if (err) {
           toast(err.message, 1500);
           return;
         }
       });
 
-      NativeAPI.registerHandler("headerRightBtnClick", function() {
+      NativeAPI.registerHandler("headerRightBtnClick", () => {
         widget.createNewView({
           // url: "https://jt.rsscc.com/gtgjwap/act/20150925/index.html"
           url: "https://dl.rsscc.cn/gtgj/wap/act/20160324_sign/index.html"
         });
-        logger.track(mallUitl.getAppName() + "-签到", "click");
+        logger.track(`${mallUitl.getAppName()}-签到`, "click");
       });
     }
   },
 
-  stateChange: function (e) {
+  stateChange(e) {
     if(e.get("status") !== 1){
       // 只有分类菜单fix状态时，才重置位置
       if(this.$categoryView.$el.hasClass('fix')){
@@ -152,19 +144,19 @@ var AppView = BaseView.extend({
     }
   },
 
-  bindEvents: function () {
-    $(window).scroll(function() {
-      var height = this.getFixTop();
+  bindEvents() {
+    $(window).scroll(() => {
+      const height = this.getFixTop();
       if($(window).scrollTop() > height){
         this.$categoryView.fix();
       }else{
         this.$categoryView.rel();
       }
-    }.bind(this));
+    });
   },
 
   // 获取分类选择吸顶效果的top距离
-  getFixTop: function () {
+  getFixTop() {
     return this.$goodsView.$el.get(0).offsetTop - this.$categoryView.$el.get(0).offsetHeight;
   }
 

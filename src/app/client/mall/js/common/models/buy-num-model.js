@@ -1,6 +1,6 @@
-var Backbone  = require("backbone");
+import Backbone from "backbone";
 
-var BuyNumModel = Backbone.Model.extend({
+const BuyNumModel = Backbone.Model.extend({
   defaults:{
     parentDom: "body",
     visible: false,            // 是否显示
@@ -23,8 +23,8 @@ var BuyNumModel = Backbone.Model.extend({
   },
 
   // 获取显示的积分和价格文案
-  getPPrice: function () {
-    var result = "";
+  getPPrice() {
+    let result = "";
     result += this.getPointsText();
     if(result !== ""){
       result += "+";
@@ -34,16 +34,16 @@ var BuyNumModel = Backbone.Model.extend({
 
   },
   // 获取显示的价格文案
-  getPriceText: function () {
-    var result = "";
+  getPriceText() {
+    let result = "";
     if(this.get("price") > 0){
       result = this.get("number") * this.get("price") + this.get("currency");
     }
     return result;
   },
   // 获取显示的积分文案
-  getPointsText: function () {
-    var result = "";
+  getPointsText() {
+    let result = "";
     if(this.get("points") > 0) {
       result = this.get("number") * this.get("points") + this.get("pointsUnit");
     }
@@ -51,16 +51,16 @@ var BuyNumModel = Backbone.Model.extend({
   },
 
   // 获取总价
-  getTotalPrice: function () {
+  getTotalPrice() {
     return this.get("number") * this.get("price");
   },
 
   // 获取总积分
-  getTotalPoints: function () {
+  getTotalPoints() {
     return this.get("number") * this.get("points");
   },
 
-  getPriceType: function () {
+  getPriceType() {
     if(this.get("price") > 0 && this.get("points") > 0){
       return 0;
     }else if(this.get("price") > 0) {
@@ -70,7 +70,7 @@ var BuyNumModel = Backbone.Model.extend({
     }
   },
 
-  getPayBtnText: function () {
+  getPayBtnText() {
     // return this.get("type") === 1 ? "去支付" : this.get("price") > 0 ? "立即购买" : "立即兑换";
     return this.get("type") === 1 ? this.get("payNumText") : this.get("payText");
   }

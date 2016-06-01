@@ -1,24 +1,23 @@
-var $           = require("jquery");
-var Backbone    = require("backbone");
-var _           = require("lodash");
+import $ from "jquery";
+import Backbone from "backbone";
+import _ from "lodash";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
 
-var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
-var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var widget      = require("app/client/mall/js/lib/common.js");
-var toast       = require("com/mobile/widget/hint/hint.js").toast;
-
-var BaseView = Backbone.View.extend({
-  createNewPage: function (e) {
+const BaseView = Backbone.View.extend({
+  createNewPage(e) {
     widget.createAView(e);
   },
-  handleGetUrl: function(e) {
+  handleGetUrl(e) {
     mallPromise.getAppInfo()
-    .then(function (userData) {
-      var params = _.extend({}, userData.userInfo, userData.deviceInfo, {
+    .then(userData => {
+      const params = _.extend({}, userData.userInfo, userData.deviceInfo, {
         productid: $(e.currentTarget).data("productid")
       });
 
-      sendPost("getUrl", params, function(err, data) {
+      sendPost("getUrl", params, (err, data) => {
         if (err) {
           toast(err.message, 1500);
           return;

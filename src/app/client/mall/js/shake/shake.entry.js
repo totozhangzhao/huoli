@@ -11,14 +11,14 @@ import {parseUrlSearch as parseUrl}   from "com/mobile/lib/url/url.js";
 import Shake                          from "com/mobile/widget/shake/shake.js";
 import ui                             from "app/client/mall/js/lib/ui.js";
 import Popover                from "com/mobile/widget/popover/popover.js";
-var AppView = Backbone.View.extend({
+const AppView = Backbone.View.extend({
   el: "#shake-main",
 
   events: {
     "click .audio-toggle": "audioToggle"
   },
 
-  initialize: function () {
+  initialize() {
     this.$initial = ui.initial().show();
     this.alert = new Popover({
       type: "alert",
@@ -33,15 +33,15 @@ var AppView = Backbone.View.extend({
     this.$initial.hide();
   },
 
-  shakeHandler: function () {
-    let self = this;
+  shakeHandler() {
+    const self = this;
     mallPromise.getAppInfo()
-    .then(function (userData) {
+    .then(userData => {
       var params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p,
         productid: parseUrl().productid
       });
-      return new Promise(function(resolve, reject) {
+      return new Promise((resolve, reject) => {
         sendPost("createOrder", params, function(err, data) {
           if (err) {
             reject(err);
@@ -51,10 +51,10 @@ var AppView = Backbone.View.extend({
         });
       });
     })
-    .then(function (data) {
+    .then(data => {
       self.dispacther(data);
     })
-    .catch(function (err) {
+    .catch(err => {
       if( err.code === -3330) {
         mallPromise.login();
       }else{
@@ -69,15 +69,14 @@ var AppView = Backbone.View.extend({
   // 2: 转入订单详情
   // 3: 转入商品详情
   // 4: 转入商品详情输入页（金融类）
-  dispacther: function (data) {
+  dispacther(data) {
 
     this.nextUrl = null;
-    var title = "恭喜中奖";
-    var message = data.result.text;
-    var buttonText = data.result.buttonText;
+    let title = "恭喜中奖";
+    const message = data.result.text;
+    let buttonText = data.result.buttonText;
     switch ( data.bonus ) {
       case 0:
-        window.console.log(1);
         title = "提示消息";
         buttonText = data.result.buttonText || "再接再厉";
         break;
@@ -109,13 +108,13 @@ var AppView = Backbone.View.extend({
     this.alert.show();
   },
 
-  toUse: function () {
+  toUse() {
     if(this.nextUrl) {
       widget.createNewView({ url: this.nextUrl });
     }
   },
 
-  audioToggle: function () {
+  audioToggle() {
     if(this.shake.togglePlay()) {
       // can play
       window.console.log("canplay");
@@ -124,7 +123,7 @@ var AppView = Backbone.View.extend({
     }
   },
 
-  gotoNewView: function(options) {
+  gotoNewView(options) {
     widget.createNewView(options);
   }
 

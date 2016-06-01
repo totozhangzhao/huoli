@@ -1,15 +1,15 @@
 /*
   首页推广位视图
 */
-var $          = require("jquery");
-var Backbone   = require("backbone");
-var PointsView = Backbone.View.extend({
+import $ from "jquery";
+import Backbone from "backbone";
+const PointsView = Backbone.View.extend({
 
   el: "#home-points",
 
-  initialize: function (){},
+  initialize() {},
 
-  render: function (data) {
+  render(data) {
     $(".num-font", this.$el).html(data.points)
     .end()
     .show();
@@ -17,4 +17,4 @@ var PointsView = Backbone.View.extend({
   }
 });
 
-module.exports = PointsView;
+export default PointsView;

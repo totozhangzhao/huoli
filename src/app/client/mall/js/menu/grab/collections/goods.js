@@ -1,7 +1,7 @@
-var GoodsItem = require("app/client/mall/js/menu/grab/models/goods-item.js");
-var BaseGoods = require("app/client/mall/js/common/collections/base-goods.js");
-var Goods = BaseGoods.extend({
+import GoodsItem from "app/client/mall/js/menu/grab/models/goods-item.js";
+import BaseGoods from "app/client/mall/js/common/collections/base-goods.js";
+const Goods = BaseGoods.extend({
   model: GoodsItem
 });
 
-module.exports = Goods;
+export default Goods;

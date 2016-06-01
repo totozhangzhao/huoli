@@ -1,19 +1,19 @@
-var Backbone = require("backbone");
+import Backbone from "backbone";
 
-var LoadingView = Backbone.View.extend({
+const LoadingView = Backbone.View.extend({
 
   el: "#loading-more",
 
-  initialize: function () {
+  initialize() {
   },
 
-  show: function () {
+  show() {
     this.$el.show();
   },
 
-  hide: function () {
+  hide() {
     this.$el.hide();
   }
 });
 
-module.exports = LoadingView;
+export default LoadingView;

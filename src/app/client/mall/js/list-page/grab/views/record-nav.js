@@ -1,7 +1,7 @@
-var $        = require("jquery");
-var Backbone = require("backbone");
+import $ from "jquery";
+import Backbone from "backbone";
 
-var GoodsListView = Backbone.View.extend({
+const GoodsListView = Backbone.View.extend({
 
   el: "#record-nav",
 
@@ -9,30 +9,30 @@ var GoodsListView = Backbone.View.extend({
     "click [data-route]": "route"
   },
 
-  initialize: function () {
+  initialize() {
 
   },
 
-  render: function () {
+  render() {
 
   },
 
-  update: function (action) {
+  update(action) {
     $("[data-route]", this.$el).removeClass('on');
-    $("[data-route=" + action + "]", this.$el).addClass('on');
+    $(`[data-route=${action}]`, this.$el).addClass('on');
   },
 
-  route: function (e) {
-    var data = $(e.currentTarget).data("route");
+  route(e) {
+    const data = $(e.currentTarget).data("route");
     this.switchTo(data, true, true);
 
   },
 
-  switchTo: function (view, trigger, replace){
+  switchTo(view, trigger, replace) {
     Backbone.history.navigate(view,{
       trigger: !!trigger,
       replace: !!replace
     });
   }
 });
-module.exports = GoodsListView;
+export default GoodsListView;

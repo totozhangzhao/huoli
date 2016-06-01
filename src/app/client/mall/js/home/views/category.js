@@ -1,15 +1,13 @@
 /*
   首页商品分类视图
 */
-var $        = require("jquery");
-var Backbone = require("backbone");
-var _        = require("lodash");
+import $ from "jquery";
+import Backbone from "backbone";
+import _ from "lodash";
+import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import mallUitl from "app/client/mall/js/lib/util.js";
 
-
-var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
-var mallUitl = require("app/client/mall/js/lib/util.js");
-
-var CategoryView = Backbone.View.extend({
+const CategoryView = Backbone.View.extend({
 
   el: "#home-category",
 
@@ -21,11 +19,11 @@ var CategoryView = Backbone.View.extend({
 
   template: require("app/client/mall/tpl/home/v2/category.tpl"),
 
-  initialize: function () {
+  initialize() {
     this.listenTo(this.model, "change:status", this.stateChange);
   },
 
-  render: function (data) {
+  render(data) {
     if(!data.length || data.length === 0){
       this.$el.hide();
       return;
@@ -33,58 +31,58 @@ var CategoryView = Backbone.View.extend({
     this.$el.html(this.template({
       dataList: data,
       appName: mallUitl.getAppName(),
-      tplUtil: tplUtil
+      tplUtil
     }));
     this.initScroll();
     return this;
   },
 
-  initScroll: function () {
+  initScroll() {
     // 滚动容器
-    var scrollCnt    = $("#categoryScroll", this.$el);
+    const scrollCnt    = $("#categoryScroll", this.$el);
     // 滚动列表
-    var scrollItems  = $("span[data-group-id]", this.$el);
+    const scrollItems  = $("span[data-group-id]", this.$el);
     // 数据列表
     // var categoryList = $("a[data-group-id]", this.$el);
     // 滚动列表和数据列表
-    var allCategory  = $("[data-group-id]", this.$el);
+    const allCategory  = $("[data-group-id]", this.$el);
 
     // 滚动容器总宽度
-    var width = 0;
-    _.each(scrollItems, function (item) {
+    let width = 0;
+    _.each(scrollItems, item => {
       width += item.offsetWidth;
     });
-    var uWidth = width/scrollItems.length; // 每一项的平均宽度
+    const uWidth = width/scrollItems.length; // 每一项的平均宽度
     scrollCnt.find("p").css({width:width + 30}); // 增加滚动元素外容器30像素 用来修正移动后 第一项位置的不同
-    var widthFix = width - scrollCnt.get(0).offsetWidth;
+    const widthFix = width - scrollCnt.get(0).offsetWidth;
     // 最大滚动位移
-    var maxScrollLeft = widthFix + (uWidth - (widthFix % uWidth));
+    const maxScrollLeft = widthFix + (uWidth - (widthFix % uWidth));
     this.scrollObj = {
-      scrollCnt: scrollCnt,
-      allCategory: allCategory,
-      width: width, // 滚动区域总宽度
+      scrollCnt,
+      allCategory,
+      width, // 滚动区域总宽度
       cntWidth: scrollCnt.get(0).offsetWidth,
-      maxScrollLeft: maxScrollLeft
+      maxScrollLeft
     };
   },
 
-  checkCategory: function (e) {
-    var _el = $(e.currentTarget);
+  checkCategory(e) {
+    const _el = $(e.currentTarget);
     if(_el.hasClass("on")){
       return;
     }
 
-    var groupId = _el.data("groupId");
+    const groupId = _el.data("groupId");
     this.scrollObj.allCategory
       .siblings(".on")
         .removeClass("on")
       .end()
-      .siblings("[data-group-id=" + groupId + "]")
+      .siblings(`[data-group-id=${groupId}]`)
         .addClass("on");
 
     this.model.set({
       status: 1,
-      groupId: groupId,
+      groupId,
       logger: _el.data("info")
     });
 
@@ -94,8 +92,8 @@ var CategoryView = Backbone.View.extend({
     }
     // 滚动
     // 设置滚动位置
-    var scrollItem = $("span[data-group-id=" + groupId + "]");
-    var _left = scrollItem.get(0).offsetLeft;
+    const scrollItem = $(`span[data-group-id=${groupId}]`);
+    let _left = scrollItem.get(0).offsetLeft;
     // 不需要滚动
     if(this.scrollObj.width <= this.scrollObj.cntWidth){
       return;
@@ -108,34 +106,34 @@ var CategoryView = Backbone.View.extend({
   },
 
   // 数据列表面板显示隐藏
-  showCagetoryListPannel: function (e) {
+  showCagetoryListPannel(e) {
     if($(e.currentTarget).hasClass("home-rotate-switch")){
       return this.hidePannel();
     }
     return this.showPannel();
   },
 
-  showPannel: function () {
+  showPannel() {
     $(".home-list-switch", this.$el).addClass("home-rotate-switch");
     return $(".home-goods-shadow")
             .show()
             .off("click")
-            .one('click', function() {
+            .one('click', () => {
               this.hidePannel();
-            }.bind(this));
+            });
   },
-  hidePannel: function () {
+  hidePannel() {
     $(".home-list-switch", this.$el).removeClass("home-rotate-switch");
     return $(".home-goods-shadow").hide();
   },
 
-  stateChange: function (e) {
+  stateChange(e) {
     if(e.get("status") !== 1){
       return this.hidePannel();
     }
   },
 
-  fix: function () {
+  fix() {
     if(this.$el.hasClass('fix')){
       return;
     }
@@ -143,7 +141,7 @@ var CategoryView = Backbone.View.extend({
     return this.$el.addClass('fix');
   },
 
-  rel: function () {
+  rel() {
     if(this.$el.hasClass('fix')){
       $("#home-category-fix").hide();
       return this.$el.removeClass('fix');
@@ -151,4 +149,4 @@ var CategoryView = Backbone.View.extend({
   }
 });
 
-module.exports = CategoryView;
+export default CategoryView;
