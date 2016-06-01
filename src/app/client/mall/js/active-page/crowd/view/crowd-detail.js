@@ -37,10 +37,9 @@ const AppView = Backbone.View.extend({
       buy: () => {this.buy();},
       pay: () => {this.pay();}
     });
-    // 活动ID
-    this.id = UrlUtil.parseUrlSearch().productid;
+    this.urlObj = UrlUtil.parseUrlSearch();
     this.title = "";
-    this.urlTitle = UrlUtil.parseUrlSearch().title || this.$el.data("title");
+    this.urlTitle = this.urlObj.title || this.$el.data("title");
     this.mallCrowdDetail();
   },
   resume() {
@@ -50,8 +49,8 @@ const AppView = Backbone.View.extend({
 
       detailLog({
         title: this.title,
-        productid: UrlUtil.parseUrlSearch().productid,
-        from: UrlUtil.parseUrlSearch().from || "--"
+        productid: this.urlObj.productid,
+        from: this.urlObj.from || "--"
       });
     }
 
@@ -67,11 +66,10 @@ const AppView = Backbone.View.extend({
     this.router.switchTo("crowd-rules");
   },
   mallCrowdDetail() {
-    const self = this;
     const render = userData => {
       const params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p,
-        productid: self.id
+        productid: this.urlObj.productid
       });
 
       return new Promise((resolve, reject) => {
@@ -88,9 +86,9 @@ const AppView = Backbone.View.extend({
       })
         .then(data => {
           const crowd = data.crowd;
-          self.renderMainPanel(crowd);
-          self.renderBuyNumView(crowd);
-          new Tab( self.$el.find(".js-tab-wrapper"), self.$el.find(".js-tab-content") );
+          this.renderMainPanel(crowd);
+          this.renderBuyNumView(crowd);
+          new Tab( this.$el.find(".js-tab-wrapper"), this.$el.find(".js-tab-content") );
           return data.userData;
         })
         .catch(mallPromise.catchFn);
@@ -125,12 +123,11 @@ const AppView = Backbone.View.extend({
       return;
     }
     hint.showLoading();
-    const self = this;
     mallPromise.getAppInfo()
       .then(userData => {
         const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: self.id
+          productid: this.urlObj.productid
         });
 
         return new Promise((resolve, reject) => {
@@ -146,14 +143,13 @@ const AppView = Backbone.View.extend({
       .then(data => {
         $cur.data("loaded", true);
         hint.hideLoading();
-        self.$el
+        this.$el
           .find("[data-for='goodsDetail']")
             .html(data.tpl);
       })
       .catch(mallPromise.catchFn);
   },
   renderMainPanel(productDetail) {
-    const self = this;
     let title = this.urlTitle;
 
     if (productDetail.title) {
@@ -180,7 +176,7 @@ const AppView = Backbone.View.extend({
 
     const ani = new Promise(resolve => {
       setTimeout(() => {
-        self.$initial.hide();
+        this.$initial.hide();
         resolve();
       }, 0);
     });
@@ -188,7 +184,7 @@ const AppView = Backbone.View.extend({
     if (showAnimation) {
       ani.then(() => {
         setTimeout(() => {
-          self.$el
+          this.$el
             .find(".js-bar")
               .css("width", `${barWidth}%`);
         }, 0);
@@ -197,8 +193,8 @@ const AppView = Backbone.View.extend({
 
     detailLog({
       title,
-      productid: UrlUtil.parseUrlSearch().productid,
-      from: UrlUtil.parseUrlSearch().from || "--"
+      productid: this.urlObj.productid,
+      from: this.urlObj.from || "--"
     });
   },
   renderBuyNumView(crowd) {
@@ -221,7 +217,7 @@ const AppView = Backbone.View.extend({
   buy() {
     this.buyNumModel.set({
       hasMask: true,
-      type:1
+      type: 1
     });
   },
   pay() {
@@ -235,7 +231,10 @@ const AppView = Backbone.View.extend({
     hint.showLoading();
 
     mallPromise
-      .order({num})
+      .order({
+        productid: this.urlObj.productid,
+        num
+      })
       .then(orderInfo => {
         return this.afterCreateOrder(orderInfo);
       })
