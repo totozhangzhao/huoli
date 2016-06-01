@@ -2,6 +2,7 @@ import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
 import async from "async";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
@@ -73,6 +74,14 @@ const AppView = Backbone.View.extend({
         -3330：请先登录
         1: 可以领取
        */
+      if (err) {
+        if(err.code === -3330) {
+          window.console.log(111);
+          mallPromise.login();
+          return;
+        }
+        return toast(err.message, 1500);
+      }
       switch(result.code) {
         case 1:
           self.$getCouponButton.addClass("active");
@@ -88,6 +97,7 @@ const AppView = Backbone.View.extend({
         case -3330:
         default: {
           self.$getCouponButton.removeClass("active");
+          break;
         }
       }
     });
