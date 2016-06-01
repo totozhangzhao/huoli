@@ -49,6 +49,13 @@ const BuyNumPanelView = Backbone.View.extend({
   refresh() {
     this.$priceView.html(this.priceTemplate(this.model.toJSON()));
     this.$numberInput.val(this.model.get("number"));
+    if(this.model.has("refresh")) {
+      try{
+        this.model.get("refresh")();
+      }catch(e) {
+        window.console.log(e);
+      }
+    }
   },
 
   setNumber(number) {
@@ -111,8 +118,9 @@ const BuyNumPanelView = Backbone.View.extend({
     this.comboMode = false;
   },
 
-  inputKeyUp() {
-    const val = this.$numberInput.val();
+  inputKeyUp(e) {
+    // const val = this.$numberInput.val();
+    const val = $(e.currentTarget).val();
     if ( !val || isNaN(val)) {
       return ;
     }
@@ -128,8 +136,9 @@ const BuyNumPanelView = Backbone.View.extend({
     }
   },
 
-  inputBlur() {
-    const val = this.$numberInput.val();
+  inputBlur(e) {
+    // const val = this.$numberInput.val();
+    const val = $(e.currentTarget).val();
     if ( !val || isNaN(val) ) {
       return this.setNumber(1);
     }

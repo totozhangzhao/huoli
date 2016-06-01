@@ -13,11 +13,19 @@ import UrlUtil from "com/mobile/lib/url/url.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 
+const addressListTpl = require("app/client/mall/tpl/detail-page/address-confirm.tpl");
+const addressPriceTpl = require("app/client/mall/tpl/detail-page/address-price.tpl");
+
 const AppView = Backbone.View.extend({
   el: "#address-confirm",
   events: {
-    "click #confirm-order": "confirmOrder",
-    "click #address-entry": "selectAddress"
+    "click #confirm-order"        : "confirmOrder",
+    "click #address-entry"        : "selectAddress",
+    "touchstart [data-operator]"  : "beginTouch",
+    "touchend [data-operator]"    : "endTouch",
+    "keyup .address-num-input"    : "inputKeyUp",
+    "keydown .address-num-input"  : "inputKeyDown",
+    "blur .address-num-input"     : "inputBlur"
   },
   initialize(commonData) {
     _.extend(this, commonData);
@@ -51,9 +59,8 @@ const AppView = Backbone.View.extend({
     this.initView(this.curAddress);
   },
   initView(addressInfo) {
-    const addressListTpl = require("app/client/mall/tpl/detail-page/address-confirm.tpl");
     const model  = this.model.buyNumModel;
-    this.$el.html(addressListTpl({
+    const data = {
       addressInfo,
       goods: this.cache.goods,
       points: model.get("points"),
@@ -61,8 +68,26 @@ const AppView = Backbone.View.extend({
       money: model.get("price"),
       mtotal: model.getTotalPrice(),
       num: model.get("number")
-    }));
+    };
+    this.$el.html(addressListTpl(data));
+    this.$el.find(".goods-charge-bar").html(addressPriceTpl(data));
   },
+  // 更新number 价格 积分
+  refreshNumber() {
+    const model  = this.model.buyNumModel;
+    const data = {
+      addressInfo: this.curAddress,
+      goods: this.cache.goods,
+      points: model.get("points"),
+      ptotal: model.getTotalPoints(),
+      money: model.get("price"),
+      mtotal: model.getTotalPrice(),
+      num: model.get("number")
+    };
+    this.$el.find(".goods-charge-bar").html(addressPriceTpl(data));
+    this.$el.find(".address-num-input").val(model.get("number"));
+  },
+
   selectAddress() {
     this.router.switchTo("address-list");
   },
@@ -132,7 +157,37 @@ const AppView = Backbone.View.extend({
     } else {
       return success();
     }
+  },
+
+  beginTouch(e) {
+    const self = this;
+    this.model.buyNumModel.set({
+      "refresh": function () {
+        self.refreshNumber();
+      }
+    });
+    this.model.payView.beginTouch(e);
+  },
+
+  endTouch(e) {
+    this.model.payView.endTouch(e);
+    this.model.buyNumModel.set({
+      "refresh": false
+    });
+  },
+
+  inputKeyUp(e) {
+    this.model.payView.inputKeyUp(e);
+  },
+
+  inputKeyDown(e) {
+    this.model.payView.inputKeyDown(e);
+  },
+
+  inputBlur(e) {
+    this.model.payView.inputBlur(e);
   }
+
 });
 
 module.exports = AppView;

@@ -53,6 +53,7 @@ const AppView = BaseView.extend({
       buy: () => {this.buy();},
       pay: () => {this.pay();}
     });
+    this.model.payView = this.payView;
     this.$initial = ui.initial();
 
     this.resetAppView = false;
