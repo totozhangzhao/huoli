@@ -138,7 +138,7 @@ var AppView = Backbone.View.extend({
     }
 
     var url = "/fe/app/client/mall/html/detail-page/goods-detail.html" +
-      "?action=9&productid=" + id;
+      "?productid=" + id;
 
     if ( $cur.hasClass("js-crowd") ) {
       url = "/fe/app/client/mall/html/active-page/crowd/main.html" +

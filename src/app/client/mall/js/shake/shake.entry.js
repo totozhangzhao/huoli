@@ -94,12 +94,12 @@ const AppView = Backbone.View.extend({
       case 3:
         this.nextUrl = window.location.origin +
           "/fe/app/client/mall/html/detail-page/goods-detail.html" +
-          "?action=9&productid=" + data.productid;
+          "?productid=" + data.productid;
         break;
       case 4:
         this.nextUrl = window.location.origin +
           "/fe/app/client/mall/html/detail-page/goods-detail.html" +
-          "?action=9&productid=" + data.productid +
+          "?productid=" + data.productid +
           "&gotoView=form-phone";
         break;
     }
