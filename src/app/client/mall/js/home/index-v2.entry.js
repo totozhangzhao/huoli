@@ -54,8 +54,8 @@ const AppView = BaseView.extend({
     const self = this;
 
     mallPromise.getAppInfo(true)
-    .then(() => new Promise((resolve, reject) => {
-      sendPost("indexPageData", null, (err, data) => {
+    .then((userData) => new Promise((resolve, reject) => {
+      sendPost("indexPageData", {p: userData.deviceInfo.p}, (err, data) => {
         if (err) {
           reject(err);
         } else {
