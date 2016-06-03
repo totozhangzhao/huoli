@@ -48,6 +48,7 @@ const PopoverAd = Backbone.View.extend({
   },
 
   show() {
+    let namespace = "mallpop";
     var now = new Date();
     let key = `popid${this.data.id}`;
     switch(this.data.rule.type) {
@@ -59,16 +60,25 @@ const PopoverAd = Backbone.View.extend({
     }
     if( isApp ) {
       let promise = new Promise((resolve) => {
-        nativeStorage.get(key , data => {
+        nativeStorage.get(namespace , data => {
           if(isNaN(data)) {
             data = 0;
           }
           resolve(data);
         });
       });
-      promise.then(value => {
-        if( value < this.data.rule.count ) {
-          nativeStorage.set(key, ++value, ()=>{});
+      promise.then(data => {
+        if(!data) {
+          data = {};
+        }
+        if(!data[key]) {
+          data[key] = 0;
+        }
+        if(data && data[key]) {
+          if ( Number(data[key]) < this.data.rule.count ) {
+            data[key] ++;
+          }
+          nativeStorage.set(namespace, data);
           this.$el.show();
         }
       });
