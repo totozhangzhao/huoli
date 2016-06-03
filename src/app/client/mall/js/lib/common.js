@@ -59,11 +59,18 @@ export function createAView(e) {
   });
 }
 
-export var createNewView = _.debounce(options => {
+export let createNewView = _.debounce(options => {
   let url = options.url;
 
   if (url === "" || url === null || url === undefined) {
     return;
+  }
+
+  let from = UrlUtil.parseUrlSearch().from;
+
+  if (from !== undefined) {
+    url = url.indexOf("?") >= 0 ? `${url}&` : `${url}?`;
+    url = url + `from=${from}`;
   }
 
   if ( url === decodeURI(url) ) {
