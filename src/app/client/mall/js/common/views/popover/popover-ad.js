@@ -14,8 +14,7 @@ const isApp   = mallUitl.isAppFunc();
 const PopoverAd = Backbone.View.extend({
   events: {
     "click .home-active-close": "hide",
-    "click .common-shadow": "hide",
-    "click": ''
+    "click .common-shadow": "hide"
   },
 
   template: require("app/client/mall/tpl/common/popover/ad.tpl"),
