@@ -696,6 +696,9 @@ img.touch-img {
 .touch img.touch-img {
   transform: scale(0.9);
 }
+.touch.touch-bg {
+  background-color: #e6e6e6 !important;
+}
 .home-page-box {
   color: #333;
   min-height: 100%;
@@ -2616,6 +2619,8 @@ img.touch-img {
   color: #333;
   background-color: #fff;
   margin-top: 0.24rem;
+}
+.my-mall-box .my-mall-bar .my-mall-bar-item {
   padding-left: 0.4rem;
   padding-right: 0.4rem;
 }
