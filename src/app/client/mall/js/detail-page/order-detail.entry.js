@@ -171,9 +171,9 @@ var AppView = Backbone.View.extend({
       hasMask: false,
       visible: true,
       payText:"去支付",
-      points: order.points,
-      price: order.money,
-      number: order.num,
+      points: order.ptotal,
+      price: order.mtotal,
+      number: 1,
       canPay: true,
       parentDom: "#order-detail-container"
     });
