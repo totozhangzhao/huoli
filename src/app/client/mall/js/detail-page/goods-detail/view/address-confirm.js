@@ -26,7 +26,7 @@ const AppView = Backbone.View.extend({
     "keyup .address-num-input"    : "inputKeyUp",
     "keydown .address-num-input"  : "inputKeyDown",
     "blur .address-num-input"     : "inputBlur",
-    "focus .address-num-input"     : "inputFocus"
+    "focus .address-num-input"    : "inputFocus"
   },
   initialize(commonData) {
     _.extend(this, commonData);
