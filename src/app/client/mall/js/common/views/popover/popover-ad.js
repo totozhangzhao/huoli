@@ -8,10 +8,10 @@ import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 
 import "app/client/mall/js/lib/date-util.js";
 
-const storage = new Storage("mallpop");
-const nativeStorage    = require("app/client/mall/js/lib/storage.js");
-const isApp   = mallUitl.isAppFunc();
-const PopoverAd = Backbone.View.extend({
+const storage       = new Storage("mallpop");
+const nativeStorage = require("app/client/mall/js/lib/storage.js");
+const isApp         = mallUitl.isAppFunc();
+const PopoverAd     = Backbone.View.extend({
   events: {
     "click .home-active-close": "hide",
     "click .common-shadow": "hide"
