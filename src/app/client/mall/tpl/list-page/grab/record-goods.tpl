@@ -4,10 +4,10 @@
     data-log-mall-click="block_<%= item.title %>"
     data-productid="<%= item.productid %>"
     data-title="<%= item.title %>"
-    class="<%= tplUtil.getJsClass(item) %> clearfix"
+    class="<%= tplUtil.getJsClass(item) %> touch-bg clearfix"
     href="<%= tplUtil.getBlockUrl(item) %>">
     <div class="crowd-history-pic">
-      <img class="op0 touch-img" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
+      <img class="op0" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
     </div>
     <div class="crowd-history-desc">
       <p class="crowd-history-title"><%= item.title %></p>

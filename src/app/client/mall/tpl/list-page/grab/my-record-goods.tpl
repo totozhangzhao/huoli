@@ -27,10 +27,10 @@ if(winphone){
     data-log-mall-click="block_<%= item.title %>"
     data-productid="<%= item.productid %>"
     data-title="<%= item.title %>"
-    class="<%= tplUtil.getJsClass(item) %> clearfix"
+    class="<%= tplUtil.getJsClass(item) %> clearfix touch-bg"
     href="<%= tplUtil.getBlockUrl(item) %>">
     <div class="crowd-join-pic">
-      <img class="op0 touch-img" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
+      <img class="op0" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
     </div>
     <div class="crowd-join-desc">
       <p class="crowd-history-title"><%= item.title %></p>
@@ -55,10 +55,10 @@ if(winphone){
     data-log-mall-click="block_<%= item.title %>"
     data-productid="<%= item.productid %>"
     data-title="<%= item.title %>"
-    class="<%= tplUtil.getJsClass(item) %> clearfix"
+    class="<%= tplUtil.getJsClass(item) %> clearfix touch-bg"
     href="<%= tplUtil.getBlockUrl(item) %>">
     <div class="crowd-history-pic">
-      <img class="op0 touch-img" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
+      <img class="op0" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
     </div>
     <div class="crowd-join-desc">
       <p class="crowd-history-title"><%= item.title %></p>
@@ -83,10 +83,10 @@ if(winphone){
     data-log-mall-click="block_<%= item.title %>"
     data-productid="<%= item.productid %>"
     data-title="<%= item.title %>"
-    class="<%= tplUtil.getJsClass(item) %> clearfix"
+    class="<%= tplUtil.getJsClass(item) %> clearfix touch-bg"
     href="<%= tplUtil.getBlockUrl(item) %>">
     <div class="crowd-history-pic">
-      <img class="op0 touch-img" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
+      <img class="op0" data-echo="<%= item.img%>" src="/fe/com/mobile/image/grey.gif" />
     </div>
     <div class="crowd-join-desc">
       <p class="crowd-history-title"><%= item.title %></p>
