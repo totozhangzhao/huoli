@@ -30,7 +30,7 @@ const AppView = BaseView.extend({
   },
 
   initialize() {
-    const title = mallUitl.isHangbanFunc() ? "航班商城" : "高铁商城";
+    const title = mallUitl.isHangbanFunc() ? "航班商城" : "伙力商城";
     widget.updateViewTitle(title);
 
     this.$initial       = ui.initial().show();
