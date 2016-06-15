@@ -6,7 +6,8 @@ var AddAddressView     = require("app/client/mall/js/detail-page/goods-detail/vi
 var ConfirmAddressView = require("app/client/mall/js/detail-page/goods-detail/view/address-confirm.js");
 var AddressListView    = require("app/client/mall/js/detail-page/goods-detail/view/address-list.js");
 var createRouter       = require("app/client/mall/js/common/router/router-factory.js").createRouter;
-
+import BackTop from "com/mobile/widget/button/to-top.js";
+new BackTop();
 var viewDic = {
   "goods-detail"   : GoodsView,
   "goods-desc"     : DescView,

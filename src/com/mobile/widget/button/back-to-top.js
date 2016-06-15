@@ -1,9 +1,9 @@
-var $      = require("jquery");
-var _      = require("lodash");
-var widget = require("app/client/mall/js/lib/common.js");
-
+var $        = require("jquery");
+var _        = require("lodash");
+var widget   = require("app/client/mall/js/lib/common.js");
+var mallUitl = require("app/client/mall/js/lib/util.js");
 var tmpl = require("app/client/mall/tpl/back-to-top.tpl");
-var $toTop = $( tmpl() );
+var $toTop = $( tmpl({isApp: mallUitl.isAppFunc()}) );
 
 $toTop
   .hide()

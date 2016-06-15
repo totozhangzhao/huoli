@@ -15,6 +15,7 @@ var UrlUtil   = require("com/mobile/lib/url/url.js");
 var ui        = require("app/client/mall/js/lib/ui.js");
 var orderListLog = require("app/client/mall/js/lib/common.js").initTracker("orderList");
 var loginUtil    = require("app/client/mall/js/lib/login-util.js");
+import BackTop from "com/mobile/widget/button/to-top.js";
 
 var AppView = Backbone.View.extend({
   el: "#order-list",
@@ -23,6 +24,7 @@ var AppView = Backbone.View.extend({
     "click .js-order-item": "gotoOrderDetail"
   },
   initialize: function() {
+    new BackTop();
     this.loadingMore = false;
     this.$initial = ui.initial().show();
 

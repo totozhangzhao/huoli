@@ -195,7 +195,7 @@ p {
 .common-shadow {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   position: fixed;
   left: 0;
   top: 0;
@@ -689,6 +689,33 @@ p {
   height: 100%;
   display: inline-block;
   margin-left: 0.34667rem;
+}
+.home-fixed-box {
+  width: 1.17333rem;
+  position: fixed;
+  right: 0.26667rem;
+  bottom: 0.26667rem;
+  z-index: 10;
+}
+.home-fixed-box a.to-home {
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0603.png') 0 -5.33333rem no-repeat;
+  background-size: 10.66667rem 10.66667rem;
+  margin-bottom: 0.26667rem;
+}
+.home-fixed-box a.to-top {
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0603.png') 0 -6.61333rem no-repeat;
+  background-size: 10.66667rem 10.66667rem;
+  margin-bottom: 0.26667rem;
+}
+.home-fixed-box a.to-contact {
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0603.png') 0 -7.89333rem no-repeat;
+  background-size: 10.66667rem 10.66667rem;
+}
+.home-fixed-box a {
+  width: 100%;
+  height: 1.17333rem;
+  display: block;
+  border-radius: 50%;
 }
 .lucky-box {
   min-height: 100%;
