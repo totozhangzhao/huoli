@@ -104,6 +104,7 @@ export function initPay(orderInfo) {
       token: orderInfo.token,
       ru: orderInfo.returnUrl,
       orderId: orderInfo.payorderid,
+      ptOrderId: orderInfo.orderid,
       orderType: 2
     };
     window.location.href = baseUrl + $.param(params);
