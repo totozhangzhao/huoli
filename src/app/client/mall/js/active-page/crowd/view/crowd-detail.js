@@ -105,7 +105,7 @@ const AppView = Backbone.View.extend({
       .then(userData => start(userData))
       .catch(mallPromise.catchFn);
   },
-  getMaxNum(total) {
+  getMaxLimitNum(total) {
     let maxNum = Math.floor(total * 0.05);
 
     if (maxNum < 10) {
@@ -207,7 +207,7 @@ const AppView = Backbone.View.extend({
       payText:buttonText[crowd.stat],
       payNumText: "去支付",
       price: crowd.price,
-      limitNum: this.getMaxNum(crowd.totalcount),
+      limitNum: Math.min(this.getMaxLimitNum(crowd.totalcount), crowd.remaincount),
       showBuyTip: true,
       canPay: crowd.stat === 1,
       parentDom: "#crowd-detail"

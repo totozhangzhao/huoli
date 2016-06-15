@@ -130,11 +130,22 @@ const AppView = Backbone.View.extend({
       return;
     }
 
+    if (this.loginLock) {
+      return;
+    } else {
+      this.loginLock = true;
+    }
+
     loginUtil.login({
       phone: this.$el.$phoneInput.val(),
       captcha: this.$el.$captchaInput.val(),
       openid: this.urlObj.openid
-    });
+    })
+      .then(() => {
+        setTimeout(() => {
+          this.loginLock = false;
+        }, 300);
+      });
   }
 });
 
