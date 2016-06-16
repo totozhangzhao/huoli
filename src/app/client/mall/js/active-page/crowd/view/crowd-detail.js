@@ -17,6 +17,7 @@ import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
+import BackTop from "com/mobile/widget/button/to-top.js";
 
 const detailLog = initTracker("detail");
 const AppView = Backbone.View.extend({
@@ -29,6 +30,7 @@ const AppView = Backbone.View.extend({
   },
 
   initialize(commonData) {
+    new BackTop();
     _.extend(this, commonData);
     this.$initial    = ui.initial().show();
     this.buyNumModel = new BuyNumModel();

@@ -17,6 +17,7 @@ import logger from "com/mobile/lib/log/log.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
 import ShareInput from "app/client/mall/js/share-page/share-input.js";
 import ui from "app/client/mall/js/lib/ui.js";
+import BackTop from "com/mobile/widget/button/to-top.js";
 
 const AppView = Backbone.View.extend({
   el: "#interlayer",
@@ -26,6 +27,7 @@ const AppView = Backbone.View.extend({
     "click a": "createNewPage"
   },
   initialize() {
+    new BackTop();
     this.$initial = ui.initial().show();
     this.mallInterlayer();
     logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);

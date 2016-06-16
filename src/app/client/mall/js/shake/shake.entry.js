@@ -13,6 +13,7 @@ import ui                             from "app/client/mall/js/lib/ui.js";
 import Popover                from "com/mobile/widget/popover/popover.js";
 
 import * as loginUtil         from "app/client/mall/js/lib/login-util.js";
+import BackTop from "com/mobile/widget/button/to-top.js";
 
 const AppView = Backbone.View.extend({
   el: "#shake-main",
@@ -22,6 +23,7 @@ const AppView = Backbone.View.extend({
   },
 
   initialize() {
+    new BackTop();
     this.$initial = ui.initial().show();
     this.alert = new Popover({
       type: "alert",
