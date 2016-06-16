@@ -7,7 +7,6 @@ import appInfo from "app/client/mall/js/lib/app-info.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
-import * as widget from "app/client/mall/js/lib/common.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
 import * as addressUtil from "app/client/mall/js/lib/address-util.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
@@ -15,7 +14,6 @@ import cookie from "com/mobile/lib/cookie/cookie.js";
 import shareUtil from "com/mobile/widget/wechat/util.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
-import {initTracker} from "app/client/mall/js/lib/common.js";
 import Popover from "com/mobile/widget/popover/popover.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import ui from "app/client/mall/js/lib/ui.js";
@@ -25,10 +23,12 @@ import FooterView from "app/client/mall/js/common/views/footer.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
-
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+import {initTracker} from "app/client/mall/js/lib/common.js";
 
 const detailLog = initTracker("detail");
+
 const AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
@@ -474,4 +474,4 @@ const AppView = BaseView.extend({
   }
 });
 
-module.exports = AppView;
+export default AppView;

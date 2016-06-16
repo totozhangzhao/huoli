@@ -1,14 +1,15 @@
-var GoodsView          = require("app/client/mall/js/detail-page/goods-detail/view/goods-detail.js");
-var DescView           = require("app/client/mall/js/detail-page/goods-detail/view/goods-desc.js");
-var OrderView          = require("app/client/mall/js/detail-page/goods-detail/view/form-phone.js");
-var FormCustomView     = require("app/client/mall/js/detail-page/goods-detail/view/form-custom.js");
-var AddAddressView     = require("app/client/mall/js/detail-page/goods-detail/view/address-add.js");
-var ConfirmAddressView = require("app/client/mall/js/detail-page/goods-detail/view/address-confirm.js");
-var AddressListView    = require("app/client/mall/js/detail-page/goods-detail/view/address-list.js");
-var createRouter       = require("app/client/mall/js/common/router/router-factory.js").createRouter;
+import GoodsView          from "app/client/mall/js/detail-page/goods-detail/view/goods-detail.js";
+import DescView           from "app/client/mall/js/detail-page/goods-detail/view/goods-desc.js";
+import OrderView          from "app/client/mall/js/detail-page/goods-detail/view/form-phone.js";
+import FormCustomView     from "app/client/mall/js/detail-page/goods-detail/view/form-custom.js";
+import AddAddressView     from "app/client/mall/js/detail-page/goods-detail/view/address-add.js";
+import ConfirmAddressView from "app/client/mall/js/detail-page/goods-detail/view/address-confirm.js";
+import AddressListView    from "app/client/mall/js/detail-page/goods-detail/view/address-list.js";
+import {createRouter}     from "app/client/mall/js/common/router/router-factory.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 new BackTop();
-var viewDic = {
+
+const viewDic = {
   "goods-detail"   : GoodsView,
   "goods-desc"     : DescView,
   "form-phone"     : OrderView,
@@ -18,7 +19,7 @@ var viewDic = {
   "address-list"   : AddressListView
 };
 
-module.exports = createRouter({
-  viewDic: viewDic,
+export default createRouter({
+  viewDic,
   defaultView: "goods-detail"
 });

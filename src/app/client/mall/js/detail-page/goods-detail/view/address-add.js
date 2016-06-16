@@ -1,37 +1,37 @@
-var $          = require("jquery");
-var Backbone   = require("backbone");
-var _          = require("lodash");
-var async      = require("async");
-var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var MultiLevel = require("com/mobile/widget/select/select.js").MultiLevel;
-var toast      = require("com/mobile/widget/hint/hint.js").toast;
-var hint       = require("com/mobile/widget/hint/hint.js");
-var pageAction = require("app/client/mall/js/lib/page-action.js");
-var validator  = require("app/client/mall/js/lib/validator.js");
-var UrlUtil    = require("com/mobile/lib/url/url.js");
-var addressUtil = require("app/client/mall/js/lib/address-util.js");
-var getProvince = require("app/client/mall/js/lib/province.js").getProvince;
+import $ from "jquery";
+import Backbone from "backbone";
+import _ from "lodash";
+import async from "async";
+import appInfo from "app/client/mall/js/lib/app-info.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import {MultiLevel} from "com/mobile/widget/select/select.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
+import hint from "com/mobile/widget/hint/hint.js";
+import pageAction from "app/client/mall/js/lib/page-action.js";
+import validator from "app/client/mall/js/lib/validator.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
+import * as addressUtil from "app/client/mall/js/lib/address-util.js";
+import {getProvince} from "app/client/mall/js/lib/province.js";
 
 require("app/client/mall/js/lib/common.js");
 
-var AppView = Backbone.View.extend({
+const AppView = Backbone.View.extend({
   el: "#address-add",
   events: {
     "click #save-address": "saveAddress",
     "click .address-option-area": "selectArea",
     "blur  [name]": "blurInput"
   },
-  initialize: function(commonData) {
+  initialize(commonData) {
     _.extend(this, commonData);
     this.curAddress = {};
   },
-  resume: function(options) {
+  resume(options) {
     if (options.previousView === "") {
-      setTimeout(function() {
+      setTimeout(() => {
         this.router.replaceTo("goods-detail");
         pageAction.setClose();
-      }.bind(this), 0);
+      }, 0);
       return;
     }
 
@@ -39,15 +39,15 @@ var AppView = Backbone.View.extend({
     pageAction.hideRightButton();
     hint.showLoading();
 
-    var action = this.cache.addressAction;
-    var addressList = this.collection.addressList;
+    const action = this.cache.addressAction;
+    const addressList = this.collection.addressList;
 
     if (action === "add") {
       this.cache.addressAction === null;
       this.curAddress = {};
     } else if (action) {
       this.cache.addressAction === null;
-      var selectedId = this.cache.curAddressId;
+      const selectedId = this.cache.curAddressId;
       this.cache.curAddressId = null;
       this.curAddress = addressList.get(selectedId).toJSON();
     } else if (addressList && addressList.length > 0) {
@@ -58,26 +58,26 @@ var AppView = Backbone.View.extend({
     this.$el.$inputs = this.$el.find("[name]");
     this.$el.$submit = $("#save-address");
   },
-  initView: function(addressInfo) {
-    var addressTpl = require("app/client/mall/tpl/detail-page/address-edit.tpl");
+  initView(addressInfo) {
+    const addressTpl = require("app/client/mall/tpl/detail-page/address-edit.tpl");
 
     this.$el.html(addressTpl({
-      addressInfo: addressInfo
+      addressInfo
     }));
 
     this.initSelectWidget();
   },
-  initSelectWidget: function() {
-    var initMultiLevel = function(regionData) {
+  initSelectWidget() {
+    const initMultiLevel = regionData => {
       MultiLevel.prototype.initSelect = function($select) {
-        var self = this;
+        const self = this;
 
         if (regionData) {
-          $select.each(function(index, item) {
+          $select.each((index, item) => {
             self.addOption( $(item), regionData[item.name] );
           });
         } else {
-          $select.each(function(index, item) {
+          $select.each((index, item) => {
             if (index === 0) {
               self.addOption( $(item), getProvince() );
             } else {
@@ -87,11 +87,11 @@ var AppView = Backbone.View.extend({
         }
       };
 
-      MultiLevel.prototype.getResult = function(options, callback) {
-        var params = {
+      MultiLevel.prototype.getResult = (options, callback) => {
+        const params = {
           id: options.id
         };
-        sendPost("getRegion", params, function(err, data) {
+        sendPost("getRegion", params, (err, data) => {
           callback(err, data);
         });
       };
@@ -105,15 +105,15 @@ var AppView = Backbone.View.extend({
 
     this.initSelectedRegion(initMultiLevel);
   },
-  initSelectedRegion: function(callback) {
-    var curAddress = this.curAddress;
+  initSelectedRegion(callback) {
+    const curAddress = this.curAddress;
 
     if (!curAddress.province || !curAddress.city || !curAddress.area) {
       return callback(null);
     }
 
-    var setSelected = function(list, id) {
-      for (var i = 0, len = list.length; i < len; i += 1) {
+    const setSelected = (list, id) => {
+      for (let i = 0, len = list.length; i < len; i += 1) {
         if (list[i].id === id) {
           list[i].selected = true;
           return list;
@@ -123,37 +123,37 @@ var AppView = Backbone.View.extend({
     };
 
     async.auto({
-      province: function(next) {
+      province(next) {
         next(null, setSelected(getProvince(), curAddress.province.id));
       },
-      city: function(next) {
-        var params = {
+      city(next) {
+        const params = {
           id: curAddress.province.id
         };
-        sendPost("getRegion", params, function(err, data) {
+        sendPost("getRegion", params, (err, data) => {
           next(err, setSelected(data, curAddress.city.id));
         });
       },
-      area: function(next) {
-        var params = {
+      area(next) {
+        const params = {
           id: curAddress.city.id
         };
-        sendPost("getRegion", params, function(err, data) {
+        sendPost("getRegion", params, (err, data) => {
           next(err, setSelected(data, curAddress.area.id));
         });
       }
-    }, function(err, results) {
+    }, (err, results) => {
       callback(results);
     });
   },
-  checkInputs: function() {
-    var $items = this.$el.$inputs;
-    var defaultHint = "请填写完整的地址信息";
+  checkInputs() {
+    const $items = this.$el.$inputs;
+    const defaultHint = "请填写完整的地址信息";
 
-    for (var i = 0, len = $items.length; i < len; i += 1) {
-      var $curInput = $items.eq(i);
-      var curValue = $curInput.val();
-      var method = $curInput.data("checkMethod");
+    for (let i = 0, len = $items.length; i < len; i += 1) {
+      const $curInput = $items.eq(i);
+      const curValue = $curInput.val();
+      const method = $curInput.data("checkMethod");
 
       if ( method && !validator[method](curValue) ) {
         toast($curInput.data("errorMessage") || defaultHint, 1500);
@@ -168,17 +168,17 @@ var AppView = Backbone.View.extend({
 
     return true;
   },
-  selectArea: function(e) {
-    var $target = $(e.target);
-    var $cur    = $(e.currentTarget);
+  selectArea(e) {
+    const $target = $(e.target);
+    const $cur    = $(e.currentTarget);
 
     if ( !$target.hasClass("js-select") ) {
       $cur.find(".js-select").trigger("click");
     }
   },
-  saveAddress: function() {
-    var self = this;
-    var inputError = !this.checkInputs();
+  saveAddress() {
+    const self = this;
+    const inputError = !this.checkInputs();
 
     if (inputError) {
       return;
@@ -186,11 +186,11 @@ var AppView = Backbone.View.extend({
 
     hint.showLoading();
 
-    var addressInfo = this.curAddress;
+    const addressInfo = this.curAddress;
 
     async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
+      next => {
+        appInfo.getUserData((err, userData) => {
           if (err) {
             toast(err.message, 1500);
             return;
@@ -199,9 +199,9 @@ var AppView = Backbone.View.extend({
           next(null, userData);
         });
       },
-      function(userData, next) {
-        var $form = self.$el;
-        var addressData = {
+      (userData, next) => {
+        const $form = self.$el;
+        const addressData = {
           postcode: "",
           name: $form.find("[name=name]").val(),
           pphone: $form.find("[name=pphone]").val(),
@@ -217,24 +217,24 @@ var AppView = Backbone.View.extend({
           },
           def: 1
         };
-        var params = _.extend({}, userData.userInfo, addressData, {
+        const params = _.extend({}, userData.userInfo, addressData, {
           p: userData.deviceInfo.p
         });
-        var method = "newAddress";
+        let method = "newAddress";
 
         if (addressInfo.addressid) {
           method = "updateAddress";
           params.addressid = addressInfo.addressid;
         }
 
-        sendPost(method, params, function(err, data) {
+        sendPost(method, params, (err, data) => {
           if (!err) {
             addressData.addressid = data.addressid;
           }
           next(err, addressData);
         });
       },
-      function(addressData, next) {
+      (addressData, next) => {
         if (self.urlObj.mold !== void 0) {
           self.router.replaceTo("address-list");
           return;
@@ -242,8 +242,8 @@ var AppView = Backbone.View.extend({
           next(null, addressData);
         }
       },
-      function(addressData, next) {
-        addressUtil.getList(function(err, result) {
+      (addressData, next) => {
+        addressUtil.getList((err, result) => {
           if (err) {
             toast(err.message, 1500);
             return;
@@ -253,7 +253,7 @@ var AppView = Backbone.View.extend({
           next(null, addressData);
         });
       }
-    ], function(err) {
+    ], err => {
       if (err) {
         toast(err.message, 1500);
         return;
@@ -265,4 +265,4 @@ var AppView = Backbone.View.extend({
   }
 });
 
-module.exports = AppView;
+export default AppView;

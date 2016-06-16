@@ -1,20 +1,23 @@
-var $          = require("jquery");
-var _          = require("lodash");
-var Backbone   = require("backbone");
-var async      = require("async");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-var toast      = require("com/mobile/widget/hint/hint.js").toast;
-var hint       = require("com/mobile/widget/hint/hint.js");
-var pageAction = require("app/client/mall/js/lib/page-action.js");
-var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var UrlUtil    = require("com/mobile/lib/url/url.js");
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var addressUtil = require("app/client/mall/js/lib/address-util.js");
-var Popover     = require("com/mobile/widget/popover/popover.js");
-var widget      = require("app/client/mall/js/lib/common.js");
-var loginUtil   = require("app/client/mall/js/lib/login-util.js");
+import $ from "jquery";
+import _ from "lodash";
+import Backbone from "backbone";
+import async from "async";
+import NativeAPI from "app/client/common/lib/native/native-api.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
+import hint from "com/mobile/widget/hint/hint.js";
+import pageAction from "app/client/mall/js/lib/page-action.js";
+import appInfo from "app/client/mall/js/lib/app-info.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import * as addressUtil from "app/client/mall/js/lib/address-util.js";
+import Popover from "com/mobile/widget/popover/popover.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+import * as loginUtil from "app/client/mall/js/lib/login-util.js";
+import {initTracker} from "app/client/mall/js/lib/common.js";
 
-var AppView = Backbone.View.extend({
+const detailLog = initTracker("address");
+
+const AppView = Backbone.View.extend({
   el: "#address-list",
   events: {
     "click .js-address-info"    : "gotoConfirmPage",
@@ -23,30 +26,32 @@ var AppView = Backbone.View.extend({
     "click .js-edit-address"    : "editAddress",
     "click .js-remove-address"  : "removeAddress"
   },
-  initialize: function(commonData) {
+  initialize(commonData) {
     _.extend(this, commonData);
   },
-  resume: function(options) {
-    var self = this;
+  resume(options) {
+    const self = this;
 
     this.urlObj = UrlUtil.parseUrlSearch();
 
     if (options.previousView === "" && this.urlObj.mold === void 0) {
-      setTimeout(function() {
+      setTimeout(() => {
         this.router.replaceTo("goods-detail");
         pageAction.setClose();
-      }.bind(this), 0);
+      }, 0);
       return;
     }
 
-    widget.updateViewTitle("地址管理");
+    let title = "地址管理";
+
+    widget.updateViewTitle(title);
     pageAction.hideRightButton();
     hint.showLoading();
 
-    var addressList = this.collection.addressList;
+    let addressList = this.collection.addressList;
 
-    var showAddressHelper = function() {
-      addressUtil.getList(function(err, result) {
+    const showAddressHelper = () => {
+      addressUtil.getList((err, result) => {
         if (err) {
           toast(err.message, 1500);
           return;
@@ -55,7 +60,7 @@ var AppView = Backbone.View.extend({
         if (addressList) {
           addressList.reset(result);
         } else {
-          var AddressList = require("app/client/mall/js/detail-page/goods-detail/collection/address-list.js");
+          const AddressList = require("app/client/mall/js/detail-page/goods-detail/collection/address-list.js");
           addressList = new AddressList();
           if (result.length > 0) {
             addressList.add(result);
@@ -67,10 +72,10 @@ var AppView = Backbone.View.extend({
       });
     };
 
-    var addLeftButtonListener = function() {
-      NativeAPI.registerHandler("back", function(params, callback) {
-        var $checked = self.$el.find(".js-default-address:checked");
-        var isShowConfirm = $checked.length > 0 ? true : false;
+    const addLeftButtonListener = () => {
+      NativeAPI.registerHandler("back", (params, callback) => {
+        const $checked = self.$el.find(".js-default-address:checked");
+        const isShowConfirm = $checked.length > 0 ? true : false;
 
         callback(null, {
           preventDefault: isShowConfirm
@@ -78,7 +83,7 @@ var AppView = Backbone.View.extend({
 
 
         if ( isShowConfirm ) {
-          var id = $checked.closest(".js-item").data("addressid");
+          const id = $checked.closest(".js-item").data("addressid");
 
           self.cache.curAddressId = id;
           self.showConfirm();
@@ -87,8 +92,8 @@ var AppView = Backbone.View.extend({
     };
 
     async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
+      next => {
+        appInfo.getUserData((err, userData) => {
           if (err) {
             toast(err.message, 1500);
             return;
@@ -97,7 +102,7 @@ var AppView = Backbone.View.extend({
           next(null, userData);
         });
       }
-    ], function(err, result) {
+    ], (err, result) => {
       if (result.userInfo.authcode) {
         showAddressHelper();
 
@@ -109,33 +114,38 @@ var AppView = Backbone.View.extend({
         loginUtil.login();
       }
     });
+
+    detailLog({
+      title,
+      from: this.urlObj.from || "--"
+    });
   },
-  initView: function(addressList) {
-    var addressListTpl = require("app/client/mall/tpl/detail-page/address-list.tpl");
+  initView(addressList) {
+    const addressListTpl = require("app/client/mall/tpl/detail-page/address-list.tpl");
 
     this.$el
       .find(".js-list-container")
         .html(addressListTpl({
-          addressList: addressList
+          addressList
         }));
 
     hint.hideLoading();
   },
-  hidePrompt: function() {
-    var $el = this.$el;
+  hidePrompt() {
+    const $el = this.$el;
 
     $el.find(".js-prompt").hide();
     $el.find(".js-shade").hide();
   },
-  handleOrderAction: function() {
-    var self = this;
-    var addressId = this.cache.curAddressId;
+  handleOrderAction() {
+    const self = this;
+    const addressId = this.cache.curAddressId;
 
     hint.showLoading();
 
     async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
+      next => {
+        appInfo.getUserData((err, userData) => {
           if (err) {
             toast(err.message, 1500);
             return;
@@ -144,33 +154,31 @@ var AppView = Backbone.View.extend({
           next(null, userData);
         });
       },
-      function(userData, next) {
-        var addressData = self.collection.addressList.get(addressId).toJSON();
-        var params = _.extend({}, userData.userInfo, {
+      (userData, next) => {
+        const addressData = self.collection.addressList.get(addressId).toJSON();
+        const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           orderid: UrlUtil.parseUrlSearch().orderid,
           address: addressData
         });
 
-        sendPost("addOrderAddr", params, function(err, data) {
+        sendPost("addOrderAddr", params, (err, data) => {
           next(err, data);
         });
       }
-    ], function(err) {
+    ], err => {
       if (err) {
         toast(err.message, 1500);
         return;
       }
 
       // hint.hideLoading();
-      var orderDetailUrl = window.location.origin +
-          "/fe/app/client/mall/html/detail-page/order-detail.html" +
-          "?orderid=" + UrlUtil.parseUrlSearch().orderid;
+      const orderDetailUrl = `${window.location.origin}/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${UrlUtil.parseUrlSearch().orderid}`;
       window.location.href = orderDetailUrl;
     });
   },
-  gotoConfirmPage: function(e) {
-    var $cur = $(e.currentTarget);
+  gotoConfirmPage(e) {
+    const $cur = $(e.currentTarget);
 
     this.cache.curAddressId = $cur.closest(".js-item").data("addressid");
 
@@ -180,35 +188,35 @@ var AppView = Backbone.View.extend({
       this.router.replaceTo("address-confirm");
     }
   },
-  showConfirm: function() {
-    var self = this;
+  showConfirm() {
+    const self = this;
 
-    var confirm = new Popover({
+    const confirm = new Popover({
       type: "confirm",
       title: "地址提交后不能修改，确定吗？",
       message: "",
       agreeText: "确定",
       cancelText: "修改",
-      agreeFunc: function() {
+      agreeFunc() {
         self.handleOrderAction();
       },
-      cancelFunc: function() {}
+      cancelFunc() {}
     });
     confirm.show();
   },
-  setDefaultAddress: function() {
+  setDefaultAddress() {
     hint.showLoading();
 
-    var id = this.$el
+    const id = this.$el
       .find(".js-default-address:checked")
         .closest(".js-item")
         .data("addressid");
 
     this.cache.curAddressId = id;
 
-    var addressData = this.collection.addressList.get(id).toJSON();
+    const addressData = this.collection.addressList.get(id).toJSON();
 
-    addressUtil.setDefault(addressData, function(err) {
+    addressUtil.setDefault(addressData, err => {
       if (err) {
         toast(err.message, 1500);
         return;
@@ -217,26 +225,26 @@ var AppView = Backbone.View.extend({
       hint.hideLoading();
     });
   },
-  addAddress: function() {
+  addAddress() {
     this.cache.addressAction = "add";
     this.router.replaceTo("address-add");
   },
-  editAddress: function(e) {
-    var $cur = $(e.currentTarget);
+  editAddress(e) {
+    const $cur = $(e.currentTarget);
 
     this.cache.addressAction = "update";
     this.cache.curAddressId = $cur.closest(".js-item").data("addressid");
     this.router.replaceTo("address-add");
   },
-  removeAddress: function(e) {
-    var doRemove = function() {
+  removeAddress(e) {
+    const doRemove = () => {
       hint.showLoading();
 
-      var $cur = $(e.currentTarget);
-      var $item = $cur.closest(".js-item");
-      var addressId = $item.data("addressid");
+      const $cur = $(e.currentTarget);
+      const $item = $cur.closest(".js-item");
+      const addressId = $item.data("addressid");
 
-      addressUtil.remove(addressId, function(err, result) {
+      addressUtil.remove(addressId, (err, result) => {
         if (err) {
           toast(err.message, 1500);
           return;
@@ -250,19 +258,19 @@ var AppView = Backbone.View.extend({
       });
     };
 
-    var confirm = new Popover({
+    const confirm = new Popover({
       type: "confirm",
       title: "确定删除此地址吗？",
       message: "",
       agreeText: "确定",
       cancelText: "取消",
-      agreeFunc: function() {
+      agreeFunc() {
         doRemove();
       },
-      cancelFunc: function() {}
+      cancelFunc() {}
     });
     confirm.show();
   }
 });
 
-module.exports = AppView;
+export default AppView;

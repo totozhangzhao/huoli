@@ -190,4 +190,4 @@ const AppView = Backbone.View.extend({
 
 });
 
-module.exports = AppView;
+export default AppView;

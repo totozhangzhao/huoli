@@ -1,19 +1,19 @@
-var _           = require("lodash");
-var Backbone    = require("backbone");
-var widget      = require("app/client/mall/js/lib/common.js");
+import _ from "lodash";
+import Backbone from "backbone";
+import * as widget from "app/client/mall/js/lib/common.js";
 
-var AppView = Backbone.View.extend({
+const AppView = Backbone.View.extend({
   el: "#goods-desc",
-  initialize: function(commonData) {
+  initialize(commonData) {
     _.extend(this, commonData);
   },
-  resume: function(opts) {
+  resume(opts) {
     if (opts.previousView !== "goods-detail") {
 
       // 为了维护 router 中 previousView 的状态，使用 setTimeout
-      setTimeout(function() {
+      setTimeout(() => {
         this.router.switchTo("goods-detail");
-      }.bind(this), 0);
+      }, 0);
       return;
     }
 
@@ -22,8 +22,8 @@ var AppView = Backbone.View.extend({
     }
     this.render();
   },
-  render: function() {
-    var tmpl = require("app/client/mall/tpl/detail-page/goods-desc.tpl");
+  render() {
+    const tmpl = require("app/client/mall/tpl/detail-page/goods-desc.tpl");
 
     this.$el.html(tmpl({
       data: this.cache.goods.detail
@@ -31,4 +31,4 @@ var AppView = Backbone.View.extend({
   }
 });
 
-module.exports = AppView;
+export default AppView;
