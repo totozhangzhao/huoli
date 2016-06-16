@@ -1,5 +1,6 @@
-<div class="home-fixed-box">
-<% if( !isApp && !isHome ){ %>
+<% var showToHome = !isApp && !isHome; %>
+<div class="home-fixed-box" style="<%= showToHome ? 'bottom: 2rem;' : '' %>">
+<% if(showToHome){ %>
   <a class="to-home" href="/fe/app/client/mall/index.html"></a>
 <% } %>
 <% if(isHome) {%>
