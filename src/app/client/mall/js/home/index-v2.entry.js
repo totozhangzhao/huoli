@@ -19,6 +19,7 @@ import GoodsView from "app/client/mall/js/common/views/index-goods.js";
 import Footer from "app/client/mall/js/common/views/footer.js";
 import PointsView from "app/client/mall/js/home/views/points.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
+import PopoverAd from "app/client/mall/js/common/views/popover/popover-ad.js";
 
 const AppView = BaseView.extend({
   el: "#main",
@@ -43,6 +44,7 @@ const AppView = BaseView.extend({
     this.$categoryView  = new CategoryView({model: this.stateModel});
     this.$goodsView     = new GoodsView({model: this.stateModel, showLoading: true});
     this.$pointsView    = new PointsView();
+    this.$popoverAdView = new PopoverAd({el: "#popover-ad"});
     this.listenTo(this.stateModel, "change:status", this.stateChange);
 
     this.bindEvents();
@@ -79,6 +81,7 @@ const AppView = BaseView.extend({
     this.$promotionView.render(data.topgoods || []);
     this.$categoryView.render(data.menu || []);
     this.$goodsView.render(data.goods || []);
+    this.$popoverAdView.fetch({position: 1});
     this.$footer.render();
     // this.initWarning();
     this.getUserInfo();
