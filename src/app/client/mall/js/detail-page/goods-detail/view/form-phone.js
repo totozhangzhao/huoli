@@ -1,18 +1,19 @@
-var $          = require("jquery");
-var Backbone   = require("backbone");
-var _          = require("lodash");
-var async      = require("async");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast      = require("com/mobile/widget/hint/hint.js").toast;
-var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var widget     = require("app/client/mall/js/lib/common.js");
-var pageAction = require("app/client/mall/js/lib/page-action.js");
-var validator  = require("app/client/mall/js/lib/validator.js");
-var detailLog  = require("app/client/mall/js/lib/common.js").initTracker("detail");
+import $ from "jquery";
+import Backbone from "backbone";
+import _ from "lodash";
+import NativeAPI from "app/client/common/lib/native/native-api.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
+import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
+import pageAction from "app/client/mall/js/lib/page-action.js";
+import validator from "app/client/mall/js/lib/validator.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+import {initTracker} from "app/client/mall/js/lib/common.js";
 
-var AppView = Backbone.View.extend({
+const detailLog = initTracker("detail");
+
+const AppView = Backbone.View.extend({
   el: "#form-phone",
   events: {
     "click .js-submit"     : "createOrder",
@@ -22,7 +23,7 @@ var AppView = Backbone.View.extend({
     "click .js-captcha"    : "sendCaptcha",
     "click .js-use-url"    : "showOrder"
   },
-  initialize: function(commonData) {
+  initialize(commonData) {
     _.extend(this, commonData);
     this.$el.$shade         = $("#form-phone .js-shade");
     this.$el.$successPrompt = $("#form-phone .js-success-prompt");
@@ -31,33 +32,33 @@ var AppView = Backbone.View.extend({
     this.$el.$passwordInput = $("#form-phone .form-password");
     this.$el.$captchaInput  = $("#form-phone .form-captcha");
   },
-  resume: function(opts) {
+  resume(opts) {
     if (opts.previousView !== "goods-detail") {
       NativeAPI.invoke("close");
       return;
     }
 
-    var title = "现金券兑换";
+    let title = "现金券兑换";
 
     widget.updateViewTitle(title);
     this.renderMainPanel();
     pageAction.setClose();
     detailLog({
-      title: title,
+      title,
       productid: parseUrl().productid,
       from: parseUrl().from || "--"
     });
   },
-  inputInput: function(e) {
+  inputInput(e) {
     $(e.currentTarget)
       .parents(".form-block")
       .find(".js-error-tip")
         .removeClass("active");
   },
-  blurInput: function(e) {
-    var $input = $(e.currentTarget);
-    var val = $input.val();
-    var method = $input.data("checkMethod");
+  blurInput(e) {
+    let $input = $(e.currentTarget);
+    let val = $input.val();
+    let method = $input.data("checkMethod");
 
     if ( validator[method](val) ) {
       $input
@@ -71,8 +72,8 @@ var AppView = Backbone.View.extend({
           .addClass("active");
     }
   },
-  inputPhoneNum: function() {
-    var phoneNum = this.$el.$phoneInput.val();
+  inputPhoneNum() {
+    let phoneNum = this.$el.$phoneInput.val();
 
     if ( validator.checkPhoneNum(phoneNum) ) {
       this.$el.$sendCaptcha.addClass("active");
@@ -80,43 +81,31 @@ var AppView = Backbone.View.extend({
       this.$el.$sendCaptcha.removeClass("active");
     }
   },
-  sendCaptcha: function() {
-    var self = this;
-    var $btn = this.$el.$sendCaptcha;
+  sendCaptcha() {
+    let $btn = this.$el.$sendCaptcha;
 
     if ( !$btn.hasClass("active") ) {
       return;
     }
 
-    var $phoneInput = this.$el.$phoneInput;
+    let $phoneInput = this.$el.$phoneInput;
 
-    var lock = function() {
+    function lock() {
       $phoneInput.prop("readonly", true);
       $btn.removeClass("active");
-    };
-
-    var unlock = function() {
+    }
+    function unlock() {
       $phoneInput.prop("readonly", false);
       $btn.addClass("active").text("获取验证码");
-    };
+    }
 
     lock();
 
     $btn.text("发送中...");
 
-    async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
-          if (err) {
-            toast(err.message || "网络异常，请稍后再试", 1500);
-            unlock();
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      function(userData, next) {
+    mallPromise
+      .getAppInfo()
+      .then(userData => {
 
         // checkPhone
         // userid：用户id
@@ -125,41 +114,43 @@ var AppView = Backbone.View.extend({
         // cphone：下发验证码设备
         // 返回包：
         // “ok”
-        var params = _.extend({}, userData.userInfo, {
+        let params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: parseUrl().productid,
           cphone   : $phoneInput.val()
         });
 
-        sendPost("checkPhone", params, function(err, data) {
-          next(err, data);
+        return new Promise((resolve, reject) => {
+          sendPost("checkPhone", params, (err, data) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(data);
+            }
+          });
         });
-      }
-    ], function(err) {
-      if (err) {
-        toast(err.message, 1500);
+      })
+      .then(() => {
+        let count = $btn.data("timeout") || 90;
+
+        this.captchaTimer = setInterval(() => {
+          count -= 1;
+
+          if (count < 0) {
+            clearInterval(this.captchaTimer);
+            unlock();
+            return;
+          }
+
+          $btn.text(count + "s后重发");
+        }, 1000);
+      })
+      .catch(err => {
         unlock();
-        return;
-      }
-
-      var count = $btn.data("timeout") || 90;
-
-      self.captchaTimer = setInterval(function() {
-        count -= 1;
-
-        if (count < 0) {
-          clearInterval(self.captchaTimer);
-          unlock();
-          return;
-        }
-
-        $btn.text(count + "s后重新发送");
-      }, 1000);
-    });
+        mallPromise.catchFn(err);
+      });
   },
-  createOrder: function() {
-    var self = this;
-
+  createOrder() {
     this.$el.find(".form-input").trigger("blur");
 
     if (this.$el.find(".error-tip.active").length > 0) {
@@ -167,18 +158,15 @@ var AppView = Backbone.View.extend({
       return;
     }
 
-    async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
-          if (err) {
-            toast(err.message, 1500);
-            return;
-          }
+    if (this.createOrderLock) {
+      return;
+    } else {
+      this.createOrderLock = true;
+    }
 
-          next(null, userData);
-        });
-      },
-      function(userData, next) {
+    mallPromise
+      .getAppInfo()
+      .then(userData => {
 
         // createPhoneUser
         // uid: 设备id
@@ -192,71 +180,64 @@ var AppView = Backbone.View.extend({
         // orderid: 订单id
         // message: 显示信息
         // useurl: 第三方url
-        var params = _.extend({}, userData.userInfo, {
+        let params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: parseUrl().productid,
-          cphone  : self.$el.$phoneInput.val(),
-          passwd  : self.$el.$passwordInput.val(),
-          identify: self.$el.$captchaInput.val()
+          cphone  : this.$el.$phoneInput.val(),
+          passwd  : this.$el.$passwordInput.val(),
+          identify: this.$el.$captchaInput.val()
         });
 
-        sendPost("createOrder", params, function(err, data) {
-          next(err, data);
+        return new Promise((resolve, reject) => {
+          sendPost("createOrder", params, (err, data) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(data);
+            }
+          });
         });
-      }
-    ], function(err, result) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      self.$el.$shade.show();
-      self.$el.$successPrompt
-        .one("click", ".js-goto-order-detail", function() {
-          window.location.href = "/fe/app/client/mall/html/detail-page/order-detail.html" +
-            "?orderid=" + result.orderid;
-        })
-        .one("click", ".js-goto-url", function() {
-          window.location.href = result.useurl;
-        })
-        .find(".js-message")
-          .html(result.message)
-        .end()
-        .show();
-    });
+      })
+      .then(result => {
+        this.$el.$shade.show();
+        this.$el.$successPrompt
+          .one("click", ".js-goto-order-detail", () => {
+            window.location.href = `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${result.orderid}`;
+          })
+          .one("click", ".js-goto-url", () => {
+            window.location.href = result.useurl;
+          })
+          .find(".js-message")
+            .html(result.message)
+          .end()
+          .show();
+      })
+      .catch(mallPromise.catchFn)
+      .then(() => {
+        setTimeout(() => {
+          this.createOrderLock = false;
+        }, 300);
+      });
   },
-  showOrder: function() {
+  showOrder() {
     this.$el.$shade.hide();
     this.$el.$successPrompt.hide();
   },
-  createNewPage: function(e) {
+  createNewPage(e) {
     widget.createAView(e);
   },
-  renderMainPanel: function() {
-    var self = this;
-    var goods = this.cache.goods;
+  renderMainPanel() {
+    let self = this;
+    let goods = this.cache.goods;
 
-    var $img = $("<img>", {
+    let $img = $("<img>", {
       src: goods.img,
       alt: ""
     });
 
     this.$el.find(".js-top-image").html($img);
 
-    // set phone number from getUserInfo
-    async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
-          next(err, userData);
-        });
-      }
-    ], function(err, result) {
-      if (err) {
-        return;
-      }
-
-      var phoneNum = result.userInfo.phone || "";
-
+    function setPhone(phoneNum = "") {
       if (phoneNum) {
         self.$el.$phoneInput
           .val(phoneNum)
@@ -265,8 +246,18 @@ var AppView = Backbone.View.extend({
         self.$el.$sendCaptcha
           .addClass("active");
       }
-    });
+    }
+
+    // set phone number from getUserInfo
+    mallPromise
+      .getAppInfo()
+      .then(userData => {
+        setPhone(userData.userInfo.phone);
+      })
+      .catch(() => {
+        setPhone();
+      });
   }
 });
 
-module.exports = AppView;
+export default AppView;

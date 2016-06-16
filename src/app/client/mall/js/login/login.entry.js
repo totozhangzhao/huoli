@@ -13,7 +13,7 @@ import tmpl        from "app/client/mall/tpl/login/login.tpl";
 import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
-
+import BackTop from "com/mobile/widget/button/to-top.js";
 import "app/client/mall/js/lib/common.js";
 
 const AppView = Backbone.View.extend({
@@ -26,6 +26,7 @@ const AppView = Backbone.View.extend({
     "click .js-login"         : "login"
   },
   initialize(commonData) {
+    new BackTop();
     _.extend(this, commonData);
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
     this.urlObj = UrlUtil.parseUrlSearch();
@@ -130,11 +131,22 @@ const AppView = Backbone.View.extend({
       return;
     }
 
+    if (this.loginLock) {
+      return;
+    } else {
+      this.loginLock = true;
+    }
+
     loginUtil.login({
       phone: this.$el.$phoneInput.val(),
       captcha: this.$el.$captchaInput.val(),
       openid: this.urlObj.openid
-    });
+    })
+      .then(() => {
+        setTimeout(() => {
+          this.loginLock = false;
+        }, 300);
+      });
   }
 });
 

@@ -5,7 +5,7 @@ import HistroyView from "app/client/mall/js/list-page/grab/views/history-record.
 import MyRecordView from "app/client/mall/js/list-page/grab/views/my-record.js";
 import NavView from "app/client/mall/js/list-page/grab/views/record-nav.js";
 import BaseView from "app/client/mall/js/common/views/BaseView.js";
-
+import BackTop from "com/mobile/widget/button/to-top.js";
 const app = BaseView.extend({
 
   el:"#main",
@@ -16,6 +16,7 @@ const app = BaseView.extend({
   },
 
   initialize() {
+    new BackTop();
     // new Footer().render();
     this.navView = new NavView();
     this.ViewDic = {

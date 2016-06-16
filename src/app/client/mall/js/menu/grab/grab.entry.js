@@ -14,7 +14,7 @@ import BannerView from "app/client/mall/js/menu/grab/views/banner.js";
 import WinnerView from "app/client/mall/js/menu/grab/views/winner-label.js";
 import Footer from "app/client/mall/js/common/views/footer.js";
 import BaseView from "app/client/mall/js/common/views/BaseView.js";
-
+import BackTop from "com/mobile/widget/button/to-top.js";
 const menuLog = initTracker("menu");
 import "app/client/mall/js/lib/common.js";
 
@@ -27,6 +27,7 @@ const AppView = BaseView.extend({
   },
 
   initialize() {
+    new BackTop();
     const self = this;
 
     this.$initial = ui.initial().show();

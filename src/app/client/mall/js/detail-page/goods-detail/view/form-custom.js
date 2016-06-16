@@ -1,30 +1,32 @@
-var $          = require("jquery");
-var Backbone   = require("backbone");
-var _          = require("lodash");
-var async      = require("async");
-var NativeAPI  = require("app/client/common/lib/native/native-api.js");
-var sendPost   = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast      = require("com/mobile/widget/hint/hint.js").toast;
-var parseUrl   = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var appInfo    = require("app/client/mall/js/lib/app-info.js");
-var pageAction = require("app/client/mall/js/lib/page-action.js");
-var validator  = require("app/client/mall/js/lib/validator.js");
-var hint       = require("com/mobile/widget/hint/hint.js");
-var detailLog  = require("app/client/mall/js/lib/common.js").initTracker("detail");
+import $ from "jquery";
+import Backbone from "backbone";
+import _ from "lodash";
+import async from "async";
+import NativeAPI from "app/client/common/lib/native/native-api.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
+import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
+import appInfo from "app/client/mall/js/lib/app-info.js";
+import pageAction from "app/client/mall/js/lib/page-action.js";
+import validator from "app/client/mall/js/lib/validator.js";
+import hint from "com/mobile/widget/hint/hint.js";
+import {initTracker} from "app/client/mall/js/lib/common.js";
 
-var AppView = Backbone.View.extend({
+const detailLog = initTracker("detail");
+
+const AppView = Backbone.View.extend({
   el: "#form-custom",
   events: {
     "click .js-submit"    : "createOrder",
     "input .js-form-input": "inputInput",
     "blur  .js-form-input": "blurInput"
   },
-  initialize: function(commonData) {
+  initialize(commonData) {
     _.extend(this, commonData);
     this.$el.$shade         = this.$el.find(".js-shade");
     this.$el.$successPrompt = this.$el.find(".js-success-prompt");
   },
-  resume: function(opts) {
+  resume(opts) {
     if (opts.previousView !== "goods-detail") {
       NativeAPI.invoke("close");
       return;
@@ -32,20 +34,20 @@ var AppView = Backbone.View.extend({
     this.renderMainPanel();
     pageAction.setClose();
     detailLog({
-      title: window.document.title + "form-custom",
+      title: `${window.document.title}form-custom`,
       productid: parseUrl().productid,
       from: parseUrl().from || "--"
     });
   },
-  inputInput: function(e) {
+  inputInput(e) {
     $(e.currentTarget)
       .parents(".form-block")
       .find(".js-error-tip")
         .removeClass("active");
   },
-  blurInput: function(e) {
-    var $input = $(e.currentTarget);
-    var val = $input.val();
+  blurInput(e) {
+    const $input = $(e.currentTarget);
+    const val = $input.val();
 
     // 1.realname-icon:name  : 姓名
     // 2.idcard-icon  :idcard: 身份证号
@@ -53,14 +55,14 @@ var AppView = Backbone.View.extend({
     // 4.psw-icon     :pwd   : 输入密码
     // 5.re-psw-icon  :repwd : 再次输入密码
     // 6.email-icon   :email : 邮箱
-    var checkMethods = {
+    const checkMethods = {
       email: "checkEmail",
       phone: "checkPhoneNum",
       pwd  : "checkPassword",
       captche: "checkCaptche"
     };
 
-    var method = checkMethods[$input.data("validateType")];
+    const method = checkMethods[$input.data("validateType")];
 
     if (
       ( !validator[method] && val !== "" ) ||
@@ -77,18 +79,18 @@ var AppView = Backbone.View.extend({
           .addClass("active");
     }
   },
-  renderMainPanel: function() {
-    var self = this;
-    var goods = this.cache.goods;
+  renderMainPanel() {
+    const self = this;
+    const goods = this.cache.goods;
 
-    var $img = $("<img>", {
+    const $img = $("<img>", {
       src: goods.img,
       alt: ""
     });
 
     this.$el.find(".js-top-image").html($img);
 
-    var tmpl = require("app/client/mall/tpl/detail-page/form-custom.tpl");
+    const tmpl = require("app/client/mall/tpl/detail-page/form-custom.tpl");
 
     // 1.realname-icon:name  : 姓名
     // 2.idcard-icon  :idcard: 身份证号
@@ -96,7 +98,7 @@ var AppView = Backbone.View.extend({
     // 4.psw-icon     :pwd   : 输入密码
     // 5.re-psw-icon  :repwd : 再次输入密码
     // 6.email-icon   :email : 邮箱
-    var inputClass = {
+    const inputClass = {
       name  : "realname-icon",
       idcard: "idcard-icon",
       phone : "phone-icon",
@@ -109,22 +111,22 @@ var AppView = Backbone.View.extend({
       .find(".js-input-container")
         .html(tmpl({
           list: goods.input,
-          inputClass: inputClass
+          inputClass
         }));
 
     // set phone number from getUserInfo
     async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
+      next => {
+        appInfo.getUserData((err, userData) => {
           next(err, userData);
         });
       }
-    ], function(err, result) {
+    ], (err, result) => {
       if (err) {
         return;
       }
 
-      var phoneNum = result.userInfo.phone || "";
+      const phoneNum = result.userInfo.phone || "";
 
       if (phoneNum) {
         self.$el.find(".js-form-input")
@@ -134,8 +136,8 @@ var AppView = Backbone.View.extend({
       }
     });
   },
-  createOrder: function() {
-    var $inputs = this.$el.find(".js-form-input");
+  createOrder() {
+    const $inputs = this.$el.find(".js-form-input");
 
     $inputs.trigger("blur");
 
@@ -147,8 +149,8 @@ var AppView = Backbone.View.extend({
     hint.showLoading();
 
     async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
+      next => {
+        appInfo.getUserData((err, userData) => {
           if (err) {
             toast(err.message, 1500);
             return;
@@ -157,10 +159,10 @@ var AppView = Backbone.View.extend({
           next(null, userData);
         });
       },
-      function(userData, next) {
-        var inputList = {};
+      (userData, next) => {
+        const inputList = {};
 
-        $inputs.each(function(index, item) {
+        $inputs.each((index, item) => {
           inputList[item.name] = item.value;
         });
 
@@ -174,27 +176,26 @@ var AppView = Backbone.View.extend({
         // orderid: 订单id
         // message: 显示信息
         // useurl: 第三方url
-        var params = _.extend({}, userData.userInfo, {
+        const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: parseUrl().productid,
           input: inputList
         });
 
-        sendPost("createOrder", params, function(err, data) {
+        sendPost("createOrder", params, (err, data) => {
           next(err, data);
         });
       }
-    ], function(err, result) {
+    ], (err, result) => {
       if (err) {
         toast(err.message, 1500);
         return;
       }
 
       // hint.hideLoading();
-      window.location.href = "/fe/app/client/mall/html/detail-page/order-detail.html" +
-        "?orderid=" + result.orderid;
+      window.location.href = `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${result.orderid}`;
     });
   }
 });
 
-module.exports = AppView;
+export default AppView;

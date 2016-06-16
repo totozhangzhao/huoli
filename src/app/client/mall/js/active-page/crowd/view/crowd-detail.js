@@ -17,6 +17,7 @@ import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
+import BackTop from "com/mobile/widget/button/to-top.js";
 
 const detailLog = initTracker("detail");
 const AppView = Backbone.View.extend({
@@ -29,6 +30,7 @@ const AppView = Backbone.View.extend({
   },
 
   initialize(commonData) {
+    new BackTop();
     _.extend(this, commonData);
     this.$initial    = ui.initial().show();
     this.buyNumModel = new BuyNumModel();
@@ -105,7 +107,7 @@ const AppView = Backbone.View.extend({
       .then(userData => start(userData))
       .catch(mallPromise.catchFn);
   },
-  getMaxNum(total) {
+  getMaxLimitNum(total) {
     let maxNum = Math.floor(total * 0.05);
 
     if (maxNum < 10) {
@@ -207,7 +209,7 @@ const AppView = Backbone.View.extend({
       payText:buttonText[crowd.stat],
       payNumText: "去支付",
       price: crowd.price,
-      limitNum: this.getMaxNum(crowd.totalcount),
+      limitNum: Math.min(this.getMaxLimitNum(crowd.totalcount), crowd.remaincount),
       showBuyTip: true,
       canPay: crowd.stat === 1,
       parentDom: "#crowd-detail"

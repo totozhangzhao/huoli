@@ -6,12 +6,14 @@ var UrlUtil   = require("com/mobile/lib/url/url.js");
 var logger    = require("com/mobile/lib/log/log.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
 var ui        = require("app/client/mall/js/lib/ui.js");
+import BackTop from "com/mobile/widget/button/to-top.js";
 
 require("app/client/mall/js/lib/common.js");
 
 var AppView = Backbone.View.extend({
   el: "#express-info",
   initialize: function() {
+    new BackTop();
     NativeAPI.invoke("updateTitle", {
       text: "物流信息"
     });
@@ -58,7 +60,7 @@ var AppView = Backbone.View.extend({
         self.$initial.hide();
       })
       .fail(function() {
-        toast("网络异常", 1500);
+        toast("ES: 网络异常", 1500);
       });
   }
 });

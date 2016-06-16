@@ -34,7 +34,7 @@ BasicRequest.prototype.request = function(type, headers, query, data, callback) 
       defer.resolve(data);
     })
     .fail(function() {
-      defer.reject(new Error("网络异常"));
+      defer.reject(new Error("ES: 网络异常"));
     });
 
   return defer.promise();
