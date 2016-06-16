@@ -6,6 +6,8 @@ import AddAddressView     from "app/client/mall/js/detail-page/goods-detail/view
 import ConfirmAddressView from "app/client/mall/js/detail-page/goods-detail/view/address-confirm.js";
 import AddressListView    from "app/client/mall/js/detail-page/goods-detail/view/address-list.js";
 import {createRouter}     from "app/client/mall/js/common/router/router-factory.js";
+import BackTop from "com/mobile/widget/button/to-top.js";
+new BackTop();
 
 const viewDic = {
   "goods-detail"   : GoodsView,

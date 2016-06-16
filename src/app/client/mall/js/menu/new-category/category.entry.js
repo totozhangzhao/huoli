@@ -9,6 +9,7 @@ import StateModel from "app/client/mall/js/common/models/state.js";
 import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import GoodsView from "app/client/mall/js/common/views/index-goods.js";
 import Footer from "app/client/mall/js/common/views/footer.js";
+import BackTop from "com/mobile/widget/button/to-top.js";
 
 const menuLog = initTracker("menu");
 const AppView = BaseView.extend({
@@ -20,6 +21,7 @@ const AppView = BaseView.extend({
   },
 
   initialize() {
+    new BackTop();
     const title       = parseUrl().title || document.title;
     this.$initial = ui.initial().show();
     this.groupId    = parseUrl().groupId;

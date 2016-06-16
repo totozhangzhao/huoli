@@ -17,6 +17,7 @@ var mallUitl    = require("app/client/mall/js/lib/util.js");
 var ui          = require("app/client/mall/js/lib/ui.js");
 var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
 var loginUtil   = require("app/client/mall/js/lib/login-util.js");
+import BackTop from "com/mobile/widget/button/to-top.js";
 
 var AppView = Backbone.View.extend({
   el: "#lottery-main",
@@ -25,6 +26,7 @@ var AppView = Backbone.View.extend({
     "click a": "createNewPage"
   },
   initialize: function() {
+    new BackTop();
     var title = parseUrl().title || document.title;
 
     widget.updateViewTitle(title);
