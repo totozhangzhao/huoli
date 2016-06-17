@@ -244,6 +244,13 @@ const AppView = BaseView.extend({
   },
 
   buy() {
+    if ( !/test.mall|test.hbmall|123.56.101.36/.test(window.location.hostname) && !mallUitl.isAppFunc() ) {
+      loginUtil.login({
+        pageUrl: window.location.href
+      });
+      return;
+    }
+
     if ( wechatUtil.isWechatFunc() && !this.token ) {
       this.getOpenid();
       return;
