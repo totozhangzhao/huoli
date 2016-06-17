@@ -32,6 +32,8 @@ const detailLog = initTracker("detail");
 const AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
+    "touchstart": "scrollShowDetailStart",
+    "touchmove": "scrollShowDetailMove",
     "click .js-new-page"  : "createNewPage",
     "click .js-get-url"   : "handleGetUrl",
     "click .js-webview a" : "createNewPage",
@@ -83,6 +85,43 @@ const AppView = BaseView.extend({
     }
 
     hint.hideLoading();
+  },
+  scrollShowDetailStart(e) {
+    let _e = e.originalEvent || e;
+    let touches = _e.changedTouches;
+
+    if (touches) {
+      _e = touches[0];
+    }
+
+    this.startPoint = {
+      x: _e.pageX,
+      y: _e.pageY
+    };
+  },
+  scrollShowDetailMove(e) {
+    if (window.scrollY + document.documentElement.clientHeight < document.documentElement.scrollHeight - 2) {
+      return;
+    }
+
+    let _e = e.originalEvent || e;
+    let touches = _e.changedTouches;
+
+    if (touches) {
+      _e = touches[touches.length - 1];
+    }
+
+    let minY = 156;
+    let deltaX = _e.pageX - this.startPoint.x;
+    let deltaY = _e.pageY - this.startPoint.y;
+
+    if ( -deltaY > minY && minY > Math.abs(deltaX) ) {
+      let $detail = this.$el.find(".js-detail-bar");
+
+      if ($detail.length > 0) {
+        $detail.trigger("click");
+      }
+    }
   },
   mallGoodsDetail() {
     const self = this;
