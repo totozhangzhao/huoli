@@ -32,8 +32,8 @@ const detailLog = initTracker("detail");
 const AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
-    "touchstart": "scrollShowDetailStart",
-    "touchmove": "scrollShowDetailMove",
+    // "touchstart": "scrollShowDetailStart",
+    // "touchmove": "scrollShowDetailMove",
     "click .js-new-page"  : "createNewPage",
     "click .js-get-url"   : "handleGetUrl",
     "click .js-webview a" : "createNewPage",
