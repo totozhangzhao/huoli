@@ -282,25 +282,40 @@ const AppView = BaseView.extend({
   },
 
   buy() {
+    let self = this;
+
+    function _buy() {
+      if ( wechatUtil.isWechatFunc() && !self.token ) {
+        self.getOpenid();
+        return;
+      }
+
+      // 购买上限为1的情况
+      if(self.buyNumModel.get("limitNum") === 1) {
+        return self.pay();
+      }
+      return self.buyNumModel.set({
+        type: 1,
+        hasMask: true
+      });
+    }
+
     // test web pay
     if ( !/test.mall|test.hbmall|123.56.101.36/.test(window.location.hostname) && !mallUitl.isAppFunc() ) {
-      this.getOpenid();
-      return;
-    }
 
-    if ( wechatUtil.isWechatFunc() && !this.token ) {
-      this.getOpenid();
-      return;
+      // 对白名单外用户只是弹一个提示
+      loginUtil.login({
+        openid: this.urlObj.openid,
+        pageUrl: window.location.href
+      })
+        .then(data => {
+          if (data) {
+            _buy();
+          }
+        });
+    } else {
+      _buy();
     }
-
-    // 购买上限为1的情况
-    if(this.buyNumModel.get("limitNum") === 1) {
-      return this.pay();
-    }
-    return this.buyNumModel.set({
-      type: 1,
-      hasMask: true
-    });
   },
 
   pay() {
