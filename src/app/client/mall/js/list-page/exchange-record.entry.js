@@ -1,29 +1,30 @@
-var $         = require("jquery");
-var Backbone  = require("backbone");
-var _         = require("lodash");
-var async     = require("async");
-var NativeAPI = require("app/client/common/lib/native/native-api.js");
-var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast     = require("com/mobile/widget/hint/hint.js").toast;
-var appInfo   = require("app/client/mall/js/lib/app-info.js");
-var widget    = require("app/client/mall/js/lib/common.js");
-var imgDelay  = require("app/client/mall/js/lib/common.js").imageDelay;
-var logger    = require("com/mobile/lib/log/log.js");
-var mallUitl  = require("app/client/mall/js/lib/util.js");
-var storage   = require("app/client/mall/js/lib/storage.js");
-var UrlUtil   = require("com/mobile/lib/url/url.js");
-var ui        = require("app/client/mall/js/lib/ui.js");
-var orderListLog = require("app/client/mall/js/lib/common.js").initTracker("orderList");
-var loginUtil    = require("app/client/mall/js/lib/login-util.js");
+import $ from "jquery";
+import Backbone from "backbone";
+import _ from "lodash";
+import async from "async";
+import NativeAPI from "app/client/common/lib/native/native-api.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
+import appInfo from "app/client/mall/js/lib/app-info.js";
+import logger from "com/mobile/lib/log/log.js";
+import mallUitl from "app/client/mall/js/lib/util.js";
+import storage from "app/client/mall/js/lib/storage.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
+import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
+import * as loginUtil from "app/client/mall/js/lib/login-util.js";
+import * as widget from "app/client/mall/js/lib/common.js";
 
-var AppView = Backbone.View.extend({
+const orderListLog = widget.initTracker("orderList");
+
+const AppView = Backbone.View.extend({
   el: "#order-list",
   events: {
     "click .js-tab": "switchList",
     "click .js-order-item": "gotoOrderDetail"
   },
-  initialize: function() {
+  initialize() {
     new BackTop();
     this.loadingMore = false;
     this.$initial = ui.initial().show();
@@ -35,37 +36,38 @@ var AppView = Backbone.View.extend({
     //     self.refreshPage();
     //   });
 
+    this.token = cookie.get("token");
     this.$blank = ui.blank("暂无订单");
     this.mallOrderList();
     this.mallSearchList();
-    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+    logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
     orderListLog({
       title: document.title,
       from: UrlUtil.parseUrlSearch().from || "--"
     });
   },
-  setAppRightButton: function(text) {
+  setAppRightButton(text) {
     NativeAPI.invoke("updateHeaderRightBtn", {
       action: "show",
-      text: text
-    }, function(err) {
+      text
+    }, err => {
       if (err) {
         window.console.log(err.message);
         return;
       }
     });
   },
-  mallSearchList: function() {
-    var self = this;
+  mallSearchList() {
+    const self = this;
 
     this.setAppRightButton("搜索");
 
-    var SearchPanel = function() {
+    const SearchPanel = function() {
       this.$panel = $("#search-list");
-      var $list = this.$panel.find(".js-container");
-      var timerId;
+      const $list = this.$panel.find(".js-container");
+      let timerId;
 
-      var renderSearchResults = function(err, result) {
+      const renderSearchResults = (err, result) => {
         if (err) {
           toast(err.message, 1500);
           return;
@@ -73,25 +75,25 @@ var AppView = Backbone.View.extend({
 
         if (!Array.isArray(result) || result.length === 0) {
           $list.empty();
-          timerId = setTimeout(function() {
+          timerId = setTimeout(() => {
             clearTimeout(timerId);
             $list.html( self.$blank );
           }, 3000);
         } else {
           clearTimeout(timerId);
-          var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
-          var tmplData = {
+          const compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
+          const tmplData = {
             orderList: result
           };
 
           $list.html( compiled(tmplData) );
-          imgDelay();
+          widget.imageDelay();
         }
       };
 
-      var $input = this.$panel.find("[data-name='search']");
-      var doSearch = function() {
-        var keywords = $input.val();
+      const $input = this.$panel.find("[data-name='search']");
+      const doSearch = () => {
+        const keywords = $input.val();
 
         if (keywords === "") {
           renderSearchResults(null, []);
@@ -99,9 +101,9 @@ var AppView = Backbone.View.extend({
           return;
         }
 
-        var options = {
+        const options = {
           listType: 4, // 搜索类型
-          keywords: keywords
+          keywords
         };
 
         self.getOrderList(options, renderSearchResults);
@@ -112,7 +114,7 @@ var AppView = Backbone.View.extend({
         .on("click", ".js-search-button", doSearch);
 
       $input
-        .on("keypress", function(e) {
+        .on("keypress", e => {
           if (e.which === 13) {
             doSearch();
           }
@@ -121,17 +123,17 @@ var AppView = Backbone.View.extend({
     };
 
     _.extend(SearchPanel.prototype, {
-      show: function() {
+      show() {
         self.$el.hide();
         this.$panel.show();
         self.setAppRightButton("取消");
       },
-      hide: function() {
+      hide() {
         this.$panel.hide();
         self.$el.show();
         self.setAppRightButton("搜索");
       },
-      toggle: function() {
+      toggle() {
         if ( this.$panel.is(":visible") ) {
           this.hide();
         } else {
@@ -140,14 +142,14 @@ var AppView = Backbone.View.extend({
       }
     });
 
-    var panel = new SearchPanel();
+    const panel = new SearchPanel();
 
-    NativeAPI.registerHandler("headerRightBtnClick", function() {
+    NativeAPI.registerHandler("headerRightBtnClick", () => {
       panel.toggle();
     });
   },
-  switchList: function(e) {
-    var $cur = $(e.currentTarget);
+  switchList(e) {
+    const $cur = $(e.currentTarget);
 
     if ( $cur.hasClass("on") ) {
       return;
@@ -164,15 +166,14 @@ var AppView = Backbone.View.extend({
         .eq( $cur.index() )
           .addClass("on");
 
-
     this.mallOrderList();
   },
-  initLoadingMore: function() {
-    var self = this;
-    var screenHeight = $(window).height();
-    var edgeHeight = screenHeight * 0.35;
+  initLoadingMore() {
+    const self = this;
+    const screenHeight = $(window).height();
+    const edgeHeight = screenHeight * 0.35;
 
-    $(window).on("scroll", function() {
+    $(window).on("scroll", () => {
       if (self.loadingMore) {
         return;
       }
@@ -182,25 +183,25 @@ var AppView = Backbone.View.extend({
       }
     });
   },
-  refreshPage: function() {
+  refreshPage() {
     window.location.reload();
   },
-  loadMore: function() {
-    var $listBox = this.$el.find(".js-container.on");
-    var lastOrderId = $listBox
+  loadMore() {
+    const $listBox = this.$el.find(".js-container.on");
+    const lastOrderId = $listBox
         .find(".js-order-item")
           .last()
           .data("id");
 
-    var renderView = function(err, result) {
+    const renderView = (err, result) => {
       if (err) {
         toast(err.message, 1500);
         return;
       }
 
       if (Array.isArray(result) && result.length > 0) {
-        var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
-        var tmplData = {
+        const compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
+        const tmplData = {
           orderList: result
         };
 
@@ -209,21 +210,21 @@ var AppView = Backbone.View.extend({
     };
 
     this.getOrderList({
-      lastOrderId: lastOrderId,
+      lastOrderId,
       listType: this.listType
     }, renderView);
   },
-  mallOrderList: function() {
-    var self = this;
-    var $listBox = this.$el.find(".js-container.on");
+  mallOrderList() {
+    const self = this;
+    const $listBox = this.$el.find(".js-container.on");
 
     if ( $listBox.data("_cache") ) {
       return;
     }
 
-    var listType = this.listType || this.$el.find(".js-tab.on").data("type");
+    const listType = this.listType || this.$el.find(".js-tab.on").data("type");
 
-    var renderView = function(err, result) {
+    const renderView = (err, result) => {
       if (err) {
         toast(err.message, 1500);
         return;
@@ -236,15 +237,15 @@ var AppView = Backbone.View.extend({
       if (!Array.isArray(result) || result.length === 0) {
         $listBox.html( self.$blank );
       } else {
-        var compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
-        var tmplData = {
+        const compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
+        const tmplData = {
           orderList: result
         };
 
         $listBox
           .html( compiled(tmplData) )
           .data("_cache", true);
-        imgDelay();
+        widget.imageDelay();
         self.setUpdatePage();
       }
 
@@ -252,18 +253,18 @@ var AppView = Backbone.View.extend({
       self.initLoadingMore();
     };
 
-    this.getOrderList({ listType: listType }, renderView);
+    this.getOrderList({ listType }, renderView);
   },
-  getOrderList: function(opts, callback) {
-    var self = this;
-    var options = opts || {};
+  getOrderList(opts, callback) {
+    const self = this;
+    const options = opts || {};
 
     this.loadingMore = true;
 
     // 全部订单页面也作为一个入口，所以 { reset: true }
     async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
+      next => {
+        appInfo.getUserData((err, userData) => {
           if (err) {
             toast(err.message, 1500);
             self.loadingMore = false;
@@ -273,7 +274,7 @@ var AppView = Backbone.View.extend({
           next(null, userData);
         }, { reset: true });
       },
-      function(userData, next) {
+      (userData, next) => {
         if (userData.userInfo && userData.userInfo.userid) {
 
           // style:
@@ -284,17 +285,17 @@ var AppView = Backbone.View.extend({
           // 2 一元夺宝
           // 3 保险
           // 4 优惠券
-          var style = UrlUtil.parseUrlSearch().style || "1";
+          const style = UrlUtil.parseUrlSearch().style || "1";
 
-          var params = _.extend({}, userData.userInfo, {
+          const params = _.extend({}, userData.userInfo, {
             p    : userData.deviceInfo.p,
             last : options.lastOrderId || "",
             type : options.listType,
-            style: style,
+            style,
             key  : options.keywords
           });
 
-          sendPost("orderList", params, function(err, data) {
+          sendPost("orderList", params, (err, data) => {
             if (err) {
               next(err);
               return;
@@ -307,18 +308,18 @@ var AppView = Backbone.View.extend({
           loginUtil.login();
         }
       }
-    ], function(err, result) {
+    ], (err, result) => {
       self.loadingMore = false;
       callback(err, result);
     });
   },
-  setUpdatePage: function() {
-    NativeAPI.registerHandler("resume", function() {
+  setUpdatePage() {
+    NativeAPI.registerHandler("resume", () => {
       async.waterfall([
-        function(next) {
-          storage.get("mallInfo", function(data) {
+        next => {
+          storage.get("mallInfo", data => {
             data = data || {};
-            var orderFlag = false;
+            let orderFlag = false;
 
             if (data.status) {
               orderFlag = data.status.orderChanged;
@@ -327,29 +328,27 @@ var AppView = Backbone.View.extend({
             next(null, orderFlag, data);
           });
         },
-        function(orderFlag, data, next) {
+        (orderFlag, data, next) => {
           if (data.status) {
             data.status.orderChanged = false;
           }
 
-          storage.set("mallInfo", data, function() {
+          storage.set("mallInfo", data, () => {
             next(null, orderFlag);
           });
         }
-      ], function(err, result) {
+      ], (err, result) => {
         if (result) {
           window.location.reload();
         }
       });
     });
   },
-  gotoOrderDetail: function(e) {
-    var $cur = $(e.currentTarget);
+  gotoOrderDetail(e) {
+    const $cur = $(e.currentTarget);
 
     widget.createNewView({
-      url: "/fe/app/client/mall/html/detail-page/order-detail.html" +
-        "?orderid=" + $cur.data("id") +
-        "&from=order-list-page",
+      url: `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${$cur.data("id")}&from=order-list-page`,
       title: "订单详情"
     });
   }
