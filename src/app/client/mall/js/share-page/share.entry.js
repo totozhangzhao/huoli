@@ -18,7 +18,7 @@ import mallUitl from "app/client/mall/js/lib/util.js";
 import ShareInput from "app/client/mall/js/share-page/share-input.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
-import * as loginUtil         from "app/client/mall/js/lib/login-util.js";
+// import * as loginUtil         from "app/client/mall/js/lib/login-util.js";
 
 const AppView = Backbone.View.extend({
   el: "#interlayer",
@@ -79,7 +79,7 @@ const AppView = Backbone.View.extend({
        */
       if (err) {
         if(err.code === -3330) {
-          loginUtil.login();
+          // loginUtil.login();
           return;
         }
         return toast(err.message, 1500);
