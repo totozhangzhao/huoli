@@ -45,7 +45,8 @@ var AppView = Backbone.View.extend({
             infoList.reverse();
           }
         } else {
-          toast("暂无物流信息", 1500);
+          // toast("暂无物流信息", 1500);
+          toast(expressInfo.message || "暂无物流信息", 1500);
           return;
         }
 
