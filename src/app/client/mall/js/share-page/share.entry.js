@@ -2,7 +2,7 @@ import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
 import async from "async";
-import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+// import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
@@ -18,11 +18,13 @@ import mallUitl from "app/client/mall/js/lib/util.js";
 import ShareInput from "app/client/mall/js/share-page/share-input.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
+import * as loginUtil         from "app/client/mall/js/lib/login-util.js";
 
 const AppView = Backbone.View.extend({
   el: "#interlayer",
   events: {
     "click .js-get-coupon": "getMallCoupon",
+    "click .btn-get-coupon": "getCoupon",
     "click .js-common-share": "handleShareButton",
     "click a": "createNewPage"
   },
@@ -39,7 +41,7 @@ const AppView = Backbone.View.extend({
     this.checkCouponButton();
   },
 
-  checkCouponButton() {
+  checkCouponButton(couponId) {
     const self = this;
     async.waterfall([
       next => {
@@ -55,10 +57,9 @@ const AppView = Backbone.View.extend({
       (userData, next) => {
         const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: self.couponId
+          productid: couponId || self.couponId
         });
 
-        window.console.log(params);
         sendPost("getUserCouponStat", params, (err, data) => {
           next(err, data);
         });
@@ -78,7 +79,7 @@ const AppView = Backbone.View.extend({
        */
       if (err) {
         if(err.code === -3330) {
-          mallPromise.login();
+          loginUtil.login();
           return;
         }
         return toast(err.message, 1500);
@@ -104,8 +105,17 @@ const AppView = Backbone.View.extend({
     });
 
   },
+  // 点击领取优惠券
+  getCoupon(e) {
+    this.curCouponBtn = $(e.currentTarget);
+    let couponId = $(e.currentTarget).data("imbluId");
+    this.getMallCouponById(couponId);
+  },
 
   getMallCoupon() {
+    this.getMallCouponById(this.couponId);
+  },
+  getMallCouponById(couponId) {
     const self = this;
 
     async.waterfall([
@@ -122,7 +132,7 @@ const AppView = Backbone.View.extend({
       (userData, next) => {
         const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: self.couponId
+          productid: couponId
         });
 
         sendPost("getCoupon", params, (err, data) => {
@@ -130,15 +140,21 @@ const AppView = Backbone.View.extend({
         });
       }
     ], (err, result) => {
+      try{
+        self.curCouponBtn.text("已领取优惠券");
+        self.curCouponBtn.addClass('active');
+      }catch(e){
+        window.console.log(e);
+      }
       if (err) {
         toast(err.message, 1500);
         return;
       }
-
       toast(result.message, 1500);
       self.checkCouponButton();
     });
   },
+
   handleShareButton(e) {
     const urlObj = $(e.currentTarget).data();
     const appName = cookie.get("appName");
