@@ -25,9 +25,8 @@ import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
-import {initTracker} from "app/client/mall/js/lib/common.js";
 
-const detailLog = initTracker("detail");
+const detailLog = widget.initTracker("detail");
 
 const AppView = BaseView.extend({
   el: "#goods-detail",
@@ -283,10 +282,9 @@ const AppView = BaseView.extend({
   },
 
   buy() {
+    // test web pay
     if ( !/test.mall|test.hbmall|123.56.101.36/.test(window.location.hostname) && !mallUitl.isAppFunc() ) {
-      loginUtil.login({
-        pageUrl: window.location.href
-      });
+      this.getOpenid();
       return;
     }
 
@@ -294,6 +292,7 @@ const AppView = BaseView.extend({
       this.getOpenid();
       return;
     }
+
     // 购买上限为1的情况
     if(this.buyNumModel.get("limitNum") === 1) {
       return this.pay();
