@@ -25,13 +25,14 @@ import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
-import {initTracker} from "app/client/mall/js/lib/common.js";
 
-const detailLog = initTracker("detail");
+const detailLog = widget.initTracker("detail");
 
 const AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
+    // "touchstart": "scrollShowDetailStart",
+    // "touchmove": "scrollShowDetailMove",
     "click .js-new-page"  : "createNewPage",
     "click .js-get-url"   : "handleGetUrl",
     "click .js-webview a" : "createNewPage",
@@ -83,6 +84,43 @@ const AppView = BaseView.extend({
     }
 
     hint.hideLoading();
+  },
+  scrollShowDetailStart(e) {
+    let _e = e.originalEvent || e;
+    let touches = _e.changedTouches;
+
+    if (touches) {
+      _e = touches[0];
+    }
+
+    this.startPoint = {
+      x: _e.pageX,
+      y: _e.pageY
+    };
+  },
+  scrollShowDetailMove(e) {
+    if (window.scrollY + document.documentElement.clientHeight < document.documentElement.scrollHeight - 2) {
+      return;
+    }
+
+    let _e = e.originalEvent || e;
+    let touches = _e.changedTouches;
+
+    if (touches) {
+      _e = touches[touches.length - 1];
+    }
+
+    let minY = 156;
+    let deltaX = _e.pageX - this.startPoint.x;
+    let deltaY = _e.pageY - this.startPoint.y;
+
+    if ( -deltaY > minY && minY > Math.abs(deltaX) ) {
+      let $detail = this.$el.find(".js-detail-bar");
+
+      if ($detail.length > 0) {
+        $detail.trigger("click");
+      }
+    }
   },
   mallGoodsDetail() {
     const self = this;
@@ -244,25 +282,40 @@ const AppView = BaseView.extend({
   },
 
   buy() {
-    if ( !/test.mall|test.hbmall|123.56.101.36/.test(window.location.hostname) && !mallUitl.isAppFunc() ) {
-      loginUtil.login({
-        pageUrl: window.location.href
+    let self = this;
+
+    function _buy() {
+      if ( wechatUtil.isWechatFunc() && !self.token ) {
+        self.getOpenid();
+        return;
+      }
+
+      // 购买上限为1的情况
+      if(self.buyNumModel.get("limitNum") === 1) {
+        return self.pay();
+      }
+      return self.buyNumModel.set({
+        type: 1,
+        hasMask: true
       });
-      return;
     }
 
-    if ( wechatUtil.isWechatFunc() && !this.token ) {
-      this.getOpenid();
-      return;
+    // test web pay
+    if ( !/test.mall|test.hbmall|123.56.101.36/.test(window.location.hostname) && !mallUitl.isAppFunc() ) {
+
+      // 对白名单外用户只是弹一个提示
+      loginUtil.login({
+        openid: this.urlObj.openid,
+        pageUrl: window.location.href
+      })
+        .then(data => {
+          if (data) {
+            _buy();
+          }
+        });
+    } else {
+      _buy();
     }
-    // 购买上限为1的情况
-    if(this.buyNumModel.get("limitNum") === 1) {
-      return this.pay();
-    }
-    return this.buyNumModel.set({
-      type: 1,
-      hasMask: true
-    });
   },
 
   pay() {
