@@ -140,12 +140,8 @@ const AppView = Backbone.View.extend({
         });
       }
     ], (err, result) => {
-      try{
-        self.curCouponBtn.text("已领取优惠券");
-        self.curCouponBtn.addClass('active');
-      }catch(e){
-        window.console.log(e);
-      }
+        // self.curCouponBtn.text("已领取优惠券");
+        // self.curCouponBtn.addClass('active');
       if (err) {
         toast(err.message, 1500);
         return;
