@@ -46,7 +46,7 @@ var AppView = Backbone.View.extend({
           }
         } else {
           // toast("暂无物流信息", 1500);
-          toast(expressInfo.message || "暂无物流信息", 1500);
+          toast(expressInfo.message || "暂无物流信息", 5000);
           return;
         }
 
