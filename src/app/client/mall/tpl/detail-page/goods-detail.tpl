@@ -82,6 +82,8 @@
 </div>
 <% } %>
 
-<div id="copyright" class="copyright-block goods-copyright-fix">
-  <!-- // -->
+<% if (Array.isArray(detail) && detail.length > 0) { %>
+<div class="goods-drag-view">
+  <span><b class="goods-drag-icon"></b>继续拖动，查看图文详情</span>
 </div>
+<% } %>

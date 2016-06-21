@@ -1,19 +1,17 @@
 import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
-import async from "async";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import {toast} from "com/mobile/widget/hint/hint.js";
-import appInfo from "app/client/mall/js/lib/app-info.js";
-import logger from "com/mobile/lib/log/log.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
 import storage from "app/client/mall/js/lib/storage.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
+import logger from "com/mobile/lib/log/log.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 
 const orderListLog = widget.initTracker("orderList");
@@ -67,12 +65,7 @@ const AppView = Backbone.View.extend({
       const $list = this.$panel.find(".js-container");
       let timerId;
 
-      const renderSearchResults = (err, result) => {
-        if (err) {
-          toast(err.message, 1500);
-          return;
-        }
-
+      const renderSearchResults = (result) => {
         if (!Array.isArray(result) || result.length === 0) {
           $list.empty();
           timerId = setTimeout(() => {
@@ -193,12 +186,7 @@ const AppView = Backbone.View.extend({
           .last()
           .data("id");
 
-    const renderView = (err, result) => {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
+    const renderView = (result) => {
       if (Array.isArray(result) && result.length > 0) {
         const compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
         const tmplData = {
@@ -224,12 +212,7 @@ const AppView = Backbone.View.extend({
 
     const listType = this.listType || this.$el.find(".js-tab.on").data("type");
 
-    const renderView = (err, result) => {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
+    const renderView = (result) => {
       self.$el
         .find(".js-ui-hide")
         .addClass("show");
@@ -246,7 +229,7 @@ const AppView = Backbone.View.extend({
           .html( compiled(tmplData) )
           .data("_cache", true);
         widget.imageDelay();
-        self.setUpdatePage();
+        self.setPageResume();
       }
 
       self.$initial.hide();
@@ -256,26 +239,15 @@ const AppView = Backbone.View.extend({
     this.getOrderList({ listType }, renderView);
   },
   getOrderList(opts, callback) {
-    const self = this;
     const options = opts || {};
 
     this.loadingMore = true;
 
     // 全部订单页面也作为一个入口，所以 { reset: true }
-    async.waterfall([
-      next => {
-        appInfo.getUserData((err, userData) => {
-          if (err) {
-            toast(err.message, 1500);
-            self.loadingMore = false;
-            return;
-          }
-
-          next(null, userData);
-        }, { reset: true });
-      },
-      (userData, next) => {
-        if (userData.userInfo && userData.userInfo.userid) {
+    mallPromise
+      .getAppInfo(true)
+      .then(userData => {
+        if (userData.userInfo.userid || this.token) {
 
           // style:
           //
@@ -291,57 +263,63 @@ const AppView = Backbone.View.extend({
             p    : userData.deviceInfo.p,
             last : options.lastOrderId || "",
             type : options.listType,
-            style,
-            key  : options.keywords
+            key  : options.keywords,
+            style
           });
 
-          sendPost("orderList", params, (err, data) => {
-            if (err) {
-              next(err);
-              return;
-            }
-
-            next(null, data);
+          return new Promise((resolve, reject) => {
+            sendPost("orderList", params, (err, data) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(data);
+              }
+            });
           });
         } else {
-          self.$initial.hide();
+          this.$initial.hide();
           loginUtil.login();
         }
-      }
-    ], (err, result) => {
-      self.loadingMore = false;
-      callback(err, result);
-    });
+      })
+      .then(result => {
+        this.loadingMore = false;
+        callback(result);
+      })
+      .catch(err => {
+        this.loadingMore = false;
+        mallPromise.catchFn(err);
+      });
   },
-  setUpdatePage() {
+  setPageResume() {
     NativeAPI.registerHandler("resume", () => {
-      async.waterfall([
-        next => {
-          storage.get("mallInfo", data => {
-            data = data || {};
-            let orderFlag = false;
-
-            if (data.status) {
-              orderFlag = data.status.orderChanged;
-            }
-
-            next(null, orderFlag, data);
+      new Promise((resolve) => {
+        storage.get("mallInfo", data => {
+          data = data || {};
+          let orderFlag = false;
+          if (data.status) {
+            orderFlag = data.status.orderChanged;
+          }
+          resolve({
+            orderFlag,
+            data
           });
-        },
-        (orderFlag, data, next) => {
+        });
+      })
+        .then(result => {
+          let data = result.data;
           if (data.status) {
             data.status.orderChanged = false;
           }
-
-          storage.set("mallInfo", data, () => {
-            next(null, orderFlag);
+          return new Promise((resolve) => {
+            storage.set("mallInfo", data, () => {
+              resolve(resolve.orderFlag);
+            });
           });
-        }
-      ], (err, result) => {
-        if (result) {
+        })
+        .then(() => {
           window.location.reload();
-        }
-      });
+        })
+        .catch(mallPromise.catchFn);
     });
   },
   gotoOrderDetail(e) {
