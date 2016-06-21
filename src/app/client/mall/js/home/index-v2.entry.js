@@ -1,6 +1,5 @@
 import $ from "jquery";
 import _ from "lodash";
-import Promise from "com/mobile/lib/promise/npo.js";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";

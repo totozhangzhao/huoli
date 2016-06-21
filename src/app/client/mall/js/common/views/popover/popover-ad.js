@@ -3,7 +3,6 @@ import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import Storage    from "com/mobile/lib/storage/storage.js";
 
 import mallUitl from "app/client/mall/js/lib/util.js";
-import Promise from "com/mobile/lib/promise/npo.js";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 
 import "app/client/mall/js/lib/date-util.js";

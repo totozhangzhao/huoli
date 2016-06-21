@@ -18,7 +18,7 @@ import mallUitl from "app/client/mall/js/lib/util.js";
 import ShareInput from "app/client/mall/js/share-page/share-input.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
-import * as loginUtil         from "app/client/mall/js/lib/login-util.js";
+import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 
 const AppView = Backbone.View.extend({
   el: "#interlayer",
@@ -37,8 +37,10 @@ const AppView = Backbone.View.extend({
 
   initCoupon() {
     this.$getCouponButton = this.$el.find(".js-get-coupon");
-    this.couponId = this.$getCouponButton.data("couponId");
-    this.checkCouponButton();
+    if( this.$getCouponButton.length >0) {
+      this.couponId = this.$getCouponButton.data("couponId");
+      this.checkCouponButton();
+    }
   },
 
   checkCouponButton(couponId) {

@@ -8,7 +8,6 @@ import UrlUtil from "com/mobile/lib/url/url.js";
 // import mallUitl from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 // import NativeAPI from "app/client/common/lib/native/native-api.js";
-import Promise from "com/mobile/lib/promise/npo.js";
 import Tab from "com/mobile/widget/button/tab.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";

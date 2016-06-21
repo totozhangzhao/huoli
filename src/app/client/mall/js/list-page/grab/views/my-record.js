@@ -1,7 +1,6 @@
 import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
-import Promise from "com/mobile/lib/promise/npo.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
