@@ -291,7 +291,7 @@ const AppView = BaseView.extend({
     if ( !/test.mall|test.hbmall|123.56.101.36/.test(window.location.hostname) && !mallUitl.isAppFunc() ) {
 
       // 对白名单外用户只是弹一个提示
-      return new Promise((resovle, reject) => {
+      new Promise((resovle, reject) => {
         let params = {
           openid: this.urlObj.openid
         };
