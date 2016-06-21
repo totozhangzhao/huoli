@@ -17,7 +17,7 @@
           class="<%= tplUtil.getJsClass(item) %>"
           href="<%= tplUtil.getBlockUrl(item) %>"
         >
-          <img src="http://cdn.rsscc.cn/guanggao/img/mall/secondary/h3-10000112-goods-bcard.jpg" alt="">
+          <img src="<%= item.img %>" alt="">
           <div class="home-info-show">
             <p class="hmoe-goods-name"><%= item.title %></p>
           </div>
