@@ -50,7 +50,8 @@ module.exports = {
         loader: "babel-loader",
         query: {
           compact: false,
-          presets: ["es2015"]
+          presets: ["es2015"],
+          plugins: ["es6-promise"]
         }
       },
       { test: /\.tpl$/, loader: "tpl-loader" },

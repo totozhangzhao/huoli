@@ -304,14 +304,27 @@ const AppView = BaseView.extend({
     if ( !/test.mall|test.hbmall|123.56.101.36/.test(window.location.hostname) && !mallUitl.isAppFunc() ) {
 
       // 对白名单外用户只是弹一个提示
-      loginUtil.login({
-        openid: this.urlObj.openid,
-        pageUrl: window.location.href
+      return new Promise((resovle, reject) => {
+        let params = {
+          openid: this.urlObj.openid
+        };
+
+        sendPost("weixinLogin", params, (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resovle(data);
+          }
+        });
       })
         .then(data => {
-          if (data) {
-            _buy();
+          if (!data) {
+            return;
           }
+          _buy();
+        })
+        .catch(err => {
+          window.console.log(JSON.stringify(err));
         });
     } else {
       _buy();

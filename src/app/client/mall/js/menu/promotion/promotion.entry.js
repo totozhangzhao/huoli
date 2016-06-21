@@ -1,5 +1,4 @@
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
-import Promise        from "com/mobile/lib/promise/npo.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
 import mallUitl       from "app/client/mall/js/lib/util.js";
 import UrlUtil        from "com/mobile/lib/url/url.js";

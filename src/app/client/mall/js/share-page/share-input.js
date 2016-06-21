@@ -2,8 +2,6 @@
 import _            from "lodash";
 import Backbone     from "backbone";
 import * as mallPromise  from "app/client/mall/js/lib/mall-promise.js";
-import Promise      from "com/mobile/lib/promise/npo.js";
-
 import {sendPost}             from "app/client/mall/js/lib/mall-request.js";
 import * as widget            from "app/client/mall/js/lib/common.js";
 import template               from "app/client/mall/tpl/share/caimi.tpl";
