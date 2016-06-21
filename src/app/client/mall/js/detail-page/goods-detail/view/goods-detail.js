@@ -323,9 +323,7 @@ const AppView = BaseView.extend({
           }
           _buy();
         })
-        .catch(err => {
-          window.console.log(JSON.stringify(err));
-        });
+        .catch(mallPromise.catchFn);
     } else {
       _buy();
     }
