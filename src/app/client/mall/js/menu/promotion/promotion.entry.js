@@ -5,7 +5,7 @@ import UrlUtil        from "com/mobile/lib/url/url.js";
 import loadScript     from "com/mobile/lib/load-script/load-script.js";
 import shareUtil      from "com/mobile/widget/wechat/util.js";
 import wechatUtil     from "com/mobile/widget/wechat-hack/util.js";
-import mallWechat     from "app/client/mall/js/lib/wechat.js";
+import * as mallWechat     from "app/client/mall/js/lib/wechat.js";
 
 import * as widget    from "app/client/mall/js/lib/common.js";
 import logger         from "com/mobile/lib/log/log.js";

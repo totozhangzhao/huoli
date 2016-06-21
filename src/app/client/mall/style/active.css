@@ -744,6 +744,9 @@ p {
   padding-left: 0.34667rem;
   padding-right: 0.34667rem;
 }
+.mall-active-box .mall-active-bar .mall-active-area {
+  padding-bottom: 0.26667rem;
+}
 .mall-active-box .mall-active-bar .mall-active-area .mall-active-content {
   width: 50%;
   float: left;
