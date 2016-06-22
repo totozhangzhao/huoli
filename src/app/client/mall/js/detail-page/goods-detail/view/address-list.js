@@ -51,12 +51,7 @@ const AppView = Backbone.View.extend({
     let addressList = this.collection.addressList;
 
     const showAddressHelper = () => {
-      addressUtil.getList((err, result) => {
-        if (err) {
-          toast(err.message, 1500);
-          return;
-        }
-
+      addressUtil.getList(result => {
         if (addressList) {
           addressList.reset(result);
         } else {

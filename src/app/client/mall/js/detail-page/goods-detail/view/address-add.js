@@ -243,12 +243,7 @@ const AppView = Backbone.View.extend({
         }
       },
       (addressData, next) => {
-        addressUtil.getList((err, result) => {
-          if (err) {
-            toast(err.message, 1500);
-            return;
-          }
-
+        addressUtil.getList(result => {
           self.collection.addressList.reset(result);
           next(null, addressData);
         });

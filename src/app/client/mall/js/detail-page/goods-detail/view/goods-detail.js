@@ -1,7 +1,6 @@
 import $ from "jquery";
 import _ from "lodash";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
@@ -414,12 +413,7 @@ const AppView = BaseView.extend({
 
     hint.showLoading();
 
-    addressUtil.getList((err, result) => {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
+    addressUtil.getList(result => {
       const AddressList = require("app/client/mall/js/detail-page/goods-detail/collection/address-list.js");
       const addressList = new AddressList();
 
