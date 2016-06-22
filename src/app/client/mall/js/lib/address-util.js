@@ -59,10 +59,6 @@ export function setDefault(addressData, callback) {
     .catch(mallPromise.catchFn);
 }
 
-export function remove(id, callback) {
-  exports.handleAddress("delAddress", id, callback);
-}
-
 export function handleAddress(method, id, callback) {
   mallPromise
     .getAppInfo()
@@ -88,4 +84,8 @@ export function handleAddress(method, id, callback) {
       }
     })
     .catch(mallPromise.catchFn);
+}
+
+export function remove(id, callback) {
+  handleAddress("delAddress", id, callback);
 }

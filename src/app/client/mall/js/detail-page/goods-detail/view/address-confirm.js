@@ -1,20 +1,13 @@
 import Backbone from "backbone";
 import _ from "lodash";
-// import async from "async";
-// import appInfo from "app/client/mall/js/lib/app-info.js";
-// import NativeAPI from "app/client/common/lib/native/native-api.js";
-// import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-// import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
-// import UrlUtil from "com/mobile/lib/url/url.js";
-// import mallUitl from "app/client/mall/js/lib/util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 
-const addressListTpl = require("app/client/mall/tpl/detail-page/address-confirm.tpl");
-const addressPriceTpl = require("app/client/mall/tpl/detail-page/address-price.tpl");
+import addressListTpl from "app/client/mall/tpl/detail-page/address-confirm.tpl";
+import addressPriceTpl from "app/client/mall/tpl/detail-page/address-price.tpl";
 
 const AppView = Backbone.View.extend({
   el: "#address-confirm",

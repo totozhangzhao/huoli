@@ -1,8 +1,6 @@
 import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
-import async from "async";
-import appInfo from "app/client/mall/js/lib/app-info.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {MultiLevel} from "com/mobile/widget/select/select.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
@@ -12,15 +10,16 @@ import validator from "app/client/mall/js/lib/validator.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import * as addressUtil from "app/client/mall/js/lib/address-util.js";
 import {getProvince} from "app/client/mall/js/lib/province.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 
-require("app/client/mall/js/lib/common.js");
+import "app/client/mall/js/lib/common.js";
 
-const AppView = Backbone.View.extend({
+let AppView = Backbone.View.extend({
   el: "#address-add",
   events: {
-    "click #save-address": "saveAddress",
+    "click #save-address"       : "saveAddress",
     "click .address-option-area": "selectArea",
-    "blur  [name]": "blurInput"
+    "blur  [name]"              : "blurInput"
   },
   initialize(commonData) {
     _.extend(this, commonData);
@@ -39,15 +38,15 @@ const AppView = Backbone.View.extend({
     pageAction.hideRightButton();
     hint.showLoading();
 
-    const action = this.cache.addressAction;
-    const addressList = this.collection.addressList;
+    let action = this.cache.addressAction;
+    let addressList = this.collection.addressList;
 
     if (action === "add") {
       this.cache.addressAction === null;
       this.curAddress = {};
     } else if (action) {
       this.cache.addressAction === null;
-      const selectedId = this.cache.curAddressId;
+      let selectedId = this.cache.curAddressId;
       this.cache.curAddressId = null;
       this.curAddress = addressList.get(selectedId).toJSON();
     } else if (addressList && addressList.length > 0) {
@@ -59,7 +58,7 @@ const AppView = Backbone.View.extend({
     this.$el.$submit = $("#save-address");
   },
   initView(addressInfo) {
-    const addressTpl = require("app/client/mall/tpl/detail-page/address-edit.tpl");
+    let addressTpl = require("app/client/mall/tpl/detail-page/address-edit.tpl");
 
     this.$el.html(addressTpl({
       addressInfo
@@ -68,9 +67,9 @@ const AppView = Backbone.View.extend({
     this.initSelectWidget();
   },
   initSelectWidget() {
-    const initMultiLevel = regionData => {
+    let initMultiLevel = regionData => {
       MultiLevel.prototype.initSelect = function($select) {
-        const self = this;
+        let self = this;
 
         if (regionData) {
           $select.each((index, item) => {
@@ -88,7 +87,7 @@ const AppView = Backbone.View.extend({
       };
 
       MultiLevel.prototype.getResult = (options, callback) => {
-        const params = {
+        let params = {
           id: options.id
         };
         sendPost("getRegion", params, (err, data) => {
@@ -106,13 +105,13 @@ const AppView = Backbone.View.extend({
     this.initSelectedRegion(initMultiLevel);
   },
   initSelectedRegion(callback) {
-    const curAddress = this.curAddress;
+    let curAddress = this.curAddress;
 
     if (!curAddress.province || !curAddress.city || !curAddress.area) {
       return callback(null);
     }
 
-    const setSelected = (list, id) => {
+    function setSelected(list, id) {
       for (let i = 0, len = list.length; i < len; i += 1) {
         if (list[i].id === id) {
           list[i].selected = true;
@@ -120,40 +119,54 @@ const AppView = Backbone.View.extend({
         }
       }
       return list;
-    };
+    }
 
-    async.auto({
-      province(next) {
-        next(null, setSelected(getProvince(), curAddress.province.id));
-      },
-      city(next) {
-        const params = {
-          id: curAddress.province.id
-        };
-        sendPost("getRegion", params, (err, data) => {
-          next(err, setSelected(data, curAddress.city.id));
-        });
-      },
-      area(next) {
-        const params = {
-          id: curAddress.city.id
-        };
-        sendPost("getRegion", params, (err, data) => {
-          next(err, setSelected(data, curAddress.area.id));
-        });
-      }
-    }, (err, results) => {
-      callback(results);
+    let province = setSelected(getProvince(), curAddress.province.id);
+
+    let city = new Promise((resolve, reject) => {
+      let params = {
+        id: curAddress.province.id
+      };
+      sendPost("getRegion", params, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(setSelected(data, curAddress.city.id));
+        }
+      });
     });
+
+    let area = new Promise((resolve, reject) => {
+      let params = {
+        id: curAddress.city.id
+      };
+      sendPost("getRegion", params, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(setSelected(data, curAddress.area.id));
+        }
+      });
+    });
+
+    Promise
+      .all([ province, city, area ])
+      .then(results => {
+        callback({
+          province: results[0],
+          city    : results[1],
+          area    : results[2]
+        });
+      });
   },
   checkInputs() {
-    const $items = this.$el.$inputs;
-    const defaultHint = "请填写完整的地址信息";
+    let $items = this.$el.$inputs;
+    let defaultHint = "请填写完整的地址信息";
 
     for (let i = 0, len = $items.length; i < len; i += 1) {
-      const $curInput = $items.eq(i);
-      const curValue = $curInput.val();
-      const method = $curInput.data("checkMethod");
+      let $curInput = $items.eq(i);
+      let curValue = $curInput.val();
+      let method = $curInput.data("checkMethod");
 
       if ( method && !validator[method](curValue) ) {
         toast($curInput.data("errorMessage") || defaultHint, 1500);
@@ -169,39 +182,28 @@ const AppView = Backbone.View.extend({
     return true;
   },
   selectArea(e) {
-    const $target = $(e.target);
-    const $cur    = $(e.currentTarget);
+    let $target = $(e.target);
+    let $cur    = $(e.currentTarget);
 
     if ( !$target.hasClass("js-select") ) {
       $cur.find(".js-select").trigger("click");
     }
   },
   saveAddress() {
-    const self = this;
-    const inputError = !this.checkInputs();
+    let inputError = !this.checkInputs();
 
     if (inputError) {
       return;
     }
 
     hint.showLoading();
+    let addressInfo = this.curAddress;
 
-    const addressInfo = this.curAddress;
-
-    async.waterfall([
-      next => {
-        appInfo.getUserData((err, userData) => {
-          if (err) {
-            toast(err.message, 1500);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      (userData, next) => {
-        const $form = self.$el;
-        const addressData = {
+    mallPromise
+      .getAppInfo()
+      .then(userData => {
+        let $form = this.$el;
+        let addressData = {
           postcode: "",
           name: $form.find("[name=name]").val(),
           pphone: $form.find("[name=pphone]").val(),
@@ -217,7 +219,7 @@ const AppView = Backbone.View.extend({
           },
           def: 1
         };
-        const params = _.extend({}, userData.userInfo, addressData, {
+        let params = _.extend({}, userData.userInfo, addressData, {
           p: userData.deviceInfo.p
         });
         let method = "newAddress";
@@ -227,36 +229,44 @@ const AppView = Backbone.View.extend({
           params.addressid = addressInfo.addressid;
         }
 
-        sendPost(method, params, (err, data) => {
-          if (!err) {
-            addressData.addressid = data.addressid;
-          }
-          next(err, addressData);
+        return new Promise((resolve, reject) => {
+          sendPost(method, params, (err, data) => {
+            if (err) {
+              reject(err);
+            } else {
+              addressData.addressid = data.addressid;
+              resolve(addressData);
+            }
+          });
         });
-      },
-      (addressData, next) => {
-        if (self.urlObj.mold !== void 0) {
-          self.router.replaceTo("address-list");
+      })
+      .then(addressData => {
+        if (this.urlObj.mold !== void 0) {
+          this.router.replaceTo("address-list");
           return;
         } else {
-          next(null, addressData);
+          return addressData;
         }
-      },
-      (addressData, next) => {
-        addressUtil.getList(result => {
-          self.collection.addressList.reset(result);
-          next(null, addressData);
+      })
+      .then(addressData => {
+        if (!addressData) {
+          return;
+        }
+        return new Promise((resolve) => {
+          addressUtil.getList(result => {
+            this.collection.addressList.reset(result);
+            resolve(addressData);
+          });
         });
-      }
-    ], err => {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      hint.hideLoading();
-      self.router.replaceTo("address-confirm");
-    });
+      })
+      .then(addressData => {
+        if (!addressData) {
+          return;
+        }
+        hint.hideLoading();
+        this.router.replaceTo("address-confirm");
+      })
+      .catch(mallPromise.catchFn);
   }
 });
 

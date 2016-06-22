@@ -21,6 +21,7 @@ import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
+import AddressList from "app/client/mall/js/detail-page/goods-detail/collection/address-list.js";
 
 const detailLog = widget.initTracker("detail");
 
@@ -414,7 +415,6 @@ const AppView = BaseView.extend({
     hint.showLoading();
 
     addressUtil.getList(result => {
-      const AddressList = require("app/client/mall/js/detail-page/goods-detail/collection/address-list.js");
       const addressList = new AddressList();
 
       if (result.length > 0) {
