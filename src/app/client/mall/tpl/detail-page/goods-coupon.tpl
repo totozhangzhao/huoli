@@ -14,7 +14,7 @@
         <% _.each(cList, function(text, index) { %>
         <p><%= text %></p>
         <% }); %>        
-        <button><%= item.amount %>元</button>
+        <button><%= item.amount + (item.type === 3 ? "折" : "元") %></button>
       </a>
       <% }); %>
     </div>

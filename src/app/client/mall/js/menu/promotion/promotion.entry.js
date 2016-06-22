@@ -5,7 +5,7 @@ import UrlUtil        from "com/mobile/lib/url/url.js";
 import loadScript     from "com/mobile/lib/load-script/load-script.js";
 import shareUtil      from "com/mobile/widget/wechat/util.js";
 import wechatUtil     from "com/mobile/widget/wechat-hack/util.js";
-import mallWechat     from "app/client/mall/js/lib/wechat.js";
+import * as mallWechat     from "app/client/mall/js/lib/wechat.js";
 
 import * as widget    from "app/client/mall/js/lib/common.js";
 import logger         from "com/mobile/lib/log/log.js";
@@ -18,7 +18,7 @@ import RuleView       from "app/client/mall/js/menu/promotion/views/rule-view.js
 // var Footer        = require("app/client/mall/js/common/views/footer.js");
 import BaseView       from "app/client/mall/js/common/views/BaseView.js";
 import {initTracker}  from "app/client/mall/js/lib/common.js";
-import * as downloadUtil   from "app/client/mall/js/lib/download-app.js";
+// import * as downloadUtil   from "app/client/mall/js/lib/download-app.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 const promotionLog = initTracker("active");
 
@@ -33,7 +33,7 @@ const AppView = BaseView.extend({
 
   initialize() {
     new BackTop();
-    this.activeId = UrlUtil.parseUrlSearch().activeId;
+    this.activeId = UrlUtil.parseUrlSearch().groupId;
 
     this.bannerView = new BannerView();
     this.groupView  = new GroupListView();
@@ -45,8 +45,9 @@ const AppView = BaseView.extend({
     const isApp = mallUitl.isAppFunc();
 
     if ( !isApp ) {
-      downloadUtil.init( isApp );
+      require("app/client/mall/js/lib/download-app.js").init( isApp );
     }
+
   },
 
   render() {

@@ -1,9 +1,6 @@
 import $ from "jquery";
 import _ from "lodash";
-import async from "async";
-// import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import appInfo from "app/client/mall/js/lib/app-info.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
@@ -31,8 +28,8 @@ const detailLog = widget.initTracker("detail");
 const AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
-    // "touchstart": "scrollShowDetailStart",
-    // "touchmove": "scrollShowDetailMove",
+    "touchstart": "scrollShowDetailStart",
+    "touchmove": "scrollShowDetailMove",
     "click .js-new-page"  : "createNewPage",
     "click .js-get-url"   : "handleGetUrl",
     "click .js-webview a" : "createNewPage",
@@ -60,7 +57,6 @@ const AppView = BaseView.extend({
 
     this.resetAppView = false;
     this.title = "";
-    this.userDataOpitons = { reset: false };
     this.action = this.urlObj.action;
     this.mallGoodsDetail();
   },
@@ -123,39 +119,30 @@ const AppView = BaseView.extend({
     }
   },
   mallGoodsDetail() {
-    const self = this;
-
-    async.waterfall([
-      next => {
-        appInfo.getUserData((err, userData) => {
-          if (err) {
-            toast(err.message, 1500);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      (userData, next) => {
+    mallPromise
+      .getAppInfo()
+      .then(userData => {
         const params = _.extend({}, userData.userInfo, {
           imei: userData.deviceInfo.imei,
           p: userData.deviceInfo.p,
-          productid: self.urlObj.productid
+          productid: this.urlObj.productid
         });
 
-        sendPost("goodsDetail", params, (err, data) => {
-          next(err, data);
+        return new Promise((resovle, reject) => {
+          sendPost("goodsDetail", params, (err, data) => {
+            if (err) {
+              reject(err);
+            } else {
+              resovle(data);
+            }
+          });
         });
-      }
-    ], (err, result) => {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      self.render(result);
-      self.$initial.hide();
-    });
+      })
+      .then(result => {
+        this.render(result);
+        this.$initial.hide();
+      })
+      .catch(mallPromise.catchFn);
   },
   showPrivilegePanel() {
     this.$privilegePanel.show();
@@ -304,7 +291,7 @@ const AppView = BaseView.extend({
     if ( !/test.mall|test.hbmall|123.56.101.36/.test(window.location.hostname) && !mallUitl.isAppFunc() ) {
 
       // 对白名单外用户只是弹一个提示
-      return new Promise((resovle, reject) => {
+      new Promise((resovle, reject) => {
         let params = {
           openid: this.urlObj.openid
         };
@@ -323,9 +310,7 @@ const AppView = BaseView.extend({
           }
           _buy();
         })
-        .catch(err => {
-          window.console.log(JSON.stringify(err));
-        });
+        .catch(mallPromise.catchFn);
     } else {
       _buy();
     }
@@ -336,61 +321,54 @@ const AppView = BaseView.extend({
   },
 
   exchangeHandler() {
-    const self = this;
+    let self = this;
     const goods = this.cache.goods;
+
+    function showNextView() {
+
+      // type：兑换类型
+      // 1--直接调用创建订单接口
+      // 2--转入输入手机号页面（预留，金融类）
+      // 3--转入输入地址页面（预留）
+      // 9--点击跳转第三方链接（ thirdparturl ）
+      // 13--转入自定义表单页面
+      switch (goods.type) {
+        case 1:
+          self.exchange();
+          return;
+        case 2:
+          self.router.switchTo("form-phone");
+          return;
+        case 3:
+          self.gotoAddress();
+          return;
+        case 9:
+          self.gotoNewView({
+            url: goods.thirdparturl
+          });
+          return;
+        case 13:
+          self.router.switchTo("form-custom");
+          return;
+      }
+    }
 
     if ( mallUitl.isAppFunc() || this.token ) {
       if ( String(goods.stat) !== "0" ) {
         return;
       }
-
-      async.waterfall([
-        next => {
-          appInfo.getUserData((err, userData) => {
-            if (err) {
-              toast(err.message, 1500);
-              return;
-            }
-
-            next(null, userData);
-          }, self.userDataOpitons);
-        }
-      ], (err, result) => {
-        self.userDataOpitons.reset = false;
-
-        if ( result.userInfo.authcode || self.token ) {
-
-          // type：兑换类型
-          // 1--直接调用创建订单接口
-          // 2--转入输入手机号页面（预留，金融类）
-          // 3--转入输入地址页面（预留）
-          // 9--点击跳转第三方链接（ thirdparturl ）
-          // 13--转入自定义表单页面
-          switch (goods.type) {
-            case 1:
-              self.exchange();
-              break;
-            case 2:
-              self.router.switchTo("form-phone");
-              return;
-            case 3:
-              self.gotoAddress();
-              return;
-            case 9:
-              self.gotoNewView({
-                url: goods.thirdparturl
-              });
-              return;
-            case 13:
-              self.router.switchTo("form-custom");
-              return;
+      mallPromise
+        .getAppInfo()
+        .then(userData => {
+          if ( userData.userInfo.authcode || this.token ) {
+            showNextView();
+          } else {
+            loginUtil.login();
           }
-        } else {
-          loginUtil.login();
-        }
-      });
+        })
+        .catch(mallPromise.catchFn);
     } else if ( wechatUtil.isWechatFunc() ) {
-      self.getOpenid();
+      this.getOpenid();
     } else {
       loginUtil.goLogin();
     }

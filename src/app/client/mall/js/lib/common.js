@@ -66,12 +66,19 @@ export let createNewView = _.debounce(options => {
     return;
   }
 
-  let from = UrlUtil.parseUrlSearch().from;
+  let urlObj = UrlUtil.parseUrlSearch();
 
-  if (from !== undefined) {
-    url = url.indexOf("?") >= 0 ? `${url}&` : `${url}?`;
-    url = url + `from=${from}`;
+  function passOnParam(key) {
+    let val = urlObj[key];
+
+    if (val !== undefined) {
+      url = url.indexOf("?") >= 0 ? `${url}&` : `${url}?`;
+      url = url + `${key}=${val}`;
+    }
   }
+
+  passOnParam("from");
+  passOnParam("openid");
 
   if ( url === decodeURI(url) ) {
     url = encodeURI(url);
