@@ -1,36 +1,37 @@
-var $         = require("jquery");
-var _         = require("lodash");
-var Backbone  = require("backbone");
-var async     = require("async");
-var NativeAPI = require("app/client/common/lib/native/native-api.js");
-var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var toast     = require("com/mobile/widget/hint/hint.js").toast;
-var hint      = require("com/mobile/widget/hint/hint.js");
-var appInfo   = require("app/client/mall/js/lib/app-info.js");
-var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var widget    = require("app/client/mall/js/lib/common.js");
-var mallUitl  = require("app/client/mall/js/lib/util.js");
-var pageAction = require("app/client/mall/js/lib/page-action.js");
-var logger     = require("com/mobile/lib/log/log.js");
-var storage    = require("app/client/mall/js/lib/storage.js");
-var tplUtil    = require("app/client/mall/js/lib/mall-tpl.js");
-var orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
-var ui         = require("app/client/mall/js/lib/ui.js");
-var FooterView = require("app/client/mall/js/common/views/footer.js");
+import $ from "jquery";
+import _ from "lodash";
+import Backbone from "backbone";
+import async from "async";
+import NativeAPI from "app/client/common/lib/native/native-api.js";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
+import hint from "com/mobile/widget/hint/hint.js";
+import appInfo from "app/client/mall/js/lib/app-info.js";
+import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
+import widget from "app/client/mall/js/lib/common.js";
+import mallUitl from "app/client/mall/js/lib/util.js";
+import pageAction from "app/client/mall/js/lib/page-action.js";
+import logger from "com/mobile/lib/log/log.js";
+import storage from "app/client/mall/js/lib/storage.js";
+import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+const orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
+import ui from "app/client/mall/js/lib/ui.js";
+import FooterView from "app/client/mall/js/common/views/footer.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 
-var BuyNumModel     = require("app/client/mall/js/common/models/buy-num-model.js");
-var BuyPanelView = require("app/client/mall/js/common/views/pay/buy-num-panel.js");
+import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
+import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 
-var AppView = Backbone.View.extend({
+const AppView = Backbone.View.extend({
   el: "#order-detail-container",
   events: {
-    "click a"              : "createNewPage",
-    "touchstart .js-copy"  : "copyText",
-    "click .js-crowd-page" : "gotoCrowd",
-    "click .js-address-box": "handleAddressInfo"
+    "click a"                 : "createNewPage",
+    "touchstart .js-copy"     : "copyText",
+    "click .js-crowd-page"    : "gotoCrowd",
+    "click .js-address-box"   : "handleAddressInfo",
+    "click .btn-cancel-order" : "cancelOrder"
   },
-  initialize: function() {
+  initialize() {
     new BackTop();
     NativeAPI.invoke("updateTitle", {
       text: "订单详情"
@@ -38,18 +39,18 @@ var AppView = Backbone.View.extend({
     this.buyNumModel = new BuyNumModel();
     this.payView = new BuyPanelView({
       model: this.buyNumModel,
-      buy: function() {this.buy();}.bind(this),
-      pay: function() {}
+      buy: () => {this.buy();},
+      pay() {}
     });
     this.$initial = ui.initial().show();
     this.orderDetail = {};
     this.isPaying = false;
     this.mallOrderDetail();
     pageAction.setClose();
-    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+    logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
   },
-  copyText: function(e) {
-    var $text = $(e.currentTarget).find(".js-copy-text");
+  copyText(e) {
+    const $text = $(e.currentTarget).find(".js-copy-text");
 
     if ( $text.length !== 1 ) {
       return;
@@ -57,7 +58,7 @@ var AppView = Backbone.View.extend({
 
     NativeAPI.invoke("copyToClipboard", {
       text: $text.text()
-    }, function(err, data) {
+    }, (err, data) => {
       if (err) {
         return;
       }
@@ -67,8 +68,8 @@ var AppView = Backbone.View.extend({
       }
     });
   },
-  handleAddressInfo: function() {
-    var needpay = this.orderDetail.needpay;
+  handleAddressInfo() {
+    const needpay = this.orderDetail.needpay;
 
     if (needpay === 2) {
       this.gotoAddressList();
@@ -76,16 +77,14 @@ var AppView = Backbone.View.extend({
       this.gotoExpressInfoView();
     }
   },
-  gotoAddressList: function() {
-    var id = this.orderDetail.orderid;
-    var url = "/fe/app/client/mall/html/detail-page/goods-detail.html" +
-        "?mold=order&orderid=" + id +
-        "#address-list";
+  gotoAddressList() {
+    const id = this.orderDetail.orderid;
+    const url = `/fe/app/client/mall/html/detail-page/goods-detail.html?mold=order&orderid=${id}#address-list`;
 
     window.location.href = url;
   },
-  gotoExpressInfoView: function() {
-    var expressInfo = this.orderDetail.express;
+  gotoExpressInfoView() {
+    const expressInfo = this.orderDetail.express;
 
     if (!expressInfo) {
       return;
@@ -94,28 +93,24 @@ var AppView = Backbone.View.extend({
     // companyid: 快递公司id
     // company：快递公司名称
     // tracking: 快递单号
-    var url = "/fe/app/client/mall/html/detail-page/express-info.html" +
-      "?tracking="  + expressInfo.tracking +
-      "&company="   + encodeURIComponent(expressInfo.company) +
-      "&companyid=" + expressInfo.companyid;
+    const url = `/fe/app/client/mall/html/detail-page/express-info.html?tracking=${expressInfo.tracking}&company=${encodeURIComponent(expressInfo.company)}&companyid=${expressInfo.companyid}`;
 
-    widget.createNewView({ url: url });
+    widget.createNewView({ url });
   },
-  gotoCrowd: function() {
-    var url = tplUtil.getBlockUrl({ action: 6 }) +
-      "?productid=" + this.orderDetail.productid;
+  gotoCrowd() {
+    const url = `${tplUtil.getBlockUrl({ action: 6 })}?productid=${this.orderDetail.productid}`;
 
-    widget.createNewView({ url: url });
+    widget.createNewView({ url });
   },
-  createNewPage: function(e) {
+  createNewPage(e) {
     widget.createAView(e);
   },
-  mallOrderDetail: function() {
-    var self = this;
+  mallOrderDetail() {
+    const self = this;
 
     async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
+      next => {
+        appInfo.getUserData((err, userData) => {
           if (err) {
             toast(err.message, 1500);
             return;
@@ -124,13 +119,13 @@ var AppView = Backbone.View.extend({
           next(null, userData);
         });
       },
-      function(userData, next) {
-        var params = _.extend({}, userData.userInfo, {
+      (userData, next) => {
+        const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           orderid: parseUrl().orderid
         });
 
-        sendPost("orderNewDetail", params, function(err, data) {
+        sendPost("orderNewDetail", params, (err, data) => {
           if (err) {
             next(err);
             return;
@@ -139,7 +134,7 @@ var AppView = Backbone.View.extend({
           next(null, data);
         });
       }
-    ], function(err, result) {
+    ], (err, result) => {
       if (err) {
         toast(err.message, 1500);
         return;
@@ -147,8 +142,8 @@ var AppView = Backbone.View.extend({
 
       self.orderDetail = result;
 
-      var compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
-      var tmplData = {
+      const compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
+      const tmplData = {
         orderDetail: self.orderDetail
       };
 
@@ -163,7 +158,7 @@ var AppView = Backbone.View.extend({
     });
   },
 
-  renderBuyNumView: function (order) {
+  renderBuyNumView(order) {
     if(order.needpay !== 1){
       return;
     }
@@ -179,11 +174,11 @@ var AppView = Backbone.View.extend({
       parentDom: "#order-detail-container"
     });
   },
-  buy: function () {
+  buy() {
     this.payOrder();
   },
-  payOrder: function() {
-    var self = this;
+  payOrder() {
+    const self = this;
 
     if (this.isPaying) {
       return;
@@ -191,7 +186,7 @@ var AppView = Backbone.View.extend({
 
     hint.showLoading();
 
-    var orderDetail = this.orderDetail;
+    const orderDetail = this.orderDetail;
 
     if (!orderDetail.needpay) {
       toast("此订单不是需要支付的状态", 1500);
@@ -201,11 +196,11 @@ var AppView = Backbone.View.extend({
     this.isPaying = true;
 
     async.waterfall([
-      function(next) {
-        var payUrl = window.location.origin + "/bmall/payview.do?orderid=" + orderDetail.orderid;
+      next => {
+        let payUrl = `${window.location.origin}/bmall/payview.do?orderid=${orderDetail.orderid}`;
 
         if ( mallUitl.isHangbanFunc() ) {
-          payUrl = window.location.origin + "/bmall/hbpayview.do?orderid=" + orderDetail.orderid;
+          payUrl = `${window.location.origin}/bmall/hbpayview.do?orderid=${orderDetail.orderid}`;
         }
 
         // orderid: 订单ID
@@ -233,7 +228,7 @@ var AppView = Backbone.View.extend({
           // productdesc String 商品描述
           // url         String 显示订单基本信息的Wap页面
           // subdesc     String 商品详情描述
-          var payParams = {
+          const payParams = {
             quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
             title: "支付订单",
             price: orderDetail.payprice,
@@ -243,31 +238,36 @@ var AppView = Backbone.View.extend({
             subdesc: orderDetail.shotdesc
           };
 
-          NativeAPI.invoke("startPay", payParams, function(err, payData) {
+          NativeAPI.invoke("startPay", payParams, (err, payData) => {
             next(err, payData);
           });
         } else {
           next(null, null);
         }
       },
-      function(payData, next) {
-        storage.get("mallInfo", function(data) {
+      (payData, next) => {
+        storage.get("mallInfo", data => {
           data = data || {};
           next(null, payData, data);
         });
       },
-      function(payData, data, next) {
+      (payData, data, next) => {
         data.status = data.status || {};
         data.status.orderChanged = true;
-        storage.set("mallInfo", data, function() {
+        storage.set("mallInfo", data, () => {
           next(null, payData);
         });
       }
-    ], function() {
+    ], () => {
       self.isPaying = false;
       // hint.hideLoading();
       window.location.reload();
     });
+  },
+
+  cancelOrder(e) {
+    this.payView.remove();
+    window.console.log(e);
   }
 });
 
