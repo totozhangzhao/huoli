@@ -1,7 +1,6 @@
 import $ from "jquery";
 import _ from "lodash";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
@@ -22,6 +21,7 @@ import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
+import AddressList from "app/client/mall/js/detail-page/goods-detail/collection/address-list.js";
 
 const detailLog = widget.initTracker("detail");
 
@@ -414,13 +414,7 @@ const AppView = BaseView.extend({
 
     hint.showLoading();
 
-    addressUtil.getList((err, result) => {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      const AddressList = require("app/client/mall/js/detail-page/goods-detail/collection/address-list.js");
+    addressUtil.getList(result => {
       const addressList = new AddressList();
 
       if (result.length > 0) {

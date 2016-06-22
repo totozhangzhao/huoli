@@ -1,16 +1,15 @@
 import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
-import async from "async";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
-import appInfo from "app/client/mall/js/lib/app-info.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import validator from "app/client/mall/js/lib/validator.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import {initTracker} from "app/client/mall/js/lib/common.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 
 const detailLog = initTracker("detail");
 
@@ -80,16 +79,13 @@ const AppView = Backbone.View.extend({
     }
   },
   renderMainPanel() {
-    const self = this;
     const goods = this.cache.goods;
-
     const $img = $("<img>", {
       src: goods.img,
       alt: ""
     });
 
     this.$el.find(".js-top-image").html($img);
-
     const tmpl = require("app/client/mall/tpl/detail-page/form-custom.tpl");
 
     // 1.realname-icon:name  : 姓名
@@ -115,26 +111,18 @@ const AppView = Backbone.View.extend({
         }));
 
     // set phone number from getUserInfo
-    async.waterfall([
-      next => {
-        appInfo.getUserData((err, userData) => {
-          next(err, userData);
-        });
-      }
-    ], (err, result) => {
-      if (err) {
-        return;
-      }
-
-      const phoneNum = result.userInfo.phone || "";
-
-      if (phoneNum) {
-        self.$el.find(".js-form-input")
-          .find("[name=phone]")
-          .val(phoneNum)
-          .trigger("blur");
-      }
-    });
+    mallPromise
+      .getAppInfo()
+      .then(userData => {
+        const phoneNum = userData.userInfo.phone || "";
+        if (phoneNum) {
+          this.$el.find(".js-form-input")
+            .find("[name=phone]")
+            .val(phoneNum)
+            .trigger("blur");
+        }
+      })
+      .catch(mallPromise.catchFn);
   },
   createOrder() {
     const $inputs = this.$el.find(".js-form-input");
@@ -148,18 +136,9 @@ const AppView = Backbone.View.extend({
 
     hint.showLoading();
 
-    async.waterfall([
-      next => {
-        appInfo.getUserData((err, userData) => {
-          if (err) {
-            toast(err.message, 1500);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      (userData, next) => {
+    mallPromise
+      .getAppInfo()
+      .then(userData => {
         const inputList = {};
 
         $inputs.each((index, item) => {
@@ -182,19 +161,21 @@ const AppView = Backbone.View.extend({
           input: inputList
         });
 
-        sendPost("createOrder", params, (err, data) => {
-          next(err, data);
+        return new Promise((resolve, reject) => {
+          sendPost("createOrder", params, (err, data) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(data);
+            }
+          });
         });
-      }
-    ], (err, result) => {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      // hint.hideLoading();
-      window.location.href = `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${result.orderid}`;
-    });
+      })
+      .then(result => {
+        // hint.hideLoading();
+        window.location.href = `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${result.orderid}`;
+      })
+      .catch(mallPromise.catchFn);
   }
 });
 

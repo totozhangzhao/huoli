@@ -1,50 +1,37 @@
-import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import async from "async";
-import appInfo from "app/client/mall/js/lib/app-info.js";
-import {toast} from "com/mobile/widget/hint/hint.js";
 import _ from "lodash";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 
 export function getList(callback) {
-  async.waterfall([
-    next => {
-      appInfo.getUserData((err, userData) => {
-        if (err) {
-          toast(err.message, 1500);
-          return;
-        }
-
-        next(null, userData);
-      });
-    },
-    (userData, next) => {
+  mallPromise
+    .getAppInfo()
+    .then(userData => {
       const params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p
       });
 
-      sendPost("getAddress", params, (err, data) => {
-        next(err, data);
+      return new Promise((resolve, reject) => {
+        sendPost("getAddress", params, (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        });
       });
-    }
-  ], (err, result) => {
-    if ( _.isFunction(callback) ) {
-      callback(err, result);
-    }
-  });
+    })
+    .then(result => {
+      if ( _.isFunction(callback) ) {
+        callback(result);
+      }
+    })
+    .catch(mallPromise.catchFn);
 }
 
 export function setDefault(addressData, callback) {
-  async.waterfall([
-    next => {
-      appInfo.getUserData((err, userData) => {
-        if (err) {
-          toast(err.message, 1500);
-          return;
-        }
-
-        next(null, userData);
-      });
-    },
-    (userData, next) => {
+  mallPromise
+    .getAppInfo()
+    .then(userData => {
       const params = _.extend({}, userData.userInfo, addressData, {
         p: userData.deviceInfo.p
       });
@@ -54,46 +41,51 @@ export function setDefault(addressData, callback) {
       // 0-否
       params.def = 1;
 
-      sendPost("updateAddress", params, (err, data) => {
-        next(err, data);
+      return new Promise((resolve, reject) => {
+        sendPost("updateAddress", params, (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        });
       });
-    }
-  ], (err, result) => {
-    if ( _.isFunction(callback) ) {
-      callback(err, result);
-    }
-  });
-}
-
-export function remove(id, callback) {
-  exports.handleAddress("delAddress", id, callback);
+    })
+    .then(result => {
+      if ( _.isFunction(callback) ) {
+        callback(result);
+      }
+    })
+    .catch(mallPromise.catchFn);
 }
 
 export function handleAddress(method, id, callback) {
-  async.waterfall([
-    next => {
-      appInfo.getUserData((err, userData) => {
-        if (err) {
-          toast(err.message, 1500);
-          return;
-        }
-
-        next(null, userData);
-      });
-    },
-    (userData, next) => {
+  mallPromise
+    .getAppInfo()
+    .then(userData => {
       const params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p,
         addressid: id
       });
 
-      sendPost(method, params, (err, data) => {
-        next(err, data);
+      return new Promise((resolve, reject) => {
+        sendPost(method, params, (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        });
       });
-    }
-  ], (err, result) => {
-    if ( _.isFunction(callback) ) {
-      callback(err, result);
-    }
-  });
+    })
+    .then(result => {
+      if ( _.isFunction(callback) ) {
+        callback(result);
+      }
+    })
+    .catch(mallPromise.catchFn);
+}
+
+export function remove(id, callback) {
+  handleAddress("delAddress", id, callback);
 }

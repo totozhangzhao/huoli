@@ -1,6 +1,6 @@
-var Backbone = require("backbone");
+import Backbone from "backbone";
 
-var Money = Backbone.Model.extend({
+const Money = Backbone.Model.extend({
   defaults: {
     points: 0, // 积分
     money: 0,  // 钱（元）
@@ -8,5 +8,5 @@ var Money = Backbone.Model.extend({
   }
 });
 
-exports.Money = Money;
-exports.money = new Money();
+export {Money};
+export var money = new Money();
