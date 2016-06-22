@@ -15,6 +15,7 @@
       <% } %>
       <em class="goods-charge-count">数量 x <%= orderDetail.num %></em>
     </div>
+    <!-- trade-status-refund-auditing 退款审核中 -->
     <span class="trade-status <%= orderDetail.stattpl %> "><%= orderDetail.statusstr %></span>
   </div>
 
@@ -112,6 +113,13 @@
     <h5 class="use-method-tit">使用说明</h5>
     <%= orderDetail.note %>
   </div>
+
+  <!-- 取消订单按钮 -->
+  <% if(orderDetail.needpay === 1) {%>
+  <div class="order-detail-bar">
+    <p class="order-detail-info btn-cancel-order">取消订单</p>
+  </div>
+  <% } %>
 
   <div id="copyright" class="copyright-block <%= orderDetail.needpay === 1 ? "goods-copyright-fix" : "" %> ">
     <!-- // -->
