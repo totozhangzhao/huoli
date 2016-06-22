@@ -88,6 +88,15 @@ p {
   left: 0;
   top: 0;
 }
+.click-me {
+  padding-top: 0.05333rem;
+  padding-right: 0.10667rem;
+  padding-bottom: 0.05333rem;
+  padding-left: 0.10667rem;
+  background-color: #039ef0;
+  color: #fff;
+  border-radius: 0.05333rem;
+}
 /* toast - start */
 .toast {
   display: block;
