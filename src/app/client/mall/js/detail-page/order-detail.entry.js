@@ -8,19 +8,20 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import appInfo from "app/client/mall/js/lib/app-info.js";
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
-import widget from "app/client/mall/js/lib/common.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import logger from "com/mobile/lib/log/log.js";
 import storage from "app/client/mall/js/lib/storage.js";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
-const orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
 import ui from "app/client/mall/js/lib/ui.js";
 import FooterView from "app/client/mall/js/common/views/footer.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
+import * as widget from "app/client/mall/js/lib/common.js";
 
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
+
+const orderLog   = widget.initTracker("order");
 
 const AppView = Backbone.View.extend({
   el: "#order-detail-container",
