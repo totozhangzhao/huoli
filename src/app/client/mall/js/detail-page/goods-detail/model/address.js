@@ -1,4 +1,4 @@
-var Backbone = require("backbone");
+import Backbone from "backbone";
 
 // addressid: 地址id
 // userid: 用户id
@@ -10,7 +10,7 @@ var Backbone = require("backbone");
 // address: 地址
 // name:姓名
 // hbuserid:航班用户id
-var Address = Backbone.Model.extend({
+const Address = Backbone.Model.extend({
   defaults: {
     addressid: "",
     postcode: "",
@@ -24,4 +24,4 @@ var Address = Backbone.Model.extend({
   idAttribute: "addressid"
 });
 
-module.exports = Address;
+export default Address;

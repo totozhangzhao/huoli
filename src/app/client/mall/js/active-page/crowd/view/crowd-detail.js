@@ -102,7 +102,8 @@ const AppView = Backbone.View.extend({
       }
     };
 
-    mallPromise.getAppInfo()
+    mallPromise
+      .getAppInfo()
       .then(userData => start(userData))
       .catch(mallPromise.catchFn);
   },
@@ -124,7 +125,8 @@ const AppView = Backbone.View.extend({
       return;
     }
     hint.showLoading();
-    mallPromise.getAppInfo()
+    mallPromise
+      .getAppInfo()
       .then(userData => {
         const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
