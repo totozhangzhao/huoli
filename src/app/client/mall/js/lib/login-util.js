@@ -4,6 +4,8 @@ import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
+import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
 
 export function getWechatAuthUrl(pageUrl) {
   const authUrl = "http://wx.133.cn/hbrobot/wxoauth?" + $.param({
@@ -25,6 +27,11 @@ export function getWechatAuthUrl(pageUrl) {
 
 export function goLogin() {
   window.location.href = "/fe/app/client/mall/html/login/login.html";
+}
+
+export function shouldGetOpenid() {
+  let urlObj = UrlUtil.parseUrlSearch();
+  return wechatUtil.isWechatFunc() && !urlObj.openid && urlObj.auth === void 0;
 }
 
 export function login(loginOpts) {

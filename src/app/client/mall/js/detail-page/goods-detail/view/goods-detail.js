@@ -40,7 +40,7 @@ const AppView = BaseView.extend({
   initialize(commonData) {
     _.extend(this, commonData);
     this.urlObj = UrlUtil.parseUrlSearch();
-    if ( wechatUtil.isWechatFunc() && !this.urlObj.openid) {
+    if ( loginUtil.shouldGetOpenid() ) {
       window.location.href = loginUtil.getWechatAuthUrl();
       return;
     }
