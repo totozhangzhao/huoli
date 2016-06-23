@@ -1,54 +1,57 @@
-var $        = require("jquery");
-var Backbone = require("backbone");
-var async    = require("async");
+import $ from "jquery";
+import Backbone from "backbone";
 
-exports.MultiLevel = Backbone.View.extend({
+export var MultiLevel = Backbone.View.extend({
   events: {
     "change .js-select": "selectOption"
   },
-  initialize: function() {
-    var $select = this.$el.$select = this.$el.find(".js-select");
+  initialize() {
+    let $select = this.$el.$select = this.$el.find(".js-select");
 
     if (this.initSelect) {
       this.initSelect($select);
     }
   },
-  selectOption: function(e) {
-    var self = this;
-    var $cur = $(e.currentTarget);
-    var $next = this.getNextSelect($cur);
+  selectOption(e) {
+    let $cur = $(e.currentTarget);
+    let $next = this.getNextSelect($cur);
 
     if ( $next.length === 0 ) {
       return;
     }
 
-    var val = $cur.val().trim();
+    let val = $cur.val().trim();
 
     if (val) {
-      async.waterfall([
-        function(next) {
-          var options = {
-            id: val
-          };
-
-          self.getResult(options, function(err, data) {
-            next(null, data);
-          });
-        }
-      ], function(err, result) {
-        self.addOption($next, result);
-        $next.trigger("change");
-      });
+      new Promise((resolve, reject) => {
+        let options = {
+          id: val
+        };
+        this.getResult(options, (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        });
+      })
+        .then(result => {
+          this.addOption($next, result);
+          $next.trigger("change");
+        })
+        .catch(err => {
+          window.console.log(err);
+        });
     } else {
       this.addOption($next);
       $next.trigger("change");
     }
   },
-  getNextSelect: function($curSelect) {
-    return this.$el.$select.filter("[data-for='" + $curSelect.prop("name") + "']");
+  getNextSelect($curSelect) {
+    return this.$el.$select.filter(`[data-for='${$curSelect.prop("name")}']`);
   },
-  addOption: function($select, data) {
-    var defaultObj = {
+  addOption($select, data) {
+    let defaultObj = {
       id: "",
       name: $select.data("default-text") || "请选择"
     };
@@ -62,15 +65,15 @@ exports.MultiLevel = Backbone.View.extend({
       data = [defaultObj];
     }
 
-    var disabled = data.length === 1 ? true : false;
-    var html = this.createOption(data);
+    let disabled = data.length === 1 ? true : false;
+    let html = this.createOption(data);
 
     $select
       .prop("disabled", disabled)
       .html(html);
   },
-  createOption: function(data) {
-    var optionTmpl = require("com/mobile/widget/select/tpl/option.tpl");
+  createOption(data) {
+    let optionTmpl = require("com/mobile/widget/select/tpl/option.tpl");
     return optionTmpl({
       list: data
     });

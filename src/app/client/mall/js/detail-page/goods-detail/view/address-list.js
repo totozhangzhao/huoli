@@ -2,7 +2,6 @@ import $ from "jquery";
 import _ from "lodash";
 import Backbone from "backbone";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
-import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
@@ -194,12 +193,7 @@ let AppView = Backbone.View.extend({
 
     let addressData = this.collection.addressList.get(id).toJSON();
 
-    addressUtil.setDefault(addressData, err => {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
+    addressUtil.setDefault(addressData, () => {
       hint.hideLoading();
     });
   },
