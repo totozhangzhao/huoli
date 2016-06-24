@@ -17,6 +17,7 @@ import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 const orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
 import ui from "app/client/mall/js/lib/ui.js";
 import FooterView from "app/client/mall/js/common/views/footer.js";
+
 import BackTop from "com/mobile/widget/button/to-top.js";
 import Popover from "com/mobile/widget/popover/popover.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";

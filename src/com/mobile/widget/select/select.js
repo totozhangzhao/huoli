@@ -1,5 +1,6 @@
 import $ from "jquery";
 import Backbone from "backbone";
+import optionTmpl from "com/mobile/widget/select/tpl/option.tpl";
 
 export var MultiLevel = Backbone.View.extend({
   events: {
@@ -73,7 +74,6 @@ export var MultiLevel = Backbone.View.extend({
       .html(html);
   },
   createOption(data) {
-    let optionTmpl = require("com/mobile/widget/select/tpl/option.tpl");
     return optionTmpl({
       list: data
     });
