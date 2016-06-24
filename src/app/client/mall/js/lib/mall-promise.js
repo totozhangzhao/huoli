@@ -24,9 +24,14 @@ export function catchFn(err) {
   } else {
     toast(JSON.stringify(err), 3000);
   }
-  if (err instanceof Error) {
+  if (err.detail) {
+    window.console.log(`Error Message: \n${err.message}`);
+    window.console.log(`Error Detial: \n${err.detail}`);
+  } else if (err instanceof Error) {
     window.console.log(`Error Message: \n${err.message}`);
     window.console.log(`Error Stack: \n${err.stack}`);
+  } else {
+    window.console.log(`Unknown Error Object: ${JSON.stringify(err)}`);
   }
   return err;
 }

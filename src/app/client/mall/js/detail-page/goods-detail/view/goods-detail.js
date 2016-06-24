@@ -374,7 +374,7 @@ const AppView = BaseView.extend({
           this.token = data.token;
           return handler();
         })
-        .catchFn(mallPromise.catchFn);
+        .catch(mallPromise.catchFn);
     } else {
       loginUtil.goLogin();
     }
