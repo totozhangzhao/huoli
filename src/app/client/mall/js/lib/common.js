@@ -78,7 +78,6 @@ export let createNewView = _.debounce(options => {
   }
 
   passOnParam("from");
-  passOnParam("openid");
 
   if ( url === decodeURI(url) ) {
     url = encodeURI(url);

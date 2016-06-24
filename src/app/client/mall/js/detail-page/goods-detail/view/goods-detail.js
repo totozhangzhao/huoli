@@ -40,7 +40,7 @@ const AppView = BaseView.extend({
   initialize(commonData) {
     _.extend(this, commonData);
     this.urlObj = UrlUtil.parseUrlSearch();
-    if ( loginUtil.shouldGetOpenid() ) {
+    if ( loginUtil.shouldGetWeChatKey() ) {
       window.location.href = loginUtil.getWechatAuthUrl();
       return;
     }
@@ -272,10 +272,6 @@ const AppView = BaseView.extend({
     let self = this;
 
     function _buy() {
-      if ( wechatUtil.isWechatFunc() && !self.token ) {
-        self.getOpenid();
-        return;
-      }
 
       // 购买上限为1的情况
       if(self.buyNumModel.get("limitNum") === 1) {
@@ -293,7 +289,7 @@ const AppView = BaseView.extend({
       // 对白名单外用户只是弹一个提示
       new Promise((resovle, reject) => {
         let params = {
-          openid: this.urlObj.openid
+          wechatKey: this.urlObj.wechatKey
         };
 
         sendPost("weixinLogin", params, (err, data) => {
@@ -353,38 +349,34 @@ const AppView = BaseView.extend({
       }
     }
 
-    if ( mallUitl.isAppFunc() || this.token ) {
-      if ( String(goods.stat) !== "0" ) {
-        return;
-      }
-      mallPromise
+    function handler() {
+      return mallPromise
         .getAppInfo()
         .then(userData => {
-          if ( userData.userInfo.authcode || this.token ) {
+          if ( userData.userInfo.authcode || self.token ) {
             showNextView();
           } else {
             loginUtil.login();
           }
         })
         .catch(mallPromise.catchFn);
-    } else if ( wechatUtil.isWechatFunc() ) {
-      this.getOpenid();
-    } else {
-      loginUtil.goLogin();
     }
-  },
-  getOpenid() {
-    if (this.urlObj.openid) {
-      if (this.token) {
+
+    if ( mallUitl.isAppFunc() || this.token ) {
+      if ( String(goods.stat) !== "0" ) {
         return;
       }
-      loginUtil.login({
-        openid: this.urlObj.openid,
-        pageUrl: window.location.href
-      });
+      handler();
+    } else if ( wechatUtil.isWechatFunc() ) {
+      loginUtil
+        .getTokenByWeChatKey(this.urlObj.wechatKey)
+        .then(data => {
+          this.token = data.token;
+          return handler();
+        })
+        .catchFn(mallPromise.catchFn);
     } else {
-      window.location.href = loginUtil.getWechatAuthUrl();
-      return;
+      loginUtil.goLogin();
     }
   },
   exchange() {
@@ -433,7 +425,6 @@ const AppView = BaseView.extend({
   },
   mallCreateOrder() {
     let params = {
-      openid: this.urlObj.openid,
       num: this.buyNumModel.get("number"),
       productid: this.urlObj.productid
     };

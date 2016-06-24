@@ -27,7 +27,7 @@ const AppView = Backbone.View.extend({
     _.extend(this, commonData);
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
     this.urlObj = UrlUtil.parseUrlSearch();
-    if ( loginUtil.shouldGetOpenid() ) {
+    if ( loginUtil.shouldGetWeChatKey() ) {
       window.location.href = loginUtil.getWechatAuthUrl();
       return;
     }
@@ -136,7 +136,7 @@ const AppView = Backbone.View.extend({
     loginUtil.login({
       phone: this.$el.$phoneInput.val(),
       captcha: this.$el.$captchaInput.val(),
-      openid: this.urlObj.openid
+      wechatKey: this.urlObj.wechatKey
     })
       .then(() => {
         setTimeout(() => {
