@@ -5,6 +5,7 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
 
 export function getAppInfo(reset) {
   return new Promise((resolve, reject) => {
@@ -36,6 +37,16 @@ export function catchFn(err) {
   return err;
 }
 
+export function orderCatch(err) {
+  if (err.code === -3331) {
+    cookie.remove("token", {
+      domain: location.hostname,
+      path: "/"
+    });
+  }
+  catchFn(err);
+}
+
 export function order(orderParams) {
   return getAppInfo()
     .then(userData => {
@@ -53,8 +64,7 @@ export function order(orderParams) {
           }
         });
       });
-    })
-    .catch(catchFn);
+    });
 }
 
 export function initPay(orderInfo) {

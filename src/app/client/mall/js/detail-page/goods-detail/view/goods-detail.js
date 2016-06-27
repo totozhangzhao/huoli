@@ -268,6 +268,7 @@ const AppView = BaseView.extend({
     });
   },
 
+  // 弹出数量选择界面
   buy() {
     let self = this;
 
@@ -312,11 +313,8 @@ const AppView = BaseView.extend({
     }
   },
 
+  // 选数量后，去支付流程
   pay() {
-    this.exchangeHandler();
-  },
-
-  exchangeHandler() {
     let self = this;
     const goods = this.cache.goods;
 
@@ -349,30 +347,17 @@ const AppView = BaseView.extend({
       }
     }
 
-    function handler() {
-      return mallPromise
-        .getAppInfo()
-        .then(userData => {
-          if ( userData.userInfo.authcode || self.token ) {
-            showNextView();
-          } else {
-            loginUtil.login();
-          }
-        })
-        .catch(mallPromise.catchFn);
-    }
-
     if ( mallUitl.isAppFunc() || this.token ) {
       if ( String(goods.stat) !== "0" ) {
         return;
       }
-      handler();
+      showNextView();
     } else if ( wechatUtil.isWechatFunc() ) {
       loginUtil
         .getTokenByWeChatKey(this.urlObj.wechatKey)
         .then(data => {
           this.token = data.token;
-          return handler();
+          showNextView();
         })
         .catch(mallPromise.catchFn);
     } else {
@@ -499,8 +484,7 @@ const AppView = BaseView.extend({
       orderInfo.returnUrl = orderDetailUrl;
       return mallPromise
         .initPay(orderInfo)
-        .then(success)
-        .catch(mallPromise.catchFn);
+        .then(success);
     } else {
       return success();
     }
