@@ -125,7 +125,7 @@ export function initPay(orderInfo) {
       orderType: 2,
       partner: "shangcheng"
     };
-    window.location.href = baseUrl + $.param(params);
+    window.location.href = baseUrl + "?" + $.param(params);
   }
 
   return new Promise(mallUitl.isAppFunc() ? appPay : webPay);
