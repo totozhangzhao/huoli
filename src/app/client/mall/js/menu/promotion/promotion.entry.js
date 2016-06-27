@@ -1,6 +1,6 @@
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
-import mallUitl       from "app/client/mall/js/lib/util.js";
+import * as mallUitl       from "app/client/mall/js/lib/util.js";
 import UrlUtil        from "com/mobile/lib/url/url.js";
 import loadScript     from "com/mobile/lib/load-script/load-script.js";
 import shareUtil      from "com/mobile/widget/wechat/util.js";

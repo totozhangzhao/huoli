@@ -3,8 +3,9 @@ import _ from "lodash";
 import appInfo from "app/client/mall/js/lib/app-info.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
 
 export function getAppInfo(reset) {
   return new Promise((resolve, reject) => {
@@ -36,6 +37,16 @@ export function catchFn(err) {
   return err;
 }
 
+export function orderCatch(err) {
+  if (err.code === -3331) {
+    cookie.remove("token", {
+      domain: location.hostname,
+      path: "/"
+    });
+  }
+  catchFn(err);
+}
+
 export function order(orderParams) {
   return getAppInfo()
     .then(userData => {
@@ -53,8 +64,7 @@ export function order(orderParams) {
           }
         });
       });
-    })
-    .catch(catchFn);
+    });
 }
 
 export function initPay(orderInfo) {
@@ -91,17 +101,31 @@ export function initPay(orderInfo) {
     });
   }
 
-  // https://wtest.133.cn/hangban/payment/new?orderId=160641436842465&orderType=2
+  // Web Pay URL
+  //
+  // formal:
+  // https://h5.133.cn/hangban/webpay
+  //
+  // test:
+  // http://wtest.133.cn/hangban/webpay
   function webPay() {
-    let baseUrl = "//wtest.133.cn/hangban/payment/new?";
+    let isTest = mallUitl.isTest;
+    if (orderInfo.server === "test") {
+      isTest = true;
+    }
+    let baseUrl = "https://h5.133.cn/hangban/webpay";
+    if (isTest) {
+      baseUrl = "http://wtest.133.cn/hangban/webpay";
+    }
     let params = {
       token: orderInfo.token,
       ru: orderInfo.returnUrl,
       orderId: orderInfo.payorderid,
       ptOrderId: orderInfo.orderid,
-      orderType: 2
+      orderType: 2,
+      partner: "shangcheng"
     };
-    window.location.href = baseUrl + $.param(params);
+    window.location.href = baseUrl + "?" + $.param(params);
   }
 
   return new Promise(mallUitl.isAppFunc() ? appPay : webPay);

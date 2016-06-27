@@ -48,6 +48,7 @@ var AppView = Backbone.View.extend({
       }
     }
 
+
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
     detailLog({
       title: title,

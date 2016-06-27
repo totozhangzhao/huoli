@@ -5,7 +5,7 @@ import $ from "jquery";
 import Backbone from "backbone";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import Swipe from "com/mobile/lib/swipe/swipe.js";
 

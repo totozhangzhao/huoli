@@ -1,6 +1,6 @@
 import Backbone from "backbone";
 import logger from "com/mobile/lib/log/log.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 import HistroyView from "app/client/mall/js/list-page/grab/views/history-record.js";
 import MyRecordView from "app/client/mall/js/list-page/grab/views/my-record.js";
 import NavView from "app/client/mall/js/list-page/grab/views/record-nav.js";
