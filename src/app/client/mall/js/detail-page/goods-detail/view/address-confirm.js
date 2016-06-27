@@ -120,10 +120,10 @@ const AppView = Backbone.View.extend({
       `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${orderInfo.orderid}`;
 
     function success() {
+      hint.hideLoading();
       widget.createNewView({
         url: orderDetailUrl
       });
-      hint.hideLoading();
     }
 
     if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
@@ -131,8 +131,7 @@ const AppView = Backbone.View.extend({
       orderInfo.returnUrl = orderDetailUrl;
       return mallPromise
         .initPay(orderInfo)
-        .then(success)
-        .catch(mallPromise.catchFn);
+        .then(success);
     } else {
       return success();
     }

@@ -667,6 +667,14 @@ p {
 .common-buy-num .common-buy-tip span {
   display: inline-block;
 }
+@keyframes move {
+  0% {
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
 .more-loading-padding {
   padding-bottom: 1.6rem;
 }
@@ -724,14 +732,6 @@ p {
   height: 1.17333rem;
   display: block;
   border-radius: 50%;
-}
-@keyframes move {
-  0% {
-    transform: translate3d(0, -100%, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
 }
 .mall-active-box {
   min-height: 100%;

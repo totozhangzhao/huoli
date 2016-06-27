@@ -5,7 +5,7 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
-// import mallUitl from "app/client/mall/js/lib/util.js";
+// import * as mallUitl from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 // import NativeAPI from "app/client/common/lib/native/native-api.js";
 import Tab from "com/mobile/widget/button/tab.js";

@@ -4,7 +4,7 @@ import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import logger from "com/mobile/lib/log/log.js";

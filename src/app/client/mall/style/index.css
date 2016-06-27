@@ -667,6 +667,14 @@ p {
 .common-buy-num .common-buy-tip span {
   display: inline-block;
 }
+@keyframes move {
+  0% {
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
 .more-loading-padding {
   padding-bottom: 1.6rem;
 }
@@ -997,14 +1005,6 @@ img.touch-img {
 }
 .home-page-box .home-pull-area a.on {
   color: #039ef0;
-}
-@keyframes move {
-  0% {
-    transform: translate3d(0, -100%, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
 }
 .home-page-box .home-pull-content.on .home-pull-area {
   animation: move 0.2s ease-out forwards;

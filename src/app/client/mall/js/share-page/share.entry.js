@@ -14,7 +14,7 @@ import shareUtil from "com/mobile/widget/wechat/util.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import logger from "com/mobile/lib/log/log.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 import ShareInput from "app/client/mall/js/share-page/share-input.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";

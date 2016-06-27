@@ -3,7 +3,7 @@
 */
 import Backbone from "backbone";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 
 const EntranceView = Backbone.View.extend({
 

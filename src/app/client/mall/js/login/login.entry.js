@@ -4,7 +4,7 @@ import Backbone    from "backbone";
 import {sendPost}  from "app/client/mall/js/lib/mall-request.js";
 import UrlUtil     from "com/mobile/lib/url/url.js";
 import validator   from "app/client/mall/js/lib/validator.js";
-import mallUitl    from "app/client/mall/js/lib/util.js";
+import * as mallUitl    from "app/client/mall/js/lib/util.js";
 import logger      from "com/mobile/lib/log/log.js";
 import tmpl        from "app/client/mall/tpl/login/login.tpl";
 import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
