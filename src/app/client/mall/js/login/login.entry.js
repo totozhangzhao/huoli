@@ -3,13 +3,10 @@ import _           from "lodash";
 import Backbone    from "backbone";
 import {sendPost}  from "app/client/mall/js/lib/mall-request.js";
 import UrlUtil     from "com/mobile/lib/url/url.js";
-import wechatUtil  from "com/mobile/widget/wechat-hack/util.js";
 import validator   from "app/client/mall/js/lib/validator.js";
-// import cookie      from "com/mobile/lib/cookie/cookie.js";
 import mallUitl    from "app/client/mall/js/lib/util.js";
 import logger      from "com/mobile/lib/log/log.js";
 import tmpl        from "app/client/mall/tpl/login/login.tpl";
-// import {toast}     from "com/mobile/widget/hint/hint.js";
 import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
@@ -30,8 +27,7 @@ const AppView = Backbone.View.extend({
     _.extend(this, commonData);
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
     this.urlObj = UrlUtil.parseUrlSearch();
-    // if isWechat then
-    if ( wechatUtil.isWechatFunc() && !this.urlObj.openid ) {
+    if ( loginUtil.shouldGetWeChatKey() ) {
       window.location.href = loginUtil.getWechatAuthUrl();
       return;
     }
@@ -140,7 +136,7 @@ const AppView = Backbone.View.extend({
     loginUtil.login({
       phone: this.$el.$phoneInput.val(),
       captcha: this.$el.$captchaInput.val(),
-      openid: this.urlObj.openid
+      wechatKey: this.urlObj.wechatKey
     })
       .then(() => {
         setTimeout(() => {
