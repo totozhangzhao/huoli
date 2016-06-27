@@ -27,7 +27,7 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
     new BackTop();
-    var title = "bao" || parseUrl().title || document.title;
+    var title = parseUrl().title || document.title;
 
     widget.updateViewTitle(title);
     this.$initial = ui.initial().show();
