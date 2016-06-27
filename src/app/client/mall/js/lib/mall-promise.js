@@ -5,7 +5,6 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import mallUitl from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 
 export function getAppInfo(reset) {
   return new Promise((resolve, reject) => {
@@ -25,11 +24,16 @@ export function catchFn(err) {
   } else {
     toast(JSON.stringify(err), 3000);
   }
-
-  if (err instanceof Error) {
+  if (err.detail) {
+    window.console.log(`Error Message: \n${err.message}`);
+    window.console.log(`Error Detial: \n${err.detail}`);
+  } else if (err instanceof Error) {
     window.console.log(`Error Message: \n${err.message}`);
     window.console.log(`Error Stack: \n${err.stack}`);
+  } else {
+    window.console.log(`Unknown Error Object: ${JSON.stringify(err)}`);
   }
+  return err;
 }
 
 export function order(orderParams) {
@@ -50,16 +54,7 @@ export function order(orderParams) {
         });
       });
     })
-    .catch(err => {
-      if (err.code === -3331) {
-        loginUtil.login({
-          openid: orderParams.openid,
-          pageUrl: window.location.href
-        });
-      } else {
-        catchFn(err);
-      }
-    });
+    .catch(catchFn);
 }
 
 export function initPay(orderInfo) {
