@@ -3,7 +3,7 @@ import _ from "lodash";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import Storage    from "com/mobile/lib/storage/storage.js";
 
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 // 日期格式化

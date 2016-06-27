@@ -5,7 +5,7 @@ import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 
 const CategoryView = Backbone.View.extend({
 

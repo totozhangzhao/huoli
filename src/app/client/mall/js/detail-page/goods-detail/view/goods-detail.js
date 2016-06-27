@@ -3,7 +3,7 @@ import _ from "lodash";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 import * as addressUtil from "app/client/mall/js/lib/address-util.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
@@ -285,7 +285,7 @@ const AppView = BaseView.extend({
     }
 
     // test web pay
-    if ( !/test.mall|test.hbmall|123.56.101.36/.test(window.location.hostname) && !mallUitl.isAppFunc() ) {
+    if ( !mallUitl.isTest && !mallUitl.isAppFunc() ) {
 
       // 对白名单外用户只是弹一个提示
       new Promise((resovle, reject) => {

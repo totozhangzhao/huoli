@@ -2,7 +2,7 @@ import $ from "jquery";
 import _ from "lodash";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import echo from "com/mobile/lib/echo/echo.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 import logger from "com/mobile/lib/log/log.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 

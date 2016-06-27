@@ -1,15 +1,15 @@
-var $        = require("jquery");
-var parseUrl = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var cookie   = require("com/mobile/lib/cookie/cookie.js");
+import $ from "jquery";
+import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
 
 // touch status
-(function() {
-  var timeoutId;
+((() => {
+  let timeoutId;
   $("body")
     .on("touchstart", "a, .js-touch-state", function() {
-      timeoutId = setTimeout(function() {
+      timeoutId = setTimeout(() => {
         $(this).addClass("touch");
-      }.bind(this), 50 + Math.round(Math.random() * 100));
+      }, 50 + Math.round(Math.random() * 100));
     })
     .on("touchmove", "a, .js-touch-state", function() {
       clearTimeout(timeoutId);
@@ -23,10 +23,12 @@ var cookie   = require("com/mobile/lib/cookie/cookie.js");
       clearTimeout(timeoutId);
       $(this).removeClass("touch");
     });
-}());
+})());
 
-exports.getAppName = (function() {
-  var name = "gtgj";
+export let isTest = /test.mall|test.hbmall|123.56.101.36/.test(window.location.hostname);
+
+export let getAppName = (() => {
+  let name = "gtgj";
 
   // mall.rsscc.cn
   // hbmall.rsscc.cn
@@ -34,8 +36,8 @@ exports.getAppName = (function() {
     name = "hbgj";
   }
 
-  var urlName    = parseUrl().appName;
-  var cookieName = cookie.get("appName");
+  const urlName    = parseUrl().appName;
+  const cookieName = cookie.get("appName");
 
   if (urlName) {
     name = urlName;
@@ -45,33 +47,31 @@ exports.getAppName = (function() {
     name = cookieName;
   }
 
-  return function() {
-    return name;
-  };
-}());
+  return () => name;
+})();
 
-exports.isHangbanFunc = function() {
+export function isHangbanFunc() {
   return /hbgj/i.test(exports.getAppName());
-};
+}
 
-exports.isAppFunc = function() {
-  var appName = cookie.get("appName");
+export function isAppFunc() {
+  const appName = cookie.get("appName");
 
   if ( /gtgj|hbgj/i.test(appName) ) {
     return true;
   } else {
     return false;
   }
-};
+}
 
-exports.getHangbanAppUrl = function() {
+export function getHangbanAppUrl() {
   return "http://a.app.qq.com/o/simple.jsp?pkgname=com.flightmanager.view";
-};
+}
 
-exports.getGaotieAppUrl = function() {
+export function getGaotieAppUrl() {
   return "http://a.app.qq.com/o/simple.jsp?pkgname=com.gtgj.view";
-};
+}
 
-exports.getUpgradeUrl = function() {
+export function getUpgradeUrl() {
   return "http://cdn.rsscc.cn/guanggao/upgrade/upgrade.html";
-};
+}

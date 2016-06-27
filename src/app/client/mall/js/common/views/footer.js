@@ -1,5 +1,5 @@
 import Util from "com/mobile/lib/util/util.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 import BaseView from "app/client/mall/js/common/views/BaseView.js";
 
 const Footer = BaseView.extend({
