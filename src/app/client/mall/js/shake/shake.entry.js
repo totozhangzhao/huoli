@@ -2,7 +2,11 @@
 import _                        from "lodash";
 import Backbone                 from "backbone";
 import * as mallPromise              from "app/client/mall/js/lib/mall-promise.js";
-
+// import shareUtil from "com/mobile/widget/wechat/util.js";
+// import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
+import mallUitl from "app/client/mall/js/lib/util.js";
+// import loadScript from "com/mobile/lib/load-script/load-script.js";
+// import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import {sendPost}               from "app/client/mall/js/lib/mall-request.js";
 import * as widget              from "app/client/mall/js/lib/common.js";
 
@@ -34,10 +38,35 @@ const AppView = Backbone.View.extend({
     // let btn = $("<button class='audio-toggle' style='position: fixed;width:80%; height:50px;border: 1px solid;left: 10%;top:0;'>测试按钮</div>");
     // this.$el.append(btn);
     this.shake = new Shake(this.shakeHandler.bind(this), {});
+    this.render();
+  },
+
+  render() {
+    // if ( wechatUtil.isWechatFunc() ) {
+    //   window.console.log(1);
+    //   wechatUtil.setTitle("摇一摇");
+    //   if ( shareUtil.hasShareInfo() ) {
+    //     window.console.log(2);
+    //     loadScript(`${window.location.origin}/fe/com/mobile/widget/wechat/wechat.bundle.js`);
+    //   }
+    // } else {
+    //   window.console.log(3);
+    //   widget.updateViewTitle("摇一摇");
+    //   if ( shareUtil.hasShareInfo() ) {
+    //     mallWechat.initNativeShare();
+    //   }
+    // }
+
+    const isApp = mallUitl.isAppFunc();
+
+    if ( !isApp ) {
+      require("app/client/mall/js/lib/download-app.js").init( isApp );
+    }
     this.$initial.hide();
   },
 
   shakeHandler() {
+    this.$el.find(".shake-page-pic").addClass('shake-up');
     const self = this;
     mallPromise.getAppInfo()
     .then(userData => {
@@ -64,6 +93,8 @@ const AppView = Backbone.View.extend({
       }else{
         mallPromise.catchFn(err);
       }
+    }).then( () => {
+      this.$el.find(".shake-page-pic").removeClass('shake-up');
     });
   },
 
