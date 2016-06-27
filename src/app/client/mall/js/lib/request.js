@@ -51,10 +51,6 @@ export function createSendPost(options) {
 
   return (method, params, callback) => {
     let urlObj = UrlUtil.parseUrlSearch();
-    if (urlObj.openid !== undefined) {
-      params = params || {};
-      params.openid = urlObj.openid;
-    }
     if (urlObj.from !== undefined) {
       params = params || {};
       params.from = urlObj.from;
