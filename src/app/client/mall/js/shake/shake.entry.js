@@ -66,6 +66,7 @@ const AppView = Backbone.View.extend({
   },
 
   shakeHandler() {
+    this.$el.find(".shake-page-pic").addClass('shake-up');
     const self = this;
     mallPromise.getAppInfo()
     .then(userData => {
@@ -92,6 +93,8 @@ const AppView = Backbone.View.extend({
       }else{
         mallPromise.catchFn(err);
       }
+    }).then( () => {
+      this.$el.find(".shake-page-pic").removeClass('shake-up');
     });
   },
 
