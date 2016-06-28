@@ -83,20 +83,42 @@ export let createNewView = _.debounce(options => {
     url = encodeURI(url);
   }
 
-  NativeAPI.invoke("createWebView", {
-    url,
-    controls: [
-      {
-        type: options.type || "title",
-        text: options.title || ""
+  if (options._webPageRedirect) {
+    window.location.href = url;
+  } else if (options._webPageReplace) {
+    window.location.replace(url);
+  } else {
+    NativeAPI.invoke("createWebView", {
+      url,
+      controls: [
+        {
+          type: options.type || "title",
+          text: options.title || ""
+        }
+      ]
+    }, err => {
+      if ( err && (err.code === -32603) ) {
+        window.location.href = url;
       }
-    ]
-  }, err => {
-    if ( err && (err.code === -32603) ) {
-      window.location.href = url;
-    }
-  });
+    });
+  }
 }, 1000, true);
+
+export function redirectPage(url) {
+  let options = {
+    _webPageRedirect: true,
+    url
+  };
+  createNewView(options);
+}
+
+export function replacePage(url) {
+  let options = {
+    _webPageReplace: true,
+    url
+  };
+  createNewView(options);
+}
 
 export function updateViewTitle (title){
   const doc = window.document;

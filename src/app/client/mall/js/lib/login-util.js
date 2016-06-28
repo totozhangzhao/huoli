@@ -6,6 +6,7 @@ import NativeAPI from "app/client/common/lib/native/native-api.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
+import * as widget from "app/client/mall/js/lib/common.js";
 
 // wechatKey, auth
 export function getWechatAuthUrl(pageUrl) {
@@ -26,13 +27,9 @@ export function getWechatAuthUrl(pageUrl) {
   return wechatUrl;
 }
 
-export function goLogin() {
-  window.location.href = "/fe/app/client/mall/html/login/login.html";
-}
-
 export function shouldGetWeChatKey() {
   let urlObj = UrlUtil.parseUrlSearch();
-  return wechatUtil.isWechatFunc() && !urlObj.wechatKey && urlObj.auth === void 0;
+  return wechatUtil.isWechatFunc() && !cookie.get("token") && !urlObj.wechatKey && urlObj.auth === void 0;
 }
 
 function saveToken(data) {
@@ -66,7 +63,35 @@ export function getTokenByWeChatKey(wechatKey) {
     });
 }
 
-export function login(loginOpts) {
+export function loginRequset(opts) {
+  let options = opts || {};
+  return new Promise((resovle, reject) => {
+    let params = {
+      phone: options.phone,
+      code: options.captcha,
+      wechatKey: options.wechatKey
+    };
+
+    sendPost("weixinLogin", params, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resovle(data);
+      }
+    });
+  })
+    .then(data => {
+      data.phone = data.phone || opts.phone;
+      saveToken(data);
+      return data;
+    });
+}
+
+export function login() {
+  function webLogin() {
+    return widget.redirectPage("/fe/app/client/mall/html/login/login.html");
+  }
+
   function appLogin() {
     return new Promise((resolve, reject) => {
       NativeAPI.invoke("login", null, (err, data) => {
@@ -88,46 +113,12 @@ export function login(loginOpts) {
       })
       .catch(err => {
         if (err.code === -32603) {
-          goLogin();
+          webLogin();
         } else {
           mallPromise.catchFn(err);
         }
       });
   }
 
-  function webLogin(opts) {
-    let options = opts || {};
-    return new Promise((resovle, reject) => {
-      let params = {
-        phone: options.phone,
-        code: options.captcha,
-        wechatKey: options.wechatKey
-      };
-
-      sendPost("weixinLogin", params, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resovle(data);
-        }
-      });
-    })
-      .then(data => {
-        data.phone = data.phone || opts.phone;
-        saveToken(data);
-      })
-      .then(() => {
-        window.location.replace(options.pageUrl || "/fe/app/client/mall/index.html");
-      })
-      .catch(err => {
-        // -3330: 需要转入登录页面的情况（例如：没有绑定过的 openid）
-        if (err.code === - 3330) {
-          goLogin();
-        } else {
-          mallPromise.catchFn(err);
-        }
-      });
-  }
-
-  return mallUitl.isAppFunc() ? appLogin() : webLogin(loginOpts);
+  return mallUitl.isAppFunc() ? appLogin() : webLogin();
 }

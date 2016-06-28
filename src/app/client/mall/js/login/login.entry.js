@@ -11,7 +11,7 @@ import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
-import "app/client/mall/js/lib/common.js";
+import * as widget from "app/client/mall/js/lib/common.js";
 
 const AppView = Backbone.View.extend({
   el: "#login-main",
@@ -133,11 +133,18 @@ const AppView = Backbone.View.extend({
       this.loginLock = true;
     }
 
-    loginUtil.login({
+    loginUtil.loginRequset({
       phone: this.$el.$phoneInput.val(),
       captcha: this.$el.$captchaInput.val(),
       wechatKey: this.urlObj.wechatKey
     })
+      .then(data => {
+        if (!data) {
+          return;
+        }
+        widget.replacePage("/fe/app/client/mall/index.html");
+      })
+      .catch(mallPromise.catchFn)
       .then(() => {
         setTimeout(() => {
           this.loginLock = false;
