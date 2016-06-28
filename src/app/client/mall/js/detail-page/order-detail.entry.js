@@ -8,8 +8,8 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 // import appInfo from "app/client/mall/js/lib/app-info.js";
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
-import widget from "app/client/mall/js/lib/common.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import logger from "com/mobile/lib/log/log.js";
 import storage from "app/client/mall/js/lib/storage.js";
@@ -32,7 +32,8 @@ const AppView = Backbone.View.extend({
     "touchstart .js-copy"     : "copyText",
     "click .js-crowd-page"    : "gotoCrowd",
     "click .js-address-box"   : "handleAddressInfo",
-    "click .btn-cancel-order" : "cancelOrder"
+    "click .btn-cancel-order" : "cancelOrder",
+    "click .btn-refund"       : "toRefund"
   },
   initialize() {
     new BackTop();
@@ -401,6 +402,12 @@ const AppView = Backbone.View.extend({
       }).catch( err => {
         toast(err.message, 3000);
       });
+  },
+
+  // 跳转至退货申请页面
+  toRefund() {
+    const url = `/fe/app/client/mall/html/detail-page/refund.html?orderid=${this.orderDetail.orderid}`;
+    widget.createNewView({ url });
   }
 });
 
