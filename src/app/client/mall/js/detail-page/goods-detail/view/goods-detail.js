@@ -284,33 +284,35 @@ const AppView = BaseView.extend({
       });
     }
 
+    _buy();
+
     // test web pay
-    if ( !mallUitl.isTest && !mallUitl.isAppFunc() ) {
+    // if ( !mallUitl.isTest && !mallUitl.isAppFunc() ) {
 
-      // 对白名单外用户只是弹一个提示
-      new Promise((resovle, reject) => {
-        let params = {
-          wechatKey: this.urlObj.wechatKey
-        };
+    //   // 对白名单外用户只是弹一个提示
+    //   new Promise((resovle, reject) => {
+    //     let params = {
+    //       wechatKey: this.urlObj.wechatKey
+    //     };
 
-        sendPost("weixinLogin", params, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resovle(data);
-          }
-        });
-      })
-        .then(data => {
-          if (!data) {
-            return;
-          }
-          _buy();
-        })
-        .catch(mallPromise.catchFn);
-    } else {
-      _buy();
-    }
+    //     sendPost("weixinLogin", params, (err, data) => {
+    //       if (err) {
+    //         reject(err);
+    //       } else {
+    //         resovle(data);
+    //       }
+    //     });
+    //   })
+    //     .then(data => {
+    //       if (!data) {
+    //         return;
+    //       }
+    //       _buy();
+    //     })
+    //     .catch(mallPromise.catchFn);
+    // } else {
+    //   _buy();
+    // }
   },
 
   // 选数量后，去支付流程
@@ -359,9 +361,9 @@ const AppView = BaseView.extend({
           this.token = data.token;
           showNextView();
         })
-        .catch(mallPromise.catchFn);
+        .catch(mallPromise.orderCatch);
     } else {
-      loginUtil.goLogin();
+      loginUtil.login();
     }
   },
   exchange() {
@@ -431,24 +433,28 @@ const AppView = BaseView.extend({
       })
       .catch(err => {
         hint.hideLoading();
-        const alertOptions = {
-          type: "alert",
-          title: "兑换失败",
-          message: err.message,
-          agreeText: "确定",
-          agreeFunc() {
-            // version 3.1 未实现 startPay 接口
-            if (err.code === -99) {
-              window.location.href = mallUitl.getUpgradeUrl();
-            }
-          }
-        };
-        if (this.errAlert) {
-          this.errAlert.model.set(alertOptions);
+        if (err.code === -3330 || err.code === -3331) {
+          mallPromise.orderCatch(err);
         } else {
-          this.errAlert = new Popover(alertOptions);
+          const alertOptions = {
+            type: "alert",
+            title: "兑换失败",
+            message: err.message,
+            agreeText: "确定",
+            agreeFunc() {
+              // version 3.1 未实现 startPay 接口
+              if (err.code === -99) {
+                window.location.href = mallUitl.getUpgradeUrl();
+              }
+            }
+          };
+          if (this.errAlert) {
+            this.errAlert.model.set(alertOptions);
+          } else {
+            this.errAlert = new Popover(alertOptions);
+          }
+          this.errAlert.show();
         }
-        this.errAlert.show();
       });
   },
   afterCreateOrder(orderInfo) {
