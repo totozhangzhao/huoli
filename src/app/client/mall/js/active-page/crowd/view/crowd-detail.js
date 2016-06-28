@@ -32,6 +32,7 @@ const AppView = Backbone.View.extend({
     new BackTop();
     _.extend(this, commonData);
     this.$initial    = ui.initial().show();
+    this.token = cookie.get("token");
     this.buyNumModel = new BuyNumModel();
     this.payView     = new BuyPanelView({
       model: this.buyNumModel,
@@ -95,7 +96,7 @@ const AppView = Backbone.View.extend({
         .catch(mallPromise.catchFn);
     };
     const start = userData => {
-      if (userData.userInfo && userData.userInfo.userid) {
+      if (userData.userInfo && userData.userInfo.userid || this.token) {
         return render(userData);
       } else {
         return loginUtil.login();
@@ -256,12 +257,12 @@ const AppView = Backbone.View.extend({
     }
 
     if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
-      orderInfo.token = cookie.get("token");
+      orderInfo.token = this.token;
       orderInfo.returnUrl = orderDetailUrl;
       return mallPromise
         .initPay(orderInfo)
         .then(success)
-        .catch(mallPromise.catchFn);
+        .catch(mallPromise.orderCatch);
     } else {
       return null;
     }
