@@ -3,9 +3,10 @@ import _ from "lodash";
 import appInfo from "app/client/mall/js/lib/app-info.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 
 export function getAppInfo(reset) {
   return new Promise((resolve, reject) => {
@@ -32,13 +33,15 @@ export function catchFn(err) {
     window.console.log(`Error Message: \n${err.message}`);
     window.console.log(`Error Stack: \n${err.stack}`);
   } else {
-    window.console.log(`Unknown Error Object: ${JSON.stringify(err)}`);
+    window.console.log(`Unknown Error Object: \n${JSON.stringify(err)}`);
   }
   return err;
 }
 
 export function orderCatch(err) {
-  if (err.code === -3331) {
+  if (err.code === -3330) {
+    loginUtil.login();
+  } else if (err.coke === -3331) {
     cookie.remove("token", {
       domain: location.hostname,
       path: "/"

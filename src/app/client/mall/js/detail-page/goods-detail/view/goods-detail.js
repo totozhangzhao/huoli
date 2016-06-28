@@ -359,9 +359,9 @@ const AppView = BaseView.extend({
           this.token = data.token;
           showNextView();
         })
-        .catch(mallPromise.catchFn);
+        .catch(mallPromise.orderCatch);
     } else {
-      loginUtil.goLogin();
+      loginUtil.login();
     }
   },
   exchange() {
@@ -431,24 +431,28 @@ const AppView = BaseView.extend({
       })
       .catch(err => {
         hint.hideLoading();
-        const alertOptions = {
-          type: "alert",
-          title: "兑换失败",
-          message: err.message,
-          agreeText: "确定",
-          agreeFunc() {
-            // version 3.1 未实现 startPay 接口
-            if (err.code === -99) {
-              window.location.href = mallUitl.getUpgradeUrl();
-            }
-          }
-        };
-        if (this.errAlert) {
-          this.errAlert.model.set(alertOptions);
+        if (err.code === -3330 || err.code === -3331) {
+          mallPromise.orderCatch(err);
         } else {
-          this.errAlert = new Popover(alertOptions);
+          const alertOptions = {
+            type: "alert",
+            title: "兑换失败",
+            message: err.message,
+            agreeText: "确定",
+            agreeFunc() {
+              // version 3.1 未实现 startPay 接口
+              if (err.code === -99) {
+                window.location.href = mallUitl.getUpgradeUrl();
+              }
+            }
+          };
+          if (this.errAlert) {
+            this.errAlert.model.set(alertOptions);
+          } else {
+            this.errAlert = new Popover(alertOptions);
+          }
+          this.errAlert.show();
         }
-        this.errAlert.show();
       });
   },
   afterCreateOrder(orderInfo) {
