@@ -112,7 +112,7 @@ const AppView = Backbone.View.extend({
       })
       .catch(err => {
         hint.hideLoading();
-        mallPromise.catchFn(err);
+        mallPromise.orderCatch(err);
       });
   },
   afterCreateOrder(orderInfo) {
