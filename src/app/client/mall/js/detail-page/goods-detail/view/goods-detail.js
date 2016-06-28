@@ -284,33 +284,35 @@ const AppView = BaseView.extend({
       });
     }
 
+    _buy();
+
     // test web pay
-    if ( !mallUitl.isTest && !mallUitl.isAppFunc() ) {
+    // if ( !mallUitl.isTest && !mallUitl.isAppFunc() ) {
 
-      // 对白名单外用户只是弹一个提示
-      new Promise((resovle, reject) => {
-        let params = {
-          wechatKey: this.urlObj.wechatKey
-        };
+    //   // 对白名单外用户只是弹一个提示
+    //   new Promise((resovle, reject) => {
+    //     let params = {
+    //       wechatKey: this.urlObj.wechatKey
+    //     };
 
-        sendPost("weixinLogin", params, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resovle(data);
-          }
-        });
-      })
-        .then(data => {
-          if (!data) {
-            return;
-          }
-          _buy();
-        })
-        .catch(mallPromise.catchFn);
-    } else {
-      _buy();
-    }
+    //     sendPost("weixinLogin", params, (err, data) => {
+    //       if (err) {
+    //         reject(err);
+    //       } else {
+    //         resovle(data);
+    //       }
+    //     });
+    //   })
+    //     .then(data => {
+    //       if (!data) {
+    //         return;
+    //       }
+    //       _buy();
+    //     })
+    //     .catch(mallPromise.catchFn);
+    // } else {
+    //   _buy();
+    // }
   },
 
   // 选数量后，去支付流程
