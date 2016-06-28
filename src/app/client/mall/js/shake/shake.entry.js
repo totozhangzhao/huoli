@@ -4,7 +4,7 @@ import Backbone                 from "backbone";
 import * as mallPromise              from "app/client/mall/js/lib/mall-promise.js";
 // import shareUtil from "com/mobile/widget/wechat/util.js";
 // import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 // import loadScript from "com/mobile/lib/load-script/load-script.js";
 // import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import {sendPost}               from "app/client/mall/js/lib/mall-request.js";
