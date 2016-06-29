@@ -136,7 +136,6 @@ let AppView = Backbone.View.extend({
           orderid: UrlUtil.parseUrlSearch().orderid,
           address: addressData
         });
-
         return new Promise((resolve, reject) => {
           sendPost("addOrderAddr", params, (err, data) => {
             if (err) {
