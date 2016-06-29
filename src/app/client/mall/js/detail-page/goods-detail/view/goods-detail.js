@@ -271,6 +271,11 @@ const AppView = BaseView.extend({
   // 弹出数量选择界面
   buy() {
     let self = this;
+    const goods = this.cache.goods;
+
+    if ( goods.stat !== 0 ) {
+      return;
+    }
 
     function _buy() {
 
@@ -284,35 +289,24 @@ const AppView = BaseView.extend({
       });
     }
 
-    _buy();
+    if ( mallUitl.isAppFunc() || this.token ) {
+      _buy();
+    } else if ( wechatUtil.isWechatFunc() ) {
+      loginUtil
+        .getTokenByWeChatKey(this.urlObj.wechatKey)
+        .then(data => {
 
-    // test web pay
-    // if ( !mallUitl.isTest && !mallUitl.isAppFunc() ) {
-
-    //   // 对白名单外用户只是弹一个提示
-    //   new Promise((resovle, reject) => {
-    //     let params = {
-    //       wechatKey: this.urlObj.wechatKey
-    //     };
-
-    //     sendPost("weixinLogin", params, (err, data) => {
-    //       if (err) {
-    //         reject(err);
-    //       } else {
-    //         resovle(data);
-    //       }
-    //     });
-    //   })
-    //     .then(data => {
-    //       if (!data) {
-    //         return;
-    //       }
-    //       _buy();
-    //     })
-    //     .catch(mallPromise.catchFn);
-    // } else {
-    //   _buy();
-    // }
+          // 维护 this.token
+          //
+          // 在此处的作用是：
+          // 在本页面，无刷新的情况下，第二次点击购买也不会重新获取 token
+          this.token = data.token;
+          _buy();
+        })
+        .catch(mallPromise.orderCatch);
+    } else {
+      loginUtil.login();
+    }
   },
 
   // 选数量后，去支付流程
@@ -349,22 +343,7 @@ const AppView = BaseView.extend({
       }
     }
 
-    if ( mallUitl.isAppFunc() || this.token ) {
-      if ( String(goods.stat) !== "0" ) {
-        return;
-      }
-      showNextView();
-    } else if ( wechatUtil.isWechatFunc() ) {
-      loginUtil
-        .getTokenByWeChatKey(this.urlObj.wechatKey)
-        .then(data => {
-          this.token = data.token;
-          showNextView();
-        })
-        .catch(mallPromise.orderCatch);
-    } else {
-      loginUtil.login();
-    }
+    showNextView();
   },
   exchange() {
     if(this.buyNumModel.get("type") === 0) { // 不能选择数量的情况 需要弹出提示
