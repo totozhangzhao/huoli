@@ -67,13 +67,13 @@
     <!-- 地址 start -->
     <div class="order-exchange-bar order-address-bar">
       <div class="js-address-box order-exchange-code">
-      <% if(orderDetail.needpay === 12345) {%>
+      <% if(orderDetail.needpay === 1) {%>
         <a href="/fe/app/client/mall/html/detail-page/goods-detail.html?mold=order&orderid=<%= orderDetail.orderid %>#address-list">
       <% } %>
           <div class="order-exchange-area">
             <%= orderDetail.msg %>
           </div>
-      <% if(orderDetail.needpay === 12345) {%>
+      <% if(orderDetail.needpay === 1) {%>
         </a>
       <% } %>
         <b class="arc-border arc-border-left"></b>
@@ -101,13 +101,13 @@
       <!-- 地址 start -->
       <div class="order-exchange-bar order-address-bar">
         <div class="js-address-box order-exchange-code">
-          <% if(orderDetail.needpay === 12345) {%>
+          <% if(orderDetail.needpay === 1) {%>
             <a href="/fe/app/client/mall/html/detail-page/goods-detail.html?mold=order&orderid=<%= orderDetail.orderid %>#address-list">
           <% } %>
             <div class="order-exchange-area">
               <%= orderDetail.addresstpl %>
             </div>
-          <% if(orderDetail.needpay === 12345) {%>
+          <% if(orderDetail.needpay === 1) {%>
             </a>
           <% } %>
           <b class="arc-border arc-border-left"></b>
