@@ -83,7 +83,7 @@ const AppView = BaseView.extend({
               if (err.code === -804) {
                 return window.location.href = loginUtil.getWechatAuthUrl();
               } else {
-                mallPromise.orderCatch(err);
+                mallPromise.catchFn(err);
               }
             });
         } else {
@@ -115,7 +115,7 @@ const AppView = BaseView.extend({
         })
         .catch(err => {
           err.silent = true;
-          mallPromise.orderCatch(err);
+          mallPromise.catchFn(err);
         });
     } else {
       initPage();
@@ -203,7 +203,7 @@ const AppView = BaseView.extend({
         this.render(result);
         this.$initial.hide();
       })
-      .catch(mallPromise.catchFn);
+      .catch(mallPromise.catchShowError);
   },
   showPrivilegePanel() {
     this.$privilegePanel.show();
@@ -376,7 +376,7 @@ const AppView = BaseView.extend({
         .then(() => {
           _do();
         })
-        .catch(mallPromise.catchFn);
+        .catch(mallPromise.catchShowError);
     }
   },
 
@@ -484,7 +484,7 @@ const AppView = BaseView.extend({
       .catch(err => {
         hint.hideLoading();
         if (err.code === -3330 || err.code === -3331) {
-          mallPromise.orderCatch(err);
+          mallPromise.catchFn(err);
         } else {
           const alertOptions = {
             type: "alert",

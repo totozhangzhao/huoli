@@ -25,7 +25,7 @@ export function getList(callback) {
         callback(result);
       }
     })
-    .catch(mallPromise.orderCatch);
+    .catch(mallPromise.catchFn);
 }
 
 export function setDefault(addressData, callback) {
@@ -56,7 +56,7 @@ export function setDefault(addressData, callback) {
         callback(result);
       }
     })
-    .catch(mallPromise.orderCatch);
+    .catch(mallPromise.catchFn);
 }
 
 export function handleAddress(method, id, callback) {
@@ -83,7 +83,7 @@ export function handleAddress(method, id, callback) {
         callback(result);
       }
     })
-    .catch(mallPromise.orderCatch);
+    .catch(mallPromise.catchFn);
 }
 
 export function remove(id, callback) {

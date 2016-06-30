@@ -21,7 +21,7 @@ export function getAppInfo(reset) {
   });
 }
 
-export function catchFn(err) {
+export function catchShowError(err) {
   if (err.message && !err.silent) {
     toast(err.message, 3000);
   } else if (!err.silent) {
@@ -39,7 +39,7 @@ export function catchFn(err) {
   return err;
 }
 
-export function orderCatch(err) {
+export function catchFn(err) {
   if (err.code === -3330) {
     loginUtil.login();
   } else if (err.code === -3331) {
@@ -52,7 +52,7 @@ export function orderCatch(err) {
       return;
     }
   }
-  catchFn(err);
+  catchShowError(err);
 }
 
 export function order(orderParams) {
