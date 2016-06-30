@@ -132,13 +132,19 @@
     <p class="order-detail-info btn-cancel-order">取消订单</p>
   </div>
   <% } %>
-  <!-- 申请退货按钮 
+  <!-- 申请退货按钮 -->
   <% if(orderDetail.operatetype === 2) {%>
   <div class="order-detail-bar">
     <p class="order-detail-info btn-refund">退款申请</p>
   </div>
   <% } %>
-  -->
+  <!-- 查看退款进度 -->
+  <% if(orderDetail.operatetype === 3) {%>
+  <div class="order-detail-bar">
+    <p class="order-detail-info btn-refund-result">查看进度</p>
+  </div>
+  <% } %>
+  
 
 
   <div id="copyright" class="copyright-block <%= orderDetail.needpay === 1 ? "goods-copyright-fix" : "" %> ">
