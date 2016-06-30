@@ -35,7 +35,8 @@ const AppView = Backbone.View.extend({
     "click .js-crowd-page"    : "gotoCrowd",
     "click .js-address-box"   : "handleAddressInfo",
     "click .btn-cancel-order" : "cancelOrder",
-    "click .btn-refund"       : "toRefund"
+    "click .btn-refund"       : "toRefund",
+    "click .btn-refund-result": "toRefundResult"
   },
   initialize() {
     new BackTop();
@@ -296,6 +297,11 @@ const AppView = Backbone.View.extend({
   // 跳转至退货申请页面
   toRefund() {
     const url = `/fe/app/client/mall/html/detail-page/refund.html?orderid=${this.orderDetail.orderid}`;
+    widget.createNewView({ url });
+  },
+
+  toRefundResult() {
+    const url = `/fe/app/client/mall/html/detail-page/refund-result.html?orderid=${this.orderDetail.orderid}`;
     widget.createNewView({ url });
   }
 });
