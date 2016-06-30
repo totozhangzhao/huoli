@@ -22,6 +22,7 @@ import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import AddressList from "app/client/mall/js/detail-page/goods-detail/collection/address-list.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
 
 const detailLog = widget.initTracker("detail");
 
@@ -38,27 +39,87 @@ const AppView = BaseView.extend({
     "click .js-detail-bar": "showDetailInfo"
   },
   initialize(commonData) {
+    let self = this;
     _.extend(this, commonData);
-    this.urlObj = UrlUtil.parseUrlSearch();
-    if ( loginUtil.shouldGetWeChatKey() ) {
-      window.location.href = loginUtil.getWechatAuthUrl();
-      return;
-    }
-    this.cache.urlObj = this.urlObj;
-    this.buyNumModel = new BuyNumModel();
-    this.model.buyNumModel = this.buyNumModel;
-    this.payView = new BuyPanelView({
-      model: this.buyNumModel,
-      buy: () => {this.buy();},
-      pay: () => {this.pay();}
-    });
-    this.model.payView = this.payView;
-    this.$initial = ui.initial();
 
-    this.resetAppView = false;
-    this.title = "";
-    this.action = this.urlObj.action;
-    this.mallGoodsDetail();
+    this.$initial = ui.initial();
+    this.urlObj = UrlUtil.parseUrlSearch();
+    this.token = cookie.get("token");
+
+    function _initGoodsDetail() {
+      self.cache.urlObj = self.urlObj;
+      self.buyNumModel = new BuyNumModel();
+      self.model.buyNumModel = self.buyNumModel;
+
+      self.payView = new BuyPanelView({
+        model: self.buyNumModel,
+        buy: () => {self.buy();},
+        pay: () => {self.pay();}
+      });
+
+      self.model.payView = self.payView;
+
+      self.resetAppView = false;
+      self.title = "";
+      self.action = self.urlObj.action;
+      self.mallGoodsDetail();
+    }
+
+    function initPage() {
+      if ( loginUtil.shouldGetWeChatKey(self.token) ) {
+        return window.location.href = loginUtil.getWechatAuthUrl();
+      } else if ( wechatUtil.isWechatFunc() && !self.token ) {
+        let wechatKey = self.urlObj.wechatKey;
+        if (wechatKey) {
+          loginUtil
+            .getTokenByWeChatKey(wechatKey)
+            .then(data => {
+              self.token = data.token;
+            })
+            .then(() => {
+              _initGoodsDetail();
+            })
+            .catch(err => {
+              if (err.code === -804) {
+                return window.location.href = loginUtil.getWechatAuthUrl();
+              } else {
+                mallPromise.orderCatch(err);
+              }
+            });
+        } else {
+          toast("ES: 未找到wechatKey", 1500);
+          _initGoodsDetail();
+        }
+      } else {
+        _initGoodsDetail();
+      }
+    }
+
+    if ( mallUitl.isAppFunc() ) {
+      initPage();
+    } else if (this.token) {
+      new Promise((resovle, reject) => {
+        let params = {
+          token: this.token
+        };
+        sendPost("checkTokenValid", params, (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resovle(data);
+          }
+        });
+      })
+        .then(() => {
+          initPage();
+        })
+        .catch(err => {
+          err.silent = true;
+          mallPromise.orderCatch(err);
+        });
+    } else {
+      initPage();
+    }
   },
   resume() {
     this.$initial.show();
@@ -289,23 +350,33 @@ const AppView = BaseView.extend({
       });
     }
 
-    if ( mallUitl.isAppFunc() || this.token ) {
-      _buy();
-    } else if ( wechatUtil.isWechatFunc() ) {
-      loginUtil
-        .getTokenByWeChatKey(this.urlObj.wechatKey)
-        .then(data => {
+    function _do() {
+      if ( mallUitl.isAppFunc() || self.token ) {
+        _buy();
+      } else {
+        loginUtil.login();
+      }
+    }
 
-          // 维护 this.token
-          //
-          // 在此处的作用是：
-          // 在本页面，无刷新的情况下，第二次点击购买也不会重新获取 token
-          this.token = data.token;
-          _buy();
-        })
-        .catch(mallPromise.orderCatch);
+    if ( mallUitl.isAppFunc() ) {
+      _do();
     } else {
-      loginUtil.login();
+      new Promise((resovle, reject) => {
+        let params = {
+          token: this.token
+        };
+        sendPost("checkWhiteList", params, (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resovle(data);
+          }
+        });
+      })
+        .then(() => {
+          _do();
+        })
+        .catch(mallPromise.catchFn);
     }
   },
 

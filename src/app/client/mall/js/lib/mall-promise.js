@@ -5,6 +5,7 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
+import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 
@@ -21,9 +22,9 @@ export function getAppInfo(reset) {
 }
 
 export function catchFn(err) {
-  if (err.message) {
+  if (err.message && !err.silent) {
     toast(err.message, 3000);
-  } else {
+  } else if (!err.silent) {
     toast(JSON.stringify(err), 3000);
   }
   if (err.detail) {
@@ -41,11 +42,15 @@ export function catchFn(err) {
 export function orderCatch(err) {
   if (err.code === -3330) {
     loginUtil.login();
-  } else if (err.coke === -3331) {
+  } else if (err.code === -3331) {
     cookie.remove("token", {
       domain: location.hostname,
       path: "/"
     });
+    if ( wechatUtil.isWechatFunc() ) {
+      window.location.href = loginUtil.getWechatAuthUrl();
+      return;
+    }
   }
   catchFn(err);
 }
@@ -108,6 +113,9 @@ export function initPay(orderInfo) {
   //
   // formal:
   // https://h5.133.cn/hangban/webpay
+  //
+  // formal test:
+  // http://h5.133.cn/hangban-test/webpay
   //
   // test:
   // http://wtest.133.cn/hangban/webpay
