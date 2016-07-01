@@ -54,17 +54,25 @@ const AppView = BaseView.extend({
 
   fetchData() {
     const self = this;
-
-    mallPromise.getAppInfo(true)
-    .then((userData) => new Promise((resolve, reject) => {
-      sendPost("indexPageData", {p: userData.deviceInfo.p}, (err, data) => {
+    new Promise((resolve, reject)=> {
+      sendPost("indexPageData", null, (err, data) => {
         if (err) {
           reject(err);
         } else {
           resolve(data);
         }
       });
-    }))
+    })
+    // mallPromise.getAppInfo(true)
+    // .then((userData) => new Promise((resolve, reject) => {
+    //   sendPost("indexPageData", {p: userData.deviceInfo.p}, (err, data) => {
+    //     if (err) {
+    //       reject(err);
+    //     } else {
+    //       resolve(data);
+    //     }
+    //   });
+    // }))
     .then(data => {
       self.render(data);
       NativeAPI.registerHandler("resume", () => {
@@ -103,6 +111,7 @@ const AppView = BaseView.extend({
       const params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p
       });
+      window.console.log(params);
 
       sendPost("getUserInfo", params, (err, data) => {
         if(err){
