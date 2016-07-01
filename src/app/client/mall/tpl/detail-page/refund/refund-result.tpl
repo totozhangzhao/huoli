@@ -31,7 +31,7 @@
 <% }else { %>
   <!-- 审核中 -->
   <div class="refund-status-bar">
-    <div class="refund-status-succ"></div>
+    <div class="refund-status-audit"></div>
     <p class="refund-status-mark refund-status-yes">审核中</p>
   </div> 
   <div class="refund-status-content">

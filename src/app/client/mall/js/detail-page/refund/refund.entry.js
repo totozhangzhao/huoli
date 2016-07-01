@@ -10,7 +10,7 @@ import * as mallUitl from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
-import Popover                from "com/mobile/widget/popover/popover.js";
+import Popover from "com/mobile/widget/popover/popover.js";
 
 import "app/client/mall/js/lib/common.js";
 
@@ -43,10 +43,6 @@ const RefundView = Backbone.View.extend({
     }, 600);
   },
 
-  // 选择退款原因类型
-  checkRefundType() {
-
-  },
   // 提交退款申请
   refundSubmit() {
     if(!this.validateReason()) {
