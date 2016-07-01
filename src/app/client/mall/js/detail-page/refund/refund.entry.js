@@ -19,8 +19,7 @@ const RefundView = Backbone.View.extend({
 
   events: {
     "click input.refund-type": "checkRefundType",
-    "click .refund-submit": "refundSubmit",
-    "click .test": "toResult"
+    "click .refund-submit": "refundSubmit"
   },
 
   initialize() {
