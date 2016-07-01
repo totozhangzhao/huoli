@@ -69,6 +69,8 @@ var AppView = Backbone.View.extend({
     "click .js-crowd"          : "gotoGoods",
     "click .js-crowd-column"   : "gotoCrowdColumn",
     "click .js-get-coupon"     : "getCoupon",
+    "click .js-show-token"     : "showCookie",
+    "click .js-rm-token"       : "removeToken",
     "click .js-test-url"       : "mallTestUrl"
   },
   initialize: function() {
@@ -90,6 +92,16 @@ var AppView = Backbone.View.extend({
     if ( shareUtil.hasShareInfo() ) {
       loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
     }
+  },
+  showCookie: function() {
+    echo(document.cookie);
+  },
+  removeToken: function() {
+    cookie.remove("token", {
+      domain: location.hostname,
+      path: "/"
+    });
+    echo(document.cookie);
   },
   mallTestUrl: function() {
     var url = $("#mall-test-url").val();

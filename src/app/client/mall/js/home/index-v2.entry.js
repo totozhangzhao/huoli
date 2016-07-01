@@ -121,7 +121,7 @@ const AppView = BaseView.extend({
         self.$pointsView.render(data);
       });
     })
-    .catch(mallPromise.catchFn);
+    .catch(mallPromise.catchShowError);
   },
 
   // 显示签到按钮

@@ -262,7 +262,7 @@ const AppView = Backbone.View.extend({
       return mallPromise
         .initPay(orderInfo)
         .then(success)
-        .catch(mallPromise.orderCatch);
+        .catch(mallPromise.catchFn);
     } else {
       return null;
     }

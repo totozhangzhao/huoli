@@ -27,9 +27,9 @@ export function getWechatAuthUrl(pageUrl) {
   return wechatUrl;
 }
 
-export function shouldGetWeChatKey() {
+export function shouldGetWeChatKey(token) {
   let urlObj = UrlUtil.parseUrlSearch();
-  return wechatUtil.isWechatFunc() && !cookie.get("token") && !urlObj.wechatKey && urlObj.auth === void 0;
+  return wechatUtil.isWechatFunc() && !token && !urlObj.wechatKey && urlObj.auth === void 0;
 }
 
 function saveToken(data) {
