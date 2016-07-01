@@ -4,6 +4,7 @@ var Backbone    = require("backbone");
 var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 var pageAction  = require("app/client/mall/js/lib/page-action.js");
+var cookie      = require("com/mobile/lib/cookie/cookie.js");
 
 require("app/client/mall/js/lib/common.js");
 
@@ -32,7 +33,7 @@ var AppView = Backbone.View.extend({
               resolve({
                 points: data.points,
                 level: data.level,
-                phone: userData.userInfo.phone
+                phone: userData.userInfo.phone || cookie.get("phone")
               });
             }
           });
