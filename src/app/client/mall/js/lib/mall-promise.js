@@ -48,8 +48,9 @@ export function catchFn(err) {
       path: "/"
     });
     if ( wechatUtil.isWechatFunc() ) {
-      window.location.href = loginUtil.getWechatAuthUrl();
-      return;
+      return window.location.href = loginUtil.getWechatAuthUrl();
+    } else {
+      loginUtil.login();
     }
   }
   catchShowError(err);
