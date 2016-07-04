@@ -156,26 +156,45 @@ const AppView = BaseView.extend({
     };
   },
   scrollShowDetailMove(e) {
+    let self = this;
+
     if (window.scrollY + document.documentElement.clientHeight < document.documentElement.scrollHeight - 2) {
       return;
     }
 
-    let _e = e.originalEvent || e;
-    let touches = _e.changedTouches;
-
-    if (touches) {
-      _e = touches[touches.length - 1];
+    function showDetail() {
+      if (self.$detail.length > 0) {
+        self.$detail.trigger("click");
+      }
     }
 
-    let minY = 156;
-    let deltaX = _e.pageX - this.startPoint.x;
-    let deltaY = _e.pageY - this.startPoint.y;
+    this._scrollToEndMotionNum = this._scrollToEndMotionNum || 0;
 
-    if ( -deltaY > minY && minY > Math.abs(deltaX) ) {
-      let $detail = this.$el.find(".js-detail-bar");
+    if (this._scrollToEndTimer) {
+      clearTimeout(this._scrollToEndTimer);
+    }
 
-      if ($detail.length > 0) {
-        $detail.trigger("click");
+    this._scrollToEndMotionNum += 1;
+    this._scrollToEndTimer = setTimeout(() => {
+      this._scrollToEndMotionNum = 0;
+    }, 600);
+
+    if (this._scrollToEndMotionNum > 1) {
+      showDetail();
+    } else {
+      let _e = e.originalEvent || e;
+      let touches = _e.changedTouches;
+
+      if (touches) {
+        _e = touches[touches.length - 1];
+      }
+
+      let minY = 156;
+      let deltaX = _e.pageX - this.startPoint.x;
+      let deltaY = _e.pageY - this.startPoint.y;
+
+      if ( -deltaY > minY && minY > Math.abs(deltaX) ) {
+        showDetail();
       }
     }
   },
@@ -237,6 +256,7 @@ const AppView = BaseView.extend({
 
     goods.tplUtil = tplUtil;
     this.$el.html(mainTmpl(goods));
+    this.$detail = this.$el.find(".js-detail-bar");
 
     // View: copyright
     new FooterView().render();
