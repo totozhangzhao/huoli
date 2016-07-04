@@ -301,6 +301,7 @@ const AppView = Backbone.View.extend({
     widget.createNewView({ url });
   },
 
+  // 跳转至退款结果查看页面
   toRefundResult() {
     const url = `/fe/app/client/mall/html/detail-page/refund-result.html?orderid=${this.orderDetail.orderid}`;
     widget.createNewView({ url });
