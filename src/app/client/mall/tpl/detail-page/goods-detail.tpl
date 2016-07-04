@@ -83,7 +83,7 @@
 <% } %>
 
 <% if (Array.isArray(detail) && detail.length > 0) { %>
-<div class="goods-drag-view">
+<div class="js-detail-bar goods-drag-view">
   <span><b class="goods-drag-icon"></b>继续拖动，查看图文详情</span>
 </div>
 <% } %>

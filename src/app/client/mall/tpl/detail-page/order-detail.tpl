@@ -128,17 +128,23 @@
 
   <!-- 取消订单按钮 -->
   <% if( orderDetail.operatetype === 1) {%>
-  <div class="order-detail-bar">
-    <p class="order-detail-info btn-cancel-order">取消订单</p>
+  <div class="apply-refund clearfix">
+    <button class="fr btn-cancel-order">取消订单</button>
   </div>
   <% } %>
-  <!-- 申请退货按钮 
+  <!-- 申请退货按钮 -->
   <% if(orderDetail.operatetype === 2) {%>
-  <div class="order-detail-bar">
-    <p class="order-detail-info btn-refund">退款申请</p>
+  <div class="apply-refund clearfix">
+    <button class="fr btn-refund">退款申请</button>
   </div>
   <% } %>
-  -->
+  <!-- 查看退款进度 -->
+  <% if(orderDetail.operatetype === 3) {%>
+  <div class="apply-refund clearfix">
+    <button class="fr btn-refund-result">查看进度</button>
+  </div>
+  <% } %>
+  
 
 
   <div id="copyright" class="copyright-block <%= orderDetail.needpay === 1 ? "goods-copyright-fix" : "" %> ">

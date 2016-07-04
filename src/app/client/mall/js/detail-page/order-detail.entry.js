@@ -35,7 +35,8 @@ const AppView = Backbone.View.extend({
     "click .js-crowd-page"    : "gotoCrowd",
     "click .js-address-box"   : "handleAddressInfo",
     "click .btn-cancel-order" : "cancelOrder",
-    "click .btn-refund"       : "toRefund"
+    "click .btn-refund"       : "toRefund",
+    "click .btn-refund-result": "toRefundResult"
   },
   initialize() {
     new BackTop();
@@ -54,6 +55,7 @@ const AppView = Backbone.View.extend({
     this.mallOrderDetail();
     pageAction.setClose();
     logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
+    this.bindResume();
   },
   copyText(e) {
     const $text = $(e.currentTarget).find(".js-copy-text");
@@ -297,6 +299,17 @@ const AppView = Backbone.View.extend({
   toRefund() {
     const url = `/fe/app/client/mall/html/detail-page/refund.html?orderid=${this.orderDetail.orderid}`;
     widget.createNewView({ url });
+  },
+
+  // 跳转至退款结果查看页面
+  toRefundResult() {
+    const url = `/fe/app/client/mall/html/detail-page/refund-result.html?orderid=${this.orderDetail.orderid}`;
+    widget.createNewView({ url });
+  },
+  bindResume() {
+    NativeAPI.registerHandler("resume", () => {
+      window.location.reload();
+    });
   }
 });
 
