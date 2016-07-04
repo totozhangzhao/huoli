@@ -11,8 +11,56 @@
   <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
 </head>
 <body>
-  <section id="refund-main">
-    <!-- // -->
+  <section id="refund-main" class="commit-refund-box" style="display:none;">
+    <div class="commit-refund-reason">
+      <p class="commit-refund-tit">退款原因</p>
+      <div class="commit-refund-choice clearfix">
+        <label for="reason0" class="commit-refund-lab">
+          <input id="reason0" type="radio" class="commit-refund-inp" name="reason" value="商品有瑕疵">
+          <span class="commit-refund-text">
+            <b class="commit-refund-icon"></b>
+            商品有瑕疵
+          </span>
+        </label>
+        <label for="reason1" class="commit-refund-lab">
+          <input id="reason1" type="radio" class="commit-refund-inp" name="reason" value="质量有问题">
+          <span class="commit-refund-text">
+            <b class="commit-refund-icon"></b>
+            质量有问题
+          </span>
+        </label>
+        <label for="reason2" class="commit-refund-lab">
+          <input id="reason2" type="radio" class="commit-refund-inp" name="reason" value="与描述不符">
+          <span class="commit-refund-text">
+            <b class="commit-refund-icon"></b>
+            与描述不符
+          </span>
+        </label>
+        <label for="reason3" class="commit-refund-lab">
+          <input id="reason3" type="radio" class="commit-refund-inp" name="reason" value="少发/漏发/错发">
+          <span class="commit-refund-text">
+            <b class="commit-refund-icon"></b>
+            少发/漏发/错发
+          </span>
+        </label>
+        <label for="reason4" class="commit-refund-lab">
+          <input id="reason4" type="radio" class="commit-refund-inp" name="reason" value="其他原因">
+          <span class="commit-refund-text">
+            <b class="commit-refund-icon"></b>
+            其他原因
+          </span>
+        </label>
+      </div>
+    </div>
+    <div class="commit-refund-desc">
+      <p class="commit-refund-tit">退款说明</p>
+      <div class="commit-refund-insert">
+        <textarea name="" id="refund-content" rows="3" placeholder="请在此说明详情问题" class="commit-refund-area" maxlength="500"></textarea>
+      </div>
+    </div>
+    <div class="commit-refund-button">
+      <button class="refund-submit">提交申请</button>
+    </div>
   </section>
 
 <script>
