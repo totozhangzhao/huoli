@@ -193,7 +193,7 @@ const AppView = BaseView.extend({
 
     // 部分 Android 机型上 deltaY 会得到一个非常小的值（deltaX 的值同样很小）
     // 试验得知多数时候小于 37（华为PE-UL00）
-    if (this.isAndroid && this._scrollToEndMotionNum > 1 && deltaY < 40) {
+    if (this.isAndroid && this._scrollToEndMotionNum > 1 && -deltaY < 40) {
       showDetail();
     } else {
       let minY = 128;
