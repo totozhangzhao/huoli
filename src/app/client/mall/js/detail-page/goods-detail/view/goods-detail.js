@@ -23,6 +23,7 @@ import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import AddressList from "app/client/mall/js/detail-page/goods-detail/collection/address-list.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
+import Util from "com/mobile/lib/util/util.js";
 
 const detailLog = widget.initTracker("detail");
 
@@ -62,6 +63,7 @@ const AppView = BaseView.extend({
       self.resetAppView = false;
       self.title = "";
       self.action = self.urlObj.action;
+      self.isAndroid = Util.getMobileSystem() === "Android";
       self.mallGoodsDetail();
     }
 
@@ -177,21 +179,24 @@ const AppView = BaseView.extend({
     this._scrollToEndMotionNum += 1;
     this._scrollToEndTimer = setTimeout(() => {
       this._scrollToEndMotionNum = 0;
-    }, 600);
+    }, 1000);
 
-    if (this._scrollToEndMotionNum > 1) {
+    let _e = e.originalEvent || e;
+    let touches = _e.changedTouches;
+
+    if (touches) {
+      _e = touches[touches.length - 1];
+    }
+
+    let deltaX = _e.pageX - this.startPoint.x;
+    let deltaY = _e.pageY - this.startPoint.y;
+
+    // 部分 Android 机型上 deltaY 会得到一个非常小的值（deltaX 的值同样很小）
+    // 试验得知多数时候小于 37（华为PE-UL00）
+    if (this.isAndroid && this._scrollToEndMotionNum > 1 && deltaY < 40) {
       showDetail();
     } else {
-      let _e = e.originalEvent || e;
-      let touches = _e.changedTouches;
-
-      if (touches) {
-        _e = touches[touches.length - 1];
-      }
-
-      let minY = 156;
-      let deltaX = _e.pageX - this.startPoint.x;
-      let deltaY = _e.pageY - this.startPoint.y;
+      let minY = 128;
 
       if ( -deltaY > minY && minY > Math.abs(deltaX) ) {
         showDetail();
