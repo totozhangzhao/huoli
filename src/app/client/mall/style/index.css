@@ -1885,6 +1885,9 @@ img.touch-img {
 .pay-order-detail-box .trade-status-confirm {
   background-position: 0 -0.85333rem;
 }
+.pay-order-detail-box .trade-status-refund-auditing {
+  background-position: 0 0;
+}
 .pay-order-detail-box .goods-detail p {
   width: 70%;
   overflow: hidden;

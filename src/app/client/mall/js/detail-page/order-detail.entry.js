@@ -1,27 +1,31 @@
 import $ from "jquery";
 import _ from "lodash";
 import Backbone from "backbone";
-import async from "async";
+// import async from "async";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
-import appInfo from "app/client/mall/js/lib/app-info.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
+
+// import appInfo from "app/client/mall/js/lib/app-info.js";
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
-import mallUitl from "app/client/mall/js/lib/util.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import logger from "com/mobile/lib/log/log.js";
-import storage from "app/client/mall/js/lib/storage.js";
+// import storage from "app/client/mall/js/lib/storage.js";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+const orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
 import ui from "app/client/mall/js/lib/ui.js";
 import FooterView from "app/client/mall/js/common/views/footer.js";
+
 import BackTop from "com/mobile/widget/button/to-top.js";
-import * as widget from "app/client/mall/js/lib/common.js";
+import Popover from "com/mobile/widget/popover/popover.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
-
-const orderLog   = widget.initTracker("order");
 
 const AppView = Backbone.View.extend({
   el: "#order-detail-container",
@@ -30,7 +34,8 @@ const AppView = Backbone.View.extend({
     "touchstart .js-copy"     : "copyText",
     "click .js-crowd-page"    : "gotoCrowd",
     "click .js-address-box"   : "handleAddressInfo",
-    "click .btn-cancel-order" : "cancelOrder"
+    "click .btn-cancel-order" : "cancelOrder",
+    "click .btn-refund"       : "toRefund"
   },
   initialize() {
     new BackTop();
@@ -108,55 +113,91 @@ const AppView = Backbone.View.extend({
   },
   mallOrderDetail() {
     const self = this;
-
-    async.waterfall([
-      next => {
-        appInfo.getUserData((err, userData) => {
-          if (err) {
-            toast(err.message, 1500);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      (userData, next) => {
+    mallPromise
+      .getAppInfo()
+      .then(userData => {
         const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           orderid: parseUrl().orderid
         });
-
-        sendPost("orderNewDetail", params, (err, data) => {
-          if (err) {
-            next(err);
-            return;
-          }
-
-          next(null, data);
+        return new Promise((resovle, reject) => {
+          sendPost("orderNewDetail", params, (err, data) => {
+            if (err) {
+              reject(err);
+            } else {
+              resovle(data);
+            }
+          });
         });
-      }
-    ], (err, result) => {
-      if (err) {
+
+      })
+      .then(result => {
+        self.orderDetail = result;
+        const compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
+        const tmplData = {
+          orderDetail: self.orderDetail
+        };
+
+        $("#order-detail-container").html( compiled(tmplData) );
+        self.renderBuyNumView(result);
+        new FooterView().render();
+        self.$initial.hide();
+        orderLog({
+          title: self.orderDetail.title,
+          from: parseUrl().from || "--"
+        });
+      }).catch( err => {
         toast(err.message, 1500);
-        return;
-      }
-
-      self.orderDetail = result;
-
-      const compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
-      const tmplData = {
-        orderDetail: self.orderDetail
-      };
-
-      $("#order-detail-container").html( compiled(tmplData) );
-      self.renderBuyNumView(result);
-      new FooterView().render();
-      self.$initial.hide();
-      orderLog({
-        title: self.orderDetail.title,
-        from: parseUrl().from || "--"
       });
-    });
+
+    // async.waterfall([
+    //   next => {
+    //     appInfo.getUserData((err, userData) => {
+    //       if (err) {
+    //         toast(err.message, 1500);
+    //         return;
+    //       }
+
+    //       next(null, userData);
+    //     });
+    //   },
+    //   (userData, next) => {
+    //     const params = _.extend({}, userData.userInfo, {
+    //       p: userData.deviceInfo.p,
+    //       orderid: parseUrl().orderid
+    //     });
+
+    //     sendPost("orderNewDetail", params, (err, data) => {
+    //       if (err) {
+    //         next(err);
+    //         return;
+    //       }
+
+    //       next(null, data);
+    //     });
+    //   }
+    // ], (err, result) => {
+    //   if (err) {
+    //     toast(err.message, 1500);
+    //     return;
+    //   }
+
+    //   self.orderDetail = result;
+
+    //   const compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
+    //   const tmplData = {
+    //     orderDetail: self.orderDetail
+    //   };
+
+    //   $("#order-detail-container").html( compiled(tmplData) );
+    //   self.renderBuyNumView(result);
+    //   new FooterView().render();
+    //   self.$initial.hide();
+    //   orderLog({
+    //     title: self.orderDetail.title,
+    //     from: parseUrl().from || "--"
+    //   });
+    // });
   },
 
   renderBuyNumView(order) {
@@ -179,96 +220,83 @@ const AppView = Backbone.View.extend({
     this.payOrder();
   },
   payOrder() {
-    const self = this;
-
-    if (this.isPaying) {
-      return;
-    }
-
-    hint.showLoading();
-
-    const orderDetail = this.orderDetail;
-
-    if (!orderDetail.needpay) {
-      toast("此订单不是需要支付的状态", 1500);
-      return;
-    }
-
-    this.isPaying = true;
-
-    async.waterfall([
-      next => {
-        let payUrl = `${window.location.origin}/bmall/payview.do?orderid=${orderDetail.orderid}`;
-
-        if ( mallUitl.isHangbanFunc() ) {
-          payUrl = `${window.location.origin}/bmall/hbpayview.do?orderid=${orderDetail.orderid}`;
-        }
-
-        // orderid: 订单ID
-        // createtime: 创建时间
-        // statusstr: 状态显示串
-        // productid: 产品id
-        // stattpl: 状态模板（数字型，1: 完成订单模板  2: 失败订单模板  3: 待支付模板）
-        // orderprice: 订单价格
-        // msgtpl: 信息区模板（数字型，0: 不显示 1: 电子码模板， 2: 第三方用户名（包括电话号码）模板，3: 地址模板）
-        // msg: 信息区内容
-        // img: 图片url
-        // title: 商品标题
-        // shotdesc: 商品短描述
-        // price: 商品价格
-        // note: 使用说明
-        // needpay: 是否需要支付，1: 需要，0: 不需要，2: 补全地址
-        // payprice: 支付价格
-        // payorderid: 支付订单ID
-        if (orderDetail.needpay) {
-
-          // quitpaymsg  String 退出时候的提示
-          // title       String 支付标题
-          // price       String 商品价格
-          // orderid     String 订单号
-          // productdesc String 商品描述
-          // url         String 显示订单基本信息的Wap页面
-          // subdesc     String 商品详情描述
-          const payParams = {
-            quitpaymsg: "您尚未完成支付，如现在退出，可稍后进入“全部订单->订单详情”完成支付。确认退出吗？",
-            title: "支付订单",
-            price: orderDetail.payprice,
-            orderid: orderDetail.payorderid,
-            productdesc: orderDetail.title,
-            url: payUrl,
-            subdesc: orderDetail.shotdesc
-          };
-
-          NativeAPI.invoke("startPay", payParams, (err, payData) => {
-            next(err, payData);
-          });
-        } else {
-          next(null, null);
-        }
-      },
-      (payData, next) => {
-        storage.get("mallInfo", data => {
-          data = data || {};
-          next(null, payData, data);
-        });
-      },
-      (payData, data, next) => {
-        data.status = data.status || {};
-        data.status.orderChanged = true;
-        storage.set("mallInfo", data, () => {
-          next(null, payData);
-        });
-      }
-    ], () => {
-      self.isPaying = false;
-      // hint.hideLoading();
+    function success() {
       window.location.reload();
-    });
+    }
+    const orderInfo = this.orderDetail;
+    if (orderInfo.needpay) {
+      orderInfo.token = cookie.get("token");
+      orderInfo.returnUrl = window.location.href;
+      return mallPromise
+        .initPay(orderInfo)
+        .then(success);
+    } else {
+      return success();
+    }
   },
 
-  cancelOrder(e) {
-    this.payView.remove();
-    window.console.log(e);
+  cancelOrder() {
+    let self = this;
+    if( !this.cancleConfirm ) {
+      this.cancleConfirm = new Popover({
+        type: "confirm",
+        title: "确定要取消订单吗？",
+        message: "",
+        agreeText: "确定",
+        cancelText: "取消",
+        agreeFunc() {
+          self.cancelOrderHanlder();
+        },
+        cancelFunc() {}
+      });
+    }
+    this.cancleConfirm.show();
+  },
+
+  cancelOrderHanlder() {
+    hint.showLoading();
+    mallPromise
+      .getAppInfo()
+      .then(userData => {
+        const params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p,
+          orderid: parseUrl().orderid
+        });
+        return new Promise( (resolve, reject) => {
+          sendPost("cancelOrder", params, (err, result) => {
+            hint.hideLoading();
+            if(err) {
+              reject(err);
+            }else {
+              resolve(result);
+            }
+          });
+        });
+      })
+      .then( result => {
+        if(result === "ok") {
+          let alertMsg = new Popover({
+            type: "alert",
+            title: "提示信息",
+            message: "订单已取消",
+            agreeText: "确定",
+            cancelText: "取消",
+            agreeFunc() {
+              window.location.reload();
+            },
+            cancelFunc() {}
+          });
+          alertMsg.show();
+        }
+      }).catch( err => {
+        toast(err.message, 3000);
+      });
+  },
+
+  // 跳转至退货申请页面
+  toRefund() {
+    const url = `/fe/app/client/mall/html/detail-page/refund.html?orderid=${this.orderDetail.orderid}`;
+    widget.createNewView({ url });
   }
 });
 

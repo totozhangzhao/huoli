@@ -67,9 +67,15 @@
     <!-- 地址 start -->
     <div class="order-exchange-bar order-address-bar">
       <div class="js-address-box order-exchange-code">
-        <div class="order-exchange-area">
-          <%= orderDetail.msg %>
-        </div>
+      <% if(orderDetail.needpay === 1) {%>
+        <a href="/fe/app/client/mall/html/detail-page/goods-detail.html?mold=order&orderid=<%= orderDetail.orderid %>#address-list">
+      <% } %>
+          <div class="order-exchange-area">
+            <%= orderDetail.msg %>
+          </div>
+      <% if(orderDetail.needpay === 1) {%>
+        </a>
+      <% } %>
         <b class="arc-border arc-border-left"></b>
         <b class="arc-border arc-border-right"></b>
         <b class="pic-border pic-border-top"></b>
@@ -95,9 +101,15 @@
       <!-- 地址 start -->
       <div class="order-exchange-bar order-address-bar">
         <div class="js-address-box order-exchange-code">
-          <div class="order-exchange-area">
-            <%= orderDetail.addresstpl %>
-          </div>
+          <% if(orderDetail.needpay === 1) {%>
+            <a href="/fe/app/client/mall/html/detail-page/goods-detail.html?mold=order&orderid=<%= orderDetail.orderid %>#address-list">
+          <% } %>
+            <div class="order-exchange-area">
+              <%= orderDetail.addresstpl %>
+            </div>
+          <% if(orderDetail.needpay === 1) {%>
+            </a>
+          <% } %>
           <b class="arc-border arc-border-left"></b>
           <b class="arc-border arc-border-right"></b>
           <b class="pic-border pic-border-top"></b>
@@ -115,11 +127,19 @@
   </div>
 
   <!-- 取消订单按钮 -->
-  <% if(orderDetail.needpay === 1) {%>
+  <% if( orderDetail.operatetype === 1) {%>
   <div class="order-detail-bar">
     <p class="order-detail-info btn-cancel-order">取消订单</p>
   </div>
   <% } %>
+  <!-- 申请退货按钮 
+  <% if(orderDetail.operatetype === 2) {%>
+  <div class="order-detail-bar">
+    <p class="order-detail-info btn-refund">退款申请</p>
+  </div>
+  <% } %>
+  -->
+
 
   <div id="copyright" class="copyright-block <%= orderDetail.needpay === 1 ? "goods-copyright-fix" : "" %> ">
     <!-- // -->
