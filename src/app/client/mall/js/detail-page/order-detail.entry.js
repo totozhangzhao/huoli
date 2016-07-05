@@ -14,6 +14,7 @@ import * as widget from "app/client/mall/js/lib/common.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import logger from "com/mobile/lib/log/log.js";
+import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 // import storage from "app/client/mall/js/lib/storage.js";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 const orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
@@ -140,7 +141,7 @@ const AppView = Backbone.View.extend({
         const compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
         const tmplData = {
           orderDetail: self.orderDetail,
-          isApp: mallUitl.isAppFunc()
+          isWechat: wechatUtil.isWechatFunc()
         };
 
         $("#order-detail-container").html( compiled(tmplData) );

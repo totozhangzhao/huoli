@@ -144,7 +144,7 @@
     <button class="fr btn-refund-result">查看进度</button>
   </div>
   <% } %>
-  <% if( orderDetail.subscribe === 0 && !isApp ) { %>
+  <% if( orderDetail.subscribe === 0 && isWechat ) { %>
   <!-- 下单成功弹窗（引导用户关注航班管家） -->
   <div class="common-shadow" style="display: block;">
     <div class="goods-success-qrcode">
