@@ -1,26 +1,22 @@
 import $ from "jquery";
 import _ from "lodash";
 import Backbone from "backbone";
-// import async from "async";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 
-// import appInfo from "app/client/mall/js/lib/app-info.js";
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import logger from "com/mobile/lib/log/log.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
-// import storage from "app/client/mall/js/lib/storage.js";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 const orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
 import ui from "app/client/mall/js/lib/ui.js";
 import FooterView from "app/client/mall/js/common/views/footer.js";
-
 import BackTop from "com/mobile/widget/button/to-top.js";
 import Popover from "com/mobile/widget/popover/popover.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
@@ -155,55 +151,6 @@ const AppView = Backbone.View.extend({
       }).catch( err => {
         toast(err.message, 1500);
       });
-
-    // async.waterfall([
-    //   next => {
-    //     appInfo.getUserData((err, userData) => {
-    //       if (err) {
-    //         toast(err.message, 1500);
-    //         return;
-    //       }
-
-    //       next(null, userData);
-    //     });
-    //   },
-    //   (userData, next) => {
-    //     const params = _.extend({}, userData.userInfo, {
-    //       p: userData.deviceInfo.p,
-    //       orderid: parseUrl().orderid
-    //     });
-
-    //     sendPost("orderNewDetail", params, (err, data) => {
-    //       if (err) {
-    //         next(err);
-    //         return;
-    //       }
-
-    //       next(null, data);
-    //     });
-    //   }
-    // ], (err, result) => {
-    //   if (err) {
-    //     toast(err.message, 1500);
-    //     return;
-    //   }
-
-    //   self.orderDetail = result;
-
-    //   const compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
-    //   const tmplData = {
-    //     orderDetail: self.orderDetail
-    //   };
-
-    //   $("#order-detail-container").html( compiled(tmplData) );
-    //   self.renderBuyNumView(result);
-    //   new FooterView().render();
-    //   self.$initial.hide();
-    //   orderLog({
-    //     title: self.orderDetail.title,
-    //     from: parseUrl().from || "--"
-    //   });
-    // });
   },
 
   renderBuyNumView(order) {
