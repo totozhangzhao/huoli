@@ -111,7 +111,6 @@ const AppView = BaseView.extend({
       const params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p
       });
-      window.console.log(params);
 
       sendPost("getUserInfo", params, (err, data) => {
         if(err){
