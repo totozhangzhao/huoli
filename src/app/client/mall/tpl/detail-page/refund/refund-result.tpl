@@ -32,7 +32,7 @@
   <!-- 审核中 -->
   <div class="refund-status-bar">
     <div class="refund-status-audit"></div>
-    <p class="refund-status-mark refund-status-yes">审核中</p>
+    <p class="refund-status-mark refund-status-ing">审核中</p>
   </div> 
   <div class="refund-status-content">
     <p class="refund-status-item"><span>退款原因：</span><span><%= data.reason %></span></p>
