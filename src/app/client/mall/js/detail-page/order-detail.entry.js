@@ -14,6 +14,7 @@ import * as widget from "app/client/mall/js/lib/common.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import logger from "com/mobile/lib/log/log.js";
+import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 // import storage from "app/client/mall/js/lib/storage.js";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 const orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
@@ -36,7 +37,9 @@ const AppView = Backbone.View.extend({
     "click .js-address-box"   : "handleAddressInfo",
     "click .btn-cancel-order" : "cancelOrder",
     "click .btn-refund"       : "toRefund",
-    "click .btn-refund-result": "toRefundResult"
+    "click .btn-refund-result": "toRefundResult",
+    "click .btn-toSubscribe"  : "toSubscribe",
+    "click .common-shadow"    : "hideSubscribe"
   },
   initialize() {
     new BackTop();
@@ -137,7 +140,8 @@ const AppView = Backbone.View.extend({
         self.orderDetail = result;
         const compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
         const tmplData = {
-          orderDetail: self.orderDetail
+          orderDetail: self.orderDetail,
+          isWechat: wechatUtil.isWechatFunc()
         };
 
         $("#order-detail-container").html( compiled(tmplData) );
@@ -310,6 +314,16 @@ const AppView = Backbone.View.extend({
     NativeAPI.registerHandler("resume", () => {
       window.location.reload();
     });
+  },
+
+  // 跳转至关注公众号扫码页面
+  toSubscribe() {
+    const url = "/fe/app/client/mall/html/wechat/qrcode.html";
+    widget.createNewView({ url });
+  },
+
+  hideSubscribe(e) {
+    $(e.currentTarget).hide();
   }
 });
 
