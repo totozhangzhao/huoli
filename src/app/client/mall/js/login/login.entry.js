@@ -20,6 +20,7 @@ const AppView = Backbone.View.extend({
     "input .js-input"         : "inputInput",
     "blur  .js-input"         : "blurInput",
     "click .js-captcha-button": "sendCaptcha",
+    "keypress .js-captcha"    : "pressEnter",
     "click .js-login"         : "login"
   },
   initialize(commonData) {
@@ -30,6 +31,14 @@ const AppView = Backbone.View.extend({
     if ( loginUtil.shouldGetWeChatKey() ) {
       window.location.href = loginUtil.getWechatAuthUrl();
       return;
+    }
+    if (this.urlObj.wechatKey) {
+      loginUtil
+        .getTokenByWeChatKey(this.urlObj.wechatKey)
+        .catch(err => {
+          err.silent = true;
+          mallPromise.catchFn(err);
+        });
     }
     this.render();
   },
@@ -118,6 +127,11 @@ const AppView = Backbone.View.extend({
         unlock();
         mallPromise.catchFn(err);
       });
+  },
+  pressEnter(e) {
+    if (e.which === 13) {
+      this.login();
+    }
   },
   login() {
     this.$el.find(".js-input").trigger("blur");
