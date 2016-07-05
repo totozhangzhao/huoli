@@ -139,7 +139,7 @@
   </div>
   <% } %>
   <!-- 查看退款进度 -->
-  <% if(orderDetail.operatetype === 30000) {%>
+  <% if(orderDetail.operatetype === 3) {%>
   <div class="apply-refund clearfix">
     <button class="fr btn-refund-result">查看进度</button>
   </div>
