@@ -301,13 +301,13 @@ const AppView = Backbone.View.extend({
   // 跳转至退货申请页面
   toRefund() {
     const url = `/fe/app/client/mall/html/detail-page/refund.html?orderid=${this.orderDetail.orderid}`;
-    widget.createNewView({ _webPageRedirect: true, url });
+    widget.createNewView({ url });
   },
 
   // 跳转至退款结果查看页面
   toRefundResult() {
     const url = `/fe/app/client/mall/html/detail-page/refund-result.html?orderid=${this.orderDetail.orderid}`;
-    widget.createNewView({ _webPageRedirect: true, url });
+    widget.createNewView({ url });
   },
   bindResume() {
     NativeAPI.registerHandler("resume", () => {
@@ -318,7 +318,7 @@ const AppView = Backbone.View.extend({
   // 跳转至关注公众号扫码页面
   toSubscribe() {
     const url = "/fe/app/client/mall/html/wechat/qrcode.html";
-    widget.createNewView({ _webPageRedirect: true, url });
+    widget.createNewView({ url });
   },
 
   hideSubscribe(e) {

@@ -1,1 +1,1 @@
-import * as widget from "app/client/mall/js/lib/common.js";
+import  "app/client/mall/js/lib/common.js";
