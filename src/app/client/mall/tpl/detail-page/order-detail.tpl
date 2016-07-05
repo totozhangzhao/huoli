@@ -144,8 +144,22 @@
     <button class="fr btn-refund-result">查看进度</button>
   </div>
   <% } %>
-  
-
+  <% if( orderDetail.subscribe === 0 && !isApp ) { %>
+  <!-- 下单成功弹窗（引导用户关注航班管家） -->
+  <div class="common-shadow" style="display: block;">
+    <div class="goods-success-qrcode">
+      <div class="goods-qrcode-top">
+        <span class="goods-qrcode-icon"></span><span>下单成功</span>
+      </div>
+      <div class="goods-qrcode-middle">
+        需关注“航班管家”公众号，进入航班商城，关注订单状态
+      </div>
+      <div class="goods-qrcode-bottom">
+        <button class="btn-toSubscribe">关注航班管家</button>
+      </div>
+    </div>
+  </div>
+  <% } %>
 
   <div id="copyright" class="copyright-block <%= orderDetail.needpay === 1 ? "goods-copyright-fix" : "" %> ">
     <!-- // -->

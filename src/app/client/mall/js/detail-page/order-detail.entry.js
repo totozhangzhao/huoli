@@ -36,7 +36,9 @@ const AppView = Backbone.View.extend({
     "click .js-address-box"   : "handleAddressInfo",
     "click .btn-cancel-order" : "cancelOrder",
     "click .btn-refund"       : "toRefund",
-    "click .btn-refund-result": "toRefundResult"
+    "click .btn-refund-result": "toRefundResult",
+    "click .btn-toSubscribe"  : "toSubscribe",
+    "click .common-shadow"    : "hideSubscribe"
   },
   initialize() {
     new BackTop();
@@ -137,7 +139,8 @@ const AppView = Backbone.View.extend({
         self.orderDetail = result;
         const compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
         const tmplData = {
-          orderDetail: self.orderDetail
+          orderDetail: self.orderDetail,
+          isApp: mallUitl.isAppFunc()
         };
 
         $("#order-detail-container").html( compiled(tmplData) );
@@ -298,18 +301,28 @@ const AppView = Backbone.View.extend({
   // 跳转至退货申请页面
   toRefund() {
     const url = `/fe/app/client/mall/html/detail-page/refund.html?orderid=${this.orderDetail.orderid}`;
-    widget.createNewView({ url });
+    widget.createNewView({ _webPageRedirect: true, url });
   },
 
   // 跳转至退款结果查看页面
   toRefundResult() {
     const url = `/fe/app/client/mall/html/detail-page/refund-result.html?orderid=${this.orderDetail.orderid}`;
-    widget.createNewView({ url });
+    widget.createNewView({ _webPageRedirect: true, url });
   },
   bindResume() {
     NativeAPI.registerHandler("resume", () => {
       window.location.reload();
     });
+  },
+
+  // 跳转至关注公众号扫码页面
+  toSubscribe() {
+    const url = "/fe/app/client/mall/html/wechat/qrcode.html";
+    widget.createNewView({ _webPageRedirect: true, url });
+  },
+
+  hideSubscribe(e) {
+    $(e.currentTarget).hide();
   }
 });
 
