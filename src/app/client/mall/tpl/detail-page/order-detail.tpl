@@ -133,7 +133,7 @@
   </div>
   <% } %>
   <!-- 申请退货按钮 -->
-  <% if(orderDetail.operatetype === 2) {%>
+  <% if(orderDetail.operatetype === 20000) {%>
   <div class="apply-refund clearfix">
     <button class="fr btn-refund">退款申请</button>
   </div>
