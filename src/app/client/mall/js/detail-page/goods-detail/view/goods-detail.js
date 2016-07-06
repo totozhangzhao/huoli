@@ -23,6 +23,7 @@ import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import AddressList from "app/client/mall/js/detail-page/goods-detail/collection/address-list.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
+import Util from "com/mobile/lib/util/util.js";
 
 const detailLog = widget.initTracker("detail");
 
@@ -62,6 +63,7 @@ const AppView = BaseView.extend({
       self.resetAppView = false;
       self.title = "";
       self.action = self.urlObj.action;
+      self.isAndroid = Util.getMobileSystem() === "Android";
       self.mallGoodsDetail();
     }
 
@@ -156,9 +158,28 @@ const AppView = BaseView.extend({
     };
   },
   scrollShowDetailMove(e) {
+    let self = this;
+
     if (window.scrollY + document.documentElement.clientHeight < document.documentElement.scrollHeight - 2) {
       return;
     }
+
+    function showDetail() {
+      if (self.$detail.length > 0) {
+        self.$detail.trigger("click");
+      }
+    }
+
+    this._scrollToEndMotionNum = this._scrollToEndMotionNum || 0;
+
+    if (this._scrollToEndTimer) {
+      clearTimeout(this._scrollToEndTimer);
+    }
+
+    this._scrollToEndMotionNum += 1;
+    this._scrollToEndTimer = setTimeout(() => {
+      this._scrollToEndMotionNum = 0;
+    }, 1000);
 
     let _e = e.originalEvent || e;
     let touches = _e.changedTouches;
@@ -167,15 +188,18 @@ const AppView = BaseView.extend({
       _e = touches[touches.length - 1];
     }
 
-    let minY = 156;
     let deltaX = _e.pageX - this.startPoint.x;
     let deltaY = _e.pageY - this.startPoint.y;
 
-    if ( -deltaY > minY && minY > Math.abs(deltaX) ) {
-      let $detail = this.$el.find(".js-detail-bar");
+    // 部分 Android 机型上 deltaY 会得到一个非常小的值（deltaX 的值同样很小）
+    // 试验得知多数时候小于 37（华为PE-UL00）
+    if (this.isAndroid && this._scrollToEndMotionNum > 1 && -deltaY < 40) {
+      showDetail();
+    } else {
+      let minY = 128;
 
-      if ($detail.length > 0) {
-        $detail.trigger("click");
+      if ( -deltaY > minY && minY > Math.abs(deltaX) ) {
+        showDetail();
       }
     }
   },
@@ -237,6 +261,7 @@ const AppView = BaseView.extend({
 
     goods.tplUtil = tplUtil;
     this.$el.html(mainTmpl(goods));
+    this.$detail = this.$el.find(".js-detail-bar");
 
     // View: copyright
     new FooterView().render();

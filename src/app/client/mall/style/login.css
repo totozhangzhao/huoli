@@ -714,17 +714,17 @@ p {
   z-index: 10;
 }
 .home-fixed-box a.to-home {
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0701.png') 0 -5.33333rem no-repeat;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0704.png') 0 -5.33333rem no-repeat;
   background-size: 10.66667rem 10.66667rem;
   margin-bottom: 0.26667rem;
 }
 .home-fixed-box a.to-top {
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0701.png') 0 -6.61333rem no-repeat;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0704.png') 0 -6.61333rem no-repeat;
   background-size: 10.66667rem 10.66667rem;
   margin-bottom: 0.26667rem;
 }
 .home-fixed-box a.to-contact {
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0701.png') 0 -7.89333rem no-repeat;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0704.png') 0 -7.89333rem no-repeat;
   background-size: 10.66667rem 10.66667rem;
 }
 .home-fixed-box a {
@@ -753,7 +753,7 @@ p {
   width: 1.44rem;
   height: 1.49333rem;
   margin: 0 auto;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0701.png') no-repeat 0 -3.73333rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0704.png') no-repeat 0 -3.73333rem;
   background-size: 10.66667rem 10.66667rem;
 }
 .wechat-login-box .wechat-login-area {
