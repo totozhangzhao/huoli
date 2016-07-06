@@ -29,10 +29,21 @@
   <p class="refund-status-text"><%= data.content %></p>
 </div>
 <% }else { %>
+<% 
+  var statusMsg = "退款审核中";
+  if(data.status === 11) {
+  }else if(data.status === 12) {
+    statusMsg = "退款审核失败";
+  }else if(data.status === 13) {
+    statusMsg = "(审核通过）待退款";
+  }else if(data.status === 5) {
+    statusMsg = "退款中";
+  }
+%>
   <!-- 审核中 -->
   <div class="refund-status-bar">
     <div class="refund-status-audit"></div>
-    <p class="refund-status-mark refund-status-yes">审核中</p>
+    <p class="refund-status-mark refund-status-ing"><%= statusMsg %></p>
   </div> 
   <div class="refund-status-content">
     <p class="refund-status-item"><span>退款原因：</span><span><%= data.reason %></span></p>
