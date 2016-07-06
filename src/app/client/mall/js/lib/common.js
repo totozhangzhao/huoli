@@ -20,45 +20,6 @@ export function initRem() {
 
 initRem();
 
-export function createAView(e) {
-  const $cur = $(e.currentTarget);
-  let url = $cur.prop("href");
-  const isEmpty = str => str === "" || str === null || str === undefined;
-
-  if ( isEmpty(url) ) {
-    url = $cur.data("href");
-
-    if ( isEmpty(url) ) {
-      return true;
-    }
-  }
-
-  // <a href="tel:+6494461709">61709</a>
-  if ( url.indexOf(":") !== -1 && !/http/.test(url) ) {
-    return true;
-  }
-
-  e.preventDefault();
-
-  const separateHash = url.split("#");
-  let hash = "";
-
-  if ( separateHash.length > 1 ) {
-    url = separateHash[0];
-    hash = `#${separateHash[1]}`;
-  }
-
-  if ( $cur.data() && /\/fe\//.test(url) ) {
-    url = url.indexOf("?") >= 0 ? `${url}&` : `${url}?`;
-    url = url + $.param( $cur.data() );
-  }
-
-  exports.createNewView({
-    url: url + hash,
-    title: $cur.data("title")
-  });
-}
-
 export let createNewView = _.debounce(options => {
   let url = options.url;
 
@@ -103,6 +64,45 @@ export let createNewView = _.debounce(options => {
     });
   }
 }, 1000, true);
+
+export function createAView(e) {
+  const $cur = $(e.currentTarget);
+  let url = $cur.prop("href");
+  const isEmpty = str => str === "" || str === null || str === undefined;
+
+  if ( isEmpty(url) ) {
+    url = $cur.data("href");
+
+    if ( isEmpty(url) ) {
+      return true;
+    }
+  }
+
+  // <a href="tel:+6494461709">61709</a>
+  if ( url.indexOf(":") !== -1 && !/http/.test(url) ) {
+    return true;
+  }
+
+  e.preventDefault();
+
+  const separateHash = url.split("#");
+  let hash = "";
+
+  if ( separateHash.length > 1 ) {
+    url = separateHash[0];
+    hash = `#${separateHash[1]}`;
+  }
+
+  if ( $cur.data() && /\/fe\//.test(url) ) {
+    url = url.indexOf("?") >= 0 ? `${url}&` : `${url}?`;
+    url = url + $.param( $cur.data() );
+  }
+
+  createNewView({
+    url: url + hash,
+    title: $cur.data("title")
+  });
+}
 
 export function redirectPage(url) {
   let options = {

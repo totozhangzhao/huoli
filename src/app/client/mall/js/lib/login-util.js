@@ -72,7 +72,7 @@ export function loginRequset(opts) {
       wechatKey: options.wechatKey
     };
 
-    sendPost("weixinLogin", params, (err, data) => {
+    sendPost("webLogin", params, (err, data) => {
       if (err) {
         reject(err);
       } else {
@@ -89,7 +89,8 @@ export function loginRequset(opts) {
 
 export function login() {
   function webLogin() {
-    return widget.redirectPage("/fe/app/client/mall/html/login/login.html");
+    let url = `/fe/app/client/mall/html/login/login.html?ru=${encodeURIComponent(window.location.href)}`;
+    return widget.redirectPage(url);
   }
 
   function appLogin() {
