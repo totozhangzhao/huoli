@@ -1,11 +1,9 @@
 var $           = require("jquery");
 var Backbone    = require("backbone");
 var _           = require("lodash");
-var async       = require("async");
 var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var toast       = require("com/mobile/widget/hint/hint.js").toast;
 var parseUrl    = require("com/mobile/lib/url/url.js").parseUrlSearch;
-var appInfo     = require("app/client/mall/js/lib/app-info.js").default;
 var widget      = require("app/client/mall/js/lib/common.js");
 var loadScript  = require("com/mobile/lib/load-script/load-script.js");
 var shareUtil   = require("com/mobile/widget/wechat/util.js");
@@ -16,7 +14,8 @@ var logger      = require("com/mobile/lib/log/log.js");
 var mallUitl    = require("app/client/mall/js/lib/util.js");
 var ui          = require("app/client/mall/js/lib/ui.js");
 var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
-var loginUtil   = require("app/client/mall/js/lib/login-util.js");
+
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 
 var AppView = Backbone.View.extend({
@@ -103,76 +102,52 @@ var AppView = Backbone.View.extend({
       return;
     }
 
-    async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
-          if (err) {
-            toast(err.message, 1500);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      function(userData, next) {
+    mallPromise
+      .checkLogin()
+      .then(userData => {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: parseUrl().productid || $("#lottery-main").data("productid")
         });
-
-        sendPost("createOrder", params, function(err, lotteryData) {
-          next(err, lotteryData);
+        return new Promise((resolve, reject) => {
+          sendPost("createOrder", params, function(err, lotteryData) {
+            if(err) {
+              resetCard();
+              reject(err);
+            }else{
+              resolve(lotteryData);
+            }
+          });
         });
-      }
-    ], function(err, lotteryData) {
-      if (err) {
-        resetCard();
-        toast(err.message, 1500);
-        return;
-      }
+      })
+      .then((lotteryData) => {
+        self.lotteryInfo = lotteryData;
+        canvas.style.backgroundImage = "url(" + lotteryData.result.image + ")";
+      })
+      .catch(mallPromise.catchFn);
 
-      self.lotteryInfo = lotteryData;
-      canvas.style.backgroundImage = "url(" + lotteryData.result.image + ")";
-    });
   },
   mallGetUserInfo: function(callback) {
-    async.waterfall([
-      function(next) {
-        appInfo.getUserData(function(err, userData) {
-          if (err) {
-            next(err);
-            return;
-          }
-
-          next(null, userData);
+    mallPromise
+      .checkLogin()
+      .then(userData => {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p
         });
-      },
-      function(userData, next) {
-        if (userData.userInfo && userData.userInfo.userid) {
-          var params = _.extend({}, userData.userInfo, {
-            p: userData.deviceInfo.p
-          });
-
+        return new Promise((resolve, reject) => {
           sendPost("getUserInfo", params, function(err, data) {
             if (err) {
-              next(err);
-              return;
+              reject(err);
+            }else{
+              resolve(data);
             }
-
-            next(null, data);
           });
-        } else {
-          loginUtil.login();
-        }
-      }
-    ], function(err, result) {
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-
-      callback(result);
-    });
+        });
+      })
+      .then( data => {
+        callback(data);
+      })
+      .catch(mallPromise.catchFn);
   },
   initPointsView: function() {
     var self = this;
@@ -252,7 +227,6 @@ var AppView = Backbone.View.extend({
             resetCard();
             $alert.off("click");
           };
-
           $alert
             .html(tmpl({
               alertImage: lotteryInfo.result.alertimage,
@@ -272,7 +246,6 @@ var AppView = Backbone.View.extend({
               $alert.off("click");
             });
         };
-
         if (bonus !== 0) {
           winning();
         }
