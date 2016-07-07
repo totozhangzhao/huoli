@@ -66,13 +66,7 @@ export function getTokenByWeChatKey(wechatKey) {
 export function loginRequset(opts) {
   let options = opts || {};
   return new Promise((resovle, reject) => {
-    let params = {
-      phone: options.phone,
-      code: options.captcha,
-      wechatKey: options.wechatKey
-    };
-
-    sendPost("webLogin", params, (err, data) => {
+    sendPost("webLogin", options, (err, data) => {
       if (err) {
         reject(err);
       } else {

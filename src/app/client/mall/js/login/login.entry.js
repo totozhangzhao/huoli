@@ -172,8 +172,8 @@ const AppView = Backbone.View.extend({
     }
 
     loginUtil.loginRequset({
-      phone: this.$el.$phoneInput.val(),
-      captcha: this.$el.$captchaInput.val(),
+      phone  : this.$el.$phoneInput.val(),
+      code   : this.$el.$captchaInput.val(),
       tempkey: this.tempkey
     })
       .then(data => {
