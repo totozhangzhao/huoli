@@ -40,6 +40,8 @@ const AppView = Backbone.View.extend({
       this.render();
     }
   },
+  resume() {
+  },
   wechatLogin() {
     if ( loginUtil.shouldGetWeChatKey() ) {
       return window.location.href = loginUtil.getWechatAuthUrl();
@@ -64,8 +66,6 @@ const AppView = Backbone.View.extend({
       window.console.log("ES: 未获取到 wechatKey");
       this.render();
     }
-  },
-  resume() {
   },
   render() {
     this.$el.html(tmpl({}));
