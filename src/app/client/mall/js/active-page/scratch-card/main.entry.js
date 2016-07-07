@@ -112,6 +112,7 @@ var AppView = Backbone.View.extend({
         return new Promise((resolve, reject) => {
           sendPost("createOrder", params, function(err, lotteryData) {
             if(err) {
+              resetCard();
               reject(err);
             }else{
               resolve(lotteryData);
