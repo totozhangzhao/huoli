@@ -53,13 +53,12 @@ const AppView = Backbone.View.extend({
             widget.replacePage(this.urlObj.ru || "/fe/app/client/mall/index.html");
           } else {
             this.tempkey = data.tempkey;
+            this.render();
           }
         })
         .catch(err => {
           err.silent = true;
           mallPromise.catchFn(err);
-        })
-        .then(() => {
           this.render();
         });
     } else {
