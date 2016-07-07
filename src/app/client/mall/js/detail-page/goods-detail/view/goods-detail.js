@@ -38,33 +38,27 @@ const AppView = BaseView.extend({
     "click .js-detail-bar": "showDetailInfo"
   },
   initialize(commonData) {
-    let self = this;
     _.extend(this, commonData);
 
     this.$initial = ui.initial();
     this.urlObj = UrlUtil.parseUrlSearch();
 
-    function _initGoodsDetail() {
-      self.cache.urlObj = self.urlObj;
-      self.buyNumModel = new BuyNumModel();
-      self.model.buyNumModel = self.buyNumModel;
+    this.cache.urlObj = this.urlObj;
+    this.buyNumModel = new BuyNumModel();
+    this.model.buyNumModel = this.buyNumModel;
 
-      self.payView = new BuyPanelView({
-        model: self.buyNumModel,
-        buy: () => {self.buy();},
-        pay: () => {self.pay();}
-      });
+    this.payView = new BuyPanelView({
+      model: this.buyNumModel,
+      buy: () => {this.buy();},
+      pay: () => {this.pay();}
+    });
 
-      self.model.payView = self.payView;
-
-      self.resetAppView = false;
-      self.title = "";
-      self.action = self.urlObj.action;
-      self.isAndroid = Util.getMobileSystem() === "Android";
-      self.mallGoodsDetail();
-    }
-
-    _initGoodsDetail();
+    this.model.payView = this.payView;
+    this.resetAppView = false;
+    this.title = "";
+    this.action = this.urlObj.action;
+    this.isAndroid = Util.getMobileSystem() === "Android";
+    this.mallGoodsDetail();
   },
   resume() {
     this.$initial.show();
