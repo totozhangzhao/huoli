@@ -4,13 +4,15 @@ import Backbone    from "backbone";
 import {sendPost}  from "app/client/mall/js/lib/mall-request.js";
 import UrlUtil     from "com/mobile/lib/url/url.js";
 import validator   from "app/client/mall/js/lib/validator.js";
-import * as mallUitl    from "app/client/mall/js/lib/util.js";
 import logger      from "com/mobile/lib/log/log.js";
 import tmpl        from "app/client/mall/tpl/login/login.tpl";
-import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
-import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
+import ui from "app/client/mall/js/lib/ui.js";
+import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
+import * as mallUitl    from "app/client/mall/js/lib/util.js";
+import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 
 const AppView = Backbone.View.extend({
@@ -27,28 +29,50 @@ const AppView = Backbone.View.extend({
     new BackTop();
     _.extend(this, commonData);
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+
     this.urlObj = UrlUtil.parseUrlSearch();
-    if ( loginUtil.shouldGetWeChatKey() ) {
-      window.location.href = loginUtil.getWechatAuthUrl();
-      return;
+    this.$initial = ui.initial("登录中……");
+
+    if ( wechatUtil.isWechatFunc() ) {
+      this.$initial.show();
+      this.wechatLogin();
+    } else {
+      this.render();
     }
-    if (this.urlObj.wechatKey) {
+  },
+  resume() {
+  },
+  wechatLogin() {
+    if ( loginUtil.shouldGetWeChatKey() ) {
+      return window.location.href = loginUtil.getWechatAuthUrl();
+    } else if (this.urlObj.wechatKey) {
       loginUtil
         .getTokenByWeChatKey(this.urlObj.wechatKey)
+        .then(data => {
+          if (data.token) {
+            widget.replacePage(this.urlObj.ru || "/fe/app/client/mall/index.html");
+          } else {
+            this.tempkey = data.tempkey;
+          }
+        })
         .catch(err => {
           err.silent = true;
           mallPromise.catchFn(err);
+        })
+        .then(() => {
+          this.render();
         });
+    } else {
+      window.console.log("ES: 未获取到 wechatKey");
+      this.render();
     }
-    this.render();
-  },
-  resume() {
   },
   render() {
     this.$el.html(tmpl({}));
     this.$el.$phoneInput    = $("#login-main .js-phone-num");
     this.$el.$captchaInput  = $("#login-main .js-captcha");
     this.$el.$captchaButton = $("#login-main .js-captcha-button");
+    this.$initial.hide();
   },
   inputPhoneNum() {
     let phoneNum = this.$el.$phoneInput.val();
@@ -148,15 +172,15 @@ const AppView = Backbone.View.extend({
     }
 
     loginUtil.loginRequset({
-      phone: this.$el.$phoneInput.val(),
-      captcha: this.$el.$captchaInput.val(),
-      wechatKey: this.urlObj.wechatKey
+      phone  : this.$el.$phoneInput.val(),
+      code   : this.$el.$captchaInput.val(),
+      tempkey: this.tempkey
     })
       .then(data => {
         if (!data) {
           return;
         }
-        widget.replacePage("/fe/app/client/mall/index.html");
+        widget.replacePage(this.urlObj.ru || "/fe/app/client/mall/index.html");
       })
       .catch(mallPromise.catchFn)
       .then(() => {

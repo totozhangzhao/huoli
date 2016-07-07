@@ -5,21 +5,8 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
-import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
-
-export function getAppInfo(reset) {
-  return new Promise((resolve, reject) => {
-    appInfo.getUserData((err, userData) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(userData);
-      }
-    }, { reset: reset || false });
-  });
-}
 
 export function catchShowError(err) {
   if (err.message && !err.silent) {
@@ -47,13 +34,51 @@ export function catchFn(err) {
       domain: location.hostname,
       path: "/"
     });
-    if ( wechatUtil.isWechatFunc() ) {
-      return window.location.href = loginUtil.getWechatAuthUrl();
-    } else {
-      loginUtil.login();
-    }
+    loginUtil.login();
+  } else {
+    catchShowError(err);
   }
-  catchShowError(err);
+}
+
+export function getAppInfo(reset) {
+  return new Promise((resolve, reject) => {
+    appInfo.getUserData((err, userData) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(userData);
+      }
+    }, { reset: reset || false });
+  });
+}
+
+export function checkLogin() {
+  function LoginError(message) {
+    this.message = message || "ES: LoginError";
+    this.name = "LoginError";
+  }
+
+  LoginError.prototype = new Error();
+  LoginError.prototype.constructor = LoginError;
+
+  return new Promise((resolve) => {
+    if ( mallUitl.isAppFunc() ) {
+      resolve(getAppInfo());
+    } else {
+      let token = cookie.get("token");
+      resolve({ token });
+    }
+  })
+    .then(data => {
+      if (data.token || data.userInfo && data.userInfo.authcode) {
+        return data;
+      } else {
+        loginUtil.login();
+        let err = new LoginError("ES: 没有登录");
+        err.silent = true;
+        throw err;
+      }
+    });
 }
 
 export function order(orderParams) {

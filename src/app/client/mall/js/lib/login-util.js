@@ -66,13 +66,7 @@ export function getTokenByWeChatKey(wechatKey) {
 export function loginRequset(opts) {
   let options = opts || {};
   return new Promise((resovle, reject) => {
-    let params = {
-      phone: options.phone,
-      code: options.captcha,
-      wechatKey: options.wechatKey
-    };
-
-    sendPost("weixinLogin", params, (err, data) => {
+    sendPost("webLogin", options, (err, data) => {
       if (err) {
         reject(err);
       } else {
@@ -89,7 +83,8 @@ export function loginRequset(opts) {
 
 export function login() {
   function webLogin() {
-    return widget.redirectPage("/fe/app/client/mall/html/login/login.html");
+    let url = `/fe/app/client/mall/html/login/login.html?ru=${encodeURIComponent(window.location.href)}`;
+    return widget.redirectPage(url);
   }
 
   function appLogin() {
