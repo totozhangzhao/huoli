@@ -4,8 +4,6 @@ import hint from "com/mobile/widget/hint/hint.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
-import cookie from "com/mobile/lib/cookie/cookie.js";
-
 import addressListTpl from "app/client/mall/tpl/detail-page/address-confirm.tpl";
 import addressPriceTpl from "app/client/mall/tpl/detail-page/address-price.tpl";
 
@@ -127,7 +125,6 @@ const AppView = Backbone.View.extend({
     }
 
     if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
-      orderInfo.token = cookie.get("token");
       orderInfo.returnUrl = orderDetailUrl;
       return mallPromise
         .initPay(orderInfo)

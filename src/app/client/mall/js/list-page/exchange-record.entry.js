@@ -8,9 +8,7 @@ import storage from "app/client/mall/js/lib/storage.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
-import cookie from "com/mobile/lib/cookie/cookie.js";
 import logger from "com/mobile/lib/log/log.js";
-import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 
@@ -34,7 +32,6 @@ const AppView = Backbone.View.extend({
     //     self.refreshPage();
     //   });
 
-    this.token = cookie.get("token");
     this.$blank = ui.blank("暂无订单");
     this.mallOrderList();
     this.mallSearchList();
@@ -245,41 +242,36 @@ const AppView = Backbone.View.extend({
 
     // 全部订单页面也作为一个入口，所以 { reset: true }
     mallPromise
-      .getAppInfo(true)
+      .checkLogin({ reset: true })
       .then(userData => {
-        if (userData.userInfo.userid || this.token) {
 
-          // style:
-          //
-          // String 类型
-          //
-          // 1 商城
-          // 2 一元夺宝
-          // 3 保险
-          // 4 优惠券
-          const style = UrlUtil.parseUrlSearch().style || "1";
+        // style:
+        //
+        // String 类型
+        //
+        // 1 商城
+        // 2 一元夺宝
+        // 3 保险
+        // 4 优惠券
+        const style = UrlUtil.parseUrlSearch().style || "1";
 
-          const params = _.extend({}, userData.userInfo, {
-            p    : userData.deviceInfo.p,
-            last : options.lastOrderId || "",
-            type : options.listType,
-            key  : options.keywords,
-            style
+        const params = _.extend({}, userData.userInfo, {
+          p    : userData.deviceInfo.p,
+          last : options.lastOrderId || "",
+          type : options.listType,
+          key  : options.keywords,
+          style
+        });
+
+        return new Promise((resolve, reject) => {
+          sendPost("orderList", params, (err, data) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(data);
+            }
           });
-
-          return new Promise((resolve, reject) => {
-            sendPost("orderList", params, (err, data) => {
-              if (err) {
-                reject(err);
-              } else {
-                resolve(data);
-              }
-            });
-          });
-        } else {
-          this.$initial.hide();
-          loginUtil.login();
-        }
+        });
       })
       .then(result => {
         this.loadingMore = false;

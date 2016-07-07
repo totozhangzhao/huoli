@@ -5,17 +5,13 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
-// import * as mallUitl from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-// import NativeAPI from "app/client/common/lib/native/native-api.js";
 import Tab from "com/mobile/widget/button/tab.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {initTracker} from "app/client/mall/js/lib/common.js";
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
-import cookie from "com/mobile/lib/cookie/cookie.js";
-import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 
 const detailLog = initTracker("detail");
@@ -32,7 +28,6 @@ const AppView = Backbone.View.extend({
     new BackTop();
     _.extend(this, commonData);
     this.$initial    = ui.initial().show();
-    this.token = cookie.get("token");
     this.buyNumModel = new BuyNumModel();
     this.payView     = new BuyPanelView({
       model: this.buyNumModel,
@@ -95,17 +90,12 @@ const AppView = Backbone.View.extend({
         })
         .catch(mallPromise.catchFn);
     };
-    const start = userData => {
-      if (userData.userInfo && userData.userInfo.userid || this.token) {
-        return render(userData);
-      } else {
-        return loginUtil.login();
-      }
-    };
 
     mallPromise
-      .getAppInfo()
-      .then(userData => start(userData))
+      .checkLogin()
+      .then(userData => {
+        render(userData);
+      })
       .catch(mallPromise.catchFn);
   },
   getMaxLimitNum(total) {
@@ -256,9 +246,7 @@ const AppView = Backbone.View.extend({
       window.location.reload();
     }
 
-    if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
-      orderInfo.token = this.token;
-      orderInfo.returnUrl = orderDetailUrl;
+    if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {      orderInfo.returnUrl = orderDetailUrl;
       return mallPromise
         .initPay(orderInfo)
         .then(success)
