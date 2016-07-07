@@ -9,7 +9,13 @@
     <p class="prize-desc"><%= hint %></p>
   </div>
   <!-- 弹窗显示获奖商品文字 结束 -->
-  <a class="js-go go-award"><%= buttonText || "确定" %></a>
-  <a class="js-again go-back">再玩一次</a>
+  <a class="js-go go-award">
+    <img src="http://cdn.rsscc.cn/guanggao/img/scratch/gt-10000231-btnbg.png" alt="">
+    <span><%= buttonText || "确定" %></span>
+  </a>
+  <a class="js-again go-back">
+    <img src="http://cdn.rsscc.cn/guanggao/img/scratch/gt-10000231-btnbg.png" alt="">
+    <span>再玩一次</span>
+  </a>
   <b class="js-close close-btn"></b>
 </div>
