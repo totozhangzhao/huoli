@@ -19,10 +19,8 @@ import FooterView from "app/client/mall/js/common/views/footer.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
-import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import AddressList from "app/client/mall/js/detail-page/goods-detail/collection/address-list.js";
-import {toast} from "com/mobile/widget/hint/hint.js";
 import Util from "com/mobile/lib/util/util.js";
 
 const detailLog = widget.initTracker("detail");
@@ -45,7 +43,6 @@ const AppView = BaseView.extend({
 
     this.$initial = ui.initial();
     this.urlObj = UrlUtil.parseUrlSearch();
-    this.token = cookie.get("token");
 
     function _initGoodsDetail() {
       self.cache.urlObj = self.urlObj;
@@ -67,61 +64,7 @@ const AppView = BaseView.extend({
       self.mallGoodsDetail();
     }
 
-    function initPage() {
-      if ( loginUtil.shouldGetWeChatKey(self.token) ) {
-        return window.location.href = loginUtil.getWechatAuthUrl();
-      } else if ( wechatUtil.isWechatFunc() && !self.token ) {
-        let wechatKey = self.urlObj.wechatKey;
-        if (wechatKey) {
-          loginUtil
-            .getTokenByWeChatKey(wechatKey)
-            .then(data => {
-              self.token = data.token;
-            })
-            .then(() => {
-              _initGoodsDetail();
-            })
-            .catch(err => {
-              if (err.code === -804) {
-                return window.location.href = loginUtil.getWechatAuthUrl();
-              } else {
-                mallPromise.catchFn(err);
-              }
-            });
-        } else {
-          toast("ES: 未找到wechatKey", 1500);
-          _initGoodsDetail();
-        }
-      } else {
-        _initGoodsDetail();
-      }
-    }
-
-    if ( mallUitl.isAppFunc() ) {
-      initPage();
-    } else if (this.token) {
-      new Promise((resovle, reject) => {
-        let params = {
-          token: this.token
-        };
-        sendPost("checkTokenValid", params, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resovle(data);
-          }
-        });
-      })
-        .then(() => {
-          initPage();
-        })
-        .catch(err => {
-          err.silent = true;
-          mallPromise.catchFn(err);
-        });
-    } else {
-      initPage();
-    }
+    _initGoodsDetail();
   },
   resume() {
     this.$initial.show();
@@ -135,8 +78,6 @@ const AppView = BaseView.extend({
         from: this.urlObj.from || "--"
       });
     }
-
-    this.token = cookie.get("token");
 
     if (this.resetAppView) {
       pageAction.showRightButton({ text: "分享" });
@@ -376,14 +317,15 @@ const AppView = BaseView.extend({
     }
 
     function _do() {
-      if ( mallUitl.isAppFunc() || self.token ) {
-        _buy();
-      } else {
-        loginUtil.login();
-      }
+      mallPromise
+        .checkLogin()
+        .then(() => {
+          _buy();
+        })
+        .catch(mallPromise.catchFn);
     }
 
-    if ( mallUitl.isAppFunc() ) {
+    if ( mallUitl.isAppFunc() || mallUitl.isTest ) {
       _do();
     } else {
       new Promise((resovle, reject) => {

@@ -13,16 +13,19 @@ var isHangban  = mallUitl.isHangbanFunc();
 var $download = $(tmpl({
   img   : isHangban ? hangbanImg : gaotieImg,
   appUrl: isHangban ? mallUitl.getHangbanAppUrl() : mallUitl.getGaotieAppUrl()
-}))
-  .appendTo("body")
-  .show()
-  .css({ "animation": "move 0.3s ease-out 0.7s forwards" })
-  .on("click", ".js-close", function() {
-    $download.hide();
-  });
+}));
 
-exports.init = function(isApp) {
+// @param  show : true 显示 false 不显示；
+exports.init = function(isApp, show) {
+  if( !show ){
+    return;
+  }
   if ( !isApp ) {
-    $download.show();
+    $download.appendTo("body")
+    .show()
+    .css({ "animation": "move 0.3s ease-out 0.7s forwards" })
+    .on("click", ".js-close", function() {
+      $download.hide();
+    });
   }
 };

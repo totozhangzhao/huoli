@@ -6,16 +6,15 @@ exports.blank = function(text) {
   return $(compiled({ text: text || "暂无信息" }));
 };
 
-exports.initial = function() {
+exports.initial = function(message) {
   var $initial = $(".ui-initial");
 
   if ( $initial.length === 0 ) {
     var imgClass = "gt";
-    var text = "正在加载……";
+    var text = message || "正在加载……";
 
     if ( mallUitl.isHangbanFunc() ) {
       imgClass = "hb";
-      text = "";
     }
 
     var compiled = require("app/client/mall/tpl/etc/initial.tpl");
