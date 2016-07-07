@@ -52,7 +52,7 @@ export function getAppInfo(reset) {
   });
 }
 
-export function checkLogin() {
+export function checkLogin(opts) {
   function LoginError(message) {
     this.message = message || "ES: LoginError";
     this.name = "LoginError";
@@ -61,17 +61,16 @@ export function checkLogin() {
   LoginError.prototype = new Error();
   LoginError.prototype.constructor = LoginError;
 
-  return new Promise((resolve) => {
-    if ( mallUitl.isAppFunc() ) {
-      resolve(getAppInfo());
-    } else {
-      let token = cookie.get("token");
-      resolve({ token });
-    }
-  })
-    .then(data => {
-      if (data.token || data.userInfo && data.userInfo.authcode) {
-        return data;
+  return getAppInfo(opts && opts.reset)
+    .then(userData => {
+      if ( !mallUitl.isAppFunc() ) {
+        userData.token = cookie.get("token");
+      }
+      return userData;
+    })
+    .then(userData => {
+      if (userData.token || userData.userInfo.authcode) {
+        return userData;
       } else {
         loginUtil.login();
         let err = new LoginError("ES: 没有登录");
@@ -82,7 +81,7 @@ export function checkLogin() {
 }
 
 export function order(orderParams) {
-  return getAppInfo()
+  return checkLogin()
     .then(userData => {
       let params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p,
@@ -94,6 +93,7 @@ export function order(orderParams) {
           if (err) {
             reject(err);
           } else {
+            data.token = userData.token;
             resolve(data);
           }
         });

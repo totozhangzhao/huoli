@@ -324,7 +324,7 @@ const AppView = BaseView.extend({
     } else {
       new Promise((resovle, reject) => {
         let params = {
-          token: this.token
+          token: cookie.get("token")
         };
         sendPost("checkWhiteList", params, (err, data) => {
           if (err) {
@@ -497,7 +497,6 @@ const AppView = BaseView.extend({
     }
 
     if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
-      orderInfo.token = cookie.get("token");
       orderInfo.returnUrl = orderDetailUrl;
       return mallPromise
         .initPay(orderInfo)

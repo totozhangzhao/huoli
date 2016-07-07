@@ -9,10 +9,8 @@ import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import * as addressUtil from "app/client/mall/js/lib/address-util.js";
 import Popover from "com/mobile/widget/popover/popover.js";
 import * as widget from "app/client/mall/js/lib/common.js";
-import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import {initTracker} from "app/client/mall/js/lib/common.js";
 import AddressList from "app/client/mall/js/detail-page/goods-detail/collection/address-list.js";
-import cookie from "com/mobile/lib/cookie/cookie.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 
 const detailLog = initTracker("address");
@@ -47,7 +45,6 @@ let AppView = Backbone.View.extend({
     widget.updateViewTitle(title);
     pageAction.hideRightButton();
     hint.showLoading();
-    this.token = cookie.get("token");
 
     let addressList = this.collection.addressList;
 
@@ -87,16 +84,11 @@ let AppView = Backbone.View.extend({
     };
 
     mallPromise
-      .getAppInfo()
-      .then(userData => {
-        if (userData.userInfo.authcode || this.token) {
-          showAddressHelper();
-          if (this.urlObj.mold === "order") {
-            addLeftButtonListener();
-          }
-        } else {
-          hint.hideLoading();
-          loginUtil.login();
+      .checkLogin()
+      .then(() => {
+        showAddressHelper();
+        if (this.urlObj.mold === "order") {
+          addLeftButtonListener();
         }
       })
       .catch(mallPromise.catchFn);
