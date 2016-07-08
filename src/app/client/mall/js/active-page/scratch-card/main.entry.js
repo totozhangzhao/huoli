@@ -186,6 +186,8 @@ var AppView = Backbone.View.extend({
         .addClass(animateName + " animated");
 
       setTimeout(function() {
+        lotteryInfo = self.lotteryInfo;
+        bonus = lotteryInfo.bonus;
         $cardBlock.removeClass(animateName + " animated");
 
         var winning = function() {
