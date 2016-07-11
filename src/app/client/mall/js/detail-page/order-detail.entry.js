@@ -115,7 +115,8 @@ const AppView = Backbone.View.extend({
   mallOrderDetail() {
     const self = this;
     mallPromise
-      .getAppInfo()
+      // .getAppInfo()
+      .checkLogin()
       .then(userData => {
         const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
