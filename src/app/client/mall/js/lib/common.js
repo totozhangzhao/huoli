@@ -9,12 +9,12 @@ import UrlUtil from "com/mobile/lib/url/url.js";
 window.jQuery = window.$ = $;
 
 export function initRem() {
-  const docEl = document.documentElement;
-  const setRoot = () => {
+  let docEl = document.documentElement;
+  let setRoot = () => {
     docEl.style.fontSize = `${docEl.clientWidth / 10}px`;
   };
   setRoot();
-  const resizeEvent = "orientationchange" in window ? "orientationchange" : "resize";
+  let resizeEvent = "orientationchange" in window ? "orientationchange" : "resize";
   window.addEventListener(resizeEvent, _.debounce(setRoot, 150), false);
 }
 
@@ -27,9 +27,35 @@ export let createNewView = _.debounce(options => {
     return;
   }
 
-  let urlObj = UrlUtil.parseUrlSearch();
+  function separateHash(url) {
+    let separateHash = url.split("#");
+
+    if ( separateHash.length > 1 ) {
+      return {
+        url: separateHash[0],
+        hash: `#${separateHash[1]}`
+      };
+    } else {
+      return {
+        url,
+        hash: ""
+      };
+    }
+  }
+
+  let urlAndHash = separateHash(url);
+
+  url = urlAndHash.url;
+
+  let $cur = options.$el;
+
+  if ( $cur && $cur.data() && /\/fe\//.test(url) ) {
+    url = url.indexOf("?") >= 0 ? `${url}&` : `${url}?`;
+    url = url + $.param( $cur.data() );
+  }
 
   function passOnParam(key) {
+    let urlObj = UrlUtil.parseUrlSearch();
     let val = urlObj[key];
 
     if (val !== undefined) {
@@ -40,9 +66,9 @@ export let createNewView = _.debounce(options => {
 
   passOnParam("from");
 
-  if ( url === decodeURI(url) ) {
-    url = encodeURI(url);
-  }
+  let hash = urlAndHash.hash;
+
+  url = url + hash;
 
   if (options._webPageRedirect) {
     window.location.href = url;
@@ -66,9 +92,9 @@ export let createNewView = _.debounce(options => {
 }, 1000, true);
 
 export function createAView(e) {
-  const $cur = $(e.currentTarget);
+  let $cur = $(e.currentTarget);
   let url = $cur.prop("href");
-  const isEmpty = str => str === "" || str === null || str === undefined;
+  let isEmpty = str => str === "" || str === null || str === undefined;
 
   if ( isEmpty(url) ) {
     url = $cur.data("href");
@@ -85,22 +111,10 @@ export function createAView(e) {
 
   e.preventDefault();
 
-  const separateHash = url.split("#");
-  let hash = "";
-
-  if ( separateHash.length > 1 ) {
-    url = separateHash[0];
-    hash = `#${separateHash[1]}`;
-  }
-
-  if ( $cur.data() && /\/fe\//.test(url) ) {
-    url = url.indexOf("?") >= 0 ? `${url}&` : `${url}?`;
-    url = url + $.param( $cur.data() );
-  }
-
   createNewView({
-    url: url + hash,
-    title: $cur.data("title")
+    url: url,
+    title: $cur.data("title"),
+    $el: $cur
   });
 }
 
@@ -121,7 +135,7 @@ export function replacePage(url) {
 }
 
 export function updateViewTitle (title){
-  const doc = window.document;
+  let doc = window.document;
   title = title || doc.title;
   doc.title = title;
   NativeAPI.invoke("updateTitle", {
@@ -130,12 +144,12 @@ export function updateViewTitle (title){
 }
 
 export function imageDelay(options) {
-  const config = _.extend({
+  let config = _.extend({
     offset: 250,
     throttle: 250,
     unload: false,
     callback(elem) {
-      const $elem = $(elem);
+      let $elem = $(elem);
 
       if ( !$elem.hasClass("op0") ) {
         return;
@@ -187,8 +201,8 @@ export function initTracker(tag) {
  * gtgj-ev-御泥坊刮刮卡_再玩一次_1000907
  */
 $("body").on("click", "a, button, [data-log-mall-click]", e => {
-  const $cur = $(e.currentTarget);
-  const prefix = `${mallUitl.getAppName()}-ev-${window.document.title}`;
+  let $cur = $(e.currentTarget);
+  let prefix = `${mallUitl.getAppName()}-ev-${window.document.title}`;
   let category;
 
   if ( $cur.data("logMallClick") ) {
@@ -200,7 +214,7 @@ $("body").on("click", "a, button, [data-log-mall-click]", e => {
     category = `${prefix}_${category}`;
   }
 
-  const urlObj = UrlUtil.parseUrlSearch();
+  let urlObj = UrlUtil.parseUrlSearch();
 
   if ( "productid" in urlObj) {
     category = `${category}_${urlObj.productid}`;

@@ -1845,8 +1845,8 @@ img.touch-img {
   height: 2.82667rem;
 }
 .goods-show-pic {
-  width: 1.70667rem;
-  height: 1.70667rem;
+  width: 2.29333rem;
+  height: 2.29333rem;
   border-radius: 0.10667rem;
   margin-right: 0.26667rem;
 }
@@ -1889,7 +1889,7 @@ img.touch-img {
   background-position: 0 0;
 }
 .pay-order-detail-box .goods-detail p {
-  width: 70%;
+  width: 60%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -2120,59 +2120,53 @@ img.touch-img {
   background-color: #fff;
 }
 .goods-success-qrcode {
-  width: 7.6rem;
-  height: 5.33333rem;
+  width: 7.54667rem;
+  height: 10rem;
   border-radius: 0.10667rem;
   position: fixed;
   left: 50%;
   top: 50%;
-  padding-top: 0.53333rem;
-  padding-right: 0.53333rem;
-  padding-bottom: 0;
-  padding-left: 0.53333rem;
   margin-left: -3.78667rem;
-  margin-top: -2.66667rem;
+  margin-top: -5.52rem;
   background-color: #fff;
 }
 .goods-success-qrcode .goods-qrcode-top {
-  font-weight: bold;
-  height: 0.69333rem;
-  line-height: 0.69333rem;
-  color: #039ef0;
-  font-size: 0.53333rem;
+  width: 100%;
+}
+.goods-success-qrcode .goods-qrcode-top img {
+  width: 100%;
+}
+.goods-success-qrcode .goods-qrcode-text {
+  text-align: center;
+  line-height: 0.93333rem;
+  font-size: 0.4rem;
+  color: #333;
+  padding-top: 0.26667rem;
+}
+.goods-success-qrcode .goods-qrcode-btn {
+  width: 5.78667rem;
+  height: 1.2rem;
+  display: block;
+  margin: 0 auto;
+  border-radius: 0.10667rem;
+  font-size: 0.45333rem;
+  background-color: #039ef0;
+  color: #fff;
+}
+.goods-success-qrcode .goods-qrcode-btn span.goods-qrcode-icon {
   position: relative;
   left: 0;
   top: 0;
-  padding-left: 0.82667rem;
+  padding-right: 0.61333rem;
 }
-.goods-success-qrcode .goods-qrcode-top .goods-qrcode-icon {
-  width: 0.69333rem;
-  height: 0.69333rem;
+.goods-success-qrcode .goods-qrcode-btn span.goods-qrcode-icon b {
+  width: 0.53333rem;
+  height: 0.45333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/qrcode-icon.png) no-repeat;
+  background-size: 0.53333rem 0.45333rem;
   position: absolute;
-  left: 0;
-  top: 0;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0704.png') no-repeat -6.50667rem 0;
-  background-size: 10.66667rem 10.66667rem;
-}
-.goods-success-qrcode .goods-qrcode-middle {
-  margin-top: 0.42667rem;
-  margin-bottom: 0.42667rem;
-  font-size: 0.45333rem;
-  color: #333;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  line-height: 0.69333rem;
-}
-.goods-success-qrcode .goods-qrcode-bottom button {
-  width: 100%;
-  height: 1.28rem;
-  background-color: #039ef0;
-  color: #fff;
-  font-size: 0.48rem;
-  border-radius: 0.10667rem;
+  right: 0;
+  top: 0.05333rem;
 }
 .confirm-order-box {
   background-color: #f0f0f0;
@@ -2666,7 +2660,7 @@ img.touch-img {
   display: block;
 }
 .record-area {
-  height: 2.5333rem;
+  height: 2.96rem;
   position: relative;
   left: 0;
   top: 0;
@@ -2685,11 +2679,11 @@ img.touch-img {
   top: 0.3333rem;
 }
 .record-pic {
-  width: 1.8667rem;
-  height: 1.8667rem;
+  width: 2.29333rem;
+  height: 2.29333rem;
 }
 .record-text-bar {
-  padding-left: 2.2rem;
+  padding-left: 2.61333rem;
   padding-top: 0.56rem;
 }
 .record-text-tit {
@@ -2697,7 +2691,7 @@ img.touch-img {
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 1em;
-  line-height: 0.3734rem;
+  line-height: 0.375rem;
   color: #333;
 }
 .order-bar p {

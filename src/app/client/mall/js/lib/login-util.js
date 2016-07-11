@@ -34,7 +34,7 @@ export function shouldGetWeChatKey(token) {
 
 function saveToken(data) {
   let cookieConfig = {
-    expires: 86400,
+    expires: 86400 * 30,
     domain: location.hostname,
     path: "/"
   };

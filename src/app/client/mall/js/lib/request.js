@@ -26,7 +26,7 @@ let callbackWraper = callback => (err, data) => {
       let token = data.payload.token || result.token;
       if (token) {
         let cookieConfig = {
-          expires: 86400,
+          expires: 86400 * 30,
           domain: location.hostname,
           path: "/"
         };
