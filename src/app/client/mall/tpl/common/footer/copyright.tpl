@@ -5,7 +5,7 @@
     </p>
     <p class="copyright-bar-text">商城合作：<span>swhz@133.cn</span></p>
     <% if (system === "iOS") { %>
-    <p class="copyright-bar-text">本商城活动由<%= isHangbanFunc ? "航班管家" : "伙力·高铁管家" %>提供，与设备生产商<span class="group-name">Apple Inc.</span>公司无关</p>
+    <p class="copyright-bar-text">本商城活动与设备生产商<span class="group-name">Apple Inc.</span>公司无关</p>
     <% } %>
   </div>
 </div>

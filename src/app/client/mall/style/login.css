@@ -311,7 +311,10 @@ p {
   margin: 0 auto;
 }
 .ui-initial .bg.gt {
-  background-image: url(http://cdn.rsscc.cn/guanggao/mall/common/init-gt.gif);
+  background-image: url(http://cdn.rsscc.cn/guanggao/mall/common/i-gt.gif);
+}
+.ui-initial .bg.hb {
+  background-image: url(http://cdn.rsscc.cn/guanggao/mall/common/i-hb.gif);
 }
 .ui-initial .txt {
   margin: 0.8rem 0 0 0;
