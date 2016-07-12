@@ -11,7 +11,7 @@ import BackTop from "com/mobile/widget/button/to-top.js";
 import logger from "com/mobile/lib/log/log.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
-
+import Navigator from "app/client/mall/js/menu/header/navigator.js";
 const orderListLog = widget.initTracker("orderList");
 
 const AppView = Backbone.View.extend({
@@ -21,6 +21,8 @@ const AppView = Backbone.View.extend({
     "click .js-order-item": "gotoOrderDetail"
   },
   initialize() {
+    const nav = new Navigator();
+    nav.render();
     new BackTop();
     this.loadingMore = false;
     this.$initial = ui.initial().show();

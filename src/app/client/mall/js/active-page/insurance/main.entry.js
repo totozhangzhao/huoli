@@ -12,6 +12,7 @@ var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var base64    = require("com/mobile/lib/base64/base64.js").Base64;
 // var NativeAPI = require("app/client/common/lib/native/native-api.js");
 import BackTop from "com/mobile/widget/button/to-top.js";
+import Navigator from "app/client/mall/js/menu/header/navigator.js";
 
 require("app/client/mall/js/lib/common.js");
 
@@ -23,6 +24,8 @@ var AppView = Backbone.View.extend({
     "click .js-submit": "submitOrder"
   },
   initialize: function() {
+    const nav = new Navigator();
+    nav.render();
     new BackTop();
     // real productid
     this.goodsId = null;

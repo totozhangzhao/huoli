@@ -19,6 +19,7 @@ import Footer from "app/client/mall/js/common/views/footer.js";
 import PointsView from "app/client/mall/js/home/views/points.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import PopoverAd from "app/client/mall/js/common/views/popover/popover-ad.js";
+import Navigator from "app/client/mall/js/menu/header/navigator.js";
 
 const AppView = BaseView.extend({
   el: "#main",
@@ -30,6 +31,8 @@ const AppView = BaseView.extend({
   },
 
   initialize() {
+    const nav = new Navigator();
+    nav.render();
     new BackTop({isHome: true});
     const title = mallUitl.isHangbanFunc() ? "航班商城" : "伙力商城";
     widget.updateViewTitle(title);
