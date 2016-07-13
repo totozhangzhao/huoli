@@ -52,9 +52,9 @@ export function initShare(opts) {
   let shareInfo = options.wechatshare;
   let isHangban = mallUitl.isHangbanFunc();
 
-  if (!shareInfo) {
+  if (!shareInfo || !shareInfo.title) {
     shareInfo = {
-      title: "",
+      title: isHangban ? "伙力·航班商城" : "伙力·高铁商城",
       desc : "伙力商城 管家定制好货 专注出行场景化电商",
       link : `${window.location.origin}/fe/app/client/mall/index.html`,
       img  : isHangban ? "http://cdn.rsscc.cn/guanggao/mall/wechat/w-hb.jpg" : "http://cdn.rsscc.cn/guanggao/mall/wechat/w-gt.jpg"

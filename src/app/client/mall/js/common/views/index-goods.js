@@ -84,7 +84,8 @@ const PromotionView = Backbone.View.extend({
       model.set({
         status: 2,
         groupId:"",
-        title: result.title
+        title: result.title,
+        wechatshare:result.wechatshare
       });
     });
   }
