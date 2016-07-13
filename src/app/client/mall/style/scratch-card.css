@@ -763,13 +763,13 @@ p {
   height: 100%;
 }
 .common-switch-nav .common-switch-bar:nth-child(1) .common-switch-icon {
-  width: 0.34667rem;
+  width: 0.37333rem;
   height: 0.34667rem;
   background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0714.png') no-repeat -10.34667rem -10.34667rem;
   background-size: 10.66667rem 10.66667rem;
   position: absolute;
   left: 0.4rem;
-  top: 0.26667rem;
+  top: 0.24rem;
 }
 .common-switch-nav .common-switch-bar:nth-child(2) {
   height: 100%;
