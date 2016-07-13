@@ -24,6 +24,8 @@ import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
+
 const AppView = Backbone.View.extend({
   el: "#order-detail-container",
   events: {
@@ -115,7 +117,6 @@ const AppView = Backbone.View.extend({
     widget.createAView(e);
   },
   mallOrderDetail() {
-    const self = this;
     mallPromise
       // .getAppInfo()
       .checkLogin()
@@ -133,22 +134,25 @@ const AppView = Backbone.View.extend({
             }
           });
         });
-
       })
       .then(result => {
-        self.orderDetail = result;
+        this.orderDetail = result;
         const compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
         const tmplData = {
-          orderDetail: self.orderDetail,
+          orderDetail: this.orderDetail,
           isWechat: wechatUtil.isWechatFunc()
         };
 
         $("#order-detail-container").html( compiled(tmplData) );
-        self.renderBuyNumView(result);
+        this.renderBuyNumView(result);
         new FooterView().render();
-        self.$initial.hide();
+        mallWechat.initShare({
+          wechatshare: this.orderDetail.wechatshare,
+          title: this.orderDetail.title
+        });
+        this.$initial.hide();
         orderLog({
-          title: self.orderDetail.title,
+          title: this.orderDetail.title,
           from: parseUrl().from || "--"
         });
       }).catch( err => {
