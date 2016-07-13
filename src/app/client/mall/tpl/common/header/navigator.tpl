@@ -1,4 +1,4 @@
-<div class="common-switch-nav" style="margin-top:-45px;">
+<div class="common-switch-nav">
   <div class="common-switch-bar">
     <span class="common-switch-icon"></span>
     <a href="/fe/app/client/mall/index.html" class="common-mall-index">商城首页</a>

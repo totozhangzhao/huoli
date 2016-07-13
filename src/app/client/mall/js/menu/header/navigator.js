@@ -14,7 +14,7 @@ class Navigator{
     if( !mallUitl.isAppFunc() ) {
       setTimeout(() => {
         $("body")
-        .addClass('common-switch-padding')
+        // .addClass('common-switch-padding')
         .prepend(template({mallUitl:mallUitl}));
       }, delay || 0 );
     }
