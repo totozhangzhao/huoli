@@ -717,17 +717,17 @@ p {
   z-index: 10;
 }
 .home-fixed-box a.to-home {
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0704.png') 0 -5.33333rem no-repeat;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0713.png') 0 -5.33333rem no-repeat;
   background-size: 10.66667rem 10.66667rem;
   margin-bottom: 0.26667rem;
 }
 .home-fixed-box a.to-top {
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0704.png') 0 -6.61333rem no-repeat;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0713.png') 0 -6.61333rem no-repeat;
   background-size: 10.66667rem 10.66667rem;
   margin-bottom: 0.26667rem;
 }
 .home-fixed-box a.to-contact {
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0704.png') 0 -7.89333rem no-repeat;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0713.png') 0 -7.89333rem no-repeat;
   background-size: 10.66667rem 10.66667rem;
 }
 .home-fixed-box a {
@@ -735,6 +735,55 @@ p {
   height: 1.17333rem;
   display: block;
   border-radius: 50%;
+}
+.common-switch-padding {
+  padding-top: 1.2rem;
+}
+.common-switch-nav {
+  height: 1.2rem;
+  line-height: 1.2rem;
+  position: relative;
+  left: 0;
+  top: 0;
+  color: #fff;
+  font-size: 0.37333rem;
+  background-color: #101010;
+  margin-top: -1.2rem;
+}
+.common-switch-nav .common-switch-bar:nth-child(1) {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.common-switch-nav .common-switch-bar:nth-child(1) .common-mall-index {
+  color: #fff;
+  padding-left: 0.96rem;
+  padding-right: 0.26667rem;
+  display: inline-block;
+  height: 100%;
+}
+.common-switch-nav .common-switch-bar:nth-child(1) .common-switch-icon {
+  width: 0.42667rem;
+  height: 0.45333rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0713.png') no-repeat -10.24rem -10.21333rem;
+  background-size: 10.66667rem 10.66667rem;
+  position: absolute;
+  left: 0.4rem;
+  top: 0.37333rem;
+}
+.common-switch-nav .common-switch-bar:nth-child(2) {
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.common-switch-nav .common-switch-bar:nth-child(2) .common-switch-button {
+  color: #039ef0;
+  padding-left: 0.13333rem;
+  padding-right: 0.4rem;
+  display: inline-block;
+  height: 100%;
 }
 .wechat-login-box {
   min-height: 100%;
@@ -756,7 +805,7 @@ p {
   width: 1.44rem;
   height: 1.49333rem;
   margin: 0 auto;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0704.png') no-repeat 0 -3.73333rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0713.png') no-repeat 0 -3.73333rem;
   background-size: 10.66667rem 10.66667rem;
 }
 .wechat-login-box .wechat-login-area {

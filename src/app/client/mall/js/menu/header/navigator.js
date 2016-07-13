@@ -1,6 +1,7 @@
 import $           from "jquery";
 // import _           from "lodash";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
+import template from "app/client/mall/tpl/common/header/navigator.tpl";
 class Navigator{
   constructor() {
 
@@ -14,7 +15,9 @@ class Navigator{
   render() {
     if( !mallUitl.isAppFunc() ) {
       // window.console.log(mallUitl.isHangbanFunc());
-      $("body").prepend("<div><a href='/fe/app/client/mall/index.html'>首页</a></div>");
+      $("body")
+      .addClass('common-switch-padding')
+      .prepend(template({mallUitl:mallUitl}));
     }
   }
 
