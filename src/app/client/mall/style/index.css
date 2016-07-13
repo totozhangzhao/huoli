@@ -778,7 +778,7 @@ p {
   top: 0;
 }
 .common-switch-nav .common-switch-bar:nth-child(2) .common-switch-button {
-  color: #039ef0;
+  color: #cacaca;
   padding-left: 0.13333rem;
   padding-right: 0.4rem;
   display: inline-block;
