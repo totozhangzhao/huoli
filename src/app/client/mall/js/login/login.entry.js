@@ -179,7 +179,7 @@ const AppView = Backbone.View.extend({
         if (!data) {
           return;
         }
-        widget.replacePage(decodeURIComponent(this.urlObj.ru) || "/fe/app/client/mall/index.html");
+        widget.replacePage(this.urlObj.ru?decodeURIComponent(this.urlObj.ru) : "/fe/app/client/mall/index.html");
       })
       .catch(mallPromise.catchFn)
       .then(() => {

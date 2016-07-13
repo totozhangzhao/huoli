@@ -7,9 +7,9 @@
   <div class="common-switch-bar">
     <span class="common-switch-tip">切换至</span>
     <% if(mallUitl.isHangbanFunc()) {%>
-      <a href="https://mall.rsscc.cn/fe/app/client/mall/index.html" class="common-switch-button">高铁商城</a>
+      <a href="<%= window.location.protocol%>//mall.rsscc.cn/fe/app/client/mall/html/login/login.html" class="common-switch-button">高铁商城</a>
     <% } else {%>
-      <a href="https://hbmall.rsscc.cn/fe/app/client/mall/index.html" class="common-switch-button">航班商城</a>
+      <a href="<%= window.location.protocol%>//mall.rsscc.cn/fe/app/client/mall/html/login/login.html" class="common-switch-button">航班商城</a>
     <% } %>
   </div>
 </div>
