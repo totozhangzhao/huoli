@@ -12,6 +12,9 @@ import logger from "com/mobile/lib/log/log.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
+mallWechat.initShare();
+
 const orderListLog = widget.initTracker("orderList");
 
 const AppView = Backbone.View.extend({
