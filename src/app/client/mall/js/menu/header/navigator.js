@@ -10,11 +10,13 @@ class Navigator{
   static isHB() {
     return mallUitl.isHangbanFunc();
   }
-  render() {
+  render(delay) {
     if( !mallUitl.isAppFunc() ) {
-      $("body")
-      .addClass('common-switch-padding')
-      .prepend(template({mallUitl:mallUitl}));
+      setTimeout(() => {
+        $("body")
+        .addClass('common-switch-padding')
+        .prepend(template({mallUitl:mallUitl}));
+      }, delay || 0 );
     }
   }
 
