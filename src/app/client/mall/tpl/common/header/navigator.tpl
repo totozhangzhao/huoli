@@ -9,7 +9,7 @@
     <% if(mallUitl.isHangbanFunc()) {%>
       <a href="<%= window.location.protocol%>//mall.rsscc.cn/fe/app/client/mall/html/login/login.html" class="common-switch-button">高铁商城</a>
     <% } else {%>
-      <a href="<%= window.location.protocol%>//mall.rsscc.cn/fe/app/client/mall/html/login/login.html" class="common-switch-button">航班商城</a>
+      <a href="<%= window.location.protocol%>//hbmall.rsscc.cn/fe/app/client/mall/html/login/login.html" class="common-switch-button">航班商城</a>
     <% } %>
   </div>
 </div>

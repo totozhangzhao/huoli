@@ -1,10 +1,8 @@
 import $           from "jquery";
-// import _           from "lodash";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import template from "app/client/mall/tpl/common/header/navigator.tpl";
 class Navigator{
   constructor() {
-
   }
   static isApp() {
     return mallUitl.isAppFunc();
@@ -14,7 +12,6 @@ class Navigator{
   }
   render() {
     if( !mallUitl.isAppFunc() ) {
-      // window.console.log(mallUitl.isHangbanFunc());
       $("body")
       .addClass('common-switch-padding')
       .prepend(template({mallUitl:mallUitl}));
