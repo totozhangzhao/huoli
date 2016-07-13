@@ -167,11 +167,9 @@ const AppView = Backbone.View.extend({
       widget.createNewView({
         url: urlObj.gtgjUrl || urlObj.appUrl
       });
-    } else if ( wechatUtil.isWechatFunc() ) {
-      window.location.href = urlObj.wechatUrl || urlObj.weixinUrl || urlObj.webUrl;
     } else {
       widget.createNewView({
-        url: urlObj.webUrl || urlObj.url
+        url: urlObj.appUrl || urlObj.url
       });
     }
   },
