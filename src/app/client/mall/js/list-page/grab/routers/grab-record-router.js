@@ -1,8 +1,6 @@
 import Backbone from "backbone";
 import App from "app/client/mall/js/list-page/grab/views/record-page.js";
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
-const nav = new Navigator();
-nav.render();
+
 export default Backbone.Router.extend({
   routes: {
     "": "default",
