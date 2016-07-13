@@ -4,6 +4,7 @@ import * as mallUitl from "app/client/mall/js/lib/util.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import logger from "com/mobile/lib/log/log.js";
 import {initTracker} from "app/client/mall/js/lib/common.js";
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 
 import StateModel from "app/client/mall/js/common/models/state.js";
 import BaseView from "app/client/mall/js/common/views/BaseView.js";
@@ -50,6 +51,13 @@ const AppView = BaseView.extend({
       this.logger(e.get("title") || document.title);
     }
     // 数据加载完成
+  },
+
+  initShare(stateModel) {
+    mallWechat.initShare({
+      wechatshare: stateModel.wechatshare,
+      title: stateModel.get("title") || document.title
+    });
   },
 
   logger(title) {
