@@ -20,6 +20,7 @@ import PointsView from "app/client/mall/js/home/views/points.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import PopoverAd from "app/client/mall/js/common/views/popover/popover-ad.js";
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 
 const AppView = BaseView.extend({
   el: "#main",
@@ -95,6 +96,9 @@ const AppView = BaseView.extend({
     this.$footer.render();
     // this.initWarning();
     this.getUserInfo();
+    mallWechat.initShare({
+      wechatshare: data.wechatshare
+    });
     setTimeout(() => {
       self.$initial.hide();
     }, 600);
