@@ -2,6 +2,9 @@ var ProfileIndexView = require("app/client/mall/js/profile/view/profile-index.js
 var CouponListView   = require("app/client/mall/js/profile/view/coupon-list.js");
 var CouponDetailView = require("app/client/mall/js/profile/view/coupon-detail.js");
 var createRouter     = require("app/client/mall/js/common/router/router-factory.js").createRouter;
+import Navigator from "app/client/mall/js/menu/header/navigator.js";
+const nav = new Navigator();
+nav.render();
 import BackTop from "com/mobile/widget/button/to-top.js";
 new BackTop();
 var viewDic = {
