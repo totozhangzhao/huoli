@@ -19,7 +19,7 @@ import ShareInput from "app/client/mall/js/share-page/share-input.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
-
+import Navigator from "app/client/mall/js/menu/header/navigator.js";
 const AppView = Backbone.View.extend({
   el: "#interlayer",
   events: {
@@ -29,6 +29,8 @@ const AppView = Backbone.View.extend({
     "click a": "createNewPage"
   },
   initialize() {
+    const nav = new Navigator();
+    nav.render();
     new BackTop();
     this.$initial = ui.initial().show();
     this.mallInterlayer();
@@ -165,11 +167,9 @@ const AppView = Backbone.View.extend({
       widget.createNewView({
         url: urlObj.gtgjUrl || urlObj.appUrl
       });
-    } else if ( wechatUtil.isWechatFunc() ) {
-      window.location.href = urlObj.wechatUrl || urlObj.weixinUrl || urlObj.webUrl;
     } else {
       widget.createNewView({
-        url: urlObj.webUrl || urlObj.url
+        url: urlObj.appUrl || urlObj.url
       });
     }
   },

@@ -16,7 +16,7 @@ import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 const menuLog = initTracker("menu");
 import "app/client/mall/js/lib/common.js";
-
+import Navigator from "app/client/mall/js/menu/header/navigator.js";
 const AppView = BaseView.extend({
   el: "#main",
 
@@ -26,6 +26,8 @@ const AppView = BaseView.extend({
   },
 
   initialize() {
+    const nav = new Navigator();
+    nav.render();
     new BackTop();
     const self = this;
 

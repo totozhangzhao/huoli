@@ -9,9 +9,9 @@ import logger from "com/mobile/lib/log/log.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
-
+import Navigator from "app/client/mall/js/menu/header/navigator.js";
 import "app/client/mall/js/lib/common.js";
-
+import BackTop from "com/mobile/widget/button/to-top.js";
 const RefundResultView = Backbone.View.extend({
   el: "#refund-result",
 
@@ -20,6 +20,9 @@ const RefundResultView = Backbone.View.extend({
   events: {},
 
   initialize() {
+    const nav = new Navigator();
+    nav.render();
+    new BackTop();
     this.$initial = ui.initial().show();
     this.orderid = UrlUtil.parseUrlSearch().orderid;
     logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);

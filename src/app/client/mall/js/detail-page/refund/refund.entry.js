@@ -11,9 +11,9 @@ import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import Popover from "com/mobile/widget/popover/popover.js";
-
+import Navigator from "app/client/mall/js/menu/header/navigator.js";
 import "app/client/mall/js/lib/common.js";
-
+import BackTop from "com/mobile/widget/button/to-top.js";
 const RefundView = Backbone.View.extend({
   el: "#refund-main",
 
@@ -23,6 +23,9 @@ const RefundView = Backbone.View.extend({
   },
 
   initialize() {
+    const nav = new Navigator();
+    nav.render();
+    new BackTop();
     this.alert = new Popover({
       type: "alert",
       title: "",

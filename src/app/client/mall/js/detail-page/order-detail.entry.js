@@ -23,7 +23,7 @@ import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
-
+import Navigator from "app/client/mall/js/menu/header/navigator.js";
 const AppView = Backbone.View.extend({
   el: "#order-detail-container",
   events: {
@@ -38,6 +38,8 @@ const AppView = Backbone.View.extend({
     "click .common-shadow"    : "hideSubscribe"
   },
   initialize() {
+    const nav = new Navigator();
+    nav.render();
     new BackTop();
     NativeAPI.invoke("updateTitle", {
       text: "订单详情"
