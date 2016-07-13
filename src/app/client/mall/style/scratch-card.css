@@ -748,7 +748,6 @@ p {
   color: #fff;
   font-size: 0.37333rem;
   background-color: #101010;
-  margin-top: -1.2rem;
 }
 .common-switch-nav .common-switch-bar:nth-child(1) {
   height: 100%;
@@ -817,9 +816,6 @@ img {
   height: 1.06667rem;
   line-height: 1.06667rem;
   color: #f4f3b3;
-  position: fixed;
-  left: 0;
-  top: 0;
 }
 .lucky-shadow-bar {
   width: 100%;

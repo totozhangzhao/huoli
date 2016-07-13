@@ -5,10 +5,8 @@ import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import * as addressUtil from "app/client/mall/js/lib/address-util.js";
-import loadScript from "com/mobile/lib/load-script/load-script.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import shareUtil from "com/mobile/widget/wechat/util.js";
-import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import Popover from "com/mobile/widget/popover/popover.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
@@ -236,10 +234,6 @@ const AppView = BaseView.extend({
     this.renderGoodsInfo(goods);
     this.renderBuyNumView(goods);
 
-    if (goods.wechatshare) {
-      wechatUtil.setShareInfo(goods.wechatshare);
-    }
-
     if ( this.urlObj.gotoView ) {
       if (this.urlObj.gotoView === "address-confirm") {
         if (goods.type === 3) {
@@ -249,13 +243,13 @@ const AppView = BaseView.extend({
         this.router.switchTo( this.urlObj.gotoView );
       }
     } else {
-      if ( wechatUtil.isWechatFunc() ) {
-        wechatUtil.setTitle(goods.title);
-        if ( shareUtil.hasShareInfo() ) {
-          loadScript(`${window.location.origin}/fe/com/mobile/widget/wechat/wechat.bundle.js`);
-        }
-      } else if ( shareUtil.hasShareInfo() ) {
-        mallWechat.initNativeShare();
+      mallWechat.initShare({
+        wechatshare: goods.wechatshare,
+        title: goods.title,
+        appShare: true
+      });
+
+      if ( shareUtil.hasShareInfo() ) {
         this.resetAppView = true;
       }
 

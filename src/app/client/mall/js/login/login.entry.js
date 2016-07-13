@@ -14,7 +14,7 @@ import * as mallUitl    from "app/client/mall/js/lib/util.js";
 import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
-
+import Navigator from "app/client/mall/js/menu/header/navigator.js";
 const AppView = Backbone.View.extend({
   el: "#login-main",
   events: {
@@ -26,6 +26,8 @@ const AppView = Backbone.View.extend({
     "click .js-login"         : "login"
   },
   initialize(commonData) {
+    const nav = new Navigator();
+    nav.render();
     new BackTop();
     _.extend(this, commonData);
     logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
@@ -179,7 +181,7 @@ const AppView = Backbone.View.extend({
         if (!data) {
           return;
         }
-        widget.replacePage(decodeURIComponent(this.urlObj.ru) || "/fe/app/client/mall/index.html");
+        widget.replacePage(this.urlObj.ru?decodeURIComponent(this.urlObj.ru) : "/fe/app/client/mall/index.html");
       })
       .catch(mallPromise.catchFn)
       .then(() => {
