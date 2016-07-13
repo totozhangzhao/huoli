@@ -3,6 +3,7 @@ var Backbone  = require("backbone");
 var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var logger    = require("com/mobile/lib/log/log.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 
 exports.createRouter = function(opts) {
   if (!opts) {
@@ -59,6 +60,10 @@ exports.createRouter = function(opts) {
         bbViews[action].resume({
           previousView: this.previousView
         });
+
+        if ( !/-detail|-desc/.test(action) ) {
+          mallWechat.initShare();
+        }
 
         this.previousView = action;
       } else {
