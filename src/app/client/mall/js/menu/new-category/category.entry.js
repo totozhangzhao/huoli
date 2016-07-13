@@ -49,6 +49,7 @@ const AppView = BaseView.extend({
     if(e.hasChanged("status") && e.get("status") !== 1){
       this.$initial.hide();
       this.logger(e.get("title") || document.title);
+      this.initShare(e);
     }
     // 数据加载完成
   },
