@@ -13,6 +13,8 @@ import {initTracker} from "app/client/mall/js/lib/common.js";
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
+mallWechat.initShare();
 
 const detailLog = initTracker("detail");
 const AppView = Backbone.View.extend({

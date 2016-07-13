@@ -14,6 +14,9 @@ import Popover from "com/mobile/widget/popover/popover.js";
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
 import "app/client/mall/js/lib/common.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
+mallWechat.initShare();
+
 const RefundView = Backbone.View.extend({
   el: "#refund-main",
 

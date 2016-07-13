@@ -43,19 +43,25 @@ export function initNativeShare(callback) {
 }
 
 export function initWeChatShare(title) {
+  wechatUtil.setTitle(title || document.title);
   loadScript(`${window.location.origin}/fe/com/mobile/widget/wechat/wechat.bundle.js`);
-
-  if (title) {
-    wechatUtil.setTitle(title);
-  }
 }
 
 export function initShare(opts) {
   let options = opts || {};
+  let shareInfo = options.wechatshare;
+  let isHangban = mallUitl.isHangbanFunc();
 
-  if (options.wechatshare) {
-    wechatUtil.setShareInfo(options.wechatshare);
+  if (!shareInfo) {
+    shareInfo = {
+      title: "",
+      desc : "伙力商城 管家定制好货 专注出行场景化电商",
+      link : `${window.location.origin}/fe/app/client/mall/index.html`,
+      img  : isHangban ? "http://cdn.rsscc.cn/guanggao/mall/wechat/w-hb.jpg" : "http://cdn.rsscc.cn/guanggao/mall/wechat/w-gt.jpg"
+    };
   }
+
+  wechatUtil.setShareInfo(shareInfo);
 
   if ( !shareUtil.hasShareInfo() ) {
     return;

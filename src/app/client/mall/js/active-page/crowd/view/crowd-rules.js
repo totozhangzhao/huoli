@@ -5,6 +5,8 @@ var UrlUtil   = require("com/mobile/lib/url/url.js");
 var sendPost  = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var widget    = require("app/client/mall/js/lib/common.js");
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
+mallWechat.initShare();
 
 var AppView = Backbone.View.extend({
   el: "#crowd-rules",
