@@ -249,7 +249,7 @@ const AppView = BaseView.extend({
         appShare: true
       });
 
-      if ( shareUtil.hasShareInfo() ) {
+      if ( shareUtil.hasShareHtml() ) {
         this.resetAppView = true;
       }
 

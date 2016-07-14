@@ -2,9 +2,6 @@ import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
 import * as mallUitl       from "app/client/mall/js/lib/util.js";
 import UrlUtil        from "com/mobile/lib/url/url.js";
-import loadScript     from "com/mobile/lib/load-script/load-script.js";
-import shareUtil      from "com/mobile/widget/wechat/util.js";
-import wechatUtil     from "com/mobile/widget/wechat-hack/util.js";
 import * as mallWechat     from "app/client/mall/js/lib/wechat.js";
 
 import * as widget    from "app/client/mall/js/lib/common.js";
@@ -56,20 +53,12 @@ const AppView = BaseView.extend({
     this.bannerView.render(this.result);
     this.groupView.render(this.result.groups);
     this.ruleView.render(this.result);
-
-    if (this.result.wechatshare) {
-      wechatUtil.setShareInfo(this.result.wechatshare);
-    }
-    if( shareUtil.hasShareInfo() ) {
-      if( wechatUtil.isWechatFunc() ) {
-        wechatUtil.setTitle(this.result.title);
-        return loadScript(`${window.location.origin}/fe/com/mobile/widget/wechat/wechat.bundle.js`);
-      }
-      return mallWechat.initNativeShare();
-    }
-
+    mallWechat.initShare({
+      wechatshare: this.result.wechatshare,
+      title: this.result.title
+    });
+    return this;
   },
-
 
   fetchData(){
     const self = this;

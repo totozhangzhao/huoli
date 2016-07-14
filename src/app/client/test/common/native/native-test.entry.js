@@ -89,7 +89,7 @@ var AppView = Backbone.View.extend({
       echo("index page: " + window.location.hash);
     });
 
-    if ( shareUtil.hasShareInfo() ) {
+    if ( shareUtil.hasShareHtml() ) {
       loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
     }
   },

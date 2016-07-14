@@ -40,11 +40,11 @@ var AppView = Backbone.View.extend({
     this.initCard();
 
     if ( wechatUtil.isWechatFunc() ) {
-      if ( shareUtil.hasShareInfo() ) {
+      if ( shareUtil.hasShareHtml() ) {
         loadScript(window.location.origin + "/fe/com/mobile/widget/wechat/wechat.bundle.js");
       }
     } else {
-      if ( shareUtil.hasShareInfo() ) {
+      if ( shareUtil.hasShareHtml() ) {
         mallWechat.initNativeShare(_.bind(this.mallCheckin, this));
       }
     }
