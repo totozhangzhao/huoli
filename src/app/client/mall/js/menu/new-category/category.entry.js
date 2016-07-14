@@ -56,7 +56,7 @@ const AppView = BaseView.extend({
 
   initShare(stateModel) {
     mallWechat.initShare({
-      wechatshare: stateModel.wechatshare,
+      wechatshare: stateModel.get("wechatshare"),
       title: stateModel.get("title") || document.title
     });
   },
