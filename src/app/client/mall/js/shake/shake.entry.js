@@ -47,14 +47,14 @@ const AppView = Backbone.View.extend({
     // if ( wechatUtil.isWechatFunc() ) {
     //   window.console.log(1);
     //   wechatUtil.setTitle("摇一摇");
-    //   if ( shareUtil.hasShareInfo() ) {
+    //   if ( shareUtil.hasShareHtml() ) {
     //     window.console.log(2);
     //     loadScript(`${window.location.origin}/fe/com/mobile/widget/wechat/wechat.bundle.js`);
     //   }
     // } else {
     //   window.console.log(3);
     //   widget.updateViewTitle("摇一摇");
-    //   if ( shareUtil.hasShareInfo() ) {
+    //   if ( shareUtil.hasShareHtml() ) {
     //     mallWechat.initNativeShare();
     //   }
     // }

@@ -212,12 +212,12 @@ const AppView = Backbone.View.extend({
 
       if ( wechatUtil.isWechatFunc() ) {
         wechatUtil.setTitle(result.title);
-        if ( shareUtil.hasShareInfo() ) {
+        if ( shareUtil.hasShareHtml() ) {
           loadScript(`${window.location.origin}/fe/com/mobile/widget/wechat/wechat.bundle.js`);
         }
       } else {
         widget.updateViewTitle(result.title);
-        if ( shareUtil.hasShareInfo() ) {
+        if ( shareUtil.hasShareHtml() ) {
           mallWechat.initNativeShare();
         }
       }

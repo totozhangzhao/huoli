@@ -2,7 +2,7 @@ var qs = function(o) {
   return document.querySelector(o);
 };
 
-exports.hasShareInfo = function() {
+exports.hasShareHtml = function() {
   return !!qs("#__wechat_share");
 };
 

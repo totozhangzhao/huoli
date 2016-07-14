@@ -50,20 +50,22 @@ export function initWeChatShare(title) {
 export function initShare(opts) {
   let options = opts || {};
   let shareInfo = options.wechatshare;
-  let isHangban = mallUitl.isHangbanFunc();
+  const isShareInfoVaild = Boolean(shareInfo && shareInfo.title);
 
-  if (!shareInfo || !shareInfo.title) {
+  if ( isShareInfoVaild ) {
+    wechatUtil.setShareInfo(shareInfo);
+  } else if ( !isShareInfoVaild && !shareUtil.hasShareHtml() ) {
+    const isHangban = mallUitl.isHangbanFunc();
     shareInfo = {
       title: isHangban ? "伙力·航班商城" : "伙力·高铁商城",
       desc : "伙力商城 管家定制好货 专注出行场景化电商",
       link : `${window.location.origin}/fe/app/client/mall/index.html`,
       img  : isHangban ? "http://cdn.rsscc.cn/guanggao/mall/wechat/w-hb.jpg" : "http://cdn.rsscc.cn/guanggao/mall/wechat/w-gt.jpg"
     };
+    wechatUtil.setShareInfo(shareInfo);
   }
 
-  wechatUtil.setShareInfo(shareInfo);
-
-  if ( !shareUtil.hasShareInfo() ) {
+  if ( !shareUtil.hasShareHtml() ) {
     return;
   }
 
