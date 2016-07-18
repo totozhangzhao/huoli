@@ -2,7 +2,7 @@ import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
 import async from "async";
-// import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
@@ -121,38 +121,59 @@ const AppView = Backbone.View.extend({
   },
   getMallCouponById(couponId) {
     const self = this;
-
-    async.waterfall([
-      next => {
-        appInfo.getUserData((err, userData) => {
-          if (err) {
-            toast(err.message, 1500);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      (userData, next) => {
+    mallPromise
+      .checkLogin()
+      .then(userData => {
         const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: couponId
         });
-
-        sendPost("getCoupon", params, (err, data) => {
-          next(err, data);
+        return new Promise((resolve, reject) => {
+          sendPost("getCoupon", params, (err, data) => {
+            if(err) {
+              reject(err);
+            }else{
+              resolve(data);
+            }
+          });
         });
-      }
-    ], (err, result) => {
-        // self.curCouponBtn.text("已领取优惠券");
-        // self.curCouponBtn.addClass('active');
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-      toast(result.message, 1500);
-      self.checkCouponButton();
-    });
+      })
+      .then((result) => {
+        toast(result.message, 1500);
+        self.checkCouponButton();
+      })
+      .catch(mallPromise.catchFn);
+    // async.waterfall([
+    //   next => {
+    //     appInfo.getUserData((err, userData) => {
+    //       if (err) {
+    //         toast(err.message, 1500);
+    //         return;
+    //       }
+
+    //       next(null, userData);
+    //     });
+    //   },
+    //   (userData, next) => {
+    //     const params = _.extend({}, userData.userInfo, {
+    //       p: userData.deviceInfo.p,
+    //       productid: couponId
+    //     });
+
+    //     sendPost("getCoupon", params, (err, data) => {
+    //       next(err, data);
+    //     });
+    //   }
+    // ], (err, result) => {
+    //     // self.curCouponBtn.text("已领取优惠券");
+    //     // self.curCouponBtn.addClass('active');
+    //   if (err) {
+    //     toast(err.message, 1500);
+    //     return;
+    //   }
+    //   toast(result.message, 1500);
+    //   self.checkCouponButton();
+    // });
   },
 
   handleShareButton(e) {
