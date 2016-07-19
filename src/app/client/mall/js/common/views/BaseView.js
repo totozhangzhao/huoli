@@ -11,24 +11,25 @@ const BaseView = Backbone.View.extend({
     widget.createAView(e);
   },
   handleGetUrl(e) {
-    mallPromise.getAppInfo()
-    .then(userData => {
-      const params = _.extend({}, userData.userInfo, userData.deviceInfo, {
-        productid: $(e.currentTarget).data("productid")
-      });
-
-      sendPost("getUrl", params, (err, data) => {
-        if (err) {
-          toast(err.message, 1500);
-          return;
-        }
-
-        widget.createNewView({
-          url: data.url
+    mallPromise
+      .checkLogin()
+      .then(userData => {
+        const params = _.extend({}, userData.userInfo, userData.deviceInfo, {
+          productid: $(e.currentTarget).data("productid")
         });
-      });
-    })
-    .catch(mallPromise.catchFn);
+
+        sendPost("getUrl", params, (err, data) => {
+          if (err) {
+            toast(err.message, 1500);
+            return;
+          }
+
+          widget.createNewView({
+            url: data.url
+          });
+        });
+      })
+      .catch(mallPromise.catchFn);
   }
 });
 
