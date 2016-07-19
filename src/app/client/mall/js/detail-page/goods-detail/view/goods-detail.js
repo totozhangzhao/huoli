@@ -16,10 +16,10 @@ import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import FooterView from "app/client/mall/js/common/views/footer.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
-import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
-import * as widget from "app/client/mall/js/lib/common.js";
 import AddressList from "app/client/mall/js/detail-page/goods-detail/collection/address-list.js";
 import Util from "com/mobile/lib/util/util.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import * as widget from "app/client/mall/js/lib/common.js";
 
 const detailLog = widget.initTracker("detail");
 

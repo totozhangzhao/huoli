@@ -14,9 +14,9 @@ const BaseView = Backbone.View.extend({
     const productid = $(e.currentTarget).data("productid");
     this.mallGetUrl(productid);
   },
-  mallGetUrl(productid) {
+  mallGetUrl(productid, isReplace) {
     mallPromise
-      .checkLogin()
+      .getAppInfo()
       .then(userData => {
         const params = _.extend({}, userData.userInfo, userData.deviceInfo, {
           productid: productid
@@ -28,9 +28,13 @@ const BaseView = Backbone.View.extend({
             return;
           }
 
-          widget.createNewView({
-            url: data.url
-          });
+          if (isReplace) {
+            widget.replacePage(data.url);
+          } else {
+            widget.createNewView({
+              url: data.url
+            });
+          }
         });
       })
       .catch(mallPromise.catchFn);

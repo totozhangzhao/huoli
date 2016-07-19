@@ -5,7 +5,7 @@ import async from "async";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
-import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
 import appInfo from "app/client/mall/js/lib/app-info.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
@@ -20,6 +20,10 @@ import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+
+const sharePageLog = widget.initTracker("ad");
+
 const AppView = Backbone.View.extend({
   el: "#interlayer",
   events: {
@@ -32,6 +36,7 @@ const AppView = Backbone.View.extend({
     const nav = new Navigator();
     nav.render();
     new BackTop();
+    this.urlObj = UrlUtil.parseUrlSearch();
     this.$initial = ui.initial().show();
     this.mallInterlayer();
     logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
@@ -214,7 +219,7 @@ const AppView = Backbone.View.extend({
       (userData, next) => {
         const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: parseUrl().productid
+          productid: this.urlObj.productid
         });
 
         sendPost("tplProduct", params, (err, data) => {
@@ -250,10 +255,16 @@ const AppView = Backbone.View.extend({
       }
 
       self.$initial.hide();
+
+      sharePageLog({
+        title: result.title,
+        productid: this.urlObj.productid,
+        from: this.urlObj.from || "--"
+      });
     });
   },
   initActive() {
-    const id = parseUrl().productid;
+    const id = this.urlObj.productid;
 
     if ( String(id) === "10000212") {
       new ShareInput({ el: "#interlayer" });
