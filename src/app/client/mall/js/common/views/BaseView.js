@@ -11,11 +11,15 @@ const BaseView = Backbone.View.extend({
     widget.createAView(e);
   },
   handleGetUrl(e) {
+    const productid = $(e.currentTarget).data("productid");
+    this.mallGetUrl(productid);
+  },
+  mallGetUrl(productid) {
     mallPromise
       .checkLogin()
       .then(userData => {
         const params = _.extend({}, userData.userInfo, userData.deviceInfo, {
-          productid: $(e.currentTarget).data("productid")
+          productid: productid
         });
 
         sendPost("getUrl", params, (err, data) => {

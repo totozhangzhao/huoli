@@ -5,6 +5,7 @@ import FormCustomView     from "app/client/mall/js/detail-page/goods-detail/view
 import AddAddressView     from "app/client/mall/js/detail-page/goods-detail/view/address-add.js";
 import ConfirmAddressView from "app/client/mall/js/detail-page/goods-detail/view/address-confirm.js";
 import AddressListView    from "app/client/mall/js/detail-page/goods-detail/view/address-list.js";
+import GetUrlView         from "app/client/mall/js/detail-page/goods-detail/view/get-url.js";
 import {createRouter}     from "app/client/mall/js/common/router/router-factory.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 new BackTop();
@@ -16,7 +17,8 @@ const viewDic = {
   "form-custom"    : FormCustomView,
   "address-add"    : AddAddressView,
   "address-confirm": ConfirmAddressView,
-  "address-list"   : AddressListView
+  "address-list"   : AddressListView,
+  "get-url"        : GetUrlView
 };
 
 export default createRouter({
