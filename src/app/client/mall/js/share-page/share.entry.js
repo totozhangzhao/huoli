@@ -7,7 +7,6 @@ import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import appInfo from "app/client/mall/js/lib/app-info.js";
-import * as widget from "app/client/mall/js/lib/common.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import shareUtil from "com/mobile/widget/wechat/util.js";
