@@ -2000,6 +2000,12 @@ img.touch-img {
   font-size: 0.32rem;
   line-height: 0.53333rem;
 }
+.pay-order-detail-box .order-exchange-text.pick-code-font {
+  font-size: 0.48rem;
+}
+.pay-order-detail-box .order-exchange-text.pick-code-font span {
+  font-size: 0.64rem;
+}
 .pay-order-detail-box .order-address-area .order-exchange-text:last-child {
   width: 75%;
 }

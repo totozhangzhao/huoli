@@ -11,24 +11,33 @@ const BaseView = Backbone.View.extend({
     widget.createAView(e);
   },
   handleGetUrl(e) {
-    mallPromise.getAppInfo()
-    .then(userData => {
-      const params = _.extend({}, userData.userInfo, userData.deviceInfo, {
-        productid: $(e.currentTarget).data("productid")
-      });
-
-      sendPost("getUrl", params, (err, data) => {
-        if (err) {
-          toast(err.message, 1500);
-          return;
-        }
-
-        widget.createNewView({
-          url: data.url
+    const productid = $(e.currentTarget).data("productid");
+    this.mallGetUrl(productid);
+  },
+  mallGetUrl(productid, isReplace) {
+    mallPromise
+      .getAppInfo()
+      .then(userData => {
+        const params = _.extend({}, userData.userInfo, userData.deviceInfo, {
+          productid: productid
         });
-      });
-    })
-    .catch(mallPromise.catchFn);
+
+        sendPost("getUrl", params, (err, data) => {
+          if (err) {
+            toast(err.message, 1500);
+            return;
+          }
+
+          if (isReplace) {
+            widget.replacePage(data.url);
+          } else {
+            widget.createNewView({
+              url: data.url
+            });
+          }
+        });
+      })
+      .catch(mallPromise.catchFn);
   }
 });
 

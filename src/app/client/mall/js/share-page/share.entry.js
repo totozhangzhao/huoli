@@ -2,12 +2,11 @@ import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
 import async from "async";
-// import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
-import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
 import appInfo from "app/client/mall/js/lib/app-info.js";
-import * as widget from "app/client/mall/js/lib/common.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import shareUtil from "com/mobile/widget/wechat/util.js";
@@ -20,6 +19,10 @@ import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+
+const sharePageLog = widget.initTracker("ad");
+
 const AppView = Backbone.View.extend({
   el: "#interlayer",
   events: {
@@ -32,6 +35,7 @@ const AppView = Backbone.View.extend({
     const nav = new Navigator();
     nav.render();
     new BackTop();
+    this.urlObj = UrlUtil.parseUrlSearch();
     this.$initial = ui.initial().show();
     this.mallInterlayer();
     logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
@@ -121,38 +125,59 @@ const AppView = Backbone.View.extend({
   },
   getMallCouponById(couponId) {
     const self = this;
-
-    async.waterfall([
-      next => {
-        appInfo.getUserData((err, userData) => {
-          if (err) {
-            toast(err.message, 1500);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      (userData, next) => {
+    mallPromise
+      .checkLogin()
+      .then(userData => {
         const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: couponId
         });
-
-        sendPost("getCoupon", params, (err, data) => {
-          next(err, data);
+        return new Promise((resolve, reject) => {
+          sendPost("getCoupon", params, (err, data) => {
+            if(err) {
+              reject(err);
+            }else{
+              resolve(data);
+            }
+          });
         });
-      }
-    ], (err, result) => {
-        // self.curCouponBtn.text("已领取优惠券");
-        // self.curCouponBtn.addClass('active');
-      if (err) {
-        toast(err.message, 1500);
-        return;
-      }
-      toast(result.message, 1500);
-      self.checkCouponButton();
-    });
+      })
+      .then((result) => {
+        toast(result.message, 1500);
+        self.checkCouponButton();
+      })
+      .catch(mallPromise.catchFn);
+    // async.waterfall([
+    //   next => {
+    //     appInfo.getUserData((err, userData) => {
+    //       if (err) {
+    //         toast(err.message, 1500);
+    //         return;
+    //       }
+
+    //       next(null, userData);
+    //     });
+    //   },
+    //   (userData, next) => {
+    //     const params = _.extend({}, userData.userInfo, {
+    //       p: userData.deviceInfo.p,
+    //       productid: couponId
+    //     });
+
+    //     sendPost("getCoupon", params, (err, data) => {
+    //       next(err, data);
+    //     });
+    //   }
+    // ], (err, result) => {
+    //     // self.curCouponBtn.text("已领取优惠券");
+    //     // self.curCouponBtn.addClass('active');
+    //   if (err) {
+    //     toast(err.message, 1500);
+    //     return;
+    //   }
+    //   toast(result.message, 1500);
+    //   self.checkCouponButton();
+    // });
   },
 
   handleShareButton(e) {
@@ -193,7 +218,7 @@ const AppView = Backbone.View.extend({
       (userData, next) => {
         const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: parseUrl().productid
+          productid: this.urlObj.productid
         });
 
         sendPost("tplProduct", params, (err, data) => {
@@ -229,10 +254,16 @@ const AppView = Backbone.View.extend({
       }
 
       self.$initial.hide();
+
+      sharePageLog({
+        title: result.title,
+        productid: this.urlObj.productid,
+        from: this.urlObj.from || "--"
+      });
     });
   },
   initActive() {
-    const id = parseUrl().productid;
+    const id = this.urlObj.productid;
 
     if ( String(id) === "10000212") {
       new ShareInput({ el: "#interlayer" });
