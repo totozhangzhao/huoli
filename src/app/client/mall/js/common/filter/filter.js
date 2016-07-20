@@ -1,6 +1,6 @@
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
-
+const nav = new Navigator();
 export function before() {
 
 }
@@ -13,7 +13,6 @@ export function after(action) {
   if ( /get-url/.test(action) ) {
     document.title = "";
   } else {
-    const nav = new Navigator();
     nav.render(100);
   }
 }
