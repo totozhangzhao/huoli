@@ -14,6 +14,8 @@ import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
+
+import tmpl from "app/client/mall/tpl/active-page/crowd/main.tpl";
 mallWechat.initShare();
 
 const detailLog = initTracker("detail");
@@ -163,7 +165,6 @@ const AppView = Backbone.View.extend({
 
     const isSelling = productDetail.stat === 1 || productDetail.stat === 4;
     const showAnimation = isSelling && (barWidth !== maxBarWidth && barWidth !== minBarWidth);
-    const tmpl = require("app/client/mall/tpl/active-page/crowd/main.tpl");
 
     this.$el.html(tmpl({
       data: productDetail,
