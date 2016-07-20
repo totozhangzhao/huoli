@@ -5,8 +5,19 @@ import echo from "com/mobile/lib/echo/echo.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import logger from "com/mobile/lib/log/log.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
+import {config as mallConfig} from "app/client/mall/js/common/config.js";
+import loadScript from "com/mobile/lib/load-script/load-script.js";
 
 window.jQuery = window.$ = $;
+
+function debugFilter() {
+  loadScript(`${window.location.origin}/fe/com/mobile/develop/eruda.bundle.js`, true);
+}
+
+if ( cookie.get(mallConfig.debugName) ) {
+  debugFilter();
+}
 
 export function initRem() {
   let docEl = document.documentElement;
