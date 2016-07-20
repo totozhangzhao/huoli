@@ -3,7 +3,7 @@ var Backbone  = require("backbone");
 var parseUrl  = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var logger    = require("com/mobile/lib/log/log.js");
 var mallUitl  = require("app/client/mall/js/lib/util.js");
-import * as mallWechat from "app/client/mall/js/lib/wechat.js";
+import * as filter from "app/client/mall/js/common/filter/filter.js";
 
 exports.createRouter = function(opts) {
   if (!opts) {
@@ -57,15 +57,14 @@ exports.createRouter = function(opts) {
           });
         }
 
+        filter.before(action);
+
         bbViews[action].resume({
           previousView: this.previousView
         });
-
-        if ( !/-detail|-desc/.test(action) ) {
-          mallWechat.initShare();
-        }
-
         this.previousView = action;
+
+        filter.after(action);
       } else {
         window.console.log("-- [Backbone View] not found! action: " + action + " --");
         this.replaceTo(defaultView);
