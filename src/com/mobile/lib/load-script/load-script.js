@@ -1,9 +1,9 @@
-module.exports = function(url) {
+module.exports = function(url, sync) {
   var doc  = document;
   var node = doc.createElement("script");
 
   node.charset = "utf-8";
-  node.async   = true;
+  node.async   = !sync;
   node.src     = url; // version
 
   var head        = doc.head || doc.getElementsByTagName("head")[0] || doc.documentElement;
