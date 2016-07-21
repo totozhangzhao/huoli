@@ -75,7 +75,7 @@ export let createNewView = _.debounce(options => {
     }
   }
 
-  passOnParam("from");
+  passOnParam("hlfrom");
 
   let hash = urlAndHash.hash;
 
@@ -201,7 +201,7 @@ export function initTracker(tag) {
     if (data.productid) {
       category += `_${data.productid}`;
     }
-    logger.track(category, "View PV", data.from);
+    logger.track(category, "View PV", data.hlfrom);
   };
 }
 
@@ -231,5 +231,5 @@ $("body").on("click", "a, button, [data-log-mall-click]", e => {
     category = `${category}_${urlObj.productid}`;
   }
 
-  logger.track(category, "EV click", urlObj.from || "--");
+  logger.track(category, "EV click", urlObj.hlfrom || "--");
 });

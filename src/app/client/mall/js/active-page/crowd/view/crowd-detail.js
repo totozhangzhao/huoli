@@ -51,7 +51,7 @@ const AppView = Backbone.View.extend({
       detailLog({
         title: this.title,
         productid: this.urlObj.productid,
-        from: this.urlObj.from || "--"
+        hlfrom: this.urlObj.hlfrom || "--"
       });
     }
 
@@ -191,7 +191,7 @@ const AppView = Backbone.View.extend({
     detailLog({
       title,
       productid: this.urlObj.productid,
-      from: this.urlObj.from || "--"
+      hlfrom: this.urlObj.hlfrom || "--"
     });
   },
   renderBuyNumView(crowd) {

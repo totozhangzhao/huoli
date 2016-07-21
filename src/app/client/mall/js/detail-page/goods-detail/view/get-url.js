@@ -16,7 +16,7 @@ const AppView = BaseView.extend({
     detailLog({
       title: "get-url",
       productid: this.urlObj.productid,
-      from: this.urlObj.from || "--"
+      hlfrom: this.urlObj.hlfrom || "--"
     });
   }
 });

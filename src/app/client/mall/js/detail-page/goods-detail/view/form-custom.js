@@ -35,7 +35,7 @@ const AppView = Backbone.View.extend({
     detailLog({
       title: `${window.document.title}form-custom`,
       productid: parseUrl().productid,
-      from: parseUrl().from || "--"
+      hlfrom: parseUrl().hlfrom || "--"
     });
   },
   inputInput(e) {

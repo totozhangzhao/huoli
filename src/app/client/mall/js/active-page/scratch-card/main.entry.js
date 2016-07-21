@@ -54,7 +54,7 @@ var AppView = Backbone.View.extend({
     detailLog({
       title: title,
       productid: parseUrl().productid,
-      from: parseUrl().from || "--"
+      hlfrom: parseUrl().hlfrom || "--"
     });
   },
   initCard: function() {

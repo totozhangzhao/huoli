@@ -99,7 +99,7 @@ const AppView = BaseView.extend({
 
     menuLog({
       title: window.document.title,
-      from: UrlUtil.parseUrlSearch().from || "--"
+      hlfrom: UrlUtil.parseUrlSearch().hlfrom || "--"
     });
     return this;
   },

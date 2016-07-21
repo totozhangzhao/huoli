@@ -43,7 +43,7 @@ const AppView = Backbone.View.extend({
     logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
     orderListLog({
       title: document.title,
-      from: UrlUtil.parseUrlSearch().from || "--"
+      hlfrom: UrlUtil.parseUrlSearch().hlfrom || "--"
     });
   },
   setAppRightButton(text) {

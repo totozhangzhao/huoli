@@ -100,7 +100,7 @@ var AppView = BaseView.extend({
 
     menuLog({
       title: parseUrl().classify,
-      from: parseUrl().from || "--"
+      hlfrom: parseUrl().hlfrom || "--"
     });
   }
 });

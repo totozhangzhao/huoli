@@ -109,7 +109,7 @@ const RefundView = Backbone.View.extend({
   },
   // 跳转到退款状态查看页面
   toResult() {
-    let from = UrlUtil.parseUrlSearch().from || '';
+    let from = UrlUtil.parseUrlSearch().hlfrom || '';
     if( from ) {
       from = `&from=${from}`;
     }

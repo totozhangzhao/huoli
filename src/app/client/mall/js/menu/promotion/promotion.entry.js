@@ -82,7 +82,7 @@ const AppView = BaseView.extend({
 
       promotionLog({
         title: data.title || document.title,
-        from: UrlUtil.parseUrlSearch().from || "--"
+        hlfrom: UrlUtil.parseUrlSearch().hlfrom || "--"
       });
     });
     promise.catch(mallPromise.catchFn);

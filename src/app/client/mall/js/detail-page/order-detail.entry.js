@@ -153,7 +153,7 @@ const AppView = Backbone.View.extend({
         this.$initial.hide();
         orderLog({
           title: this.orderDetail.title,
-          from: parseUrl().from || "--"
+          hlfrom: parseUrl().hlfrom || "--"
         });
       }).catch( err => {
         toast(err.message, 1500);
