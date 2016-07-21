@@ -100,7 +100,7 @@ export let createNewView = _.debounce(options => {
       }
     });
   }
-}, 1000, true);
+}, 1000, { leading: true });
 
 export function createAView(e) {
   let $cur = $(e.currentTarget);
