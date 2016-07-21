@@ -47,8 +47,7 @@ export function initWeChatShare(title) {
   loadScript(`${window.location.origin}/fe/com/mobile/widget/wechat/wechat.bundle.js`);
 }
 
-export function initShare(opts) {
-  let options = opts || {};
+export function initShare(options = {}) {
   let shareInfo = options.wechatshare;
   const isShareInfoVaild = Boolean(shareInfo && shareInfo.title);
 
