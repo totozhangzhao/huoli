@@ -1,4 +1,8 @@
 <div class="address-exist-fatherbar">
+  <div class="address-foot-box">
+    <a class="js-add-address address-foot-btn allow-color">＋添加新地址</a>
+    <!-- <a class="address-foot-btn forbidden-color">＋添加新地址</a> -->
+  </div>
   <ul class="address-exist-bar">
     <% _.each(addressList, function(addressInfo, index) { %>
     <li class="js-item address-exist-area"
@@ -29,10 +33,6 @@
     </li>
     <% }) %>
   </ul>
-  <div class="address-foot-box">
-    <a class="js-add-address address-foot-btn allow-color">＋添加新地址</a>
-    <!-- <a class="address-foot-btn forbidden-color">＋添加新地址</a> -->
-  </div>
 </div>
 
 <!-- 删除提示框 -->
