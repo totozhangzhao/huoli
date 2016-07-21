@@ -29,9 +29,7 @@ let getUserData = (() => {
     }
   }
 
-  return (callback, opitons) => {
-    opitons = opitons || {};
-
+  return (callback, opitons = {}) => {
     let reset = opitons.reset || false;
 
     if ( checkUserData(userDataStore) && !reset ) {

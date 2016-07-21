@@ -52,9 +52,8 @@ const AppView = BaseView.extend({
     });
   },
 
-  fetchData(opts) {
+  fetchData(options = {}) {
     const self = this;
-    const options = opts || {};
 
     mallPromise.getAppInfo()
     .then(userData => {

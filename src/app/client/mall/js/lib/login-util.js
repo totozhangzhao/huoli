@@ -63,8 +63,7 @@ export function getTokenByWeChatKey(wechatKey) {
     });
 }
 
-export function loginRequset(opts) {
-  let options = opts || {};
+export function loginRequset(options = {}) {
   return new Promise((resovle, reject) => {
     sendPost("webLogin", options, (err, data) => {
       if (err) {
@@ -75,7 +74,7 @@ export function loginRequset(opts) {
     });
   })
     .then(data => {
-      data.phone = data.phone || opts.phone;
+      data.phone = data.phone || options.phone;
       saveToken(data);
       return data;
     });
