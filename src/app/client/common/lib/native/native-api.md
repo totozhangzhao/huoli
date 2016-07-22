@@ -261,7 +261,7 @@ __params__
 __result__
 
 * `phone` String ⽤户电话
-* `uid` String 标识设备
+* `uid` String 设备ID，标识设备
 * `userid` String ⽤户ID，标识用户
 * `authcode` String token
 * `hbuserid`   String 过渡期参数，下一版本统一用 userid。

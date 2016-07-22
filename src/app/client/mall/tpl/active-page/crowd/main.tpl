@@ -29,9 +29,7 @@ stat  int 状态
       <div class="snap-winner-flex"></div>
       <div class="snap-winner-flex">
       <% if (data.winner.phone) { %>
-        <% var phone = data.winner.phone; %>
-        <% phone = phone.slice(0, 3) + "****" + phone.slice(7, 11); %>
-        <p>获奖者：<span class="snap-winner-tel"><%= phone %></span></p>
+        <p>获奖者：<span class="snap-winner-tel"><%= data.winner.phone %></span></p>
         <p>参与次数：<span class="snap-winner-time"><%= data.winner.winnerbuynum %></span>人次</p>
         <p>揭晓日期：<%= data.winner.time %></p>
       <% } else { %>
