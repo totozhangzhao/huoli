@@ -95,7 +95,7 @@ let AppView = Backbone.View.extend({
 
     detailLog({
       title,
-      from: this.urlObj.from || "--"
+      hlfrom: this.urlObj.hlfrom || "--"
     });
   },
   initView(addressList) {

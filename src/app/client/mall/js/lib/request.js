@@ -51,9 +51,9 @@ export function createSendPost(options) {
 
   return (method, params, callback) => {
     let urlObj = UrlUtil.parseUrlSearch();
-    if (urlObj.from !== undefined) {
+    if (urlObj.hlfrom !== undefined) {
       params = params || {};
-      params.from = urlObj.from;
+      params.hlfrom = urlObj.hlfrom;
     }
     let data    = jsonrpc.request(idGenerator(), method, params);
     let dataStr = JSON.stringify(data);

@@ -66,7 +66,7 @@ const AppView = BaseView.extend({
     menuLog({
       productid: this.groupId,
       title,
-      from: parseUrl().from || "--"
+      hlfrom: parseUrl().hlfrom || "--"
     });
   }
 });

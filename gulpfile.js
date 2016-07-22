@@ -9,8 +9,7 @@
 var gulp           = require("gulp");
 var autoprefixer   = require("gulp-autoprefixer");
 var minifyHTML     = require("gulp-minify-html");
-var minifycss      = require("gulp-minify-css");
-var jshint         = require("gulp-jshint");
+var cleanCSS       = require('gulp-clean-css');
 var eslint         = require('gulp-eslint');
 var notify         = require("gulp-notify");
 var del            = require("del");
@@ -53,7 +52,7 @@ gulp.task("html", function() {
 gulp.task("styles", function() {
   return gulp.src(config.src + "**/*.css")
     .pipe(autoprefixer())
-    .pipe(minifycss())
+    .pipe(cleanCSS())
     // .pipe(versionRef())
     .pipe(gulp.dest(config.dest))
 });
@@ -62,17 +61,6 @@ gulp.task("styles", function() {
 gulp.task("images", function() {
   return gulp.src(config.src + "**/*.+(jpg|jpeg|png|gif)")
     .pipe(gulp.dest(config.dest));
-});
-
-// Scripts
-gulp.task("js:lint", function() {
-  return gulp.src(config.src + "**/*.js")
-    .pipe(jshint(".jshintrc"))
-    .pipe(jshint.reporter("jshint-stylish"))
-    .pipe(jshint.reporter("fail"))
-    .on("error", function(err) {
-      this.emit("end");
-    });
 });
 
 // eslint
@@ -143,8 +131,4 @@ gulp.task("watch", function() {
 
   // Images
   gulp.watch(config.src + "**/*.+(jpg|jpeg|png|gif)", ["images"]);
-
-  // JavaScript
-  // gulp.watch(config.src + "**/*.js", ["js:lint"]);
-
 });

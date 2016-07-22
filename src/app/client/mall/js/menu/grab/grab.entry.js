@@ -52,9 +52,8 @@ const AppView = BaseView.extend({
     });
   },
 
-  fetchData(opts) {
+  fetchData(options = {}) {
     const self = this;
-    const options = opts || {};
 
     mallPromise.getAppInfo()
     .then(userData => {
@@ -99,7 +98,7 @@ const AppView = BaseView.extend({
 
     menuLog({
       title: window.document.title,
-      from: UrlUtil.parseUrlSearch().from || "--"
+      hlfrom: UrlUtil.parseUrlSearch().hlfrom || "--"
     });
     return this;
   },

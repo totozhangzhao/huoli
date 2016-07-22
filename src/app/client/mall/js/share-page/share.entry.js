@@ -258,7 +258,7 @@ const AppView = Backbone.View.extend({
       sharePageLog({
         title: result.title,
         productid: this.urlObj.productid,
-        from: this.urlObj.from || "--"
+        hlfrom: this.urlObj.hlfrom || "--"
       });
     });
   },

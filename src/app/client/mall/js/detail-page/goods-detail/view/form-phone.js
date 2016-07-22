@@ -46,7 +46,7 @@ const AppView = Backbone.View.extend({
     detailLog({
       title,
       productid: parseUrl().productid,
-      from: parseUrl().from || "--"
+      hlfrom: parseUrl().hlfrom || "--"
     });
   },
   inputInput(e) {

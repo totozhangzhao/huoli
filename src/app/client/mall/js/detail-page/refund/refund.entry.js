@@ -12,7 +12,7 @@ import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import Popover from "com/mobile/widget/popover/popover.js";
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
-import "app/client/mall/js/lib/common.js";
+import * as widget from "app/client/mall/js/lib/common.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 mallWechat.initShare();
@@ -109,11 +109,7 @@ const RefundView = Backbone.View.extend({
   },
   // 跳转到退款状态查看页面
   toResult() {
-    let from = UrlUtil.parseUrlSearch().from || '';
-    if( from ) {
-      from = `&from=${from}`;
-    }
-    window.location.replace(`/fe/app/client/mall/html/detail-page/refund-result.html?orderid=${this.orderid}${from}`);
+    widget.replacePage(`/fe/app/client/mall/html/detail-page/refund-result.html?orderid=${this.orderid}`);
   }
 });
 

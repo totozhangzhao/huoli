@@ -43,7 +43,7 @@ const AppView = Backbone.View.extend({
     logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
     orderListLog({
       title: document.title,
-      from: UrlUtil.parseUrlSearch().from || "--"
+      hlfrom: UrlUtil.parseUrlSearch().hlfrom || "--"
     });
   },
   setAppRightButton(text) {
@@ -240,9 +240,7 @@ const AppView = Backbone.View.extend({
 
     this.getOrderList({ listType }, renderView);
   },
-  getOrderList(opts, callback) {
-    const options = opts || {};
-
+  getOrderList(options = {}, callback) {
     this.loadingMore = true;
 
     // 全部订单页面也作为一个入口，所以 { reset: true }

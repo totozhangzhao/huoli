@@ -67,7 +67,7 @@ const AppView = BaseView.extend({
       detailLog({
         title: this.title,
         productid: this.urlObj.productid,
-        from: this.urlObj.from || "--"
+        hlfrom: this.urlObj.hlfrom || "--"
       });
     }
 
@@ -263,7 +263,7 @@ const AppView = BaseView.extend({
     detailLog({
       title: goods.title,
       productid: this.urlObj.productid,
-      from: this.urlObj.from || "--"
+      hlfrom: this.urlObj.hlfrom || "--"
     });
   },
 
