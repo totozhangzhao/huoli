@@ -47,5 +47,5 @@
   </div>
 </div>
 <div class="address-foot-box">
-  <a id="save-address" class="address-foot-btn"><%= addressInfo.addressid ? "设为默认收货地址" : "保存" %></a>
+  <a id="save-address" class="address-foot-btn"><%= addressInfo.addressid ? "保存修改" : "保存" %></a>
 </div>
