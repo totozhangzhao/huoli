@@ -216,8 +216,7 @@ let AppView = Backbone.View.extend({
           },
           area: {
             id: $form.find("[name=area]").val()
-          },
-          def: 1
+          }
         };
         let params = _.extend({}, userData.userInfo, addressData, {
           p: userData.deviceInfo.p
