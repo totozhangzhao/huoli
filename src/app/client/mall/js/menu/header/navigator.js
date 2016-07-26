@@ -1,6 +1,8 @@
 import $           from "jquery";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import template from "app/client/mall/tpl/common/header/navigator.tpl";
+import * as widget from "app/client/mall/js/lib/common.js";
+
 class Navigator{
   constructor() {
     this.isRender = false;
@@ -17,11 +19,28 @@ class Navigator{
       return;
     }
     this.isRender = true;
+
+    function initView() {
+      $("body")
+      // .addClass('common-switch-padding')
+      .prepend(this.el);
+
+      $(".common-switch-nav .js-switch")
+        .on("click", e => {
+          e.preventDefault();
+          let origin = window.location.origin;
+          if ( /hbmall/.test(origin) ) {
+            origin = origin.replace("hbmall", "mall");
+          } else {
+            origin = origin.replace("mall", "hbmall");
+          }
+          widget.redirectPage(`${origin}/fe/app/client/mall/html/login/login.html`);
+        });
+    }
+
     if( !mallUitl.isAppFunc() ) {
       setTimeout(() => {
-        $("body")
-        // .addClass('common-switch-padding')
-        .prepend(this.el);
+        initView.call(this);
       }, delay || 0 );
     }
   }
