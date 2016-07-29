@@ -14,33 +14,31 @@
 <body>
   <section id="main" class="home-page-box no-select">
     <div id="home-banner" class="home-banner-bar no-select">
-      <!-- banner -->
+    <!-- // banner -->
     </div>
-    <ul id="home-topmenu" class="home-item-bar flex-row clearfix no-select">
-      <!-- 推荐入口 -->
+    <nav id="home-points" class="home-nav clearfix no-select" style="display:none;">
+      <a data-title="我的商城" href="/fe/app/client/mall/html/profile/profile.html" class="js-new-page home-record-btn fr">我的商城<b class="home-record-icon"></b></a>
+      <p class="fl">当前积分<span class="num-font"></span></p>
+    </nav>
+
+    <div id="home-entrance">
+      <!-- // 五个固定入口位 -->
+    </div>
+    
+    <ul id="home-promotion" class="home-panel-bar clearfix no-select">
+      <!-- // 四个固定推广位 -->
     </ul>
-    <div id="home-promotion" class="home-panel-bar no-select">
-      <!-- 推广入口 -->
-    </div>
-    <div id="home-active" class="home-promote-bar">
-      <!--  -->
-    </div>
-    <div id="home-goods" class="home-recommend-bar">
-      <!--  -->
-    </div>
-    <div id="menu" class="home-bottom-nav flex-row" style="display:none;">
-      <a class="home-bottom-list on">
-        <div class="home-bottom-icon"></div>
-        <div class="home-bottom-item">首页</div>
-      </a>
-      <a href="/fe/app/client/mall/html/menu/category/category.html" class="js-new-page home-bottom-list">
-        <div class="home-bottom-icon"></div>
-        <div class="home-bottom-item">频道</div>
-      </a>
-      <a data-title="我的商城" href="/fe/app/client/mall/html/profile/profile.html" class="js-new-page home-bottom-list">
-        <div class="home-bottom-icon"></div>
-        <div class="home-bottom-item">我的</div>
-      </a>
+
+    <nav id="home-category-fix" class="home-list-nav" style="display:none;">
+      <div class="home-list-fa">
+        <!-- fix状态的占位容器 -->
+      </div>
+    </nav>
+    <nav id="home-category" class="home-list-nav">
+      <!-- // 分类选择 -->
+    </nav>
+    <div id="home-goods" class="home-goods-fa">
+      <!-- // 首页商品 -->
     </div>
     <div id="copyright" class="copyright-block">
       <!-- // 页脚 -->
@@ -52,7 +50,7 @@
   _czc.push(["_setAccount", "1255478836"]);
 </script>
 <script src="/fe/vendor/vendor-mvc.bundle.js"></script>
-<script src="/fe/app/client/mall/js/home/index-v3.bundle.js"></script>
+<script src="/fe/app/client/mall/js/home/index-v2.bundle.js"></script>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255478836'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1255478836' type='text/javascript'%3E%3C/script%3E"));</script>
 </body>
 </html>
