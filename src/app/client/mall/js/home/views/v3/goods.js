@@ -17,7 +17,6 @@ const GoodsView = Backbone.View.extend({
 
   render(data) {
     if(data && data.length >0) {
-      window.console.log(data);
       this.$el.html(this.template({
         dataList: data,
         appName : mallUitl.getAppName(),

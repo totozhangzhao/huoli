@@ -12,7 +12,6 @@ const PromotionView = Backbone.View.extend({
   initialize() {},
 
   render(data) {
-    window.console.log(data);
     if(!data.length || data.length === 0){
       this.$el.hide();
       return;
