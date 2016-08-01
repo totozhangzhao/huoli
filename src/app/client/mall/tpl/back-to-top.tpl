@@ -1,5 +1,5 @@
 <% var showToHome = !isApp && !isHome; %>
-<div class="js-webview home-fixed-box" style="<%= showToHome ? 'bottom: 2rem;' : '' %>">
+<div class="js-webview home-fixed-box" style="<%= showToHome ? 'bottom: 2rem;' : '' %><%= isHome ? 'bottom:1.5rem;' : ''%>">
 <% if(showToHome){ %>
   <!-- <a class="to-home" href="/fe/app/client/mall/index.html"></a> -->
 <% } %>
