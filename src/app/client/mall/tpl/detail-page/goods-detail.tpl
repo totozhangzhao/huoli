@@ -1,5 +1,5 @@
 <div class="goods-banner-bar">
-  <img src="<%= img %>" alt="">
+  <img src="<%= img[0] %>" alt="">
 </div>
 
 <div class="goods-tit-bar">

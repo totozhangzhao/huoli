@@ -1,10 +1,10 @@
 <div class="home-common-tip">
   <div class="home-common-tip-son"></div>
-  <strong class="goods-tip-dot"><b></b><b></b><b></b></strong>
+  <!-- <strong class="goods-tip-dot"><b></b><b></b><b></b></strong> -->
 </div>
 <div class="home-recommend-area">
 <% _.some(dataList, function (item, index) {%>
-    <div class="home-recommend-banner">
+    <!-- <div class="home-recommend-banner">
     <a
       data-log-mall-click="index-block_<%= item.title %>-<%= item.productid %>"
       data-productid="<%= item.productid %>"
@@ -17,12 +17,12 @@
     >
       <img src="<%= item.img %>" alt="">
     </a>
-  </div>  
+  </div>   -->
   <% return index === 0;%>
 <% }); %>
 <ul class="home-recommend-content clearfix">
 <% _.each(dataList, function (item, index) {%>
-  <% if(index === 0){return;} %>
+  <% if(index === 0){} %>
   <li>
     <a
       data-log-mall-click="index-block_<%= item.title %>-<%= item.productid %>"

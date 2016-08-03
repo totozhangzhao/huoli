@@ -63,7 +63,7 @@
       <% }); %>
     </div>
   <%
-    }else if(item.tpl === 3) {
+    }else if(item.tpl === 4) {
   %>
     <div class="home-panel-area flex-row bottom">
       <% _.each(item.list, function (item4, index4){%>
