@@ -23,7 +23,10 @@ let callbackWraper = callback => (err, data) => {
   switch (data.type) {
     case "success": {
       let result = data.payload.result;
-      let token = data.payload.token || result.token;
+      let token = data.payload.token;
+      if (!token && result) {
+        token = result.token;
+      }
       if (token) {
         let cookieConfig = {
           expires: 86400 * 30,
