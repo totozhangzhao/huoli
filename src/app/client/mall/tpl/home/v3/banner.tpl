@@ -1,6 +1,6 @@
-<ul class="home-banner-area clearfix">
+<ul class="common-banner-area clearfix">
   <% _.each(dataList, function(item, index) { %>
-  <li class="home-banner-pic fl">
+  <li class="common-banner-pic fl">
     <a 
       data-log-mall-click="index-banner_<%= item.title %>-<%= item.productid %>"
       data-productid="<%= item.productid %>"
@@ -15,7 +15,7 @@
   </li>
   <% }); %>
 </ul>
-<div class="home-banner-indexs">
+<div class="common-banner-indexs">
   <% _.each(dataList, function(item, index) { %>
     <i class="<%= index === 0 ? "active" : "" %> "></i>
   <% }); %>

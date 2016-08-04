@@ -3,6 +3,7 @@ import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
 import * as mallUitl       from "app/client/mall/js/lib/util.js";
 import UrlUtil        from "com/mobile/lib/url/url.js";
+import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallWechat     from "app/client/mall/js/lib/wechat.js";
 
 import * as widget    from "app/client/mall/js/lib/common.js";
@@ -15,9 +16,12 @@ import BackTop from "com/mobile/widget/button/to-top.js";
 import {initTracker}  from "app/client/mall/js/lib/common.js";
 const categoryLog = initTracker("category-list");
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 
 const AppView = BaseView.extend({
-  el: "#main",
+  el: "#category-container",
+
+  template: require("app/client/mall/tpl/menu/category/category-list.tpl"),
 
   events: {
     "click .js-new-page": "createNewPage",
@@ -36,10 +40,16 @@ const AppView = BaseView.extend({
   },
 
   render() {
-
     mallWechat.initShare({
       wechatshare: this.result.wechatshare,
       title: this.result.title
+    });
+    this.$el.find("#category-list").html(this.template({
+      data: this.result,
+      tplUtil
+    }));
+    mallWechat.initShare({
+      wechatshare: this.result.wechatshare
     });
     return this;
   },

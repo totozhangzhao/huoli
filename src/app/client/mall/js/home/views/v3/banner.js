@@ -11,7 +11,7 @@ const BannerView = Backbone.View.extend({
 
   el: "#home-banner",
 
-  template: require("app/client/mall/tpl/home/v2/banner.tpl"),
+  template: require("app/client/mall/tpl/home/v3/banner.tpl"),
 
   initialize() {
   },

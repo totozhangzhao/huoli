@@ -20,6 +20,7 @@ import GoodsView from "app/client/mall/js/home/views/v3/goods.js";
 import Footer from "app/client/mall/js/common/views/footer.js";
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
 import BaseView from "app/client/mall/js/common/views/BaseView.js";
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 const AppView = BaseView.extend({
   el: "#main",
 
@@ -73,6 +74,9 @@ const AppView = BaseView.extend({
     this.$footer.render();
     this.$popoverAdView.fetch({position: 1});
     this.$el.find("#menu").show();
+    mallWechat.initShare({
+      wechatshare: data.wechatshare
+    });
   },
 
   // 显示签到按钮

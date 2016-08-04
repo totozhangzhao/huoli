@@ -6,19 +6,29 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection"content="telephone=no">
-  <title>频道商品</title>
+  <title>商品分类</title>
   <link rel="icon" href="http://cdn.rsscc.cn/guanggao/mall/favicon.ico">
   <link rel="stylesheet" type="text/css" href="/fe/app/client/common/style/global.css">
   <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
 </head>
 <body>
-<section id="main" class="home-page-box">
-  <div id="goods-block" class="home-goods-bar" style="display: none;">
-    <!-- // -->
-  </div>
-
-  <div id="copyright" class="copyright-block">
-    <!-- // -->
+<section id="category-container" class="channel-box">
+  <ul id="category-list" class="channel-bar">
+    <!-- // 分类列表 -->
+  </ul>
+  <div class="home-bottom-nav flex-row">
+    <a href="/fe/app/client/mall/index.html" class="js-new-page home-bottom-list">
+      <div class="home-bottom-icon"></div>
+      <div class="home-bottom-item">首页</div>
+    </a>
+    <div class="home-bottom-list on">
+      <div class="home-bottom-icon"></div>
+      <div class="home-bottom-item">频道</div>
+    </div>
+    <a data-title="我的商城" href="/fe/app/client/mall/html/profile/profile.html" class="js-new-page home-bottom-list">
+      <div class="home-bottom-icon"></div>
+      <div class="home-bottom-item">我的</div>
+    </a>
   </div>
 </section>
 
