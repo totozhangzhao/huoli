@@ -836,8 +836,7 @@ p {
 .home-bottom-nav {
   width: 100%;
   height: 1.30667rem;
-  opacity: 0.98;
-  background-color: #1a1a1a;
+  background: rgba(30, 30, 30, 0.98);
   position: fixed;
   left: 0;
   bottom: 0;
@@ -866,7 +865,7 @@ p {
   height: 0.48rem;
   display: block;
   margin: 0 auto 0.10667rem;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0803.png') no-repeat 1px 0;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0804.png') no-repeat 1px 0;
   opacity: 0.2;
   background-size: 13.33333rem 13.33333rem;
 }
@@ -935,22 +934,36 @@ p {
   top: 0;
   color: #333;
   font-size: 0.42667rem;
+  background-color: #f7f7f7;
 }
 .wechat-login-box .wechat-login-bar .wechat-login-icon {
-  padding-top: 0.8rem;
+  padding-top: 0.93333rem;
   padding-bottom: 0.8rem;
+  background-color: #fff;
 }
 .wechat-login-box .wechat-login-bar .wechat-login-icon div {
-  width: 1.44rem;
-  height: 1.49333rem;
+  width: 3.65333rem;
+  height: 0.96rem;
   margin: 0 auto;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0714.png') no-repeat 0 -3.73333rem;
-  background-size: 10.66667rem 10.66667rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0804.png') no-repeat 0 -4.26667rem;
+  background-size: 13.33333rem 13.33333rem;
+}
+.wechat-login-box .wechat-login-bar .wechat-login-icon p {
+  font-size: 0.4rem;
+  color: #039ef0;
+  padding-top: 0.4rem;
+  text-align: center;
 }
 .wechat-login-box .wechat-login-area {
   padding-left: 0.4rem;
   padding-right: 0.4rem;
-  padding-bottom: 0.4rem;
+  background-color: #fff;
+}
+.wechat-login-box .wechat-login-area .wechat-login-contain {
+  font-size: 0.34667rem;
+  height: 1.33333rem;
+  line-height: 1.33333rem;
+  color: #7f7f7f;
 }
 .wechat-login-box .wechat-login-area label {
   display: block;
@@ -1003,6 +1016,7 @@ p {
 .wechat-login-box .wechat-login-button {
   padding-left: 0.4rem;
   padding-right: 0.4rem;
+  margin-top: 0.4rem;
 }
 .wechat-login-box .wechat-login-button button {
   width: 9.2rem;
