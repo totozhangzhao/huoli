@@ -16,6 +16,7 @@ import BackTop from "com/mobile/widget/button/to-top.js";
 import {initTracker}  from "app/client/mall/js/lib/common.js";
 const categoryLog = initTracker("category-list");
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import MenuView from "app/client/mall/js/common/views/menu/menu.js";
 
 const AppView = BaseView.extend({
   el: "#category-container",
@@ -23,13 +24,17 @@ const AppView = BaseView.extend({
   template: require("app/client/mall/tpl/menu/category/category-list.tpl"),
 
   events: {
-    "click .js-new-page": "createNewPage",
-    "click .js-get-url" : "handleGetUrl"
+    "click .js-new-page"    : "createNewPage",
+    "click .js-get-url"     : "handleGetUrl"
   },
 
   initialize() {
     const nav = new Navigator();
     nav.render();
+    this.menuView       = new MenuView({
+      show: true,
+      viewName: 'category'
+    });
     new BackTop();
 
     this.$initial = ui.initial().show();
@@ -47,6 +52,7 @@ const AppView = BaseView.extend({
       data: this.result,
       tplUtil
     }));
+    this.$el.append(this.menuView.el);
     mallWechat.initShare({
       wechatshare: this.result.wechatshare
     });

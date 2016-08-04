@@ -19,14 +19,15 @@ import ActiveView from "app/client/mall/js/home/views/v3/active.js";
 import GoodsView from "app/client/mall/js/home/views/v3/goods.js";
 import Footer from "app/client/mall/js/common/views/footer.js";
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import MenuView from "app/client/mall/js/common/views/menu/menu.js";
 import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 const AppView = BaseView.extend({
   el: "#main",
 
   events:{
-    "click .js-new-page": "createNewPage",
-    "click .js-get-url" : "handleGetUrl"
+    "click .js-new-page"    : "createNewPage",
+    "click .js-get-url"     : "handleGetUrl"
   },
 
   initialize() {
@@ -43,6 +44,10 @@ const AppView = BaseView.extend({
     this.goodsView      = new GoodsView({el: "#home-goods"});
     this.$popoverAdView = new PopoverAd({el: "#popover-ad"});
     this.$footer        = new Footer();
+    this.menuView       = new MenuView({
+      show: true,
+      viewName: 'home'
+    });
     this.fetch();
     this.showCheckinBtn();
     logger.track(`${mallUitl.getAppName()}PV`, "View PV", title);
@@ -72,6 +77,7 @@ const AppView = BaseView.extend({
     this.activeView.render(data.actives || []);
     this.goodsView.render(data.goods || []);
     this.$footer.render();
+    this.$el.append(this.menuView.el);
     this.$popoverAdView.fetch({position: 1});
     this.$el.find("#menu").show();
     mallWechat.initShare({
