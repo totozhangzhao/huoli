@@ -8,7 +8,8 @@ const MenuView = Backbone.View.extend({
   className: "home-bottom-nav flex-row",
 
   events: {
-    "click .home-bottom-list" : "changeView"
+    "click .js-new-view" : "changeView",
+    "click .js-replace-view"  : "replaceView"
   },
 
   template: require("app/client/mall/tpl/common/menu/menu.tpl"),
@@ -41,6 +42,13 @@ const MenuView = Backbone.View.extend({
       return;
     }
     widget.createAView(e);
+  },
+  replaceView(e) {
+    e.preventDefault();
+    if($(e.currentTarget).hasClass('on')) {
+      return;
+    }
+    widget.replacePage($(e.currentTarget).prop("href"));
   }
 });
 
