@@ -11,7 +11,6 @@
           data-productid="<%= item1.productid %>"
           data-group-id="<%= item1.groupId %>"
           data-title="<%= item1.title %>"
-          data-info="index-promotion-<%= index1 %>"
           class="<%= tplUtil.getJsClass(item1) %> block"
           href="<%= tplUtil.getBlockUrl(item1) %>"
         >
@@ -32,7 +31,6 @@
           data-productid="<%= item2.productid %>"
           data-group-id="<%= item2.groupId %>"
           data-title="<%= item2.title %>"
-          data-info="index-promotion-<%= index2 %>"
           class="<%= tplUtil.getJsClass(item2) %> block"
           href="<%= tplUtil.getBlockUrl(item2) %>"
         >
@@ -53,7 +51,6 @@
           data-productid="<%= item3.productid %>"
           data-group-id="<%= item3.groupId %>"
           data-title="<%= item3.title %>"
-          data-info="index-promotion-<%= index3 %>"
           class="<%= tplUtil.getJsClass(item3) %> block"
           href="<%= tplUtil.getBlockUrl(item3) %>"
         >
@@ -74,7 +71,6 @@
           data-productid="<%= item4.productid %>"
           data-group-id="<%= item4.groupId %>"
           data-title="<%= item4.title %>"
-          data-info="index-promotion-<%= index4 %>"
           class="<%= tplUtil.getJsClass(item4) %> block"
           href="<%= tplUtil.getBlockUrl(item4) %>"
         >

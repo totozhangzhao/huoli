@@ -1,10 +1,10 @@
 <% _.each(data.menu, function (item, index) { %>
 <li class="channel-area">
   <a
+    data-log-mall-click="category-list_<%= item.title %>-<%= item.groupId %>"
     data-productid="<%= item.productid %>"
     data-group-id="<%= item.groupId %>"
     data-title="<%= item.title %>"
-    data-info="index-goods-<%= index %>"
     class="<%= tplUtil.getJsClass(item) %>"
     href="<%= tplUtil.getBlockUrl(item) %>"
   >

@@ -6,12 +6,10 @@
 <% _.some(dataList, function (item, index) {%>
     <!-- <div class="home-recommend-banner">
     <a
-      data-log-mall-click="index-block_<%= item.title %>-<%= item.productid %>"
+      data-log-mall-click="index-hot_<%= item.title %>-<%= item.productid %>"
       data-productid="<%= item.productid %>"
       data-group-id="<%= item.groupId %>"
       data-title="<%= item.title %>"
-      data-classify="<%= item.classify || '' %>"
-      data-info="index-goods-<%= index %>"
       class="<%= tplUtil.getJsClass(item) %>"
       href="<%= tplUtil.getBlockUrl(item) %>"
     >
@@ -25,12 +23,10 @@
   <% if(index === 0){} %>
   <li>
     <a
-      data-log-mall-click="index-block_<%= item.title %>-<%= item.productid %>"
+      data-log-mall-click="index-hot_<%= item.title %>-<%= item.productid %>"
       data-productid="<%= item.productid %>"
       data-group-id="<%= item.groupId %>"
       data-title="<%= item.title %>"
-      data-classify="<%= item.classify || '' %>"
-      data-info="index-goods-<%= index %>"
       class="<%= tplUtil.getJsClass(item) %>"
       href="<%= tplUtil.getBlockUrl(item) %>"
     >

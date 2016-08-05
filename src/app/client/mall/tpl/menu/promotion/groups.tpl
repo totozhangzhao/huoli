@@ -10,7 +10,7 @@
       <% if(type === 0) {%>
       <div class="mall-active-content">
         <a
-          data-log-mall-click="index-block_<%= item.title %>-<%= item.productid %>"
+          data-log-mall-click="promotion-block_<%= item.title %>-<%= item.productid %>"
           data-productid="<%= item.productid %>"
           data-group-id="<%= item.groupId %>"
           data-title="<%= item.title %>"
@@ -38,7 +38,7 @@
       <% }else if(type === 1) {%>
         <div class="mall-active-contain clearfix">
         <a
-          data-log-mall-click="index-block_<%= item.title %>-<%= item.productid %>"
+          data-log-mall-click="promotion-block_<%= item.title %>-<%= item.productid %>"
           data-productid="<%= item.productid %>"
           data-group-id="<%= item.groupId %>"
           data-title="<%= item.title %>"
