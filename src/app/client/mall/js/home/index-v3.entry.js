@@ -65,7 +65,9 @@ const AppView = BaseView.extend({
     });
     p.then(data => {
       this.render(data);
-      this.$initial.hide();
+      setTimeout(() => {
+        this.$initial.hide();
+      }, 600);
     })
     .catch(mallPromise.catchFn);
   },
