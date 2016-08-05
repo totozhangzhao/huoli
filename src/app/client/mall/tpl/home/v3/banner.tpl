@@ -7,7 +7,6 @@
         data-productid="<%= item.productid %>"
         data-group-id="<%= item.groupId %>"
         data-title="<%= item.title %>"
-        data-info="index-banner-<%= index %>"
         class="<%= tplUtil.getJsClass(item) %> block"
         href="<%= tplUtil.getBlockUrl(item) %>"
       >

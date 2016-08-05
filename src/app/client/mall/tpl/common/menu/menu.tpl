@@ -4,7 +4,7 @@
 </a>
 <a class="home-bottom-list" data-menu="category" href="/fe/app/client/mall/html/menu/category.html">
   <div class="home-bottom-icon"></div>
-  <div class="home-bottom-item">频道</div>
+  <div class="home-bottom-item">分类</div>
 </a>
 <a class="home-bottom-list" data-menu="my" data-title="我的商城" href="/fe/app/client/mall/html/profile/profile.html">
   <div class="home-bottom-icon"></div>
