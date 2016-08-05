@@ -1,6 +1,6 @@
 <div id="banner-box">
   <ul class="common-banner-area clearfix">
-    <% _.each(dataList, function(item, index) { window.console.log(index);%>
+    <% _.each(dataList, function(item, index) { %>
     <li class="common-banner-pic fl">
       <a 
         data-log-mall-click="index-banner_<%= item.title %>-<%= item.productid %>"
