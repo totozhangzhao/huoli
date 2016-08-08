@@ -18,9 +18,6 @@ const BannerView = Backbone.View.extend({
 
 
   render(banners) {
-    banners.push(banners.slice(0)[0]);
-    banners.push(banners.slice(0)[0]);
-    banners.push(banners.slice(0)[0]);
     this.$el.html(this.template({
       dataList: banners,
       appName  : mallUitl.getAppName(),
