@@ -1456,6 +1456,9 @@ img.touch-img {
   left: 0;
   top: 0;
 }
+.goods-detail-box .goods-tap-bar button {
+  display: block;
+}
 .goods-detail-box .goods-tap-bar:before {
   width: 100%;
   height: 1px;
