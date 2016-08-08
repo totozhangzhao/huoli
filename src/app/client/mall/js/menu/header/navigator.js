@@ -4,7 +4,13 @@ import template from "app/client/mall/tpl/common/header/navigator.tpl";
 import * as widget from "app/client/mall/js/lib/common.js";
 
 class Navigator{
-  constructor() {
+  constructor(options) {
+    options = options || {};
+    if(options && options.el) {
+      this.container = $(options.el);
+    }else{
+      this.container = $("body");
+    }
     this.isRender = false;
     this.el= template({mallUitl:mallUitl});
   }
@@ -21,7 +27,7 @@ class Navigator{
     this.isRender = true;
 
     function initView() {
-      $("body")
+      this.container
       // .addClass('common-switch-padding')
       .prepend(this.el);
 
