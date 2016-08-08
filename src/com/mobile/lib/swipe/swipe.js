@@ -590,7 +590,6 @@ function Swipe(container, options) {
 // @index 当前索引
 // @total banner数据个数
 Swipe.fixIndex = function (index, total){
-  window.console.log(index);
   if(total === 2 && index > 1) {
     index -= 2;
   }
