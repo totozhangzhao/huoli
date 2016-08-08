@@ -10,7 +10,7 @@
         class="<%= tplUtil.getJsClass(item) %> block"
         href="<%= tplUtil.getBlockUrl(item) %>"
       >
-        <img src="http://cdn.rsscc.cn/guanggao/img/test/test-0725-1.png?v=1" >
+        <img src="<%= item.img %>" >
       </a>
     </li>
     <% }); %>
