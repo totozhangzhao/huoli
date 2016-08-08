@@ -37,12 +37,13 @@ const MenuView = Backbone.View.extend({
   },
 
   changeView(e) {
+    e.preventDefault();
     if($(e.currentTarget).hasClass('on')) {
-      e.preventDefault();
       return;
     }
     widget.createAView(e);
   },
+
   replaceView(e) {
     e.preventDefault();
     if($(e.currentTarget).hasClass('on')) {
