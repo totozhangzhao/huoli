@@ -57,7 +57,7 @@ export function initShare(options = {}) {
     const isHangban = mallUitl.isHangbanFunc();
     shareInfo = {
       title: isHangban ? "伙力·航班商城" : "伙力·高铁商城",
-      desc : "伙力商城 管家定制好货 专注出行场景化电商",
+      desc : "你的时间非常值钱 这里选货非常省时",
       link : `${window.location.origin}/fe/app/client/mall/index.html`,
       img  : isHangban ? "http://cdn.rsscc.cn/guanggao/mall/wechat/w-hb.jpg" : "http://cdn.rsscc.cn/guanggao/mall/wechat/w-gt.jpg"
     };

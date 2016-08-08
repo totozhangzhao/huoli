@@ -40,6 +40,7 @@ const BannerView = Backbone.View.extend({
       disableScroll: false,
       stopPropagation: false,
       callback(index) {
+        index = Swipe.fixIndex(index, $index.length);
         $index
           .removeClass("active")
             .eq(index)
