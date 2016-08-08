@@ -4,7 +4,7 @@ var $body = $("body");
 if ( $body.find(".loading-box").length === 0 ) {
   var loadingTmpl = "" + 
       "<div class='loading-box' style='display: none;'>" + 
-        "<img src='https://dl.rsscc.cn/guanggao/img/mall/icon/loading.gif' class='loading-icon'>" +
+        "<img src='http://cdn.rsscc.cn/guanggao/img/mall/icon/loading.gif' class='loading-icon'>" +
       "</div>" +
       "";
   $body.append(loadingTmpl);

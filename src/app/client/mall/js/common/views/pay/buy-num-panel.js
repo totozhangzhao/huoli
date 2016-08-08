@@ -9,19 +9,17 @@ const BuyNumPanelView = Backbone.View.extend({
   events: {
     "touchstart [data-operator]" : "beginTouch",
     "touchend [data-operator]"   : "endTouch",
-    "keyup .number-input"        : "inputKeyUp",
-    "keydown .number-input"      : "inputKeyDown",
-    "blur .number-input"         : "inputBlur",
-    "click .common-buy-close-btn": "close",
+    "keyup .js-goods-num-input"  : "inputKeyUp",
+    "keydown .js-goods-num-input": "inputKeyDown",
+    "blur .js-goods-num-input"   : "inputBlur",
+    "click .js-close-panel"      : "close",
     "click .common-shadow"       : "close",
-    "click .charge-btn"          : "purchase"
+    "click .js-goods-pay"        : "purchase"
   },
 
-  template: require("app/client/mall/tpl/common/buy-num-panel.tpl"),
-
-  priceTemplate: require("app/client/mall/tpl/common/price-text.tpl"),
-
   initialize(options) {
+    this.template = options.template || require("app/client/mall/tpl/common/buy-num-panel.tpl");
+    this.priceTemplate = options.priceTemplate || require("app/client/mall/tpl/common/price-text.tpl");
     this.exchange = options.exchange || (() => {});
     this.buy = options.buy || (() => {});
     this.pay = options.pay || (() => {});
@@ -35,9 +33,9 @@ const BuyNumPanelView = Backbone.View.extend({
     this.$el.appendTo(this.model.get("parentDom"));
     this.$el.html(this.template(this.model.toJSON()));
 
-    this.$priceView = this.$el.find(".goods-charge-bar .goods-charge-info");
-    this.$chargeBtn = this.$el.find(".charge-btn");
-    this.$numberInput = this.$el.find(".number-input");
+    this.$priceView = this.$el.find(".js-goods-price");
+    this.$chargeBtn = this.$el.find(".js-goods-pay");
+    this.$numberInput = this.$el.find(".js-goods-num-input");
 
     this.$priceView.html(this.priceTemplate(this.model.toJSON()));
     this.$chargeBtn

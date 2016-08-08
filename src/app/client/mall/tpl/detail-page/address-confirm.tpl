@@ -12,15 +12,15 @@
 <div class="confirm-goods-detail clearfix">
   <img src="<%= goods.smallimg || "" %>" class="goods-show-pic fl">
   <p class="goods-name"><%= goods.title || "" %></p>
-  <div class="goods-charge-info-fa">
+  <div class="js-goods-price goods-charge-info-fa">
     <% if ( points > 0 && money > 0 ) { %>
-    <p class="goods-charge-info num-font"><span><%= points %></span>积分 + <span><%= money %></span>元</p>
+    <p class="js-goods-price goods-charge-info num-font"><span><%= points %></span>积分 + <span><%= money %></span>元</p>
     <% } else if ( points > 0 ) { %>
-    <p class="goods-charge-info num-font"><span><%= points %></span>积分</p>
+    <p class="js-goods-price goods-charge-info num-font"><span><%= points %></span>积分</p>
     <% } else if ( money > 0 ) { %>
-    <p class="goods-charge-info num-font"><span><%= money %></span>元</p>
+    <p class="js-goods-price goods-charge-info num-font"><span><%= money %></span>元</p>
     <% } else { %>
-    <p class="goods-charge-info num-font"><span>0</span>元</p>
+    <p class="js-goods-price goods-charge-info num-font"><span>0</span>元</p>
     <% } %>
     <div class="common-buy-num">
       <div class="common-buy-choice">

@@ -18,22 +18,23 @@ import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import AddressList from "app/client/mall/js/detail-page/goods-detail/collection/address-list.js";
 import Util from "com/mobile/lib/util/util.js";
+import Tab from "com/mobile/widget/button/tab.js";
+import Swipe from "com/mobile/lib/swipe/swipe.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
+import priceTemplate from "app/client/mall/tpl/detail-page/goods/goods-bottom.tpl";
+import buyTemplate from "app/client/mall/tpl/detail-page/goods/goods-buy-panel.tpl";
 
 const detailLog = widget.initTracker("detail");
 
 const AppView = BaseView.extend({
   el: "#goods-detail",
   events: {
-    "touchstart": "scrollShowDetailStart",
-    "touchmove": "scrollShowDetailMove",
     "click .js-new-page"  : "createNewPage",
     "click .js-get-url"   : "handleGetUrl",
     "click .js-webview a" : "createNewPage",
     "click .js-privilege" : "showPrivilegePanel",
-    "click .js-coupon"    : "showCouponPanel",
-    "click .js-detail-bar": "showDetailInfo"
+    "click .js-coupon"    : "showCouponPanel"
   },
   initialize(commonData) {
     _.extend(this, commonData);
@@ -46,6 +47,8 @@ const AppView = BaseView.extend({
     this.model.buyNumModel = this.buyNumModel;
 
     this.payView = new BuyPanelView({
+      priceTemplate: priceTemplate,
+      template: buyTemplate,
       model: this.buyNumModel,
       buy: () => {this.buy();},
       pay: () => {this.pay();}
@@ -76,65 +79,6 @@ const AppView = BaseView.extend({
     }
 
     hint.hideLoading();
-  },
-  scrollShowDetailStart(e) {
-    let _e = e.originalEvent || e;
-    let touches = _e.changedTouches;
-
-    if (touches) {
-      _e = touches[0];
-    }
-
-    this.startPoint = {
-      x: _e.pageX,
-      y: _e.pageY
-    };
-  },
-  scrollShowDetailMove(e) {
-    let self = this;
-
-    if (window.scrollY + document.documentElement.clientHeight < document.documentElement.scrollHeight - 2) {
-      return;
-    }
-
-    function showDetail() {
-      if (self.$detail.length > 0) {
-        self.$detail.trigger("click");
-      }
-    }
-
-    this._scrollToEndMotionNum = this._scrollToEndMotionNum || 0;
-
-    if (this._scrollToEndTimer) {
-      clearTimeout(this._scrollToEndTimer);
-    }
-
-    this._scrollToEndMotionNum += 1;
-    this._scrollToEndTimer = setTimeout(() => {
-      this._scrollToEndMotionNum = 0;
-    }, 1000);
-
-    let _e = e.originalEvent || e;
-    let touches = _e.changedTouches;
-
-    if (touches) {
-      _e = touches[touches.length - 1];
-    }
-
-    let deltaX = _e.pageX - this.startPoint.x;
-    let deltaY = _e.pageY - this.startPoint.y;
-
-    // 部分 Android 机型上 deltaY 会得到一个非常小的值（deltaX 的值同样很小）
-    // 试验得知多数时候小于 37（华为PE-UL00）
-    if (this.isAndroid && this._scrollToEndMotionNum > 1 && -deltaY < 40) {
-      showDetail();
-    } else {
-      let minY = 128;
-
-      if ( -deltaY > minY && minY > Math.abs(deltaX) ) {
-        showDetail();
-      }
-    }
   },
   mallGoodsDetail() {
     mallPromise
@@ -168,9 +112,6 @@ const AppView = BaseView.extend({
   showCouponPanel() {
     this.$couponPanel.show();
   },
-  showDetailInfo() {
-    this.router.switchTo("goods-desc");
-  },
   renderPrivilegePanle(data) {
     const self = this;
     const tmpl = require("app/client/mall/tpl/detail-page/goods-privilege.tpl");
@@ -194,6 +135,29 @@ const AppView = BaseView.extend({
 
     goods.tplUtil = tplUtil;
     this.$el.html(mainTmpl(goods));
+
+    // Tab widget
+    new Tab( this.$el.find(".js-tab-wrapper"), this.$el.find(".js-tab-content") );
+
+    // Swipe/Banner widget
+    const $SwipeBox = $(".js-banner-box", this.$el);
+    const $index    = $(".js-banner-index>i", this.$el);
+    new Swipe($SwipeBox.get(0), {
+      startSlide: 0,
+      speed: 400,
+      auto: 3000,
+      continuous: true,
+      disableScroll: false,
+      stopPropagation: false,
+      callback(index) {
+        $index
+          .removeClass("active")
+            .eq(index)
+            .addClass("active");
+      },
+      transitionEnd() {}
+    });
+
     this.$detail = this.$el.find(".js-detail-bar");
 
     // View: copyright
@@ -231,6 +195,12 @@ const AppView = BaseView.extend({
       goods.couponrecords = [];
     }
 
+    this.initModel(goods);
+    goods.unitPriceText = this.buyNumModel.get("unitPriceText");
+    if (goods.relevance) {
+      goods.relevance.unitPriceText = this.relevanceModel.get("unitPriceText");
+    }
+
     this.renderGoodsInfo(goods);
     this.renderBuyNumView(goods);
 
@@ -266,10 +236,12 @@ const AppView = BaseView.extend({
       hlfrom: this.urlObj.hlfrom || "--"
     });
   },
+  initModel(goods) {
 
-  renderBuyNumView(goods) {
+    // init buy panel model
     this.buyNumModel.set({
       type: 0,
+      payType: goods.paytype,
       hasMask: false,
       visible: true,
       title: "购买数量",
@@ -280,6 +252,32 @@ const AppView = BaseView.extend({
       limitNum: goods.limit,
       canPay: goods.stat === 0,
       parentDom: "#goods-detail"
+    }, {
+      silent: true
+    });
+    this.buyNumModel.set({
+      unitPriceText: this.buyNumModel.getPPriceText(1)
+    }, {
+      silent: true
+    });
+
+    if (goods.relevance) {
+      this.relevanceModel = new BuyNumModel({
+        type: 0,
+        payType: goods.relevance.paytype,
+        hasMask: false,
+        visible: false,
+        points: goods.relevance.points,
+        price: goods.relevance.money
+      });
+      this.relevanceModel.set({
+        unitPriceText: this.relevanceModel.getPPriceText(1)
+      });
+    }
+  },
+  renderBuyNumView() {
+    this.buyNumModel.set({
+      _t: Date.now()
     });
   },
 

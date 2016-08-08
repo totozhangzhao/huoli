@@ -1,5 +1,4 @@
 import GoodsView          from "app/client/mall/js/detail-page/goods-detail/view/goods-detail.js";
-import DescView           from "app/client/mall/js/detail-page/goods-detail/view/goods-desc.js";
 import OrderView          from "app/client/mall/js/detail-page/goods-detail/view/form-phone.js";
 import FormCustomView     from "app/client/mall/js/detail-page/goods-detail/view/form-custom.js";
 import AddAddressView     from "app/client/mall/js/detail-page/goods-detail/view/address-add.js";
@@ -12,7 +11,6 @@ new BackTop();
 
 const viewDic = {
   "goods-detail"   : GoodsView,
-  "goods-desc"     : DescView,
   "form-phone"     : OrderView,
   "form-custom"    : FormCustomView,
   "address-add"    : AddAddressView,
