@@ -17,14 +17,14 @@
         </div>
       </div>
       <div class="goods-confirm-choice">
-        <!--
+        <% if (specs) { %>
         <div class="goods-confirm-choice-color flex-row">
           <div class="color-item">颜色</div>
           <div class="color-items">
             <span class="on">银色</span><span class="off">金色</span><span>黑色</span>
           </div>
         </div>
-        -->
+        <% } %>
         <div class="goods-confirm-choice-num flex-row">
           <div class="num-item">数量</div>
           <div class="num-items flex-row">

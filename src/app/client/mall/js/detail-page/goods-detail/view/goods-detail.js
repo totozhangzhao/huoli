@@ -38,23 +38,9 @@ const AppView = BaseView.extend({
   },
   initialize(commonData) {
     _.extend(this, commonData);
-
     this.$initial = ui.initial();
     this.urlObj = UrlUtil.parseUrlSearch();
-
     this.cache.urlObj = this.urlObj;
-    this.buyNumModel = new BuyNumModel();
-    this.model.buyNumModel = this.buyNumModel;
-
-    this.payView = new BuyPanelView({
-      priceTemplate: priceTemplate,
-      template: buyTemplate,
-      model: this.buyNumModel,
-      buy: () => {this.buy();},
-      pay: () => {this.pay();}
-    });
-
-    this.model.payView = this.payView;
     this.resetAppView = false;
     this.title = "";
     this.action = this.urlObj.action;
@@ -239,7 +225,7 @@ const AppView = BaseView.extend({
   initModel(goods) {
 
     // init buy panel model
-    this.buyNumModel.set({
+    this.buyNumModel = new BuyNumModel({
       type: 0,
       payType: goods.paytype,
       hasMask: false,
@@ -249,6 +235,7 @@ const AppView = BaseView.extend({
       payNumText: goods.button, //goods.money > 0 ? "去支付" : "立即兑换",
       points: goods.points,
       price: goods.money,
+      specs: (goods.specs && goods.specs.length > 0) ? goods.specs : null,
       limitNum: goods.limit,
       canPay: goods.stat === 0,
       parentDom: "#goods-detail"
@@ -276,6 +263,15 @@ const AppView = BaseView.extend({
     }
   },
   renderBuyNumView() {
+    this.model.buyNumModel = this.buyNumModel;
+    this.payView = new BuyPanelView({
+      priceTemplate: priceTemplate,
+      template: buyTemplate,
+      model: this.buyNumModel,
+      buy: () => {this.buy();},
+      pay: () => {this.pay();}
+    });
+    this.model.payView = this.payView;
     this.buyNumModel.set({
       _t: Date.now()
     });
@@ -293,7 +289,7 @@ const AppView = BaseView.extend({
     function _buy() {
 
       // 购买上限为1的情况
-      if(self.buyNumModel.get("limitNum") === 1) {
+      if(self.buyNumModel.get("limitNum") === 1 && !self.buyNumModel.get("specs")) {
         return self.pay();
       }
       return self.buyNumModel.set({

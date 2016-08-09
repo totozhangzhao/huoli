@@ -19,6 +19,7 @@ const BuyNumModel = Backbone.Model.extend({
     currency: "￥",            // 价格单位
     points:0,                  // 积分单价
     pointsUnit:"积分",          // 积分单位
+    specs: null,                // 规格(Array)
     canPay: true,              // 购买按钮是否可用
     closeAll: false            // 点击关闭按钮时，是否关闭完整视图
   },
