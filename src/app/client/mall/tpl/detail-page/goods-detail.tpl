@@ -60,7 +60,7 @@
     <img src="http://cdn.rsscc.cn/guanggao/img/test/test-0725-4.png" alt="">
   </div>
   <div class="relevance-desc">
-    <p class="relevance-info"><%= title %></p>
+    <p class="relevance-info"><%= relevance.title %></p>
     <p class="relevance-cost"><%= relevance.unitPriceText %></p>
   </div>
   <strong class="goods-tip-dot"><b></b><b></b><b></b></strong>
