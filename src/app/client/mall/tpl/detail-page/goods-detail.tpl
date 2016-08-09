@@ -90,11 +90,13 @@
   <button data-tab-name="rules" class="js-tab goods-tap-bar-son">规格参数</button>
 </div>
 <div data-for="goodsDetail" class="js-tab-content on goods-tap-content goods-graphic-bar">
+  <% if (!detail) return; %>
   <% detail.forEach(function(elem) { %>
   <img src="<%= elem.img %>" alt="">
   <% }); %>
 </div>
 <div data-for="rules" class="js-tab-content js-webview goods-tap-content goods-desc-bar">
+  <% if (!rules) return; %>
   <ul class="goods-info-list">
     <% rules.forEach(function(elem) { %>
     <li>
