@@ -90,9 +90,9 @@
   <button data-tab-name="rules" class="js-tab goods-tap-bar-son">规格参数</button>
 </div>
 <div data-for="goodsDetail" class="js-tab-content on goods-tap-content goods-graphic-bar">
-  <img src="http://cdn.rsscc.cn/guanggao/img/test/test-0725-1.png?v=1" alt="">
-  <img src="http://cdn.rsscc.cn/guanggao/img/test/test-0725-1.png?v=1" alt="">
-  <img src="http://cdn.rsscc.cn/guanggao/img/test/test-0725-1.png?v=1" alt="">
+  <% detail.forEach(function(elem) { %>
+  <img src="<%= elem.img %>" alt="">
+  <% }); %>
 </div>
 <div data-for="rules" class="js-tab-content js-webview goods-tap-content goods-desc-bar">
   <ul class="goods-info-list">
