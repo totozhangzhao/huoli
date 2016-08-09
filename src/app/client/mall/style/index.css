@@ -1475,6 +1475,7 @@ img.touch-img {
   color: #1e1e1e;
   font-size: 0.37333rem;
   flex: 1;
+  display: block;
   text-align: center;
   height: 1.2rem;
 }
