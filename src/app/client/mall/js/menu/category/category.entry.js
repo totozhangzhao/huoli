@@ -9,6 +9,7 @@ import * as mallWechat     from "app/client/mall/js/lib/wechat.js";
 import * as widget    from "app/client/mall/js/lib/common.js";
 import logger         from "com/mobile/lib/log/log.js";
 import ui             from "app/client/mall/js/lib/ui.js";
+import NativeAPI from "app/client/common/lib/native/native-api.js";
 
 import BaseView       from "app/client/mall/js/common/views/BaseView.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
@@ -29,6 +30,7 @@ const AppView = BaseView.extend({
   },
 
   initialize() {
+    this.hideCheckinBtn();
     const nav = new Navigator();
     nav.render();
     this.menuView       = new MenuView({
@@ -84,6 +86,17 @@ const AppView = BaseView.extend({
       });
     });
     promise.catch(mallPromise.catchFn);
+  },
+
+  // 隐藏右上角签到按钮
+  hideCheckinBtn() {
+    if ( !mallUitl.isHangbanFunc() ) {
+      NativeAPI.invoke("updateHeaderRightBtn", {
+        action: "hide",
+        text: ""
+      }, () => {
+      });
+    }
   }
 
 });
