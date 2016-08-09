@@ -43,7 +43,6 @@ function Swipe(container, options) {
   var index = parseInt(options.startSlide, 10) || 0;
   var speed = options.speed || 300;
   options.continuous = options.continuous !== undefined ? options.continuous : true;
-
   function setup() {
 
     // cache slides
@@ -587,5 +586,13 @@ function Swipe(container, options) {
   }
 
 }
-
+// 当banner数据为两个时，修正index 
+// @index 当前索引
+// @total banner数据个数
+Swipe.fixIndex = function (index, total){
+  if(total === 2 && index > 1) {
+    index -= 2;
+  }
+  return index;
+}
 module.exports = Swipe;

@@ -162,7 +162,7 @@ p {
 }
 .copyright-block {
   width: 100%;
-  height: 3.04rem;
+  height: 3.46667rem;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -175,7 +175,7 @@ p {
   color: #9b9b9b;
   padding-top: 0.32rem;
   padding-right: 0.26667rem;
-  padding-bottom: 1.12rem;
+  padding-bottom: 1.33333rem;
   padding-left: 0.26667rem;
 }
 .copyright-bar-text:nth-child(1) a {
@@ -618,16 +618,21 @@ p {
 }
 .common-buy-num .common-buy-choice {
   font-size: 0.53333rem;
-  display: flex;
+  height: 1.06667rem;
+  position: relative;
+  left: 0;
+  top: 0;
 }
 .common-buy-num i {
-  display: inline-block;
   height: 1.06667rem;
   line-height: 1.06667rem;
   border-top: 1px solid #dededf;
   border-bottom: 1px solid #dededf;
 }
 .common-buy-num i:nth-child(1) {
+  position: absolute;
+  left: 0;
+  top: 0;
   border-top-left-radius: 0.10667rem;
   border-bottom-left-radius: 0.10667rem;
   padding-top: 0;
@@ -640,6 +645,9 @@ p {
   color: #a5a5a5;
 }
 .common-buy-num i:nth-child(3) {
+  position: absolute;
+  left: 2.50667rem;
+  top: 0;
   border-top-right-radius: 0.10667rem;
   border-bottom-right-radius: 0.10667rem;
   padding-top: 0;
@@ -649,6 +657,9 @@ p {
   border-right: 1px solid #dededf;
 }
 .common-buy-num i:nth-child(2) {
+  position: absolute;
+  left: 1.22667rem;
+  top: 0;
   width: 1.28rem;
   border-left: 1px solid #dededf;
   border-right: 1px solid #dededf;
@@ -657,7 +668,9 @@ p {
 .common-buy-num i:nth-child(2) input[type=number] {
   width: 100%;
   height: 100%;
-  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
   text-align: center;
 }
 .common-buy-num .common-buy-tip {
@@ -676,6 +689,26 @@ p {
   }
   100% {
     transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes zoom {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(0.9);
+  }
+  40% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(0.9);
+  }
+  80% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 .more-loading-padding {
@@ -736,6 +769,19 @@ p {
   display: block;
   border-radius: 50%;
 }
+.goods-tip-dot {
+  position: absolute;
+  right: 0.26667rem;
+  top: 0;
+}
+.goods-tip-dot b {
+  width: 0.10667rem;
+  height: 0.10667rem;
+  border-radius: 50%;
+  margin-left: 0.10667rem;
+  background-color: #bcbcbc;
+  display: inline-block;
+}
 .common-switch-padding {
   padding-top: 1.2rem;
 }
@@ -787,6 +833,96 @@ p {
 .common-switch-nav .common-switch-bar:nth-child(2) .common-switch-tip {
   display: inline-block;
 }
+.home-bottom-nav {
+  width: 100%;
+  height: 1.30667rem;
+  background: rgba(30, 30, 30, 0.98);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+}
+.home-bottom-nav .home-bottom-list {
+  flex: 1;
+  text-align: center;
+  display: block;
+  padding-top: 0.21333rem;
+  font-size: 0.26667rem;
+  color: #fff;
+}
+.home-bottom-nav .home-bottom-list.on .home-bottom-item {
+  opacity: 0.6;
+}
+.home-bottom-nav .home-bottom-list.on .home-bottom-icon {
+  opacity: 1;
+  animation: 1s zoom ease-in;
+}
+.home-bottom-nav .home-bottom-list .home-bottom-item {
+  opacity: 0.2;
+}
+.home-bottom-nav .home-bottom-list .home-bottom-icon {
+  width: 0.48rem;
+  height: 0.48rem;
+  display: block;
+  margin: 0 auto 0.10667rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0804.png') no-repeat 1px 0;
+  opacity: 0.2;
+  background-size: 13.33333rem 13.33333rem;
+}
+.home-bottom-nav .home-bottom-list:nth-child(2) .home-bottom-icon {
+  background-position: -0.8rem 0.05333rem;
+}
+.home-bottom-nav .home-bottom-list:nth-child(3) .home-bottom-icon {
+  background-position: -1.57333rem 0;
+}
+.common-banner-pic {
+  position: relative;
+}
+.common-banner-bar,
+.common-banner-pic img {
+  width: 100%;
+}
+.common-banner-pic {
+  width: 10rem;
+}
+.common-banner-pic img {
+  width: 100%;
+  height: 5.62667rem;
+}
+.common-banner-bar {
+  overflow: hidden;
+  height: 5.62667rem;
+  width: 10rem;
+  position: relative;
+  left: 0;
+  top: 0;
+}
+.common-banner-bar .common-banner-indexs {
+  font-size: 0;
+  height: 0.10667rem;
+  position: absolute;
+  left: 50%;
+  bottom: 0.21333rem;
+  transform: translate3d(-50%, 0, 0);
+  overflow: hidden;
+}
+.common-banner-bar .common-banner-indexs i {
+  display: inline-block;
+  width: 0.10667rem;
+  height: 0.10667rem;
+  opacity: 0.4;
+  background-color: #f0f0f0;
+  margin-right: 0.21333rem;
+  background-clip: padding-box;
+}
+.common-banner-bar .common-banner-indexs i:last-child {
+  margin-right: 0;
+}
+.common-banner-bar .common-banner-indexs i.active {
+  background-color: #fff;
+  opacity: 1;
+  width: 0.26667rem;
+}
 .wechat-login-box {
   min-height: 100%;
   margin-top: 0;
@@ -798,22 +934,36 @@ p {
   top: 0;
   color: #333;
   font-size: 0.42667rem;
+  background-color: #f7f7f7;
 }
 .wechat-login-box .wechat-login-bar .wechat-login-icon {
-  padding-top: 0.8rem;
+  padding-top: 0.93333rem;
   padding-bottom: 0.8rem;
+  background-color: #fff;
 }
 .wechat-login-box .wechat-login-bar .wechat-login-icon div {
-  width: 1.44rem;
-  height: 1.49333rem;
+  width: 3.65333rem;
+  height: 0.96rem;
   margin: 0 auto;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0714.png') no-repeat 0 -3.73333rem;
-  background-size: 10.66667rem 10.66667rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0804.png') no-repeat 0 -4.26667rem;
+  background-size: 13.33333rem 13.33333rem;
+}
+.wechat-login-box .wechat-login-bar .wechat-login-icon p {
+  font-size: 0.4rem;
+  color: #039ef0;
+  padding-top: 0.4rem;
+  text-align: center;
 }
 .wechat-login-box .wechat-login-area {
   padding-left: 0.4rem;
   padding-right: 0.4rem;
-  padding-bottom: 0.4rem;
+  background-color: #fff;
+}
+.wechat-login-box .wechat-login-area .wechat-login-contain {
+  font-size: 0.34667rem;
+  height: 1.33333rem;
+  line-height: 1.33333rem;
+  color: #7f7f7f;
 }
 .wechat-login-box .wechat-login-area label {
   display: block;
@@ -866,6 +1016,7 @@ p {
 .wechat-login-box .wechat-login-button {
   padding-left: 0.4rem;
   padding-right: 0.4rem;
+  margin-top: 0.4rem;
 }
 .wechat-login-box .wechat-login-button button {
   width: 9.2rem;
