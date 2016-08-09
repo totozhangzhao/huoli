@@ -236,6 +236,7 @@ const AppView = BaseView.extend({
       points: goods.points,
       price: goods.money,
       specs: (goods.specs && goods.specs.length > 0) ? goods.specs : null,
+      specname: goods.specname,
       limitNum: goods.limit,
       canPay: goods.stat === 0,
       parentDom: "#goods-detail"

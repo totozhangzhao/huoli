@@ -19,9 +19,11 @@
       <div class="goods-confirm-choice">
         <% if (specs) { %>
         <div class="goods-confirm-choice-color flex-row">
-          <div class="color-item">颜色</div>
+          <div class="color-item"><%= specname %></div>
           <div class="color-items">
-            <span class="on">银色</span><span class="off">金色</span><span>黑色</span>
+            <% specs.forEach(function(elem) { %>
+            <span class="<%= elem.left > 0 ? 'on' : 'off' %>"><%= elem.spec %></span>
+            <% }); %>
           </div>
         </div>
         <% } %>
@@ -44,5 +46,3 @@
     </div>
   </div>
 <% } %>
-
-
