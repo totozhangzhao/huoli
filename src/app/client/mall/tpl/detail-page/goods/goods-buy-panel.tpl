@@ -17,12 +17,12 @@
         </div>
       </div>
       <div class="goods-confirm-choice">
-        <% if (specs) { %>
+        <% if (specList) { %>
         <div class="goods-confirm-choice-color flex-row">
           <div class="color-item"><%= specname %></div>
           <div class="color-items">
-            <% specs.forEach(function(elem) { %>
-            <span class="<%= elem.left > 0 ? 'on' : 'off' %>"><%= elem.spec %></span>
+            <% specList.forEach(function(elem, index) { %>
+            <span data-index="<%= index %>" class="js-spec <%= elem.left > 0 ? 'on' : 'off' %>"><%= elem.spec %></span>
             <% }); %>
           </div>
         </div>
@@ -30,7 +30,6 @@
         <div class="goods-confirm-choice-num flex-row">
           <div class="num-item">数量</div>
           <div class="num-items flex-row">
-            <!-- 数量为1时，减号不可点击，同时加class .off -->
             <span data-operator="subtract" class="reduce off"><b class="reduce-icon"></b></span><span class="num-insert"><input type="text" class="js-goods-num-input" value="<%= number %>"></span><span data-operator="add" class="add"><b class="add-icon"></b></span>
           </div>
         </div>

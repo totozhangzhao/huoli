@@ -12,6 +12,7 @@ const BuyNumPanelView = Backbone.View.extend({
     "keyup .js-goods-num-input"  : "inputKeyUp",
     "keydown .js-goods-num-input": "inputKeyDown",
     "blur .js-goods-num-input"   : "inputBlur",
+    "click .js-spec"             : "changeSpec",
     "click .js-close-panel"      : "close",
     "click .common-shadow"       : "close",
     "click .js-goods-pay"        : "purchase"
@@ -142,6 +143,15 @@ const BuyNumPanelView = Backbone.View.extend({
     }
     return this.setNumber(val);
   },
+
+  // changeSpec(e) {
+  //   const index = $(e.currentTarget).data("index");
+
+  //   this.specList = this.specList || this.model.get("specList");
+  //   const spec = this.specList[index];
+
+
+  // }
 
   purchase() {
     switch(this.model.get("type")) {

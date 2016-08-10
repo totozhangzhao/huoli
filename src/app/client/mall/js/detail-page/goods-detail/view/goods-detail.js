@@ -235,7 +235,7 @@ const AppView = BaseView.extend({
       payNumText: goods.button, //goods.money > 0 ? "去支付" : "立即兑换",
       points: goods.points,
       price: goods.money,
-      specs: (goods.specs && goods.specs.length > 0) ? goods.specs : null,
+      specList: (goods.specs && goods.specs.length > 0) ? goods.specs : null,
       specname: goods.specname,
       limitNum: goods.limit,
       canPay: goods.stat === 0,
@@ -290,7 +290,7 @@ const AppView = BaseView.extend({
     function _buy() {
 
       // 购买上限为1的情况
-      if(self.buyNumModel.get("limitNum") === 1 && !self.buyNumModel.get("specs")) {
+      if(self.buyNumModel.get("limitNum") === 1 && !self.buyNumModel.get("specList")) {
         return self.pay();
       }
       return self.buyNumModel.set({
