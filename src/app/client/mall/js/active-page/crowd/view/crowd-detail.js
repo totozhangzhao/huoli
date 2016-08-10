@@ -205,6 +205,7 @@ const AppView = Backbone.View.extend({
       payText:buttonText[crowd.stat],
       payNumText: "去支付",
       price: crowd.price,
+      currency: "元",
       limitNum: Math.min(this.getMaxLimitNum(crowd.totalcount), crowd.remaincount),
       showBuyTip: true,
       canPay: crowd.stat === 1,
