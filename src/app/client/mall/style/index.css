@@ -1543,7 +1543,7 @@ img.touch-img {
   height: 1.6rem;
   padding-top: 0.26667rem;
   background-color: #1a1a1a;
-  position: fixed;
+  position: absolute;
   left: 0;
   bottom: 0;
 }
