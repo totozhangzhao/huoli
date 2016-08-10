@@ -23,7 +23,7 @@
     </div>
     <% } %>
     <div class="goods-charge-bar">
-      <p class="js-goods-price goods-charge-info num-font"></p>
+      <p class="js-goods-price-old goods-charge-info num-font"></p>
       <button class="js-goods-pay charge-btn" type="button" <% if(!canPay) {%>disabled<% } %>>立即支付</button>
     </div>
   </div>

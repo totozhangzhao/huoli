@@ -223,6 +223,7 @@ const AppView = BaseView.extend({
     });
   },
   initModel(goods) {
+    const specList = goods.specs || [];
 
     // init buy panel model
     this.buyNumModel = new BuyNumModel({
@@ -236,8 +237,9 @@ const AppView = BaseView.extend({
       points: goods.points,
       price: goods.money,
       smallimg: goods.smallimg,
-      // specList: (goods.specs && goods.specs.length > 0) ? goods.specs : null,
-      specList: null,
+      // specList: null,
+      specList: specList.length > 0 ? goods.specs : null,
+      specId: specList.length > 0 ? specList[0].goodspecid : null,
       specname: goods.specname,
       limitNum: goods.limit,
       canPay: goods.stat === 0,

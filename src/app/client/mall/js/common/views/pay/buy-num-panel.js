@@ -34,7 +34,9 @@ const BuyNumPanelView = Backbone.View.extend({
     this.$el.appendTo(this.model.get("parentDom"));
     this.$el.html(this.template(this.model.toJSON()));
 
-    this.$priceView = this.$el.find(".js-goods-price");
+    this.$avatarList = this.$el.find(".js-avatar-img");
+    this.$priceView = this.$el.find(".js-goods-price-old");
+    this.$unitPriceView = this.$el.find(".js-unit-price");
     this.$chargeBtn = this.$el.find(".js-goods-pay");
     this.$numberInput = this.$el.find(".js-goods-num-input");
 
@@ -46,8 +48,10 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   refresh() {
-    this.$priceView.html(this.priceTemplate(this.model.toJSON()));
-    this.$numberInput.val(this.model.get("number"));
+    const model = this.model.toJSON();
+    this.$numberInput.val(model.number);
+    this.$priceView.html(this.priceTemplate(model));
+    this.$unitPriceView.text(this.model.getPPriceText(1));
     if(this.model.has("refresh")) {
       try{
         this.model.get("refresh")();
@@ -144,14 +148,49 @@ const BuyNumPanelView = Backbone.View.extend({
     return this.setNumber(val);
   },
 
-  // changeSpec(e) {
-  //   const index = $(e.currentTarget).data("index");
+  changeSpec(e) {
+    const $cur = $(e.currentTarget);
 
-  //   this.specList = this.specList || this.model.get("specList");
-  //   const spec = this.specList[index];
+    if ( $cur.hasClass("off") ) {
+      return;
+    }
 
+    this.$el
+      .find(".js-spec")
+        .removeClass("on");
+    $cur.addClass("on");
 
-  // }
+    const index = $cur.data("index");
+
+    this.$avatarList
+      .hide()
+      .eq(index)
+        .show();
+
+    // TODO: 判断最大数量
+
+    this.specList = this.specList || this.model.get("specList");
+    const spec = this.specList[index];
+
+    // goodspecid int 商品规格id
+    // spec String 商品规格值
+    // price float 商品价格
+    // points int 商品积分
+    // left int 可买数量
+    // oriprice float 商品原价
+    // paytype int 支付类型
+    // img float 规格图片
+    this.model.set({
+      specIndex: index,
+      specId: spec.goodspecid,
+      payType: spec.paytype,
+      points: spec.points,
+      price: spec.price,
+      smallimg: spec.img,
+      limitNum: spec.left
+    }, { silent: true });
+    this.refresh();
+  },
 
   purchase() {
     switch(this.model.get("type")) {

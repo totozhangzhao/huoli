@@ -7,12 +7,18 @@
     <% if(type === 1) { %>
       <div class="goods-confirm-contain">
         <div class="goods-confirm-pic">
-          <img src="<%= specList ? specList[0].img : smallimg %>" alt="">
+          <% if (specList) { %>
+          <% specList.forEach(function(elem, index) { %>
+          <img src="<%= elem.img %>" class="js-avatar-img" alt="" style="<%= index === specIndex ? '' : 'display: none;' %>">
+          <% }); %>
+          <% } else { %>
+          <img src="<%= smallimg %>" alt="">
+          <% } %>
           <div class="goods-confirm-mask"></div>
         </div>
         <div class="goods-confirm-desc">
           <p class="goods-confirm-desc-tit"><%= title %></p>
-          <p class="goods-confirm-desc-price"><%= unitPriceText %></p>
+          <p class="js-unit-price goods-confirm-desc-price"><%= unitPriceText %></p>
         </div>
       </div>
       <div class="goods-confirm-choice">
@@ -21,7 +27,15 @@
           <div class="color-item"><%= specname %></div>
           <div class="color-items">
             <% specList.forEach(function(elem, index) { %>
-            <span data-index="<%= index %>" class="js-spec <%= elem.left > 0 ? 'on' : 'off' %>"><%= elem.spec %></span>
+            <%
+                var specClass = "";
+                if (elem.left === 0) {
+                  specClass = "off";
+                } else if (index === specIndex) {
+                  specClass = "on";
+                }
+            %>
+            <span data-index="<%= index %>" class="js-spec <%= specClass %>"><%= elem.spec %></span>
             <% }); %>
           </div>
         </div>
