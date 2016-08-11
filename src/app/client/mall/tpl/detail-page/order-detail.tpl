@@ -157,7 +157,7 @@
   </div>
   <% } %>
 
-  <div id="copyright" class="copyright-block <%= orderDetail.needpay === 1 ? "goods-copyright-fix" : "" %> ">
+  <div id="copyright" class="copyright-block">
     <!-- // -->
   </div>
   
