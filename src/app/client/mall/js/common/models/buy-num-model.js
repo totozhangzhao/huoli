@@ -19,7 +19,9 @@ const BuyNumModel = Backbone.Model.extend({
     currency: "￥",            // 价格单位
     points:0,                  // 积分单价
     pointsUnit:"积分",          // 积分单位
-    specList: null,                // 规格(Array)
+    specList: null,            // 规格(Array)
+    specIndex: 0,              // 当前选中的规格
+    specId: 0,                 // 规格ID goodspecid
     canPay: true,              // 购买按钮是否可用
     closeAll: false            // 点击关闭按钮时，是否关闭完整视图
   },
@@ -36,8 +38,8 @@ const BuyNumModel = Backbone.Model.extend({
       result = this.getPriceText() + "+" + this.getPointsText();
     }
     return result;
-
   },
+
   // 获取显示的价格文案
   getPriceText(num) {
     let result = "";
@@ -47,6 +49,7 @@ const BuyNumModel = Backbone.Model.extend({
     }
     return result;
   },
+
   // 获取显示的积分文案
   getPointsText(num) {
     let result = "";
@@ -81,9 +84,6 @@ const BuyNumModel = Backbone.Model.extend({
     // return this.get("type") === 1 ? "去支付" : this.get("price") > 0 ? "立即购买" : "立即兑换";
     return this.get("type") === 1 ? this.get("payNumText") : this.get("payText");
   }
-
-
-
 });
 
 module.exports = BuyNumModel;
