@@ -945,6 +945,56 @@ p {
 .mall-active-box .mall-active-bar .mall-active-area {
   padding-bottom: 0.26667rem;
 }
+.mall-active-box .mall-active-bar .mall-active-area .mall-active-contain {
+  width: 9.2rem;
+  height: 3.73333rem;
+  margin: 0.26667rem auto;
+  background-color: #fff;
+  padding-top: 0.26667rem;
+  padding-right: 0.26667rem;
+  padding-bottom: 0.26667rem;
+  padding-left: 0.26667rem;
+}
+.mall-active-box .mall-active-bar .mall-active-area .mall-active-contain .mall-active-contain-son:nth-child(1) {
+  width: 3.2rem;
+  height: 3.2rem;
+}
+.mall-active-box .mall-active-bar .mall-active-area .mall-active-contain .mall-active-contain-son:nth-child(1) img {
+  width: 3.2rem;
+  height: 3.2rem;
+}
+.mall-active-box .mall-active-bar .mall-active-area .mall-active-contain .mall-active-contain-son:nth-child(2) {
+  width: 5.44rem;
+  height: 3.2rem;
+  padding-left: 1.06667rem;
+  padding-top: 0.77333rem;
+}
+.mall-active-box .mall-active-bar .mall-active-area .mall-active-contain .mall-active-contain-son:nth-child(2) .mall-active-contain-tip,
+.mall-active-box .mall-active-bar .mall-active-area .mall-active-contain .mall-active-contain-son:nth-child(2) .mall-active-contain-desc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.mall-active-box .mall-active-bar .mall-active-area .mall-active-contain .mall-active-contain-son:nth-child(2) .mall-active-contain-tip {
+  font-weight: normal;
+  font-size: 0.37333rem;
+  color: #2f2f2f;
+  height: 0.42667rem;
+  line-height: 0.42667rem;
+}
+.mall-active-box .mall-active-bar .mall-active-area .mall-active-contain .mall-active-contain-son:nth-child(2) .mall-active-contain-desc {
+  font-size: 0.32rem;
+  color: #808080;
+  height: 0.85333rem;
+  line-height: 0.85333rem;
+}
+.mall-active-box .mall-active-bar .mall-active-area .mall-active-contain .mall-active-contain-son:nth-child(2) .mall-active-contain-price {
+  font-size: 0.37333rem;
+  color: #f62f5e;
+  font-weight: bold;
+}
 .mall-active-box .mall-active-bar .mall-active-area .mall-active-content {
   width: 50%;
   float: left;
