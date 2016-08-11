@@ -39,6 +39,8 @@ const BuyNumPanelView = Backbone.View.extend({
     this.$unitPriceView = this.$el.find(".js-unit-price");
     this.$chargeBtn = this.$el.find(".js-goods-pay");
     this.$numberInput = this.$el.find(".js-goods-num-input");
+    this.$add = this.$el.find("[data-operator='add']");
+    this.$sub = this.$el.find("[data-operator='subtract']");
 
     this.$priceView.html(this.priceTemplate(this.model.toJSON()));
     this.$chargeBtn
@@ -52,6 +54,19 @@ const BuyNumPanelView = Backbone.View.extend({
     this.$numberInput.val(model.number);
     this.$priceView.html(this.priceTemplate(model));
     this.$unitPriceView.text(this.model.getPPriceText(1));
+
+    if (model.number === 1) {
+      this.$sub.addClass("off");
+    } else {
+      this.$sub.removeClass("off");
+    }
+
+    if (model.number < model.limitNum) {
+      this.$add.removeClass("off");
+    } else {
+      this.$add.addClass("off");
+    }
+
     if(this.model.has("refresh")) {
       try{
         this.model.get("refresh")();
@@ -167,8 +182,6 @@ const BuyNumPanelView = Backbone.View.extend({
       .eq(index)
         .show();
 
-    // TODO: 判断最大数量
-
     this.specList = this.specList || this.model.get("specList");
     const spec = this.specList[index];
 
@@ -176,19 +189,28 @@ const BuyNumPanelView = Backbone.View.extend({
     // spec String 商品规格值
     // price float 商品价格
     // points int 商品积分
-    // left int 可买数量
     // oriprice float 商品原价
     // paytype int 支付类型
     // img float 规格图片
+    // left int 可买数量
+    // limit int 限购数量
     this.model.set({
       specIndex: index,
       specId: spec.goodspecid,
       payType: spec.paytype,
       points: spec.points,
       price: spec.price,
-      smallimg: spec.img,
-      limitNum: spec.left
+      smallimg: spec.img
     }, { silent: true });
+
+    if (spec.limit) {
+      const num = this.model.get("number");
+      this.model.set({
+        number: (num <= spec.limit) ? num : spec.limit,
+        limitNum: spec.limit
+      }, { silent: true });
+    }
+
     this.refresh();
   },
 

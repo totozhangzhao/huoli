@@ -43,7 +43,7 @@
         <div class="goods-confirm-choice-num flex-row">
           <div class="num-item">数量</div>
           <div class="num-items flex-row">
-            <span data-operator="subtract" class="reduce off"><b class="reduce-icon"></b></span><span class="num-insert"><input type="text" class="js-goods-num-input" value="<%= number %>"></span><span data-operator="add" class="add"><b class="add-icon"></b></span>
+            <span data-operator="subtract" class="reduce off"><b class="reduce-icon"></b></span><span class="num-insert"><input type="text" class="js-goods-num-input" value="<%= number %>"></span><span data-operator="add" class="add <%= number < limitNum ? '' : 'off' %>"><b class="add-icon"></b></span>
           </div>
         </div>
       </div>
@@ -53,7 +53,7 @@
       <a class="js-goods-pay goods-confirm-btn">确认</a>
     <% } else { %>
     <div class="goods-buynow-bar">
-      <a <% if(!canPay) {%>disabled<% } %> class="js-goods-pay">立即购买</a>
+      <a class="js-goods-pay <%= canPay ? '' : 'unable'%>">立即购买</a>
     </div>
     <% } %>
   </div>
