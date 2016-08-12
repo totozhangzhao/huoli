@@ -1649,6 +1649,8 @@ img.touch-img {
 .goods-detail-box .goods-confirm-content .goods-confirm-desc .goods-confirm-desc-tit {
   font-size: 0.34667rem;
   color: #1e1e1e;
+  max-width: 5.33333rem;
+  height: 1.14667rem;
   line-height: 1.14667rem;
 }
 .goods-detail-box .goods-confirm-content .goods-confirm-desc .goods-confirm-desc-price {

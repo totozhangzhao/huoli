@@ -231,7 +231,7 @@ const AppView = BaseView.extend({
       payType: goods.paytype,
       hasMask: false,
       visible: true,
-      title: "购买数量",
+      title: goods.title,
       payText: goods.button,
       payNumText: goods.button, //goods.money > 0 ? "去支付" : "立即兑换",
       points: goods.points,

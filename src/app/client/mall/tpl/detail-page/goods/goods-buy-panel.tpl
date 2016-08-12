@@ -17,7 +17,7 @@
           <div class="goods-confirm-mask"></div>
         </div>
         <div class="goods-confirm-desc">
-          <p class="goods-confirm-desc-tit"><%= title %></p>
+          <p class="goods-confirm-desc-tit ellipsis"><%= title %></p>
           <p class="js-unit-price goods-confirm-desc-price"><%= unitPriceText %></p>
         </div>
       </div>
