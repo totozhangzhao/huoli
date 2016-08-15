@@ -166,11 +166,13 @@ const AppView = Backbone.View.extend({
     }
     this.buyNumModel.set({
       type:0,
+      payType: order.paytype,
       hasMask: false,
       visible: true,
       payText:"去支付",
       points: order.ptotal,
       price: order.mtotal,
+      currency: "元",
       number: 1,
       canPay: true,
       parentDom: "#order-detail-container"

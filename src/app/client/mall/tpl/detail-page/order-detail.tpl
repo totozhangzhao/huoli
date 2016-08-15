@@ -2,16 +2,16 @@
   <div class="goods-detail clearfix">
     <img src="<%= orderDetail.img %>" class="goods-show-pic fl">
     <p class="goods-name"><%= orderDetail.title %></p>
-    <div class="goods-charge-info-fa">
-      <!-- <p class="goods-charge-info num-font"><span>100</span> 积分 + <span>100</span> 元</p> -->
+    <div class="js-goods-price-old goods-charge-info-fa">
+      <!-- <p class="js-goods-price-old goods-charge-info num-font"><span>100</span> 积分 + <span>100</span> 元</p> -->
       <% if ( orderDetail.points > 0 && orderDetail.money > 0 ) { %>
-      <p class="goods-charge-info num-font"><span><%= orderDetail.points %></span>积分 + <span><%= orderDetail.money %></span>元</p>
+      <p class="js-goods-price-old goods-charge-info num-font"><span><%= orderDetail.points %></span>积分 + <span><%= orderDetail.money %></span>元</p>
       <% } else if ( orderDetail.points > 0 ) { %>
-      <p class="goods-charge-info num-font"><span><%= orderDetail.points %></span>积分</p>
+      <p class="js-goods-price-old goods-charge-info num-font"><span><%= orderDetail.points %></span>积分</p>
       <% } else if ( orderDetail.money > 0 ) { %>
-      <p class="goods-charge-info num-font"><span><%= orderDetail.money %></span>元</p>
+      <p class="js-goods-price-old goods-charge-info num-font"><span><%= orderDetail.money %></span>元</p>
       <% } else { %>
-      <p class="goods-charge-info num-font"><span>0</span>元</p>
+      <p class="js-goods-price-old goods-charge-info num-font"><span>0</span>元</p>
       <% } %>
       <em class="goods-charge-count">数量 x <%= orderDetail.num %></em>
     </div>
@@ -157,7 +157,7 @@
   </div>
   <% } %>
 
-  <div id="copyright" class="copyright-block <%= orderDetail.needpay === 1 ? "goods-copyright-fix" : "" %> ">
+  <div id="copyright" class="copyright-block">
     <!-- // -->
   </div>
   

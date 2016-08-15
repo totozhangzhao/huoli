@@ -8,13 +8,13 @@
     <div class="common-buy-box">
       <div class="common-buy-nav">
         <p><%= title %></p>
-        <div class="common-buy-close-btn">
+        <div class="js-close-panel common-buy-close-btn">
           <i class="common-buy-close-icon"></i>
         </div>
       </div>
       <div class="common-buy-num">
         <div class="common-buy-choice">
-          <i class="unable" data-operator="subtract">-</i><i><input type="number" class="number-input" value="<%= number %>"></i><i data-operator="add">+</i>
+          <i class="unable" data-operator="subtract">-</i><i><input type="number" class="js-goods-num-input" value="<%= number %>"></i><i data-operator="add">+</i>
         </div>
         <% if(showBuyTip) { %>
         <p class="common-buy-tip"><span>多买一份</span><span>，中奖概率就增大一倍</span></p>
@@ -23,8 +23,8 @@
     </div>
     <% } %>
     <div class="goods-charge-bar">
-      <p class="goods-charge-info num-font"></p>
-      <button class="charge-btn" type="button" <% if(!canPay) {%>disabled<% } %>>立即支付</button>
+      <p class="js-goods-price-old goods-charge-info num-font"></p>
+      <button class="js-goods-pay charge-btn" type="button" <% if(!canPay) {%>disabled<% } %>>立即支付</button>
     </div>
   </div>
 <% } %>

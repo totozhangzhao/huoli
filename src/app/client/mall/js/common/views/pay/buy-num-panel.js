@@ -9,19 +9,18 @@ const BuyNumPanelView = Backbone.View.extend({
   events: {
     "touchstart [data-operator]" : "beginTouch",
     "touchend [data-operator]"   : "endTouch",
-    "keyup .number-input"        : "inputKeyUp",
-    "keydown .number-input"      : "inputKeyDown",
-    "blur .number-input"         : "inputBlur",
-    "click .common-buy-close-btn": "close",
+    "keyup .js-goods-num-input"  : "inputKeyUp",
+    "keydown .js-goods-num-input": "inputKeyDown",
+    "blur .js-goods-num-input"   : "inputBlur",
+    "click .js-spec"             : "changeSpec",
+    "click .js-close-panel"      : "close",
     "click .common-shadow"       : "close",
-    "click .charge-btn"          : "purchase"
+    "click .js-goods-pay"        : "purchase"
   },
 
-  template: require("app/client/mall/tpl/common/buy-num-panel.tpl"),
-
-  priceTemplate: require("app/client/mall/tpl/common/price-text.tpl"),
-
   initialize(options) {
+    this.template = options.template || require("app/client/mall/tpl/common/buy-num-panel.tpl");
+    this.priceTemplate = options.priceTemplate || require("app/client/mall/tpl/common/price-text.tpl");
     this.exchange = options.exchange || (() => {});
     this.buy = options.buy || (() => {});
     this.pay = options.pay || (() => {});
@@ -35,9 +34,13 @@ const BuyNumPanelView = Backbone.View.extend({
     this.$el.appendTo(this.model.get("parentDom"));
     this.$el.html(this.template(this.model.toJSON()));
 
-    this.$priceView = this.$el.find(".goods-charge-bar .goods-charge-info");
-    this.$chargeBtn = this.$el.find(".charge-btn");
-    this.$numberInput = this.$el.find(".number-input");
+    this.$avatarList = this.$el.find(".js-avatar-img");
+    this.$priceView = this.$el.find(".js-goods-price-old");
+    this.$unitPriceView = this.$el.find(".js-unit-price");
+    this.$chargeBtn = this.$el.find(".js-goods-pay");
+    this.$numberInput = this.$el.find(".js-goods-num-input");
+    this.$add = this.$el.find("[data-operator='add']");
+    this.$sub = this.$el.find("[data-operator='subtract']");
 
     this.$priceView.html(this.priceTemplate(this.model.toJSON()));
     this.$chargeBtn
@@ -47,8 +50,23 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   refresh() {
-    this.$priceView.html(this.priceTemplate(this.model.toJSON()));
-    this.$numberInput.val(this.model.get("number"));
+    const model = this.model.toJSON();
+    this.$numberInput.val(model.number);
+    this.$priceView.html(this.priceTemplate(model));
+    this.$unitPriceView.text(this.model.getPPriceText(1));
+
+    if (model.number === 1) {
+      this.$sub.addClass("off");
+    } else {
+      this.$sub.removeClass("off");
+    }
+
+    if (model.number < model.limitNum) {
+      this.$add.removeClass("off");
+    } else {
+      this.$add.addClass("off");
+    }
+
     if(this.model.has("refresh")) {
       try{
         this.model.get("refresh")();
@@ -143,6 +161,57 @@ const BuyNumPanelView = Backbone.View.extend({
       return this.setNumber(1);
     }
     return this.setNumber(val);
+  },
+
+  changeSpec(e) {
+    const $cur = $(e.currentTarget);
+
+    if ( $cur.hasClass("off") ) {
+      return;
+    }
+
+    this.$el
+      .find(".js-spec")
+        .removeClass("on");
+    $cur.addClass("on");
+
+    const index = $cur.data("index");
+
+    this.$avatarList
+      .hide()
+      .eq(index)
+        .show();
+
+    this.specList = this.specList || this.model.get("specList");
+    const spec = this.specList[index];
+
+    // goodspecid int 商品规格id
+    // spec String 商品规格值
+    // price float 商品价格
+    // points int 商品积分
+    // oriprice float 商品原价
+    // paytype int 支付类型
+    // img float 规格图片
+    // left int 可买数量
+    // limit int 限购数量
+    this.model.set({
+      specIndex: index,
+      specId: spec.goodspecid,
+      payType: spec.paytype,
+      points: spec.points,
+      price: spec.price,
+      smallimg: spec.img
+    }, { silent: true });
+
+    if (spec.limit) {
+      const num = this.model.get("number");
+      this.model.set({
+        number: (num <= spec.limit) ? num : spec.limit,
+        limitNum: spec.limit
+      }, { silent: true });
+    }
+
+    this.refresh();
   },
 
   purchase() {
