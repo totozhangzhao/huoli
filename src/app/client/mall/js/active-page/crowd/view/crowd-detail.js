@@ -32,12 +32,6 @@ const AppView = Backbone.View.extend({
     new BackTop();
     _.extend(this, commonData);
     this.$initial    = ui.initial().show();
-    this.buyNumModel = new BuyNumModel();
-    this.payView     = new BuyPanelView({
-      model: this.buyNumModel,
-      buy: () => {this.buy();},
-      pay: () => {this.pay();}
-    });
     this.urlObj = UrlUtil.parseUrlSearch();
     this.title = "";
     this.urlTitle = this.urlObj.title || this.$el.data("title");
@@ -87,8 +81,9 @@ const AppView = Backbone.View.extend({
       })
         .then(data => {
           const crowd = data.crowd;
+          this.initModel(crowd);
           this.renderMainPanel(crowd);
-          this.renderBuyNumView(crowd);
+          this.renderBuyNumView();
           new Tab( this.$el.find(".js-tab-wrapper"), this.$el.find(".js-tab-content") );
           return data.userData;
         })
@@ -194,9 +189,9 @@ const AppView = Backbone.View.extend({
       hlfrom: this.urlObj.hlfrom || "--"
     });
   },
-  renderBuyNumView(crowd) {
+  initModel(crowd) {
     const buttonText = { "0": "已结束", "1": "立即参与", "2": "已结束", "4": "余量不足" };
-    this.buyNumModel.set({
+    this.buyNumModel = new BuyNumModel({
       type:0,
       payType: crowd.paytype,
       hasMask: false,
@@ -205,11 +200,21 @@ const AppView = Backbone.View.extend({
       payText:buttonText[crowd.stat],
       payNumText: "去支付",
       price: crowd.price,
-      currency: "元",
       limitNum: Math.min(this.getMaxLimitNum(crowd.totalcount), crowd.remaincount),
       showBuyTip: true,
       canPay: crowd.stat === 1,
       parentDom: "#crowd-detail"
+    });
+  },
+  renderBuyNumView() {
+    this.payView = new BuyPanelView({
+      model: this.buyNumModel,
+      buy: () => {this.buy();},
+      pay: () => {this.pay();}
+    });
+
+    this.buyNumModel.set({
+      _t: Date.now()
     });
   },
 

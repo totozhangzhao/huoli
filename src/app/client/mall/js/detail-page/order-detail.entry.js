@@ -8,23 +8,24 @@ import hint from "com/mobile/widget/hint/hint.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
-import * as widget from "app/client/mall/js/lib/common.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import logger from "com/mobile/lib/log/log.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
-const orderLog   = require("app/client/mall/js/lib/common.js").initTracker("order");
 import ui from "app/client/mall/js/lib/ui.js";
 import FooterView from "app/client/mall/js/common/views/footer.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import Popover from "com/mobile/widget/popover/popover.js";
-import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
+import * as widget from "app/client/mall/js/lib/common.js";
+
+const orderLog = widget.initTracker("order");
 
 const AppView = Backbone.View.extend({
   el: "#order-detail-container",
@@ -45,12 +46,6 @@ const AppView = Backbone.View.extend({
     new BackTop();
     NativeAPI.invoke("updateTitle", {
       text: "订单详情"
-    });
-    this.buyNumModel = new BuyNumModel();
-    this.payView = new BuyPanelView({
-      model: this.buyNumModel,
-      buy: () => {this.buy();},
-      pay() {}
     });
     this.$initial = ui.initial().show();
     this.orderDetail = {};
@@ -137,20 +132,27 @@ const AppView = Backbone.View.extend({
       })
       .then(result => {
         this.orderDetail = result;
+        this.initModel(this.orderDetail);
+        this.orderDetail.unitPriceText = this.buyNumModel.getPPriceText(1);
+
         const compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
         const tmplData = {
           orderDetail: this.orderDetail,
           isWechat: wechatUtil.isWechatFunc()
         };
-
         $("#order-detail-container").html( compiled(tmplData) );
-        this.renderBuyNumView(result);
+
+        this.renderBuyNumView(this.orderDetail);
+
         new FooterView().render();
+
         mallWechat.initShare({
           wechatshare: this.orderDetail.wechatshare,
           title: this.orderDetail.title
         });
+
         this.$initial.hide();
+
         orderLog({
           title: this.orderDetail.title,
           hlfrom: parseUrl().hlfrom || "--"
@@ -159,12 +161,8 @@ const AppView = Backbone.View.extend({
         toast(err.message, 1500);
       });
   },
-
-  renderBuyNumView(order) {
-    if(order.needpay !== 1){
-      return;
-    }
-    this.buyNumModel.set({
+  initModel(order) {
+    this.buyNumModel = new BuyNumModel({
       type:0,
       payType: order.paytype,
       hasMask: false,
@@ -172,10 +170,24 @@ const AppView = Backbone.View.extend({
       payText:"去支付",
       points: order.ptotal,
       price: order.mtotal,
-      currency: "元",
       number: 1,
       canPay: true,
       parentDom: "#order-detail-container"
+    });
+  },
+  renderBuyNumView(order) {
+    if(order.needpay !== 1){
+      return;
+    }
+
+    this.payView = new BuyPanelView({
+      model: this.buyNumModel,
+      buy: () => {this.buy();},
+      pay() {}
+    });
+
+    this.buyNumModel.set({
+      _t: Date.now()
     });
   },
   buy() {
@@ -266,6 +278,7 @@ const AppView = Backbone.View.extend({
     const url = `/fe/app/client/mall/html/detail-page/refund-result.html?orderid=${this.orderDetail.orderid}`;
     widget.createNewView({ url });
   },
+
   bindResume() {
     NativeAPI.registerHandler("resume", () => {
       window.location.reload();

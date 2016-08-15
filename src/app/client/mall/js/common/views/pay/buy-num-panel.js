@@ -1,6 +1,7 @@
 import $ from "jquery";
 import Backbone from "backbone";
 import {toast} from "com/mobile/widget/hint/hint.js";
+import defaultBuyPanelTpl from "app/client/mall/tpl/common/buy-num-panel.tpl";
 
 const BuyNumPanelView = Backbone.View.extend({
 
@@ -19,8 +20,7 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   initialize(options) {
-    this.template = options.template || require("app/client/mall/tpl/common/buy-num-panel.tpl");
-    this.priceTemplate = options.priceTemplate || require("app/client/mall/tpl/common/price-text.tpl");
+    this.template = options.template || defaultBuyPanelTpl;
     this.exchange = options.exchange || (() => {});
     this.buy = options.buy || (() => {});
     this.pay = options.pay || (() => {});
@@ -31,29 +31,42 @@ const BuyNumPanelView = Backbone.View.extend({
 
   // 渲染视图
   render() {
+    let tplData = this.model.toJSON();
+    tplData.unitPriceText = this.model.getPPriceText(1);
+    tplData.totalPriceText = this.model.getPPriceText();
+    this.$el.html(this.template(tplData));
     this.$el.appendTo(this.model.get("parentDom"));
-    this.$el.html(this.template(this.model.toJSON()));
 
     this.$avatarList = this.$el.find(".js-avatar-img");
-    this.$priceView = this.$el.find(".js-goods-price-old");
-    this.$unitPriceView = this.$el.find(".js-unit-price");
+    this.$unitPriceView = $(".js-unit-price");
+    this.$totalPriceView = $(".js-total-price");
     this.$chargeBtn = this.$el.find(".js-goods-pay");
     this.$numberInput = this.$el.find(".js-goods-num-input");
     this.$add = this.$el.find("[data-operator='add']");
     this.$sub = this.$el.find("[data-operator='subtract']");
 
-    this.$priceView.html(this.priceTemplate(this.model.toJSON()));
+    this.updateMoneyView();
     this.$chargeBtn
       .text(this.model.getPayBtnText())
       .data("payBtnType", this.model.getPayBtnText());
     return this;
   },
 
+  updateMoneyView() {
+    if (this.$unitPriceView.length > 0) {
+      this.$unitPriceView.text(this.model.getPPriceText(1));
+    }
+
+    if (this.$totalPriceView.length > 0) {
+      this.$totalPriceView.text(this.model.getPPriceText());
+    }
+  },
+
   refresh() {
     const model = this.model.toJSON();
+
     this.$numberInput.val(model.number);
-    this.$priceView.html(this.priceTemplate(model));
-    this.$unitPriceView.text(this.model.getPPriceText(1));
+    this.updateMoneyView();
 
     if (model.number === 1) {
       this.$sub.addClass("off");

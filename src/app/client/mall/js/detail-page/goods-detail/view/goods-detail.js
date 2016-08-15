@@ -22,7 +22,6 @@ import Tab from "com/mobile/widget/button/tab.js";
 import Swipe from "com/mobile/lib/swipe/swipe.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
-import priceTemplate from "app/client/mall/tpl/detail-page/goods/goods-bottom.tpl";
 import buyTemplate from "app/client/mall/tpl/detail-page/goods/goods-buy-panel.tpl";
 
 const detailLog = widget.initTracker("detail");
@@ -196,9 +195,9 @@ const AppView = BaseView.extend({
     }
 
     this.initModel(goods);
-    goods.unitPriceText = this.buyNumModel.get("unitPriceText");
+    goods.unitPriceText = this.buyNumModel.getPPriceText(1);
     if (goods.relevance) {
-      goods.relevance.unitPriceText = this.relevanceModel.get("unitPriceText");
+      goods.relevance.unitPriceText = this.relevanceModel.getPPriceText(1);
     }
 
     this.renderGoodsInfo(goods);
@@ -259,13 +258,6 @@ const AppView = BaseView.extend({
       limitNum: goods.limit,
       canPay: goods.stat === 0,
       parentDom: "#goods-detail"
-    }, {
-      silent: true
-    });
-    this.buyNumModel.set({
-      unitPriceText: this.buyNumModel.getPPriceText(1)
-    }, {
-      silent: true
     });
 
     if (goods.relevance) {
@@ -277,21 +269,19 @@ const AppView = BaseView.extend({
         points: goods.relevance.points,
         price: goods.relevance.money
       });
-      this.relevanceModel.set({
-        unitPriceText: this.relevanceModel.getPPriceText(1)
-      });
     }
   },
   renderBuyNumView() {
-    this.model.buyNumModel = this.buyNumModel;
     this.payView = new BuyPanelView({
-      priceTemplate: priceTemplate,
       template: buyTemplate,
       model: this.buyNumModel,
       buy: () => {this.buy();},
       pay: () => {this.pay();}
     });
-    this.model.payView = this.payView;
+
+    this.model.buyNumModel = this.buyNumModel;
+    this.cache.payView = this.payView;
+
     this.buyNumModel.set({
       _t: Date.now()
     });
@@ -309,7 +299,7 @@ const AppView = BaseView.extend({
     function _buy() {
 
       // 购买上限为1的情况
-      if(self.buyNumModel.get("limitNum") === 1 && !self.buyNumModel.get("specList")) {
+      if( self.buyNumModel.get("limitNum") === 1 && self.buyNumModel.get("specList").length === 0 ) {
         return self.pay();
       }
       return self.buyNumModel.set({
