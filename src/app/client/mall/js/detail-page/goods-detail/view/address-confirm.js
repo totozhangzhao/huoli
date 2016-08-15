@@ -89,9 +89,10 @@ const AppView = Backbone.View.extend({
   },
   mallCreateOrder(goods) {
     let params = {
-      address: this.curAddress,
+      goodspecid: this.model.buyNumModel.get("specId"),
       num: this.model.buyNumModel.get("number"),
-      productid: this.cache.urlObj.productid
+      productid: this.cache.urlObj.productid,
+      address: this.curAddress
     };
 
     // 一元夺宝特权券

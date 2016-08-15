@@ -51,7 +51,7 @@ export let getAppName = (() => {
 })();
 
 export function isHangbanFunc() {
-  return /hbgj/i.test(exports.getAppName());
+  return /hbgj/i.test(getAppName());
 }
 
 export function isAppFunc() {

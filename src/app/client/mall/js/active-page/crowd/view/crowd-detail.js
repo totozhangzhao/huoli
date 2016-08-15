@@ -198,12 +198,14 @@ const AppView = Backbone.View.extend({
     const buttonText = { "0": "已结束", "1": "立即参与", "2": "已结束", "4": "余量不足" };
     this.buyNumModel.set({
       type:0,
+      payType: crowd.paytype,
       hasMask: false,
       visible: true,
       title: "购买份数",
       payText:buttonText[crowd.stat],
       payNumText: "去支付",
       price: crowd.price,
+      currency: "元",
       limitNum: Math.min(this.getMaxLimitNum(crowd.totalcount), crowd.remaincount),
       showBuyTip: true,
       canPay: crowd.stat === 1,
