@@ -124,8 +124,12 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   beginTouch(e) {
+    const $cur = $(e.currentTarget);
+    if ($cur.hasClass("off")) {
+      return;
+    }
     // 开始连续增减模式
-    this.computeMode = $(e.currentTarget).data("operator");
+    this.computeMode = $cur.data("operator");
     this.comboMode = true;
     window.clearTimeout(this.comboId);
     this.combo(500);
