@@ -76,42 +76,7 @@ const BuyNumPanelView = Backbone.View.extend({
     }
   },
 
-  setNumber(number) {
-    this.model.set({number},{silent: true});
-    this.refresh();
-  },
-  combo(delay) {
-    if( this.comboMode ) {
-      let number = this.model.get("number");
-      if(this.computeMode === "add"){
-        number++;
-      }else{
-        number--;
-      }
-      if(this.validateNum(number)){
-        this.setNumber(this.checkNum(number));
-        this.comboId = setTimeout(() => {
-          this.combo(100);
-        },delay);
-      }
-    }
-  },
-
-  validateNum(number) {
-    const limitNum = this.model.get("limitNum");
-    const minNum = this.model.get("minNum");
-    let result = true;
-    if(number > limitNum){
-      toast("已到单笔订单数量上限", 1500);
-      result = false;
-    }else if(number < minNum){
-      result = false;
-    }
-    return result;
-    // return number <= limitNum && number >= minNum;
-  },
-
-  checkNum(number) {
+  fixNum(number) {
     const limitNum = this.model.get("limitNum");
     const minNum = this.model.get("minNum");
     if(number > limitNum){
@@ -121,6 +86,33 @@ const BuyNumPanelView = Backbone.View.extend({
       number = minNum;
     }
     return number;
+  },
+
+  validateNum(number) {
+    return number === this.fixNum(number);
+  },
+
+  setNumber(number) {
+    number = this.fixNum(number);
+    this.model.set({number},{silent: true});
+    this.refresh();
+  },
+
+  combo(delay) {
+    if( this.comboMode ) {
+      let number = this.model.get("number");
+      if(this.computeMode === "add"){
+        number++;
+      }else{
+        number--;
+      }
+      if(this.validateNum(number)){
+        this.setNumber(number);
+        this.comboId = setTimeout(() => {
+          this.combo(100);
+        },delay);
+      }
+    }
   },
 
   beginTouch(e) {
@@ -147,7 +139,7 @@ const BuyNumPanelView = Backbone.View.extend({
       return ;
     }
     if (val !== "") {
-      return this.setNumber(this.checkNum(val));
+      return this.setNumber(val);
     }
   },
 
