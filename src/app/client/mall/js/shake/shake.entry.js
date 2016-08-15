@@ -1,4 +1,4 @@
-// import $                        from "jquery";
+import $                        from "jquery";
 import _                        from "lodash";
 import Backbone                 from "backbone";
 import * as mallPromise              from "app/client/mall/js/lib/mall-promise.js";
@@ -40,10 +40,10 @@ const AppView = Backbone.View.extend({
     // let btn = $("<button class='audio-toggle' style='position: fixed;width:80%; height:50px;border: 1px solid;left: 10%;top:0;'>测试按钮</div>");
     // this.$el.append(btn);
     this.shake = new Shake(this.shakeHandler.bind(this), {});
-    this.render();
+    this.fetch();
   },
 
-  render() {
+  render(result) {
     // if ( wechatUtil.isWechatFunc() ) {
     //   window.console.log(1);
     //   wechatUtil.setTitle("摇一摇");
@@ -59,12 +59,41 @@ const AppView = Backbone.View.extend({
     //   }
     // }
 
+    this.$el.html(result.tpl);
+    if(result.title) {
+      widget.updateViewTitle(result.title);
+    }
     const isApp = mallUitl.isAppFunc();
 
     if ( !isApp ) {
       require("app/client/mall/js/lib/download-app.js").init( isApp );
     }
     this.$initial.hide();
+  },
+
+  fetch() {
+    mallPromise
+      .checkLogin()
+      .then(userData => {
+        var params = _.extend({}, userData.userInfo, {
+          p: userData.deviceInfo.p,
+          productid: parseUrl().productid
+        });
+        return new Promise((resolve, reject) => {
+          sendPost("tplProduct", params, (err, data) => {
+            if(err) {
+              reject(err);
+            }else{
+              resolve(data);
+            }
+          });
+        });
+      })
+      .then((result) => {
+        this.render(result);
+      })
+      .catch(mallPromise.catchFn);
+
   },
 
   shakeHandler() {
@@ -74,7 +103,7 @@ const AppView = Backbone.View.extend({
     .then(userData => {
       var params = _.extend({}, userData.userInfo, {
         p: userData.deviceInfo.p,
-        productid: parseUrl().productid
+        productid: $("[data-shake-id]").data("shakeId")
       });
       return new Promise((resolve, reject) => {
         sendPost("createOrder", params, function(err, data) {
