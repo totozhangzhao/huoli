@@ -7,12 +7,12 @@
     <% if(type === 1) { %>
       <div class="goods-confirm-contain">
         <div class="goods-confirm-pic">
-          <% if (specList) { %>
+          <% if (specList.length > 0) { %>
           <% specList.forEach(function(elem, index) { %>
           <img src="<%= elem.img %>" class="js-avatar-img" alt="" style="<%= index === specIndex ? '' : 'display: none;' %>">
           <% }); %>
           <% } else { %>
-          <img src="<%= smallimg %>" alt="">
+          <img src="<%= avatar %>" alt="">
           <% } %>
           <div class="goods-confirm-mask"></div>
         </div>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="goods-confirm-choice">
-        <% if (specList) { %>
+        <% if (specList.length > 0) { %>
         <div class="goods-confirm-choice-color flex-row">
           <div class="color-item"><%= specname %></div>
           <div class="color-items">

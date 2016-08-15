@@ -9,13 +9,13 @@
         <div class="order-bar clearfix">
           <div class="fl">
             <% if ( item.ptotal > 0 && item.mtotal > 0 ) { %>
-            <p class="num-font"><%= item.ptotal %>积分 + <%= item.mtotal %>元</p>
+            <p class="num-font">￥<%= item.mtotal %>+<%= item.ptotal %>积分</p>
             <% } else if ( item.ptotal > 0 ) { %>
             <p class="num-font"><%= item.ptotal %>积分</p>
             <% } else if ( item.mtotal > 0 ) { %>
-            <p class="num-font"><%= item.mtotal %>元</p>
+            <p class="num-font">￥<%= item.mtotal %></p>
             <% } else if ( item.mtotal === 0 ) { %>
-            <p class="num-font">0元</p>
+            <p class="num-font">￥0</p>
             <% } else if ( item.ptotal === 0 ) { %>
             <p class="num-font">0积分</p>
             <% } else { %>

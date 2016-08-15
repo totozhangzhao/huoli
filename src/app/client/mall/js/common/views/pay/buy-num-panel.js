@@ -1,6 +1,7 @@
 import $ from "jquery";
 import Backbone from "backbone";
 import {toast} from "com/mobile/widget/hint/hint.js";
+import defaultBuyPanelTpl from "app/client/mall/tpl/common/buy-num-panel.tpl";
 
 const BuyNumPanelView = Backbone.View.extend({
 
@@ -19,8 +20,7 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   initialize(options) {
-    this.template = options.template || require("app/client/mall/tpl/common/buy-num-panel.tpl");
-    this.priceTemplate = options.priceTemplate || require("app/client/mall/tpl/common/price-text.tpl");
+    this.template = options.template || defaultBuyPanelTpl;
     this.exchange = options.exchange || (() => {});
     this.buy = options.buy || (() => {});
     this.pay = options.pay || (() => {});
@@ -31,29 +31,42 @@ const BuyNumPanelView = Backbone.View.extend({
 
   // 渲染视图
   render() {
+    let tplData = this.model.toJSON();
+    tplData.unitPriceText = this.model.getPPriceText(1);
+    tplData.totalPriceText = this.model.getPPriceText();
+    this.$el.html(this.template(tplData));
     this.$el.appendTo(this.model.get("parentDom"));
-    this.$el.html(this.template(this.model.toJSON()));
 
     this.$avatarList = this.$el.find(".js-avatar-img");
-    this.$priceView = this.$el.find(".js-goods-price-old");
-    this.$unitPriceView = this.$el.find(".js-unit-price");
+    this.$unitPriceView = $(".js-unit-price");
+    this.$totalPriceView = $(".js-total-price");
     this.$chargeBtn = this.$el.find(".js-goods-pay");
     this.$numberInput = this.$el.find(".js-goods-num-input");
     this.$add = this.$el.find("[data-operator='add']");
     this.$sub = this.$el.find("[data-operator='subtract']");
 
-    this.$priceView.html(this.priceTemplate(this.model.toJSON()));
+    this.updateMoneyView();
     this.$chargeBtn
       .text(this.model.getPayBtnText())
       .data("payBtnType", this.model.getPayBtnText());
     return this;
   },
 
+  updateMoneyView() {
+    if (this.$unitPriceView.length > 0) {
+      this.$unitPriceView.text(this.model.getPPriceText(1));
+    }
+
+    if (this.$totalPriceView.length > 0) {
+      this.$totalPriceView.text(this.model.getPPriceText());
+    }
+  },
+
   refresh() {
     const model = this.model.toJSON();
+
     this.$numberInput.val(model.number);
-    this.$priceView.html(this.priceTemplate(model));
-    this.$unitPriceView.text(this.model.getPPriceText(1));
+    this.updateMoneyView();
 
     if (model.number === 1) {
       this.$sub.addClass("off");
@@ -76,42 +89,7 @@ const BuyNumPanelView = Backbone.View.extend({
     }
   },
 
-  setNumber(number) {
-    this.model.set({number},{silent: true});
-    this.refresh();
-  },
-  combo(delay) {
-    if( this.comboMode ) {
-      let number = this.model.get("number");
-      if(this.computeMode === "add"){
-        number++;
-      }else{
-        number--;
-      }
-      if(this.validateNum(number)){
-        this.setNumber(this.checkNum(number));
-        this.comboId = setTimeout(() => {
-          this.combo(100);
-        },delay);
-      }
-    }
-  },
-
-  validateNum(number) {
-    const limitNum = this.model.get("limitNum");
-    const minNum = this.model.get("minNum");
-    let result = true;
-    if(number > limitNum){
-      toast("已到单笔订单数量上限", 1500);
-      result = false;
-    }else if(number < minNum){
-      result = false;
-    }
-    return result;
-    // return number <= limitNum && number >= minNum;
-  },
-
-  checkNum(number) {
+  fixNum(number) {
     const limitNum = this.model.get("limitNum");
     const minNum = this.model.get("minNum");
     if(number > limitNum){
@@ -123,9 +101,40 @@ const BuyNumPanelView = Backbone.View.extend({
     return number;
   },
 
+  validateNum(number) {
+    return number === this.fixNum(number);
+  },
+
+  setNumber(number) {
+    number = this.fixNum(number);
+    this.model.set({number},{silent: true});
+    this.refresh();
+  },
+
+  combo(delay) {
+    if( this.comboMode ) {
+      let number = this.model.get("number");
+      if(this.computeMode === "add"){
+        number++;
+      }else{
+        number--;
+      }
+      if(this.validateNum(number)){
+        this.setNumber(number);
+        this.comboId = setTimeout(() => {
+          this.combo(100);
+        },delay);
+      }
+    }
+  },
+
   beginTouch(e) {
+    const $cur = $(e.currentTarget);
+    if ($cur.hasClass("off")) {
+      return;
+    }
     // 开始连续增减模式
-    this.computeMode = $(e.currentTarget).data("operator");
+    this.computeMode = $cur.data("operator");
     this.comboMode = true;
     window.clearTimeout(this.comboId);
     this.combo(500);
@@ -143,7 +152,7 @@ const BuyNumPanelView = Backbone.View.extend({
       return ;
     }
     if (val !== "") {
-      return this.setNumber(this.checkNum(val));
+      return this.setNumber(val);
     }
   },
 
@@ -200,7 +209,7 @@ const BuyNumPanelView = Backbone.View.extend({
       payType: spec.paytype,
       points: spec.points,
       price: spec.price,
-      smallimg: spec.img
+      avatar: spec.img
     }, { silent: true });
 
     if (spec.limit) {
