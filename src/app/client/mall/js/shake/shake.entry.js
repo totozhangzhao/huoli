@@ -1,4 +1,4 @@
-// import $                        from "jquery";
+import $                        from "jquery";
 import _                        from "lodash";
 import Backbone                 from "backbone";
 import * as mallPromise              from "app/client/mall/js/lib/mall-promise.js";
