@@ -60,6 +60,9 @@ const AppView = Backbone.View.extend({
     // }
 
     this.$el.html(result.tpl);
+    if(result.title) {
+      widget.updateViewTitle(result.title);
+    }
     const isApp = mallUitl.isAppFunc();
 
     if ( !isApp ) {
