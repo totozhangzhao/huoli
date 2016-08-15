@@ -196,7 +196,7 @@ const BuyNumPanelView = Backbone.View.extend({
       payType: spec.paytype,
       points: spec.points,
       price: spec.price,
-      smallimg: spec.img
+      avatar: spec.img
     }, { silent: true });
 
     if (spec.limit) {

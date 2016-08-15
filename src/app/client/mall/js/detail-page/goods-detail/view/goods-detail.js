@@ -86,8 +86,22 @@ const AppView = BaseView.extend({
           });
         });
       })
-      .then(result => {
-        this.render(result);
+      .then(goods => {
+
+        // 有商品规格时，价格等数据以第一个规格为准
+        if (Array.isArray(goods.specs) && goods.specs.length > 0) {
+          const spec = goods.specs[0];
+          _.extend(goods, {
+            paytype: spec.paytype,
+            points: spec.points,
+            money: spec.price,
+            smallimg: spec.img
+          });
+        } else {
+          goods.specs = [];
+        }
+
+        this.render(goods);
         this.$initial.hide();
       })
       .catch(mallPromise.catchShowError);
@@ -223,7 +237,7 @@ const AppView = BaseView.extend({
     });
   },
   initModel(goods) {
-    const specList = goods.specs || [];
+    const specList = goods.specs;
 
     // init buy panel model
     this.buyNumModel = new BuyNumModel({
@@ -236,10 +250,11 @@ const AppView = BaseView.extend({
       payNumText: goods.button, //goods.money > 0 ? "去支付" : "立即兑换",
       points: goods.points,
       price: goods.money,
-      smallimg: goods.smallimg,
+      avatar: goods.smallimg,
       // specList: null,
-      specList: specList.length > 0 ? goods.specs : null,
+      specList: specList,
       specId: specList.length > 0 ? specList[0].goodspecid : null,
+      specIndex: specList.length > 0 ? 0 : null,
       specname: goods.specname,
       limitNum: goods.limit,
       canPay: goods.stat === 0,
