@@ -72,28 +72,19 @@ const AppView = Backbone.View.extend({
   },
 
   fetch() {
-    mallPromise
-      .checkLogin()
-      .then(userData => {
-        var params = _.extend({}, userData.userInfo, {
-          p: userData.deviceInfo.p,
-          productid: parseUrl().productid
-        });
-        return new Promise((resolve, reject) => {
-          sendPost("tplProduct", params, (err, data) => {
-            if(err) {
-              reject(err);
-            }else{
-              resolve(data);
-            }
-          });
-        });
-      })
-      .then((result) => {
-        this.render(result);
-      })
-      .catch(mallPromise.catchFn);
-
+    let p = new Promise((resolve, reject) => {
+      sendPost("tplProduct", {productid: parseUrl().productid}, (err, data) => {
+        if(err) {
+          reject(err);
+        }else{
+          resolve(data);
+        }
+      });
+    });
+    p.then((result) => {
+      this.render(result);
+    })
+    .catch(mallPromise.catchFn);
   },
 
   shakeHandler() {
