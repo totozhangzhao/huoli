@@ -70,6 +70,7 @@ var AppView = Backbone.View.extend({
     "click .js-goods-detail-hb": "gotoGoods",
     "click .js-crowd"          : "gotoGoods",
     "click .js-crowd-column"   : "gotoCrowdColumn",
+    "click .js-shake"          : "gotoShake",
     "click .js-get-coupon"     : "getCoupon",
     "click .js-show-token"     : "showCookie",
     "click .js-rm-token"       : "removeToken",
@@ -143,6 +144,32 @@ var AppView = Backbone.View.extend({
       }
     });
   },
+  // 进入摇一摇页面
+  gotoShake: function () {
+    var id = $("#goods-detail-input").val();
+
+    if (id === "" || typeof id === "undefined" || id === null) {
+      return;
+    }
+
+    var url = "/fe/app/client/mall/html/shake/shake.html" +
+      "?productid=" + id;
+
+    NativeAPI.invoke("createWebView", {
+      url: url,
+      controls: [
+        {
+          type: "title",
+          text: "摇一摇"
+        }
+      ]
+    }, function(err) {
+      if ( err && (err.code === -32603) ) {
+        window.location.href = url;
+      }
+    });
+  },
+
   gotoGoods: function(e) {
     var $cur = $(e.currentTarget);
     var id = $("#goods-detail-input").val();
