@@ -145,8 +145,7 @@ var AppView = Backbone.View.extend({
     });
   },
   // 进入摇一摇页面
-  gotoShake: function (e) {
-    var $cur = $(e.currentTarget);
+  gotoShake: function () {
     var id = $("#goods-detail-input").val();
 
     if (id === "" || typeof id === "undefined" || id === null) {
