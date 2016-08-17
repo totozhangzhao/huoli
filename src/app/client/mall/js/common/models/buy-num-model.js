@@ -21,7 +21,9 @@ const BuyNumModel = Backbone.Model.extend({
     pointsUnit: "积分",         // 积分单位
     specList: [],              // 规格(Array)
     specIndex: null,           // 当前选中的规格
-    specId: null,              // 规格ID goodspecid
+    specName: null,            // 例如：颜色、尺码
+    specValueName: null,       // 例如：白色、红色；X、XL、XXXL
+    specValueId: null,         // 规格ID goodspecid
     avatar: "",                // 当前商品头像
     canPay: true,              // 购买按钮是否可用
     closeAll: false            // 点击关闭按钮时，是否关闭完整视图

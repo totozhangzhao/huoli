@@ -205,10 +205,11 @@ const BuyNumPanelView = Backbone.View.extend({
     // limit int 限购数量
     this.model.set({
       specIndex: index,
-      specId: spec.goodspecid,
       payType: spec.paytype,
       points: spec.points,
       price: spec.price,
+      specValueName: spec.spec,
+      specValueId: spec.goodspecid,
       avatar: spec.img
     }, { silent: true });
 

@@ -24,7 +24,7 @@
       <div class="goods-confirm-choice">
         <% if (specList.length > 0) { %>
         <div class="goods-confirm-choice-color flex-row">
-          <div class="color-item"><%= specname %></div>
+          <div class="color-item"><%= specName %></div>
           <div class="color-items">
             <% specList.forEach(function(elem, index) { %>
             <%
