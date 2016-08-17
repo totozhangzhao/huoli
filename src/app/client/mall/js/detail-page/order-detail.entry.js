@@ -24,6 +24,8 @@ import * as mallUitl from "app/client/mall/js/lib/util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import * as widget from "app/client/mall/js/lib/common.js";
+import * as moneyUit from "app/client/mall/js/common/util/money.js";
+import orderDetailTpl from "app/client/mall/tpl/detail-page/order-detail.tpl";
 
 const orderLog = widget.initTracker("order");
 
@@ -134,13 +136,17 @@ const AppView = Backbone.View.extend({
         this.orderDetail = result;
         this.initModel(this.orderDetail);
         this.orderDetail.unitPriceText = this.buyNumModel.getPPriceText(1);
-
-        const compiled = require("app/client/mall/tpl/detail-page/order-detail.tpl");
+        this.orderDetail.totalPriceText = moneyUit.getMoneyText({
+          payType: this.buyNumModel.get("payType"),
+          number: 1,
+          price: this.orderDetail.mtotal,
+          points: this.orderDetail.ptotal
+        });
         const tmplData = {
           orderDetail: this.orderDetail,
           isWechat: wechatUtil.isWechatFunc()
         };
-        $("#order-detail-container").html( compiled(tmplData) );
+        $("#order-detail-container").html( orderDetailTpl(tmplData) );
 
         this.renderBuyNumView(this.orderDetail);
 
@@ -168,9 +174,9 @@ const AppView = Backbone.View.extend({
       hasMask: false,
       visible: true,
       payText:"去支付",
-      points: order.ptotal,
-      price: order.mtotal,
-      number: 1,
+      points: order.points,
+      price: order.money,
+      number: order.num,
       canPay: true,
       parentDom: "#order-detail-container"
     });

@@ -13,7 +13,7 @@
   </div>
 
   <div class="order-detail-bar">
-    <p class="order-detail-info">订单总额：<span class="order-detail-num fr"><%= orderDetail.unitPriceText %></span></p>
+    <p class="order-detail-info">订单总额：<span class="order-detail-num fr"><%= orderDetail.totalPriceText %></span></p>
     <p class="order-detail-info">订单编号：<span class="order-detail-num fr"><%= orderDetail.orderid %></span></p>
     <p class="order-detail-info">成交时间：<span class="order-detail-num fr"><%= orderDetail.createtime %></span></p>
   </div>
