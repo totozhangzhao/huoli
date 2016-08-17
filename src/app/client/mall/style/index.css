@@ -2021,11 +2021,15 @@ img.touch-img {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
+.confirm-goods-detail .goods-standard {
+  font-size: 0.34667rem;
+  line-height: 0.53333rem;
+}
 .confirm-goods-detail .goods-charge-info {
   height: 0.8rem;
   line-height: 0.8rem;
   font-size: 0.34667rem;
-  margin-top: 0.53333rem;
+  margin-top: 0.05333rem;
 }
 .confirm-goods-detail .goods-charge-info span {
   color: #ff5a44;

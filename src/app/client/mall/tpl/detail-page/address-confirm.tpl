@@ -11,7 +11,8 @@
 </ul>
 <div class="confirm-goods-detail clearfix">
   <img src="<%= avatar || "" %>" class="goods-show-pic fl">
-  <p class="goods-name"><%= title || "" %></p>
+  <p class="goods-name"><%= title || "　" %></p>
+  <p class="goods-standard"><%= specValueName || "　" %></p>
   <div class="goods-charge-info-fa">
     <p class="goods-charge-info num-font"><span><%= unitPriceText %></span></p>
     <div class="common-buy-num">

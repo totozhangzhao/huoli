@@ -75,7 +75,7 @@ const AppView = Backbone.View.extend({
   },
   mallCreateOrder(goods) {
     let params = {
-      goodspecid: this.model.buyNumModel.get("specId"),
+      goodspecid: this.model.buyNumModel.get("specValueId"),
       num: this.model.buyNumModel.get("number"),
       productid: this.cache.urlObj.productid,
       address: this.curAddress

@@ -252,9 +252,10 @@ const AppView = BaseView.extend({
       avatar: goods.smallimg,
       // specList: null,
       specList: specList,
-      specId: specList.length > 0 ? specList[0].goodspecid : null,
       specIndex: specList.length > 0 ? 0 : null,
-      specname: goods.specname,
+      specName: goods.specname,
+      specValueName: specList.length > 0 ? specList[0].spec : null,
+      specValueId: specList.length > 0 ? specList[0].goodspecid : null,
       limitNum: goods.limit,
       canPay: goods.stat === 0,
       parentDom: "#goods-detail"
@@ -421,7 +422,7 @@ const AppView = BaseView.extend({
   },
   mallCreateOrder() {
     let params = {
-      goodspecid: this.buyNumModel.get("specId"),
+      goodspecid: this.buyNumModel.get("specValueId"),
       num: this.buyNumModel.get("number"),
       productid: this.urlObj.productid
     };
