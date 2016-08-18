@@ -3,7 +3,7 @@ import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
 import * as mallUitl       from "app/client/mall/js/lib/util.js";
 import UrlUtil        from "com/mobile/lib/url/url.js";
-import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallWechat     from "app/client/mall/js/lib/wechat.js";
 
 import * as widget    from "app/client/mall/js/lib/common.js";

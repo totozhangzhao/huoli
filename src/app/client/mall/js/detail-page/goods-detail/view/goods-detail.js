@@ -11,7 +11,7 @@ import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import Popover from "com/mobile/widget/popover/popover.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import ui from "app/client/mall/js/lib/ui.js";
-import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import FooterView from "app/client/mall/js/common/views/footer.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";

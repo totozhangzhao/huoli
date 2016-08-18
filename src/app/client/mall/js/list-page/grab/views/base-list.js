@@ -1,6 +1,6 @@
 import Backbone from "backbone";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
-import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import {imageDelay as imgDelay} from "app/client/mall/js/lib/common.js";
 
 const GoodsListView = Backbone.View.extend({

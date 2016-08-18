@@ -2,7 +2,7 @@
   首页推广位视图
 */
 import Backbone from "backbone";
-import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 
 const PromotionView = Backbone.View.extend({

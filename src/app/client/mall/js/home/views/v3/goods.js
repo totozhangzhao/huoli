@@ -3,7 +3,7 @@
   首页商品视图
 */
 import Backbone from "backbone";
-import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import {imageDelay} from "app/client/mall/js/lib/common.js";
 

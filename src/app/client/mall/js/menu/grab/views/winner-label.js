@@ -2,7 +2,7 @@ import $ from "jquery";
 import Backbone from "backbone";
 import * as widget from "app/client/mall/js/lib/common.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
-import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import Marquee from "com/mobile/widget/marquee/marquee.js";
 
