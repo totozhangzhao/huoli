@@ -1,6 +1,6 @@
 import Backbone from "backbone";
 import template from "app/client/mall/tpl/menu/promotion/groups.tpl";
-import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 const GroupView  = Backbone.View.extend({
 
   el: "#groups",

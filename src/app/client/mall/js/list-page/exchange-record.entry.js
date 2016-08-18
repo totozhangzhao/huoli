@@ -9,9 +9,11 @@ import UrlUtil from "com/mobile/lib/url/url.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import logger from "com/mobile/lib/log/log.js";
+import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import listTpl from "app/client/mall/tpl/list-page/exchange-record.tpl";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 mallWechat.initShare();
 
@@ -76,12 +78,12 @@ const AppView = Backbone.View.extend({
           }, 3000);
         } else {
           clearTimeout(timerId);
-          const compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
           const tmplData = {
-            orderList: result
+            orderList: result,
+            getMoneyText: tplUtil.getMoneyText
           };
 
-          $list.html( compiled(tmplData) );
+          $list.html( listTpl(tmplData) );
           widget.imageDelay();
         }
       };
@@ -190,12 +192,12 @@ const AppView = Backbone.View.extend({
 
     const renderView = (result) => {
       if (Array.isArray(result) && result.length > 0) {
-        const compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
         const tmplData = {
-          orderList: result
+          orderList: result,
+          getMoneyText: tplUtil.getMoneyText
         };
 
-        $listBox.append( compiled(tmplData) );
+        $listBox.append( listTpl(tmplData) );
       }
     };
 
@@ -222,13 +224,13 @@ const AppView = Backbone.View.extend({
       if (!Array.isArray(result) || result.length === 0) {
         $listBox.html( self.$blank );
       } else {
-        const compiled = require("app/client/mall/tpl/list-page/exchange-record.tpl");
         const tmplData = {
-          orderList: result
+          orderList: result,
+          getMoneyText: tplUtil.getMoneyText
         };
 
         $listBox
-          .html( compiled(tmplData) )
+          .html( listTpl(tmplData) )
           .data("_cache", true);
         widget.imageDelay();
         self.setPageResume();

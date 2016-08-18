@@ -2,7 +2,7 @@
   首页顶部固定入口位
 */
 import Backbone from "backbone";
-import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 
 const EntranceView = Backbone.View.extend({

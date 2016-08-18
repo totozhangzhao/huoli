@@ -11,7 +11,6 @@ import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import logger from "com/mobile/lib/log/log.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
-import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import FooterView from "app/client/mall/js/common/views/footer.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
@@ -20,11 +19,11 @@ import Popover from "com/mobile/widget/popover/popover.js";
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import * as widget from "app/client/mall/js/lib/common.js";
-import * as moneyUit from "app/client/mall/js/common/util/money.js";
 import orderDetailTpl from "app/client/mall/tpl/detail-page/order-detail.tpl";
 
 const orderLog = widget.initTracker("order");
@@ -136,7 +135,7 @@ const AppView = Backbone.View.extend({
         this.orderDetail = result;
         this.initModel(this.orderDetail);
         this.orderDetail.unitPriceText = this.buyNumModel.getPPriceText(1);
-        this.orderDetail.totalPriceText = moneyUit.getMoneyText({
+        this.orderDetail.totalPriceText = tplUtil.getMoneyText({
           payType: this.buyNumModel.get("payType"),
           number: 1,
           price: this.orderDetail.mtotal,
