@@ -2,7 +2,7 @@
   首页横向滑动推广位
 */
 import Backbone from "backbone";
-import tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 
 const ActiveView = Backbone.View.extend({
