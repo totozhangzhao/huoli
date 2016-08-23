@@ -113,6 +113,8 @@ export function createAView(e) {
     if ( isEmpty(url) ) {
       return true;
     }
+
+    $cur.removeData("href");
   }
 
   // <a href="tel:+6494461709">61709</a>
@@ -122,11 +124,17 @@ export function createAView(e) {
 
   e.preventDefault();
 
-  createNewView({
+  let params = {
     url: url,
     title: $cur.data("title"),
     $el: $cur
-  });
+  };
+
+  if ( $cur.hasClass("js-replace-page") ) {
+    params._webPageReplace = true;
+  }
+
+  createNewView(params);
 }
 
 export function redirectPage(url) {
