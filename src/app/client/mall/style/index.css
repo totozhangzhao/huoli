@@ -926,6 +926,9 @@ p {
   opacity: 1;
   width: 0.26667rem;
 }
+.hidden {
+  visibility: hidden;
+}
 img.touch-img {
   transition: all .3s;
 }
