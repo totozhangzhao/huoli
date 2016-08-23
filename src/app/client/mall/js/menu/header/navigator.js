@@ -40,7 +40,7 @@ class Navigator{
           } else {
             origin = origin.replace("mall", "hbmall");
           }
-          widget.redirectPage(`${origin}/fe/app/client/mall/html/login/login.html`);
+          widget.redirectPage(`${origin}/fe/app/client/mall/index.html`);
         });
     }
 
