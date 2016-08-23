@@ -1,6 +1,6 @@
 var _           = require("lodash");
 var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
-var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js").default;
+var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
 
 require("app/client/mall/js/lib/common.js");
 
