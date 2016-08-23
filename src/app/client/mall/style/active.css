@@ -926,6 +926,9 @@ p {
   opacity: 1;
   width: 0.26667rem;
 }
+.hidden {
+  visibility: hidden;
+}
 .mall-active-box {
   min-height: 100%;
   margin-top: 0;

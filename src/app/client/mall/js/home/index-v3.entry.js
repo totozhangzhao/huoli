@@ -10,7 +10,6 @@ import * as widget from "app/client/mall/js/lib/common.js";
 import logger from "com/mobile/lib/log/log.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 
-
 import PopoverAd from "app/client/mall/js/common/views/popover/popover-ad.js";
 import BannerView from "app/client/mall/js/home/views/v3/banner.js";
 import TopMenuView from "app/client/mall/js/home/views/v3/topmenu.js";
@@ -31,12 +30,12 @@ const AppView = BaseView.extend({
   },
 
   initialize() {
+    this.$initial       = ui.initial().show();
     new BackTop({isHome: true});
     const title = mallUitl.isHangbanFunc() ? "伙力·航班商城" : "伙力·高铁商城";
     widget.updateViewTitle(title);
     const nav = new Navigator();
     nav.render();
-    this.$initial       = ui.initial().show();
     this.bannerView     = new BannerView({el: "#home-banner"});
     this.topMenuView    = new TopMenuView({el: "#home-topmenu"});
     this.promotionView  = new PromotionView({el: "#home-promotion"});
@@ -82,6 +81,8 @@ const AppView = BaseView.extend({
     this.$el.append(this.menuView.el);
     this.$popoverAdView.fetch({position: 1});
     this.$el.find("#menu").show();
+    // 渲染完成后，显示页面
+    this.$el.removeClass('hidden');
     mallWechat.initShare({
       wechatshare: data.wechatshare
     });
