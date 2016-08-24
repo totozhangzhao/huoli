@@ -54,6 +54,7 @@
   data-title="<%= relevance.title %>"
   data-classify="<%= relevance.classify || '' %>"
   data-hl-mall-href="<%= tplUtil.getBlockUrl(relevance) %>"
+  data-hl-mall-page-action="replace"
   class="<%= tplUtil.getJsClass(relevance) %> relevance-bar flex-row"
 >
   <div class="relevance-pic">
