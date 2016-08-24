@@ -23,7 +23,7 @@
     data-group-id="<%= item.groupId %>"
     data-title="<%= item.title %>"
     data-classify="<%= item.classify || '' %>"
-    class="<%= tplUtil.getJsClass(item) %> coupons-use-btn"
+    class="<%= tplUtil.getJsClass(item) %> js-replace-page coupons-use-btn"
     href="<%= tplUtil.getBlockUrl(item) %>"
   >立即使用</a>
 </div>
