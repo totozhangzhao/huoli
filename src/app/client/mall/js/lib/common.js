@@ -126,21 +126,22 @@ export function createAView(e) {
   };
 
   function getQueryObj(data) {
-    let keys = Object.keys(data);
     let queryObj = {};
-    for (let key of keys) {
-      if ( !/^logMall|^hlMall/.test(key) ) {
-        queryObj[key] = data[key];
+    Object.keys(data).forEach(item => {
+      if ( !/^logMall|^hlMall/.test(item) ) {
+        queryObj[item] = data[item];
       }
-    }
+    });
     return queryObj;
   }
 
+  let data = $cur.data();
+
   if ( /\/fe\//.test(url) ) {
-    params.queryObj = getQueryObj($cur.data());
+    params.queryObj = getQueryObj(data);
   }
 
-  if ( $cur.hasClass("js-replace-page") ) {
+  if ( data.hlMallPageAction === "replace" ) {
     params._webPageReplace = true;
   }
 
