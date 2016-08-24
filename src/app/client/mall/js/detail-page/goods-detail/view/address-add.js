@@ -263,6 +263,7 @@ let AppView = Backbone.View.extend({
           return;
         }
         hint.hideLoading();
+        this.cache.curAddressId = addressData.addressid;
         this.router.replaceTo("address-confirm");
       })
       .catch(mallPromise.catchFn);
