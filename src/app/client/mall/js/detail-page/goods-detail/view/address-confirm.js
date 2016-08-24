@@ -20,7 +20,7 @@ const AppView = Backbone.View.extend({
   },
   initialize(commonData) {
     _.extend(this, commonData);
-    this.curAddress = {};
+    this.curAddress = null;
   },
   resume(options) {
     if (options.previousView === "") {
@@ -39,12 +39,21 @@ const AppView = Backbone.View.extend({
 
     const curAddressId = this.cache.curAddressId;
     const addressList = this.collection.addressList;
+    this.curAddress = null;
 
-    if (curAddressId) {
-      this.cache.curAddressId = null;
-      this.curAddress = addressList.get(curAddressId).toJSON();
-    } else if (addressList.length > 0) {
-      this.curAddress = addressList.at(0).toJSON();
+    if (addressList.length > 0) {
+      if (curAddressId) {
+        const addrModel = addressList.get(curAddressId);
+        if (addrModel) {
+          this.curAddress = addrModel.toJSON();
+        }
+      }
+      if (!this.curAddress) {
+        this.curAddress = addressList.at(0).toJSON();
+      }
+    } else {
+      this.router.replaceTo("address-add");
+      return;
     }
 
     this.initView(this.curAddress);

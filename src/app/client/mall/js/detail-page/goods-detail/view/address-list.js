@@ -180,8 +180,6 @@ let AppView = Backbone.View.extend({
         .closest(".js-item")
         .data("addressid");
 
-    this.cache.curAddressId = id;
-
     let addressData = this.collection.addressList.get(id).toJSON();
 
     addressUtil.setDefault(addressData, () => {
@@ -200,7 +198,9 @@ let AppView = Backbone.View.extend({
     this.router.replaceTo("address-add");
   },
   removeAddress(e) {
-    let doRemove = () => {
+    const self = this;
+
+    function doRemove() {
       hint.showLoading();
 
       let $cur = $(e.currentTarget);
@@ -211,10 +211,11 @@ let AppView = Backbone.View.extend({
         hint.hideLoading();
 
         if (result !== void 0) {
+          self.collection.addressList.remove(addressId);
           $item.remove();
         }
       });
-    };
+    }
 
     let confirm = new Popover({
       type: "confirm",
