@@ -53,7 +53,7 @@
   data-group-id="<%= relevance.groupId %>"
   data-title="<%= relevance.title %>"
   data-classify="<%= relevance.classify || '' %>"
-  data-href="<%= tplUtil.getBlockUrl(relevance) %>"
+  data-hl-mall-href="<%= tplUtil.getBlockUrl(relevance) %>"
   class="<%= tplUtil.getJsClass(relevance) %> relevance-bar flex-row"
 >
   <div class="relevance-pic">
