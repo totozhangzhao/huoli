@@ -58,11 +58,9 @@ export let createNewView = _.debounce(options => {
 
   url = urlAndHash.url;
 
-  let $cur = options.$el;
-
-  if ( $cur && $cur.data() && /\/fe\//.test(url) ) {
+  if ( options.queryObj ) {
     url = url.indexOf("?") >= 0 ? `${url}&` : `${url}?`;
-    url = url + $.param( $cur.data() );
+    url = url + $.param(options.queryObj);
   }
 
   function passOnParam(key) {
@@ -108,13 +106,11 @@ export function createAView(e) {
   let isEmpty = str => str === "" || str === null || str === undefined;
 
   if ( isEmpty(url) ) {
-    url = $cur.data("href");
+    url = $cur.data("hlMallHref");
 
     if ( isEmpty(url) ) {
       return true;
     }
-
-    $cur.removeData("href");
   }
 
   // <a href="tel:+6494461709">61709</a>
@@ -126,9 +122,23 @@ export function createAView(e) {
 
   let params = {
     url: url,
-    title: $cur.data("title"),
-    $el: $cur
+    title: $cur.data("title")
   };
+
+  function getQueryObj(data) {
+    let keys = Object.keys(data);
+    let queryObj = {};
+    for (let key of keys) {
+      if ( !/^logMall|^hlMall/.test(key) ) {
+        queryObj[key] = data[key];
+      }
+    }
+    return queryObj;
+  }
+
+  if ( /\/fe\//.test(url) ) {
+    params.queryObj = getQueryObj($cur.data());
+  }
 
   if ( $cur.hasClass("js-replace-page") ) {
     params._webPageReplace = true;
