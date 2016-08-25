@@ -951,6 +951,9 @@ img.touch-img {
 .active-template-box img {
   width: 100%;
 }
+.active-template-box .blank-line {
+  height: 0.13333rem;
+}
 .active-template-box .pic-coupon-bar,
 .active-template-box .pic-space-bar,
 .active-template-box .text-desc-bar,
