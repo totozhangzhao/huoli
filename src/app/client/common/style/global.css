@@ -238,6 +238,11 @@ a {
   -webkit-touch-callout: default;
   -webkit-user-select: initial;
 }
+.show-select-all,
+.show-select-all * {
+  -webkit-touch-callout: default;
+  -webkit-user-select: initial;
+}
 /* cnzz - start */
 [id^="cnzz_stat_icon_"] {
   display: none;

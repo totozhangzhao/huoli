@@ -4,7 +4,7 @@ import hint from "com/mobile/widget/hint/hint.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
-import addressListTpl from "app/client/mall/tpl/detail-page/address-confirm.tpl";
+import mainViewTpl from "app/client/mall/tpl/detail-page/address-confirm.tpl";
 
 const AppView = Backbone.View.extend({
   el: "#address-confirm",
@@ -67,7 +67,7 @@ const AppView = Backbone.View.extend({
       totalPriceText: model.getPPriceText()
     };
     _.extend(data, model.toJSON());
-    this.$el.html(addressListTpl(data));
+    this.$el.html(mainViewTpl(data));
   },
   // 更新number 价格 积分
   refreshNumber() {
