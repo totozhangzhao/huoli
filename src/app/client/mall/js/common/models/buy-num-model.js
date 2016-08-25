@@ -38,7 +38,7 @@ const BuyNumModel = Backbone.Model.extend({
     } else if (payType === 2) {
       result = this.getPriceText(num);
     } else {
-      result = this.getPriceText() + "+" + this.getPointsText();
+      result = this.getPriceText(num) + "+" + this.getPointsText(num);
     }
     return result;
   },
@@ -46,20 +46,16 @@ const BuyNumModel = Backbone.Model.extend({
   // 获取显示的价格文案
   getPriceText(num) {
     let result = "";
-    if(this.get("price") >= 0){
-      let number = num || this.get("number");
-      result = this.get("currency") + Number(number * this.get("price")).toFixed(2);
-    }
+    let number = num || this.get("number");
+    result = this.get("currency") + Number(number * this.get("price")).toFixed(2);
     return result;
   },
 
   // 获取显示的积分文案
   getPointsText(num) {
     let result = "";
-    if(this.get("points") >= 0) {
-      let number = num || this.get("number");
-      result = number * this.get("points") + this.get("pointsUnit");
-    }
+    let number = num || this.get("number");
+    result = number * this.get("points") + this.get("pointsUnit");
     return result;
   },
 
