@@ -18,17 +18,15 @@
     <p class="order-detail-info">成交时间：<span class="order-detail-num fr"><%= orderDetail.createtime %></span></p>
   </div>
 
-  <div class="show-select">
+  <div class="show-select-all">
     <% if ( orderDetail.msg && (String(orderDetail.msgtpl) === "1") ) { %>
     <!-- 兑换码 start -->
     <div class="order-exchange-bar">
       <div class="order-exchange-code">
-        <div class="js-copy order-exchange-area">
+        <div class="js-copy order-exchange-code-area">
           <%= orderDetail.msg %>
-        </div>
-        <div class="effective-area">
-          <p>有效期至：</p>
-          <p><%= orderDetail.expdate %></p>
+          <p class="order-exchange-text bottom-text">有效期至：</p>
+          <p class="order-exchange-text"><%= orderDetail.expdate %></p>
         </div>
         <b class="arc-border arc-border-left"></b>
         <b class="arc-border arc-border-right"></b>
@@ -54,7 +52,7 @@
       <% if(orderDetail.needpay === 1) {%>
         <a href="/fe/app/client/mall/html/detail-page/goods-detail.html?mold=order&orderid=<%= orderDetail.orderid %>#address-list">
       <% } %>
-          <div class="order-exchange-area">
+          <div class="order-exchange-code-area">
             <%= orderDetail.msg %>
           </div>
       <% if(orderDetail.needpay === 1) {%>

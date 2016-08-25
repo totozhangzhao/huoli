@@ -97,6 +97,16 @@ p {
   color: #fff;
   border-radius: 0.05333rem;
 }
+/* flex - start */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+/* flex -  end  */
 /* toast - start */
 .toast {
   display: block;
@@ -928,6 +938,15 @@ p {
 }
 .hidden {
   visibility: hidden;
+}
+img.touch-img {
+  transition: all .3s;
+}
+.touch img.touch-img {
+  transform: scale(0.9);
+}
+.touch.touch-bg {
+  background-color: #e6e6e6 !important;
 }
 .mall-active-box {
   min-height: 100%;

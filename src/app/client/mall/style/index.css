@@ -97,6 +97,16 @@ p {
   color: #fff;
   border-radius: 0.05333rem;
 }
+/* flex - start */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+/* flex -  end  */
 /* toast - start */
 .toast {
   display: block;
@@ -1973,7 +1983,7 @@ img.touch-img {
 .pay-order-detail-box .pay-status-bar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 4.64rem;
+  padding-bottom: 5.06667rem;
   padding-left: 0;
 }
 .pay-order-detail-box .pay-after-bar {
@@ -2225,9 +2235,15 @@ img.touch-img {
 .pay-order-detail-box .order-exchange-area {
   width: 70%;
 }
+.pay-order-detail-box .order-exchange-code-area {
+  width: 100%;
+}
 .pay-order-detail-box .order-exchange-text {
   font-size: 0.32rem;
   line-height: 0.53333rem;
+}
+.pay-order-detail-box .order-exchange-text.bottom-text {
+  padding-top: 0.26667rem;
 }
 .pay-order-detail-box .order-exchange-text.pick-code-font {
   font-size: 0.48rem;
@@ -2349,6 +2365,7 @@ img.touch-img {
 }
 .pay-order-detail-box .big-font {
   font-size: 0.42667rem;
+  line-height: 0.64rem;
 }
 .pay-order-detail-box .bigger-font {
   font-size: 0.48rem;
@@ -2395,6 +2412,7 @@ img.touch-img {
   background-color: #67cc04;
 }
 .apply-refund {
+  min-height: 1.06667rem;
   padding-right: 0.29333rem;
   padding-bottom: 0.29333rem;
   background-color: #fff;
@@ -2458,6 +2476,7 @@ img.touch-img {
   top: 0.05333rem;
 }
 .confirm-order-box {
+  padding-bottom: 1.6rem;
   background-color: #f0f0f0;
 }
 .confirm-order-box .confirm-order-bar {

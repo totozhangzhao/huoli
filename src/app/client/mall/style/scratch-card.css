@@ -97,6 +97,16 @@ p {
   color: #fff;
   border-radius: 0.05333rem;
 }
+/* flex - start */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+/* flex -  end  */
 /* toast - start */
 .toast {
   display: block;

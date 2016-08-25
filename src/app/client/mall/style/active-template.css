@@ -939,110 +939,214 @@ p {
 .hidden {
   visibility: hidden;
 }
-.wechat-login-box {
-  min-height: 100%;
-  margin-top: 0;
-  margin-right: auto;
-  margin-bottom: 0;
-  margin-left: auto;
-  position: relative;
-  left: 0;
-  top: 0;
-  color: #333;
-  font-size: 0.42667rem;
-  background-color: #f7f7f7;
+img.touch-img {
+  transition: all .3s;
 }
-.wechat-login-box .wechat-login-bar .wechat-login-icon {
-  padding-top: 0.93333rem;
-  padding-bottom: 0.8rem;
-  background-color: #fff;
+.touch img.touch-img {
+  transform: scale(0.9);
 }
-.wechat-login-box .wechat-login-bar .wechat-login-icon div {
-  width: 3.65333rem;
-  height: 0.96rem;
-  margin: 0 auto;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0812.png') no-repeat 0 -4.26667rem;
-  background-size: 13.33333rem 13.33333rem;
+.touch.touch-bg {
+  background-color: #e6e6e6 !important;
 }
-.wechat-login-box .wechat-login-bar .wechat-login-icon p {
-  font-size: 0.4rem;
-  color: #039ef0;
-  padding-top: 0.4rem;
-  text-align: center;
-}
-.wechat-login-box .wechat-login-area {
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
-  background-color: #fff;
-}
-.wechat-login-box .wechat-login-area .wechat-login-contain {
-  font-size: 0.34667rem;
-  height: 1.33333rem;
-  line-height: 1.33333rem;
-  color: #7f7f7f;
-}
-.wechat-login-box .wechat-login-area label {
+.active-template-box a {
   display: block;
-  height: 1.17333rem;
-  line-height: 1.17333rem;
+}
+.active-template-box img {
+  width: 100%;
+}
+.active-template-box .pic-coupon-bar,
+.active-template-box .pic-space-bar,
+.active-template-box .text-desc-bar,
+.active-template-box .text-title-bar,
+.active-template-box .charge-bar,
+.active-template-box .theme-row-list-son,
+.active-template-box .theme-col-list-son {
+  padding-left: 0.53333rem;
+  padding-right: 0.53333rem;
+}
+.active-template-box .text-title-bar .item {
+  color: #f62f5e;
+  margin-right: 0.13333rem;
+}
+.active-template-box .text-title-bar .text-title-area {
+  font-size: 0.45333rem;
+  color: #1e1e1e;
+  font-weight: bold;
+  font-family: PingFangSC-Medium, sans-serif;
+}
+.active-template-box .text-desc-area {
+  text-align: justify;
+  line-height: 0.8rem;
+  font-size: 0.42667rem;
+  color: #555;
+}
+.active-template-box .charge-area {
+  height: 0.90667rem;
   position: relative;
   left: 0;
   top: 0;
+  font-family: "Arial";
+  border-left: 0.05333rem solid #b4b4b4;
 }
-.wechat-login-box .wechat-login-area label:after {
-  width: 100%;
-  height: 1px;
-  content: '';
-  background-color: #e5e5e5;
+.active-template-box .charge-area .charge-contain {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  transform: scale(1, 0.5);
-  transform-origin: 0 0;
+  left: 0.26667rem;
+  top: 50%;
+  transform: translate(0, -50%);
 }
-.wechat-login-box .wechat-login-area label .wechat-login-insert {
-  display: inline-block;
-  margin-left: 0.8rem;
-  width: 3.62667rem;
+.active-template-box .charge-area .now-price {
+  color: #f62f5e;
+  font-size: 0.48rem;
+  line-height: 0.50667rem;
+  font-weight: bold;
 }
-.wechat-login-box .wechat-login-area label .wechat-login-insert input {
-  width: 100%;
-  line-height: 0.42667rem;
-  padding-top: 0.26667rem;
-  padding-bottom: 0.26667rem;
-  color: #333;
+.active-template-box .charge-area .now-price span:first-child {
+  font-size: 0.29333rem;
 }
-.wechat-login-box .wechat-login-area label .wechat-login-getcode {
-  width: 2.37333rem;
-  height: 0.85333rem;
-  color: #039ef0;
-  background-color: #fff;
-  border: 1px solid #039ef0;
-  border-radius: 0.08rem;
-  font-size: 0.37333rem;
+.active-template-box .charge-area .old-price {
+  width: 2.66667rem;
+  color: #b4b4b4;
+  font-size: 0.29333rem;
+  line-height: 0.32rem;
+  margin-top: 1px;
+  text-decoration: line-through;
+}
+.active-template-box .charge-area button {
+  width: 2.74667rem;
+  height: 0.90667rem;
   position: absolute;
   right: 0;
+  top: 0;
+  border: 1px solid #f62f5e;
+  color: #f62f5e;
+  font-size: 0.42667rem;
+  background: transparent;
+}
+.active-template-box .theme-row-list-bar {
+  background-color: #eee;
+}
+.active-template-box .theme-row-list-bar .theme-list-area {
+  background-color: #fff;
+  display: flex;
+  padding-top: 0.26667rem;
+  padding-right: 0.26667rem;
+  padding-bottom: 0.26667rem;
+  padding-left: 0.26667rem;
+}
+.active-template-box .theme-row-list-bar .theme-list-area .theme-pic-contain {
+  width: 3.2rem;
+  height: 3.2rem;
+}
+.active-template-box .theme-row-list-bar .theme-list-area .theme-pic-contain img {
+  width: 3.2rem;
+  height: 3.2rem;
+}
+.active-template-box .theme-row-list-bar .theme-list-area .theme-desc-contain {
+  flex: 1;
+  padding-left: 0.26667rem;
+  position: relative;
+  left: 0;
+  top: 0;
+}
+.active-template-box .theme-row-list-bar .theme-list-area .theme-desc-contain .name {
+  color: #1e1e1e;
+  font-size: 0.42667rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  line-height: 0.69333rem;
+  padding-top: 0.13333rem;
+  padding-bottom: 0.13333rem;
+}
+.active-template-box .theme-row-list-bar .theme-list-area .theme-desc-contain .desc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: #7f7f7f;
+  font-size: 0.32rem;
+}
+.active-template-box .theme-row-list-bar .theme-list-area .theme-desc-contain .charge {
+  width: 100%;
+  height: 0.8rem;
+  position: absolute;
+  left: 0.26667rem;
+  bottom: 0;
+}
+.active-template-box .theme-row-list-bar .theme-list-area .theme-desc-contain .charge .charge-son {
+  position: absolute;
+  left: 0;
   top: 50%;
-  margin-top: -0.42667rem;
+  transform: translate(0, -50%);
+  font-family: "Arial";
 }
-.wechat-login-box .wechat-login-area label .wechat-login-getcode[disabled] {
-  color: #ccc;
-  border: 1px solid #ccc;
+.active-template-box .theme-row-list-bar .theme-list-area .theme-desc-contain .charge .charge-son .now-price {
+  color: #f62f5e;
+  font-size: 0.42667rem;
+  line-height: 0.45333rem;
+  font-weight: bold;
 }
-.wechat-login-box .wechat-login-button {
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
-  margin-top: 0.4rem;
+.active-template-box .theme-row-list-bar .theme-list-area .theme-desc-contain .charge .charge-son .now-price span:first-child {
+  font-size: 0.29333rem;
 }
-.wechat-login-box .wechat-login-button button {
-  width: 9.2rem;
-  height: 1.17333rem;
-  line-height: 1.17333rem;
-  border-radius: 0.10667rem;
-  background-color: #039ef0;
-  color: #fff;
-  font-size: 0.48rem;
+.active-template-box .theme-row-list-bar .theme-list-area .theme-desc-contain .charge .charge-son .old-price {
+  color: #b4b4b4;
+  font-size: 0.29333rem;
+  margin-top: 1px;
+  line-height: 0.32rem;
+  text-decoration: line-through;
 }
-.wechat-login-box .wechat-login-button button[disabled] {
-  color: #66ccf5;
+.active-template-box .theme-row-list-bar .theme-list-area .theme-desc-contain .charge button {
+  position: absolute;
+  right: 0.26667rem;
+  top: 0;
+  width: 2.16rem;
+  height: 0.8rem;
+  border: 1px solid #f62f5e;
+  color: #f62f5e;
+  font-size: 0.37333rem;
+  background: transparent;
+}
+.active-template-box .theme-col-list-bar .theme-list-area:nth-child(odd) {
+  margin-right: 0.24rem;
+}
+.active-template-box .theme-col-list-bar .theme-list-area {
+  float: left;
+  width: 4.34667rem;
+  height: 6.4rem;
+  padding-bottom: 0.26667rem;
+}
+.active-template-box .theme-col-list-bar .theme-list-area img {
+  width: 4.34667rem;
+  height: 4.34667rem;
+}
+.active-template-box .theme-col-list-bar .desc {
+  text-align: center;
+  padding-left: 0.26667rem;
+  padding-right: 0.26667rem;
+}
+.active-template-box .theme-col-list-bar .desc .name {
+  height: 0.90667rem;
+  line-height: 0.90667rem;
+  font-size: 0.37333rem;
+  color: #1e1e1e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.active-template-box .theme-col-list-bar .desc .price {
+  font-size: 0.34667rem;
+  color: #f62f5e;
+  font-family: 'Arial';
+}
+.active-template-box .theme-col-list-bar .old-price {
+  color: #b4b4b4;
+  font-size: 0.29333rem;
+  text-decoration: line-through;
+  margin-left: 0.26667rem;
 }
