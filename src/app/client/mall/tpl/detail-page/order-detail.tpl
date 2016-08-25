@@ -138,9 +138,7 @@
     </div>
   </div>
   <% } %>
-
   <div id="copyright" class="copyright-block">
     <!-- // -->
   </div>
-  
 </div>
