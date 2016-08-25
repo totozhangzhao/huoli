@@ -23,8 +23,9 @@
     </div>
   </div>
 </div>
-
-<div class="goods-charge-bar">
-  <p class="goods-charge-info num-font"><span class="js-total-price"><%= totalPriceText %></span></p>
-  <button id="confirm-order" type="button" class="js-goods-pay charge-btn"><%= buttonText || "去支付" %></button>
+<div class="common-charge-content">
+  <div class="goods-charge-bar">
+    <p class="goods-charge-info num-font"><span class="js-total-price"><%= totalPriceText %></span></p>
+    <button id="confirm-order" type="button" class="js-goods-pay charge-btn"><%= buttonText || "去支付" %></button>
+  </div>
 </div>
