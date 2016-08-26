@@ -89,7 +89,8 @@ const BuyNumPanelView = Backbone.View.extend({
     }
   },
 
-  fixNum(number) {
+  fixNum(number = 1) {
+    number = Number(number);
     const limitNum = this.model.get("limitNum");
     const minNum = this.model.get("minNum");
     if(number > limitNum){
@@ -179,20 +180,24 @@ const BuyNumPanelView = Backbone.View.extend({
       return;
     }
 
+    this.specList = this.specList || this.model.get("specList");
+    const index = $cur.data("index");
+    const spec = this.specList[index];
+
+    if (spec.limit <= 0) {
+      toast("规格库存量小于等于零", 1500);
+      return;
+    }
+
     this.$el
       .find(".js-spec")
         .removeClass("on");
     $cur.addClass("on");
 
-    const index = $cur.data("index");
-
     this.$avatarList
       .hide()
       .eq(index)
         .show();
-
-    this.specList = this.specList || this.model.get("specList");
-    const spec = this.specList[index];
 
     // goodspecid int 商品规格id
     // spec String 商品规格值
@@ -214,14 +219,15 @@ const BuyNumPanelView = Backbone.View.extend({
     }, { silent: true });
 
     if (spec.limit) {
-      const num = this.model.get("number");
       this.model.set({
-        number: (num <= spec.limit) ? num : spec.limit,
         limitNum: spec.limit
       }, { silent: true });
+      let num = this.model.get("number");
+      num =  (num <= spec.limit) ? num : spec.limit;
+      this.setNumber(num);
+    } else {
+      this.refresh();
     }
-
-    this.refresh();
   },
 
   purchase() {

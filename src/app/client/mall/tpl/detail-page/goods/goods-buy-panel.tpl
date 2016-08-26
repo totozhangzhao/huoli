@@ -7,7 +7,7 @@
     <% if(type === 1) { %>
       <div class="goods-confirm-contain">
         <div class="goods-confirm-pic">
-          <% if (specList.length > 0) { %>
+          <% if ( Array.isArray(specList) && specList.length > 0 ) { %>
           <% specList.forEach(function(elem, index) { %>
           <img src="<%= elem.img %>" class="js-avatar-img" alt="" style="<%= index === specIndex ? '' : 'display: none;' %>">
           <% }); %>
@@ -22,14 +22,14 @@
         </div>
       </div>
       <div class="goods-confirm-choice">
-        <% if (specList.length > 0) { %>
+        <% if ( Array.isArray(specList) && specList.length > 0 ) { %>
         <div class="goods-confirm-choice-color flex-row">
           <div class="color-item"><%= specName %></div>
           <div class="color-items">
             <% specList.forEach(function(elem, index) { %>
             <%
                 var specClass = "";
-                if (elem.left === 0) {
+                if (elem.limit === 0) {
                   specClass = "off";
                 } else if (index === specIndex) {
                   specClass = "on";

@@ -86,11 +86,22 @@ const AppView = BaseView.extend({
         });
       })
       .then(goods => {
+        const specList = goods.specs;
 
-        // 有商品规格时，价格等数据以第一个规格为准
-        if (Array.isArray(goods.specs) && goods.specs.length > 0) {
-          const spec = goods.specs[0];
+        if ( Array.isArray(specList) && specList.length > 0 ) {
+          let index = _.findIndex(specList, item => {
+            return item.limit > 0;
+          });
+          if (index === -1) {
+            goods.payError = {
+              message: "无可选规格"
+            };
+          }
+          index = index !== -1 ? index : 0;
+          const spec = goods.specs[index];
           _.extend(goods, {
+            specIndex: index,
+            limit: spec.limit,
             paytype: spec.paytype,
             points: spec.points,
             money: spec.price,
@@ -98,6 +109,11 @@ const AppView = BaseView.extend({
           });
         } else {
           goods.specs = [];
+          if (goods.limit === 0) {
+            goods.payError = {
+              message: "商品数量不足"
+            };
+          }
         }
 
         this.render(goods);
@@ -236,7 +252,6 @@ const AppView = BaseView.extend({
     });
   },
   initModel(goods) {
-    const specList = goods.specs;
 
     // init buy panel model
     this.buyNumModel = new BuyNumModel({
@@ -250,16 +265,21 @@ const AppView = BaseView.extend({
       points: goods.points,
       price: goods.money,
       avatar: goods.smallimg,
-      // specList: null,
-      specList: specList,
-      specIndex: specList.length > 0 ? 0 : null,
-      specName: goods.specname,
-      specValueName: specList.length > 0 ? specList[0].spec : null,
-      specValueId: specList.length > 0 ? specList[0].goodspecid : null,
       limitNum: goods.limit,
       canPay: goods.stat === 0,
       parentDom: "#goods-detail"
     });
+
+    if (goods.specs.length > 0) {
+      const spec = goods.specs[goods.specIndex];
+      this.buyNumModel.set({
+        specIndex: goods.specIndex,
+        specName: goods.specname,
+        specList: goods.specs,
+        specValueName: spec.spec,
+        specValueId: spec.goodspecid
+      });
+    }
 
     if (goods.relevance) {
       this.relevanceModel = new BuyNumModel({
@@ -344,6 +364,11 @@ const AppView = BaseView.extend({
   pay() {
     let self = this;
     const goods = this.cache.goods;
+
+    if (goods.payError) {
+      mallPromise.catchShowError(goods.payError);
+      return;
+    }
 
     function showNextView() {
 
