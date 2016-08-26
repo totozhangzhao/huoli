@@ -97,6 +97,16 @@ p {
   color: #fff;
   border-radius: 0.05333rem;
 }
+/* flex - start */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+/* flex -  end  */
 /* toast - start */
 .toast {
   display: block;
@@ -156,9 +166,6 @@ p {
   position: relative;
   left: 0;
   top: 0;
-}
-.goods-copyright-fix {
-  margin-bottom: 1.6rem;
 }
 .copyright-block {
   width: 100%;

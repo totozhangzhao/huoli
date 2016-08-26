@@ -97,6 +97,16 @@ p {
   color: #fff;
   border-radius: 0.05333rem;
 }
+/* flex - start */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+/* flex -  end  */
 /* toast - start */
 .toast {
   display: block;
@@ -156,9 +166,6 @@ p {
   position: relative;
   left: 0;
   top: 0;
-}
-.goods-copyright-fix {
-  margin-bottom: 1.6rem;
 }
 .copyright-block {
   width: 100%;
@@ -1946,7 +1953,7 @@ img.touch-img {
 }
 .use-method-tit {
   height: 0.42667rem;
-  margin-top: 0.4rem;
+  margin-top: 0.26667rem;
   margin-right: 0;
   margin-bottom: 0.26667rem;
   margin-left: 0;
@@ -1970,20 +1977,20 @@ img.touch-img {
   background-color: #f3f3f3;
   font-size: 0.37333rem;
 }
-.pay-order-detail-box .pay-status-bar {
-  padding-top: 0;
-  padding-right: 0;
-  padding-bottom: 4.64rem;
-  padding-left: 0;
-}
 .pay-order-detail-box .pay-after-bar {
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 3.04rem;
+  padding-bottom: 3.46667rem;
   padding-left: 0;
 }
-.pay-order-detail-box .pay-after-bar .goods-copyright-fix {
-  margin-bottom: 0;
+.pay-order-detail-box .pay-status-bar {
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 5.06667rem;
+  padding-left: 0;
+}
+.pay-order-detail-box .pay-status-bar .copyright-block {
+  bottom: 1.6rem;
 }
 .goods-name {
   height: 0.96rem;
@@ -2225,9 +2232,15 @@ img.touch-img {
 .pay-order-detail-box .order-exchange-area {
   width: 70%;
 }
+.pay-order-detail-box .order-exchange-code-area {
+  width: 100%;
+}
 .pay-order-detail-box .order-exchange-text {
   font-size: 0.32rem;
   line-height: 0.53333rem;
+}
+.pay-order-detail-box .order-exchange-text.bottom-text {
+  padding-top: 0.26667rem;
 }
 .pay-order-detail-box .order-exchange-text.pick-code-font {
   font-size: 0.48rem;
@@ -2349,9 +2362,11 @@ img.touch-img {
 }
 .pay-order-detail-box .big-font {
   font-size: 0.42667rem;
+  line-height: 0.64rem;
 }
 .pay-order-detail-box .bigger-font {
   font-size: 0.48rem;
+  line-height: 0.69333rem;
 }
 .pay-order-detail-box .order-insurance-area {
   border-bottom: 1px solid #ccc;
@@ -2395,6 +2410,7 @@ img.touch-img {
   background-color: #67cc04;
 }
 .apply-refund {
+  min-height: 1.06667rem;
   padding-right: 0.29333rem;
   padding-bottom: 0.29333rem;
   background-color: #fff;
@@ -2458,6 +2474,7 @@ img.touch-img {
   top: 0.05333rem;
 }
 .confirm-order-box {
+  padding-bottom: 1.6rem;
   background-color: #f0f0f0;
 }
 .confirm-order-box .confirm-order-bar {
@@ -2893,6 +2910,11 @@ img.touch-img {
   position: absolute;
   right: 0;
   top: 0;
+}
+.my-mall-box .my-mall-bar .my-mall-bar-item .my-order-area span b {
+  color: #f62f5e;
+  margin-right: 0.13333rem;
+  font-family: "Arial";
 }
 .my-mall-box .my-mall-bar .my-mall-bar-item:last-child .my-order-area p:after {
   height: 0;
