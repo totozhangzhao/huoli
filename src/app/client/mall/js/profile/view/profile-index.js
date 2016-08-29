@@ -10,23 +10,22 @@ require("app/client/mall/js/lib/common.js");
 
 var AppView = Backbone.View.extend({
   el: "#profile-index",
-  initialize: function(commonData) {
+  initialize(commonData) {
     _.extend(this, commonData);
     this.fetchData();
   },
-  resume: function() {
+  resume() {
     pageAction.hideRightButton();
   },
-  fetchData: function() {
-    var self = this;
+  fetchData() {
     mallPromise.getAppInfo()
-      .then(function(userData) {
+      .then((userData) => {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p
         });
 
-        return new Promise(function(resolve, reject) {
-          sendPost("getUserInfo", params, function(err, data) {
+        return new Promise((resolve, reject) => {
+          sendPost("getUserInfo", params, (err, data) => {
             if (err) {
               reject(err);
             } else {
@@ -39,12 +38,37 @@ var AppView = Backbone.View.extend({
           });
         });
       })
-      .then(function(data) {
-        self.render(data);
+      .then((data) => {
+        this.render(data);
+        this.updateCouponCount();
       })
       .catch(mallPromise.catchFn);
   },
-  render: function(data) {
+
+  updateCouponCount() {
+    mallPromise.getAppInfo()
+      .then((userData) => {
+        let params = _.extend({}, userData.userInfo);
+        return new Promise((resolve, reject) => {
+          sendPost("getUserMallCoupon", params, (err, data) => {
+            if(err) {
+              reject(err);
+            }else{
+              resolve(data);
+            }
+          });
+        });
+      })
+      .then((data) => {
+        this.$el.find(".coupon-count-box")
+          .removeClass('hidden')
+          .find("b")
+          .html(data.validnum || 0);
+      })
+      .catch(mallPromise.catchFn);
+  },
+
+  render(data) {
     var tmpl = require("app/client/mall/tpl/profile/user-level.tpl");
     this.$el.find(".js-top-container").html(tmpl(data));
   }
