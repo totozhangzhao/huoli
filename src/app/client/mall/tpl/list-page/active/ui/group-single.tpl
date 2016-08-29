@@ -27,16 +27,16 @@
         <div class="charge">
           <div class="charge-son">
             <p class="now-price">
-              <span></span>
               <% 
                 var priceText = getPriceText({
                   payType: item.paytype,
                   number: 1, 
                   price: item.money,
-                  points: item.points
+                  points: item.points,
+                  currency: '<span>￥</span>'
                   });
               %>
-              <span><%= priceText %></span>
+              <%= priceText %>
             </p>
             <p class="old-price"><%if(item.oriprice > 0){%>￥<%= item.oriprice %><%}%></p>
           </div>
