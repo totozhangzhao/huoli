@@ -38,7 +38,6 @@ const BlankLine = Backbone.View.extend({
 
   getCoupon(e) {
     let couponId = $(e.currentTarget).data("couponId");
-    const self = this;
     mallPromise
       .checkLogin()
       .then(userData => {
