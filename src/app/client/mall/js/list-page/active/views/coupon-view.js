@@ -58,7 +58,6 @@ const BlankLine = Backbone.View.extend({
       })
       .then((result) => {
         toast(result.message, 1500);
-        self.checkCouponButton();
       })
       .catch(mallPromise.catchFn);
   }
