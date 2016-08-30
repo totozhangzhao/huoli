@@ -1044,6 +1044,7 @@ img.touch-img {
 }
 .active-template-box .theme-row-list-bar .theme-list-area .theme-desc-contain {
   flex: 1;
+  height: 3.2rem;
   padding-left: 0.26667rem;
   position: relative;
   left: 0;
