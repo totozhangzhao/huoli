@@ -346,6 +346,22 @@ __result__
 
 ---------------------------------------
 
+### confirmUnload
+
+* 描述：点击叉按钮后，关闭当前 WebView 前是否弹窗警告
+
+__method__
+
+* `confirmUnload`
+
+__params__
+
+* `action` String `on` 表示开启这个功能，即关闭时候弹窗询问；`off` 就是关闭此功能，即直接关闭不询问。
+* `title`   String 弹窗标题
+* `message`   String 弹窗描述
+
+---------------------------------------
+
 ### updateHeaderRightBtn
 
 * 描述：改变顶部右侧按钮
