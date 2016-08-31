@@ -215,7 +215,7 @@ const AppView = BaseView.extend({
       mallWechat.initShare({
         wechatshare: goods.wechatshare,
         title: goods.title,
-        appShare: true
+        useAppShare: true
       });
 
       if ( shareUtil.hasShareHtml() ) {

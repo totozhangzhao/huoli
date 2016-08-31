@@ -84,7 +84,8 @@ const AppView = BaseView.extend({
     });
     mallWechat.initShare({
       wechatshare: this.result.wechatshare,
-      title: this.result.title
+      title: this.result.title,
+      useAppShare: true
     });
     return this;
   },
