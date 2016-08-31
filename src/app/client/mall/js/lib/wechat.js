@@ -54,7 +54,7 @@ export function initWeChatShare(title) {
  */
 export function initShare(options = {}) {
   let shareInfo = options.wechatshare;
-  window.console.log(options);
+
   const isShareInfoVaild = Boolean(shareInfo && shareInfo.title);
 
   if ( isShareInfoVaild ) {
