@@ -964,6 +964,9 @@ img.touch-img {
   padding-left: 0.53333rem;
   padding-right: 0.53333rem;
 }
+.active-template-box .charge-bar a img {
+  margin-bottom: 0.4rem;
+}
 .active-template-box .text-title-bar .item {
   color: #f62f5e;
   margin-right: 0.13333rem;
@@ -1041,6 +1044,7 @@ img.touch-img {
 }
 .active-template-box .theme-row-list-bar .theme-list-area .theme-desc-contain {
   flex: 1;
+  height: 3.2rem;
   padding-left: 0.26667rem;
   position: relative;
   left: 0;

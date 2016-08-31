@@ -2911,6 +2911,11 @@ img.touch-img {
   right: 0;
   top: 0;
 }
+.my-mall-box .my-mall-bar .my-mall-bar-item .my-order-area span b {
+  color: #f62f5e;
+  margin-right: 0.13333rem;
+  font-family: "Arial";
+}
 .my-mall-box .my-mall-bar .my-mall-bar-item:last-child .my-order-area p:after {
   height: 0;
 }
