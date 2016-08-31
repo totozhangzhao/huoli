@@ -47,8 +47,14 @@ export function initWeChatShare(title) {
   loadScript(`${window.location.origin}/fe/com/mobile/widget/wechat/wechat.bundle.js`);
 }
 
+/**
+ * [initShare 设置分享信息]
+ * @param  {Object} options [wechatshare 分享信息]
+ *                          [useAppShare 是否在客户端内显示分享按钮 true 显示 ; false 不显示]
+ */
 export function initShare(options = {}) {
   let shareInfo = options.wechatshare;
+  window.console.log(options);
   const isShareInfoVaild = Boolean(shareInfo && shareInfo.title);
 
   if ( isShareInfoVaild ) {
@@ -72,7 +78,7 @@ export function initShare(options = {}) {
     initWeChatShare(options.title);
   }
 
-  if ( mallUitl.isAppFunc() && options.appShare ) {
+  if ( mallUitl.isAppFunc() && options.useAppShare ) {
     initNativeShare();
   }
 }
