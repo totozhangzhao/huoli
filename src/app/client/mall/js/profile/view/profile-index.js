@@ -5,8 +5,8 @@ var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 var pageAction  = require("app/client/mall/js/lib/page-action.js");
 var cookie      = require("com/mobile/lib/cookie/cookie.js");
+import * as widget    from "app/client/mall/js/lib/common.js";
 
-require("app/client/mall/js/lib/common.js");
 
 var AppView = Backbone.View.extend({
   el: "#profile-index",
@@ -16,6 +16,7 @@ var AppView = Backbone.View.extend({
   },
   resume() {
     pageAction.hideRightButton();
+    widget.updateViewTitle(document.title);
   },
   fetchData() {
     mallPromise.getAppInfo()
