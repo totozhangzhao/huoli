@@ -67,7 +67,7 @@ const AppView = BaseView.extend({
   },
   mallGoodsDetail() {
     mallPromise
-      .getAppInfo()
+      .getAppInfo(true)
       .then(userData => {
         const params = _.extend({}, userData.userInfo, {
           imei: userData.deviceInfo.imei,
