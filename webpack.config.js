@@ -46,7 +46,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        exclude: ["node_modules", __dirname + "/src/com/mobile/lib"],
+        exclude: [/node_modules/, __dirname + "/src/com/mobile/lib"],
         loader: "babel-loader",
         query: {
           compact: false,
@@ -61,7 +61,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: "eslint-loader",
-        exclude: ["node_modules", __dirname + "/src/com/mobile/lib"],
+        exclude: [/node_modules/, __dirname + "/src/com/mobile/lib"],
       }
     ]
   },
