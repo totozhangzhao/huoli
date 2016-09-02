@@ -17,7 +17,7 @@ import Popover                from "com/mobile/widget/popover/popover.js";
 
 import * as loginUtil         from "app/client/mall/js/lib/login-util.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 const AppView = Backbone.View.extend({
   el: "#shake-main",
 

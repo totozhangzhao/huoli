@@ -11,7 +11,7 @@ import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import Popover from "com/mobile/widget/popover/popover.js";
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";

@@ -11,7 +11,7 @@ import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import GoodsView from "app/client/mall/js/common/views/index-goods.js";
 import Footer from "app/client/mall/js/common/views/footer.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 const menuLog = initTracker("menu");
 const AppView = BaseView.extend({
   el: "#main",
