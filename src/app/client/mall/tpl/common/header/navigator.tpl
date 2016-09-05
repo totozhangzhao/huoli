@@ -1,7 +1,7 @@
 <div class="common-switch-nav">
   <div class="common-switch-bar">
     <span class="common-switch-icon"></span>
-    <a href="/fe/app/client/mall/index.html" class="common-mall-index">首页</a>
+    <a class="js-index-page common-mall-index">首页</a>
   </div>
 
   <div class="common-switch-bar">

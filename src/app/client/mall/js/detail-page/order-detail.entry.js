@@ -18,7 +18,7 @@ import Popover from "com/mobile/widget/popover/popover.js";
 
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";

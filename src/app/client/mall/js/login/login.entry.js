@@ -14,7 +14,7 @@ import * as mallUitl    from "app/client/mall/js/lib/util.js";
 import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 const AppView = Backbone.View.extend({
   el: "#login-main",
   events: {

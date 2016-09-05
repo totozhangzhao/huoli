@@ -31,17 +31,24 @@ class Navigator{
       // .addClass('common-switch-padding')
       .prepend(this.el);
 
-      $(".common-switch-nav .js-switch")
-        .on("click", e => {
-          e.preventDefault();
-          let origin = window.location.origin;
-          if ( /hbmall/.test(origin) ) {
-            origin = origin.replace("hbmall", "mall");
-          } else {
-            origin = origin.replace("mall", "hbmall");
-          }
-          widget.redirectPage(`${origin}/fe/app/client/mall/index.html`);
-        });
+      $(".common-switch-nav")
+        .find(".js-index-page")
+          .on("click", e => {
+            e.preventDefault();
+            widget.redirectPage(`/fe/app/client/mall/index.html`);
+          })
+        .end()
+        .find(".js-switch")
+          .on("click", e => {
+            e.preventDefault();
+            let origin = window.location.origin;
+            if ( /hbmall/.test(origin) ) {
+              origin = origin.replace("hbmall", "mall");
+            } else {
+              origin = origin.replace("mall", "hbmall");
+            }
+            widget.redirectPage(`${origin}/fe/app/client/mall/index.html`);
+          });
     }
 
     if( !mallUitl.isAppFunc() ) {

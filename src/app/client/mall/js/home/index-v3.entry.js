@@ -17,7 +17,7 @@ import PromotionView from "app/client/mall/js/home/views/v3/promotion.js";
 import ActiveView from "app/client/mall/js/home/views/v3/active.js";
 import GoodsView from "app/client/mall/js/home/views/v3/goods.js";
 import Footer from "app/client/mall/js/common/views/footer.js";
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import MenuView from "app/client/mall/js/common/views/menu/menu.js";
 import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";

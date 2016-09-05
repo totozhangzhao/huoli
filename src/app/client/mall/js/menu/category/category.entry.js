@@ -16,7 +16,7 @@ import BackTop from "com/mobile/widget/button/to-top.js";
 
 import {initTracker}  from "app/client/mall/js/lib/common.js";
 const categoryLog = initTracker("category-list");
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import MenuView from "app/client/mall/js/common/views/menu/menu.js";
 
 const AppView = BaseView.extend({

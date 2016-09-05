@@ -1,5 +1,5 @@
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 const nav = new Navigator();
 export function before() {
 

@@ -9,7 +9,7 @@ import UrlUtil from "com/mobile/lib/url/url.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import logger from "com/mobile/lib/log/log.js";
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import listTpl from "app/client/mall/tpl/list-page/exchange-record.tpl";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";

@@ -6,7 +6,7 @@ import MyRecordView from "app/client/mall/js/list-page/grab/views/my-record.js";
 import NavView from "app/client/mall/js/list-page/grab/views/record-nav.js";
 import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 const app = BaseView.extend({
 
   el:"#main",

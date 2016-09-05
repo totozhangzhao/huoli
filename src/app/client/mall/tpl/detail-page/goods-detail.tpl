@@ -58,7 +58,7 @@
   class="<%= tplUtil.getJsClass(relevance) %> relevance-bar flex-row"
 >
   <div class="relevance-pic">
-    <img src="http://cdn.rsscc.cn/guanggao/img/test/test-0725-4.png" alt="">
+    <img src="<%= relevance.img %>" alt="">
   </div>
   <div class="relevance-desc">
     <p class="relevance-info"><%= relevance.title %></p>

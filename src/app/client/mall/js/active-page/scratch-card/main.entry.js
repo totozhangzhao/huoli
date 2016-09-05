@@ -14,7 +14,7 @@ var logger      = require("com/mobile/lib/log/log.js");
 var mallUitl    = require("app/client/mall/js/lib/util.js");
 var ui          = require("app/client/mall/js/lib/ui.js");
 var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 

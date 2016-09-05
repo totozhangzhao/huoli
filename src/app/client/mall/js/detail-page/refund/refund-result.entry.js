@@ -9,7 +9,7 @@ import logger from "com/mobile/lib/log/log.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
-import Navigator from "app/client/mall/js/menu/header/navigator.js";
+import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import "app/client/mall/js/lib/common.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
