@@ -1434,7 +1434,7 @@ img.touch-img {
   -webkit-box-orient: vertical;
   padding-right: 0.72rem;
 }
-.goods-detail-box .goods-coupons-bar .goods-coupons-bar-son:first-child:before {
+.goods-detail-box .goods-coupons-bar .goods-coupons-bar-son:not(:last-child):before {
   width: 100%;
   height: 1px;
   content: '';
@@ -1444,6 +1444,9 @@ img.touch-img {
   bottom: 0;
   transform: scale(1, 0.5);
   transform-origin: 0 0;
+}
+.goods-detail-box .goods-coupons-bar .goods-coupons-bar-son:last-child:before {
+  height: 0;
 }
 .goods-detail-box .goods-coupons-bar .goods-coupons-bar-son .goods-tip-dot {
   right: 0;
@@ -1540,7 +1543,8 @@ img.touch-img {
 .goods-detail-box .goods-tap-content.on {
   display: block;
 }
-.goods-detail-box .goods-buynow-bar {
+.goods-detail-box .goods-buynow-bar,
+.goods-detail-box .goods-buygiving-bar {
   width: 100%;
   height: 1.6rem;
   padding-top: 0.26667rem;
@@ -1563,6 +1567,26 @@ img.touch-img {
 }
 .goods-detail-box .goods-buynow-bar a.unable {
   background-color: #d4d4d4;
+}
+.goods-detail-box .goods-buygiving-bar {
+  padding-top: 0;
+}
+.goods-detail-box .goods-buygiving-bar a {
+  display: block;
+  flex: 1;
+  text-align: center;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  font-size: 0.45333rem;
+  color: #fff;
+}
+.goods-detail-box .goods-buygiving-bar a:first-child {
+  background-color: #1e1e1e;
+  opacity: 0.98;
+}
+.goods-detail-box .goods-buygiving-bar a:last-child {
+  background-color: #f22549;
+  opacity: 0.98;
 }
 .goods-detail-box .goods-coupons-tit {
   font-size: 0.48rem;

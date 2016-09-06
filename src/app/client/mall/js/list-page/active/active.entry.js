@@ -30,14 +30,12 @@ import CouponView     from "app/client/mall/js/list-page/active/views/coupon-vie
 
 import BlankLineView  from "app/client/mall/js/list-page/active/views/blank-line-view.js";
 
-// var Footer        = require("app/client/mall/js/common/views/footer.js");
 import BaseView       from "app/client/mall/js/common/views/BaseView.js";
 import {initTracker}  from "app/client/mall/js/lib/common.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 const activeListLog = initTracker("activeList");
 import Navigator from "app/client/mall/js/menu/header/navigator.js";
 
-// import template from "app/client/mall/tpl/menu/promotion/rules.tpl";
 const AppView = BaseView.extend({
   el: "#active-container",
 

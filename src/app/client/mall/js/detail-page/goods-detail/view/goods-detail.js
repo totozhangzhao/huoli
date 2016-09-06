@@ -252,7 +252,7 @@ const AppView = BaseView.extend({
     });
   },
   initModel(goods) {
-
+    window.console.log(goods.gifttype);
     // init buy panel model
     this.buyNumModel = new BuyNumModel({
       type: 0,
@@ -260,6 +260,7 @@ const AppView = BaseView.extend({
       hasMask: false,
       visible: true,
       title: goods.title,
+      giftType: goods.gifttype,
       payText: goods.button,
       payNumText: goods.button, //goods.money > 0 ? "去支付" : "立即兑换",
       points: goods.points,
@@ -297,7 +298,7 @@ const AppView = BaseView.extend({
       template: buyTemplate,
       model: this.buyNumModel,
       buy: () => {this.buy();},
-      pay: () => {this.pay();}
+      pay: (isGift) => {this.pay(isGift);}
     });
 
     this.model.buyNumModel = this.buyNumModel;
@@ -361,7 +362,7 @@ const AppView = BaseView.extend({
   },
 
   // 选数量后，去支付流程
-  pay() {
+  pay(isGift) {
     let self = this;
     const goods = this.cache.goods;
 
@@ -398,8 +399,11 @@ const AppView = BaseView.extend({
           return;
       }
     }
-
-    showNextView();
+    if(isGift) {
+      this.router.switchTo("gift-confirm");
+    }else{
+      showNextView();
+    }
   },
   exchange() {
     if(this.buyNumModel.get("type") === 0) { // 不能选择数量的情况 需要弹出提示

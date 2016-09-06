@@ -52,9 +52,19 @@
       </div>
       <a class="js-goods-pay goods-confirm-btn">确认</a>
     <% } else { %>
-    <div class="goods-buynow-bar">
-      <a class="js-goods-pay <%= canPay ? '' : 'unable'%>">立即购买</a>
-    </div>
+
+    <% 
+      if(giftType === 3) { // 微信送礼 
+    %>
+      <div class="goods-buygiving-bar flex-row">
+        <a class="js-goods-gift-pay <%= canPay ? '' : 'unable'%>">微信送礼</a>
+        <a class="js-goods-pay js-goods-normal-pay <%= canPay ? '' : 'unable'%>">立即购买</a>
+      </div>
+    <% } else {%>
+      <div class="goods-buynow-bar">
+        <a class="js-goods-pay js-goods-normal-pay <%= canPay ? '' : 'unable'%>">立即购买</a>
+      </div>
+    <% } %>
     <% } %>
   </div>
 <% } %>

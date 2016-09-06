@@ -16,10 +16,13 @@ const BuyNumPanelView = Backbone.View.extend({
     "click .js-spec"             : "changeSpec",
     "click .js-close-panel"      : "close",
     "click .common-shadow"       : "close",
-    "click .js-goods-pay"        : "purchase"
+    "click .js-goods-normal-pay" : "purchase",
+    "click .js-goods-gift-pay"   : "gift",
+    "click .goods-confirm-btn"   : "purchaseHanlder"
   },
 
   initialize(options) {
+    this.isGift = false; // 支付方式是否是微信送礼
     this.template = options.template || defaultBuyPanelTpl;
     this.exchange = options.exchange || (() => {});
     this.buy = options.buy || (() => {});
@@ -231,12 +234,22 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   purchase() {
+    this.isGift = false;
+    this.purchaseHanlder();
+  },
+
+  gift() {
+    this.isGift = true;
+    this.purchaseHanlder();
+  },
+
+  purchaseHanlder() {
     switch(this.model.get("type")) {
       case 0:
         this.buy();
         break;
       case 1:
-        this.pay();
+        this.pay(this.isGift);
         break;
     }
   },
