@@ -10,7 +10,6 @@ var gulp           = require("gulp");
 var autoprefixer   = require("gulp-autoprefixer");
 var minifyHTML     = require("gulp-minify-html");
 var cleanCSS       = require('gulp-clean-css');
-var eslint         = require('gulp-eslint');
 var notify         = require("gulp-notify");
 var del            = require("del");
 var runSequence    = require("run-sequence");
@@ -63,17 +62,6 @@ gulp.task("images", function() {
     .pipe(gulp.dest(config.dest));
 });
 
-// eslint
-gulp.task("es:lint", function() {
-  return gulp.src(config.src + "**/*.js")
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
-    .on("error", function(err) {
-      this.emit("end");
-    });
-});
-
 gulp.task("js:bundle", function() {
   return gulp.src("")
     .pipe(webpackBuilder(require("./webpack.config"), {
@@ -100,7 +88,10 @@ gulp.task("rev:replace", ["rev"], function () {
 
 // Clean
 gulp.task("clean", function(cb) {
-    del(config.dest, cb)
+  del([config.dest])
+    .then(function() {
+      cb();
+    });
 });
 
 // Compress
