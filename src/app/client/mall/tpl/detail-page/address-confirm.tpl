@@ -1,3 +1,4 @@
+<% if(!isGift) {%>
 <ul id="address-entry" class="confirm-order-bar">
   <li>
     <a>
@@ -9,20 +10,51 @@
     </a>
   </li>
 </ul>
-<div class="confirm-goods-detail clearfix">
-  <img src="<%= avatar || "" %>" class="goods-show-pic fl">
-  <p class="goods-name"><%= title || "　" %></p>
-  <p class="goods-standard"><%= specValueName || "　" %></p>
-  <div class="goods-charge-info-fa">
-    <p class="goods-charge-info num-font"><span><%= unitPriceText %></span></p>
-    <div class="common-buy-num">
-      <div class="common-buy-choice">
-        <!-- 数量小于1时，添加 one class,大于1时去掉 -->
-        <i class="" data-operator="subtract"><span></span></i><i><input class="address-num-input" type="text" value="<%= number %>" /></i><i data-operator="add"><span></span></i>
+<% } else { %>
+<div class="giving-confirm-status">
+  <div class="status-bar-fa flex-row">
+    <div class="status-bar">
+      <b class="icon"></b>
+      <span class="desc">确认数量</span>
+    </div>
+    <div class="status-bar">
+      <b class="icon"><span class="line"></span><span class="line"><span></b>
+      <span class="desc">完成支付</span>
+    </div>
+    <div class="status-bar">
+      <b class="icon"></b>
+      <span class="desc">赠送好友</span>
+    </div>
+  </div>
+  <div class="giving-confirm-tip">
+    <span>48小时内礼物未被领取，相应金额原路退回</span>
+  </div>
+</div>
+<% } %>
+<div class="giving-confirm-choice flex-row">
+  <div class="goods-pic">
+    <img src="<%= avatar || "" %>" alt="">
+    <div class="mask"></div>
+  </div>
+  <div class="goods-info">
+    <p class="name"><%= title || "　" %></p>
+    <p class="items"><%= specValueName || "　" %></p>
+    <div class="goods-choice">
+      <p class="price"><%= unitPriceTpl %></p>
+      <!---->
+      <div class="giving-choice-num flex-row">
+        <div class="num-items flex-row">
+          <!-- 数量为1时，减号不可点击，同时加class .off -->
+          <span class="reduce" data-operator="subtract"><b class="reduce-icon"></b></span><span class="num-insert"><input class="address-num-input" type="text" value="<%= number %>"></span><span class="add" data-operator="add"><b class="add-icon"></b></span>
+        </div>
       </div>
+      <!---->
     </div>
   </div>
 </div>
+<% if(isGift) { %>
+<div id="gift-message-container"></div>
+<% } %>
 <div class="common-charge-content">
   <div class="goods-charge-bar">
     <p class="goods-charge-info num-font"><span class="js-total-price"><%= totalPriceText %></span></p>

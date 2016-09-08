@@ -298,7 +298,7 @@ const AppView = BaseView.extend({
       template: buyTemplate,
       model: this.buyNumModel,
       buy: () => {this.buy();},
-      pay: (isGift) => {this.pay(isGift);}
+      pay: () => {this.pay();}
     });
 
     this.model.buyNumModel = this.buyNumModel;
@@ -439,10 +439,11 @@ const AppView = BaseView.extend({
       self.collection.addressList = addressList;
       hint.hideLoading();
 
-      if (result.length === 0) {
-        self.router.switchTo("address-add");
-      } else {
+      // 是微信送礼的情况 或者有地址的情况 进入确认页面，否则进入添加地址页面
+      if(this.buyNumModel.get("isGift") || result.length > 0) {
         self.router.switchTo("address-confirm");
+      } else {
+        self.router.switchTo("address-add");
       }
     });
   },

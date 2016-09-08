@@ -52,11 +52,45 @@ const BuyNumModel = Backbone.Model.extend({
     return result;
   },
 
+  // 获取显示价格的文案标签
+  getPriceTpl(num) {
+    let result = "";
+    let number = num || this.get("number");
+    result = `<span>${this.get("currency")}<span><span>${Number(number * this.get("price")).toFixed(2)}<span>`;
+    return result;
+  },
+
+  // 获取价格积分文案模版
+  getPPriceTpl(num) {
+    let result = "";
+    const payType = this.get("payType");
+    switch(payType) {
+      case 1:
+        result = this.getPointsTpl(num);
+        break;
+      case 2:
+        result = this.getPriceTpl(num);
+        break;
+      default:
+        result = `${this.getPriceTpl(num)}<span>+<span>${this.getPointsTpl(num)}`;
+        break;
+    }
+    return result;
+  },
+
   // 获取显示的积分文案
   getPointsText(num) {
     let result = "";
     let number = num || this.get("number");
     result = number * this.get("points") + this.get("pointsUnit");
+    return result;
+  },
+
+  // 获取显示积分的文案，带标签
+  getPointsTpl(num) {
+    let result = "";
+    let number = num || this.get("number");
+    result = `<span>${number * this.get("points")}</span><span>${this.get("pointsUnit")}</span>`;
     return result;
   },
 

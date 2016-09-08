@@ -22,7 +22,6 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   initialize(options) {
-    this.isGift = false; // 支付方式是否是微信送礼
     this.template = options.template || defaultBuyPanelTpl;
     this.exchange = options.exchange || (() => {});
     this.buy = options.buy || (() => {});
@@ -234,12 +233,12 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   purchase() {
-    this.model.isGift = false;
+    this.model.set({isGift: false}, {silent: true});
     this.purchaseHanlder();
   },
 
   gift() {
-    this.model.isGift = true;
+    this.model.set({isGift: true}, {silent: true});
     this.purchaseHanlder();
   },
 

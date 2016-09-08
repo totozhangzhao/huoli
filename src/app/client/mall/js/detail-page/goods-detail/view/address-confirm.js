@@ -6,6 +6,7 @@ import pageAction from "app/client/mall/js/lib/page-action.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import mainViewTpl from "app/client/mall/tpl/detail-page/address-confirm.tpl";
 
+import GiftMessageView from "app/client/mall/js/detail-page/goods-detail/view/gift/gift-message-view.js";
 const AppView = Backbone.View.extend({
 
   el: "#address-confirm",
@@ -24,6 +25,7 @@ const AppView = Backbone.View.extend({
   initialize(commonData) {
     _.extend(this, commonData);
     this.curAddress = null;
+    this.giftMessageView = null;
   },
 
   resume(options) {
@@ -45,6 +47,7 @@ const AppView = Backbone.View.extend({
     const addressList = this.collection.addressList;
     this.curAddress = null;
 
+
     if (addressList.length > 0) {
       if (curAddressId) {
         const addrModel = addressList.get(curAddressId);
@@ -56,8 +59,13 @@ const AppView = Backbone.View.extend({
         this.curAddress = addressList.at(0).toJSON();
       }
     } else {
-      this.router.replaceTo("address-add");
-      return;
+      // 是微信送礼的情况 不跳转到添加地址页面
+      if(this.model.buyNumModel.get("isGift")) {
+        //
+      } else {
+        this.router.replaceTo("address-add");
+        return;
+      }
     }
 
     this.initView(this.curAddress);
@@ -68,11 +76,18 @@ const AppView = Backbone.View.extend({
     const data = {
       addressInfo,
       buttonText: this.cache.goods.confirm,
+      unitPriceTpl: model.getPPriceTpl(1),
       unitPriceText: model.getPPriceText(1),
       totalPriceText: model.getPPriceText()
     };
     _.extend(data, model.toJSON());
     this.$el.html(mainViewTpl(data));
+    if(this.model.buyNumModel.get("isGift")) {
+      if(this.giftMessageView == null) {
+        this.giftMessageView = new GiftMessageView({parentDom: "#gift-message-container"});
+      }
+      this.giftMessageView.render();
+    }
   },
 
   // 更新number 价格 积分
@@ -98,8 +113,8 @@ const AppView = Backbone.View.extend({
       productid: this.cache.urlObj.productid,
       address: this.curAddress
     };
-    if( parseInt(goods.gifttype) === 3 ) {
-      params.gifttype = goods.gifttype;
+    if( this.model.buyNumModel.get("isGift") ) {
+      _.extend(params, {gifttype: 3, remark: this.giftMessageView.getGiftMessage()});
     }
 
     // 一元夺宝特权券
