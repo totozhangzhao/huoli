@@ -55,7 +55,7 @@ module.exports = {
         }
       },
       { test: /\.tpl$/, loader: "tpl-loader" },
-      { test: /\.css$/, loader: "style-loader!css-loader?minimize!autoprefixer-loader" }
+      { test: /\.css$/, loader: "style-loader!css-loader!postcss-loader" }
     ],
     preLoaders: [
       {
