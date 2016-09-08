@@ -69,6 +69,9 @@ module.exports = {
     configFile: ".eslintrc",
     formatter: require("eslint-friendly-formatter")
   },
+  postcss: function() {
+    return [autoprefixer, cssnano];
+  },
   plugins: [
     // add it in build task
     // new webpack.optimize.UglifyJsPlugin({
