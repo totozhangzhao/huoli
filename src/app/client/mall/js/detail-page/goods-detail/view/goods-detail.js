@@ -362,49 +362,46 @@ const AppView = BaseView.extend({
   },
 
   // 选数量后，去支付流程
-  pay(isGift) {
-    let self = this;
+  pay() {
     const goods = this.cache.goods;
 
     if (goods.payError) {
       mallPromise.catchShowError(goods.payError);
       return;
     }
+    // 调用支付分发器
+    this.payDespatcher(goods);
+  },
 
-    function showNextView() {
-
-      // type：兑换类型
-      // 1--直接调用创建订单接口
-      // 2--转入输入手机号页面（预留，金融类）
-      // 3--转入输入地址页面（预留）
-      // 9--点击跳转第三方链接（ thirdparturl ）
-      // 13--转入自定义表单页面
-      switch (goods.type) {
-        case 1:
-          self.exchange();
-          return;
-        case 2:
-          self.router.switchTo("form-phone");
-          return;
-        case 3:
-          self.gotoAddress();
-          return;
-        case 9:
-          self.gotoNewView({
-            url: goods.thirdparturl
-          });
-          return;
-        case 13:
-          self.router.switchTo("form-custom");
-          return;
-      }
-    }
-    if(isGift) {
-      this.router.switchTo("gift-confirm");
-    }else{
-      showNextView();
+  // 支付处理分发
+  payDespatcher(goods) {
+    // type：兑换类型
+    // 1--直接调用创建订单接口
+    // 2--转入输入手机号页面（预留，金融类）
+    // 3--转入输入地址页面（预留）
+    // 9--点击跳转第三方链接（ thirdparturl ）
+    // 13--转入自定义表单页面
+    switch (goods.type) {
+      case 1:
+        this.exchange();
+        return;
+      case 2:
+        this.router.switchTo("form-phone");
+        return;
+      case 3:
+        this.gotoAddress();
+        return;
+      case 9:
+        this.gotoNewView({
+          url: goods.thirdparturl
+        });
+        return;
+      case 13:
+        this.router.switchTo("form-custom");
+        return;
     }
   },
+
   exchange() {
     if(this.buyNumModel.get("type") === 0) { // 不能选择数量的情况 需要弹出提示
       const titleText = this.cache.goods.confirm || "是否确认兑换？";

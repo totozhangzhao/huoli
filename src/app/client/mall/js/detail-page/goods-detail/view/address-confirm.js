@@ -7,7 +7,9 @@ import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import mainViewTpl from "app/client/mall/tpl/detail-page/address-confirm.tpl";
 
 const AppView = Backbone.View.extend({
+
   el: "#address-confirm",
+
   events: {
     "click #confirm-order"        : "confirmOrder",
     "click #address-entry"        : "selectAddress",
@@ -18,10 +20,12 @@ const AppView = Backbone.View.extend({
     "blur .address-num-input"     : "inputBlur",
     "focus .address-num-input"    : "inputFocus"
   },
+
   initialize(commonData) {
     _.extend(this, commonData);
     this.curAddress = null;
   },
+
   resume(options) {
     if (options.previousView === "") {
       setTimeout(() => {
@@ -58,6 +62,7 @@ const AppView = Backbone.View.extend({
 
     this.initView(this.curAddress);
   },
+
   initView(addressInfo) {
     const model  = this.model.buyNumModel;
     const data = {
@@ -69,6 +74,7 @@ const AppView = Backbone.View.extend({
     _.extend(data, model.toJSON());
     this.$el.html(mainViewTpl(data));
   },
+
   // 更新number 价格 积分
   refreshNumber() {
     const model  = this.model.buyNumModel;
@@ -78,10 +84,13 @@ const AppView = Backbone.View.extend({
   selectAddress() {
     this.router.switchTo("address-list");
   },
+
   confirmOrder() {
     hint.showLoading();
     this.mallCreateOrder(this.cache.goods);
   },
+
+  // 创建订单
   mallCreateOrder(goods) {
     let params = {
       goodspecid: this.model.buyNumModel.get("specValueId"),
@@ -89,6 +98,9 @@ const AppView = Backbone.View.extend({
       productid: this.cache.urlObj.productid,
       address: this.curAddress
     };
+    if( parseInt(goods.gifttype) === 3 ) {
+      params.gifttype = goods.gifttype;
+    }
 
     // 一元夺宝特权券
     if (goods.userprivilresp && goods.userprivilresp.privilid) {
@@ -109,6 +121,7 @@ const AppView = Backbone.View.extend({
         mallPromise.catchFn(err);
       });
   },
+
   afterCreateOrder(orderInfo) {
     let orderDetailUrl = window.location.origin +
       `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${orderInfo.orderid}`;

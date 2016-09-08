@@ -234,12 +234,12 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   purchase() {
-    this.isGift = false;
+    this.model.isGift = false;
     this.purchaseHanlder();
   },
 
   gift() {
-    this.isGift = true;
+    this.model.isGift = true;
     this.purchaseHanlder();
   },
 
@@ -249,7 +249,7 @@ const BuyNumPanelView = Backbone.View.extend({
         this.buy();
         break;
       case 1:
-        this.pay(this.isGift);
+        this.pay();
         break;
     }
   },
