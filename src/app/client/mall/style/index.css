@@ -592,7 +592,7 @@ p {
   bottom: 0;
   left: 0;
   z-index: 10;
-  opacity: 0.98;
+  opacity: 0.96;
 }
 .common-buy-box {
   width: 100%;
@@ -858,7 +858,7 @@ p {
 .home-bottom-nav {
   width: 100%;
   height: 1.30667rem;
-  background: rgba(30, 30, 30, 0.98);
+  background: rgba(30, 30, 30, 0.96);
   position: fixed;
   left: 0;
   bottom: 0;
@@ -1388,7 +1388,7 @@ img.touch-img {
   font-size: 0.42667rem;
   color: #1e1e1e;
   background-color: #f7f7f7;
-  padding-bottom: 1.46667rem;
+  padding-bottom: 1.33333rem;
 }
 .goods-detail-box .goods-tit-bar {
   background-color: #fff;
@@ -1521,6 +1521,7 @@ img.touch-img {
   height: 1.36rem;
   line-height: 1.36rem;
   font-size: 0.37333rem;
+  color: #b7926b;
   position: relative;
   left: 0;
   top: 0;
@@ -1553,7 +1554,7 @@ img.touch-img {
   height: 0.48rem;
   font-size: 0.32rem;
   color: #fff;
-  background-color: #1e1e1e;
+  background-color: #b7926b;
   margin-right: 0.21333rem;
 }
 .goods-detail-box .goods-tap-bar {
@@ -1577,7 +1578,7 @@ img.touch-img {
 }
 .goods-detail-box .goods-tap-bar .goods-tap-bar-son {
   background-color: #fff;
-  color: #1e1e1e;
+  color: #b4b4b4;
   font-size: 0.37333rem;
   flex: 1;
   display: block;
@@ -1643,48 +1644,43 @@ img.touch-img {
 .goods-detail-box .goods-buynow-bar,
 .goods-detail-box .goods-buygiving-bar {
   width: 100%;
-  height: 1.6rem;
-  padding-top: 0.26667rem;
-  background-color: #1a1a1a;
+  height: 1.33333rem;
   position: absolute;
   left: 0;
   bottom: 0;
 }
 .goods-detail-box .goods-buynow-bar a {
   display: block;
-  width: 5.33333rem;
-  height: 1.06667rem;
-  line-height: 1.06667rem;
+  width: 100%;
+  height: 1.33333rem;
+  line-height: 1.33333rem;
   text-align: center;
-  margin: 0 auto;
-  border-radius: 1.06667rem;
-  background-color: #f62f5e;
+  background-color: #f22549;
   font-size: 0.45333rem;
   color: #fff;
+  opacity: 0.96;
 }
 .goods-detail-box .goods-buynow-bar a.unable {
-  background-color: #3c3c3c;
-  color: #7f7f7f;
-}
-.goods-detail-box .goods-buygiving-bar {
-  padding-top: 0;
+  background-color: #6f6f6f;
+  color: #b4b4b4;
+  opacity: 0.97;
 }
 .goods-detail-box .goods-buygiving-bar a {
   display: block;
   flex: 1;
   text-align: center;
-  height: 1.6rem;
-  line-height: 1.6rem;
+  height: 1.33333rem;
+  line-height: 1.33333rem;
   font-size: 0.45333rem;
   color: #fff;
 }
 .goods-detail-box .goods-buygiving-bar a:first-child {
   background-color: #1e1e1e;
-  opacity: 0.98;
+  opacity: 0.96;
 }
 .goods-detail-box .goods-buygiving-bar a:last-child {
   background-color: #f22549;
-  opacity: 0.98;
+  opacity: 0.96;
 }
 .goods-detail-box .goods-coupons-tit {
   font-size: 0.48rem;
@@ -2657,17 +2653,17 @@ img.touch-img {
   top: 0.05333rem;
 }
 .confirm-order-box {
-  padding-bottom: 1.6rem;
-  background-color: #f0f0f0;
+  padding-bottom: 1.33333rem;
+  background-color: #f7f7f7;
+  color: #1e1e1e;
+  position: relative;
+  left: 0;
+  top: 0;
 }
 .confirm-order-box .confirm-order-bar {
   background-color: #fff;
   font-size: 0.42667rem;
-  color: #333;
   margin-bottom: 0.26667rem;
-}
-.confirm-order-box .confirm-order-bar li {
-  border-bottom: 1px solid #f0f0f0;
 }
 .confirm-order-box .confirm-order-bar li a {
   display: block;
@@ -2680,6 +2676,7 @@ img.touch-img {
   position: relative;
   left: 0;
   top: 0;
+  color: #1e1e1e;
 }
 .confirm-order-box .confirm-order-bar li .confirm-order-info {
   height: 0.69333rem;
@@ -2690,32 +2687,268 @@ img.touch-img {
 }
 .confirm-order-box .confirm-order-bar li .confirm-order-info span:nth-child(1) {
   display: inline-block;
-  width: 50%;
+  width: 60%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .confirm-order-box .confirm-order-bar li .confirm-order-info span:nth-child(2) {
   position: absolute;
-  right: 0.64rem;
+  right: 0.93333rem;
   top: 0;
 }
 .confirm-order-box .confirm-order-bar li .confirm-order-address {
   font-size: 0.34667rem;
-  color: #a5a5a5;
+  color: #7f7f7f;
   line-height: 0.61333rem;
   margin-top: 0.21333rem;
-  padding-right: 0.42667rem;
+  padding-right: 0.93333rem;
+  text-align: justify;
 }
 .confirm-order-box .confirm-order-bar li .confirm-order-icon {
-  width: 0.21333rem;
-  height: 0.37333rem;
+  width: 0.24rem;
+  height: 0.4rem;
   position: absolute;
   right: 0.4rem;
   top: 50%;
   margin-top: -0.18667rem;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0714.png') no-repeat -3.33333rem -1.54667rem;
-  background-size: 10.66667rem 10.66667rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0907.png') no-repeat -8.88rem -5.6rem;
+  background-size: 13.33333rem 13.33333rem;
+}
+.giving-confirm-pay {
+  width: 100%;
+  height: 1.33333rem;
+  line-height: 1.33333rem;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  color: #fff;
+  font-size: 0.45333rem;
+}
+.giving-confirm-pay .price-contain {
+  flex: 1;
+  height: 100%;
+  padding-left: 0.4rem;
+  background-color: #1e1e1e;
+  opacity: 0.96;
+  font-family: "Arial";
+}
+.giving-confirm-pay .pay-btn {
+  display: block;
+  width: 4rem;
+  text-align: center;
+  color: #fff;
+  background-color: #f22549;
+  opacity: 0.96;
+}
+.giving-confirm-status {
+  background-color: #fff;
+  margin-bottom: 0.26667rem;
+}
+.giving-confirm-status {
+  height: 3.97333rem;
+}
+.giving-confirm-status .status-bar-fa {
+  padding-top: 0.8rem;
+}
+.giving-confirm-status .status-bar-fa .status-bar .desc {
+  display: block;
+  height: 1.01333rem;
+  line-height: 1.01333rem;
+  font-size: 0.37333rem;
+}
+.giving-confirm-status .status-bar-fa .status-bar .icon {
+  width: 0.66667rem;
+  height: 0.58667rem;
+  display: block;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0907.png') no-repeat 0.08rem -5.6rem;
+  background-size: 13.33333rem 13.33333rem;
+}
+.giving-confirm-status .status-bar-fa .status-bar:first-child .desc {
+  color: #f22549;
+}
+.giving-confirm-status .status-bar-fa .status-bar:nth-child(1) {
+  padding-left: 1.06667rem;
+  flex: 1;
+}
+.giving-confirm-status .status-bar-fa .status-bar:nth-child(1) .icon {
+  margin-left: 0.53333rem;
+}
+.giving-confirm-status .status-bar-fa .status-bar:nth-child(3) {
+  padding-right: 1.06667rem;
+  text-align: right;
+  flex: 1;
+}
+.giving-confirm-status .status-bar-fa .status-bar:nth-child(3) .icon {
+  margin-left: 1.44rem;
+  background-position: -1.94667rem -5.6rem;
+}
+.giving-confirm-status .status-bar-fa .status-bar:nth-child(2) {
+  width: 2.66667rem;
+  text-align: center;
+}
+.giving-confirm-status .status-bar-fa .status-bar:nth-child(2) .icon {
+  margin: 0 auto;
+  background-position: -0.96rem -5.6rem;
+  position: relative;
+  left: 0;
+  top: 0;
+}
+.giving-confirm-status .status-bar-fa .status-bar:nth-child(2) .icon .line {
+  width: 2.02667rem;
+  height: 1px;
+  background-color: #7f7f7f;
+  transform: scale(1, 0.5);
+}
+.giving-confirm-status .status-bar-fa .status-bar:nth-child(2) .icon .line:nth-child(1) {
+  position: absolute;
+  left: 0.88rem;
+  top: 0.24rem;
+}
+.giving-confirm-status .status-bar-fa .status-bar:nth-child(2) .icon .line:nth-child(2) {
+  position: absolute;
+  right: 0.88rem;
+  top: 0.24rem;
+}
+.giving-confirm-status .giving-confirm-tip {
+  width: 7.86667rem;
+  height: 0.66667rem;
+  line-height: 0.66667rem;
+  text-align: center;
+  font-size: 0.34667rem;
+  color: #b7926b;
+  background: url(http://cdn.rsscc.cn/guanggao/img/icon/dashed-bg.png) no-repeat;
+  background-size: 7.86667rem 0.66667rem;
+  margin: 0.21333rem auto 0;
+}
+.giving-word-area {
+  font-size: 0.37333rem;
+  background-color: #fff;
+  padding-top: 0;
+  padding-right: 0.4rem;
+  padding-bottom: 0.53333rem;
+  padding-left: 0.4rem;
+}
+.giving-word-area .giving-word-tit {
+  height: 1.17333rem;
+  line-height: 1.17333rem;
+}
+.giving-word-area .giving-word-tit span {
+  display: block;
+  padding-left: 0.18667rem;
+}
+.giving-word-area .giving-word-tit .icon {
+  width: 0.45333rem;
+  height: 1.17333rem;
+  display: block;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0907.png') no-repeat -6.72rem -5.2rem;
+  background-size: 13.33333rem 13.33333rem;
+}
+.giving-word-area .giving-word-content {
+  height: 2.4rem;
+  border: 1px solid #f0f0f0;
+  padding-top: 0.29333rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.29333rem;
+  padding-left: 0.4rem;
+}
+.giving-word-area .giving-word-content textarea {
+  width: 100%;
+  height: 100%;
+  color: #1e1e1e;
+  text-align: justify;
+  background: transparent;
+  line-height: 0.58667rem;
+}
+.giving-word-area .giving-word-content textarea.on {
+  color: #7f7f7f;
+}
+.giving-confirm-choice {
+  background-color: #fff;
+  margin-bottom: 0.26667rem;
+  padding-top: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-left: 0.4rem;
+}
+.giving-confirm-choice .goods-pic {
+  width: 2.45333rem;
+  height: 2.45333rem;
+  position: relative;
+  left: 0;
+  top: 0;
+}
+.giving-confirm-choice .goods-pic img {
+  width: 2.45333rem;
+  height: 2.45333rem;
+}
+.giving-confirm-choice .goods-pic .mask {
+  width: 2.45333rem;
+  height: 2.45333rem;
+  opacity: 0.02;
+  background-color: #1e1e1e;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.giving-confirm-choice .goods-info {
+  height: 2.45333rem;
+  flex: 1;
+  position: relative;
+  left: 0;
+  top: 0;
+  margin-left: 0.26667rem;
+}
+.giving-confirm-choice .goods-info .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  height: 0.69333rem;
+  line-height: 0.69333rem;
+  font-size: 0.42667rem;
+}
+.giving-confirm-choice .goods-info .items {
+  font-size: 0.34667rem;
+  height: 0.61333rem;
+  line-height: 0.61333rem;
+  color: #7f7f7f;
+}
+.giving-confirm-choice .goods-info .goods-choice {
+  width: 100%;
+  font-size: 0.34667rem;
+  color: #f22549;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.giving-confirm-choice .goods-info .goods-choice .price {
+  width: 100%;
+  height: 0.8rem;
+  line-height: 0.8rem;
+  font-family: "Arial";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.giving-confirm-choice .goods-info .goods-choice .giving-choice-num {
+  width: 3.12rem;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.giving-confirm-choice .goods-info .goods-choice .giving-choice-num .num-items span b {
+  position: absolute;
+  left: 0.37333rem;
+  top: 0.26667rem;
+}
+.giving-confirm-choice .goods-info .goods-choice .giving-choice-num .num-insert {
+  width: 0.93333rem;
+}
+.giving-confirm-choice .goods-info .goods-choice .giving-choice-num .reduce,
+.giving-confirm-choice .goods-info .goods-choice .giving-choice-num .add {
+  width: 1.06667rem;
 }
 .commit-refund-box {
   min-height: 100%;
@@ -3905,253 +4138,6 @@ img.touch-img {
   position: relative;
   top: 0.10667rem;
   left: 0;
-}
-.giving-confirm-box {
-  min-height: 100%;
-  margin-top: 0;
-  margin-right: auto;
-  margin-bottom: 0;
-  margin-left: auto;
-  position: relative;
-  left: 0;
-  top: 0;
-  background-color: #f7f7f7;
-  color: #1e1e1e;
-  padding-bottom: 1.6rem;
-}
-.giving-confirm-box .giving-confirm-status,
-.giving-confirm-box .giving-confirm-choice {
-  background-color: #fff;
-  margin-bottom: 0.26667rem;
-}
-.giving-confirm-box .giving-confirm-status {
-  height: 3.97333rem;
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa {
-  padding-top: 0.8rem;
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa .status-bar .desc {
-  display: block;
-  height: 1.01333rem;
-  line-height: 1.01333rem;
-  font-size: 0.37333rem;
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa .status-bar .icon {
-  width: 0.66667rem;
-  height: 0.58667rem;
-  display: block;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0907.png') no-repeat 0.08rem -5.6rem;
-  background-size: 13.33333rem 13.33333rem;
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa .status-bar:first-child .desc {
-  color: #f22549;
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa .status-bar:nth-child(1) {
-  padding-left: 1.06667rem;
-  flex: 1;
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa .status-bar:nth-child(1) .icon {
-  margin-left: 0.53333rem;
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa .status-bar:nth-child(3) {
-  padding-right: 1.06667rem;
-  text-align: right;
-  flex: 1;
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa .status-bar:nth-child(3) .icon {
-  margin-left: 1.44rem;
-  background-position: -1.94667rem -5.6rem;
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa .status-bar:nth-child(2) {
-  width: 2.66667rem;
-  text-align: center;
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa .status-bar:nth-child(2) .icon {
-  margin: 0 auto;
-  background-position: -0.96rem -5.6rem;
-  position: relative;
-  left: 0;
-  top: 0;
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa .status-bar:nth-child(2) .icon .line {
-  width: 2.02667rem;
-  height: 1px;
-  background-color: #7f7f7f;
-  transform: scale(1, 0.5);
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa .status-bar:nth-child(2) .icon .line:nth-child(1) {
-  position: absolute;
-  left: 0.88rem;
-  top: 0.24rem;
-}
-.giving-confirm-box .giving-confirm-status .status-bar-fa .status-bar:nth-child(2) .icon .line:nth-child(2) {
-  position: absolute;
-  right: 0.88rem;
-  top: 0.24rem;
-}
-.giving-confirm-box .giving-confirm-status .giving-confirm-tip {
-  width: 7.86667rem;
-  height: 0.66667rem;
-  line-height: 0.66667rem;
-  text-align: center;
-  font-size: 0.34667rem;
-  color: #b7926b;
-  background: url(http://cdn.rsscc.cn/guanggao/img/icon/dashed-bg.png) no-repeat;
-  background-size: 7.86667rem 0.66667rem;
-  margin: 0.21333rem auto 0;
-}
-.giving-confirm-box .giving-confirm-choice {
-  padding-top: 0.4rem;
-  padding-right: 0.4rem;
-  padding-bottom: 0.4rem;
-  padding-left: 0.4rem;
-}
-.giving-confirm-box .giving-confirm-choice .goods-pic {
-  width: 2.45333rem;
-  height: 2.45333rem;
-  position: relative;
-  left: 0;
-  top: 0;
-}
-.giving-confirm-box .giving-confirm-choice .goods-pic img {
-  width: 2.45333rem;
-  height: 2.45333rem;
-}
-.giving-confirm-box .giving-confirm-choice .goods-pic .mask {
-  width: 2.45333rem;
-  height: 2.45333rem;
-  opacity: 0.02;
-  background-color: #1e1e1e;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.giving-confirm-box .giving-confirm-choice .goods-info {
-  height: 2.45333rem;
-  flex: 1;
-  position: relative;
-  left: 0;
-  top: 0;
-  margin-left: 0.26667rem;
-}
-.giving-confirm-box .giving-confirm-choice .goods-info .name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  height: 0.69333rem;
-  line-height: 0.69333rem;
-  font-size: 0.42667rem;
-}
-.giving-confirm-box .giving-confirm-choice .goods-info .items {
-  font-size: 0.34667rem;
-  height: 0.61333rem;
-  line-height: 0.61333rem;
-  color: #7f7f7f;
-}
-.giving-confirm-box .giving-confirm-choice .goods-info .goods-choice {
-  width: 100%;
-  font-size: 0.34667rem;
-  color: #f22549;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-}
-.giving-confirm-box .giving-confirm-choice .goods-info .goods-choice .price {
-  width: 100%;
-  height: 0.8rem;
-  line-height: 0.8rem;
-  font-family: "Arial";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-}
-.giving-confirm-box .giving-confirm-choice .goods-info .goods-choice .giving-choice-num {
-  width: 3.12rem;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
-.giving-confirm-box .giving-confirm-choice .goods-info .goods-choice .giving-choice-num .num-items span b {
-  position: absolute;
-  left: 0.37333rem;
-  top: 0.26667rem;
-}
-.giving-confirm-box .giving-confirm-choice .goods-info .goods-choice .giving-choice-num .num-insert {
-  width: 0.93333rem;
-}
-.giving-confirm-box .giving-confirm-choice .goods-info .goods-choice .giving-choice-num .reduce,
-.giving-confirm-box .giving-confirm-choice .goods-info .goods-choice .giving-choice-num .add {
-  width: 1.06667rem;
-}
-.giving-confirm-box .giving-word-area {
-  font-size: 0.37333rem;
-  background-color: #fff;
-  padding-top: 0;
-  padding-right: 0.4rem;
-  padding-bottom: 0.53333rem;
-  padding-left: 0.4rem;
-}
-.giving-confirm-box .giving-word-area .giving-word-tit {
-  height: 1.17333rem;
-  line-height: 1.17333rem;
-}
-.giving-confirm-box .giving-word-area .giving-word-tit span {
-  display: block;
-  padding-left: 0.18667rem;
-}
-.giving-confirm-box .giving-word-area .giving-word-tit .icon {
-  width: 0.45333rem;
-  height: 1.17333rem;
-  display: block;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0907.png') no-repeat -6.72rem -5.2rem;
-  background-size: 13.33333rem 13.33333rem;
-}
-.giving-confirm-box .giving-word-area .giving-word-content {
-  height: 2.4rem;
-  border: 1px solid #f0f0f0;
-  padding-top: 0.29333rem;
-  padding-right: 0.4rem;
-  padding-bottom: 0.29333rem;
-  padding-left: 0.4rem;
-}
-.giving-confirm-box .giving-word-area .giving-word-content textarea {
-  width: 100%;
-  height: 100%;
-  color: #1e1e1e;
-  text-align: justify;
-  background: transparent;
-  line-height: 0.58667rem;
-}
-.giving-confirm-box .giving-word-area .giving-word-content textarea.on {
-  color: #7f7f7f;
-}
-.giving-confirm-box .giving-confirm-pay {
-  width: 100%;
-  height: 1.33333rem;
-  line-height: 1.33333rem;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  color: #fff;
-  font-size: 0.45333rem;
-}
-.giving-confirm-box .giving-confirm-pay .price-contain {
-  flex: 1;
-  height: 100%;
-  padding-left: 0.4rem;
-  background-color: #1e1e1e;
-  opacity: 0.98;
-  font-family: "Arial";
-}
-.giving-confirm-box .giving-confirm-pay .pay-btn {
-  display: block;
-  width: 4rem;
-  text-align: center;
-  color: #fff;
-  background-color: #f22549;
-  opacity: 0.98;
 }
 .delivery-nav {
   height: 1.06667rem;

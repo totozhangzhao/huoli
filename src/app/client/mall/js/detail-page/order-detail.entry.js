@@ -25,7 +25,7 @@ import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import orderDetailTpl from "app/client/mall/tpl/detail-page/order-detail.tpl";
-
+import GiftContentView from "app/client/mall/js/detail-page/order-detail/views/gift-status.js";
 const orderLog = widget.initTracker("order");
 
 const AppView = Backbone.View.extend({
@@ -141,23 +141,7 @@ const AppView = Backbone.View.extend({
           price: this.orderDetail.mtotal,
           points: this.orderDetail.ptotal
         });
-        const tmplData = {
-          orderDetail: this.orderDetail,
-          isWechat: wechatUtil.isWechatFunc()
-        };
-        $("#order-detail-container").html( orderDetailTpl(tmplData) );
-
-        this.renderBuyNumView(this.orderDetail);
-
-        new FooterView().render();
-
-        mallWechat.initShare({
-          wechatshare: this.orderDetail.wechatshare,
-          title: this.orderDetail.title
-        });
-
-        this.$initial.hide();
-
+        this.render();
         orderLog({
           title: this.orderDetail.title,
           hlfrom: parseUrl().hlfrom || "--"
@@ -166,6 +150,36 @@ const AppView = Backbone.View.extend({
         toast(err.message, 1500);
       });
   },
+
+  render() {
+    let data = {
+      orderDetail: this.orderDetail,
+      isWechat: wechatUtil.isWechatFunc(),
+      productItem: {
+        productid: this.orderDetail.productid,
+        title: this.orderDetail.title,
+        action: 9
+      },
+      tplUtil
+    };
+    this.$el.html(orderDetailTpl(data));
+    if(this.orderDetail.giftContent) {
+      this.giftContentView = new GiftContentView({orderDetail: this.orderDetail});
+      this.giftContentView.render(this.orderDetail.giftContent);
+    } else {
+      // 是微信送礼的情况 不使用默认分享
+      mallWechat.initShare({
+        wechatshare: this.orderDetail.wechatshare,
+        title: this.orderDetail.title
+      });
+    }
+    this.renderBuyNumView(this.orderDetail);
+    new FooterView().render();
+
+
+    this.$initial.hide();
+  },
+
   initModel(order) {
     this.buyNumModel = new BuyNumModel({
       type:0,

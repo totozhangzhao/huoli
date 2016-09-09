@@ -1,6 +1,13 @@
 <div class="<%= orderDetail.needpay === 1 ? "pay-status-bar" : "pay-after-bar" %>">
   <div class="goods-detail clearfix">
-    <img src="<%= orderDetail.img %>" class="goods-show-pic fl">
+    <a
+      data-productid="<%= productItem.productid %>"
+      data-title="<%= productItem.title %>"
+      class="<%= tplUtil.getJsClass(productItem) %>"
+      href="<%= tplUtil.getBlockUrl(productItem) %>"
+      >
+      <img src="<%= orderDetail.img %>" class="goods-show-pic fl">
+    </a>
     <p class="goods-name"><%= orderDetail.title %></p>
     <div class="goods-charge-info-fa">
       <p class="goods-charge-info num-font"><%= orderDetail.spec %></p><em class="goods-charge-count">数量 x <%= orderDetail.num %></em>
@@ -17,7 +24,8 @@
     <p class="order-detail-info">订单编号：<span class="order-detail-num fr"><%= orderDetail.orderid %></span></p>
     <p class="order-detail-info">成交时间：<span class="order-detail-num fr"><%= orderDetail.createtime %></span></p>
   </div>
-
+  <% if( !orderDetail.giftContent ) { %>
+  <!-- 是微信送礼的情况不显示此区域 begin -->
   <div class="show-select-all">
     <% if ( orderDetail.msg && (String(orderDetail.msgtpl) === "1") ) { %>
     <!-- 兑换码 start -->
@@ -102,7 +110,13 @@
       <% } %>
     <% } %>
   </div>
-
+  <!-- 是微信送礼的情况不显示此区域 end -->
+  <% } else { %>
+  <!-- 是微信送礼的情况显示此区域 begin -->
+  <div id="gift-status-container"></div>
+  <!-- 是微信送礼的情况显示此区域 end -->
+  <% } %>
+  
   <div class="use-method">
     <h5 class="use-method-tit">使用说明</h5>
     <%= orderDetail.note %>

@@ -252,7 +252,6 @@ const AppView = BaseView.extend({
     });
   },
   initModel(goods) {
-    window.console.log(goods.gifttype);
     // init buy panel model
     this.buyNumModel = new BuyNumModel({
       type: 0,
