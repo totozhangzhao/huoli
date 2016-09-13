@@ -159,15 +159,19 @@ const AddressEditView = Backbone.View.extend({
       pphone: this.$el.find("[name=pphone]").val(),
       address: this.$el.find("[name=address]").val(),
       province: {
-        id: this.$el.find("[name=province]").val()
+        id: this.$el.find("[name=province]").val(),
+        name: this.$el.find("[name=province]").find("option:selected").text()
       },
       city: {
-        id: this.$el.find("[name=city]").val()
+        id: this.$el.find("[name=city]").val(),
+        name: this.$el.find("[name=city]").find("option:selected").text()
       },
       area: {
-        id: this.$el.find("[name=area]").val()
+        id: this.$el.find("[name=area]").val(),
+        name: this.$el.find("[name=area]").find("option:selected").text()
       }
     };
+    window.console.log(addressData);
     return addressData;
   }
 });
