@@ -1054,6 +1054,24 @@ p {
 .coffe-color {
   color: #b7926b;
 }
+.sold-out-money,
+.sold-out-point {
+  width: 2.69333rem;
+  height: 3.09333rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0913.png') no-repeat;
+  background-size: 13.33333rem 13.33333rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+.sold-out-money {
+  background-position: -2.93333rem -6.66667rem;
+}
+.sold-out-point {
+  background-position: 0 -6.66667rem;
+}
 img.touch-img {
   transition: all .3s;
 }
