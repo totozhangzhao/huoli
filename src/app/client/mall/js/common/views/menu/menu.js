@@ -1,3 +1,4 @@
+
 import $ from "jquery";
 import Backbone from "backbone";
 import * as widget from "app/client/mall/js/lib/common.js";
@@ -14,6 +15,9 @@ const MenuView = Backbone.View.extend({
 
   template: require("app/client/mall/tpl/common/menu/menu.tpl"),
 
+  /*
+    @param options[viewName]: home, category, my;
+   */
   initialize(options) {
     options = options || {};
     if(options.show) {

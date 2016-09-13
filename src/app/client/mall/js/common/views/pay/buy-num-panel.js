@@ -16,7 +16,9 @@ const BuyNumPanelView = Backbone.View.extend({
     "click .js-spec"             : "changeSpec",
     "click .js-close-panel"      : "close",
     "click .common-shadow"       : "close",
-    "click .js-goods-pay"        : "purchase"
+    "click .js-goods-normal-pay" : "purchase",
+    "click .js-goods-gift-pay"   : "gift",
+    "click .goods-confirm-btn"   : "purchaseHanlder"
   },
 
   initialize(options) {
@@ -231,6 +233,16 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   purchase() {
+    this.model.set({isGift: false}, {silent: true});
+    this.purchaseHanlder();
+  },
+
+  gift() {
+    this.model.set({isGift: true}, {silent: true});
+    this.purchaseHanlder();
+  },
+
+  purchaseHanlder() {
     switch(this.model.get("type")) {
       case 0:
         this.buy();
