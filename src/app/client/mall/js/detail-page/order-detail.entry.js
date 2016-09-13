@@ -165,7 +165,7 @@ const AppView = Backbone.View.extend({
     this.$el.html(orderDetailTpl(data));
     if(this.orderDetail.giftContent) {
       this.giftContentView = new GiftContentView({orderDetail: this.orderDetail});
-      this.giftContentView.render(this.orderDetail.giftContent);
+      this.giftContentView.render();
     } else {
       // 是微信送礼的情况 不使用默认分享
       mallWechat.initShare({

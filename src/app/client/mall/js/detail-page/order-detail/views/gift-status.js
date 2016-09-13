@@ -1,5 +1,4 @@
 // 订单详情页 送礼状态视图
-// 赠言视图
 // import $ from "jquery";
 // import _ from "lodash";
 import Backbone from "backbone";
@@ -25,10 +24,10 @@ let AppView = Backbone.View.extend({
   initialize(options) {
     this.orderDetail = options.orderDetail;
     this.shareInfo = {
-      title: 'title',
+      title: this.orderDetail.title,
       desc: '我精心准备了一份礼物，打开看看喜不喜欢？O(∩_∩)O~',
-      img: 'http://cdn.rsscc.cn/guanggao/img/gaotie/gt-common-goods-1001217.png',
-      link: 'http://www.baidu.com'
+      img: this.orderDetail.img,
+      link: `${document.location.origin}/fe/app/client/mall/html/gift/receive.html?giftId=${this.orderDetail.orderid}`
     };
 
     // 不在app内的情况 设置分享信息
@@ -40,10 +39,10 @@ let AppView = Backbone.View.extend({
     }
   },
 
-  render(giftContent) {
+  render() {
     this.$el.html(template({
       giftConfig,
-      giftContent
+      giftContent: this.orderDetail.giftContent
     }));
   },
 

@@ -1,23 +1,18 @@
-import Index from "app/client/mall/js/gift/view/index.js";
-import Receive from "app/client/mall/js/gift/view/receive.js";
-import Info from "app/client/mall/js/gift/view/info.js";
-import AddAddressView     from "app/client/mall/js/detail-page/goods-detail/view/address-add.js";
-import ConfirmAddressView from "app/client/mall/js/detail-page/goods-detail/view/address-confirm.js";
-import AddressListView    from "app/client/mall/js/detail-page/goods-detail/view/address-list.js";
+import Index from "app/client/mall/js/gift/views/index.js";
+import Receive from "app/client/mall/js/gift/views/receive.js";
+import Info from "app/client/mall/js/gift/views/info.js";
+import Success from "app/client/mall/js/gift/views/success.js";
 import {createRouter}     from "app/client/mall/js/common/router/router-factory.js";
-import BackTop from "com/mobile/widget/button/to-top.js";
-new BackTop();
 
 const viewDic = {
   "index"          : Index,
   "receive"        : Receive,
   "info"           : Info,
-  "address-add"    : AddAddressView,
-  "address-confirm": ConfirmAddressView,
-  "address-list"   : AddressListView
+  "success"        : Success
 };
 
 export default createRouter({
   viewDic,
-  defaultView: "index"
+  defaultView: "index",
+  hideNavigator: true
 });

@@ -50,22 +50,22 @@
       <div class="js-close-panel goods-confirm-close">
         <b class="close-icon"></b>
       </div>
-      <a class="js-goods-pay goods-confirm-btn">确认</a>
-    <% } else { %>
-
-    <% 
-      if(giftType === 3) {
-    %>
-    <!-- 微信送礼  -->
-      <div class="goods-buygiving-bar flex-row">
-        <a class="js-goods-gift-pay <%= canPay ? '' : 'unable'%>">微信送礼</a>
-        <a class="js-goods-pay js-goods-normal-pay <%= canPay ? '' : 'unable'%>">立即购买</a>
-      </div>
-    <% } else {%>
+      <% var confirmClass = isGift ? "black-btn" : ""; %>
       <div class="goods-buynow-bar">
-        <a class="js-goods-pay js-goods-normal-pay <%= canPay ? '' : 'unable'%>">立即购买</a>
+        <a class="js-goods-pay goods-confirm-btn <%= confirmClass %>">立即购买</a>
       </div>
-    <% } %>
+    <% } else { %>
+      <% if(giftType === 3 && canPay) { %>
+      <!-- 微信送礼  -->
+        <div class="goods-buygiving-bar flex-row">
+          <a class="js-goods-gift-pay">微信送礼</a>
+          <a class="js-goods-pay js-goods-normal-pay">立即购买</a>
+        </div>
+      <% } else {%>
+        <div class="goods-buynow-bar">
+          <a class="js-goods-pay js-goods-normal-pay <%= canPay ? '' : 'unable'%>">立即购买</a>
+        </div>
+      <% } %>
     <% } %>
   </div>
 <% } %>

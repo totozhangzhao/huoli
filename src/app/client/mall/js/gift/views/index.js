@@ -1,91 +1,92 @@
-
-// import _ from "lodash";
+// 微信送礼 收礼页面
+import $ from "jquery";
+import _ from "lodash";
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
 import * as mallUitl       from "app/client/mall/js/lib/util.js";
 import UrlUtil        from "com/mobile/lib/url/url.js";
 import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
+import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import * as mallWechat     from "app/client/mall/js/lib/wechat.js";
 // import cookie from "com/mobile/lib/cookie/cookie.js";
 import * as widget    from "app/client/mall/js/lib/common.js";
 import logger         from "com/mobile/lib/log/log.js";
 import ui             from "app/client/mall/js/lib/ui.js";
-
+import {toast} from "com/mobile/widget/hint/hint.js";
 // Views
 
 // var Footer        = require("app/client/mall/js/common/views/footer.js");
 import BaseView       from "app/client/mall/js/common/views/BaseView.js";
-import {initTracker}  from "app/client/mall/js/lib/common.js";
-import BackTop from "com/mobile/widget/button/to-top.js";
-const activeListLog = initTracker("activeList");
-
+import template from "app/client/mall/tpl/gift/index.tpl";
+const defaultTitle = "微信送礼";
 const IndexView = BaseView.extend({
-  el: "#receive-container",
+
+  el: "#index",
 
   events: {
     "click .js-new-page": "createNewPage",
-    "click .js-get-url" : "handleGetUrl"
+    "click .js-get-url" : "handleGetUrl",
+    "click [data-target-view]": "changeView",
+    "click [data-to-view]": "gotoPage"
   },
 
-  initialize() {
+  initialize(commonData) {
+    _.extend(this, commonData);
     this.$initial = ui.initial().show();
-    new BackTop();
-    this.urlObj = UrlUtil.parseUrlSearch();
-    this.activeId = this.urlObj.groupId;
-    this.giftId = this.urlObj.giftId;
-    this.getToken();
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
+    logger.track(`${mallUitl.getAppName()}PV`, "View PV", defaultTitle);
   },
 
   getToken() {
-    if ( loginUtil.shouldGetWeChatKey() ) {
-      let curUrl = window.location.href;
-      let returnUrl = curUrl.substring(0, curUrl.indexOf('.html') + 5 ) + '?giftId=' + this.giftId;
-      return window.location.href = loginUtil.getWechatAuthUrl(returnUrl);
-    } else if (this.urlObj.wechatKey) {
-      loginUtil
+    if ( wechatUtil.isWechatFunc() ) {
+      if(!this.urlObj.wechatKey) {
+        let returnUrl = `${document.location.origin}/fe/app/client/mall/html/gift/receive.html?giftId=${this.giftId}`;
+        return window.location.href = loginUtil.getWechatAuthUrl(returnUrl);
+      } else {
+        loginUtil
         .getTokenByWeChatKey(this.urlObj.wechatKey)
         .then(data => {
           return new Promise((resolve, reject) => {
             if (data.token) {
-              resolve(data.token);
+              resolve();
             } else {
               reject();
             }
           });
 
         })
-        .then(token => {
-          this.fetchData(token);
+        .then(() => {
+          this.fetchData();
         })
         .catch(err => {
           mallPromise.catchFn(err);
           // this.render();
         });
+      }
     } else {
-      window.console.log("ES: 未获取到 wechatKey");
-      this.$initial.hide();
-      // this.render();
+      toast("请在微信中打开", 4000);
     }
   },
 
   render() {
-    mallWechat.initShare({
-      wechatshare: this.result.wechatshare,
-      title: this.result.title,
-      useAppShare: true
-    });
+    this.$initial.hide();
+    this.$el.html(template({
+      data: this.result
+    }));
+    mallWechat.initShare();// 默认分享商城首页
+    widget.updateViewTitle(this.result.title || defaultTitle);
     return this;
   },
 
   resume() {
-    window.console.log('resumt');
+    this.urlObj = UrlUtil.parseUrlSearch();
+    this.giftId = this.urlObj.giftId;
+    this.getToken();
   },
 
-  fetchData(token){
+  fetchData(){
     const params = {
       orderid: this.giftId,
-      token: token
+      wechatKey: this.urlObj.wechatKey
     };
     const promise = new Promise((resolve, reject) => {
       sendPost("showGift", params, (err, data) => {
@@ -98,19 +99,27 @@ const IndexView = BaseView.extend({
     });
     promise.then(data => {
       this.result = data;
-      this.$initial.hide();
       this.render();
-      widget.updateViewTitle(data.title || document.title);
+    });
+    promise.catch(mallPromise.catchFn);
+  },
 
-      activeListLog({
-        title: data.title || document.title,
-        hlfrom: UrlUtil.parseUrlSearch().hlfrom || "--"
-      });
-    });
-    promise.catch((err) => {
-      window.console.log(err);
-      // mallPromise.catchFn
-    });
+  changeView(e) {
+    let target = $(e.currentTarget).data("targetView");
+    this.router.switchTo(target);
+  },
+
+  /*
+    home 首页
+   */
+  gotoPage(e) {
+    let pageName = $(e.currentTarget).data("toView");
+    let url = "/fe/app/client/mall/index.html";
+    switch(pageName) {
+      case "home":
+        break;
+    }
+    widget.createNewView({ url });
   }
 
 });

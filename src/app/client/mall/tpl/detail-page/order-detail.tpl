@@ -1,19 +1,21 @@
 <div class="<%= orderDetail.needpay === 1 ? "pay-status-bar" : "pay-after-bar" %>">
-  <div class="goods-detail clearfix">
+  <div class="goods-detail flex-row">
     <a
       data-productid="<%= productItem.productid %>"
       data-title="<%= productItem.title %>"
-      class="<%= tplUtil.getJsClass(productItem) %>"
+      class="<%= tplUtil.getJsClass(productItem) %> flex-element"
       href="<%= tplUtil.getBlockUrl(productItem) %>"
       >
-      <img src="<%= orderDetail.img %>" class="goods-show-pic fl">
+      <img src="<%= orderDetail.img %>" class="goods-show-pic">
     </a>
-    <p class="goods-name"><%= orderDetail.title %></p>
-    <div class="goods-charge-info-fa">
-      <p class="goods-charge-info num-font"><%= orderDetail.spec %></p><em class="goods-charge-count">数量 x <%= orderDetail.num %></em>
-    </div>
-    <div class="js-goods-price-old goods-charge-info-fa">
-      <p class="js-goods-price-old goods-charge-info num-font"><span><%= orderDetail.unitPriceText %></span></p>
+    <div class="flex-element">
+      <p class="goods-name"><%= orderDetail.title %></p>
+      <div class="goods-charge-info-fa">
+        <p class="goods-charge-info num-font"><%= orderDetail.spec %></p><em class="goods-charge-count">数量 x <%= orderDetail.num %></em>
+      </div>
+      <div class="goods-charge-info-fa">
+        <p class="goods-charge-info num-font"><span><%= orderDetail.unitPriceText %></span></p>
+      </div>
     </div>
     <!-- trade-status-refund-auditing 退款审核中 -->
     <span class="trade-status <%= orderDetail.stattpl %> "><%= orderDetail.statusstr %></span>

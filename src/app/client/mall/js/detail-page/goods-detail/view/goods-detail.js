@@ -382,7 +382,11 @@ const AppView = BaseView.extend({
     // 13--转入自定义表单页面
     switch (goods.type) {
       case 1:
-        this.exchange();
+        if(this.buyNumModel.get("isGift")) {
+          this.router.switchTo("address-confirm");
+        }else {
+          this.exchange();
+        }
         return;
       case 2:
         this.router.switchTo("form-phone");

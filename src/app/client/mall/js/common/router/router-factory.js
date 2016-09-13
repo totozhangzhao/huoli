@@ -5,6 +5,9 @@ import logger from "com/mobile/lib/log/log.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import * as filter from "app/client/mall/js/common/filter/filter.js";
 
+/*
+  @ opts.hideNavigator true 不显示顶部导航条
+ */
 export function createRouter(opts) {
   if (!opts) {
     throw new Error("Router Factory Error: Parameter Missing or Invalid.");
@@ -64,7 +67,7 @@ export function createRouter(opts) {
         });
         this.previousView = action;
 
-        filter.after(action);
+        filter.after(action, {hideNavigator: opts.hideNavigator});
       } else {
         window.console.log(`-- [Backbone View] not found! action: ${action} --`);
         this.replaceTo(defaultView);

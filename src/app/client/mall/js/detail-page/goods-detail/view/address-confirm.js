@@ -44,7 +44,7 @@ const AppView = Backbone.View.extend({
     }
 
     const curAddressId = this.cache.curAddressId;
-    const addressList = this.collection.addressList;
+    const addressList = this.collection.addressList || [];
     this.curAddress = null;
 
 

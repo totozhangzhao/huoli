@@ -5,14 +5,14 @@ export function before() {
 
 }
 
-export function after(action) {
+export function after(action, options) {
   if ( !/-detail|-desc|get-url/.test(action) ) {
     mallWechat.initShare();
   }
 
   if ( /get-url/.test(action) ) {
     document.title = "";
-  } else {
+  } else if(!options.hideNavigator) {
     nav.render(100);
   }
 }
