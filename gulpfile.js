@@ -7,10 +7,10 @@
  */
 
 var gulp           = require("gulp");
-var autoprefixer   = require("gulp-autoprefixer");
 var minifyHTML     = require("gulp-minify-html");
-var cleanCSS       = require('gulp-clean-css');
-var notify         = require("gulp-notify");
+var postcss        = require('gulp-postcss');
+var autoprefixer   = require('autoprefixer');
+var cssnano        = require('cssnano');
 var del            = require("del");
 var runSequence    = require("run-sequence");
 var webpackBuilder = require("./builder/webpack/index.js");
@@ -49,9 +49,12 @@ gulp.task("html", function() {
 
 // Styles
 gulp.task("styles", function() {
+  var processors = [
+    autoprefixer(),
+    cssnano()
+  ];
   return gulp.src(config.src + "**/*.css")
-    .pipe(autoprefixer())
-    .pipe(cleanCSS())
+    .pipe(postcss(processors))
     // .pipe(versionRef())
     .pipe(gulp.dest(config.dest))
 });

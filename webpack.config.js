@@ -55,7 +55,7 @@ module.exports = {
         }
       },
       { test: /\.tpl$/, loader: "tpl-loader" },
-      { test: /\.css$/, loader: "style-loader!css-loader?minimize!autoprefixer-loader" }
+      { test: /\.css$/, loader: "style-loader!css-loader!postcss-loader" }
     ],
     preLoaders: [
       {
@@ -68,6 +68,9 @@ module.exports = {
   eslint: {
     configFile: ".eslintrc",
     formatter: require("eslint-friendly-formatter")
+  },
+  postcss: function() {
+    return [autoprefixer, cssnano];
   },
   plugins: [
     // add it in build task
