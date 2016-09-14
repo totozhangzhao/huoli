@@ -11,7 +11,7 @@
   %>
     <li>
       <a
-        data-log-mall-click="category_<%= item.title %>-<%= item.productid %>"
+        data-log-mall-click="category-list_<%= item.title %>-<%= item.productid %>"
         data-productid="<%= item.productid %>"
         data-group-id="<%= item.groupId %>"
         data-title="<%= item.title %>"
