@@ -11,7 +11,13 @@
     </span>
   </p>
 </div>
-<a class="giving-btn red-color" data-target-view="receive">开心领取</a>
+  <% if(data.type === 103) { %>
+    <!-- 填写地址 -->
+  <a class="giving-btn red-color" data-target-view="receive">开心领取</a>
+  <% } else if(data.type === 101) { %>
+    <!-- 券码类 -->
+  <a class="giving-btn red-color" data-target-hanlder="receive">开心领取</a>
+  <% } %>
 <% } else if(data.status === 2) { %>
 <!-- 已领取 -->
 <div class="giving-msg">
