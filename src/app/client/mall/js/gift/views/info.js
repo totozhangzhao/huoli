@@ -56,8 +56,7 @@ const ReceiveView = BaseView.extend({
   fetch() {
     this.$initial.show();
     const params = {
-      orderid: this.urlObj.giftId,
-      wechatKey: this.urlObj.wechatKey
+      orderid: this.urlObj.giftId
     };
     let promise = new Promise((resolve, reject) => {
       sendPost("giftDetail", params, (err, data) => {

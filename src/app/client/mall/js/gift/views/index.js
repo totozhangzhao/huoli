@@ -8,7 +8,7 @@ import UrlUtil        from "com/mobile/lib/url/url.js";
 import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import * as mallWechat     from "app/client/mall/js/lib/wechat.js";
-// import cookie from "com/mobile/lib/cookie/cookie.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
 import * as widget    from "app/client/mall/js/lib/common.js";
 import logger         from "com/mobile/lib/log/log.js";
 import ui             from "app/client/mall/js/lib/ui.js";
@@ -33,6 +33,7 @@ const IndexView = BaseView.extend({
   initialize(commonData) {
     _.extend(this, commonData);
     this.$initial = ui.initial().show();
+    this.$initial.hide();
     logger.track(`${mallUitl.getAppName()}PV`, "View PV", defaultTitle);
   },
 
@@ -47,6 +48,14 @@ const IndexView = BaseView.extend({
         .then(data => {
           return new Promise((resolve, reject) => {
             if (data.token) {
+              resolve();
+            } else if(data.tempkey){
+              let cookieConfig = {
+                expires: 86400 * 30,
+                domain: location.hostname,
+                path: "/"
+              };
+              cookie.set("token", data.tempkey, cookieConfig);
               resolve();
             } else {
               reject();
@@ -85,8 +94,7 @@ const IndexView = BaseView.extend({
 
   fetchData(){
     const params = {
-      orderid: this.giftId,
-      wechatKey: this.urlObj.wechatKey
+      orderid: this.giftId
     };
     const promise = new Promise((resolve, reject) => {
       sendPost("showGift", params, (err, data) => {
@@ -114,7 +122,7 @@ const IndexView = BaseView.extend({
    */
   gotoPage(e) {
     let pageName = $(e.currentTarget).data("toView");
-    let url = "/fe/app/client/mall/index.html";
+    let url = `${document.location.origin}/fe/app/client/mall/index.html`;
     switch(pageName) {
       case "home":
         break;
