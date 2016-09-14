@@ -61,8 +61,7 @@ const ReceiveView = BaseView.extend({
     if(this.addressView.valid()) {
       const params = {
         orderid: UrlUtil.parseUrlSearch().giftId,
-        address: this.addressView.getAddress(),
-        wechatKey: this.urlObj.wechatKey
+        address: this.addressView.getAddress()
       };
       let promise = new Promise((resolve, reject) => {
         sendPost("createGiftOrder", params, (err, data) => {
