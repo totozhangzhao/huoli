@@ -78,7 +78,8 @@ const AppView = Backbone.View.extend({
       buttonText: this.cache.goods.confirm,
       unitPriceTpl: model.getPPriceTpl(1),
       unitPriceText: model.getPPriceText(1),
-      totalPriceText: model.getPPriceText()
+      totalPriceText: model.getPPriceText(),
+      totalPriceTpl: model.getPPriceTpl()
     };
     _.extend(data, model.toJSON());
     this.$el.html(mainViewTpl(data));

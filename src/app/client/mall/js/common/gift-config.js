@@ -5,6 +5,7 @@ export default {
     1: {className: 'send', tip: '未领取'},
     2: {className: 'notice', tip: '已领取'},
     3: {tip: '已被领取'},
-    4: {className: 'again', tip: '已失效'}
+    4: {className: 'again', tip: '已失效'},
+    5: {className: 'again', tip: '未支付'}
   }
 };
