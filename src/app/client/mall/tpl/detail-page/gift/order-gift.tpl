@@ -14,6 +14,8 @@
         <p class="order-status-msg flex-row"><b class="icon"></b><span><%= giftContent.content %></span></p>
       </div>
     </div>
+    <% if(giftContent.status !== 5)  {%>
     <a class="order-giving-btn"><%= giftContent.button %></a>
+    <% } %>
   </div>
 </div>

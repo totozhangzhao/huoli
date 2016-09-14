@@ -30,7 +30,11 @@ let AppView = Backbone.View.extend({
       link: `${document.location.origin}/fe/app/client/mall/html/gift/receive.html?giftId=${this.orderDetail.orderid}`
     };
 
-    // 不在app内的情况 设置分享信息
+    if(this.orderDetail.giftContent.status !== 5) {
+      this.shareInfo.desc = this.orderDetail.shotdesc;
+      this.shareInfo.link = `${document.location.origin}/fe/app/client/mall/html/detail-page/goods-detail.html?title=${this.orderDetail.title}&productid=${this.orderDetail.productid}`;
+    }
+    // 不在app内的情况 并且gift 设置分享信息
     if(!mallUitl.isAppFunc()) {
       mallWechat.initShare({
         wechatshare: this.shareInfo,
