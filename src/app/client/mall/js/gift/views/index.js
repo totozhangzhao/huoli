@@ -38,8 +38,9 @@ const IndexView = BaseView.extend({
   },
 
   getToken() {
+    let oldWechatKey = cookie.get("giftWechatKey");
     if ( wechatUtil.isWechatFunc() ) {
-      if(!this.urlObj.wechatKey) {
+      if(!this.urlObj.wechatKey || this.urlObj.wechatKey == oldWechatKey) {
         let returnUrl = `${document.location.origin}/fe/app/client/mall/html/gift/receive.html?giftId=${this.giftId}`;
         return window.location.href = loginUtil.getWechatAuthUrl(returnUrl);
       } else {
@@ -56,6 +57,7 @@ const IndexView = BaseView.extend({
                 path: "/"
               };
               cookie.set("token", data.tempkey, cookieConfig);
+              cookie.set("giftWechatKey", this.urlObj.wechatKey, cookieConfig);
               resolve();
             } else {
               reject();
@@ -162,7 +164,7 @@ const IndexView = BaseView.extend({
       if(data.status === 0) {
         this.router.replaceTo("index");
       } else if(data.status === 1) {
-        this.router.replaceTo("success");
+        this.router.replaceTo("info");
       }
     }));
     promise.catch(mallPromise.catchFn);

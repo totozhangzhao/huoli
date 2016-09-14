@@ -1691,9 +1691,6 @@ img.touch-img {
 .goods-detail-box .goods-buygiving-bar {
   width: 100%;
   height: 1.33333rem;
-  position: absolute;
-  left: 0;
-  bottom: 0;
 }
 .goods-detail-box .goods-buynow-bar a {
   display: block;
@@ -3017,6 +3014,7 @@ img.touch-img {
   position: relative;
   left: 0;
   top: 0;
+  background-color: #f7f7f7;
 }
 .giving-box .address-foot-box {
   width: 100%;
@@ -3163,8 +3161,8 @@ img.touch-img {
   color: #1e1e1e;
 }
 .giving-order-detail .giving-cdkey .giving-cdkey-son .cdkey-num {
-  line-height: 0.69333rem;
-  font-size: 0.42667rem;
+  line-height: 0.8rem;
+  font-size: 0.58667rem;
   color: #f22549;
 }
 .giving-order-detail .giving-cdkey .giving-cdkey-son .cdkey-time {
