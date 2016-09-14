@@ -33,7 +33,6 @@ const IndexView = BaseView.extend({
   initialize(commonData) {
     _.extend(this, commonData);
     this.$initial = ui.initial().show();
-    this.$initial.hide();
     logger.track(`${mallUitl.getAppName()}PV`, "View PV", defaultTitle);
   },
 
