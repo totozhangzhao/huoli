@@ -27,6 +27,7 @@ const IndexView = BaseView.extend({
     "click .js-new-page": "createNewPage",
     "click .js-get-url" : "handleGetUrl",
     "click [data-target-view]": "changeView",
+    "click [data-target-hanlder]": "hanlder",
     "click [data-to-view]": "gotoPage"
   },
 
@@ -37,8 +38,9 @@ const IndexView = BaseView.extend({
   },
 
   getToken() {
+    let oldWechatKey = cookie.get("giftWechatKey");
     if ( wechatUtil.isWechatFunc() ) {
-      if(!this.urlObj.wechatKey) {
+      if(!this.urlObj.wechatKey || this.urlObj.wechatKey == oldWechatKey) {
         let returnUrl = `${document.location.origin}/fe/app/client/mall/html/gift/receive.html?giftId=${this.giftId}`;
         return window.location.href = loginUtil.getWechatAuthUrl(returnUrl);
       } else {
@@ -55,6 +57,7 @@ const IndexView = BaseView.extend({
                 path: "/"
               };
               cookie.set("token", data.tempkey, cookieConfig);
+              cookie.set("giftWechatKey", this.urlObj.wechatKey, cookieConfig);
               resolve();
             } else {
               reject();
@@ -127,6 +130,44 @@ const IndexView = BaseView.extend({
         break;
     }
     widget.createNewView({ url });
+  },
+
+  hanlder() {
+    // let target = $(e.currentTarget).data("targetHanlder");
+    // switch(target) {
+    //   case "receive":
+    //     // 券码类
+    //     this.receiveGift();
+    //     break;
+    // }
+    this.receiveGift();
+  },
+
+  // 收取礼物
+  receiveGift() {
+    const params = {
+      orderid: this.giftId
+    };
+    let promise = new Promise((resolve, reject) => {
+      sendPost("createGiftOrder", params, (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+
+    });
+    promise.then((data => {
+      toast(data.msg, 3000);
+      window.console.log(data);
+      if(data.status === 0) {
+        this.router.replaceTo("index");
+      } else if(data.status === 1) {
+        this.router.replaceTo("info");
+      }
+    }));
+    promise.catch(mallPromise.catchFn);
   }
 
 });
