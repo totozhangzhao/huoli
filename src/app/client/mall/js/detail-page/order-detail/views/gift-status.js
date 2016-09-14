@@ -30,7 +30,7 @@ let AppView = Backbone.View.extend({
       link: `${document.location.origin}/fe/app/client/mall/html/gift/receive.html?giftId=${this.orderDetail.orderid}`
     };
 
-    if(this.orderDetail.giftContent.status !== 5) {
+    if(this.orderDetail.giftContent.status === 5) {
       this.shareInfo.desc = this.orderDetail.shotdesc;
       this.shareInfo.link = `${document.location.origin}/fe/app/client/mall/html/detail-page/goods-detail.html?title=${this.orderDetail.title}&productid=${this.orderDetail.productid}`;
     }
