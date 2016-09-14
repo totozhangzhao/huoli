@@ -7,7 +7,7 @@
 <div class="giving-msg">
   <p class="giving-msg-son coffe-color">
     <span class="quote-fa">
-      <span class="quote"><%= data.detail.remark %>\(^o^)/~</span>
+      <span class="quote"><%= data.detail.remark %></span>
     </span>
   </p>
 </div>
