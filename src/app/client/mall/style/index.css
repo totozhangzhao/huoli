@@ -3158,16 +3158,16 @@ img.touch-img {
 .giving-order-detail .giving-cdkey .giving-cdkey-son {
   font-family: "Arial";
 }
-.giving-order-detail .giving-cdkey .giving-cdkey-son p:nth-child(1) {
+.giving-order-detail .giving-cdkey .giving-cdkey-son .cdkey-tit {
   line-height: 0.64rem;
   color: #1e1e1e;
 }
-.giving-order-detail .giving-cdkey .giving-cdkey-son p:nth-child(2) {
+.giving-order-detail .giving-cdkey .giving-cdkey-son .cdkey-num {
   line-height: 0.69333rem;
   font-size: 0.42667rem;
   color: #f22549;
 }
-.giving-order-detail .giving-cdkey .giving-cdkey-son p:nth-child(3) {
+.giving-order-detail .giving-cdkey .giving-cdkey-son .cdkey-time {
   line-height: 0.61333rem;
   color: #7f7f7f;
 }
