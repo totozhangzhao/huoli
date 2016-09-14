@@ -44,6 +44,12 @@ const IndexView = BaseView.extend({
         let returnUrl = `${document.location.origin}/fe/app/client/mall/html/gift/receive.html?giftId=${this.giftId}`;
         return window.location.href = loginUtil.getWechatAuthUrl(returnUrl);
       } else {
+        const cookieConfig = {
+          expires: 86400 * 30,
+          domain: location.hostname,
+          path: "/"
+        };
+        cookie.set("giftWechatKey", this.urlObj.wechatKey, cookieConfig);
         loginUtil
         .getTokenByWeChatKey(this.urlObj.wechatKey)
         .then(data => {
@@ -51,19 +57,12 @@ const IndexView = BaseView.extend({
             if (data.token) {
               resolve();
             } else if(data.tempkey){
-              let cookieConfig = {
-                expires: 86400 * 30,
-                domain: location.hostname,
-                path: "/"
-              };
               cookie.set("token", data.tempkey, cookieConfig);
-              cookie.set("giftWechatKey", this.urlObj.wechatKey, cookieConfig);
               resolve();
             } else {
               reject();
             }
           });
-
         })
         .then(() => {
           this.fetchData();
