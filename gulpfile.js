@@ -8,9 +8,9 @@
 
 var gulp           = require("gulp");
 var minifyHTML     = require("gulp-minify-html");
-var postcss        = require('gulp-postcss');
-var autoprefixer   = require('autoprefixer');
-var cssnano        = require('cssnano');
+var postcss        = require("gulp-postcss");
+var autoprefixer   = require("autoprefixer");
+var cssnano        = require("cssnano");
 var del            = require("del");
 var runSequence    = require("run-sequence");
 var webpackBuilder = require("./builder/webpack/index.js");
