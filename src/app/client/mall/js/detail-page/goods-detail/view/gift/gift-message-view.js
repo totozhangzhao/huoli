@@ -22,9 +22,9 @@ let AppView = Backbone.View.extend({
     this.$el.html(template({
       giftConfig
     }));
-    this.showTip =_.debounce(function () {
+    this.showTip =_.throttle(function () {
       toast("限50个字，话不在多哦～", 1000);
-    },500);
+    },2000);
   },
 
   render() {
