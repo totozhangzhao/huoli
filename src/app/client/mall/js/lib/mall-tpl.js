@@ -32,7 +32,7 @@ export function getBlockUrl(item) {
     // "5": "/fe/app/client/mall/html/menu/category.html",
     "6": "/fe/app/client/mall/html/active-page/crowd/main.html",
     "7": "/fe/app/client/mall/html/menu/grab.html",
-    "8": "/fe/app/client/mall/html/menu/new-category.html",
+    "8": "/fe/app/client/mall/html/list-page/category/list.html",
     "801": "/fe/app/client/mall/html/menu/category.html",   // 分类列表页
     "11": "/fe/app/client/mall/html/shake/shake.html",      // 摇一摇
     "10": "/fe/app/client/mall/html/list-page/active/list.html",   // 活动模版
