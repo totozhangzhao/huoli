@@ -2,6 +2,7 @@
 import $ from "jquery";
 import _ from "lodash";
 import Backbone from "backbone";
+import {toast} from "com/mobile/widget/hint/hint.js";
 import giftConfig from "app/client/mall/js/common/gift-config.js";
 import template from "app/client/mall/tpl/detail-page/gift/gift-message.tpl";
 let AppView = Backbone.View.extend({
@@ -12,7 +13,8 @@ let AppView = Backbone.View.extend({
 
   events: {
     "focus textarea.postscript": "focusHanlder",
-    "blur textarea.postscript": "blurHanlder"
+    "blur textarea.postscript": "blurHanlder",
+    "input textarea.postscript": "inputEventHanlder"
   },
 
   initialize(options) {
@@ -20,6 +22,9 @@ let AppView = Backbone.View.extend({
     this.$el.html(template({
       giftConfig
     }));
+    this.showTip =_.debounce(function () {
+      toast("最多输入50个字!", 1000);
+    },500);
   },
 
   render() {
@@ -57,7 +62,15 @@ let AppView = Backbone.View.extend({
   getGiftMessage() {
     let msg = this.getTextarea().val();
     return _.trim(msg);
+  },
+
+  inputEventHanlder(e) {
+    if( $(e.currentTarget).val().length === 50 ) {
+      this.showTip();
+    }
   }
+
+
 
 });
 
