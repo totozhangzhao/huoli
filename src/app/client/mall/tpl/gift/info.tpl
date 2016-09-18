@@ -29,7 +29,7 @@
   <!-- 兑换码 有效期信息 -->
   <% if( data.msgtpl === 1 ) {%>
   <div class="giving-cdkey">
-    <div class="js-copy giving-cdkey-son">
+    <div class="js-copy giving-cdkey-son show-select-all">
       <%= data.msg %>
       <p class="cdkey-time">有效期至<%= data.expdate %></p>
     </div>
