@@ -13,6 +13,7 @@ import * as widget    from "app/client/mall/js/lib/common.js";
 import logger         from "com/mobile/lib/log/log.js";
 import ui             from "app/client/mall/js/lib/ui.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
+import hint from "com/mobile/widget/hint/hint.js";
 // Views
 
 // var Footer        = require("app/client/mall/js/common/views/footer.js");
@@ -144,6 +145,7 @@ const IndexView = BaseView.extend({
 
   // 收取礼物
   receiveGift() {
+    hint.showLoading();
     const params = {
       orderid: this.giftId
     };
@@ -158,8 +160,8 @@ const IndexView = BaseView.extend({
 
     });
     promise.then((data => {
-      toast(data.msg, 3000);
-      window.console.log(data);
+      hint.hideLoading();
+      toast(data.msg, 1000);
       if(data.status === 0) {
         this.router.replaceTo("index");
       } else if(data.status === 1) {

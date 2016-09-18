@@ -25,7 +25,7 @@ let AppView = Backbone.View.extend({
     this.orderDetail = options.orderDetail;
     this.shareInfo = {
       title: this.orderDetail.title,
-      desc: '我精心准备了一份礼物，打开看看喜不喜欢？O(∩_∩)O~',
+      desc: giftContent.shareInfo.desc,
       img: this.orderDetail.img,
       link: `${document.location.origin}/fe/app/client/mall/html/gift/receive.html?giftId=${this.orderDetail.orderid}`
     };
