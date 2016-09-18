@@ -6,17 +6,17 @@ import * as mallUitl from "app/client/mall/js/lib/util.js";
 import logger from "com/mobile/lib/log/log.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
-import {config as mallConfig} from "app/client/mall/js/common/config.js";
+import {config} from "app/client/mall/js/common/config.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
 
 window.jQuery = window.$ = $;
 
-function debugFilter() {
+function erudaFilter() {
   loadScript(`${window.location.origin}/fe/com/mobile/develop/eruda.bundle.js`, true);
 }
 
-if ( cookie.get(mallConfig.debugName) ) {
-  debugFilter();
+if ( cookie.get(config.eruda.name) ) {
+  erudaFilter();
 }
 
 export function initRem() {

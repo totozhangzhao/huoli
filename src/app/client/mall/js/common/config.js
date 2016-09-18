@@ -1,5 +1,14 @@
 export const config = {
-  debugName: "____m____",
-  debugToken: "cnNzY2NjbmVydWRh",
-  debugCloseName: "closedebug"
+  eruda: {
+    name: "____m____",
+    token: "cnNzY2NjbmVydWRh",
+    closeName: "closedebug",
+  },
+  mall: {
+    cookieOptions: {
+      expires: 86400 * 30,
+      domain: location.hostname.replace(/^test\./, ""),
+      path: "/"
+    }
+  }
 };

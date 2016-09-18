@@ -14,6 +14,8 @@ import logger         from "com/mobile/lib/log/log.js";
 import ui             from "app/client/mall/js/lib/ui.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
+import {config} from "app/client/mall/js/common/config.js";
+
 // Views
 
 // var Footer        = require("app/client/mall/js/common/views/footer.js");
@@ -45,12 +47,7 @@ const IndexView = BaseView.extend({
         let returnUrl = `${document.location.origin}/fe/app/client/mall/html/gift/receive.html?giftId=${this.giftId}`;
         return window.location.href = loginUtil.getWechatAuthUrl(returnUrl);
       } else {
-        const cookieConfig = {
-          expires: 86400 * 30,
-          domain: location.hostname,
-          path: "/"
-        };
-        cookie.set("giftWechatKey", this.urlObj.wechatKey, cookieConfig);
+        cookie.set("giftWechatKey", this.urlObj.wechatKey, config.mall.cookieOptions);
         loginUtil
         .getTokenByWeChatKey(this.urlObj.wechatKey)
         .then(data => {
@@ -58,7 +55,7 @@ const IndexView = BaseView.extend({
             if (data.token) {
               resolve();
             } else if(data.tempkey){
-              cookie.set("token", data.tempkey, cookieConfig);
+              cookie.set("token", data.tempkey, config.mall.cookieOptions);
               resolve();
             } else {
               reject();
