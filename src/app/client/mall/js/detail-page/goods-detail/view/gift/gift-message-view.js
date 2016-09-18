@@ -23,7 +23,7 @@ let AppView = Backbone.View.extend({
       giftConfig
     }));
     this.showTip =_.debounce(function () {
-      toast("最多输入50个字!", 1000);
+      toast("限50个字，话不在多哦～", 1000);
     },500);
   },
 
