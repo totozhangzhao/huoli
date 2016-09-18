@@ -37,13 +37,6 @@ module.exports = function(config) {
           "jsonrpc": "com/mobile/lib/jsonrpc/jsonrpc.js"
         }
       },
-      // entry: {
-      //   'test/**/*.spec.js'
-      // }
-      // output: {
-      //   path: path.join(__dirname, "dest"),
-      //   // filename: "[name].js"
-      // },
       module: {
         loaders: [{
           test: /\.js$/,
@@ -59,18 +52,6 @@ module.exports = function(config) {
           loader: "tpl-loader"
         }]
       }
-      // plugins: [
-      //   // add it in build task
-      //   // new webpack.optimize.UglifyJsPlugin({
-      //   //   output: {
-      //   //     comments: false
-      //   //   }
-      //   // }),
-      //   new webpack.optimize.CommonsChunkPlugin("vendor", "vendor/vendor-mvc.bundle.js")
-      // ],
-      // devtool: "source-map",
-      // useMemoryFs: true,
-      // progress: true
     },
 
 
