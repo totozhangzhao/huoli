@@ -66,7 +66,6 @@ const AppView = BaseView.extend({
         toast(err.message, 1500);
         return;
       }
-      window.console.log(result);
       this.result = result;
       this.render();
     });

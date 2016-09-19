@@ -3,6 +3,7 @@ import {BasicRequest} from "app/client/common/lib/http/http.js";
 import {dispatch} from "app/client/mall/js/lib/mall-callback.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
+import {config} from "app/client/mall/js/common/config.js";
 
 let idGenerator = (() => {
   let count = 0;
@@ -28,12 +29,7 @@ let callbackWraper = callback => (err, data) => {
         token = result.token;
       }
       if (token) {
-        let cookieConfig = {
-          expires: 86400 * 30,
-          domain: location.hostname,
-          path: "/"
-        };
-        cookie.set("token", token, cookieConfig);
+        cookie.set("token", token, config.mall.cookieOptions);
       }
       callback(null, result);
       dispatch(result);
