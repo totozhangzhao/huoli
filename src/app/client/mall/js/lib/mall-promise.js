@@ -7,6 +7,7 @@ import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
+import {config} from "app/client/mall/js/common/config.js";
 
 export function catchShowError(err) {
   if (err.message && !err.silent) {
@@ -30,10 +31,7 @@ export function catchFn(err) {
   if (err.code === -3330) {
     loginUtil.login();
   } else if (err.code === -3331) {
-    cookie.remove("token", {
-      domain: location.hostname,
-      path: "/"
-    });
+    cookie.remove("token", config.mall.cookieOptions);
     loginUtil.login();
   } else {
     catchShowError(err);

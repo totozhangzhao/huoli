@@ -11,7 +11,7 @@ var cookie      = require("com/mobile/lib/cookie/cookie.js");
 var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 var base64      = require("com/mobile/lib/base64/base64.js").Base64;
-var mallConfig  = require("app/client/mall/js/common/config.js").config;
+var config      = require("app/client/mall/js/common/config.js").config;
 
 // nInvoke("myFunc", {a: 1}, function(err, data) { console.log(err); console.log(data); });
 window.nInvoke = _.bind(NativeAPI.invoke, NativeAPI);
@@ -100,10 +100,7 @@ var AppView = Backbone.View.extend({
     echo(document.cookie);
   },
   removeToken: function() {
-    cookie.remove("token", {
-      domain: location.hostname,
-      path: "/"
-    });
+    cookie.remove("token", config.mall.cookieOptions);
     echo(document.cookie);
   },
   mallTestUrl: function() {
@@ -206,17 +203,12 @@ var AppView = Backbone.View.extend({
   },
   getCoupon: function() {
     var id = $("#get-coupon").val();
-    var cookieConfig = {
-      expires: 86400 * 30,
-      domain: location.hostname,
-      path: "/"
-    };
 
-    if (base64.encode(id) === mallConfig.debugToken) {
-      cookie.set(mallConfig.debugName, mallConfig.debugToken, cookieConfig);
+    if (base64.encode(id) === config.eruda.token) {
+      cookie.set(config.eruda.name, config.eruda.token, config.mall.cookieOptions);
       return;
-    } else if (id === mallConfig.debugCloseName) {
-      cookie.remove(mallConfig.debugName, cookieConfig);
+    } else if (id === config.eruda.closeName) {
+      cookie.remove(config.eruda.name, config.mall.cookieOptions);
       return;
     }
 
