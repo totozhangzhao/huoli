@@ -7,6 +7,7 @@ import * as mallUitl from "app/client/mall/js/lib/util.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import * as widget from "app/client/mall/js/lib/common.js";
+import {config} from "app/client/mall/js/common/config.js";
 
 // wechatKey, auth
 export function getWechatAuthUrl(pageUrl) {
@@ -33,15 +34,10 @@ export function shouldGetWeChatKey(token) {
 }
 
 function saveToken(data) {
-  let cookieConfig = {
-    expires: 86400 * 30,
-    domain: location.hostname,
-    path: "/"
-  };
-  cookie.set("token", data.token, cookieConfig);
-  cookie.set("points", data.points, cookieConfig);
-  cookie.set("level", data.level, cookieConfig);
-  cookie.set("phone", data.phone, cookieConfig);
+  cookie.set("token", data.token, config.mall.cookieOptions);
+  cookie.set("points", data.points, config.mall.cookieOptions);
+  cookie.set("level", data.level, config.mall.cookieOptions);
+  cookie.set("phone", data.phone, config.mall.cookieOptions);
 }
 
 export function getTokenByWeChatKey(wechatKey) {

@@ -1,12 +1,21 @@
 <div class="<%= orderDetail.needpay === 1 ? "pay-status-bar" : "pay-after-bar" %>">
-  <div class="goods-detail clearfix">
-    <img src="<%= orderDetail.img %>" class="goods-show-pic fl">
-    <p class="goods-name"><%= orderDetail.title %></p>
-    <div class="goods-charge-info-fa">
-      <p class="goods-charge-info num-font"><%= orderDetail.spec %></p><em class="goods-charge-count">数量 x <%= orderDetail.num %></em>
-    </div>
-    <div class="js-goods-price-old goods-charge-info-fa">
-      <p class="js-goods-price-old goods-charge-info num-font"><span><%= orderDetail.unitPriceText %></span></p>
+  <div class="goods-detail flex-row">
+    <a
+      data-productid="<%= productItem.productid %>"
+      data-title="<%= productItem.title %>"
+      class="<%= tplUtil.getJsClass(productItem) %> flex-element"
+      href="<%= tplUtil.getBlockUrl(productItem) %>"
+      >
+      <img src="<%= orderDetail.img %>" class="goods-show-pic">
+    </a>
+    <div class="flex-element">
+      <p class="goods-name"><%= orderDetail.title %></p>
+      <div class="goods-charge-info-fa">
+        <p class="goods-charge-info num-font"><%= orderDetail.spec %></p><em class="goods-charge-count">数量 x <%= orderDetail.num %></em>
+      </div>
+      <div class="goods-charge-info-fa">
+        <p class="goods-charge-info num-font"><span><%= orderDetail.unitPriceText %></span></p>
+      </div>
     </div>
     <!-- trade-status-refund-auditing 退款审核中 -->
     <span class="trade-status <%= orderDetail.stattpl %> "><%= orderDetail.statusstr %></span>
@@ -17,7 +26,8 @@
     <p class="order-detail-info">订单编号：<span class="order-detail-num fr"><%= orderDetail.orderid %></span></p>
     <p class="order-detail-info">成交时间：<span class="order-detail-num fr"><%= orderDetail.createtime %></span></p>
   </div>
-
+  <% if( !orderDetail.giftContent ) { %>
+  <!-- 是微信送礼的情况不显示此区域 begin -->
   <div class="show-select-all">
     <% if ( orderDetail.msg && (String(orderDetail.msgtpl) === "1") ) { %>
     <!-- 兑换码 start -->
@@ -102,7 +112,13 @@
       <% } %>
     <% } %>
   </div>
-
+  <!-- 是微信送礼的情况不显示此区域 end -->
+  <% } else { %>
+  <!-- 是微信送礼的情况显示此区域 begin -->
+  <div id="gift-status-container"></div>
+  <!-- 是微信送礼的情况显示此区域 end -->
+  <% } %>
+  
   <div class="use-method">
     <h5 class="use-method-tit">使用说明</h5>
     <%= orderDetail.note %>
