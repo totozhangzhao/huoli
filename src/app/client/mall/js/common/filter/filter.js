@@ -5,8 +5,10 @@ export function before() {
 
 }
 
+// hideNavigator 不使用导航条
+// notUseShare 不使用统一分享
 export function after(action, options) {
-  if ( !/-detail|-desc|get-url/.test(action) ) {
+  if ( !/-detail|-desc|get-url/.test(action) && !options.notUseShare) {
     mallWechat.initShare();
   }
 
