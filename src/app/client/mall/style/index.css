@@ -1706,7 +1706,7 @@ img.touch-img {
   opacity: 0.97;
 }
 .goods-detail-box .goods-buynow-bar a.black-btn {
-  background-color: #1e1e1e;
+  background-color: #feab0a;
 }
 .goods-detail-box .goods-buygiving-bar a {
   display: block;
@@ -1718,7 +1718,7 @@ img.touch-img {
   color: #fff;
 }
 .goods-detail-box .goods-buygiving-bar a:first-child {
-  background-color: #1e1e1e;
+  background-color: #feab0a;
   opacity: 0.96;
 }
 .goods-detail-box .goods-buygiving-bar a:last-child {
@@ -2664,9 +2664,24 @@ img.touch-img {
   flex: 1;
   height: 100%;
   padding-left: 0.4rem;
-  background-color: #1e1e1e;
+  background-color: #fff;
+  color: #f22549;
   opacity: 0.96;
   font-family: "Arial";
+  position: relative;
+  left: 0;
+  top: 0;
+}
+.giving-confirm-pay .price-contain:after {
+  width: 100%;
+  height: 1px;
+  content: '';
+  background-color: #eaeaea;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: scale(1, 0.5);
+  transform-origin: 0 0;
 }
 .giving-confirm-pay .pay-btn {
   display: block;
