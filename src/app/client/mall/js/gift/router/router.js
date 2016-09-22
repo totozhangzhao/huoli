@@ -14,5 +14,6 @@ const viewDic = {
 export default createRouter({
   viewDic,
   defaultView: "index",
-  hideNavigator: true
+  hideNavigator: true,
+  notUseShare: true
 });

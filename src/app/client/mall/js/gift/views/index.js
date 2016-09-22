@@ -1,6 +1,7 @@
 // 微信送礼 收礼页面
 import $ from "jquery";
 import _ from "lodash";
+import giftConfig from "app/client/mall/js/common/gift-config.js";
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
 import * as mallUitl       from "app/client/mall/js/lib/util.js";
@@ -37,6 +38,8 @@ const IndexView = BaseView.extend({
   initialize(commonData) {
     _.extend(this, commonData);
     this.$initial = ui.initial().show();
+    this.urlObj = UrlUtil.parseUrlSearch();
+    this.giftId = this.urlObj.giftId;
     logger.track(`${mallUitl.getAppName()}PV`, "View PV", defaultTitle);
   },
 
@@ -66,6 +69,10 @@ const IndexView = BaseView.extend({
           this.fetchData();
         })
         .catch(err => {
+          if( err.code === -804 ) {
+            cookie.set("giftWechatKey", this.urlObj.wechatKey, config.mall.cookieOptions);
+            return this.getToken();
+          }
           mallPromise.catchFn(err);
           // this.render();
         });
@@ -80,14 +87,25 @@ const IndexView = BaseView.extend({
     this.$el.html(template({
       data: this.result
     }));
-    mallWechat.initShare();// 默认分享商城首页
+    // 设置分享信息
+    let shareInfo = {
+      title: this.result.title || defaultTitle,
+      desc: giftConfig.shareInfo.desc,
+      img: this.result.detail.img,
+      link: `${document.location.origin}/fe/app/client/mall/html/gift/receive.html?giftId=${this.giftId}`
+    };
+    if( this.result.status > 2 ) {
+      // shareInfo = {};
+    }
+    mallWechat.initShare({
+      wechatshare: shareInfo,
+      title: this.result.title || defaultTitle
+    });
     widget.updateViewTitle(this.result.title || defaultTitle);
     return this;
   },
 
   resume() {
-    this.urlObj = UrlUtil.parseUrlSearch();
-    this.giftId = this.urlObj.giftId;
     this.getToken();
   },
 

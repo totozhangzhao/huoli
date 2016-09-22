@@ -11,7 +11,7 @@ class Shake {
     let x = 0, y = 0, z = 0, _x = 0, _y = 0, _z = 0;
     this.config = {};
     this.defaultConfig = {
-      SHAKE_THRESHOLD: 50,
+      SHAKE_THRESHOLD: 20,
       DEBOUNCE_TIME: 600
     };
     _.extend(this.config, this.defaultConfig, config);

@@ -67,7 +67,7 @@ export function createRouter(opts) {
         });
         this.previousView = action;
 
-        filter.after(action, {hideNavigator: opts.hideNavigator});
+        filter.after(action, {hideNavigator: opts.hideNavigator, notUseShare: opts.notUseShare});
       } else {
         window.console.log(`-- [Backbone View] not found! action: ${action} --`);
         this.replaceTo(defaultView);
