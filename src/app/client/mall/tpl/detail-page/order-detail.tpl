@@ -149,7 +149,7 @@
       <div class="goods-qrcode-top">
         <img src="http://cdn.rsscc.cn/guanggao/img/mall/qrcode-top-pic.png?v=1.0" alt="">
       </div>
-      <div class="goods-qrcode-text">及时掌握订单状态</div>
+      <div class="goods-qrcode-text">注意，关注后才能查看订单哦～</div>
       <button class="goods-qrcode-btn btn-toSubscribe"><span class="goods-qrcode-icon">关注航班管家<b></b></span></button>
     </div>
   </div>
