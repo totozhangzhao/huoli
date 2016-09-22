@@ -95,7 +95,7 @@ const IndexView = BaseView.extend({
       link: `${document.location.origin}/fe/app/client/mall/html/gift/receive.html?giftId=${this.giftId}`
     };
     if( this.result.status > 2 ) {
-      shareInfo = {};
+      // shareInfo = {};
     }
     mallWechat.initShare({
       wechatshare: shareInfo,
