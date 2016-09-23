@@ -2706,65 +2706,12 @@ img.touch-img {
 }
 .giving-confirm-status .status-bar-fa {
   padding-top: 0.8rem;
-}
-.giving-confirm-status .status-bar-fa .status-bar .desc {
-  display: block;
-  height: 1.01333rem;
-  line-height: 1.01333rem;
-  font-size: 0.37333rem;
-}
-.giving-confirm-status .status-bar-fa .status-bar .icon {
-  width: 0.66667rem;
-  height: 0.58667rem;
-  display: block;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-0922.png') no-repeat 0.08rem -5.6rem;
-  background-size: 13.33333rem 13.33333rem;
-}
-.giving-confirm-status .status-bar-fa .status-bar:first-child .desc {
-  color: #f22549;
-}
-.giving-confirm-status .status-bar-fa .status-bar:nth-child(1) {
   padding-left: 1.06667rem;
-  flex: 1;
-}
-.giving-confirm-status .status-bar-fa .status-bar:nth-child(1) .icon {
-  margin-left: 0.53333rem;
-}
-.giving-confirm-status .status-bar-fa .status-bar:nth-child(3) {
   padding-right: 1.06667rem;
-  text-align: right;
-  flex: 1;
 }
-.giving-confirm-status .status-bar-fa .status-bar:nth-child(3) .icon {
-  margin-left: 1.44rem;
-  background-position: -1.94667rem -5.6rem;
-}
-.giving-confirm-status .status-bar-fa .status-bar:nth-child(2) {
-  width: 2.66667rem;
-  text-align: center;
-}
-.giving-confirm-status .status-bar-fa .status-bar:nth-child(2) .icon {
-  margin: 0 auto;
-  background-position: -0.96rem -5.6rem;
-  position: relative;
-  left: 0;
-  top: 0;
-}
-.giving-confirm-status .status-bar-fa .status-bar:nth-child(2) .icon .line {
-  width: 2.02667rem;
-  height: 1px;
-  background-color: #7f7f7f;
-  transform: scale(1, 0.5);
-}
-.giving-confirm-status .status-bar-fa .status-bar:nth-child(2) .icon .line:nth-child(1) {
-  position: absolute;
-  left: 0.88rem;
-  top: 0.24rem;
-}
-.giving-confirm-status .status-bar-fa .status-bar:nth-child(2) .icon .line:nth-child(2) {
-  position: absolute;
-  right: 0.88rem;
-  top: 0.24rem;
+.giving-confirm-status .status-bar-fa img {
+  width: 100%;
+  height: 1.38667rem;
 }
 .giving-confirm-status .giving-confirm-tip {
   width: 7.86667rem;
@@ -2775,7 +2722,7 @@ img.touch-img {
   color: #b7926b;
   background: url(http://cdn.rsscc.cn/guanggao/img/icon/dashed-bg.png) no-repeat;
   background-size: 7.86667rem 0.66667rem;
-  margin: 0.21333rem auto 0;
+  margin: 0.42667rem auto 0;
 }
 .giving-word-area {
   font-size: 0.37333rem;

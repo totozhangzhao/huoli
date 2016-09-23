@@ -13,18 +13,7 @@
 <% } else { %>
 <div class="giving-confirm-status">
   <div class="status-bar-fa flex-row">
-    <div class="status-bar">
-      <b class="icon"></b>
-      <span class="desc">确认数量</span>
-    </div>
-    <div class="status-bar">
-      <b class="icon"><span class="line"></span><span class="line"><span></b>
-      <span class="desc">完成支付</span>
-    </div>
-    <div class="status-bar">
-      <b class="icon"></b>
-      <span class="desc">赠送好友</span>
-    </div>
+   <img src="http://cdn.rsscc.cn/guanggao/img/icon/wechat-tip.png?v=2" alt="">
   </div>
   <div class="giving-confirm-tip">
     <span>48小时内礼物未被领取，相应金额原路退回</span>
