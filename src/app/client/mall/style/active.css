@@ -1039,6 +1039,9 @@ p {
   left: 0;
   bottom: 0;
 }
+.focus-color {
+  color: #f22549;
+}
 .red-color {
   background-color: #f22549;
 }

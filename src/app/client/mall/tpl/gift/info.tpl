@@ -57,7 +57,7 @@
     <div class="use-method">
       <h5 class="use-method-tit">温馨提示</h5>
       <div class="use-method-text">
-        <p class="common-text">为了方便您随时查看订单，记得点击右上角按钮并收藏该页面哦！</p>
+        <p class="common-text focus-color">为了方便您随时查看订单，记得点击右上角按钮并收藏该页面哦！</p>
       </div>
     </div>
   </div>
