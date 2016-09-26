@@ -1,7 +1,7 @@
 // 微信送礼相关配置
 export default {
   // 赠言
-  defaultMessage: '精心准备了一份礼物，您喜欢不喜欢？开心收礼物啦\(^o^)/~',
+  defaultMessage: '请收下我的礼物。小小心意，真挚祝福~~点一下就能领走哦！',
   // 订单状态
   OrderDetailInfo: {
     1: {className: 'send', tip: '未领取'},
@@ -12,6 +12,6 @@ export default {
   },
   // 分享信息
   shareInfo:{
-    desc: '我精心准备了一份礼物，打开看看喜不喜欢？O(∩_∩)O~'
+    desc: '请收下我的礼物。小小心意，真挚祝福~~点一下就能领走哦！'
   }
 };

@@ -1,7 +1,7 @@
 // 微信送礼 收礼页面
 import $ from "jquery";
 import _ from "lodash";
-import giftConfig from "app/client/mall/js/common/gift-config.js";
+// import giftConfig from "app/client/mall/js/common/gift-config.js";
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
 import * as mallUitl       from "app/client/mall/js/lib/util.js";
@@ -89,8 +89,8 @@ const IndexView = BaseView.extend({
     }));
     // 设置分享信息
     let shareInfo = {
-      title: this.result.title || defaultTitle,
-      desc: giftConfig.shareInfo.desc,
+      title: this.result.detail.wechatshare.title || defaultTitle,
+      desc: this.result.detail.wechatshare.desc,
       img: this.result.detail.img,
       link: `${document.location.origin}/fe/app/client/mall/html/gift/receive.html?giftId=${this.giftId}`
     };
@@ -99,7 +99,7 @@ const IndexView = BaseView.extend({
     }
     mallWechat.initShare({
       wechatshare: shareInfo,
-      title: this.result.title || defaultTitle
+      title: this.result.detail.wechatshare.title || defaultTitle
     });
     widget.updateViewTitle(this.result.title || defaultTitle);
     return this;
