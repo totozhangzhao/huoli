@@ -4804,6 +4804,13 @@ img.touch-img {
   padding-top: 0.48rem;
   flex: 1;
 }
+.my-coupons-box .my-coupons-bar .my-coupons-area .my-coupons-info p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
 .my-coupons-box .my-coupons-bar .my-coupons-area .my-coupons-info p:nth-child(1) {
   font-size: 0.42667rem;
   margin-bottom: 0.08rem;
