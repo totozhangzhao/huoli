@@ -3592,7 +3592,7 @@ img.touch-img {
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 1em;
-  line-height: 0.375rem;
+  line-height: 0.42667rem;
   color: #333;
 }
 .order-bar p {
