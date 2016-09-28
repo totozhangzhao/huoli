@@ -1075,6 +1075,9 @@ p {
 .margin-space {
   margin-top: 0.26667rem;
 }
+.forbidden-scroll {
+  overflow: hidden;
+}
 .wechat-qrcode-box {
   text-align: center;
   min-height: 100%;

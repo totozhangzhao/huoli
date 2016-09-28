@@ -1075,6 +1075,9 @@ p {
 .margin-space {
   margin-top: 0.26667rem;
 }
+.forbidden-scroll {
+  overflow: hidden;
+}
 .snap-up-box {
   min-height: 100%;
   margin-top: 0;
