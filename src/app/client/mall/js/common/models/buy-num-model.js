@@ -38,8 +38,10 @@ const BuyNumModel = Backbone.Model.extend({
       result = this.getPointsText(num);
     } else if (payType === 2) {
       result = this.getPriceText(num);
-    } else {
+    } else if (payType === 3) {
       result = this.getPriceText(num) + "+" + this.getPointsText(num);
+    }else {
+      result = "";
     }
     return result;
   },
@@ -71,8 +73,11 @@ const BuyNumModel = Backbone.Model.extend({
       case 2:
         result = this.getPriceTpl(num);
         break;
-      default:
+      case 3:
         result = `${this.getPriceTpl(num)}<span>+<span>${this.getPointsTpl(num)}`;
+        break;
+      default:
+        result = "";
         break;
     }
     return result;
