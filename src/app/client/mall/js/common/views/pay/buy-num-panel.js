@@ -245,7 +245,11 @@ const BuyNumPanelView = Backbone.View.extend({
   purchaseHanlder() {
     switch(this.model.get("type")) {
       case 0:
-        $("body").addClass('forbidden-scroll');
+        $("body").addClass('forbidden-scroll')
+        .on('touchmove', function (e) {
+          e.preventDefault();
+        });
+
         this.buy();
         break;
       case 1:
@@ -255,7 +259,8 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   close() {
-    $("body").removeClass('forbidden-scroll');
+    $("body").removeClass('forbidden-scroll')
+    .off('touchmove');
     if(this.model.get("closeAll")) {
       this.model.destroy();
     }else{

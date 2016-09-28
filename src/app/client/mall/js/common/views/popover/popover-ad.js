@@ -120,12 +120,16 @@ const PopoverAd     = Backbone.View.extend({
   },
 
   show() {
-    $("body").addClass('forbidden-scroll');
+    $("body").addClass('forbidden-scroll')
+    .on('touchmove', function (e) {
+      e.preventDefault();
+    });
     this.$el.show();
   },
 
   hide() {
-    $("body").removeClass('forbidden-scroll');
+    $("body").removeClass('forbidden-scroll')
+    .off('touchmove');
     this.$el.hide();
   }
 });
