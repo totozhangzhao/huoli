@@ -47,6 +47,7 @@ const AppView = BaseView.extend({
     this.mallGoodsDetail();
   },
   resume() {
+    mallUitl.allowScroll();
     this.$initial.show();
 
     if (this.title) {

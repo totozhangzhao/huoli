@@ -37,6 +37,9 @@ var PopView = Backbone.View.extend({
   },
   // 隐藏
   hide: function () {
+    if(typeof this.model.get('cancelFunc') === "function"){
+      this.model.get('cancelFunc')();
+    }
     return $(".common-shadow",this.$el).hide();
   },
   // 销毁
@@ -52,9 +55,6 @@ var PopView = Backbone.View.extend({
   },
   // 点击取消按钮
   no: function () {
-    if(typeof this.model.get('cancelFunc') === "function"){
-      this.model.get('cancelFunc')();
-    }
     return this.hide();
   },
   // 更新标题
