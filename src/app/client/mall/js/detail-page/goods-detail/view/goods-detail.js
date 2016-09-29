@@ -419,7 +419,9 @@ const AppView = BaseView.extend({
         agreeFunc: () => {
           this.mallCreateOrder();
         },
-        cancelFunc() {}
+        cancelFunc() {
+          mallUitl.allowScroll();
+        }
       });
       confirm.show();
       return;

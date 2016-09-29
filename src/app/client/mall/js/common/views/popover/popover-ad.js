@@ -1,5 +1,4 @@
 import Backbone   from "backbone";
-import $ from 'jquery';
 import _ from "lodash";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import Storage    from "com/mobile/lib/storage/storage.js";
@@ -120,16 +119,12 @@ const PopoverAd     = Backbone.View.extend({
   },
 
   show() {
-    $("body").addClass('forbidden-scroll')
-    .on('touchmove', function (e) {
-      e.preventDefault();
-    });
+    mallUitl.forbiddenScroll();
     this.$el.show();
   },
 
   hide() {
-    $("body").removeClass('forbidden-scroll')
-    .off('touchmove');
+    mallUitl.allowScroll();
     this.$el.hide();
   }
 });

@@ -1,5 +1,6 @@
 import $ from "jquery";
 import Backbone from "backbone";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import defaultBuyPanelTpl from "app/client/mall/tpl/common/buy-num-panel.tpl";
 
@@ -245,11 +246,7 @@ const BuyNumPanelView = Backbone.View.extend({
   purchaseHanlder() {
     switch(this.model.get("type")) {
       case 0:
-        $("body").addClass('forbidden-scroll')
-        .on('touchmove', function (e) {
-          e.preventDefault();
-        });
-
+        mallUitl.forbiddenScroll();
         this.buy();
         break;
       case 1:
@@ -259,8 +256,7 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   close() {
-    $("body").removeClass('forbidden-scroll')
-    .off('touchmove');
+    mallUitl.allowScroll();
     if(this.model.get("closeAll")) {
       this.model.destroy();
     }else{

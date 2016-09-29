@@ -75,3 +75,20 @@ export function getGaotieAppUrl() {
 export function getUpgradeUrl() {
   return "http://cdn.rsscc.cn/guanggao/upgrade/upgrade.html";
 }
+
+export function forbiddenScroll() {
+  if($("body").hasClass('forbidden-scroll')) {
+    return;
+  }
+  $("body").addClass('forbidden-scroll')
+  .on('touchmove', (e) => {
+    e.preventDefault();
+  });
+}
+export function allowScroll() {
+  if(!$("body").hasClass('forbidden-scroll')) {
+    return;
+  }
+  $("body").removeClass('forbidden-scroll')
+  .off('touchmove');
+}
