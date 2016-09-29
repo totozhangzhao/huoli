@@ -1005,7 +1005,7 @@ p {
 }
 .num-items .reduce,
 .num-items .add {
-  width: 0.88rem;
+  width: 1.06667rem;
 }
 .num-items .reduce.off {
   background-color: #fbfbfb;
@@ -1020,7 +1020,7 @@ p {
   background-position: -2.26667rem -0.66667rem;
 }
 .num-items .num-insert {
-  width: 1.73333rem;
+  width: 0.93333rem;
   margin-left: 1px;
   margin-right: 1px;
 }
@@ -2849,13 +2849,6 @@ img.touch-img {
   position: absolute;
   left: 0.37333rem;
   top: 0.26667rem;
-}
-.giving-confirm-choice .goods-info .goods-choice .giving-choice-num .num-insert {
-  width: 0.93333rem;
-}
-.giving-confirm-choice .goods-info .goods-choice .giving-choice-num .reduce,
-.giving-confirm-choice .goods-info .goods-choice .giving-choice-num .add {
-  width: 1.06667rem;
 }
 .giving-box {
   width: 100%;
