@@ -115,7 +115,8 @@ const AppView = Backbone.View.extend({
       address: this.curAddress
     };
     if( this.model.buyNumModel.get("isGift") ) {
-      _.extend(params, {gifttype: 3, remark: encodeURIComponent(this.giftMessageView.getGiftMessage())});
+      let remark = this.giftMessageView.getGiftMessage().replace(/~~+/ig,'~');
+      _.extend(params, {gifttype: 3, remark: encodeURIComponent(remark)});
     }
 
     // 一元夺宝特权券
