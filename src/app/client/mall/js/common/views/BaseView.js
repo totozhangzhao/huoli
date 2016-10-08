@@ -10,6 +10,7 @@ const BaseView = Backbone.View.extend({
   createNewPage(e) {
     widget.createAView(e);
   },
+
   handleGetUrl(e) {
     const productid = $(e.currentTarget).data("productid");
     this.mallGetUrl(productid);

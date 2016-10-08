@@ -185,17 +185,18 @@ p {
   padding-bottom: 1.33333rem;
   padding-left: 0.26667rem;
 }
-.copyright-bar-text:nth-child(1) a {
+.copyright-bar-text.copyright-bar-tip span {
   color: #9b9b9b;
+  background-color: transparent;
   display: block;
   width: 100%;
 }
-.copyright-bar-text:nth-child(1),
-.copyright-bar-text:nth-child(2) {
+.copyright-bar-text.copyright-bar-tip,
+.copyright-bar-text.copyright-bar-mail {
   font-size: 0.32rem;
   line-height: 0.53333rem;
 }
-.copyright-bar-text:nth-child(3) {
+.copyright-bar-text.copyright-bar-desc {
   font-size: 0.26667rem;
   line-height: 0.53333rem;
 }
