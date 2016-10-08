@@ -1,8 +1,9 @@
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
+import * as mallUitl from "app/client/mall/js/lib/util.js";
 const nav = new Navigator();
 export function before() {
-
+  mallUitl.allowScroll();
 }
 
 // hideNavigator 不使用导航条
