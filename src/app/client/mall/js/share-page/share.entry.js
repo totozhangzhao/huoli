@@ -181,20 +181,20 @@ const AppView = Backbone.View.extend({
   },
 
   handleShareButton(e) {
-    const urlObj = $(e.currentTarget).data();
+    const data = $(e.currentTarget).data();
     const appName = cookie.get("appName");
 
     if ( /hbgj/i.test(appName) ) {
       widget.createNewView({
-        url: urlObj.hbgjUrl || urlObj.appUrl
+        url: data.hbgjUrl || data.appUrl
       });
     } else if ( /gtgj/i.test(appName) ) {
       widget.createNewView({
-        url: urlObj.gtgjUrl || urlObj.appUrl
+        url: data.gtgjUrl || data.appUrl
       });
     } else {
       widget.createNewView({
-        url: urlObj.appUrl || urlObj.url
+        url: data.appUrl || data.url
       });
     }
   },
