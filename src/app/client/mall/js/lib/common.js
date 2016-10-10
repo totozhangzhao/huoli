@@ -8,6 +8,7 @@ import UrlUtil from "com/mobile/lib/url/url.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import {config} from "app/client/mall/js/common/config.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
+import {createUrl} from "app/client/mall/js/lib/common-util.js";
 
 window.jQuery = window.$ = $;
 
@@ -31,53 +32,8 @@ export function initRem() {
 
 initRem();
 
-export let createNewView = _.debounce(options => {
-  let url = options.url;
-
-  if (url === "" || url === null || url === undefined) {
-    return;
-  }
-
-  function separateHash(url) {
-    let separateHash = url.split("#");
-
-    if ( separateHash.length > 1 ) {
-      return {
-        url: separateHash[0],
-        hash: `#${separateHash[1]}`
-      };
-    } else {
-      return {
-        url,
-        hash: ""
-      };
-    }
-  }
-
-  let urlAndHash = separateHash(url);
-
-  url = urlAndHash.url;
-
-  if ( options.queryObj ) {
-    url = url.indexOf("?") >= 0 ? `${url}&` : `${url}?`;
-    url = url + $.param(options.queryObj);
-  }
-
-  function passOnParam(key) {
-    let urlObj = UrlUtil.parseUrlSearch();
-    let val = urlObj[key];
-
-    if (val !== undefined) {
-      url = url.indexOf("?") >= 0 ? `${url}&` : `${url}?`;
-      url = url + `${key}=${val}`;
-    }
-  }
-
-  passOnParam("hlfrom");
-
-  let hash = urlAndHash.hash;
-
-  url = url + hash;
+export const createNewView = _.debounce(options => {
+  const url = createUrl(options);
 
   if (options._webPageRedirect) {
     window.location.href = url;
