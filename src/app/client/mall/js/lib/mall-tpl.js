@@ -19,6 +19,8 @@ export function getJsClass(item) {
 
   if ( String(item.action) === "3" ) {
     jsClass = "js-get-url";
+  } else if ( String(item.action) === "-1" ) {
+    jsClass = "";
   }
 
   return jsClass;
@@ -43,6 +45,8 @@ export function getBlockUrl(item) {
 
   if ( String(item.action) === "2" ) {
     jsUrl = item.url;
+  } else if(String(item.action) === "-1") {
+    jsUrl = "javascript: void(0);";
   } else {
     const name = codeToName[item.action];
     /* jshint scripturl: true */
