@@ -4,7 +4,7 @@
   </div>
   <div class="my-info-area">
     <div class="my-tel-contain num-font"><%= phone %></div>
-    <% if ( level && level > 0 && level < 9 ) { %>
+    <% if ( level >= 0 && level < 9 ) { %>
     <div class="my-level-contain num-font">
         <span>V<%= level %></span>
     </div>
@@ -37,7 +37,7 @@
     </a>
   </div>
   <div class="my-mall-bar-item js-touch-state touch-bg">
-    <a class="my-order-area" href="/fe/app/client/mall/html/list-page/exchange-record.html?style=2">
+    <a class="my-order-area none-line" href="/fe/app/client/mall/html/list-page/exchange-record.html?style=2">
       <b class="my-show-icon my-crowd-icon"></b>
       <p>一元夺宝订单</p>
       <span id="crowd-order-status"></span>
@@ -54,7 +54,7 @@
     </a>
   </div>
   <div class="my-mall-bar-item js-touch-state touch-bg">
-    <a class="my-order-area"  href="https://dl.rsscc.cn/guanggao/active/contact-us.html">
+    <a class="my-order-area none-line"  href="https://dl.rsscc.cn/guanggao/active/contact-us.html">
       <b class="my-show-icon my-help-icon"></b>
       <p>客服与帮助</p>
       <b class="my-enter-icon"></b>

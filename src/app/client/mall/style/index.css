@@ -1574,7 +1574,7 @@ img.touch-img {
   height: 1.36rem;
   line-height: 1.36rem;
   font-size: 0.37333rem;
-  color: #b7926b;
+  color: #1e1e1e;
   position: relative;
   left: 0;
   top: 0;
@@ -1605,9 +1605,10 @@ img.touch-img {
 .goods-detail-box .goods-coupons-bar .goods-coupons-bar-son button {
   width: 1.14667rem;
   height: 0.48rem;
+  border: 1px solid #f23e50;
   font-size: 0.32rem;
-  color: #fff;
-  background-color: #b7926b;
+  color: #f23e50;
+  background-color: #fff;
   margin-right: 0.21333rem;
 }
 .goods-detail-box .goods-tap-bar {
@@ -1628,6 +1629,7 @@ img.touch-img {
   bottom: 0;
   transform: scale(1, 0.5);
   transform-origin: 0 0;
+  z-index: 2;
 }
 .goods-detail-box .goods-tap-bar .goods-tap-bar-son {
   background-color: #fff;
@@ -1637,9 +1639,22 @@ img.touch-img {
   display: block;
   text-align: center;
   height: 1.2rem;
+  position: relative;
+  left: 0;
+  top: 0;
 }
 .goods-detail-box .goods-tap-bar .goods-tap-bar-son.on {
   color: #f62f5e;
+}
+.goods-detail-box .goods-tap-bar .goods-tap-bar-son.on:before {
+  width: 2.85333rem;
+  height: 1px;
+  content: '';
+  background-color: #f32e50;
+  position: absolute;
+  left: 1.06667rem;
+  bottom: 0;
+  z-index: 3;
 }
 .goods-detail-box .goods-desc-bar {
   background-color: #fff;
@@ -3448,7 +3463,7 @@ img.touch-img {
   left: 0;
   top: 0;
 }
-.my-mall-box .my-mall-bar .my-mall-bar-item .my-order-area:last-child p:after {
+.my-mall-box .my-mall-bar .my-mall-bar-item .my-order-area.none-line p:after {
   height: 0;
 }
 .my-mall-box .my-mall-bar .my-mall-bar-item .my-order-area .my-show-icon {
