@@ -27,6 +27,7 @@ export function getJsClass(item) {
 }
 
 export function getBlockUrl(item) {
+  window.console.log(item);
   let codeToName = {
     "9": "goods-detail",
     "0": "goods-detail",
@@ -50,7 +51,7 @@ export function getBlockUrl(item) {
   } else {
     const name = codeToName[item.action];
     /* jshint scripturl: true */
-    jsUrl = urlMap[name].url || "javascript:;";
+    jsUrl = (urlMap[name] && urlMap[name].url) || "javascript:void(0);";
   }
 
   return jsUrl;
