@@ -77,7 +77,7 @@ var AppView = Backbone.View.extend({
       .then((data) => {
         this.$el.find("#order-status").html(orderStatusTpl(data.mallOrder));
         this.$el.find("#crowd-order-status").html(crowdOrderStatusTpl(data.crowdOrder));
-        this.$el.find('.coupons-num-box').html(data.validnum || 0);
+        this.$el.find('.coupons-num-box').html(data.coupon.validnum || 0);
       })
       .catch(mallPromise.catchFn);
   },
