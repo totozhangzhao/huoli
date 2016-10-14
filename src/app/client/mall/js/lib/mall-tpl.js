@@ -27,7 +27,6 @@ export function getJsClass(item) {
 }
 
 export function getBlockUrl(item) {
-  window.console.log(item);
   let codeToName = {
     "9": "goods-detail",
     "0": "goods-detail",
