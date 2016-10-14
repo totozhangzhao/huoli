@@ -22,7 +22,7 @@
   </div>
   <div class="my-point-num">
     <div class="flex-son num-font">
-      <p class="num"><%= points %></p>
+      <p class="num"><%= mallUtil.formatNumber(points) %></p>
       <p class="item-name">积分</p>
     </div>
   </div>

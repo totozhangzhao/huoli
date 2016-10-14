@@ -92,3 +92,7 @@ export function allowScroll() {
   $("body").removeClass('forbidden-scroll')
   .off('touchmove');
 }
+
+export function formatNumber(number) {
+  return String(number).split("").reverse().join("").replace(/(\d{3})(?=[^$])/g, "$1,").split("").reverse().join("");
+}

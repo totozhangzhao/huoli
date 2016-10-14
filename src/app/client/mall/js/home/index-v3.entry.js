@@ -4,7 +4,7 @@ import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import logger from "com/mobile/lib/log/log.js";
@@ -32,7 +32,7 @@ const AppView = BaseView.extend({
   initialize() {
     this.$initial       = ui.initial().show();
     new BackTop({isHome: true});
-    const title = mallUitl.isHangbanFunc() ? "伙力·航班商城" : "伙力·高铁商城";
+    const title = mallUtil.isHangbanFunc() ? "伙力·航班商城" : "伙力·高铁商城";
     widget.updateViewTitle(title);
     const nav = new Navigator();
     nav.render();
@@ -49,7 +49,7 @@ const AppView = BaseView.extend({
     });
     this.fetch();
     this.showCheckinBtn();
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", title);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", title);
   },
 
   fetch() {
@@ -90,13 +90,13 @@ const AppView = BaseView.extend({
 
   // 显示签到按钮
   showCheckinBtn() {
-    if ( !mallUitl.isHangbanFunc() ) {
+    if ( !mallUtil.isHangbanFunc() ) {
       NativeAPI.invoke("updateHeaderRightBtn", {
         action: "show",
         text: "签到"
       }, err => {
         if (err) {
-          if ( mallUitl.isAppFunc() ) {
+          if ( mallUtil.isAppFunc() ) {
             toast(err.message, 1500);
           } else {
             window.console.log(err.message);
@@ -110,7 +110,7 @@ const AppView = BaseView.extend({
           // url: "https://jt.rsscc.com/gtgjwap/act/20150925/index.html"
           url: "https://dl.rsscc.cn/gtgj/wap/act/20160324_sign/index.html"
         });
-        logger.track(`${mallUitl.getAppName()}-签到`, "click");
+        logger.track(`${mallUtil.getAppName()}-签到`, "click");
       });
     }
   }

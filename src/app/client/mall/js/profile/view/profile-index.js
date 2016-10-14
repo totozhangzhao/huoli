@@ -4,6 +4,7 @@ import Backbone    from "backbone";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import pageAction  from "app/client/mall/js/lib/page-action.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import * as widget    from "app/client/mall/js/lib/common.js";
@@ -45,7 +46,8 @@ var AppView = Backbone.View.extend({
               resolve({
                 points: data.points,
                 level: data.level,
-                phone: userData.userInfo.phone || cookie.get("phone")
+                phone: userData.userInfo.phone || cookie.get("phone"),
+                mallUtil
               });
             }
           });
