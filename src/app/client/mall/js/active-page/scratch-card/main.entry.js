@@ -45,10 +45,11 @@ var AppView = Backbone.View.extend({
       }
     } else {
       if ( shareUtil.hasShareHtml() ) {
-        mallWechat.initNativeShare(_.bind(this.mallCheckin, this));
+        mallWechat.initNativeShare({
+          callback: _.bind(this.mallCheckin, this)
+        });
       }
     }
-
 
     logger.track(mallUitl.getAppName() + "PV", "View PV", title);
     detailLog({
