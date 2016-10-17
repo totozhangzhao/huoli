@@ -11,7 +11,6 @@ export function shareFromApp(options = {}) {
     desc: shareInfo.desc,
     link: shareInfo.link,
     imgUrl: shareInfo.imgUrl,
-    shareto: options.type || "weixin,pengyouquan",
     type: options.type || "weixin,pengyouquan"
   }, (err, result) => {
     if (err) {
