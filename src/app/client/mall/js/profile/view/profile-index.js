@@ -14,7 +14,8 @@ import MenuView from "app/client/mall/js/common/views/menu/menu.js";
 import profileTpl from "app/client/mall/tpl/profile/profile.tpl";
 import orderStatusTpl from "app/client/mall/tpl/profile/ui/order-status.tpl";
 import crowdOrderStatusTpl from "app/client/mall/tpl/profile/ui/crowd-order-status.tpl";
-var AppView = Backbone.View.extend({
+
+const AppView = Backbone.View.extend({
   el: "#profile-index",
   initialize(commonData) {
     _.extend(this, commonData);
@@ -27,7 +28,7 @@ var AppView = Backbone.View.extend({
   },
   resume() {
     pageAction.hideRightButton();
-    widget.updateViewTitle(document.title);
+    widget.updateViewTitle(this.$el.data("title"));
   },
 
   fetchData: function() {
@@ -89,4 +90,4 @@ var AppView = Backbone.View.extend({
   }
 });
 
-module.exports = AppView;
+export default AppView;
