@@ -2157,16 +2157,19 @@ img.touch-img {
   right: 0;
   bottom: 0.26667rem;
 }
-.pay-order-detail-box .trade-status-succ {
+.pay-order-detail-box .trade-status-succ,
+.pay-order-detail-box .blue {
   background-position: -2.50667rem 0;
 }
-.pay-order-detail-box .trade-status-fail {
+.pay-order-detail-box .trade-status-fail,
+.pay-order-detail-box .grey {
   background-position: -5.01333rem 0;
 }
 .pay-order-detail-box .trade-status-waiting {
   background-position: 0 0;
 }
-.pay-order-detail-box .trade-status-confirm {
+.pay-order-detail-box .trade-status-confirm,
+.pay-order-detail-box .red {
   background-position: 0 -0.85333rem;
 }
 .pay-order-detail-box .trade-status-refund-auditing {
@@ -3664,6 +3667,15 @@ img.touch-img {
   right: 0.56rem;
   bottom: 0.3333rem;
   text-align: right;
+}
+.red {
+  color: #ff5a44;
+}
+.blue {
+  color: #039ef0;
+}
+.grey {
+  color: #7f7f7f;
 }
 .order-status-succ {
   color: #039ef0;
