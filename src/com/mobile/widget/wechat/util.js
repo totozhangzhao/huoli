@@ -7,11 +7,15 @@ exports.hasShareHtml = function() {
 };
 
 exports.getShareInfo = function() {
+  var elemTitle = qs("#__wechat_title");
+  var elemDesc  = qs("#__wechat_desc");
+  var elemLink  = qs("#__wechat_link");
+  var elemImg   = qs("#__wechat_img");
   var data = {
-    title : qs("#__wechat_title") && qs("#__wechat_title").textContent,
-    desc  : qs("#__wechat_desc")  && qs("#__wechat_desc").textContent,
-    link  : qs("#__wechat_link")  && qs("#__wechat_link").textContent,
-    imgUrl: qs("#__wechat_img")   && qs("#__wechat_img").textContent
+    title : elemTitle && elemTitle.textContent,
+    desc  : elemDesc  && elemDesc.textContent,
+    link  : elemLink  && elemLink.textContent,
+    imgUrl: elemImg   && elemImg.textContent
   };
 
   return {
