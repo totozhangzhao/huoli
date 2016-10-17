@@ -501,7 +501,7 @@ __params__
 * `desc`   String 分享块描述
 * `link`   String 分享块链接
 * `imgUrl` String 分享块图片
-* `type`   String 分享类型；支持 `weixin` `weibo` `pengyouquan` `sms` `email`；如果是 `all` 表示想要分享到所有，此参数为空或不传此参数时，效果应等同于 `all`。
+* `type`   String 分享类型；支持 `weixin` `weibo` `pengyouquan` `sms` `email`，多个用逗号分割 `type: "weixin,pengyouquan"`；如果是 `all` 表示想要分享到所有，此参数为空或不传此参数时，效果应等同于 `all`。
   
 __result__
 
