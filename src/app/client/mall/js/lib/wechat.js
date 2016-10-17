@@ -6,12 +6,12 @@ import * as mallUitl from "app/client/mall/js/lib/util.js";
 
 export function shareFromApp(options = {}) {
   const shareInfo = shareUtil.getShareInfo();
-
   NativeAPI.invoke("sharePage", {
     title: shareInfo.title,
     desc: shareInfo.desc,
     link: shareInfo.link,
     imgUrl: shareInfo.imgUrl,
+    shareto: options.type || "weixin,pengyouquan",
     type: options.type || "weixin,pengyouquan"
   }, (err, result) => {
     if (err) {
