@@ -259,6 +259,9 @@ p {
 .ui-share .ui-close img {
   width: 100%;
 }
+img.express-empty {
+  width: 100%;
+}
 .confirm-btn-box {
   font-size: 0;
 }
@@ -5435,3 +5438,6 @@ img,
   opacity: 1;
 }
 /* img - echo -  end  */
+.delivery-box {
+  background-color: #f7f7f7;
+}
