@@ -116,7 +116,6 @@ const AppView = BaseView.extend({
             };
           }
         }
-        goods.userprivilresp = null;
         this.render(goods);
         this.$initial.hide();
       })
