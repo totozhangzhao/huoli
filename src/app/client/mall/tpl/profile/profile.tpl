@@ -3,7 +3,7 @@
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/avatar-1011.png" alt="">
   </div>
   <div class="my-info-area">
-    <div class="my-tel-contain num-font"><%= phone %></div>
+    <div class="my-tel-contain num-font"><%= phone || "商城用户" %></div>
     <% if ( level >= 0 && level < 9 ) { %>
     <div class="my-level-contain num-font">
         <span>V<%= level %></span>
