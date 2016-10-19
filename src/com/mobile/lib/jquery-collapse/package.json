@@ -1,0 +1,56 @@
+{
+  "name": "jquery-collapse",
+  "version": "1.1.2",
+  "description": "A lightweight (~1kb) jQuery plugin that enables expanding and collapsing content",
+  "devDependencies": {
+    "coveralls": "^2.11.4",
+    "jquery": "~2.1.1",
+    "karma": "^0.13.10",
+    "karma-chrome-launcher": "~0.1.4",
+    "karma-coffee-preprocessor": "~0.2.1",
+    "karma-coverage": "^0.5.2",
+    "karma-coveralls": "^1.1.2",
+    "karma-firefox-launcher": "~0.1.3",
+    "karma-mocha": "~0.1.4",
+    "karma-sinon-chai": "~0.2.0",
+    "mocha": "~1.20.1",
+    "should": "~4.0.4"
+  },
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start --single-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielstocks/jQuery-Collapse.git"
+  },
+  "author": {
+    "name": "Daniel Stocks"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danielstocks/jQuery-Collapse/issues"
+  },
+  "gitHead": "3663ea2db249ca0a46d4fb18ec3fc10d20831fd7",
+  "homepage": "https://github.com/danielstocks/jQuery-Collapse#readme",
+  "_id": "jquery-collapse@1.1.2",
+  "_shasum": "7ff589d9f7fa460d2bcb377ea597c7e3e1dd4e74",
+  "_from": "jquery-collapse@latest",
+  "_npmVersion": "2.14.2",
+  "_nodeVersion": "4.0.0",
+  "_npmUser": {
+    "name": "roflwtfbbq",
+    "email": "daniel@webcloud.se"
+  },
+  "dist": {
+    "shasum": "7ff589d9f7fa460d2bcb377ea597c7e3e1dd4e74",
+    "tarball": "https://registry.npmjs.org/jquery-collapse/-/jquery-collapse-1.1.2.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "roflwtfbbq",
+      "email": "daniel@webcloud.se"
+    }
+  ],
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/jquery-collapse/-/jquery-collapse-1.1.2.tgz"
+}

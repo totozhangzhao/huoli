@@ -259,6 +259,9 @@ p {
 .ui-share .ui-close img {
   width: 100%;
 }
+img.express-empty {
+  width: 100%;
+}
 .confirm-btn-box {
   font-size: 0;
 }
