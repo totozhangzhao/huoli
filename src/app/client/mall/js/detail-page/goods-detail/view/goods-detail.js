@@ -116,7 +116,7 @@ const AppView = BaseView.extend({
             };
           }
         }
-
+        goods.userprivilresp = null;
         this.render(goods);
         this.$initial.hide();
       })
@@ -253,10 +253,11 @@ const AppView = BaseView.extend({
     });
   },
   initModel(goods) {
+    let discount = (goods.userprivilresp && goods.userprivilresp.privilid) ? 1 : 0;
     // init buy panel model
     this.buyNumModel = new BuyNumModel({
       type: 0,
-      discount: goods.userprivilresp ? 1 : 0,
+      discount: discount,
       payType: goods.paytype,
       hasMask: false,
       visible: true,
