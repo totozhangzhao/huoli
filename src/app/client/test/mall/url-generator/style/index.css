@@ -1,0 +1,94 @@
+* {
+  -webkit-touch-callout: default;
+  -webkit-user-select: initial;
+}
+
+/* toast - start */
+.toast {
+  display: block;
+  position: fixed;
+  top: 51%;
+  left: 50%;
+  width: 320px;
+  margin-left: -160px;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 20000;
+}
+.toast span {
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.7);
+  display: inline-block;
+  max-width: 228px;
+  padding: 5px 10px;
+  word-break: break-all;
+}
+/* toast -  end  */
+
+.common-padding {
+  padding-left: 16px;
+}
+
+.common-margin {
+  margin-left: 16px;
+}
+
+label {
+  display: inline-block;
+  margin-top: 6px;
+}
+
+textarea {
+  word-break: break-all;
+}
+
+.step-title {
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  margin-top: 6px;
+}
+
+.radio-wrapper {
+  padding: 0 16px;
+}
+.page-type-label {
+  padding-right: 20px;
+}
+
+#block-args {
+  margin: 10px 0 0 0;
+}
+
+.args-label {
+  margin-bottom: 4px;
+}
+
+.create-area {
+  margin-top: 20px;
+}
+
+#block-result {
+  min-height: 200px;
+}
+
+#block-result .content-wrapper,
+#block-result .general-wrapper  
+{
+  margin: 0 16px 60px 16px;
+}
+
+#block-result .content-wrapper .url-title {
+  margin-top: 10px;
+}
+
+#block-result .content-wrapper .url-content {
+  min-width: 80%;
+  min-height: 60px;
+  margin-left: 0;
+}
+
+#block-result .general-wrapper .url-a {
+  word-break: break-all;
+}

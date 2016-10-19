@@ -1,26 +1,37 @@
 // var $           = require("jquery");
-var _           = require("lodash");
-var Backbone    = require("backbone");
-var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
-var pageAction  = require("app/client/mall/js/lib/page-action.js");
-var cookie      = require("com/mobile/lib/cookie/cookie.js");
-var ui          = require("app/client/mall/js/lib/ui.js");
+import _           from "lodash";
+import Backbone    from "backbone";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import cookie from "com/mobile/lib/cookie/cookie.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
+import pageAction  from "app/client/mall/js/lib/page-action.js";
+import ui from "app/client/mall/js/lib/ui.js";
 import * as widget    from "app/client/mall/js/lib/common.js";
+// views
+import MenuView from "app/client/mall/js/common/views/menu/menu.js";
+// templates
+import profileTpl from "app/client/mall/tpl/profile/profile.tpl";
+import orderStatusTpl from "app/client/mall/tpl/profile/ui/order-status.tpl";
+import crowdOrderStatusTpl from "app/client/mall/tpl/profile/ui/crowd-order-status.tpl";
 
-
-var AppView = Backbone.View.extend({
+const AppView = Backbone.View.extend({
   el: "#profile-index",
   initialize(commonData) {
     _.extend(this, commonData);
     this.$initial = ui.initial().show();
+    this.menuView       = new MenuView({
+      show: true,
+      viewName: 'my'
+    });
     this.fetchData();
   },
   resume() {
     pageAction.hideRightButton();
-    widget.updateViewTitle(document.title);
+    widget.updateViewTitle(this.$el.data("title"));
   },
-  fetchData() {
+
+  fetchData: function() {
     mallPromise.getAppInfo()
       .then((userData) => {
         var params = _.extend({}, userData.userInfo, {
@@ -30,12 +41,14 @@ var AppView = Backbone.View.extend({
         return new Promise((resolve, reject) => {
           sendPost("getUserInfo", params, (err, data) => {
             if (err) {
+              this.$initial.hide();
               reject(err);
             } else {
               resolve({
                 points: data.points,
                 level: data.level,
-                phone: userData.userInfo.phone || cookie.get("phone")
+                phone: userData.userInfo.phone || cookie.get("phone"),
+                mallUtil
               });
             }
           });
@@ -43,39 +56,38 @@ var AppView = Backbone.View.extend({
       })
       .then((data) => {
         this.render(data);
-        this.updateCouponCount();
-        this.$initial.hide();
+        this.getStatusData();
+        this.$el.append(this.menuView.el);
       })
       .catch(mallPromise.catchFn);
   },
 
-  updateCouponCount() {
+  getStatusData() {
     mallPromise.getAppInfo()
       .then((userData) => {
         let params = _.extend({}, userData.userInfo);
         return new Promise((resolve, reject) => {
-          sendPost("getUserMallCoupon", params, (err, data) => {
+          sendPost("getUserMallInfo", params, (err, data) => {
             if(err) {
               reject(err);
             }else{
               resolve(data);
             }
+            this.$initial.hide();
           });
         });
       })
       .then((data) => {
-        this.$el.find(".coupon-count-box")
-          .removeClass('hidden')
-          .find("b")
-          .html(data.validnum || 0);
+        this.$el.find("#order-status").html(orderStatusTpl(data.mallOrder));
+        this.$el.find("#crowd-order-status").html(crowdOrderStatusTpl(data.crowdOrder));
+        this.$el.find('.coupons-num-box').html(data.coupon.validnum || 0);
       })
       .catch(mallPromise.catchFn);
   },
 
   render(data) {
-    var tmpl = require("app/client/mall/tpl/profile/user-level.tpl");
-    this.$el.find(".js-top-container").html(tmpl(data));
+    this.$el.html(profileTpl(data));
   }
 });
 
-module.exports = AppView;
+export default AppView;

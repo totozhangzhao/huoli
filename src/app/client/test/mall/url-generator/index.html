@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1, width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection"content="telephone=no">
+  <title>链接生成器</title>
+  <link rel="icon" href="http://cdn.rsscc.cn/guanggao/mall/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/common/style/global.css">
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/test/common/style/common.css">
+  <link rel="stylesheet" type="text/css" href="/fe/app/client/test/mall/url-generator/style/index.css">
+</head>
+<body>
+  <section id="block-page-type">
+    <h2 class="step-title common-padding">选择页面类型</h2>
+    <div class="radio-wrapper">
+      <label for="goods-detail" class="page-type-label">
+        <input id="goods-detail" name="page-type" type="radio" class="js-page-type-radio" checked>
+        <span>商品详情</span>
+      </label>
+      <label for="share-page" class="page-type-label">
+        <input id="share-page" name="page-type" type="radio" class="js-page-type-radio">
+        <span>二级页面</span>
+      </label>
+      <label for="scratch-card" class="page-type-label">
+        <input id="scratch-card" name="page-type" type="radio" class="js-page-type-radio">
+        <span>刮刮卡</span>
+      </label>
+      <label for="crowd-detail" class="page-type-label">
+        <input id="crowd-detail" name="page-type" type="radio" class="js-page-type-radio">
+        <span>一元夺宝</span>
+      </label>
+      <label for="crowd-list" class="page-type-label">
+        <input id="crowd-list" name="page-type" type="radio" class="js-page-type-radio">
+        <span>一元夺宝频道</span>
+      </label>
+      <label for="goods-category" class="page-type-label">
+        <input id="goods-category" name="page-type" type="radio" class="js-page-type-radio">
+        <span>频道商品（某一类别的商品）</span>
+      </label>
+      <label for="category" class="page-type-label">
+        <input id="category" name="page-type" type="radio" class="js-page-type-radio">
+        <span>分类（底部菜单）</span>
+      </label>
+      <label for="shake-detail" class="page-type-label">
+        <input id="shake-detail" name="page-type" type="radio" class="js-page-type-radio">
+        <span>摇一摇</span>
+      </label>
+      <label for="active-list-page" class="page-type-label">
+        <input id="active-list-page" name="page-type" type="radio" class="js-page-type-radio">
+        <span>活动模板（一组或几组商品）</span>
+      </label>
+    </div>
+  </section>
+  <section id="block-args">
+    <!-- // -->
+  </section>
+  <section id="block-create">
+    <div class="create-area">
+      <button class="common-margin js-create-url-button">生成页面链接</button>
+    </div>
+  </section>
+  <section id="block-result">
+    <h2 class="step-title common-padding">生成结果</h2>
+    <div class="content-wrapper js-content">
+      <!-- // -->
+    </div>
+    <div class="general-wrapper common-margin">
+      <h2 class="step-title">常用链接</h2>
+      航班商城首页：<br>
+      <a class="url-a" href="https://hbmall.rsscc.cn/fe/app/client/mall/index.html">https://hbmall.rsscc.cn/fe/app/client/mall/index.html</a><br>
+      <br>
+      航班登录页：<br>
+      <a class="url-a" href="https://hbmall.rsscc.cn/fe/app/client/mall/html/login/login.html">https://hbmall.rsscc.cn/fe/app/client/mall/html/login/login.html</a><br>
+      <br>
+      高铁商城首页：<br>
+      <a class="url-a" href="https://mall.rsscc.cn/fe/app/client/mall/index.html">https://mall.rsscc.cn/fe/app/client/mall/index.html</a><br>
+      <br>
+      高铁登录页：<br>
+      <a class="url-a" href="https://mall.rsscc.cn/fe/app/client/mall/html/login/login.html">https://mall.rsscc.cn/fe/app/client/mall/html/login/login.html</a>
+    </div>
+  </section>
+  <script src="/fe/vendor/vendor-mvc.bundle.js"></script>
+  <script src="/fe/app/client/test/mall/url-generator/js/main.bundle.js"></script>
+</body>
+</html>

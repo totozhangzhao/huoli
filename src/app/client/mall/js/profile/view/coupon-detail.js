@@ -1,29 +1,29 @@
-var _           = require("lodash");
-var BaseView    = require("app/client/mall/js/common/views/BaseView.js");
-var tplUtil     = require("app/client/mall/js/lib/mall-tpl.js");
+import _ from "lodash";
+import BaseView from "app/client/mall/js/common/views/BaseView.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import * as widget from "app/client/mall/js/lib/common.js";
 
-require("app/client/mall/js/lib/common.js");
-
-var AppView = BaseView.extend({
+const AppView = BaseView.extend({
   el: "#coupon-detail",
   events: {
     "click .js-new-page": "createNewPage",
     "click .js-get-url" : "handleGetUrl"
   },
-  initialize: function(commonData) {
+  initialize(commonData) {
     _.extend(this, commonData);
   },
-  resume: function() {
-    var data = this.cache.couponList[this.cache.couponIndex];
+  resume() {
+    const data = this.cache.couponList[this.cache.couponIndex];
     this.render(data);
+    widget.updateViewTitle(this.$el.data("title"));
   },
-  render: function(data) {
-    var tmpl = require("app/client/mall/tpl/profile/coupon-detail.tpl");
+  render(data) {
+    const tmpl = require("app/client/mall/tpl/profile/coupon-detail.tpl");
     this.$el.html(tmpl({
       item: data,
-      tplUtil: tplUtil
+      tplUtil
     }));
   }
 });
 
-module.exports = AppView;
+export default AppView;

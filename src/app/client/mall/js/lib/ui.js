@@ -11,7 +11,7 @@ exports.initial = function(message) {
 
   if ( $initial.length === 0 ) {
     var imgClass = "gt";
-    var text = message || "正在加载……";
+    var text = message || "正在加载…";
 
     if ( mallUitl.isHangbanFunc() ) {
       imgClass = "hb";

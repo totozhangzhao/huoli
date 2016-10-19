@@ -4,27 +4,27 @@ import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
 import * as mallUitl from "app/client/mall/js/lib/util.js";
 
-export function shareFromApp(callback) {
+export function shareFromApp(options = {}) {
   const shareInfo = shareUtil.getShareInfo();
-
   NativeAPI.invoke("sharePage", {
     title: shareInfo.title,
     desc: shareInfo.desc,
     link: shareInfo.link,
-    imgUrl: shareInfo.imgUrl
+    imgUrl: shareInfo.imgUrl,
+    type: options.type || "weixin,pengyouquan"
   }, (err, result) => {
     if (err) {
       window.console.log(err.message);
       return;
     }
 
-    if (callback) {
-      callback(err, result);
+    if (options.callback) {
+      options.callback(err, result);
     }
   });
 }
 
-export function initNativeShare(callback) {
+export function initNativeShare(options = {}) {
   NativeAPI.invoke("updateHeaderRightBtn", {
     action: "show",
     text: "分享"
@@ -38,7 +38,7 @@ export function initNativeShare(callback) {
   });
 
   NativeAPI.registerHandler("headerRightBtnClick", () => {
-    shareFromApp(callback);
+    shareFromApp(options);
   });
 }
 
@@ -79,6 +79,6 @@ export function initShare(options = {}) {
   }
 
   if ( mallUitl.isAppFunc() && options.useAppShare ) {
-    initNativeShare();
+    initNativeShare(options);
   }
 }

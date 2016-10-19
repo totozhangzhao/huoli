@@ -1,38 +1,38 @@
-var $           = require("jquery");
-var _           = require("lodash");
-var Backbone    = require("backbone");
-var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
-var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
-var ui          = require("app/client/mall/js/lib/ui.js");
+import $ from "jquery";
+import _ from "lodash";
+import Backbone from "backbone";
+import {sendPost} from "app/client/mall/js/lib/mall-request.js";
+import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import ui from "app/client/mall/js/lib/ui.js";
+import * as widget    from "app/client/mall/js/lib/common.js";
 
-require("app/client/mall/js/lib/common.js");
-
-var AppView = Backbone.View.extend({
+const AppView = Backbone.View.extend({
   el: "#coupon-list",
   events: {
     "click .js-item": "showCoupon"
   },
-  initialize: function(commonData) {
+  initialize(commonData) {
     _.extend(this, commonData);
     this.$blank = ui.blank("您还没有优惠券");
   },
-  resume: function() {
+  resume() {
     this.fetchData();
+    widget.updateViewTitle(this.$el.data("title"));
   },
-  showCoupon: function(e) {
+  showCoupon(e) {
     this.cache.couponIndex = $(e.currentTarget).data("index");
     this.router.switchTo("coupon-detail");
   },
-  fetchData: function() {
-    var self = this;
+  fetchData() {
+    const self = this;
     mallPromise.getAppInfo()
-      .then(function(userData) {
-        var params = _.extend({}, userData.userInfo, {
+      .then(userData => {
+        const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p
         });
 
-        return new Promise(function(resolve, reject) {
-          sendPost("couponList", params, function(err, data) {
+        return new Promise((resolve, reject) => {
+          sendPost("couponList", params, (err, data) => {
             if (err) {
               reject(err);
             } else {
@@ -41,15 +41,15 @@ var AppView = Backbone.View.extend({
           });
         });
       })
-      .then(function(data) {
+      .then(data => {
         self.cache.couponList = data;
         self.render(data);
       })
       .catch(mallPromise.catchFn);
   },
-  render: function(data) {
+  render(data) {
     if (data.length > 0) {
-      var tmpl = require("app/client/mall/tpl/profile/coupon-list.tpl");
+      const tmpl = require("app/client/mall/tpl/profile/coupon-list.tpl");
       this.$el.html(tmpl({
         couponList: data
       }));
@@ -59,4 +59,4 @@ var AppView = Backbone.View.extend({
   }
 });
 
-module.exports = AppView;
+export default AppView;

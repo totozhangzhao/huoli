@@ -1,17 +1,18 @@
-var ProfileIndexView = require("app/client/mall/js/profile/view/profile-index.js");
-var CouponListView   = require("app/client/mall/js/profile/view/coupon-list.js");
-var CouponDetailView = require("app/client/mall/js/profile/view/coupon-detail.js");
-var createRouter     = require("app/client/mall/js/common/router/router-factory.js").createRouter;
-
+import ProfileIndexView from "app/client/mall/js/profile/view/profile-index.js";
+import CouponListView from "app/client/mall/js/profile/view/coupon-list.js";
+import CouponDetailView from "app/client/mall/js/profile/view/coupon-detail.js";
+import {createRouter} from "app/client/mall/js/common/router/router-factory.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
+
 new BackTop();
-var viewDic = {
+
+const viewDic = {
   "profile-index": ProfileIndexView,
   "coupon-list"  : CouponListView,
   "coupon-detail": CouponDetailView
 };
 
-module.exports = createRouter({
-  viewDic: viewDic,
+export default createRouter({
+  viewDic,
   defaultView: "profile-index"
 });

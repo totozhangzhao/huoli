@@ -1,4 +1,5 @@
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
+import {urlMap} from "app/client/mall/js/common/config.js";
 
 const moneyModel = new BuyNumModel();
 
@@ -14,38 +15,42 @@ export function getMoneyText(options = {}) {
 }
 
 export function getJsClass(item) {
-  var jsClass = "js-new-page";
+  let jsClass = "js-new-page";
 
   if ( String(item.action) === "3" ) {
     jsClass = "js-get-url";
+  } else if ( String(item.action) === "-1" ) {
+    jsClass = "";
   }
 
   return jsClass;
 }
 
 export function getBlockUrl(item) {
-  var urlMap = {
-    "9": "/fe/app/client/mall/html/detail-page/goods-detail.html",
-    "0": "/fe/app/client/mall/html/detail-page/goods-detail.html",
-    "1": "/fe/app/client/mall/html/share-page/share.html",
-    "4": "/fe/app/client/mall/html/active-page/scratch-card/main.html",
-    // "5": "/fe/app/client/mall/html/menu/category.html",
-    "6": "/fe/app/client/mall/html/active-page/crowd/main.html",
-    "7": "/fe/app/client/mall/html/menu/grab.html",
-    "8": "/fe/app/client/mall/html/list-page/category/list.html",
-    "801": "/fe/app/client/mall/html/menu/category.html",   // 分类列表页
-    "11": "/fe/app/client/mall/html/shake/shake.html",      // 摇一摇
-    "10": "/fe/app/client/mall/html/list-page/active/list.html",   // 活动模版
-    "41": "/fe/app/client/mall/html/shake/shake.html"    // 测试用action
+  let codeToName = {
+    "9": "goods-detail",
+    "0": "goods-detail",
+    "1": "share-page",
+    "4": "scratch-card",
+    // "5": "category",
+    "6": "crowd-detail",
+    "7": "crowd-list",
+    "8": "goods-category",
+    "801": "category",        // 分类列表页
+    "11": "shake-detail",     // 摇一摇
+    "10": "active-list-page", // 活动模版
+    "41": "test-action"       // 测试用action
   };
-  var jsUrl;
+  let jsUrl;
 
   if ( String(item.action) === "2" ) {
     jsUrl = item.url;
+  } else if(String(item.action) === "-1") {
+    jsUrl = "javascript: void(0);";
   } else {
-
+    const name = codeToName[item.action];
     /* jshint scripturl: true */
-    jsUrl = urlMap[item.action] || "javascript:;";
+    jsUrl = (urlMap[name] && urlMap[name].url) || "javascript:void(0);";
   }
 
   return jsUrl;
