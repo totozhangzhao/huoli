@@ -252,7 +252,7 @@ const AppView = BaseView.extend({
     });
   },
   initModel(goods) {
-    let discount = (goods.userprivilresp && goods.userprivilresp.privilid) ? 1 : 0;
+    let discount = (_.isObject(goods.userprivilresp) && goods.userprivilresp.privilid) ? 1 : 0;
     // init buy panel model
     this.buyNumModel = new BuyNumModel({
       type: 0,
