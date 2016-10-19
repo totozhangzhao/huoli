@@ -3,6 +3,7 @@ import Backbone from "backbone";
 const BuyNumModel = Backbone.Model.extend({
   defaults:{
     parentDom: "body",
+    discount: 0,               // 优惠金额  (当前用在一元夺宝夺宝币)
     visible: false,            // 是否显示
     type: 1,                   // 0 不可选择数量， 1 可以选择数量
     giftType: -1,              // 3 微信送礼
@@ -31,39 +32,54 @@ const BuyNumModel = Backbone.Model.extend({
   },
 
   // 获取显示的积分和价格文案
-  getPPriceText(num) {
+  getPPriceText(num, useDiscount) {
     let result = "";
     const payType = this.get("payType");
-    if (payType === 1) {
-      result = this.getPointsText(num);
-    } else if (payType === 2) {
-      result = this.getPriceText(num);
-    } else if (payType === 3) {
-      result = this.getPriceText(num) + "+" + this.getPointsText(num);
-    }else {
-      result = "";
+    switch(payType) {
+      case 1:
+        result = this.getPointsText(num);
+        break;
+      case 2:
+        result = this.getPriceText(num, useDiscount);
+        break;
+      case 3:
+        result = this.getPriceText(num, useDiscount) + "+" + this.getPointsText(num);
+        break;
+      default:
+        result = "";
+        break;
     }
     return result;
   },
 
   // 获取显示的价格文案
-  getPriceText(num) {
+  getPriceText(num, useDiscount) {
+    let discount = 0;
+    if(useDiscount) {
+      discount = this.get('discount');
+    }
     let result = "";
     let number = num || this.get("number");
-    result = this.get("currency") + Number(number * this.get("price")).toFixed(2);
+    let price = number * this.get("price");
+    result = this.get("currency") + Number(price - discount).toFixed(2);
     return result;
   },
 
   // 获取显示价格的文案标签
-  getPriceTpl(num) {
+  getPriceTpl(num, useDiscount) {
+    let discount = 0;
+    if(useDiscount) {
+      discount = this.get('discount');
+    }
     let result = "";
     let number = num || this.get("number");
-    result = `<span>${this.get("currency")}<span><span>${Number(number * this.get("price")).toFixed(2)}<span>`;
+    let price = number * this.get("price");
+    result = `<span>${this.get("currency")}<span><span>${Number(price - discount).toFixed(2)}<span>`;
     return result;
   },
 
   // 获取价格积分文案模版
-  getPPriceTpl(num) {
+  getPPriceTpl(num, useDiscount) {
     let result = "";
     const payType = this.get("payType");
     switch(payType) {
@@ -71,10 +87,10 @@ const BuyNumModel = Backbone.Model.extend({
         result = this.getPointsTpl(num);
         break;
       case 2:
-        result = this.getPriceTpl(num);
+        result = this.getPriceTpl(num, useDiscount);
         break;
       case 3:
-        result = `${this.getPriceTpl(num)}<span>+<span>${this.getPointsTpl(num)}`;
+        result = `${this.getPriceTpl(num, useDiscount)}<span>+<span>${this.getPointsTpl(num)}`;
         break;
       default:
         result = "";

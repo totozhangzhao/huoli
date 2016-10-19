@@ -43,6 +43,7 @@ const BuyNumPanelView = Backbone.View.extend({
     this.$avatarList = this.$el.find(".js-avatar-img");
     this.$unitPriceView = $(".js-unit-price");
     this.$totalPriceView = $(".js-total-price");
+    this.$totalPriceWithOutDiscountView = $(".js-total-without-discount");
     this.$chargeBtn = this.$el.find(".js-goods-pay");
     this.$numberInput = this.$el.find(".js-goods-num-input");
     this.$add = this.$el.find("[data-operator='add']");
@@ -61,7 +62,8 @@ const BuyNumPanelView = Backbone.View.extend({
     }
 
     if (this.$totalPriceView.length > 0) {
-      this.$totalPriceView.text(this.model.getPPriceText());
+      this.$totalPriceView.text(this.model.getPPriceText(false, true));
+      this.$totalPriceWithOutDiscountView.text(this.model.getPPriceText());
     }
   },
 

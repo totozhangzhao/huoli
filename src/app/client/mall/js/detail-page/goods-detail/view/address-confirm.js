@@ -76,10 +76,7 @@ const AppView = Backbone.View.extend({
     const data = {
       addressInfo,
       buttonText: this.cache.goods.confirm,
-      unitPriceTpl: model.getPPriceTpl(1),
-      unitPriceText: model.getPPriceText(1),
-      totalPriceText: model.getPPriceText(),
-      totalPriceTpl: model.getPPriceTpl()
+      buyNumModel: model
     };
     _.extend(data, model.toJSON());
     this.$el.html(mainViewTpl(data));
@@ -94,6 +91,7 @@ const AppView = Backbone.View.extend({
   // 更新number 价格 积分
   refreshNumber() {
     const model  = this.model.buyNumModel;
+    this.$el.find(".address-num-input").val(model.get("number"));
     this.$el.find(".address-num-input").val(model.get("number"));
   },
 

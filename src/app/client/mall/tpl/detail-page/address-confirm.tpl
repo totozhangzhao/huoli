@@ -29,7 +29,7 @@
     <p class="name"><%= title || "　" %></p>
     <p class="items"><%= specValueName || "　" %></p>
     <div class="goods-choice">
-      <p class="price"><%= unitPriceTpl %></p>
+      <p class="price"><%= buyNumModel.getPPriceTpl(1) %></p>
       <!---->
       <div class="giving-choice-num flex-row">
         <div class="num-items flex-row">
@@ -44,9 +44,22 @@
 <% if(isGift) { %>
 <div id="gift-message-container"></div>
 <% } %>
+
+<% if(discount > 0) {%>
+  <div class="charge-total-area">
+      <div class="charge-total clearfix">
+        <p class="fl">订单合计</p>
+        <p class="num fr js-total-without-discount"><%= buyNumModel.getPPriceTpl() %></p>
+      </div>
+      <div class="charge-deduction clearfix">
+        <p class="fl">夺宝币抵扣</p>
+        <p class="num fr">-￥<%= Number(discount).toFixed(2) %></p>
+      </div>
+    </div>
+<% } %>
 <div class="giving-confirm-pay flex-row">
   <div class="price-contain js-total-price">
-    <%= totalPriceTpl %>
+    <%= buyNumModel.getPPriceTpl(false, true) %>
   </div>
   <a id="confirm-order" class="js-goods-pay charge-btn pay-btn"><%= buttonText || "去支付" %></a>
 </div>

@@ -256,6 +256,7 @@ const AppView = BaseView.extend({
     // init buy panel model
     this.buyNumModel = new BuyNumModel({
       type: 0,
+      discount: goods.userprivilresp ? 1 : 0,
       payType: goods.paytype,
       hasMask: false,
       visible: true,
@@ -270,7 +271,6 @@ const AppView = BaseView.extend({
       canPay: goods.stat === 0,
       parentDom: "#goods-detail"
     });
-
     if (goods.specs.length > 0) {
       const spec = goods.specs[goods.specIndex];
       this.buyNumModel.set({
