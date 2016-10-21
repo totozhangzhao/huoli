@@ -40,7 +40,7 @@ const AppView = Backbone.View.extend({
     "click .btn-refund-result": "toRefundResult",
     "click .btn-toSubscribe"  : "toSubscribe",
     "click .common-shadow"    : "hideSubscribe",
-    "click [data-tracking]"   : "gotoNewExpressInfoView"
+    "click p[data-tracking]"   : "gotoNewExpressInfoView"
   },
   initialize() {
     const nav = new Navigator();
