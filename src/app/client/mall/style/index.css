@@ -2076,6 +2076,17 @@ img.touch-img {
 .order-pay-btn {
   background-color: #4889db;
 }
+.express-contain .express-title {
+  width: 0.96rem;
+}
+.express-contain .express-desc {
+  flex: 1;
+}
+.express-contain .express-desc p {
+  position: relative;
+  left: 0;
+  top: 0;
+}
 .pay-order-detail-box {
   min-height: 100%;
   background-color: #f3f3f3;
