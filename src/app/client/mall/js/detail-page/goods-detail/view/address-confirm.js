@@ -81,9 +81,7 @@ const AppView = Backbone.View.extend({
     _.extend(data, model.toJSON());
     this.$el.html(mainViewTpl(data));
     if(this.model.buyNumModel.get("isGift")) {
-      if(this.giftMessageView == null) {
-        this.giftMessageView = new GiftMessageView({parentDom: "#gift-message-container"});
-      }
+      this.giftMessageView = new GiftMessageView({parentDom: "#gift-message-container"});
       this.giftMessageView.render();
     }
   },
