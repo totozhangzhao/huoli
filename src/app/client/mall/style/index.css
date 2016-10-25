@@ -2079,11 +2079,8 @@ img.touch-img {
 .express-contain {
   line-height: 0.69333rem;
 }
-.express-contain .express-title {
-  width: 1.30667rem;
-}
 .express-contain .express-desc {
-  flex: 1;
+  width: 6.66667rem;
 }
 .express-contain .express-desc p {
   position: relative;
