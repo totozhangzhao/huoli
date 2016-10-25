@@ -12,7 +12,6 @@ var ExpressRouter = Backbone.Router.extend({
   },
 
   dispatch(tracking) {
-    window.console.log(tracking);
     this.expressList.fetch(tracking);
   }
 });
