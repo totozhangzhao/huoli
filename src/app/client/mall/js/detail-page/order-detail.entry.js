@@ -39,7 +39,8 @@ const AppView = Backbone.View.extend({
     "click .btn-refund"       : "toRefund",
     "click .btn-refund-result": "toRefundResult",
     "click .btn-toSubscribe"  : "toSubscribe",
-    "click .common-shadow"    : "hideSubscribe"
+    "click .common-shadow"    : "hideSubscribe",
+    "click p[data-tracking]"   : "gotoNewExpressInfoView"
   },
   initialize() {
     const nav = new Navigator();
@@ -81,7 +82,7 @@ const AppView = Backbone.View.extend({
     if (needpay === 2) {
       this.gotoAddressList();
     } else {
-      this.gotoExpressInfoView();
+      // this.gotoExpressInfoView();
     }
   },
   gotoAddressList() {
@@ -90,6 +91,14 @@ const AppView = Backbone.View.extend({
 
     window.location.href = url;
   },
+
+  // 跳转到新物流页面
+  gotoNewExpressInfoView(e) {
+    var tracking = $(e.currentTarget).data("tracking");
+    const url = `/fe/app/client/mall/html/detail-page/express/list.html?orderId=${this.orderDetail.orderid}#${tracking}`;
+    widget.createNewView({ url });
+  },
+
   gotoExpressInfoView() {
     const expressInfo = this.orderDetail.express;
 

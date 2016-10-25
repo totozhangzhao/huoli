@@ -2076,6 +2076,17 @@ img.touch-img {
 .order-pay-btn {
   background-color: #4889db;
 }
+.express-contain {
+  line-height: 0.69333rem;
+}
+.express-contain .express-desc {
+  width: 6.66667rem;
+}
+.express-contain .express-desc p {
+  position: relative;
+  left: 0;
+  top: 0;
+}
 .pay-order-detail-box {
   min-height: 100%;
   background-color: #f3f3f3;
@@ -2237,6 +2248,9 @@ img.touch-img {
 .pay-order-detail-box .order-exchange-text {
   font-size: 0.32rem;
   line-height: 0.53333rem;
+}
+.pay-order-detail-box .order-exchange-text.express-contain {
+  line-height: 0.64rem;
 }
 .pay-order-detail-box .order-exchange-text.bottom-text {
   padding-top: 0.26667rem;
