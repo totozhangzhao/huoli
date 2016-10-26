@@ -13,7 +13,7 @@ import shareUtil from "com/mobile/widget/wechat/util.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import logger from "com/mobile/lib/log/log.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import ShareInput from "app/client/mall/js/share-page/share-input.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
@@ -38,7 +38,7 @@ const AppView = Backbone.View.extend({
     this.urlObj = UrlUtil.parseUrlSearch();
     this.$initial = ui.initial().show();
     this.mallInterlayer();
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", document.title);
   },
 
   initCoupon() {
@@ -247,7 +247,7 @@ const AppView = Backbone.View.extend({
         }
       }
 
-      const isApp = mallUitl.isAppFunc();
+      const isApp = mallUtil.isAppFunc();
 
       if ( !isApp ) {
         require("app/client/mall/js/lib/download-app.js").init( isApp );

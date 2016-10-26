@@ -20,7 +20,7 @@ import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import BuyPanelView from "app/client/mall/js/common/views/pay/buy-num-panel.js";
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import * as widget from "app/client/mall/js/lib/common.js";
@@ -54,7 +54,7 @@ const AppView = Backbone.View.extend({
     this.isPaying = false;
     this.mallOrderDetail();
     pageAction.setClose();
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", document.title);
     this.bindResume();
   },
   copyText(e) {

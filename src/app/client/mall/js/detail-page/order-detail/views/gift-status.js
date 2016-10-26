@@ -4,7 +4,7 @@
 import Backbone from "backbone";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import giftConfig from "app/client/mall/js/common/gift-config.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import template from "app/client/mall/tpl/detail-page/gift/order-gift.tpl";
@@ -35,7 +35,7 @@ let AppView = Backbone.View.extend({
       this.shareInfo.link = `${document.location.origin}/fe/app/client/mall/html/detail-page/goods-detail.html?title=${this.orderDetail.title}&productid=${this.orderDetail.productid}`;
     }
     // 不在app内的情况 设置分享信息
-    if(!mallUitl.isAppFunc()) {
+    if(!mallUtil.isAppFunc()) {
       mallWechat.initShare({
         wechatshare: this.shareInfo,
         title: this.shareInfo.title
@@ -51,7 +51,7 @@ let AppView = Backbone.View.extend({
   },
 
   gift() {
-    if(mallUitl.isAppFunc()) {
+    if(mallUtil.isAppFunc()) {
       NativeAPI.invoke("sharePage", {
         title: this.shareInfo.title,
         desc: this.shareInfo.desc,

@@ -6,7 +6,7 @@ import Backbone from "backbone";
 import ui from "app/client/mall/js/lib/ui.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import logger from "com/mobile/lib/log/log.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
@@ -38,7 +38,7 @@ const RefundView = Backbone.View.extend({
     });
     this.$initial = ui.initial().show();
     this.orderid = UrlUtil.parseUrlSearch().orderid;
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", document.title);
     this.render();
   },
 

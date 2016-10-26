@@ -6,7 +6,7 @@ var toast    = require("com/mobile/widget/hint/hint.js").toast;
 var parseUrl = require("com/mobile/lib/url/url.js").parseUrlSearch;
 var widget   = require("app/client/mall/js/lib/common.js");
 var imgDelay = require("app/client/mall/js/lib/common.js").imageDelay;
-var mallUitl = require("app/client/mall/js/lib/util.js");
+var mallUtil = require("app/client/mall/js/lib/util.js");
 var sendPost = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var logger   = require("com/mobile/lib/log/log.js");
 var tplUtil  = require("app/client/mall/js/lib/mall-tpl.js");
@@ -25,7 +25,7 @@ var AppView = BaseView.extend({
   initialize: function() {
     this.$initial = ui.initial().show();
     this.mallMainProductList();
-    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+    logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
   },
   handleGetUrl: function(e) {
     async.waterfall([
@@ -89,7 +89,7 @@ var AppView = BaseView.extend({
       $("#goods-block")
         .html(groupGoodsTpl({
           group: result,
-          appName: mallUitl.getAppName(),
+          appName: mallUtil.getAppName(),
           tplUtil  : tplUtil
         }))
         .show();

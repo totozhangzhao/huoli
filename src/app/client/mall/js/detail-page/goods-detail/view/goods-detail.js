@@ -3,7 +3,7 @@ import _ from "lodash";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as addressUtil from "app/client/mall/js/lib/address-util.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import shareUtil from "com/mobile/widget/wechat/util.js";
@@ -47,7 +47,7 @@ const AppView = BaseView.extend({
     this.mallGoodsDetail();
   },
   resume() {
-    mallUitl.allowScroll();
+    mallUtil.allowScroll();
     this.$initial.show();
 
     if (this.title) {
@@ -238,7 +238,7 @@ const AppView = BaseView.extend({
         this.resetAppView = true;
       }
 
-      const isApp = mallUitl.isAppFunc();
+      const isApp = mallUtil.isAppFunc();
 
       if ( !isApp ) {
         require("app/client/mall/js/lib/download-app.js").init( isApp );
@@ -339,7 +339,7 @@ const AppView = BaseView.extend({
         .catch(mallPromise.catchFn);
     }
 
-    if ( mallUitl.isAppFunc() || mallUitl.isTest ) {
+    if ( mallUtil.isAppFunc() || mallUtil.isTest ) {
       _do();
     } else {
       new Promise((resovle, reject) => {
@@ -421,7 +421,7 @@ const AppView = BaseView.extend({
           this.mallCreateOrder();
         },
         cancelFunc() {
-          mallUitl.allowScroll();
+          mallUtil.allowScroll();
         }
       });
       confirm.show();
@@ -488,7 +488,7 @@ const AppView = BaseView.extend({
             agreeFunc() {
               // version 3.1 未实现 startPay 接口
               if (err.code === -99) {
-                window.location.href = mallUitl.getUpgradeUrl();
+                window.location.href = mallUtil.getUpgradeUrl();
               }
             }
           };

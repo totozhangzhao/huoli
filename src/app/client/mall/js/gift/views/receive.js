@@ -1,7 +1,7 @@
 // 微信送礼 领取页面
 // import $ from "jquery";
 import _ from "lodash";
-import * as mallUitl       from "app/client/mall/js/lib/util.js";
+import * as mallUtil       from "app/client/mall/js/lib/util.js";
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import logger         from "com/mobile/lib/log/log.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
@@ -31,7 +31,7 @@ const ReceiveView = BaseView.extend({
     _.extend(this, commonData);
     this.$initial = ui.initial().show();
     this.render();
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", defaultTitle);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", defaultTitle);
   },
 
   render() {

@@ -1,5 +1,5 @@
 import $           from "jquery";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import template from "app/client/mall/tpl/common/header/navigator.tpl";
 import * as widget from "app/client/mall/js/lib/common.js";
 
@@ -12,13 +12,13 @@ class Navigator{
       this.container = $("body");
     }
     this.isRender = false;
-    this.el= template({mallUitl:mallUitl});
+    this.el= template({mallUtil:mallUtil});
   }
   static isApp() {
-    return mallUitl.isAppFunc();
+    return mallUtil.isAppFunc();
   }
   static isHB() {
-    return mallUitl.isHangbanFunc();
+    return mallUtil.isHangbanFunc();
   }
   render(delay) {
     if(this.isRender) {
@@ -51,7 +51,7 @@ class Navigator{
           });
     }
 
-    if( !mallUitl.isAppFunc() ) {
+    if( !mallUtil.isAppFunc() ) {
       setTimeout(() => {
         initView.call(this);
       }, delay || 0 );

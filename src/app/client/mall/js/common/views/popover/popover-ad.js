@@ -3,7 +3,7 @@ import _ from "lodash";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import Storage    from "com/mobile/lib/storage/storage.js";
 
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 // 日期格式化
@@ -11,7 +11,7 @@ import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 
 const storage       = new Storage("mallpop");
 const nativeStorage = require("app/client/mall/js/lib/storage.js");
-const isApp         = mallUitl.isAppFunc();
+const isApp         = mallUtil.isAppFunc();
 const PopoverAd     = Backbone.View.extend({
   events: {
     "click .home-active-close": "hide",
@@ -119,12 +119,12 @@ const PopoverAd     = Backbone.View.extend({
   },
 
   show() {
-    mallUitl.forbiddenScroll();
+    mallUtil.forbiddenScroll();
     this.$el.show();
   },
 
   hide() {
-    mallUitl.allowScroll();
+    mallUtil.allowScroll();
     this.$el.hide();
   }
 });

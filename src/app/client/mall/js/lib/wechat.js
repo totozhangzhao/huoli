@@ -2,7 +2,7 @@ import NativeAPI from "app/client/common/lib/native/native-api.js";
 import shareUtil from "com/mobile/widget/wechat/util.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 
 export function shareFromApp(options = {}) {
   const shareInfo = shareUtil.getShareInfo();
@@ -60,7 +60,7 @@ export function initShare(options = {}) {
   if ( isShareInfoVaild ) {
     wechatUtil.setShareInfo(shareInfo);
   } else if ( !isShareInfoVaild && !shareUtil.hasShareHtml() ) {
-    const isHangban = mallUitl.isHangbanFunc();
+    const isHangban = mallUtil.isHangbanFunc();
     shareInfo = {
       title: isHangban ? "伙力·航班商城" : "伙力·高铁商城",
       desc : "你的时间非常值钱 这里选货非常省时",
@@ -78,7 +78,7 @@ export function initShare(options = {}) {
     initWeChatShare(options.title);
   }
 
-  if ( mallUitl.isAppFunc() && options.useAppShare ) {
+  if ( mallUtil.isAppFunc() && options.useAppShare ) {
     initNativeShare(options);
   }
 }

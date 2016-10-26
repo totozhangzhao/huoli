@@ -4,7 +4,7 @@ import _ from "lodash";
 // import giftConfig from "app/client/mall/js/common/gift-config.js";
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
-import * as mallUitl       from "app/client/mall/js/lib/util.js";
+import * as mallUtil       from "app/client/mall/js/lib/util.js";
 import UrlUtil        from "com/mobile/lib/url/url.js";
 import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
@@ -40,7 +40,7 @@ const IndexView = BaseView.extend({
     this.$initial = ui.initial().show();
     this.urlObj = UrlUtil.parseUrlSearch();
     this.giftId = this.urlObj.giftId;
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", defaultTitle);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", defaultTitle);
   },
 
   getToken() {

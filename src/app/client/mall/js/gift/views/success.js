@@ -1,7 +1,7 @@
 // 领取成功页面
 // import $ from "jquery";
 import _ from "lodash";
-import * as mallUitl       from "app/client/mall/js/lib/util.js";
+import * as mallUtil       from "app/client/mall/js/lib/util.js";
 import logger         from "com/mobile/lib/log/log.js";
 import ui             from "app/client/mall/js/lib/ui.js";
 import * as widget    from "app/client/mall/js/lib/common.js";
@@ -25,7 +25,7 @@ const ReceiveView = BaseView.extend({
   initialize(commonData) {
     _.extend(this, commonData);
     this.$initial = ui.initial().show();
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", defaultTitle);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", defaultTitle);
   },
 
   render() {

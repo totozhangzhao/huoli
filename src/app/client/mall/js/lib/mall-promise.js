@@ -5,7 +5,7 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import {config} from "app/client/mall/js/common/config.js";
 
@@ -61,7 +61,7 @@ export function checkLogin(opts) {
 
   return getAppInfo(opts && opts.reset)
     .then(userData => {
-      if ( !mallUitl.isAppFunc() ) {
+      if ( !mallUtil.isAppFunc() ) {
         userData.token = cookie.get("token");
       }
       return userData;
@@ -103,7 +103,7 @@ export function initPay(orderInfo) {
   function appPay(resolve, reject) {
     let payUrl = `${window.location.origin}/bmall/payview.do?orderid=${orderInfo.orderid}`;
 
-    if ( mallUitl.isHangbanFunc() ) {
+    if ( mallUtil.isHangbanFunc() ) {
       payUrl = `${window.location.origin}/bmall/hbpayview.do?orderid=${orderInfo.orderid}`;
     }
 
@@ -144,7 +144,7 @@ export function initPay(orderInfo) {
   // test:
   // http://wtest.133.cn/hangban/webpay
   function webPay() {
-    let isTest = mallUitl.isTest;
+    let isTest = mallUtil.isTest;
     if (orderInfo.server === "test") {
       isTest = true;
     }
@@ -163,5 +163,5 @@ export function initPay(orderInfo) {
     window.location.href = baseUrl + "?" + $.param(params);
   }
 
-  return new Promise(mallUitl.isAppFunc() ? appPay : webPay);
+  return new Promise(mallUtil.isAppFunc() ? appPay : webPay);
 }

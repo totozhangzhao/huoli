@@ -1,13 +1,13 @@
 import $  from "jquery";
 import _        from "lodash";
 import * as widget   from "app/client/mall/js/lib/common.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import tmpl from "app/client/mall/tpl/back-to-top.tpl";
 
 class BackTop {
   constructor(options) {
     this.config = {
-      isApp: mallUitl.isAppFunc(),
+      isApp: mallUtil.isAppFunc(),
       isHome: false
     };
     _.extend(this.config, options);

@@ -2,7 +2,7 @@ import $ from "jquery";
 import Backbone from "backbone";
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
 import logger from "com/mobile/lib/log/log.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as filter from "app/client/mall/js/common/filter/filter.js";
 
 /*
@@ -73,7 +73,7 @@ export function createRouter(opts) {
         this.replaceTo(defaultView);
       }
 
-      logger.track(`${mallUitl.getAppName()}PV`, "View PV", action);
+      logger.track(`${mallUtil.getAppName()}PV`, "View PV", action);
     },
     switchTo(panelId) {
       this.navigate(panelId, {

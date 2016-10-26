@@ -2,7 +2,7 @@ import $ from "jquery";
 import Backbone from "backbone";
 import Swipe from "com/mobile/lib/swipe/swipe.js";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 
 const AppView = Backbone.View.extend({
   el: "#top-banner",
@@ -12,7 +12,7 @@ const AppView = Backbone.View.extend({
   initialize() {
     this.$el.html(this.template({
       bannerList: this.model,
-      appName: mallUitl.getAppName(),
+      appName: mallUtil.getAppName(),
       tplUtil
     }));
 

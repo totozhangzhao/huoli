@@ -5,7 +5,7 @@ import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 
 const CategoryView = Backbone.View.extend({
 
@@ -30,7 +30,7 @@ const CategoryView = Backbone.View.extend({
     }
     this.$el.html(this.template({
       dataList: data,
-      appName: mallUitl.getAppName(),
+      appName: mallUtil.getAppName(),
       tplUtil
     }));
     this.initScroll();

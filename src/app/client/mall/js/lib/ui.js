@@ -1,5 +1,5 @@
 var $        = require("jquery");
-var mallUitl = require("app/client/mall/js/lib/util.js");
+var mallUtil = require("app/client/mall/js/lib/util.js");
 
 exports.blank = function(text) {
   var compiled = require("app/client/mall/tpl/etc/blank.tpl");
@@ -13,7 +13,7 @@ exports.initial = function(message) {
     var imgClass = "gt";
     var text = message || "正在加载…";
 
-    if ( mallUitl.isHangbanFunc() ) {
+    if ( mallUtil.isHangbanFunc() ) {
       imgClass = "hb";
     }
 

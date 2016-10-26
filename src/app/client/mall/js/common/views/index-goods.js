@@ -8,7 +8,7 @@ import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import {imageDelay} from "app/client/mall/js/lib/common.js";
 
 const PromotionView = Backbone.View.extend({
@@ -26,7 +26,7 @@ const PromotionView = Backbone.View.extend({
   render(data) {
     this.$el.html(this.template({
       dataList: data,
-      appName : mallUitl.getAppName(),
+      appName : mallUtil.getAppName(),
       tplUtil
     }));
     imageDelay();

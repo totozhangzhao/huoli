@@ -4,7 +4,7 @@ var NativeAPI = require("app/client/common/lib/native/native-api.js");
 var toast     = require("com/mobile/widget/hint/hint.js").toast;
 var UrlUtil   = require("com/mobile/lib/url/url.js");
 var logger    = require("com/mobile/lib/log/log.js");
-var mallUitl  = require("app/client/mall/js/lib/util.js");
+var mallUtil  = require("app/client/mall/js/lib/util.js");
 var ui        = require("app/client/mall/js/lib/ui.js");
 import BackTop from "com/mobile/widget/button/to-top.js";
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
@@ -22,7 +22,7 @@ var AppView = Backbone.View.extend({
 
     this.$initial = ui.initial().show();
     this.showExpressInfo();
-    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+    logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
   },
   showExpressInfo: function() {
     var self = this;

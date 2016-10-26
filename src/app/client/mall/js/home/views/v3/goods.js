@@ -4,7 +4,7 @@
 */
 import Backbone from "backbone";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import {imageDelay} from "app/client/mall/js/lib/common.js";
 
 const GoodsView = Backbone.View.extend({
@@ -19,7 +19,7 @@ const GoodsView = Backbone.View.extend({
     if(data && data.length >0) {
       this.$el.html(this.template({
         dataList: data,
-        appName : mallUitl.getAppName(),
+        appName : mallUtil.getAppName(),
         tplUtil
       }));
       imageDelay();

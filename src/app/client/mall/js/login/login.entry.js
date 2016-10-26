@@ -10,7 +10,7 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
-import * as mallUitl    from "app/client/mall/js/lib/util.js";
+import * as mallUtil    from "app/client/mall/js/lib/util.js";
 import * as loginUtil   from "app/client/mall/js/lib/login-util.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
@@ -30,7 +30,7 @@ const AppView = Backbone.View.extend({
     nav.render();
     new BackTop();
     _.extend(this, commonData);
-    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+    logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
 
     this.urlObj = UrlUtil.parseUrlSearch();
     this.$initial = ui.initial("登录中……");

@@ -2,7 +2,7 @@ import $ from "jquery";
 import _ from "lodash";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import echo from "com/mobile/lib/echo/echo.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import logger from "com/mobile/lib/log/log.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
@@ -172,7 +172,7 @@ export function imageDelay(options) {
  */
 export function initTracker(tag) {
   return data => {
-    let category = `${mallUitl.getAppName()}-${tag}_${data.title}`;
+    let category = `${mallUtil.getAppName()}-${tag}_${data.title}`;
     if (data.productid) {
       category += `_${data.productid}`;
     }
@@ -188,7 +188,7 @@ export function initTracker(tag) {
  */
 $("body").on("click", "a, button, [data-log-mall-click]", e => {
   let $cur = $(e.currentTarget);
-  let prefix = `${mallUitl.getAppName()}-ev-${window.document.title}`;
+  let prefix = `${mallUtil.getAppName()}-ev-${window.document.title}`;
   let category;
 
   if ( $cur.data("logMallClick") ) {

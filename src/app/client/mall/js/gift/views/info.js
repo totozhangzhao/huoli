@@ -2,7 +2,7 @@
 import $ from "jquery";
 import _ from "lodash";
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
-import * as mallUitl       from "app/client/mall/js/lib/util.js";
+import * as mallUtil       from "app/client/mall/js/lib/util.js";
 import logger         from "com/mobile/lib/log/log.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
 import UrlUtil        from "com/mobile/lib/url/url.js";
@@ -29,7 +29,7 @@ const ReceiveView = BaseView.extend({
   initialize(commonData) {
     _.extend(this, commonData);
     this.$initial = ui.initial();
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", defaultTitle);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", defaultTitle);
   },
 
   render() {

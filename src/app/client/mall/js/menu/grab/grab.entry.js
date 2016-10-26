@@ -3,7 +3,7 @@ import _ from "lodash";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import logger from "com/mobile/lib/log/log.js";
@@ -35,7 +35,7 @@ const AppView = BaseView.extend({
 
     this.$initial = ui.initial().show();
 
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", document.title);
 
     this.id = UrlUtil.parseUrlSearch().productid;
     // 商品列表容器

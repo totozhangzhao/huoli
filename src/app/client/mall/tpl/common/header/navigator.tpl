@@ -6,7 +6,7 @@
 
   <div class="common-switch-bar">
     <span class="common-switch-tip">切换至</span>
-    <% if(mallUitl.isHangbanFunc()) {%>
+    <% if(mallUtil.isHangbanFunc()) {%>
       <a class="js-switch common-switch-button">高铁商城</a>
     <% } else {%>
       <a class="js-switch common-switch-button">航班商城</a>

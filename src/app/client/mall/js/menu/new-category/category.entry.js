@@ -1,6 +1,6 @@
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
 import * as widget from "app/client/mall/js/lib/common.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import logger from "com/mobile/lib/log/log.js";
 import {initTracker} from "app/client/mall/js/lib/common.js";
@@ -33,7 +33,7 @@ const AppView = BaseView.extend({
     this.$goodsView = new GoodsView({model: this.stateModel});
     this.listenTo(this.stateModel, "change", this.stateChange);
     this.render();
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", title);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", title);
   },
 
   render() {

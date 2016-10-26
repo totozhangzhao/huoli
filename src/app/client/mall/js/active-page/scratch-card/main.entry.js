@@ -11,7 +11,7 @@ var wechatUtil  = require("com/mobile/widget/wechat-hack/util.js");
 var mallWechat  = require("app/client/mall/js/lib/wechat.js");
 var ScratchCard = require("com/mobile/widget/scratch-card/scratch-card.js");
 var logger      = require("com/mobile/lib/log/log.js");
-var mallUitl    = require("app/client/mall/js/lib/util.js");
+var mallUtil    = require("app/client/mall/js/lib/util.js");
 var ui          = require("app/client/mall/js/lib/ui.js");
 var detailLog   = require("app/client/mall/js/lib/common.js").initTracker("detail");
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
@@ -51,7 +51,7 @@ var AppView = Backbone.View.extend({
       }
     }
 
-    logger.track(mallUitl.getAppName() + "PV", "View PV", title);
+    logger.track(mallUtil.getAppName() + "PV", "View PV", title);
     detailLog({
       title: title,
       productid: parseUrl().productid,
@@ -87,7 +87,7 @@ var AppView = Backbone.View.extend({
 
     new ScratchCard({ el: "#lottery-main canvas" });
 
-    var isApp = mallUitl.isAppFunc();
+    var isApp = mallUtil.isAppFunc();
 
     if ( !isApp ) {
       require("app/client/mall/js/lib/download-app.js").init( isApp );

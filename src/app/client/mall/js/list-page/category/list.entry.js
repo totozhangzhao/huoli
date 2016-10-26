@@ -1,7 +1,7 @@
 // 频道商品列表
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
 import * as widget from "app/client/mall/js/lib/common.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import {initTracker} from "app/client/mall/js/lib/common.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
@@ -37,13 +37,13 @@ const AppView = BaseView.extend({
     this.groupId    = parseUrl().groupId;
     this.$footer    = new Footer();
     this.fetch();
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", title);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", title);
   },
 
   render() {
     this.$el.find("#home-goods").html(template({
       data: this.result,
-      appName : mallUitl.getAppName(),
+      appName : mallUtil.getAppName(),
       tplUtil
     }));
     imageDelay();

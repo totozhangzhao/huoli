@@ -5,7 +5,7 @@ import UrlUtil from "com/mobile/lib/url/url.js";
 import ui from "app/client/mall/js/lib/ui.js";
 // import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import logger from "com/mobile/lib/log/log.js";
-var mallUitl  = require("app/client/mall/js/lib/util.js");
+var mallUtil  = require("app/client/mall/js/lib/util.js");
 import "app/client/mall/js/lib/common.js";
 import "com/mobile/lib/jquery-collapse/src/jquery.collapse.js";
 // views
@@ -22,7 +22,7 @@ const ExpressListView = Backbone.View.extend({
     const nav = new Navigator();
     nav.render();
     this.$initial = ui.initial().show();
-    logger.track(mallUitl.getAppName() + "PV", "View PV", document.title);
+    logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
   },
 
   fetch(tracking) {

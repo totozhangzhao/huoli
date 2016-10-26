@@ -3,7 +3,7 @@ import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import * as widget from "app/client/mall/js/lib/common.js";
@@ -110,5 +110,5 @@ export function login() {
       });
   }
 
-  return mallUitl.isAppFunc() ? appLogin() : webLogin();
+  return mallUtil.isAppFunc() ? appLogin() : webLogin();
 }

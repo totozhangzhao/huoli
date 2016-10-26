@@ -3,7 +3,7 @@
 */
 import Backbone from "backbone";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 
 const ActiveView = Backbone.View.extend({
 
@@ -18,7 +18,7 @@ const ActiveView = Backbone.View.extend({
     }
     this.$el.html(this.template({
       dataList: data,
-      appName : mallUitl.getAppName(),
+      appName : mallUtil.getAppName(),
       tplUtil
     }));
 

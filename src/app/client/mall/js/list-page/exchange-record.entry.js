@@ -3,7 +3,7 @@ import Backbone from "backbone";
 import _ from "lodash";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import * as mallUitl from "app/client/mall/js/lib/util.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import storage from "app/client/mall/js/lib/storage.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import ui from "app/client/mall/js/lib/ui.js";
@@ -42,7 +42,7 @@ const AppView = Backbone.View.extend({
     this.$blank = ui.blank("暂无订单");
     this.mallOrderList();
     this.mallSearchList();
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", document.title);
     orderListLog({
       title: document.title,
       hlfrom: UrlUtil.parseUrlSearch().hlfrom || "--"

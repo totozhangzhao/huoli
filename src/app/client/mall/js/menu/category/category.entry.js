@@ -1,7 +1,7 @@
 // 频道页
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
-import * as mallUitl       from "app/client/mall/js/lib/util.js";
+import * as mallUtil       from "app/client/mall/js/lib/util.js";
 import UrlUtil        from "com/mobile/lib/url/url.js";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallWechat     from "app/client/mall/js/lib/wechat.js";
@@ -41,7 +41,7 @@ const AppView = BaseView.extend({
 
     this.$initial = ui.initial().show();
     this.fetch();
-    logger.track(`${mallUitl.getAppName()}PV`, "View PV", document.title);
+    logger.track(`${mallUtil.getAppName()}PV`, "View PV", document.title);
 
   },
 
@@ -90,7 +90,7 @@ const AppView = BaseView.extend({
 
   // 隐藏右上角签到按钮
   hideCheckinBtn() {
-    if ( !mallUitl.isHangbanFunc() ) {
+    if ( !mallUtil.isHangbanFunc() ) {
       NativeAPI.invoke("updateHeaderRightBtn", {
         action: "hide",
         text: ""
