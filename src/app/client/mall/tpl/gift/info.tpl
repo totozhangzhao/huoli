@@ -5,18 +5,18 @@
   <!-- 地址，物流信息 -->
   <% if( data.msgtpl === 3) { %>
   <div class="giving-order-info">
-    <% if(data.express) { %>
-    <a class="courier-info js-express">
+    <% _.each(data.express, function(expressItem) { %>
+    <a class="courier-info">
       <div class="courier-info-son flex-row">
         <div class="icon"><b></b></div>
-        <div class="detail">
-          <p><span>物流公司:</span><span><%= data.express.company %></span></p>
-          <p><span>物流单号:</span><span><%= data.express.tracking %></span></p>
+        <div class="detail" data-tracking="<%= expressItem.tracking %>">
+          <p><span>物流公司:</span><span><%= expressItem.company %></span></p>
+          <p><span>物流单号:</span><span><%= expressItem.tracking %></span></p>
         </div>
       </div>
       <div class="enter-icon"></div>
     </a>
-    <% } %>
+    <% }); %>
     <div class="user-info flex-row">
       <div class="icon-fa"><b class="icon"></b></div>
       <div class="detail">

@@ -1,5 +1,5 @@
 // 微信送礼 查看页面
-// import $ from "jquery";
+import $ from "jquery";
 import _ from "lodash";
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import * as mallUitl       from "app/client/mall/js/lib/util.js";
@@ -22,7 +22,8 @@ const ReceiveView = BaseView.extend({
   events: {
     "click .js-new-page": "createNewPage",
     "click .js-get-url" : "handleGetUrl",
-    "click .js-express": "gotoExpressInfoView"
+    "click .js-express": "gotoExpressInfoView",
+    "click [data-tracking]"   : "gotoNewExpressInfoView"
   },
 
   initialize(commonData) {
@@ -87,6 +88,12 @@ const ReceiveView = BaseView.extend({
     // tracking: 快递单号
     const url = `/fe/app/client/mall/html/detail-page/express-info.html?tracking=${expressInfo.tracking}&company=${encodeURIComponent(expressInfo.company)}&companyid=${expressInfo.companyid}`;
 
+    widget.createNewView({ url });
+  },
+
+  gotoNewExpressInfoView(e) {
+    var tracking = $(e.currentTarget).data("tracking");
+    const url = `/fe/app/client/mall/html/detail-page/express/list.html?orderId=${this.urlObj.giftId}#${tracking}`;
     widget.createNewView({ url });
   },
 
