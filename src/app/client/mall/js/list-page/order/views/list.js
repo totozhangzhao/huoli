@@ -10,11 +10,14 @@ import * as widget from "app/client/mall/js/lib/common.js";
 
 // views
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
-
+import OrderNavView from "app/client/mall/js/list-page/order/views/order-nav.js";
+// templates
+import ordersTpl from "app/client/mall/tpl/list-page/order/order-list.tpl";
 const OrderListView = Backbone.View.extend({
   el: "#order-list",
 
   events: {
+    "click [data-filter]": "orderFilter"
 
   },
 
@@ -23,14 +26,17 @@ const OrderListView = Backbone.View.extend({
     nav.render();
     this.$initial = ui.initial().show();
     this.$initial.hide();
+    this.orderNavView = new OrderNavView();
     logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
   },
 
   fetch(params = {}, orders) {
+    this.orderNavView.render(params);
+    this.$el.find(`[data-filter-id=${params.type}]`).addClass("on");
+    this.params = params;
     if(orders.length > 0) {
       return this.render(orders);
     }
-
     mallPromise
       .checkLogin({ reset: true })
       .then(userData => {
@@ -44,6 +50,7 @@ const OrderListView = Backbone.View.extend({
         _.extend(params, userData.userInfo, {
           p    : userData.deviceInfo.p,
         });
+
         return new Promise((resolve, reject) => {
           sendPost("orderList", params, (err, data) => {
             if (err) {
@@ -64,9 +71,24 @@ const OrderListView = Backbone.View.extend({
   },
 
   render(orders) {
-    window.console.log(orders);
-    this.$el.find(".order-content .record-bar").html("123");
+    this.$el.find(".order-content .record-bar").html(ordersTpl({
+      orders: orders.toJSON()
+    }));
     widget.imageDelay();
+  },
+
+  loadmore() {
+
+  },
+
+  orderFilter(e) {
+    this.$el.find("[data-filter]").removeClass("on");
+    var d = $(e.currentTarget);
+    var orderType = (this.params.orderType === 1 ? 'mall': 'crowd');
+    Backbone.history.navigate(`${orderType}/${d.data("filter")}`, {
+      trigger: true,
+      replace: true
+    });
   },
 
   changeType(type) {

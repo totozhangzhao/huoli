@@ -7,7 +7,7 @@ import Orders from "app/client/mall/js/list-page/order/collections/orders.js";
 // import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
 
 /*
-参数说明 style
+参数说明 type
   1 商城
   2 一元夺宝
   3 保险
@@ -17,19 +17,19 @@ import Orders from "app/client/mall/js/list-page/order/collections/orders.js";
 var typeEnum = {
   "all": {
     title: "全部",
-    style:0
+    type:0
   },
   "pending": {
-    title: "待处理",
-    style:1
+    title: "待付款",
+    type:1
+  },
+  "express": {
+    title: "待收货",
+    type:2
   },
   "success": {
-    title: "交易成功",
-    style:3
-  },
-  "cancle": {
-    title: "已取消",
-    style:4
+    title: "已完成",
+    type:3
   }
 };
 var ExpressRouter = Backbone.Router.extend({
@@ -45,7 +45,6 @@ var ExpressRouter = Backbone.Router.extend({
   },
 
   default() {
-    window.console.log(1123);
     this.navigate("mall/all", {
       trigger: true,
       replace: true
@@ -64,8 +63,9 @@ var ExpressRouter = Backbone.Router.extend({
       typeEnum[type].orders = new Orders();
     }
     let params = {
-      type : 1,
-      style: typeEnum[type].style,
+      style : 1,
+      orderType : 1,
+      type: typeEnum[type].type,
       last: ""
     };
     this.listView.fetch(params, typeEnum[type].orders);
