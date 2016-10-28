@@ -103,7 +103,7 @@ const AppView = BaseView.extend({
           _.extend(goods, {
             specIndex: index,
             limit: spec.limit,
-            paytype: spec.paytype,
+            // paytype: spec.paytype,
             points: spec.points,
             money: spec.price,
             smallimg: spec.img
@@ -119,7 +119,13 @@ const AppView = BaseView.extend({
         this.render(goods);
         this.$initial.hide();
       })
-      .catch(mallPromise.catchShowError);
+      .catch((err) => {
+        if(err.code === -202) {
+          window.location.replace("/fe/app/client/mall/404.html");
+        } else {
+          mallPromise.catchShowError(err);
+        }
+      });
   },
   showPrivilegePanel() {
     this.$privilegePanel.show();
