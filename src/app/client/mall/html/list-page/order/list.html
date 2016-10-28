@@ -12,8 +12,242 @@
   <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
 </head>
 <body>
-  <section id="order-list">
-    
+  <section id="empty-record-hint" class="exchange-empty-box" style="display: none;">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/record-empty.png" class="exchange-empty-pic" />
+    <p class="exchange-empty-text">您还没有订单哦！再去逛逛吧～～</p>
+  </section>
+
+  <section id="search-list" class="js-search-panel exchange-record-box search" style="display: none;">
+    <header class="flex-row">
+      <div class="search-input-box">
+        <input type="search" data-name="search" class="search-input" placeholder="请输入订单关键词" autocomplete="off">
+      </div>
+      <div class="search-button-box">
+        <button class="js-search-button" type="button">搜索</button>
+      </div>
+    </header>
+    <div class="nav-place"></div>
+    <div class="order-content">
+      <ul class="js-container record-bar on">
+        <!-- // -->
+      </ul>
+    </div>
+  </section>
+
+  <section id="order-list" class="exchange-record-box">
+    <nav class="nav-block">
+      <ul>
+        <li data-type="0" class="js-tab on">
+          <span>全部</span><i></i>
+        </li>
+        <li data-type="1" class="js-tab">
+          <span>待处理</span><i></i>
+        </li>
+        <li data-type="2" class="js-tab">
+          <span>交易成功</span><i></i>
+        </li>
+        <li data-type="3" class="js-tab">
+          <span>已取消</span>
+        </li>
+      </ul>
+    </nav>
+    <div class="nav-place"></div>
+    <div class="order-content">
+      <ul class="record-bar on">
+        <!-- 待付款 -->
+        <li class="record-area">
+          <a href="javascript:;" class="block clearfix">
+            <div class="num-font order-status-time">2015-12-22 19:48:50</div>
+            <div class="record-info-show flex-row">
+              <div class="record-pic-bar">
+                <img src="https://dl.rsscc.cn/guanggao/img/mall/h2-common-goods-10000001.png" class="record-pic">
+                <div class="mask"></div>
+              </div>
+              <div class="record-text-bar">
+                <div class="record-text-tit flex-row">
+                  <span class="title block">悦途价值100元贵宾厅服务悦途价值100元贵宾厅服务</span>
+                  <span class="price num-font block">￥299.00</span>
+                </div>
+                <div class="record-standard">
+                  <span class="standard-tit">规格：</span>
+                  <span class="standard-desc">默认规格</span>
+                </div>
+              </div>
+            </div>
+            <div class="order-status focus-color">待付款</div>
+            <div class="order-goods-num num-font">x1</div>
+          </a>
+          <div class="order-control-contain">
+            <div class="total-price num-font">
+              <span>合计：</span>
+              <span>￥<b class="big-font">299</b>.00</span>
+            </div>
+            <button class="control-order">取消订单</button>
+            <button class="control-buy red-bg">去支付</button>
+          </div>
+        </li>
+        <!-- 已完成 -->
+        <li class="record-area">
+          <a href="javascript:;" class="block clearfix">
+            <div class="num-font order-status-time">2015-12-22 19:48:50</div>
+            <div class="record-info-show flex-row">
+              <div class="record-pic-bar">
+                <img src="https://dl.rsscc.cn/guanggao/img/mall/h2-common-goods-10000001.png" class="record-pic">
+                <div class="mask"></div>
+              </div>
+              <div class="record-text-bar">
+                <div class="record-text-tit flex-row">
+                  <span class="title block">悦途价值100元贵宾厅服务悦途价值100元贵宾厅服务</span>
+                  <span class="price num-font block">￥299.00</span>
+                </div>
+                <div class="record-standard">
+                  <span class="standard-tit">规格：</span>
+                  <span class="standard-desc">默认规格</span>
+                </div>
+              </div>
+            </div>
+            <div class="order-status order-status-succ"></div>
+            <div class="order-goods-num num-font">x1</div>
+          </a>
+          <div class="order-control-contain">
+            <div class="total-price num-font">
+              <span>合计：</span>
+              <span>￥<b class="big-font">299</b>.00</span>
+            </div>
+            <button class="control-order">删除订单</button>
+            <button class="control-buy">再次购买</button>
+          </div>
+        </li>
+        <!-- 待收货 -->
+        <li class="record-area">
+          <a href="javascript:;" class="block clearfix">
+            <div class="num-font order-status-time">2015-12-22 19:48:50</div>
+            <div class="record-info-show flex-row">
+              <div class="record-pic-bar">
+                <img src="https://dl.rsscc.cn/guanggao/img/mall/h2-common-goods-10000001.png" class="record-pic">
+                <div class="mask"></div>
+              </div>
+              <div class="record-text-bar">
+                <div class="record-text-tit flex-row">
+                  <span class="title block">悦途价值100元贵宾厅服务悦途价值100元贵宾厅服务</span>
+                  <span class="price num-font block">￥299.00</span>
+                </div>
+                <div class="record-standard">
+                  <span class="standard-tit">规格：</span>
+                  <span class="standard-desc">默认规格</span>
+                </div>
+              </div>
+            </div>
+            <div class="order-status focus-color">待收货</div>
+            <div class="order-goods-num num-font">x1</div>
+          </a>
+          <div class="order-control-contain">
+            <div class="total-price num-font">
+              <span>合计：</span>
+              <span>￥<b class="big-font">299</b>.00</span>
+            </div>
+            <button class="control-order">查看物流</button>
+            <button class="control-buy">再次购买</button>
+          </div>
+        </li>
+        <!-- 投递失败 -->
+        <li class="record-area">
+          <a href="javascript:;" class="block clearfix">
+            <div class="num-font order-status-time">2015-12-22 19:48:50</div>
+            <div class="record-info-show flex-row">
+              <div class="record-pic-bar">
+                <img src="https://dl.rsscc.cn/guanggao/img/mall/h2-common-goods-10000001.png" class="record-pic">
+                <div class="mask"></div>
+              </div>
+              <div class="record-text-bar">
+                <div class="record-text-tit flex-row">
+                  <span class="title block">悦途价值100元贵宾厅服务悦途价值100元贵宾厅服务</span>
+                  <span class="price num-font block">￥299.00</span>
+                </div>
+                <div class="record-standard">
+                  <span class="standard-tit">规格：</span>
+                  <span class="standard-desc">默认规格</span>
+                </div>
+              </div>
+            </div>
+            <div class="order-status grey-color">投递失败</div>
+            <div class="order-goods-num num-font">x1</div>
+          </a>
+          <div class="order-control-contain">
+            <div class="total-price num-font">
+              <span>合计：</span>
+              <span>￥<b class="big-font">299</b>.00</span>
+            </div>
+            <button class="control-order">查看物流</button>
+            <button class="control-buy">再次购买</button>
+          </div>
+        </li>
+        <!-- 待领取 -->
+        <li class="record-area">
+          <a href="javascript:;" class="block clearfix">
+            <div class="num-font order-status-time">2015-12-22 19:48:50</div>
+            <div class="record-info-show flex-row">
+              <div class="record-pic-bar">
+                <img src="https://dl.rsscc.cn/guanggao/img/mall/h2-common-goods-10000001.png" class="record-pic">
+                <div class="mask"></div>
+              </div>
+              <div class="record-text-bar">
+                <div class="record-text-tit flex-row">
+                  <span class="title block">悦途价值100元贵宾厅服务悦</span>
+                  <span class="price num-font block">￥299.00</span>
+                </div>
+                <div class="record-standard">
+                  <span class="standard-tit">规格：</span>
+                  <span class="standard-desc">默认规格</span>
+                </div>
+                <button class="giving-info-tip">微信送礼</button>
+              </div>
+            </div>
+            <div class="order-status focus-color">待领取</div>
+            <div class="order-goods-num num-font">x1</div>
+          </a>
+          <div class="order-control-contain">
+            <div class="total-price num-font">
+              <span>合计：</span>
+              <span>￥<b class="big-font">299</b>.00</span>
+            </div>
+            <button class="control-buy">再次购买</button>
+          </div>
+        </li>
+        <!-- 已取消 -->
+        <li class="record-area">
+          <a href="javascript:;" class="block clearfix">
+            <div class="num-font order-status-time">2015-12-22 19:48:50</div>
+            <div class="record-info-show flex-row">
+              <div class="record-pic-bar">
+                <img src="https://dl.rsscc.cn/guanggao/img/mall/h2-common-goods-10000001.png" class="record-pic">
+                <div class="mask"></div>
+              </div>
+              <div class="record-text-bar">
+                <div class="record-text-tit flex-row">
+                  <span class="title block">悦途价值100元贵宾厅服务悦途价值100元贵宾厅服务</span>
+                  <span class="price num-font block">￥299.00</span>
+                </div>
+                <div class="record-standard">
+                  <span class="standard-tit">规格：</span>
+                  <span class="standard-desc">默认规格</span>
+                </div>
+              </div>
+            </div>
+            <div class="order-status order-status-abolish"></div>
+            <div class="order-goods-num num-font">x1</div>
+          </a>
+          <div class="order-control-contain">
+            <div class="total-price num-font">
+              <span>合计：</span>
+              <span>￥<b class="big-font">299</b>.00</span>
+            </div>
+            <button class="control-buy">删除订单</button>
+            <button class="control-buy">再次购买</button>
+          </div>
+        </li>
+      </ul>
+    </div>
   </section>
  
 <script>
