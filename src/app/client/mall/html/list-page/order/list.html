@@ -12,12 +12,7 @@
   <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
 </head>
 <body>
-  <section id="empty-record-hint" class="exchange-empty-box" style="display: none;">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/record-empty.png" class="exchange-empty-pic" />
-    <p class="exchange-empty-text">您还没有订单哦！再去逛逛吧～～</p>
-  </section>
-
-  <section id="search-list" class="js-search-panel exchange-record-box search" style="display: none;">
+  <section id="search-container" class="js-search-panel exchange-record-box search" style="display: none;">
     <header class="flex-row">
       <div class="search-input-box">
         <input type="search" data-name="search" class="search-input" placeholder="请输入订单关键词" autocomplete="off">
@@ -27,16 +22,15 @@
       </div>
     </header>
     <div class="nav-place"></div>
-    <div class="order-content">
-      <ul class="js-container record-bar on">
-        <!-- // -->
-      </ul>
-    </div>
   </section>
 
-  <section id="order-list" class="exchange-record-box">
+  <section id="order-list" class="exchange-record-box" style="">
     <nav id="order-nav" class="nav-block">
     </nav>
+    <section id="no-orders" class="ui-blank" style="display: none">
+      <div class="bg"></div>
+      <div class="txt">暂无订单</div>
+    </section>
     <div class="nav-place"></div>
     <div class="order-content">
       <ul class="record-bar on">
@@ -44,6 +38,7 @@
       </ul>
     </div>
   </section>
+
  
 <script>
   var _czc = _czc || [];

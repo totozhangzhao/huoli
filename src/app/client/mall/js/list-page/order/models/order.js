@@ -13,9 +13,12 @@ const OrderModel = Backbone.Model.extend({
     color: null,
     deleteFlag: 1,
     img: null,
-    mtotal: 0,
-    price: "￥0",
-    ptotal: 0,
+    point: 0,               // 积分单价
+    ppoint: 0,              // 积分总价
+    money: 0,               // 单价
+    mtotal: 0,               // 总价
+    price: "￥0",            // 价格字符串
+    amount: 0,              // 购买个数
     createtime: null,
     operateType: 0, // 1: 取消订单, 2: 删除订单, 3: 查看物流
     action: 0, // 1: 去支付, 2: 再次购买

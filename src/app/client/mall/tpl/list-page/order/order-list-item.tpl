@@ -1,5 +1,5 @@
 <a href="javascript:;" class="block clearfix">
-  <div class="num-font order-status-time">2015-12-22 19:48:50</div>
+  <div class="num-font order-status-time"><%= createtime %></div>
   <div class="record-info-show flex-row">
     <div class="record-pic-bar">
       <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= img %>" class="record-pic" class="record-pic op0">
@@ -7,13 +7,14 @@
     </div>
     <div class="record-text-bar">
       <div class="record-text-tit flex-row">
-        <span class="title block">悦途价值100元贵宾厅服务悦途价值100元贵宾厅服务</span>
-        <span class="price num-font block">￥299.00</span>
+        <span class="title block"><%= title %></span>
+        <span class="price num-font block"><%= money %></span>
       </div>
       <div class="record-standard">
         <span class="standard-tit">规格：</span>
         <span class="standard-desc">默认规格</span>
       </div>
+      <button class="giving-info-tip">微信送礼</button>
     </div>
   </div>
   	<% if(status === 1) { %>
@@ -25,12 +26,12 @@
   	<% } else if(status === 5) { %>
   		<div class="order-status order-status-abolish"></div>
   	<% } %>
-  <div class="order-goods-num num-font">x1</div>
+  <div class="order-goods-num num-font"><%= amount %></div>
 </a>
 <div class="order-control-contain">
 <div class="total-price num-font">
   <span>合计：</span>
-  <span>￥<b class="big-font">299</b>.00</span>
+  <span>￥<b class="big-font"><%= mtotal %></b>.00</span>
 </div>
 	<% if( operateType === 1 ) { %>
 		<button class="control-order js-cancle-order">取消订单</button>

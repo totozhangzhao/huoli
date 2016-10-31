@@ -21,10 +21,13 @@ const OrderListView = Backbone.View.extend({
 
   initialize() {
     this.listenTo(this.model, "destroy", this.remove);
+    this.listenTo(this.model, "change:show", this.toggle);
   },
 
   render() {
-    window.console.log(this.model);
+    this.model.set({
+      rendered: true
+    });
     this.$el.html(orderListItemTpl(this.model.toJSON()));
     return this;
   },
@@ -52,6 +55,14 @@ const OrderListView = Backbone.View.extend({
   // 再次购买
   toGoodsDetail() {
 
+  },
+
+  toggle(model) {
+    if(!model.get("show")) {
+      this.$el.hide();
+    } else {
+      this.$el.show();
+    }
   }
 });
 

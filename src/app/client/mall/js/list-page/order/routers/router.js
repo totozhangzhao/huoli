@@ -1,10 +1,6 @@
-
 import _ from "lodash";
 import Backbone from "backbone";
 import ListView from "app/client/mall/js/list-page/order/views/list.js";
-// collections
-import Orders from "app/client/mall/js/list-page/order/collections/orders.js";
-// import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
 
 /*
 参数说明 type
@@ -17,35 +13,41 @@ import Orders from "app/client/mall/js/list-page/order/collections/orders.js";
 var typeEnum = {
   "all": {
     title: "全部",
-    type:0
+    type: 0
   },
   "pending": {
     title: "待付款",
-    type:1
+    type: 1
   },
   "express": {
     title: "待收货",
-    type:2
+    type: 2
   },
   "success": {
     title: "已完成",
-    type:3
+    type: 3
   }
 };
 var ExpressRouter = Backbone.Router.extend({
   routes: {
     "": "default",
     ":action": "default",
-    "mall/:action": "mallDispatch",
-    "crowd/:action": "crowdDispatch"
+    "mall/:type": "mallDispatch",
+    "crowd/:type": "crowdDispatch",
+    "search/mall/:type": "mallSearchDispatch",
+    "search/crowd/:type": "crowdSearchDispatch"
   },
 
   initialize() {
     this.listView = new ListView();
   },
 
-  default() {
-    this.navigate("mall/all", {
+  default(type) {
+    let defaultView = "mall/all";
+    if(type === "crowd") {
+      defaultView = "crowd/all";
+    }
+    this.navigate(defaultView, {
       trigger: true,
       replace: true
     });
@@ -53,25 +55,63 @@ var ExpressRouter = Backbone.Router.extend({
 
   mallDispatch(type) {
     if( !_.includes(_.keys(typeEnum), type) ) {
-      this.navigate("all", {
+      this.navigate("mall/all", {
         trigger: true,
         replace: true
       });
       return;
     }
-    if(!typeEnum[type].orders) {
-      typeEnum[type].orders = new Orders();
-    }
     let params = {
-      orderType : 1,
+      orderType: 1,
       type: typeEnum[type].type,
       last: ""
     };
-    this.listView.fetch(params, true);
+    this.listView.changeView(params, {reset: true});
   },
 
   crowdDispatch(type) {
-    window.console.log(type);
+    if( !_.includes(_.keys(typeEnum), type) ) {
+      this.navigate("crowd/all", {
+        trigger: true,
+        replace: true
+      });
+      return;
+    }
+    let params = {
+      orderType: 2,
+      type: typeEnum[type].type,
+      last: ""
+    };
+    this.listView.changeView(params, {reset: true});
+  },
+
+  mallSearchDispatch(type) {
+    if( !_.includes(_.keys(typeEnum), type) ) {
+      this.navigate("search/mall/all", {
+        trigger: true,
+        replace: true
+      });
+    }
+    let params = {
+      orderType: 1,
+      type: typeEnum[type].type,
+      last: ""
+    };
+    this.listView.changeView(params, {reset: true, search: true});
+  },
+  crowdSearchDispatch(type) {
+    if( !_.includes(_.keys(typeEnum), type) ) {
+      this.navigate("search/crowd/all", {
+        trigger: true,
+        replace: true
+      });
+    }
+    let params = {
+      orderType: 2,
+      type: typeEnum[type].type,
+      last: ""
+    };
+    this.listView.changeView(params, {reset: true, search: true});
   }
 });
 

@@ -39,6 +39,14 @@ const OrderListView = Backbone.View.extend({
       params,
       dataList:this.orderNavs.toJSON()
     }));
+  },
+
+  show() {
+    this.$el.show();
+  },
+
+  hide() {
+    this.$el.hide();
   }
 });
 
