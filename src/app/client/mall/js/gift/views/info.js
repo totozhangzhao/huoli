@@ -3,6 +3,7 @@ import $ from "jquery";
 import _ from "lodash";
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import * as mallUtil       from "app/client/mall/js/lib/util.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import logger         from "com/mobile/lib/log/log.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
 import UrlUtil        from "com/mobile/lib/url/url.js";
@@ -23,7 +24,8 @@ const ReceiveView = BaseView.extend({
     "click .js-new-page": "createNewPage",
     "click .js-get-url" : "handleGetUrl",
     "click .js-express": "gotoExpressInfoView",
-    "click [data-tracking]"   : "gotoNewExpressInfoView"
+    "click [data-tracking]"   : "gotoNewExpressInfoView",
+    "click .js-to-goods-detail": "gotoGoodsDetail"
   },
 
   initialize(commonData) {
@@ -96,6 +98,14 @@ const ReceiveView = BaseView.extend({
     const url = `/fe/app/client/mall/html/detail-page/express/list.html?orderId=${this.urlObj.giftId}#${tracking}`;
     widget.createNewView({ url });
   },
+
+  gotoGoodsDetail() {
+    let url = tplUtil.getBlockUrl({
+      action:0,
+      productid:this.result.detail.productid
+    });
+    widget.createNewView({ url });
+  }
 
 });
 
