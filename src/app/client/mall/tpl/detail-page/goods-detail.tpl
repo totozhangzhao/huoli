@@ -25,7 +25,7 @@
     <% } %>
     <p class="goods-price"><%= unitPriceText %></p>
   </div>
-  <% } else { %>
+  <% } else if(paytype != 0) { %>
   <div class="money-contain">
     <% if (oriprice) { %>
     <p><span class="goods-price"><%= unitPriceText %></span><span class="relevance-price">￥<%= Number( oriprice ).toFixed(2) %></span></p>

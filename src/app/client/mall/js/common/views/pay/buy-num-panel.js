@@ -34,6 +34,19 @@ const BuyNumPanelView = Backbone.View.extend({
 
   // 渲染视图
   render() {
+    if(this.model.get("specIndex") >= 0) {
+      let specData = this.model.get("specList")[this.model.get("specIndex")];
+      if(specData) {
+        this.model.set({
+          payType: specData.paytype,
+          points: specData.points,
+          price: specData.price,
+          specValueName: specData.spec,
+          specValueId: specData.goodspecid,
+          avatar: specData.img
+        }, { silent: true });
+      }
+    }
     let tplData = this.model.toJSON();
     tplData.unitPriceText = this.model.getPPriceText(1);
     tplData.totalPriceText = this.model.getPPriceText();

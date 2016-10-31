@@ -103,7 +103,7 @@ const AppView = BaseView.extend({
           _.extend(goods, {
             specIndex: index,
             limit: spec.limit,
-            paytype: spec.paytype,
+            // paytype: spec.paytype,
             points: spec.points,
             money: spec.price,
             smallimg: spec.img
