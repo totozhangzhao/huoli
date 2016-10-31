@@ -1,5 +1,5 @@
 // import $ from "jquery";
-import _ from "lodash";
+// import _ from "lodash";
 import Backbone from "backbone";
 
 // templates
@@ -12,7 +12,7 @@ const OrderListView = Backbone.View.extend({
 
   },
 
-  initialize(options) {
+  initialize() {
     const dataList = [
       {
         title: "全部",
@@ -35,7 +35,6 @@ const OrderListView = Backbone.View.extend({
   },
 
   render(params) {
-    window.console.log(params);
     this.$el.html(orderNavTpl({
       params,
       dataList:this.orderNavs.toJSON()

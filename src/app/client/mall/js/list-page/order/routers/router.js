@@ -63,12 +63,11 @@ var ExpressRouter = Backbone.Router.extend({
       typeEnum[type].orders = new Orders();
     }
     let params = {
-      style : 1,
       orderType : 1,
       type: typeEnum[type].type,
       last: ""
     };
-    this.listView.fetch(params, typeEnum[type].orders);
+    this.listView.fetch(params, true);
   },
 
   crowdDispatch(type) {

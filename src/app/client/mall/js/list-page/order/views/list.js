@@ -1,4 +1,4 @@
-// import $ from "jquery";
+import $ from "jquery";
 import _ from "lodash";
 import Backbone from "backbone";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
@@ -8,11 +8,19 @@ import logger from "com/mobile/lib/log/log.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 
+// collections
+import Orders from "app/client/mall/js/list-page/order/collections/orders.js";
 // views
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import OrderNavView from "app/client/mall/js/list-page/order/views/order-nav.js";
+import OrderListItemView from "app/client/mall/js/list-page/order/views/order-list-item.js";
+
+
 // templates
-import ordersTpl from "app/client/mall/tpl/list-page/order/order-list.tpl";
+// import ordersTpl from "app/client/mall/tpl/list-page/order/order-list.tpl";
+
+// 订单列表数据初始化
+var orders = new Orders();
 const OrderListView = Backbone.View.extend({
   el: "#order-list",
 
@@ -27,15 +35,17 @@ const OrderListView = Backbone.View.extend({
     this.$initial = ui.initial().show();
     this.$initial.hide();
     this.orderNavView = new OrderNavView();
+    this.orderListContainer = this.$el.find(".order-content .record-bar");
+    this.listenTo(orders, 'reset', this.ordersClear);
     logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
   },
 
-  fetch(params = {}, orders) {
+  fetch(params = {}, reset) {
     this.orderNavView.render(params);
     this.$el.find(`[data-filter-id=${params.type}]`).addClass("on");
     this.params = params;
-    if(orders.length > 0) {
-      return this.render(orders);
+    if(reset) {
+      orders.reset();
     }
     mallPromise
       .checkLogin({ reset: true })
@@ -63,24 +73,29 @@ const OrderListView = Backbone.View.extend({
       })
       .then(result => {
         orders.add(result);
-        this.render(orders);
+        this.render();
       })
       .catch(err => {
         mallPromise.catchFn(err);
       });
   },
 
-  render(orders) {
-    this.$el.find(".order-content .record-bar").html(ordersTpl({
-      orders: orders.toJSON()
-    }));
+  render() {
+    orders.forEach((item) => {
+      if(!item.get("rendered")) {
+        let itemView = new OrderListItemView({model: item});
+        this.orderListContainer.append(itemView.render().el);
+      }
+    });
     widget.imageDelay();
+    window.console.log(orders.length);
   },
 
   loadmore() {
 
   },
 
+  // 切换筛选条件
   orderFilter(e) {
     this.$el.find("[data-filter]").removeClass("on");
     var d = $(e.currentTarget);
@@ -91,11 +106,12 @@ const OrderListView = Backbone.View.extend({
     });
   },
 
-  changeType(type) {
-    Backbone.history.navigate(type ,{
-      trigger: true,
-      replace: true
+  // 清空当前集合
+  ordersClear(e, c) {
+    c.previousModels.forEach((item) => {
+      item.destroy();
     });
+    e === orders;
   }
 });
 
