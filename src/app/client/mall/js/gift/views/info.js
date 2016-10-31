@@ -100,10 +100,8 @@ const ReceiveView = BaseView.extend({
   },
 
   gotoGoodsDetail() {
-    let url = tplUtil.getBlockUrl({
-      action:0,
-      productid:this.result.detail.productid
-    });
+    let url = `${tplUtil.getBlockUrl({action: 0})}?productid=${this.result.detail.productid}`;
+
     widget.createNewView({ url });
   }
 
