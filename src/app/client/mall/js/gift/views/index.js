@@ -2,6 +2,7 @@
 import $ from "jquery";
 import _ from "lodash";
 // import giftConfig from "app/client/mall/js/common/gift-config.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
 import * as mallUtil       from "app/client/mall/js/lib/util.js";
@@ -139,9 +140,13 @@ const IndexView = BaseView.extend({
    */
   gotoPage(e) {
     let pageName = $(e.currentTarget).data("toView");
-    let url = `${document.location.origin}/fe/app/client/mall/index.html`;
+    let url = "";
     switch(pageName) {
       case "home":
+        url = `${document.location.origin}/fe/app/client/mall/index.html`;
+        break;
+      case "group":
+        url = `${tplUtil.getBlockUrl({action: 8})}?groupId=${this.result.detail.groupId}`;
         break;
     }
     widget.createNewView({ url });

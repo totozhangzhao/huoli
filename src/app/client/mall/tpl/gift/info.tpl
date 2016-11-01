@@ -37,7 +37,7 @@
   </div>
   <% } %>
   <!-- 商品信息 -->
-  <div class="giving-goods-show flex-row">
+  <div class="giving-goods-show flex-row js-to-goods-detail">
     <div class="goods-pic">
       <img src="<%= data.img %>" alt="">
       <div class="mask"></div>
