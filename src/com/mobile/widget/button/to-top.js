@@ -1,20 +1,24 @@
 import $  from "jquery";
 import _        from "lodash";
 import * as widget   from "app/client/mall/js/lib/common.js";
-import * as mallUtil from "app/client/mall/js/lib/util.js";
-import tmpl from "app/client/mall/tpl/back-to-top.tpl";
+// import * as mallUtil from "app/client/mall/js/lib/util.js";
+// import tmpl from "app/client/mall/tpl/back-to-top.tpl";
 
 class BackTop {
-  constructor(options) {
-    this.config = {
-      isApp: mallUtil.isAppFunc(),
-      isHome: false
-    };
-    _.extend(this.config, options);
+  
+  // 暂停使用
+  constructor() {}
+
+  // constructor(options) {
+  //   this.config = {
+  //     isApp: mallUtil.isAppFunc(),
+  //     isHome: false
+  //   };
+  //   _.extend(this.config, options);
     
-    this.view = $( tmpl( this.config ) );
-    this.bindEvents();
-  }
+  //   this.view = $( tmpl( this.config ) );
+  //   this.bindEvents();
+  // }
 
   bindEvents() {
     this.view
@@ -45,5 +49,5 @@ class BackTop {
     
   } 
 }
-export default BackTop;
 
+export default BackTop;
