@@ -45,15 +45,22 @@ const ExpressListView = Backbone.View.extend({
     })
     .catch(() => {
       // mallPromise.catchFn();
-      this.$el.html($('<img class="express-empty" src="http://cdn.rsscc.cn/guanggao/img/icon/express-empty.png" alt="">'));
+      this.showExpressError();
     });
   },
 
   render(express) {
+    if(express.length === 1) {
+      if(express[0].data) {
+        this.showExpressError();
+        return;
+      }
+    }
     this.$el.html(ExpressListTpl({
       dataList: express,
       curTracking: this.curTracking
     }));
+    window.console.log(express);
     this.$el.collapse({
       query: "nav[data-express]"
     });
@@ -61,6 +68,10 @@ const ExpressListView = Backbone.View.extend({
 
   scrollTop() {
     $('body').scrollTop(0);
+  },
+
+  showExpressError() {
+    this.$el.html($('<img class="express-empty" src="http://cdn.rsscc.cn/guanggao/img/icon/express-empty.png" alt="">'));
   }
 });
 
