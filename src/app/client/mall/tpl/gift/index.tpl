@@ -37,7 +37,7 @@
     </span>
   </p>
 </div>
-<a class="giving-btn cafe-color" data-to-view="home">我也要送</a>
+<a class="giving-btn cafe-color" data-to-view="group">我也要送</a>
 <% } else if (data.status === 4) { %>  
 <!-- 已失效 -->
 <div class="giving-msg">
@@ -47,6 +47,6 @@
     </span>
   </p>
 </div>
-<a class="giving-btn cafe-color" data-to-view="home">我也要送</a>
+<a class="giving-btn cafe-color" data-to-view="group">我也要送</a>
 <% } %>
 <div class="giving-footer"></div>
