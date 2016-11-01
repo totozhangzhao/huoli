@@ -51,7 +51,7 @@ const ExpressListView = Backbone.View.extend({
 
   render(express) {
     if(express.length === 1) {
-      if(express[0].data) {
+      if(!express[0].data) {
         this.showExpressError();
         return;
       }
