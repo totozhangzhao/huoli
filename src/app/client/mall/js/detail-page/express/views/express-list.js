@@ -60,7 +60,6 @@ const ExpressListView = Backbone.View.extend({
       dataList: express,
       curTracking: this.curTracking
     }));
-    window.console.log(express);
     this.$el.collapse({
       query: "nav[data-express]"
     });
