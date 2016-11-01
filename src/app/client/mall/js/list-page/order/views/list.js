@@ -18,10 +18,6 @@ import OrderNavView from "app/client/mall/js/list-page/order/views/order-nav.js"
 import OrderListItemView from "app/client/mall/js/list-page/order/views/order-list-item.js";
 import SearchView from "app/client/mall/js/list-page/order/views/search-view.js";
 
-
-// templates
-// import ordersTpl from "app/client/mall/tpl/list-page/order/order-list.tpl";
-
 // 订单列表数据初始化
 var OrderData = {};
 const OrderListView = Backbone.View.extend({
@@ -50,7 +46,6 @@ const OrderListView = Backbone.View.extend({
   bindEvents() {
     const screenHeight = $(window).height();
     const edgeHeight = screenHeight * 0.35;
-
     $(window).on("scroll", () => {
       if (this.loading) {
         return;
@@ -67,10 +62,10 @@ const OrderListView = Backbone.View.extend({
     this.hideNoOrderView();
     this.useSearch = options.search || false;
     if(this.useSearch) {
-      this.mapKey = this.getTypeMapKey("search");
+      this.mapKey = "search";
       this.showSearchView();
     } else {
-      this.mapKey = this.getTypeMapKey(params.type);
+      this.mapKey = orderUtil.getViewByTypeValue(params.orderStatus);
       this.hideSearchView();
     }
 
@@ -96,16 +91,14 @@ const OrderListView = Backbone.View.extend({
     });
 
     this.orderNavView.render(params);
-    this.$el.find(`[data-filter-id=${params.type}]`).addClass("on");
+    this.$el.find(`[data-filter-id=${params.orderStatus}]`).addClass("on");
     this.params = params;
 
     // 通过切换路由来的，如果已有数据，则只把已有的数据渲染
-    if(options.reset) {
-      if(OrderData[this.mapKey].orders.length == 0) {
-        this.fetch();
-      }
-    } else {
+    if(!this.useSearch && (OrderData[this.mapKey].orders.length == 0)) {
       this.fetch();
+    } else {
+      this.$initial.hide();
     }
 
   },
@@ -203,7 +196,7 @@ const OrderListView = Backbone.View.extend({
       targetView += "search/";
     }
     let orderType = (this.params.orderType !== 1 ? 'crowd': 'mall');
-    let view = `${targetView}${orderType}/${orderUtil.getViewByTypeValue(this.params.type)}`;
+    let view = `${targetView}${orderType}/${orderUtil.getViewByTypeValue(this.params.orderStatus)}`;
     Backbone.history.navigate(view, {
       trigger: true,
       replace: true
@@ -224,28 +217,6 @@ const OrderListView = Backbone.View.extend({
   hideSearchView() {
     this.searchView.hide();
     this.orderNavView.show();
-  },
-
-  getTypeMapKey(type) {
-    let key = "";
-    switch(type) {
-      case 0:
-        key = "all";
-        break;
-      case 1:
-        key = "pending";
-        break;
-      case 2:
-        key = "express";
-        break;
-      case 3:
-        key = "success";
-        break;
-      case "search":
-        key = "search";
-        break;
-    }
-    return key;
   },
 
   showNoOrderView() {

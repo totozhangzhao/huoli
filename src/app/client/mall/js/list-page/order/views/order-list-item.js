@@ -9,7 +9,7 @@ import orderListItemTpl from "app/client/mall/tpl/list-page/order/order-list-ite
 const OrderListView = Backbone.View.extend({
   tagName: "li",
 
-  className: "record-area",
+  className: "record-area js-touch-state touch-bg no-select",
 
   events: {
     "click .js-to-express": "toExpressInfo",

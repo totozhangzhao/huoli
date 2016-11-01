@@ -20,22 +20,22 @@ const orderNavDataList = [
 const typeEnum = {
   "all": {
     title: "全部",
-    type: 0,
+    orderStatus: 0,
     view: "all"
   },
   "pending": {
     title: "待付款",
-    type: 1,
+    orderStatus: 1,
     view: "pending"
   },
   "express": {
     title: "待收货",
-    type: 2,
+    orderStatus: 2,
     view: "express"
   },
   "success": {
     title: "已完成",
-    type: 3,
+    orderStatus: 3,
     view: "success"
   }
 };
@@ -45,17 +45,17 @@ class OrderUtil {
     this.orderNavDataList = orderNavDataList;
   }
 
-  hasType(type) {
-    return _.includes(_.keys(this.typeEnum), type);
+  hasType(orderStatus) {
+    return _.includes(_.keys(this.typeEnum), orderStatus);
   }
 
-  getTypeValue(type) {
-    return this.typeEnum[type].type;
+  getTypeValue(orderStatus) {
+    return this.typeEnum[orderStatus].orderStatus;
   }
 
   getViewByTypeValue(typeValue) {
     var a =_.find(this.typeEnum, (item) => {
-      return item.type === typeValue;
+      return item.orderStatus === typeValue;
     });
     return a.view;
   }

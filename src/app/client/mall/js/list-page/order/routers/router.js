@@ -44,10 +44,10 @@ var ExpressRouter = Backbone.Router.extend({
     }
     let params = {
       orderType: 1,
-      type: orderUtil.getTypeValue(type),
+      orderStatus: orderUtil.getTypeValue(type),
       last: ""
     };
-    this.listView.changeView(params, {reset: true});
+    this.listView.changeView(params, {changeView: true});
   },
 
   crowdDispatch(type) {
@@ -60,10 +60,10 @@ var ExpressRouter = Backbone.Router.extend({
     }
     let params = {
       orderType: 2,
-      type: orderUtil.getTypeValue(type),
+      orderStatus: orderUtil.getTypeValue(type),
       last: ""
     };
-    this.listView.changeView(params, {reset: true});
+    this.listView.changeView(params, {changeView: true});
   },
 
   mallSearchDispatch(type) {
@@ -75,10 +75,10 @@ var ExpressRouter = Backbone.Router.extend({
     }
     let params = {
       orderType: 1,
-      type: orderUtil.getTypeValue(type),
+      orderStatus: orderUtil.getTypeValue(type),
       last: ""
     };
-    this.listView.changeView(params, {reset: true, search: true});
+    this.listView.changeView(params, {changeView: true, search: true});
   },
   crowdSearchDispatch(type) {
     if( !orderUtil.hasType(type) ) {
@@ -89,10 +89,10 @@ var ExpressRouter = Backbone.Router.extend({
     }
     let params = {
       orderType: 2,
-      type: orderUtil.getTypeValue(type),
+      orderStatus: orderUtil.getTypeValue(type),
       last: ""
     };
-    this.listView.changeView(params, {reset: true, search: true});
+    this.listView.changeView(params, {changeView: true, search: true});
   }
 });
 
