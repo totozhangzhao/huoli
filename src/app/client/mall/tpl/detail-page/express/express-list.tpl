@@ -4,7 +4,7 @@
   <div class="delivery-info num-font fl"><%= express.tracking %></div>
 </nav>
 <ul class="delivery-status-bar">
-  <% if(express.data && !(express.data.length > 0) ) { %>
+  <% if(!express.data || express.data.length === 0 ) { %>
     <li style="text-align: center;">暂无物流信息</li>
   <%}%>
   <% _.each(express.data, function(expressInfo, index) { %>
