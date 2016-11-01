@@ -10,11 +10,15 @@
         <span class="title block"><%= title %></span>
         <span class="price num-font block"><%= money %></span>
       </div>
+      <% if(spec) {%>
       <div class="record-standard">
         <span class="standard-tit">规格：</span>
-        <span class="standard-desc">默认规格</span>
+        <span class="standard-desc"><%= spec %></span>
       </div>
+      <% } %>
+      <% if(orderKind === 2) {%>
       <button class="giving-info-tip">微信送礼</button>
+      <% } %>
     </div>
   </div>
   	<% if(status === 1) { %>

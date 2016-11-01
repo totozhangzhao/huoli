@@ -9,6 +9,7 @@ import logger from "com/mobile/lib/log/log.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 
+import orderUtil from "app/client/mall/js/list-page/order/utils/order-utils.js";
 // collections
 import Orders from "app/client/mall/js/list-page/order/collections/orders.js";
 // views
@@ -27,8 +28,6 @@ const OrderListView = Backbone.View.extend({
   el: "#order-list",
 
   events: {
-    "click [data-filter]": "orderFilter"
-
   },
 
   initialize() {
@@ -39,6 +38,7 @@ const OrderListView = Backbone.View.extend({
     this.searchView = new SearchView({
       listView: this
     });
+    window.aaa = this;
     this.orderNavView = new OrderNavView();
     this.orderListContainer = this.$el.find(".order-content .record-bar");
     this.setSearchBtn("搜索");
@@ -107,7 +107,6 @@ const OrderListView = Backbone.View.extend({
     } else {
       this.fetch();
     }
-    window.console.log(OrderData);
 
   },
 
@@ -182,18 +181,6 @@ const OrderListView = Backbone.View.extend({
     }
   },
 
-  // 切换筛选条件
-  orderFilter(e) {
-    this.$el.find("[data-filter]").removeClass("on");
-    let d = $(e.currentTarget);
-    let orderType = (this.params.orderType === 1 ? 'mall': 'crowd');
-    Backbone.history.navigate(`${orderType}/${d.data("filter")}`, {
-      trigger: true,
-      replace: true
-    });
-  },
-
-
   // app中设置右上角按钮
   setSearchBtn(text) {
     NativeAPI.invoke("updateHeaderRightBtn", {
@@ -209,21 +196,34 @@ const OrderListView = Backbone.View.extend({
 
   // app中 右上角按钮点击事件处理
   searchBtnClickHandler() {
+    let targetView = "";
+    if( this.searchView.$el.is(":visible")) {
+      targetView = "";
+    } else {
+      targetView += "search/";
+    }
+    let orderType = (this.params.orderType !== 1 ? 'crowd': 'mall');
+    let view = `${targetView}${orderType}/${orderUtil.getViewByTypeValue(this.params.type)}`;
+    Backbone.history.navigate(view, {
+      trigger: true,
+      replace: true
+    });
+  },
 
+  test() {
+    this.searchBtnClickHandler();
   },
 
   // 显示搜索页面
   showSearchView() {
     this.searchView.show();
     this.orderNavView.hide();
-    // this.$el.hide();
   },
 
   // 隐藏搜索页面
   hideSearchView() {
     this.searchView.hide();
     this.orderNavView.show();
-    // this.$el.show();
   },
 
   getTypeMapKey(type) {

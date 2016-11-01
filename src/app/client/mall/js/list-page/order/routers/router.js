@@ -1,33 +1,14 @@
-import _ from "lodash";
 import Backbone from "backbone";
 import ListView from "app/client/mall/js/list-page/order/views/list.js";
-
+import orderUtil from "app/client/mall/js/list-page/order/utils/order-utils.js";
 /*
-参数说明 type
+参数说明 orderType
   1 商城
   2 一元夺宝
   3 保险
   4 优惠券
-
 */
-var typeEnum = {
-  "all": {
-    title: "全部",
-    type: 0
-  },
-  "pending": {
-    title: "待付款",
-    type: 1
-  },
-  "express": {
-    title: "待收货",
-    type: 2
-  },
-  "success": {
-    title: "已完成",
-    type: 3
-  }
-};
+
 var ExpressRouter = Backbone.Router.extend({
   routes: {
     "": "default",
@@ -54,7 +35,7 @@ var ExpressRouter = Backbone.Router.extend({
   },
 
   mallDispatch(type) {
-    if( !_.includes(_.keys(typeEnum), type) ) {
+    if( !orderUtil.hasType(type) ) {
       this.navigate("mall/all", {
         trigger: true,
         replace: true
@@ -63,14 +44,14 @@ var ExpressRouter = Backbone.Router.extend({
     }
     let params = {
       orderType: 1,
-      type: typeEnum[type].type,
+      type: orderUtil.getTypeValue(type),
       last: ""
     };
     this.listView.changeView(params, {reset: true});
   },
 
   crowdDispatch(type) {
-    if( !_.includes(_.keys(typeEnum), type) ) {
+    if( !orderUtil.hasType(type) ) {
       this.navigate("crowd/all", {
         trigger: true,
         replace: true
@@ -79,14 +60,14 @@ var ExpressRouter = Backbone.Router.extend({
     }
     let params = {
       orderType: 2,
-      type: typeEnum[type].type,
+      type: orderUtil.getTypeValue(type),
       last: ""
     };
     this.listView.changeView(params, {reset: true});
   },
 
   mallSearchDispatch(type) {
-    if( !_.includes(_.keys(typeEnum), type) ) {
+    if( !orderUtil.hasType(type) ) {
       this.navigate("search/mall/all", {
         trigger: true,
         replace: true
@@ -94,13 +75,13 @@ var ExpressRouter = Backbone.Router.extend({
     }
     let params = {
       orderType: 1,
-      type: typeEnum[type].type,
+      type: orderUtil.getTypeValue(type),
       last: ""
     };
     this.listView.changeView(params, {reset: true, search: true});
   },
   crowdSearchDispatch(type) {
-    if( !_.includes(_.keys(typeEnum), type) ) {
+    if( !orderUtil.hasType(type) ) {
       this.navigate("search/crowd/all", {
         trigger: true,
         replace: true
@@ -108,7 +89,7 @@ var ExpressRouter = Backbone.Router.extend({
     }
     let params = {
       orderType: 2,
-      type: typeEnum[type].type,
+      type: orderUtil.getTypeValue(type),
       last: ""
     };
     this.listView.changeView(params, {reset: true, search: true});

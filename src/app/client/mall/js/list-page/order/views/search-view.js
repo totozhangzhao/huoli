@@ -6,7 +6,6 @@ const SearchView = Backbone.View.extend({
 
   events: {
     "click .js-search-button": "search"
-
   },
 
   initialize(options) {
@@ -31,6 +30,7 @@ const SearchView = Backbone.View.extend({
   },
 
   search() {
+    // 清空历史记录
     this.listView.clearOrderList();
     this.listView.params.key = this.inputView.val();
     this.listView.fetch();
