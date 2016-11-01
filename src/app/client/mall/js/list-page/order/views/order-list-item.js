@@ -52,7 +52,7 @@ const OrderListView = Backbone.View.extend({
         agreeText: "确定",
         cancelText: "取消",
         agreeFunc: () => {
-          this.cancelOrderHanlder(1);
+          this.cancelDeleteOrderHanlder(1);
         },
         cancelFunc() {}
       });
