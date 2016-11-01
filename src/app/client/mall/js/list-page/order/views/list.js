@@ -136,7 +136,6 @@ const OrderListView = Backbone.View.extend({
         });
       })
       .then(result => {
-        window.console.log(result);
         OrderData[this.mapKey].orders.add(result);
         this.render();
         this.$initial.hide();
@@ -169,7 +168,6 @@ const OrderListView = Backbone.View.extend({
     // 数据个数是20的整数倍时，可以加载更多
     if(OrderData[this.mapKey].orders.length % 20 === 0) {
       this.params.last = OrderData[this.mapKey].orders.last().get("orderid") || "";
-      window.console.log(this.params);
       this.fetch();
     }
   },
@@ -228,14 +226,13 @@ const OrderListView = Backbone.View.extend({
   },
 
   clearSearchOrders(a, list) {
-    window.console.log(a);
     _.each(list.previousModels, (model) => {
       model.destroy();
     });
+    return a;
   },
 
   clearOrderList() {
-    window.console.log(22222);
     OrderData[this.mapKey].orders.reset();
   },
 

@@ -36,7 +36,7 @@
   <span>￥<b class="big-font"><%= mtotal %></b>.00</span>
 </div>
 	<% if( operateType === 1 ) { %>
-		<button class="control-order js-cancle-order">取消订单</button>
+		<button class="control-order js-cancel-order">取消订单</button>
 	<% } else if (operateType === 2) {%>
 		<button class="control-order js-delete-order">删除订单</button>
 	<% } else if (operateType === 3) {%>
