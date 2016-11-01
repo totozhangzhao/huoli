@@ -1,7 +1,8 @@
 // import $ from "jquery";
 // import _ from "lodash";
 import Backbone from "backbone";
-
+import * as widget from "app/client/mall/js/lib/common.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 // views
 
 // templates
@@ -16,7 +17,8 @@ const OrderListView = Backbone.View.extend({
     "click .js-cancel-order": "cancelOrder",
     "click .js-delete-order": "deleteOrder",
     "click .js-purchase-order": "toPurchase",
-    "click .js-to-goods-detail": "toGoodsDetail"
+    "click .js-to-goods-detail": "toGoodsDetail",
+    "click .js-to-order-detail": "toOrderDetail"
   },
 
   initialize() {
@@ -34,6 +36,9 @@ const OrderListView = Backbone.View.extend({
 
   // 取消订单
   cancelOrder() {
+    window.console.log(this.model);
+    // 取消成功 operateType重置为0
+    //         action 重置为2 再次购买
 
   },
 
@@ -49,12 +54,21 @@ const OrderListView = Backbone.View.extend({
 
   // 查看物流
   toExpressInfo() {
-
+    const url = `/fe/app/client/mall/html/detail-page/express/list.html?orderId=${this.orderDetail.orderid}`;
+    widget.createNewView({ url });
   },
 
   // 再次购买
   toGoodsDetail() {
+    let url = `${tplUtil.getBlockUrl({action: 0})}?productid=${this.model.get('productid')}`;
+    widget.createNewView({ url });
+  },
 
+  toOrderDetail() {
+    widget.createNewView({
+      url: `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${this.model.get("orderid")}&from=order-list-page`,
+      title: "订单详情"
+    });
   },
 
   toggle(model) {

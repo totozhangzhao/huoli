@@ -1,5 +1,8 @@
 <% _.each(dataList, function (express, index) { %>
-<nav class="delivery-nav clearfix <%= express.tracking === curTracking ? 'open': ''%>" data-express="<%= express.tracking %>">
+  <% 
+    var curClass = (express.tracking === curTracking) || (curTracking === 'first' && index === 0) ? 'open': ''; 
+  %>
+<nav class="delivery-nav clearfix <%= curClass %>" data-express="<%= express.tracking %>">
   <div class="delivery-info fl"><%= express.company %></div>
   <div class="delivery-info num-font fl"><%= express.tracking %></div>
 </nav>

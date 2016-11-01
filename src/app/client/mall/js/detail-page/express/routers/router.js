@@ -9,6 +9,7 @@ var ExpressRouter = Backbone.Router.extend({
     this.expressList = new ExpressList();
   },
   default() {
+    this.expressList.fetch("first");
   },
 
   dispatch(tracking) {

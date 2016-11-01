@@ -237,6 +237,12 @@ const OrderListView = Backbone.View.extend({
   clearOrderList() {
     window.console.log(22222);
     OrderData[this.mapKey].orders.reset();
+  },
+
+  setPageResume() {
+    NativeAPI.registerHandler("resume", () => {
+      window.location.reload();
+    });
   }
 });
 

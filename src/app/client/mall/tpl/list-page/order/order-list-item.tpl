@@ -1,4 +1,4 @@
-<a href="javascript:;" class="block clearfix">
+<a href="javascript:;" class="block clearfix js-to-order-detail">
   <div class="num-font order-status-time"><%= createtime %></div>
   <div class="record-info-show flex-row">
     <div class="record-pic-bar">
@@ -21,15 +21,13 @@
       <% } %>
     </div>
   </div>
-  	<% if(status === 1) { %>
-	  	<div class="order-status focus-color">待付款</div>
-  	<% } else if (status === 2) { %>
-	  	<div class="order-status focus-color">待收货</div>
-  	<% } else if(status === 3) { %>
+  	<%if(status.code === 4) { %>
   		<div class="order-status order-status-succ"></div>
-  	<% } else if(status === 5) { %>
+  	<% } else if(status.code === 16) { %>
   		<div class="order-status order-status-abolish"></div>
-  	<% } %>
+  	<% } else {%>
+      <div class="order-status" style="color: <%= status.color %>"><%= status.message %></div>
+    <% } %>
   <div class="order-goods-num num-font"><%= amount %></div>
 </a>
 <div class="order-control-contain">
