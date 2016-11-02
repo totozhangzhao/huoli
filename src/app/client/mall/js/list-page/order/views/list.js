@@ -41,7 +41,7 @@ const OrderListView = Backbone.View.extend({
     this.setSearchBtn("搜索");
     this.bindEvents();
     NativeAPI.registerHandler("headerRightBtnClick", () => {
-      this.searchBtnClickHandler()
+      this.searchBtnClickHandler();
     });
     logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
   },
