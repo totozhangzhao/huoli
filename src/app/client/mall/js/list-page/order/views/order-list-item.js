@@ -131,7 +131,7 @@ const OrderListView = Backbone.View.extend({
                   operateType: 2,
                   action: 2,
                   status: status
-                })
+                });
               }
             },
             cancelFunc() {}
