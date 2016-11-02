@@ -174,11 +174,9 @@ const OrderListView = Backbone.View.extend({
 
   // 加载更多
   loadMore() {
-    // 数据个数是20的整数倍时，可以加载更多
-    if(OrderData[this.mapKey].orders.length % 20 === 0) {
-      this.params.last = OrderData[this.mapKey].orders.last().get("orderid") || "";
-      this.fetch();
-    }
+    // 由于有删除功能，无论是否为20的整数倍，都执行加载更多
+    this.params.last = OrderData[this.mapKey].orders.last().get("orderid") || "";
+    this.fetch();
   },
 
   // app中设置右上角按钮
