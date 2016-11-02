@@ -71,10 +71,8 @@ const OrderListView = Backbone.View.extend({
       this.showSearchView();
       title = "搜索订单";
     } else {
-      if(params.orderType === 2) {
-        title = "一元夺宝订单列表";
-      }
       this.mapKey = orderUtil.getViewByTypeValue(params.orderStatus);
+      title = `${orderUtil.getTitleByTypeValue(params.orderStatus)}订单`;
       this.hideSearchView();
     }
 

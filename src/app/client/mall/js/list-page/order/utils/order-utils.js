@@ -59,6 +59,12 @@ class OrderUtil {
     });
     return a.view;
   }
+  getTitleByTypeValue(typeValue) {
+    var a =_.find(this.typeEnum, (item) => {
+      return item.orderStatus === typeValue;
+    });
+    return a.title;
+  }
 }
 const orderUtil = new OrderUtil();
 export default orderUtil;
