@@ -127,7 +127,7 @@ const OrderListView = Backbone.View.extend({
         });
         if(this.useSearch) {
           _.extend(params, {
-            type: 4
+            orderStatus: 4
           });
         }
 
