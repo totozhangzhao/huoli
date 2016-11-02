@@ -28,7 +28,7 @@
   	<% } else {%>
       <div class="order-status" style="color: <%= status.color %>"><%= status.message %></div>
     <% } %>
-  <div class="order-goods-num num-font"><%= amount %></div>
+  <div class="order-goods-num num-font">x<%= amount %></div>
 </a>
 <div class="order-control-contain">
 <div class="total-price num-font">
