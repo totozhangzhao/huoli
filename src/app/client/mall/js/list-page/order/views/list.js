@@ -40,7 +40,9 @@ const OrderListView = Backbone.View.extend({
     this.orderListContainer = this.$el.find(".order-content .record-bar");
     this.setSearchBtn("搜索");
     this.bindEvents();
-    NativeAPI.registerHandler("headerRightBtnClick", this.searchBtnClickHandler);
+    NativeAPI.registerHandler("headerRightBtnClick", () => {
+      this.searchBtnClickHandler()
+    });
     logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
   },
 
@@ -63,15 +65,20 @@ const OrderListView = Backbone.View.extend({
     hint.showLoading();
     this.hideNoOrderView();
     this.useSearch = options.search || false;
+    let title = "订单列表";
     if(this.useSearch) {
       this.mapKey = "search";
       this.showSearchView();
+      title = "搜索订单";
     } else {
+      if(params.orderType === 2) {
+        title = "一元夺宝订单列表";
+      }
       this.mapKey = orderUtil.getViewByTypeValue(params.orderStatus);
       this.hideSearchView();
     }
 
-
+    widget.updateViewTitle(title);
     if( !OrderData[this.mapKey] ) {
       OrderData[this.mapKey] = {
         orders: new Orders(),
@@ -191,6 +198,7 @@ const OrderListView = Backbone.View.extend({
 
   // app中 右上角按钮点击事件处理
   searchBtnClickHandler() {
+    window.console.log('点击搜索按钮');
     let targetView = "";
     if( this.searchView.$el.is(":visible")) {
       targetView = "";
