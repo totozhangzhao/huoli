@@ -145,7 +145,7 @@ const OrderListView = Backbone.View.extend({
 
   // 查看物流
   toExpressInfo() {
-    const url = `/fe/app/client/mall/html/detail-page/express/list.html?orderId=${this.orderDetail.orderid}`;
+    const url = `/fe/app/client/mall/html/detail-page/express/list.html?orderId=${this.model.get("orderid")}`;
     widget.createNewView({ url });
   },
 
