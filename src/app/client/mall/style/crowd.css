@@ -222,6 +222,21 @@ p {
 .common-shadow.improve-zindex {
   z-index: 12;
 }
+.ui-not-found {
+  width: 100%;
+  min-height: 100%;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+  position: relative;
+  left: 0;
+  top: 0;
+  background-color: #f7f7f7;
+}
+.ui-not-found img {
+  width: 100%;
+}
 .ui-confirm {
   width: 74.6%;
   text-align: center;
@@ -888,14 +903,20 @@ img.express-empty {
   height: 0.48rem;
   display: block;
   margin: 0 auto 0.10667rem;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-1011.png') no-repeat 1px 0;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-1030.png') no-repeat;
   opacity: 0.5;
   background-size: 13.33333rem 13.33333rem;
 }
-.home-bottom-nav .home-bottom-list:nth-child(2) .home-bottom-icon {
+.home-bottom-nav .home-bottom-list.index .home-bottom-icon {
+  background-position: 1 0;
+}
+.home-bottom-nav .home-bottom-list.topic .home-bottom-icon {
+  background-position: -2.24rem 0;
+}
+.home-bottom-nav .home-bottom-list.category .home-bottom-icon {
   background-position: -0.8rem 0.05333rem;
 }
-.home-bottom-nav .home-bottom-list:nth-child(3) .home-bottom-icon {
+.home-bottom-nav .home-bottom-list.mine .home-bottom-icon {
   background-position: -1.57333rem 0;
 }
 .common-banner-pic {
@@ -998,7 +1019,7 @@ img.express-empty {
 .num-items span b {
   width: 0.32rem;
   height: 0.32rem;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-1011.png') no-repeat -1.44rem -0.66667rem;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-1030.png') no-repeat -1.44rem -0.66667rem;
   background-size: 13.33333rem 13.33333rem;
   position: absolute;
   left: 0.37333rem;
@@ -1062,7 +1083,7 @@ img.express-empty {
 .sold-out-point {
   width: 2.69333rem;
   height: 3.09333rem;
-  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-1011.png') no-repeat;
+  background: url('http://cdn.rsscc.cn/guanggao/img/icon/index-icon-1030.png') no-repeat;
   background-size: 13.33333rem 13.33333rem;
   position: absolute;
   left: 50%;
@@ -1081,6 +1102,47 @@ img.express-empty {
 }
 .forbidden-scroll {
   overflow: hidden;
+}
+.topic-bar {
+  width: 100%;
+}
+.topic-bar .topic-area {
+  width: 100%;
+  height: 7.73333rem;
+  background-color: #fff;
+}
+.topic-bar .topic-area:not(:last-child) {
+  margin-bottom: 0.26667rem;
+}
+.topic-bar .topic-area .topic-show-pic {
+  width: 100%;
+  height: 5.62667rem;
+}
+.topic-bar .topic-area .topic-area-desc {
+  width: 100%;
+  text-align: center;
+}
+.topic-bar .topic-area .topic-area-desc .goods-name {
+  font-size: 0.45333rem;
+  height: 0.72rem;
+  line-height: 0.72rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  margin-top: 0.29333rem;
+}
+.topic-bar .topic-area .topic-area-desc .goods-slogan {
+  font-size: 0.32rem;
+  color: #7f7f7f;
+  height: 0.53333rem;
+  line-height: 0.53333rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 .snap-up-box {
   min-height: 100%;
