@@ -8,6 +8,7 @@ import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import logger from "com/mobile/lib/log/log.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
+import hint from "com/mobile/widget/hint/hint.js";
 
 import orderUtil from "app/client/mall/js/list-page/order/utils/order-utils.js";
 // collections
@@ -59,6 +60,7 @@ const OrderListView = Backbone.View.extend({
 
   // 切换筛选条件
   changeView(params = {}, options) {
+    hint.showLoading();
     this.hideNoOrderView();
     this.useSearch = options.search || false;
     if(this.useSearch) {
@@ -99,6 +101,7 @@ const OrderListView = Backbone.View.extend({
       this.fetch();
     } else {
       this.$initial.hide();
+      hint.hideLoading();
     }
 
   },
@@ -125,6 +128,7 @@ const OrderListView = Backbone.View.extend({
 
         return new Promise((resolve, reject) => {
           sendPost("orderList", params, (err, data) => {
+            hint.hideLoading();
             this.params.last = "";
             this.loading = false;
             if (err) {
