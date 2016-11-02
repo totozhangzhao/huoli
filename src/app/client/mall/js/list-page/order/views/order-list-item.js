@@ -29,14 +29,21 @@ const OrderListView = Backbone.View.extend({
 
   initialize() {
     this.listenTo(this.model, "destroy", this.remove);
-    this.listenTo(this.model, "change:show", this.toggle);
+    this.listenTo(this.model, "change", this.render);
   },
 
   render() {
+    this.$el.hide();
     this.model.set({
       rendered: true
     });
-    this.$el.html(orderListItemTpl(this.model.toJSON()));
+    this.$el.html(orderListItemTpl({
+      orderData:this.model.toJSON(),
+      tplUtil
+    }));
+    if(this.model.get("show")) {
+      this.$el.show();
+    }
     return this;
   },
 
@@ -113,8 +120,19 @@ const OrderListView = Backbone.View.extend({
             message: message,
             agreeText: "确定",
             cancelText: "取消",
-            agreeFunc() {
-              window.location.reload();
+            agreeFunc: () => {
+              if(type === 2) {
+                this.model.destroy();
+              } else {
+                let status = this.model.get("status");
+                status.code = 16;
+                status.message = "已取消";
+                this.model.set({
+                  operateType: 2,
+                  action: 2,
+                  status: status
+                })
+              }
             },
             cancelFunc() {}
           });
@@ -160,14 +178,6 @@ const OrderListView = Backbone.View.extend({
       url: `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${this.model.get("orderid")}&from=order-list-page`,
       title: "订单详情"
     });
-  },
-
-  toggle(model) {
-    if(!model.get("show")) {
-      this.$el.hide();
-    } else {
-      this.$el.show();
-    }
   }
 });
 

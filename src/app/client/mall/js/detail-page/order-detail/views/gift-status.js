@@ -62,7 +62,6 @@ let AppView = Backbone.View.extend({
           window.console.log(err.message);
           return;
         }
-        window.console.log(result);
       });
     } else if(wechatUtil.isWechatFunc()) {
       if(!this.shareTipView) {

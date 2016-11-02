@@ -19,7 +19,7 @@ const OrderModel = Backbone.Model.extend({
     createtime: null,       // 创建事件
     operateType: 0,         // 1: 取消订单, 2: 删除订单, 3: 查看物流
     action: 0,              // 1: 去支付, 2: 再次购买
-
+    show: true,             // true 显示 false 隐藏
     rendered: false         // 是否已经渲染过  前端工具字段
   }
 });

@@ -196,7 +196,6 @@ const OrderListView = Backbone.View.extend({
 
   // app中 右上角按钮点击事件处理
   searchBtnClickHandler() {
-    window.console.log('点击搜索按钮');
     let targetView = "";
     if( this.searchView.$el.is(":visible")) {
       targetView = "";
