@@ -1,4 +1,5 @@
 import Backbone from "backbone";
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import ListView from "app/client/mall/js/list-page/order/views/list.js";
 import orderUtil from "app/client/mall/js/list-page/order/utils/order-utils.js";
 /*
@@ -21,6 +22,7 @@ var ExpressRouter = Backbone.Router.extend({
 
   initialize() {
     this.listView = new ListView();
+    this.registerShare();
   },
 
   default(type) {
@@ -93,6 +95,10 @@ var ExpressRouter = Backbone.Router.extend({
       last: ""
     };
     this.listView.changeView(params, {changeView: true, search: true});
+  },
+
+  registerShare() {
+    mallWechat.initShare();
   }
 });
 
