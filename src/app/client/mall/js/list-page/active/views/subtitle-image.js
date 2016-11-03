@@ -15,7 +15,7 @@ const TitleView = Backbone.View.extend({
       group: this.model,
       tplUtil
     }))
-    .css({
+    .find(".topic-area").css({
       backgroundColor: this.model.backcolor
     });
     return this;
