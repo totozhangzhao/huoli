@@ -1144,3 +1144,6 @@ img.express-empty {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
+.common-padding {
+  padding-bottom: 1.30667rem;
+}

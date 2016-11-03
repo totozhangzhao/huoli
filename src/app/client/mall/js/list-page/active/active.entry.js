@@ -65,11 +65,13 @@ const AppView = BaseView.extend({
     nav.render();
     new BackTop();
     this.activeId = UrlUtil.parseUrlSearch().groupId;
-    if(UrlUtil.parseUrlSearch().showMenu) {
+    if(String(UrlUtil.parseUrlSearch().showMenu) === "true" ) {
       this.menuView       = new MenuView({
         show: true,
         viewName: 'topic'
       });
+      this.$el.append(this.menuView.el);
+      this.$el.addClass("common-padding");
     }
     this.fetchData();
     logger.track(`${mallUtil.getAppName()}PV`, "View PV", document.title);
