@@ -14,6 +14,11 @@ export function getMoneyText(options = {}) {
   return moneyModel.getPPriceText();
 }
 
+export function getMoneyTpl(options = {}) {
+  moneyModel.set(options);
+  return moneyModel.getPPriceTpl();
+}
+
 export function getJsClass(item) {
   let jsClass = "js-new-page";
 
