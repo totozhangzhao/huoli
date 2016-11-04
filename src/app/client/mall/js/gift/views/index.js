@@ -146,7 +146,7 @@ const IndexView = BaseView.extend({
         url = `${document.location.origin}/fe/app/client/mall/index.html`;
         break;
       case "group":
-        url = `${tplUtil.getBlockUrl({action: 8})}?groupId=${this.result.detail.groupId}&firstProduct=this.result.detail.productid`;
+        url = `${tplUtil.getBlockUrl({action: 8})}?groupId=${this.result.detail.groupId}&firstProductid=this.result.detail.productid`;
         break;
     }
     widget.createNewView({ url });
