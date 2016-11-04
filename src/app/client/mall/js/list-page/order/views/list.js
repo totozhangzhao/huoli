@@ -28,6 +28,7 @@ const OrderListView = Backbone.View.extend({
   },
 
   initialize() {
+    window.aaa=this;
     this.loading = false;
     const nav = new Navigator();
     nav.render();
@@ -81,9 +82,7 @@ const OrderListView = Backbone.View.extend({
         orders: new Orders(),
         active: true
       };
-      if(this.mapKey === "search") {
-        this.listenTo(OrderData[this.mapKey].orders, "reset", this.clearSearchOrders);
-      }
+      this.listenTo(OrderData[this.mapKey].orders, "reset", this.resetOrdersHandler);
     }
     _.each(OrderData, (item, key) => {
       if(item.active && (key != this.mapKey)) {
@@ -101,12 +100,23 @@ const OrderListView = Backbone.View.extend({
     this.params = params;
 
     // 通过切换路由来的，如果已有数据，则只把已有的数据渲染
-    if(!this.useSearch && (OrderData[this.mapKey].orders.length == 0)) {
-      this.fetch();
-    } else {
+    // if(!this.useSearch && (OrderData[this.mapKey].orders.length == 0)) {
+    //   this.fetch();
+    // } else {
+    //   this.$initial.hide();
+    //   hint.hideLoading();
+    // }
+    /**
+     * 数据不缓存
+     */
+    OrderData[this.mapKey].orders.reset();
+    if(this.useSearch){
       this.$initial.hide();
       hint.hideLoading();
+    } else {
+      this.fetch();
     }
+
 
   },
 
@@ -175,8 +185,10 @@ const OrderListView = Backbone.View.extend({
   // 加载更多
   loadMore() {
     // 由于有删除功能，无论是否为20的整数倍，都执行加载更多
-    this.params.last = OrderData[this.mapKey].orders.last().get("orderid") || "";
-    this.fetch();
+    if(OrderData[this.mapKey].orders.last()) {
+      this.params.last = OrderData[this.mapKey].orders.last().get("orderid") || "";
+      this.fetch();
+    }
   },
 
   // app中设置右上角按钮
@@ -232,7 +244,7 @@ const OrderListView = Backbone.View.extend({
     $("#no-orders").hide();
   },
 
-  clearSearchOrders(a, list) {
+  resetOrdersHandler(a, list) {
     _.each(list.previousModels, (model) => {
       model.destroy();
     });
