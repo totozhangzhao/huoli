@@ -31,6 +31,7 @@ const AppView = BaseView.extend({
   },
 
   initialize() {
+    this.firstProductId = parseUrl().firstProductid || -1;
     const nav = new Navigator();
     nav.render();
     new BackTop();
@@ -69,6 +70,9 @@ const AppView = BaseView.extend({
       }
       this.result = result;
       goods.push(this.result.goods);
+      if(this.firstProductId !== -1) {
+        goods.setFirstProduct(this.firstProductId);
+      }
       this.render();
     });
   },
