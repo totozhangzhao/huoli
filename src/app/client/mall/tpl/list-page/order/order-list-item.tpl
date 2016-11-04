@@ -49,17 +49,20 @@
     %>
     <span><%= total %></span>
   </div>
-  	<% if( orderData.operateType === 1 ) { %>
-  		<button class="control-order js-cancel-order">取消订单</button>
-  	<% } else if (orderData.operateType === 2) {%>
-  		<button class="control-order js-delete-order">删除订单</button>
-  	<% } else if (orderData.operateType === 3) {%>
-  		<button class="control-order js-to-express">查看物流</button>
-  	<% }%>
-  	
-  	<% if(orderData.action === 1) { %>
-  		<button class="control-buy red-bg js-purchase-order">去支付</button>
-  	<% } else if (orderData.action === 2 && orderData.orderType !== 2) {%>
-  		<button class="control-buy js-to-goods-detail">再次购买</button>
-  	<% } %>
+
+    <div class="control-contain clearfix">
+      <% if( orderData.operateType === 1 ) { %>
+        <button class="control-order fl js-cancel-order">取消订单</button>
+      <% } else if (orderData.operateType === 2) {%>
+        <button class="control-order fl js-delete-order">删除订单</button>
+      <% } else if (orderData.operateType === 3) {%>
+        <button class="control-order fl js-to-express">查看物流</button>
+      <% }%>
+      
+      <% if(orderData.action === 1) { %>
+        <button class="control-buy fr red-bg js-purchase-order">去支付</button>
+      <% } else if (orderData.action === 2 && orderData.orderType !== 2) {%>
+        <button class="control-buy fr js-to-goods-detail">再次购买</button>
+      <% } %>
+    </div>
 </div>
