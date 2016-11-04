@@ -3,6 +3,7 @@ import Backbone from "backbone";
 const OrderModel = Backbone.Model.extend({
   // idAttribute: "orderid",
   defaults:{
+    orderType: -1,          // 1为商城 2 一元夺宝 3 保险 4 优惠券 -1 未设置
     userid: "",
     orderid: "1",
     title: null,

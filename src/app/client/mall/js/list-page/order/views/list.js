@@ -35,7 +35,6 @@ const OrderListView = Backbone.View.extend({
     this.searchView = new SearchView({
       listView: this
     });
-    window.aaa = this;
     this.orderNavView = new OrderNavView();
     this.orderListContainer = this.$el.find(".order-content .record-bar");
     this.setSearchBtn("搜索");
@@ -146,6 +145,7 @@ const OrderListView = Backbone.View.extend({
       })
       .then(result => {
         OrderData[this.mapKey].orders.add(result);
+        OrderData[this.mapKey].orders.setOrderType(this.params.orderType);
         this.render();
         this.$initial.hide();
         this.loading = false;
