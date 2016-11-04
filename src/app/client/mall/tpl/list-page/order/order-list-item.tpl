@@ -38,28 +38,28 @@
   <div class="order-goods-num num-font">x<%= orderData.amount %></div>
 </a>
 <div class="order-control-contain">
-<div class="total-price num-font">
-  <span>合计：</span>
-  <% var total = tplUtil.getMoneyTpl({
-    payType: orderData.paytype,
-    number: 1,
-    price: orderData.mtotal,
-    points: orderData.ptotal
-    });
-  %>
-  <span><%= total %></span>
-</div>
-	<% if( orderData.operateType === 1 ) { %>
-		<button class="control-order js-cancel-order">取消订单</button>
-	<% } else if (orderData.operateType === 2) {%>
-		<button class="control-order js-delete-order">删除订单</button>
-	<% } else if (orderData.operateType === 3) {%>
-		<button class="control-order js-to-express">查看物流</button>
-	<% }%>
-	
-	<% if(orderData.action === 1) { %>
-		<button class="control-buy red-bg js-purchase-order">去支付</button>
-	<% } else if (orderData.action === 2) {%>
-		<button class="control-buy js-to-goods-detail">再次购买</button>
-	<% } %>
+  <div class="total-price num-font">
+    <span>合计：</span>
+    <% var total = tplUtil.getMoneyTpl({
+      payType: orderData.paytype,
+      number: 1,
+      price: orderData.mtotal,
+      points: orderData.ptotal
+      });
+    %>
+    <span><%= total %></span>
+  </div>
+  	<% if( orderData.operateType === 1 ) { %>
+  		<button class="control-order js-cancel-order">取消订单</button>
+  	<% } else if (orderData.operateType === 2) {%>
+  		<button class="control-order js-delete-order">删除订单</button>
+  	<% } else if (orderData.operateType === 3) {%>
+  		<button class="control-order js-to-express">查看物流</button>
+  	<% }%>
+  	
+  	<% if(orderData.action === 1) { %>
+  		<button class="control-buy red-bg js-purchase-order">去支付</button>
+  	<% } else if (orderData.action === 2 && orderData.orderType !== 2) {%>
+  		<button class="control-buy js-to-goods-detail">再次购买</button>
+  	<% } %>
 </div>
