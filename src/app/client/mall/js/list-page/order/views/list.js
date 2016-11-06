@@ -20,7 +20,8 @@ import OrderListItemView from "app/client/mall/js/list-page/order/views/order-li
 import SearchView from "app/client/mall/js/list-page/order/views/search-view.js";
 
 // 订单列表数据初始化
-var OrderData = {};
+import OrderData from "app/client/mall/js/list-page/order/utils/order-data.js";
+
 const OrderListView = Backbone.View.extend({
   el: "#order-list",
 
@@ -100,22 +101,22 @@ const OrderListView = Backbone.View.extend({
     this.params = params;
 
     // 通过切换路由来的，如果已有数据，则只把已有的数据渲染
-    // if(!this.useSearch && (OrderData[this.mapKey].orders.length == 0)) {
-    //   this.fetch();
-    // } else {
-    //   this.$initial.hide();
-    //   hint.hideLoading();
-    // }
+    if(!this.useSearch && (OrderData[this.mapKey].orders.length == 0)) {
+      this.fetch();
+    } else {
+      this.$initial.hide();
+      hint.hideLoading();
+    }
     /**
      * 数据不缓存
      */
-    OrderData[this.mapKey].orders.reset();
-    if(this.useSearch){
-      this.$initial.hide();
-      hint.hideLoading();
-    } else {
-      this.fetch();
-    }
+    // OrderData[this.mapKey].orders.reset();
+    // if(this.useSearch){
+    //   this.$initial.hide();
+    //   hint.hideLoading();
+    // } else {
+    //   this.fetch();
+    // }
 
 
   },

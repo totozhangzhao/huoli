@@ -8,6 +8,7 @@ import cookie from "com/mobile/lib/cookie/cookie.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import hint from "com/mobile/widget/hint/hint.js";
+import OrderData from "app/client/mall/js/list-page/order/utils/order-data.js";
 // views
 import Popover from "com/mobile/widget/popover/popover.js";
 
@@ -28,6 +29,7 @@ const OrderListView = Backbone.View.extend({
   },
 
   initialize() {
+    window.a = this;
     this.listenTo(this.model, "destroy", this.remove);
     this.listenTo(this.model, "change", this.render);
   },
@@ -121,18 +123,7 @@ const OrderListView = Backbone.View.extend({
             agreeText: "确定",
             cancelText: "取消",
             agreeFunc: () => {
-              if(type === 2) {
-                this.model.destroy();
-              } else {
-                let status = this.model.get("status");
-                status.code = 16;
-                status.message = "已取消";
-                this.model.set({
-                  operateType: 2,
-                  action: 2,
-                  status: status
-                });
-              }
+              this.syncOrderStatus(type, this.model.get("orderid"));
             },
             cancelFunc() {}
           });
@@ -141,6 +132,16 @@ const OrderListView = Backbone.View.extend({
       }).catch( err => {
         toast(err.message, 3000);
       });
+  },
+
+  syncOrderStatus(type, orderid) {
+    _.each(OrderData, (item) => {
+      item.orders.where({orderid: orderid})
+      .forEach((orderItem) => {
+        orderItem.updateStatus(type);
+      });
+    });
+
   },
 
   // 去支付

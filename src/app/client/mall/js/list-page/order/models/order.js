@@ -22,6 +22,21 @@ const OrderModel = Backbone.Model.extend({
     action: 0,              // 1: 去支付, 2: 再次购买
     show: true,             // true 显示 false 隐藏
     rendered: false         // 是否已经渲染过  前端工具字段
+  },
+
+  updateStatus(type) {
+    if(type === 2) {
+      this.destroy();
+    } else {
+      let status = this.get("status");
+      status.code = 16;
+      status.message = "已取消";
+      this.set({
+        operateType: 2,
+        action: 2,
+        status: status
+      });
+    }
   }
 });
 
