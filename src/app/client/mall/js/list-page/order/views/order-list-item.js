@@ -165,10 +165,16 @@ const OrderListView = Backbone.View.extend({
   },
 
   toOrderDetail() {
-    widget.createNewView({
-      url: `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${this.model.get("orderid")}&from=order-list-page`,
-      title: "订单详情"
-    });
+    let url = `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${this.model.get("orderid")}&from=order-list-page`;
+    if( !mallUtil.isAppFunc() ) {
+      widget.redirectPage(url);
+    } else {
+      widget.createNewView({
+        url: `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${this.model.get("orderid")}&from=order-list-page`,
+        title: "订单详情"
+      });
+    }
+
   }
 });
 
