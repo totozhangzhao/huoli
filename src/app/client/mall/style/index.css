@@ -3706,34 +3706,38 @@ img.touch-img {
   font-size: 0.34667rem;
 }
 .nav-block {
-  background-color: #fff;
-  width: 10rem;
-  height: 1.088rem;
-}
-.nav-place {
-  background-color: #ddd;
-  width: 10rem;
-  height: 0;
+  width: 100%;
+  height: 1.06667rem;
 }
 .nav-block ul {
-  display: flex !important;
+  background-color: #fff;
+  display: flex;
   flex-wrap: wrap;
-  border-bottom: 1px solid #ddd;
   font-size: 0.386rem;
-  position: relative;
-  left: 0;
-  top: 0;
-  z-index: 2;
 }
 .nav-block li {
-  height: 1.088rem;
-  line-height: 1.088rem;
+  height: 1.06667rem;
+  line-height: 1.06667rem;
   text-align: center;
   flex: 1;
   flex-basis: 0;
   display: block;
-  position: relative;
   color: #333333;
+  position: relative;
+  left: 0;
+  top: 0;
+}
+.nav-block li:before {
+  width: 100%;
+  height: 1px;
+  content: '';
+  background-color: #ddd;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: scale(1, 0.5);
+  transform-origin: 0 0;
+  transform-origin: bottom left;
 }
 .nav-block li.on {
   color: #039ef0;
@@ -3950,11 +3954,12 @@ img.touch-img {
 .exchange-record-box.search header {
   background-color: #f0f0f0;
   width: 100%;
+  height: 1.33333rem;
   position: fixed;
   top: 0;
   left: 0;
   padding: 0.21333rem 0 0.21333rem 0;
-  z-index: 2;
+  z-index: 4;
 }
 .exchange-record-box.search .search-input-box {
   width: 100%;
