@@ -31,8 +31,8 @@ const OrderListView = Backbone.View.extend({
   initialize() {
     window.aaa=this;
     this.loading = false;
-    const nav = new Navigator();
-    nav.render();
+    this.nav = new Navigator();
+    this.nav.render();
     this.$initial = ui.initial().show();
     this.searchView = new SearchView({
       listView: this
@@ -232,12 +232,14 @@ const OrderListView = Backbone.View.extend({
   showSearchView() {
     this.searchView.show();
     this.orderNavView.hide();
+    this.nav.hide();
   },
 
   // 隐藏搜索页面
   hideSearchView() {
     this.searchView.hide();
     this.orderNavView.show();
+    this.nav.show();
   },
 
   showNoOrderView() {
