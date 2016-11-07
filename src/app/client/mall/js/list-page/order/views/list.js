@@ -210,8 +210,10 @@ const OrderListView = Backbone.View.extend({
     let targetView = "";
     if( this.searchView.$el.is(":visible")) {
       targetView = "";
+      this.setSearchBtn("搜索");
     } else {
       targetView += "search/";
+      this.setSearchBtn("取消");
     }
     let orderType = (this.params.orderType !== 1 ? 'crowd': 'mall');
     let view = `${targetView}${orderType}/${orderUtil.getViewByTypeValue(this.params.orderStatus)}`;
