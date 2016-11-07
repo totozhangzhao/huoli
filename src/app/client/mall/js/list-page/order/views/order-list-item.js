@@ -116,18 +116,8 @@ const OrderListView = Backbone.View.extend({
       })
       .then( result => {
         if(result === "ok") {
-          let alertMsg = new Popover({
-            type: "alert",
-            title: "提示信息",
-            message: message,
-            agreeText: "确定",
-            cancelText: "取消",
-            agreeFunc: () => {
-              this.syncOrderStatus(type, this.model.get("orderid"));
-            },
-            cancelFunc() {}
-          });
-          alertMsg.show();
+          this.syncOrderStatus(type, this.model.get("orderid"));
+          toast(message, 1500);
         }
       }).catch( err => {
         toast(err.message, 3000);
