@@ -3698,10 +3698,12 @@ img.touch-img {
   margin-right: 0.05333rem;
   font-family: "Arial";
 }
-.exchange-record-box {
-  font-size: 0.34667rem;
+.order-list-box {
   min-height: 100%;
   background-color: #f7f7f7;
+}
+.exchange-record-box {
+  font-size: 0.34667rem;
 }
 .nav-block {
   background-color: #fff;

@@ -44,6 +44,7 @@ const OrderListView = Backbone.View.extend({
     NativeAPI.registerHandler("headerRightBtnClick", () => {
       this.searchBtnClickHandler();
     });
+    this.registerAppResume();
     logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
   },
 
@@ -259,6 +260,12 @@ const OrderListView = Backbone.View.extend({
   },
 
   setPageResume() {
+    NativeAPI.registerHandler("resume", () => {
+      window.location.reload();
+    });
+  },
+
+  registerAppResume() {
     NativeAPI.registerHandler("resume", () => {
       window.location.reload();
     });
