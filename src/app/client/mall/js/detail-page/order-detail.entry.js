@@ -6,7 +6,7 @@ import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
-
+import {config} from "app/client/mall/js/common/config.js";
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import logger from "com/mobile/lib/log/log.js";
@@ -284,6 +284,7 @@ const AppView = Backbone.View.extend({
             agreeText: "确定",
             cancelText: "取消",
             agreeFunc() {
+              cookie.set("orderstatus",'update', config.mall.cookieOptions);
               window.location.reload();
             },
             cancelFunc() {}

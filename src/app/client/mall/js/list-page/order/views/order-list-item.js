@@ -171,7 +171,7 @@ const OrderListView = Backbone.View.extend({
       widget.redirectPage(url);
     } else {
       widget.createNewView({
-        url: `/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${this.model.get("orderid")}&from=order-list-page`,
+        url: url,
         title: "订单详情"
       });
     }

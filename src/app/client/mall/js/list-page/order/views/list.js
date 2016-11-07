@@ -1,6 +1,8 @@
 import $ from "jquery";
 import _ from "lodash";
 import Backbone from "backbone";
+import cookie from "com/mobile/lib/cookie/cookie.js";
+import {config} from "app/client/mall/js/common/config.js";
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import ui from "app/client/mall/js/lib/ui.js";
@@ -22,6 +24,10 @@ import SearchView from "app/client/mall/js/list-page/order/views/search-view.js"
 // 订单列表数据初始化
 import OrderData from "app/client/mall/js/list-page/order/utils/order-data.js";
 
+if(cookie.get('orderstatus') === 'update') {
+  cookie.set("orderstatus", "release", config.mall.cookieOptions);
+  window.location.reload();
+}
 const OrderListView = Backbone.View.extend({
   el: "#order-list",
 
@@ -134,7 +140,7 @@ const OrderListView = Backbone.View.extend({
       .then(userData => {
 
         let params = _.extend({}, this.params, userData.userInfo, {
-          p    : userData.deviceInfo.p,
+          p: userData.deviceInfo.p
         });
         if(this.useSearch) {
           _.extend(params, {
@@ -261,15 +267,12 @@ const OrderListView = Backbone.View.extend({
     OrderData[this.mapKey].orders.reset();
   },
 
-  setPageResume() {
-    NativeAPI.registerHandler("resume", () => {
-      window.location.reload();
-    });
-  },
-
   registerAppResume() {
     NativeAPI.registerHandler("resume", () => {
-      window.location.reload();
+      if(cookie.get('orderstatus') === 'update') {
+        cookie.set("orderstatus", "release", config.mall.cookieOptions);
+        window.location.reload();
+      }
     });
   }
 });
