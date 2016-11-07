@@ -43,6 +43,8 @@ const AppView = Backbone.View.extend({
     "click p[data-tracking]"   : "gotoNewExpressInfoView"
   },
   initialize() {
+    // 从订单详情回到订单列表时，订单列表重新同步数据
+    cookie.set("orderstatus",'update', config.mall.cookieOptions);
     const nav = new Navigator();
     nav.render();
     new BackTop();
@@ -284,7 +286,6 @@ const AppView = Backbone.View.extend({
             agreeText: "确定",
             cancelText: "取消",
             agreeFunc() {
-              cookie.set("orderstatus",'update', config.mall.cookieOptions);
               window.location.reload();
             },
             cancelFunc() {}
