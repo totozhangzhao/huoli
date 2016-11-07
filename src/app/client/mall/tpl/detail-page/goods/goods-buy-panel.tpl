@@ -58,8 +58,8 @@
       <% if(giftType === 3 && canPay) { %>
       <!-- 微信送礼  -->
         <div class="goods-buygiving-bar flex-row">
-          <a class="js-goods-gift-pay">微信送礼</a>
-          <a class="js-goods-pay js-goods-normal-pay">立即购买</a>
+          <a class="js-goods-gift-pay give">微信送礼</a>
+          <a class="js-goods-pay js-goods-normal-pay buy">立即购买</a>
         </div>
       <% } else {%>
         <div class="goods-buynow-bar">
