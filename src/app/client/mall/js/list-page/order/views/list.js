@@ -112,6 +112,7 @@ const OrderListView = Backbone.View.extend({
     } else {
       this.$initial.hide();
       hint.hideLoading();
+      widget.imageDelay();
     }
     /**
      * 数据不缓存
