@@ -35,7 +35,6 @@ const OrderListView = Backbone.View.extend({
   },
 
   initialize() {
-    window.aaa=this;
     this.loading = false;
     this.nav = new Navigator();
     this.nav.render();
