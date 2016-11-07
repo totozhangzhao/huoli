@@ -2,6 +2,7 @@
 import _ from "lodash";
 import Backbone from "backbone";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
