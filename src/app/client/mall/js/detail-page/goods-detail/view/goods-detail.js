@@ -275,6 +275,7 @@ const AppView = BaseView.extend({
       avatar: goods.smallimg,
       limitNum: goods.limit,
       canPay: goods.stat === 0,
+      showCollect: true,      // 显示收藏按钮
       parentDom: "#goods-detail"
     });
     if (goods.specs.length > 0) {
