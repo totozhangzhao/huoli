@@ -118,6 +118,9 @@ const OrderListView = Backbone.View.extend({
       .then( result => {
         if(result === "ok") {
           this.syncOrderStatus(type, this.model.get("orderid"));
+          setTimeout(() => {
+            widget.imageDelay();
+          },300);
           toast(message, 1500);
         }
       }).catch( err => {
