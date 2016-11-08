@@ -69,7 +69,7 @@
           <a class="js-goods-pay js-goods-normal-pay buy">立即购买</a>
         </div>
       <% } else {%>
-        <div class="goods-buynow-bar">
+        <div class="goods-buynow-bar flex-row">
           <% if(showCollect) {%>
           <!-- "已收藏"状态加 .yes | 默认状态无 .yes -->
           <button class="collect-button js-collect">

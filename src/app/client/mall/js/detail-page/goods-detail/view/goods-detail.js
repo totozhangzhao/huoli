@@ -88,6 +88,11 @@ const AppView = BaseView.extend({
         });
       })
       .then(goods => {
+        goods.collect = {
+          collectNum: 10,
+          isCollect: 1,       // 1 未收藏 2 已收藏
+          userid: ''
+        };
         const specList = goods.specs;
 
         if ( Array.isArray(specList) && specList.length > 0 ) {
@@ -225,7 +230,7 @@ const AppView = BaseView.extend({
 
     this.renderGoodsInfo(goods);
     this.renderBuyNumView(goods);
-
+    this.updateCollect();
     if ( this.urlObj.gotoView ) {
       if (this.urlObj.gotoView === "address-confirm") {
         if (goods.type === 3) {
@@ -554,9 +559,44 @@ const AppView = BaseView.extend({
    * @param {event} e 点击事件
    * @return {void}
    */
-  collectHandler(e) {
-    window.console.log(e);
-    window.console.log(this.cache.goods);
+  collectHandler() {
+    let method = "collectGoods";
+    if(this.cache.goods.collect.isCollect === 2) {
+      method = "cancelCollect";
+    }
+    mallPromise
+      .getAppInfo(true)
+      .then(userData => {
+        const params = _.extend({}, userData.userInfo, {
+          productid: this.cache.goods.productid
+        });
+        return new Promise((resovle, reject) => {
+          sendPost(method, params, (err, data) => {
+            if (err) {
+              reject(err);
+            } else {
+              resovle(data);
+            }
+          });
+        });
+      })
+      .then((result) => {
+        this.cache.goods.collect = result;
+        this.updateCollect();
+      })
+      .catch(mallPromise.catchFn);
+  },
+
+  /**
+   * 更新收藏状态  isCollect 1:未收藏 2:已收藏
+   * @return {void}
+   */
+  updateCollect() {
+    if(this.cache.goods.collect.isCollect === 1) {
+      $(".collect-button.js-collect.yes").removeClass("yes");
+    } else {
+      $(".collect-button.js-collect:not(.yes)").addClass("yes");
+    }
   }
 });
 
