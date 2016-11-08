@@ -30,8 +30,7 @@ class Navigator{
       this.container
       // .addClass('common-switch-padding')
       .prepend(this.el);
-
-      $(".common-switch-nav")
+      $("#navigator")
         .find(".js-index-page")
           .on("click", e => {
             e.preventDefault();
@@ -56,6 +55,21 @@ class Navigator{
         initView.call(this);
       }, delay || 0 );
     }
+  }
+
+  hide() {
+
+    if($('body').find("#navigator").length) {
+      $("#navigator").hide();
+    } else {
+      setTimeout(() => {
+        this.hide();
+      });
+    }
+  }
+
+  show() {
+    $("#navigator").show();
   }
 
 }

@@ -1,4 +1,4 @@
-<div class="common-switch-nav">
+<div id="navigator" class="common-switch-nav">
   <div class="common-switch-bar">
     <span class="common-switch-icon"></span>
     <a class="js-index-page common-mall-index">首页</a>
