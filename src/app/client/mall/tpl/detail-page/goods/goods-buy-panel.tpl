@@ -60,7 +60,7 @@
         <div class="goods-buygiving-bar flex-row">
           <% if(showCollect) {%>
           <!-- "已收藏"状态加 .yes | 默认状态无 .yes -->
-          <button class="collect-button js-collect-button-container">
+          <button class="collect-button js-collect">
             <b class="icon"></b>
             <span class="text">收藏</span>
           </button>
@@ -72,7 +72,7 @@
         <div class="goods-buynow-bar">
           <% if(showCollect) {%>
           <!-- "已收藏"状态加 .yes | 默认状态无 .yes -->
-          <button class="collect-button js-collect-button-container">
+          <button class="collect-button js-collect">
             <b class="icon"></b>
             <span class="text">收藏</span>
           </button>

@@ -33,7 +33,8 @@ const AppView = BaseView.extend({
     "click .js-get-url"   : "handleGetUrl",
     "click .js-webview a" : "createNewPage",
     "click .js-privilege" : "showPrivilegePanel",
-    "click .js-coupon"    : "showCouponPanel"
+    "click .js-coupon"    : "showCouponPanel",
+    "click .js-collect"   : "collectHandler"
   },
   initialize(commonData) {
     _.extend(this, commonData);
@@ -547,6 +548,15 @@ const AppView = BaseView.extend({
   },
   gotoNewView(options) {
     widget.createNewView(options);
+  },
+
+  /**
+   * @param {event} e 点击事件
+   * @return {void}
+   */
+  collectHandler(e) {
+    window.console.log(e);
+    window.console.log(this.cache.goods);
   }
 });
 

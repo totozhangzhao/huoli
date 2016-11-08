@@ -23,7 +23,6 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   initialize(options) {
-    window.aaa = this;
     this.template = options.template || defaultBuyPanelTpl;
     this.exchange = options.exchange || (() => {});
     this.buy = options.buy || (() => {});
@@ -291,15 +290,10 @@ const BuyNumPanelView = Backbone.View.extend({
    */
   isCollected(flag) {
     if(flag) {
-      $(".js-collect-button-container:not(.yes)", this.$el).addClass("yes");
+      $(".js-collect:not(.yes)", this.$el).addClass("yes");
     } else {
-      $(".js-collect-button-container.yes", this.$el).removeClass("yes");
+      $(".js-collect.yes", this.$el).removeClass("yes");
     }
-  },
-
-  test() {
-    window.console.log($(".js-collect-button-container:not(.yes)", this.$el));
   }
-
 });
 module.exports = BuyNumPanelView;
