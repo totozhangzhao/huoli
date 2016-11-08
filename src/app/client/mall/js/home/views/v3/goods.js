@@ -6,7 +6,7 @@ import Backbone from "backbone";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import {imageDelay} from "app/client/mall/js/lib/common.js";
-
+imageDelay();
 const GoodsView = Backbone.View.extend({
 
   template: require("app/client/mall/tpl/home/v3/goods.tpl"),
@@ -22,7 +22,7 @@ const GoodsView = Backbone.View.extend({
         appName : mallUtil.getAppName(),
         tplUtil
       }));
-      imageDelay();
+
     }
     return this;
   }

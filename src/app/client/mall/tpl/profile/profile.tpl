@@ -29,7 +29,7 @@
 </div>
 <div class="my-mall-bar">
   <div class="my-mall-bar-item js-touch-state touch-bg">
-    <a class="my-order-area" href="/fe/app/client/mall/html/list-page/exchange-record.html?style=1">
+    <a class="my-order-area js-new-page" href="/fe/app/client/mall/html/list-page/order/list.html#mall/all">
       <b class="my-show-icon my-mall-icon"></b>
       <p>商城订单</p>
       <span id="order-status"></span>
@@ -37,7 +37,7 @@
     </a>
   </div>
   <div class="my-mall-bar-item js-touch-state touch-bg">
-    <a class="my-order-area none-line" href="/fe/app/client/mall/html/list-page/exchange-record.html?style=2">
+    <a class="my-order-area none-line js-new-page" href="/fe/app/client/mall/html/list-page/order/list.html#crowd/all">
       <b class="my-show-icon my-crowd-icon"></b>
       <p>一元夺宝订单</p>
       <span id="crowd-order-status"></span>
@@ -47,14 +47,14 @@
 </div>
 <div class="my-mall-bar">
   <div class="my-mall-bar-item js-touch-state touch-bg">
-    <a class="my-order-area" href="/fe/app/client/mall/html/detail-page/goods-detail.html?mold=profile#address-list">
+    <a class="my-order-area js-new-page" href="/fe/app/client/mall/html/detail-page/goods-detail.html?mold=profile#address-list">
       <b class="my-show-icon my-address-icon"></b>
       <p>地址管理</p>
       <b class="my-enter-icon"></b>
     </a>
   </div>
   <div class="my-mall-bar-item js-touch-state touch-bg">
-    <a class="my-order-area none-line"  href="https://dl.rsscc.cn/guanggao/active/contact-us.html">
+    <a class="my-order-area none-line js-new-page"  href="https://dl.rsscc.cn/guanggao/active/contact-us.html">
       <b class="my-show-icon my-help-icon"></b>
       <p>客服与帮助</p>
       <b class="my-enter-icon"></b>

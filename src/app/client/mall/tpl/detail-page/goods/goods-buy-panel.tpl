@@ -65,8 +65,8 @@
             <span class="text">收藏</span>
           </button>
           <% } %>
-          <a class="give js-goods-gift-pay">微信送礼</a>
-          <a class="buy js-goods-pay js-goods-normal-pay">立即购买</a>
+          <a class="js-goods-gift-pay give">微信送礼</a>
+          <a class="js-goods-pay js-goods-normal-pay buy">立即购买</a>
         </div>
       <% } else {%>
         <div class="goods-buynow-bar">

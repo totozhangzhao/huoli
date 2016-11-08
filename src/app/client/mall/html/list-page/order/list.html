@@ -12,9 +12,34 @@
   <link rel="stylesheet" type="text/css" href="/fe/app/client/mall/style/index.css">
 </head>
 <body>
-  <section id="order-list">
-    
+  <section class="order-list-box">
+    <section id="search-container" class="js-search-panel exchange-record-box search" style="display: none;">
+      <header class="flex-row">
+        <div class="search-input-box">
+          <input type="search" data-name="search" class="search-input" placeholder="请输入订单关键词" autocomplete="off">
+        </div>
+        <div class="search-button-box">
+          <button class="js-search-button" type="button">搜索</button>
+        </div>
+      </header>
+      <div class="nav-place"></div>
+    </section>
+
+    <section id="order-list" class="exchange-record-box" style="">
+      <nav id="order-nav" class="nav-block">
+      </nav>
+      <section id="no-orders" class="ui-blank" style="display: none">
+        <div class="bg"></div>
+        <div class="txt">暂无订单</div>
+      </section>
+      <div class="order-content">
+        <ul class="record-bar on">
+          
+        </ul>
+      </div>
+    </section>
   </section>
+
  
 <script>
   var _czc = _czc || [];

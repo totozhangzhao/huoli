@@ -6,7 +6,7 @@ import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
-
+import {config} from "app/client/mall/js/common/config.js";
 import {parseUrlSearch as parseUrl} from "com/mobile/lib/url/url.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import logger from "com/mobile/lib/log/log.js";
@@ -43,6 +43,8 @@ const AppView = Backbone.View.extend({
     "click p[data-tracking]"   : "gotoNewExpressInfoView"
   },
   initialize() {
+    // 从订单详情回到订单列表时，订单列表重新同步数据
+    cookie.set("orderstatus",'update', config.mall.cookieOptions);
     const nav = new Navigator();
     nav.render();
     new BackTop();

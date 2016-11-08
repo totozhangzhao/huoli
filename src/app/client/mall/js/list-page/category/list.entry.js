@@ -7,7 +7,7 @@ import {initTracker} from "app/client/mall/js/lib/common.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
-import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+// import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import {imageDelay} from "app/client/mall/js/lib/common.js";
 // logs
 import logger from "com/mobile/lib/log/log.js";
@@ -17,9 +17,11 @@ import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import Footer from "app/client/mall/js/common/views/footer.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
-// template
-import template from "app/client/mall/tpl/list-page/category/list.tpl";
+import GoodsItemView from "app/client/mall/js/list-page/category/views/goods-item.js";
+// collections
+import GoodsCollection from "app/client/mall/js/list-page/category/collections/goods-list.js";
 
+var goods = new GoodsCollection();
 const AppView = BaseView.extend({
   el: "#main",
 
@@ -29,6 +31,7 @@ const AppView = BaseView.extend({
   },
 
   initialize() {
+    this.firstProductId = parseUrl().firstProductid || -1;
     const nav = new Navigator();
     nav.render();
     new BackTop();
@@ -41,11 +44,10 @@ const AppView = BaseView.extend({
   },
 
   render() {
-    this.$el.find("#home-goods").html(template({
-      data: this.result,
-      appName : mallUtil.getAppName(),
-      tplUtil
-    }));
+    goods.forEach((item) => {
+      let view = new GoodsItemView({model: item});
+      this.$el.find("#goods-container").append(view.render().$el);
+    });
     imageDelay();
     this.$footer.render();
     this.$initial.hide();
@@ -67,6 +69,10 @@ const AppView = BaseView.extend({
         return;
       }
       this.result = result;
+      goods.push(this.result.goods);
+      if(this.firstProductId !== -1) {
+        goods.setFirstProduct(this.firstProductId);
+      }
       this.render();
     });
   },
