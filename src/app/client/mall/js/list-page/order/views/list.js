@@ -35,6 +35,7 @@ const OrderListView = Backbone.View.extend({
   },
 
   initialize() {
+    window.aaa = this;
     this.loading = false;
     this.nav = new Navigator();
     this.nav.render();
@@ -110,6 +111,9 @@ const OrderListView = Backbone.View.extend({
     if(!this.useSearch && (OrderData[this.mapKey].orders.length == 0)) {
       this.fetch();
     } else {
+      if(this.useSearch) {
+        OrderData[this.mapKey].orders.reset();
+      }
       this.$initial.hide();
       hint.hideLoading();
       widget.imageDelay();
