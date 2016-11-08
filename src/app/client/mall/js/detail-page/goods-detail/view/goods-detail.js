@@ -120,11 +120,11 @@ const AppView = BaseView.extend({
         this.$initial.hide();
       })
       .catch((err) => {
-        // if(err.code === -202) {
-        //   window.location.replace("/fe/app/client/mall/404.html");
-        // } else {
-        // }
-        mallPromise.catchShowError(err);
+        if(err.code === -202) {
+          window.location.replace("/fe/app/client/mall/404.html");
+        } else {
+          mallPromise.catchShowError(err);
+        }
       });
   },
   showPrivilegePanel() {

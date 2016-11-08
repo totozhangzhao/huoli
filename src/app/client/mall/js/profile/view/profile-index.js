@@ -3,6 +3,7 @@ import _           from "lodash";
 import Backbone    from "backbone";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import NativeAPI from "app/client/common/lib/native/native-api.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import pageAction  from "app/client/mall/js/lib/page-action.js";
@@ -17,14 +18,21 @@ import crowdOrderStatusTpl from "app/client/mall/tpl/profile/ui/crowd-order-stat
 
 const AppView = Backbone.View.extend({
   el: "#profile-index",
+
+  events: {
+    "click .js-new-page": "createNewPage"
+  },
+
+
   initialize(commonData) {
     _.extend(this, commonData);
     this.$initial = ui.initial().show();
-    this.menuView       = new MenuView({
+    this.menuView = new MenuView({
       show: true,
       viewName: 'my'
     });
     this.fetchData();
+    this.registerAppResume();
   },
   resume() {
     pageAction.hideRightButton();
@@ -87,6 +95,18 @@ const AppView = Backbone.View.extend({
 
   render(data) {
     this.$el.html(profileTpl(data));
+  },
+
+  createNewPage(e) {
+    e.preventDefault();
+    widget.createAView(e);
+  },
+
+  registerAppResume() {
+    // 1 app 缓存问题， 2 更新状态
+    NativeAPI.registerHandler("resume", () => {
+      window.location.reload();
+    });
   }
 });
 
