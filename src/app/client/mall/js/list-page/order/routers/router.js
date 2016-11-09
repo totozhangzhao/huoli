@@ -10,7 +10,7 @@ import orderUtil from "app/client/mall/js/list-page/order/utils/order-utils.js";
   4 优惠券
 */
 
-var ExpressRouter = Backbone.Router.extend({
+var OrderListRouter = Backbone.Router.extend({
   routes: {
     "": "default",
     ":action": "default",
@@ -102,4 +102,4 @@ var ExpressRouter = Backbone.Router.extend({
   }
 });
 
-export default ExpressRouter;
+export default OrderListRouter;
