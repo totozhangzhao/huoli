@@ -1,5 +1,5 @@
 <div class="home-promote-area">
-  <ul class="home-promote-content clearfix">
+  <ul class="js-row-container home-promote-content clearfix">
     <% _.each(dataList, function (item, index) {%>
     <li>
       <a

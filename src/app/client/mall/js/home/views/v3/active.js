@@ -1,6 +1,7 @@
 /*
   首页横向滑动推广位
 */
+import $ from "jquery";
 import Backbone from "backbone";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
@@ -22,6 +23,8 @@ const ActiveView = Backbone.View.extend({
       tplUtil
     }));
 
+    const $ul = this.$el.find(".js-row-container");
+    $ul.width(  Math.max($("body").width() + 20, $ul.find(">li").outerWidth(true) * data.length + 20)  );
     return this;
   }
 });
