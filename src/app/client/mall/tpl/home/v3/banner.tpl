@@ -1,3 +1,6 @@
+<div class="common-position">
+  <div class="posi"></div>
+</div>
 <div id="banner-box">
   <ul class="common-banner-area clearfix">
     <% _.each(dataList, function(item, index) { %>
@@ -10,7 +13,7 @@
         class="<%= tplUtil.getJsClass(item) %> block"
         href="<%= tplUtil.getBlockUrl(item) %>"
       >
-        <img src="<%= item.img %>" >
+        <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= item.img %>" class="goods-img op0" alt="">
       </a>
     </li>
     <% }); %>

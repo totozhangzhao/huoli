@@ -21,6 +21,7 @@ import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import MenuView from "app/client/mall/js/common/views/menu/menu.js";
 import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
+
 const AppView = BaseView.extend({
   el: "#main",
 
@@ -53,7 +54,7 @@ const AppView = BaseView.extend({
   },
 
   fetch() {
-    let p = new Promise((resolve, reject)=> {
+    new Promise((resolve, reject)=> {
       sendPost("indexData", {v: '3.0'}, (err, data) => {
         if (err) {
           reject(err);
@@ -61,14 +62,19 @@ const AppView = BaseView.extend({
           resolve(data);
         }
       });
-    });
-    p.then(data => {
-      this.render(data);
-      setTimeout(() => {
-        this.$initial.hide();
-      }, 600);
     })
-    .catch(mallPromise.catchFn);
+      .then(data => {
+        this.render(data);
+      })
+      .then(() => {
+        setTimeout(() => {
+          widget.imageDelay();
+        }, 100);
+        setTimeout(() => {
+          this.$initial.hide();
+        }, 300);
+      })
+      .catch(mallPromise.catchFn);
   },
 
   render(data) {
@@ -81,8 +87,10 @@ const AppView = BaseView.extend({
     this.$el.append(this.menuView.el);
     this.$popoverAdView.fetch({position: 1});
     this.$el.find("#menu").show();
+
     // 渲染完成后，显示页面
     this.$el.removeClass('hidden');
+
     mallWechat.initShare({
       wechatshare: data.wechatshare
     });

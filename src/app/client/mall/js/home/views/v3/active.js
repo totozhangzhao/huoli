@@ -22,7 +22,6 @@ const ActiveView = Backbone.View.extend({
       tplUtil
     }));
 
-    this.$el.find("ul").width(this.$el.find("ul>li").width() * data.length + 10);
     return this;
   }
 });
