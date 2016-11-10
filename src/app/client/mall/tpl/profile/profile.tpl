@@ -13,7 +13,7 @@
 </div>
 <div class="my-point-bar flex-row">
   <div class="my-coupons-num">
-    <a href="#coupon-list">
+    <a class="js-to-coupons">
       <div class="flex-son num-font">
         <p class="num coupons-num-box">...</p>
         <p class="item-name">优惠券</p>
