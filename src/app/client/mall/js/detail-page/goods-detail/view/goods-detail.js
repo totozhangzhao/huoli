@@ -88,11 +88,6 @@ const AppView = BaseView.extend({
         });
       })
       .then(goods => {
-        goods.collect = {
-          collectNum: 10,
-          isCollect: 1,       // 1 未收藏 2 已收藏
-          userid: ''
-        };
         const specList = goods.specs;
 
         if ( Array.isArray(specList) && specList.length > 0 ) {

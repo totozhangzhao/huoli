@@ -73,7 +73,7 @@ const ProductCollectListView = Backbone.View.extend({
       return;
     }
     this.loading = true;
-    hint.showLoading();
+    // hint.showLoading();
     mallPromise
       .checkLogin({ reset: true })
       .then(userData => {
@@ -86,13 +86,13 @@ const ProductCollectListView = Backbone.View.extend({
         return new Promise((resolve, reject) => {
           sendPost("collectList", params, (err, data) => {
             this.$initial.hide();
-            hint.hideLoading();
+            // hint.hideLoading();
+            this.loading = false;
             if (err) {
               reject(err);
             } else {
               resolve(data);
             }
-            this.loading = false;
           });
         });
       })
@@ -118,7 +118,6 @@ const ProductCollectListView = Backbone.View.extend({
     this.productList.showOutOfStock(this.type)
     .where({isRender: false})
     .forEach((item) => {
-      window.console.log(item);
       this.$el.find("#product-list-container")
       .append(new ProductItemView({model: item}).render().$el);
     });
