@@ -168,7 +168,7 @@ const ProductCollectListView = Backbone.View.extend({
       type: "confirm",
       title: "确定删除此商品吗？",
       message: "",
-      agreeText: "确定",
+      agreeText: "删除",
       cancelText: "取消",
       agreeFunc:() => {
         let productid = $(e.currentTarget).data("removeId");
@@ -181,16 +181,15 @@ const ProductCollectListView = Backbone.View.extend({
   },
 
   beginTouch(e) {
-    e.preventDefault();
     this.touchTimeoutId = setTimeout(() => {
       window.clearTimeout(this.touchTimeoutId);
       this.touchTimeoutId = null;
+      e.preventDefault();
       this.removeItem(e);
     }, 800);
   },
 
   touchMove() {
-    e.preventDefault();
     window.clearTimeout(this.touchTimeoutId);
     this.touchTimeoutId = null;
   },
