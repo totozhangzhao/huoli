@@ -19,6 +19,7 @@ var priceText = tplUtil.getMoneyText({
     data-title="<%= productItem.title %>"
     class="<%= tplUtil.getJsClass(productItem) %> collect-bar block"
     href="<%= tplUtil.getBlockUrl(productItem) %>"
+    data-remove-id="<%= productItem.productid %>"
   >
 <% } else { %>
   <a class="collect-bar block" data-remove-id="<%= productItem.productid %>">

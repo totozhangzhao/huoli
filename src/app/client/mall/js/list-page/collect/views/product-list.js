@@ -10,7 +10,7 @@ import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import logger from "com/mobile/lib/log/log.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import Popover from "com/mobile/widget/popover/popover.js";
-// import * as widget from "app/client/mall/js/lib/common.js";
+import * as widget from "app/client/mall/js/lib/common.js";
 import hint from "com/mobile/widget/hint/hint.js";
 
 
@@ -142,7 +142,7 @@ const ProductCollectListView = Backbone.View.extend({
    */
   createNewPage(e) {
     e.preventDefault();
-    // widget.createAView(e);
+    widget.createAView(e);
   },
 
   /**
@@ -155,8 +155,53 @@ const ProductCollectListView = Backbone.View.extend({
     let list = this.productList.reject((item) => {
       return _.inRange(item.get("status").code, 1, 3);
     });
+    this.removeCollectByProducts(list);
+  },
+
+  loadMore() {
+    this.fetch();
+  },
+
+  removeItem(e) {
+    let confirm = new Popover({
+      type: "confirm",
+      title: "确定删除此商品吗？",
+      message: "",
+      agreeText: "确定",
+      cancelText: "取消",
+      agreeFunc:() => {
+        let productid = $(e.currentTarget).data("removeId");
+        let list = this.productList.where({productid: productid});
+        this.removeCollectByProducts(list);
+      },
+      cancelFunc() {}
+    });
+    confirm.show();
+  },
+
+  beginTouch(e) {
+    this.touchTimeoutId = setTimeout(() => {
+      window.clearTimeout(this.touchTimeoutId);
+      this.touchTimeoutId = null;
+      this.removeItem(e);
+    }, 800);
+  },
+
+  endTouch(e) {
+    if(this.touchTimeoutId != null) {
+      window.clearTimeout(this.touchTimeoutId);
+      this.touchTimeoutId = null;
+      this.createNewPage(e);
+    }
+  },
+
+  /**
+   * 删除指定的商品列表
+   * @param  {Backbone.Collection} list - 要删除的商品列表
+   * @return {void}
+   */
+  removeCollectByProducts(list) {
     if(list.length === 0 ) {
-      hint.hideLoading();
       return;
     }
     // 商品id逗号分隔字符串
@@ -192,42 +237,6 @@ const ProductCollectListView = Backbone.View.extend({
       .catch(err => {
         mallPromise.catchFn(err);
       });
-  },
-
-  loadMore() {
-    this.fetch();
-  },
-
-  removeItem(e) {
-    window.console.log(e);
-    let confirm = new Popover({
-      type: "confirm",
-      title: "确定删除此商品吗？",
-      message: "",
-      agreeText: "确定",
-      cancelText: "取消",
-      agreeFunc() {
-        window.alert("删除");
-      },
-      cancelFunc() {}
-    });
-    confirm.show();
-  },
-
-  beginTouch(e) {
-    this.touchTimeoutId = setTimeout(() => {
-      window.clearTimeout(this.touchTimeoutId);
-      this.touchTimeoutId = null;
-      this.removeItem(e);
-    }, 800);
-  },
-
-  endTouch(e) {
-    if(this.touchTimeoutId != null) {
-      window.clearTimeout(this.touchTimeoutId);
-      this.touchTimeoutId = null;
-      this.createNewPage(e);
-    }
   }
 });
 
