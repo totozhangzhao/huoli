@@ -9,7 +9,8 @@ import ui from "app/client/mall/js/lib/ui.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import logger from "com/mobile/lib/log/log.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
-import * as widget from "app/client/mall/js/lib/common.js";
+import Popover from "com/mobile/widget/popover/popover.js";
+// import * as widget from "app/client/mall/js/lib/common.js";
 import hint from "com/mobile/widget/hint/hint.js";
 
 
@@ -24,11 +25,14 @@ const ProductCollectListView = Backbone.View.extend({
   events: {
     "click .js-stock": "replaceView",
     "click .js-new-page": "createNewPage",
-    "click .js-clear-outstock": "clearOutOfStock"
+    "click .js-clear-outstock": "clearOutOfStock",
+    "touchstart [data-remove-id]"  : "beginTouch",
+    "touchend [data-remove-id]"    : "endTouch",
   },
 
   initialize() {
     window.aaa = this;
+    this.touchTimeoutId = null;
     this.productList = new Products();
     this.nav = new Navigator();
     this.nav.render();
@@ -138,7 +142,7 @@ const ProductCollectListView = Backbone.View.extend({
    */
   createNewPage(e) {
     e.preventDefault();
-    widget.createAView(e);
+    // widget.createAView(e);
   },
 
   /**
@@ -192,6 +196,38 @@ const ProductCollectListView = Backbone.View.extend({
 
   loadMore() {
     this.fetch();
+  },
+
+  removeItem(e) {
+    window.console.log(e);
+    let confirm = new Popover({
+      type: "confirm",
+      title: "确定删除此商品吗？",
+      message: "",
+      agreeText: "确定",
+      cancelText: "取消",
+      agreeFunc() {
+        window.alert("删除");
+      },
+      cancelFunc() {}
+    });
+    confirm.show();
+  },
+
+  beginTouch(e) {
+    this.touchTimeoutId = setTimeout(() => {
+      window.clearTimeout(this.touchTimeoutId);
+      this.touchTimeoutId = null;
+      this.removeItem(e);
+    }, 800);
+  },
+
+  endTouch(e) {
+    if(this.touchTimeoutId != null) {
+      window.clearTimeout(this.touchTimeoutId);
+      this.touchTimeoutId = null;
+      this.createNewPage(e);
+    }
   }
 });
 
