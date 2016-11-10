@@ -20,7 +20,8 @@ const AppView = Backbone.View.extend({
   el: "#profile-index",
 
   events: {
-    "click .js-new-page": "createNewPage"
+    "click .js-new-page": "createNewPage",
+    "click .js-to-coupons": "toCouponsList"
   },
 
 
@@ -107,6 +108,13 @@ const AppView = Backbone.View.extend({
     NativeAPI.registerHandler("resume", () => {
       window.location.reload();
     });
+  },
+
+  toCouponsList() {
+    Backbone.history.navigate("coupon-list",{
+      trigger: true,
+      replace: false
+    })
   }
 });
 
