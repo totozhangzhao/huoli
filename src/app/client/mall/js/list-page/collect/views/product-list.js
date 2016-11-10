@@ -181,6 +181,7 @@ const ProductCollectListView = Backbone.View.extend({
         if(result === "ok") {
           list.every((item) => {
             item.destroy();
+            return true;
           });
         }
       })
