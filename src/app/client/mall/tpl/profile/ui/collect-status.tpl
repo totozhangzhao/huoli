@@ -1,3 +1,3 @@
-<% if(count && count > 0) {%>
-<b><%= count %></b>个已收藏
+<% if(validnum && validnum > 0) {%>
+<b><%= validnum %></b>个已收藏
 <% } %>

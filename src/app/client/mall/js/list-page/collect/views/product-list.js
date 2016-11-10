@@ -28,11 +28,11 @@ const ProductCollectListView = Backbone.View.extend({
   },
 
   initialize() {
+    window.aaa = this;
     this.productList = new Products();
     this.nav = new Navigator();
     this.nav.render();
     this.$initial = ui.initial().show();
-    this.$initial.hide();
     this.type = 1;  // 1: 全部， 2: 仅显示有货
     this.fetch();
     logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
@@ -55,6 +55,7 @@ const ProductCollectListView = Backbone.View.extend({
   },
 
   fetch() {
+    hint.showLoading();
     mallPromise
       .checkLogin({ reset: true })
       .then(userData => {
@@ -66,6 +67,7 @@ const ProductCollectListView = Backbone.View.extend({
         });
         return new Promise((resolve, reject) => {
           sendPost("collectList", params, (err, data) => {
+            this.$initial.hide();
             hint.hideLoading();
             if (err) {
               reject(err);
@@ -76,7 +78,6 @@ const ProductCollectListView = Backbone.View.extend({
         });
       })
       .then((result) => {
-        result[0].status.code=3;
         this.productList.push(result);
         this.render();
       })
@@ -86,6 +87,9 @@ const ProductCollectListView = Backbone.View.extend({
   },
 
   render() {
+    if(this.productList.length === 0) {
+      return;
+    }
     this.productList.showOutOfStock(this.type)
     .where({isRander: false})
     .forEach((item) => {
@@ -117,7 +121,43 @@ const ProductCollectListView = Backbone.View.extend({
    * @return {void}
    */
   clearOutOfStock() {
-
+    hint.showLoading();
+    // 没有库存的商品列表
+    let list = this.productList.reject((item) => {
+      return _.inRange(item.get("status").code, 1, 3);
+    });
+    // 商品id逗号分隔字符串
+    let productids = _.map(list,(item) => {
+      return item.get("productid");
+    }).toString();
+    mallPromise
+      .checkLogin({ reset: true })
+      .then(userData => {
+        let params = _.extend({}, userData.userInfo, {
+          productid: productids,        // 逗号隔开的productid字符串
+          type: 1,                      // 1 条件删除  2 全部删除
+        });
+        return new Promise((resolve, reject) => {
+          sendPost("removeCollect", params, (err, data) => {
+            hint.hideLoading();
+            if (err) {
+              reject(err);
+            } else {
+              resolve(data);
+            }
+          });
+        });
+      })
+      .then((result) => {
+        if(result === "ok") {
+          list.every((item) => {
+            item.destroy();
+          });
+        }
+      })
+      .catch(err => {
+        mallPromise.catchFn(err);
+      });
   }
 });
 
