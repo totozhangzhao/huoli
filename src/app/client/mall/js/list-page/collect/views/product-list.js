@@ -27,6 +27,7 @@ const ProductCollectListView = Backbone.View.extend({
     "click .js-new-page": "createNewPage",
     "click .js-clear-outstock": "clearOutOfStock",
     "touchstart [data-remove-id]"  : "beginTouch",
+    "touchmove [data-remove-id]"  : "touchMove",
     "touchend [data-remove-id]"    : "endTouch",
   },
 
@@ -180,6 +181,7 @@ const ProductCollectListView = Backbone.View.extend({
   },
 
   beginTouch(e) {
+    e.preventDefault();
     this.touchTimeoutId = setTimeout(() => {
       window.clearTimeout(this.touchTimeoutId);
       this.touchTimeoutId = null;
@@ -187,7 +189,14 @@ const ProductCollectListView = Backbone.View.extend({
     }, 800);
   },
 
+  touchMove() {
+    e.preventDefault();
+    window.clearTimeout(this.touchTimeoutId);
+    this.touchTimeoutId = null;
+  },
+
   endTouch(e) {
+    e.preventDefault();
     if(this.touchTimeoutId != null) {
       window.clearTimeout(this.touchTimeoutId);
       this.touchTimeoutId = null;
