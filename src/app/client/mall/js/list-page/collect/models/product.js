@@ -3,7 +3,7 @@ import Backbone from "backbone";
 const ProductModel = Backbone.Model.extend({
   // idAttribute: "productid",
   defaults:{
-    isRander: false,
+    isRender: false,
     visible: true
   }
 });

@@ -34,10 +34,24 @@ const ProductCollectListView = Backbone.View.extend({
     this.nav.render();
     this.$initial = ui.initial().show();
     this.type = 1;  // 1: 全部， 2: 仅显示有货
+    this.hasMore = true;
     this.fetch();
+    this.bindEvents();
     logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
   },
 
+  bindEvents() {
+    const screenHeight = $(window).height();
+    const edgeHeight = screenHeight * 0.35;
+    $(window).on("scroll", () => {
+      if (this.loading) {
+        return;
+      }
+      if ( $(window).scrollTop() + screenHeight > $(document).height() - edgeHeight ) {
+        this.loadMore();
+      }
+    });
+  },
 
   registerAppResume() {
     NativeAPI.registerHandler("resume", () => {
@@ -55,6 +69,10 @@ const ProductCollectListView = Backbone.View.extend({
   },
 
   fetch() {
+    if(!this.hasMore) {
+      return;
+    }
+    this.loading = true;
     hint.showLoading();
     mallPromise
       .checkLogin({ reset: true })
@@ -74,11 +92,16 @@ const ProductCollectListView = Backbone.View.extend({
             } else {
               resolve(data);
             }
+            this.loading = false;
           });
         });
       })
       .then((result) => {
-        this.productList.push(result);
+        if(result.length > 0) {
+          this.productList.push(result);
+        } else {
+          this.hasMore = false;
+        }
         this.render();
       })
       .catch(err => {
@@ -88,11 +111,14 @@ const ProductCollectListView = Backbone.View.extend({
 
   render() {
     if(this.productList.length === 0) {
+      $('.ui-blank').show();
       return;
     }
+    $('.ui-blank').hide();
     this.productList.showOutOfStock(this.type)
-    .where({isRander: false})
+    .where({isRender: false})
     .forEach((item) => {
+      window.console.log(item);
       this.$el.find("#product-list-container")
       .append(new ProductItemView({model: item}).render().$el);
     });
@@ -126,6 +152,10 @@ const ProductCollectListView = Backbone.View.extend({
     let list = this.productList.reject((item) => {
       return _.inRange(item.get("status").code, 1, 3);
     });
+    if(list.length === 0 ) {
+      hint.hideLoading();
+      return;
+    }
     // 商品id逗号分隔字符串
     let productids = _.map(list,(item) => {
       return item.get("productid");
@@ -158,6 +188,10 @@ const ProductCollectListView = Backbone.View.extend({
       .catch(err => {
         mallPromise.catchFn(err);
       });
+  },
+
+  loadMore() {
+    this.fetch();
   }
 });
 
