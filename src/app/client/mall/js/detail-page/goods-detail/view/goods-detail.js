@@ -149,6 +149,26 @@ const AppView = BaseView.extend({
       self.$couponPanel.hide();
     });
   },
+  loadSwipe() {
+    const $SwipeBox = $(".js-banner-box", this.$el);
+    const $index    = $(".js-banner-index>i", this.$el);
+    new Swipe($SwipeBox.get(0), {
+      startSlide: 0,
+      speed: 600,
+      auto: 3000,
+      continuous: true,
+      disableScroll: false,
+      stopPropagation: false,
+      callback(index) {
+        index = Swipe.fixIndex(index, $index.length);
+        $index
+          .removeClass("active")
+            .eq(index)
+            .addClass("active");
+      },
+      transitionEnd() {}
+    });
+  },
   renderGoodsInfo(goods) {
 
     // View: goods info
@@ -161,24 +181,8 @@ const AppView = BaseView.extend({
     new Tab( this.$el.find(".js-tab-wrapper"), this.$el.find(".js-tab-content") );
 
     // Swipe/Banner widget
-    const $SwipeBox = $(".js-banner-box", this.$el);
-    const $index    = $(".js-banner-index>i", this.$el);
-    new Swipe($SwipeBox.get(0), {
-      startSlide: 0,
-      speed: 400,
-      auto: 3000,
-      continuous: true,
-      disableScroll: false,
-      stopPropagation: false,
-      callback(index) {
-        $index
-          .removeClass("active")
-            .eq(index)
-            .addClass("active");
-      },
-      transitionEnd() {}
-    });
-
+    this.loadSwipe();
+    widget.imageDelay();
     this.$detail = this.$el.find(".js-detail-bar");
 
     // View: copyright
