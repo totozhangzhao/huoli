@@ -1,5 +1,9 @@
 <% _.each(dataList, function (item, index) { %>
   <% 
+    if (item.list.length <= 0) {
+      return;
+    }
+
     if(item.tpl === 1) {
   %>
     <!-- 推荐位：左、右两个 -->
