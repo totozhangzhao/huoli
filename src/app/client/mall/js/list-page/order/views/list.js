@@ -11,6 +11,8 @@ import logger from "com/mobile/lib/log/log.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import hint from "com/mobile/widget/hint/hint.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
+const orderListLog = widget.initTracker("orderList");
 
 import orderUtil from "app/client/mall/js/list-page/order/utils/order-utils.js";
 // collections
@@ -52,6 +54,10 @@ const OrderListView = Backbone.View.extend({
     });
     this.registerAppResume();
     logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
+    orderListLog({
+      title: document.title,
+      hlfrom: UrlUtil.parseUrlSearch().hlfrom || "--"
+    });
   },
 
   bindEvents() {
