@@ -169,7 +169,7 @@ const AppView = Backbone.View.extend({
       productItem: {
         productid: this.orderDetail.productid,
         title: this.orderDetail.title,
-        action: 9
+        action: this.orderDetail.action || 9
       },
       tplUtil
     };
