@@ -10,6 +10,8 @@ import {getProvince} from "app/client/mall/js/lib/province.js";
 import {MultiLevel} from "com/mobile/widget/select/select.js";
 import validator from "app/client/mall/js/lib/validator.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
+import {addressMessage} from "app/client/mall/js/common/message.js";
+
 const AddressEditView = Backbone.View.extend({
 
   tagName: "div",
@@ -25,7 +27,10 @@ const AddressEditView = Backbone.View.extend({
   initialize(options) {
     this.curAddress = options.curAddress || {};
     $(options.parentDom).html(this.$el);
-    this.$el.html(template({addressInfo: this.curAddress}));
+    this.$el.html(template({
+      addressInfo: this.curAddress,
+      addressMessage
+    }));
     this.initSelectWidget();
   },
 
@@ -130,7 +135,7 @@ const AddressEditView = Backbone.View.extend({
 
   valid() {
     let $items = this.$el.find("[name]");
-    let defaultHint = "请填写完整的地址信息";
+    let defaultHint = addressMessage.default;
 
     for (let i = 0, len = $items.length; i < len; i += 1) {
       let $curInput = $items.eq(i);
