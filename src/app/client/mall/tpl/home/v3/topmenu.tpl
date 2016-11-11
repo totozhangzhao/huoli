@@ -9,7 +9,7 @@
     href="<%= tplUtil.getBlockUrl(item) %>"
     >
       <div class="home-item-pics">
-        <img src="<%= item.img %>" alt="">
+        <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= item.img %>" class="op0" alt="">
       </div>
       <p class="home-item-tips"><%= item.title %></p>
     </a>
