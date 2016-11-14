@@ -3,6 +3,7 @@ import _ from "lodash";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as addressUtil from "app/client/mall/js/lib/address-util.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
@@ -577,20 +578,28 @@ const AppView = BaseView.extend({
       })
       .then((result) => {
         this.cache.goods.collect = result;
-        this.updateCollect();
+        this.updateCollect(true);
       })
       .catch(mallPromise.catchFn);
   },
 
+
   /**
-   * 更新收藏状态  isCollect 1:未收藏 2:已收藏
+   * @param {int} goods.collect.isCollect - 更新收藏状态  isCollect 1:未收藏 2:已收藏
+   * @param {boolean} showMessage - true 显示提示消息  false 不显示提示消息
+   * @description 更新页面中的收藏按钮状态
    * @return {void}
    */
-  updateCollect() {
+  updateCollect(showMessage = false) {
+    let message = "收藏成功";
     if(this.cache.goods.collect.isCollect === 1) {
+      message = "取消收藏成功";
       $(".collect-button.js-collect.yes").removeClass("yes");
     } else {
       $(".collect-button.js-collect:not(.yes)").addClass("yes");
+    }
+    if(showMessage) {
+      toast(message, 1500);
     }
   }
 });
