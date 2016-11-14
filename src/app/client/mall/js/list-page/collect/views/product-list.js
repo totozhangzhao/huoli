@@ -69,7 +69,7 @@ const ProductCollectListView = Backbone.View.extend({
     if(this.type === 1) {
       $(".js-stock", this.$el)
       .data("replaceView", "list/stock")
-      .html("近看有货");
+      .html("仅看有货");
     }else {
       $(".js-stock", this.$el)
       .data("replaceView", "list/all")
