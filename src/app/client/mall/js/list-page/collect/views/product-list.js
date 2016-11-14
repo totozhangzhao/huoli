@@ -67,9 +67,13 @@ const ProductCollectListView = Backbone.View.extend({
     this.type = type;
     this.productList.showOutOfStock(this.type);
     if(this.type === 1) {
-      $(".js-stock", this.$el).data("replaceView", "list/stock");
+      $(".js-stock", this.$el)
+      .data("replaceView", "list/stock")
+      .html("近看有货");
     }else {
-      $(".js-stock", this.$el).data("replaceView", "list/all");
+      $(".js-stock", this.$el)
+      .data("replaceView", "list/all")
+      .html("查看全部");
     }
   },
 
