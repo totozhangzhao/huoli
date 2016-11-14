@@ -151,6 +151,26 @@ const AppView = BaseView.extend({
       self.$couponPanel.hide();
     });
   },
+  loadSwipe() {
+    const $SwipeBox = $(".js-banner-box", this.$el);
+    const $index    = $(".js-banner-index>i", this.$el);
+    new Swipe($SwipeBox.get(0), {
+      startSlide: 0,
+      speed: 600,
+      auto: 3000,
+      continuous: true,
+      disableScroll: false,
+      stopPropagation: false,
+      callback(index) {
+        index = Swipe.fixIndex(index, $index.length);
+        $index
+          .removeClass("active")
+            .eq(index)
+            .addClass("active");
+      },
+      transitionEnd() {}
+    });
+  },
   renderGoodsInfo(goods) {
 
     // View: goods info
@@ -163,24 +183,8 @@ const AppView = BaseView.extend({
     new Tab( this.$el.find(".js-tab-wrapper"), this.$el.find(".js-tab-content") );
 
     // Swipe/Banner widget
-    const $SwipeBox = $(".js-banner-box", this.$el);
-    const $index    = $(".js-banner-index>i", this.$el);
-    new Swipe($SwipeBox.get(0), {
-      startSlide: 0,
-      speed: 400,
-      auto: 3000,
-      continuous: true,
-      disableScroll: false,
-      stopPropagation: false,
-      callback(index) {
-        $index
-          .removeClass("active")
-            .eq(index)
-            .addClass("active");
-      },
-      transitionEnd() {}
-    });
-
+    this.loadSwipe();
+    widget.imageDelay();
     this.$detail = this.$el.find(".js-detail-bar");
 
     // View: copyright
@@ -591,12 +595,12 @@ const AppView = BaseView.extend({
    * @return {void}
    */
   updateCollect(showMessage = false) {
-    let message = "收藏成功";
-    if(this.cache.goods.collect.isCollect === 1) {
-      message = "取消收藏成功";
-      $(".collect-button.js-collect.yes").removeClass("yes");
-    } else {
+    let message = "取消收藏成功";
+    if(this.cache.goods.collect.isCollect === 2) {
+      message = "收藏成功";
       $(".collect-button.js-collect:not(.yes)").addClass("yes");
+    } else {
+      $(".collect-button.js-collect.yes").removeClass("yes");
     }
     if(showMessage) {
       toast(message, 1500);
