@@ -155,11 +155,11 @@ const ProductCollectListView = Backbone.View.extend({
    * @return {void}
    */
   clearOutOfStock() {
-    hint.showLoading();
     // 没有库存的商品列表
     let list = this.productList.reject((item) => {
       return _.inRange(item.get("status").code, 1, 3);
     });
+    window.console.log(list);
     this.removeCollectByProducts(list);
   },
 
@@ -220,6 +220,7 @@ const ProductCollectListView = Backbone.View.extend({
     let productids = _.map(list,(item) => {
       return item.get("productid");
     }).toString();
+    hint.showLoading();
     mallPromise
       .checkLogin({ reset: true })
       .then(userData => {
