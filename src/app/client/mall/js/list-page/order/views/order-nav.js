@@ -35,7 +35,7 @@ const OrderListView = Backbone.View.extend({
   },
 
   orderFilter(e) {
-    this.$el.find("[data-filter]").removeClass("on");
+    // this.$el.find("[data-filter]").removeClass("on");
     let d = $(e.currentTarget);
     let orderType = (this.params.orderType !== 1 ? 'crowd': 'mall');
     Backbone.history.navigate(`${orderType}/${d.data("filter")}`, {
