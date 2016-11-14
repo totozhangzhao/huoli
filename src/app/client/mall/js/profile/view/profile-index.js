@@ -70,7 +70,7 @@ const AppView = Backbone.View.extend({
       .catch(mallPromise.catchFn);
   },
 
-  getStatusData() {
+  getStatusData(checkedOnly = false) {
     mallPromise.getAppInfo()
       .then((userData) => {
         let params = _.extend({}, userData.userInfo);
@@ -91,8 +91,12 @@ const AppView = Backbone.View.extend({
         this.$el.find('.coupons-num-box').html(data.coupon.validnum || 0);
       })
       .catch((err) => {
-        err.silent = true;
-        mallPromise.catchFn();
+        if(checkedOnly) {
+          err.silent = true;
+          mallPromise.catchShowError(err);
+        } else {
+          mallPromise.catchFn(err);
+        }
       });
   },
 
@@ -108,7 +112,7 @@ const AppView = Backbone.View.extend({
   registerAppResume() {
     // 1 app 缓存问题， 2 更新状态
     NativeAPI.registerHandler("resume", () => {
-      this.getStatusData();
+      this.getStatusData(true);
     });
   }
 });
