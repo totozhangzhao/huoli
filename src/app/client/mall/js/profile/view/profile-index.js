@@ -105,7 +105,7 @@ const AppView = Backbone.View.extend({
   registerAppResume() {
     // 1 app 缓存问题， 2 更新状态
     NativeAPI.registerHandler("resume", () => {
-      window.location.reload();
+      this.getStatusData();
     });
   }
 });
