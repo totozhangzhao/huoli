@@ -155,11 +155,14 @@ const ProductCollectListView = Backbone.View.extend({
    * @return {void}
    */
   clearOutOfStock() {
+    // window.alert(1);
     // 没有库存的商品列表
-    let list = this.productList.reject((item) => {
-      return _.inRange(item.get("status").code, 1, 3);
+    // let list = this.productList.reject((item) => {
+    //   return _.inRange(item.get("status").code, 1, 3);
+    // });
+    let list = this.productList.filter((item) => {
+      return parseInt(item.get("status").code) === 6;
     });
-    window.console.log(list);
     this.removeCollectByProducts(list);
   },
 
