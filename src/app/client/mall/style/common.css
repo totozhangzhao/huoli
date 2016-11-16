@@ -1150,12 +1150,14 @@ img.express-empty {
 .topic-bar {
   width: 100%;
 }
+.topic-bar a {
+  display: block;
+}
 .topic-bar .topic-area {
   width: 100%;
   background-color: #fff;
-}
-.topic-bar .topic-area:not(:last-child) {
   margin-bottom: 0.26667rem;
+  padding-bottom: 0.56rem;
 }
 .topic-bar .topic-area .topic-show-pic {
   width: 100%;
