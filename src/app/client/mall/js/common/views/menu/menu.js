@@ -1,9 +1,9 @@
 
 import $ from "jquery";
 import Backbone from "backbone";
-import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+
 const MenuView = Backbone.View.extend({
   tagName: "div",
 
@@ -46,7 +46,7 @@ const MenuView = Backbone.View.extend({
     if($(e.currentTarget).hasClass('on')) {
       return;
     }
-    let url = this.getUrlByName($(e.currentTarget).data("menu"));
+    let url = tplUtil.getBottomMenuUrl($(e.currentTarget).data("menu"));
     widget.createNewView({ url});
   },
 
@@ -55,31 +55,8 @@ const MenuView = Backbone.View.extend({
     if($(e.currentTarget).hasClass('on')) {
       return;
     }
-    let url = this.getUrlByName($(e.currentTarget).data("menu"));
+    let url = tplUtil.getBottomMenuUrl($(e.currentTarget).data("menu"));
     widget.replacePage(url);
-  },
-
-  getUrlByName(name) {
-    let url = "";
-    let groupId = "10000308";
-    if(mallUtil.isHangbanFunc()) {
-      groupId = "22000111";
-    }
-    switch(name) {
-      case "home":
-        url = "/fe/app/client/mall/index.html";
-        break;
-      case "topic":
-        url = `${tplUtil.getBlockUrl({action: 10})}?groupId=${groupId}&showMenu=true`;
-        break;
-      case "category":
-        url = "/fe/app/client/mall/html/menu/category.html";
-        break;
-      case "my":
-        url = "/fe/app/client/mall/html/profile/profile.html";
-        break;
-    }
-    return url;
   }
 });
 

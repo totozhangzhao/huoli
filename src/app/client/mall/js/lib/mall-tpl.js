@@ -1,5 +1,6 @@
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import {urlMap} from "app/client/mall/js/common/config.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
 
 const moneyModel = new BuyNumModel();
 
@@ -32,7 +33,7 @@ export function getJsClass(item) {
 }
 
 export function getBlockUrl(item) {
-  let codeToName = {
+  const codeToName = {
     "9": "goods-detail",
     "0": "goods-detail",
     "1": "share-page",
@@ -59,4 +60,30 @@ export function getBlockUrl(item) {
   }
 
   return jsUrl;
+}
+
+export function getBottomMenuUrl(name) {
+  let url = "";
+  let groupId = "10000308";
+
+  if(mallUtil.isHangbanFunc()) {
+    groupId = "22000111";
+  }
+
+  switch(name) {
+    case "home":
+      url = "/fe/app/client/mall/index.html";
+      break;
+    case "topic":
+      url = `${getBlockUrl({action: 10})}?groupId=${groupId}&showMenu=true`;
+      break;
+    case "category":
+      url = "/fe/app/client/mall/html/menu/category.html";
+      break;
+    case "my":
+      url = "/fe/app/client/mall/html/profile/profile.html";
+      break;
+  }
+
+  return url;
 }
