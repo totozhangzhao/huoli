@@ -986,30 +986,29 @@ img.express-empty {
 }
 .common-banner-bar .common-banner-indexs {
   font-size: 0;
-  height: 0.13333rem;
+  height: 0.10667rem;
   position: absolute;
   left: 50%;
-  bottom: 0.13333rem;
+  bottom: 0.21333rem;
   transform: translate3d(-50%, 0, 0);
   overflow: hidden;
 }
 .common-banner-bar .common-banner-indexs i {
   display: inline-block;
-  width: 0.21333rem;
-  height: 0.21333rem;
+  width: 0.10667rem;
+  height: 0.10667rem;
   opacity: 0.4;
-  border-radius: 0.21333rem;
-  background-color: #fff;
+  background-color: #f0f0f0;
+  margin-right: 0.21333rem;
   background-clip: padding-box;
-  transform: scale(0.5, 0.5);
-  transform-origin: left top;
 }
-.common-banner-bar .common-banner-indexs i:not(:last-child) {
-  margin-right: 0.32rem;
+.common-banner-bar .common-banner-indexs i:last-child {
+  margin-right: 0;
 }
 .common-banner-bar .common-banner-indexs i.active {
   background-color: #fff;
   opacity: 1;
+  width: 0.26667rem;
 }
 .hidden {
   visibility: hidden;
