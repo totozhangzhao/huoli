@@ -1,17 +1,22 @@
-<div class="js-banner-box common-banner-bar no-select">
-  <ul class="common-banner-area clearfix">
-    <% _.each(img, function(url, index) { %>
-    <li class="common-banner-pic fl">
-      <a href="javascript:;">
-        <img src="<%= url %>" >
-      </a>
-    </li>
-    <% }); %>
-  </ul>
-  <div class="js-banner-index common-banner-indexs">
-    <% _.each(img, function(url, index) { %>
-    <i class="<%= index === 0 ? 'active' : '' %>"></i>
-    <% }); %>
+<div class="common-banner-bar">
+  <div class="common-position">
+    <div class="posi"></div>
+  </div>
+  <div class="js-banner-box">
+    <ul class="common-banner-area clearfix">
+      <% _.each(img, function(url, index) { %>
+      <li class="common-banner-pic fl">
+        <a href="javascript:;">
+          <img src="/fe/com/mobile/image/grey.gif" data-echo="<%= url %>" class="goods-img op0" alt="">
+        </a>
+      </li>
+      <% }); %>
+    </ul>
+    <div class="js-banner-index common-banner-indexs">
+      <% _.each(img, function(url, index) { %>
+      <i class="<%= index === 0 ? 'active' : '' %>"></i>
+      <% }); %>
+    </div>
   </div>
 </div>
 

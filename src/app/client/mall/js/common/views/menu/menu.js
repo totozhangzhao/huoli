@@ -2,6 +2,7 @@
 import $ from "jquery";
 import Backbone from "backbone";
 import * as widget from "app/client/mall/js/lib/common.js";
+import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 
 const MenuView = Backbone.View.extend({
   tagName: "div",
@@ -45,7 +46,8 @@ const MenuView = Backbone.View.extend({
     if($(e.currentTarget).hasClass('on')) {
       return;
     }
-    widget.createAView(e);
+    let url = tplUtil.getBottomMenuUrl($(e.currentTarget).data("menu"));
+    widget.createNewView({ url});
   },
 
   replaceView(e) {
@@ -53,7 +55,8 @@ const MenuView = Backbone.View.extend({
     if($(e.currentTarget).hasClass('on')) {
       return;
     }
-    widget.replacePage($(e.currentTarget).prop("href"));
+    let url = tplUtil.getBottomMenuUrl($(e.currentTarget).data("menu"));
+    widget.replacePage(url);
   }
 });
 

@@ -25,6 +25,7 @@ var createEntryObj = function() {
 
 module.exports = {
   resolve: {
+    extensions: ['', '.js', '.tpl'],
     root: __dirname + "/src",
     alias: {
       "backbone": "com/mobile/lib/backbone/backbone.js",

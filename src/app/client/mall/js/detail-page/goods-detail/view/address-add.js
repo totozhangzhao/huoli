@@ -11,6 +11,7 @@ import UrlUtil from "com/mobile/lib/url/url.js";
 import * as addressUtil from "app/client/mall/js/lib/address-util.js";
 import {getProvince} from "app/client/mall/js/lib/province.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
+import {addressMessage} from "app/client/mall/js/common/message.js";
 
 import "app/client/mall/js/lib/common.js";
 
@@ -61,7 +62,8 @@ let AppView = Backbone.View.extend({
     let addressTpl = require("app/client/mall/tpl/detail-page/address-edit.tpl");
 
     this.$el.html(addressTpl({
-      addressInfo
+      addressInfo,
+      addressMessage
     }));
 
     this.initSelectWidget();
@@ -161,7 +163,7 @@ let AppView = Backbone.View.extend({
   },
   checkInputs() {
     let $items = this.$el.$inputs;
-    let defaultHint = "请填写完整的地址信息";
+    let defaultHint = addressMessage.default;
 
     for (let i = 0, len = $items.length; i < len; i += 1) {
       let $curInput = $items.eq(i);
