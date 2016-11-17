@@ -33,7 +33,7 @@ export function getJsClass(item) {
 }
 
 export function getBlockUrl(item) {
-  let codeToName = {
+  const codeToName = {
     "9": "goods-detail",
     "0": "goods-detail",
     "1": "share-page",
@@ -65,9 +65,11 @@ export function getBlockUrl(item) {
 export function getBottomMenuUrl(name) {
   let url = "";
   let groupId = "10000308";
+
   if(mallUtil.isHangbanFunc()) {
     groupId = "22000111";
   }
+
   switch(name) {
     case "home":
       url = "/fe/app/client/mall/index.html";
@@ -82,5 +84,6 @@ export function getBottomMenuUrl(name) {
       url = "/fe/app/client/mall/html/profile/profile.html";
       break;
   }
+
   return url;
 }

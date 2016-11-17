@@ -61,7 +61,7 @@
     <!-- 推荐位：上、下排列（大图） -->
     <div class="home-select-bar">
       <div class="home-select-area">
-        <h5 class="home-title"><a class="block js-replace-view" data-menu="topic"><span class="icon">TOP.01 | 专题精选</span></a></h5>
+        <h5 class="home-title"><a class="block"><span>TOP.01 | 专题精选</span></a></h5>
         <% _.each(item.list, function(item1, index1) { %>
         <div class="home-select-area-pic">
           <a
