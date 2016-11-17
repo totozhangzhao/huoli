@@ -13,7 +13,7 @@
         <% if(index1 > 1) {return;}%>
         <div class="home-panel-area-pic wide">
           <a
-            data-log-mall-click="index-promotion_<%= item1.title %>-<%= item1.productid %>"
+            data-log-mall-click="index-tpl-<%= item.tpl %>_<%= item1.title %>-<%= item1.productid %>"
             data-productid="<%= item1.productid %>"
             data-group-id="<%= item1.groupId %>"
             data-title="<%= item1.title %>"
@@ -39,7 +39,7 @@
         <% _.each(item.list, function(item1, index1) { %>
         <div class="home-choice-area-pic">
           <a
-            data-log-mall-click="index-promotion_<%= item1.title %>-<%= item1.productid %>"
+            data-log-mall-click="index-tpl-<%= item.tpl %>_<%= item1.title %>-<%= item1.productid %>"
             data-productid="<%= item1.productid %>"
             data-group-id="<%= item1.groupId %>"
             data-title="<%= item1.title %>"
@@ -65,7 +65,7 @@
         <% _.each(item.list, function(item1, index1) { %>
         <div class="home-select-area-pic">
           <a
-            data-log-mall-click="index-promotion_<%= item1.title %>-<%= item1.productid %>"
+            data-log-mall-click="index-tpl-<%= item.tpl %>_<%= item1.title %>-<%= item1.productid %>"
             data-productid="<%= item1.productid %>"
             data-group-id="<%= item1.groupId %>"
             data-title="<%= item1.title %>"
