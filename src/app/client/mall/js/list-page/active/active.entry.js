@@ -27,7 +27,9 @@ import GroupMutiView  from "app/client/mall/js/list-page/active/views/group-muti
 import GoodsView      from "app/client/mall/js/list-page/active/views/goods-view.js";
 // 优惠券
 import CouponView     from "app/client/mall/js/list-page/active/views/coupon-view.js";
-
+// 带标题和副标题的大图
+import SubtitleImage     from "app/client/mall/js/list-page/active/views/subtitle-image.js";
+// 空白
 import BlankLineView  from "app/client/mall/js/list-page/active/views/blank-line-view.js";
 
 import BaseView       from "app/client/mall/js/common/views/BaseView.js";
@@ -35,7 +37,7 @@ import {initTracker}  from "app/client/mall/js/lib/common.js";
 import BackTop from "com/mobile/widget/button/to-top.js";
 const activeListLog = initTracker("activeList");
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
-
+import MenuView from "app/client/mall/js/common/views/menu/menu.js";
 const AppView = BaseView.extend({
   el: "#active-container",
 
@@ -55,6 +57,7 @@ const AppView = BaseView.extend({
       6: GroupMutiView,
       7: GoodsView,
       8: CouponView,
+      10: SubtitleImage,
       9: BlankLineView
     };
     this.$initial = ui.initial().show();
@@ -62,6 +65,9 @@ const AppView = BaseView.extend({
     nav.render();
     new BackTop();
     this.activeId = UrlUtil.parseUrlSearch().groupId;
+    if(String(UrlUtil.parseUrlSearch().showMenu) === "true" ) {
+      this.showMenu();
+    }
     this.fetchData();
     logger.track(`${mallUtil.getAppName()}PV`, "View PV", document.title);
   },
@@ -70,11 +76,11 @@ const AppView = BaseView.extend({
     this.$el.css({
       backgroundColor: this.result.backcolor
     });
-    _.each(this.result.groups, (item) => {
+    _.forEachRight(this.result.groups, (item) => {
       let View = this.ViewMap[item.type];
       if(View) {
         let ui = new View({model: item});
-        this.$el.append(ui.render().el);
+        this.$el.prepend(ui.render().el);
         if(ui.resizeImg) {
           ui.resizeImg();
         }
@@ -113,6 +119,15 @@ const AppView = BaseView.extend({
       });
     });
     promise.catch(mallPromise.catchFn);
+  },
+
+  showMenu() {
+    this.menuView       = new MenuView({
+      show: true,
+      viewName: 'topic'
+    });
+    this.$el.append(this.menuView.el);
+    this.$el.addClass("common-padding");
   }
 
 });
