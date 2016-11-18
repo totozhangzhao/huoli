@@ -66,12 +66,7 @@ const AppView = BaseView.extend({
     new BackTop();
     this.activeId = UrlUtil.parseUrlSearch().groupId;
     if(String(UrlUtil.parseUrlSearch().showMenu) === "true" ) {
-      this.menuView       = new MenuView({
-        show: true,
-        viewName: 'topic'
-      });
-      this.$el.append(this.menuView.el);
-      this.$el.addClass("common-padding");
+      this.showMenu();
     }
     this.fetchData();
     logger.track(`${mallUtil.getAppName()}PV`, "View PV", document.title);
@@ -81,11 +76,11 @@ const AppView = BaseView.extend({
     this.$el.css({
       backgroundColor: this.result.backcolor
     });
-    _.each(this.result.groups, (item) => {
+    _.forEachRight(this.result.groups, (item) => {
       let View = this.ViewMap[item.type];
       if(View) {
         let ui = new View({model: item});
-        this.$el.append(ui.render().el);
+        this.$el.prepend(ui.render().el);
         if(ui.resizeImg) {
           ui.resizeImg();
         }
@@ -124,6 +119,15 @@ const AppView = BaseView.extend({
       });
     });
     promise.catch(mallPromise.catchFn);
+  },
+
+  showMenu() {
+    this.menuView       = new MenuView({
+      show: true,
+      viewName: 'topic'
+    });
+    this.$el.append(this.menuView.el);
+    this.$el.addClass("common-padding");
   }
 
 });
