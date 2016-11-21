@@ -23,7 +23,7 @@ const ProductCollectListView = Backbone.View.extend({
   el: "#product-collect-container",
 
   events: {
-    "click .js-stock": "replaceView",
+    "click .js-stock": "stockStateChange",
     "click .js-new-page": "createNewPage",
     "click .js-clear-outstock": "clearOutOfStock",
     "touchstart [data-remove-id]"  : "beginTouch",
@@ -132,6 +132,11 @@ const ProductCollectListView = Backbone.View.extend({
     });
   },
 
+  stockStateChange(e) {
+    if(this.productList.length > 0) {
+      this.replaceView(e);
+    }
+  },
 
   replaceView(e) {
     let view = $(e.currentTarget).data("replaceView");
