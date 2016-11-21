@@ -595,7 +595,7 @@ const AppView = BaseView.extend({
    * @return {void}
    */
   updateCollect(showMessage = false) {
-    let message = "取消收藏成功";
+    let message = "取消收藏";
     if(this.cache.goods.collect.isCollect === 2) {
       message = "收藏成功";
       $(".collect-button.js-collect:not(.yes)").addClass("yes");
