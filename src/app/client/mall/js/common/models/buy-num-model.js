@@ -28,6 +28,7 @@ const BuyNumModel = Backbone.Model.extend({
     specValueId: null,         // 规格ID goodspecid
     avatar: "",                // 当前商品头像
     canPay: true,              // 购买按钮是否可用
+    showCollect: true,          // 是否有收藏按钮 商品详情页底部展示
     closeAll: false            // 点击关闭按钮时，是否关闭完整视图
   },
 
