@@ -58,11 +58,25 @@
       <% if(giftType === 3 && canPay) { %>
       <!-- 微信送礼  -->
         <div class="goods-buygiving-bar flex-row">
+          <% if(showCollect) {%>
+          <!-- "已收藏"状态加 .yes | 默认状态无 .yes -->
+          <button class="collect-button js-collect">
+            <b class="icon"></b>
+            <span class="text">收藏</span>
+          </button>
+          <% } %>
           <a class="js-goods-gift-pay give">微信送礼</a>
           <a class="js-goods-pay js-goods-normal-pay buy">立即购买</a>
         </div>
       <% } else {%>
-        <div class="goods-buynow-bar">
+        <div class="goods-buynow-bar flex-row">
+          <% if(showCollect) {%>
+          <!-- "已收藏"状态加 .yes | 默认状态无 .yes -->
+          <button class="collect-button js-collect">
+            <b class="icon"></b>
+            <span class="text">收藏</span>
+          </button>
+          <% } %>
           <a class="js-goods-pay js-goods-normal-pay <%= canPay ? '' : 'unable'%>">立即购买</a>
         </div>
       <% } %>

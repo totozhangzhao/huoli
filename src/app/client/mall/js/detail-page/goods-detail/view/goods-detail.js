@@ -3,6 +3,7 @@ import _ from "lodash";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as addressUtil from "app/client/mall/js/lib/address-util.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
@@ -33,7 +34,8 @@ const AppView = BaseView.extend({
     "click .js-get-url"   : "handleGetUrl",
     "click .js-webview a" : "createNewPage",
     "click .js-privilege" : "showPrivilegePanel",
-    "click .js-coupon"    : "showCouponPanel"
+    "click .js-coupon"    : "showCouponPanel",
+    "click .js-collect"   : "collectHandler"
   },
   initialize(commonData) {
     _.extend(this, commonData);
@@ -228,7 +230,7 @@ const AppView = BaseView.extend({
 
     this.renderGoodsInfo(goods);
     this.renderBuyNumView(goods);
-
+    this.updateCollect();
     if ( this.urlObj.gotoView ) {
       if (this.urlObj.gotoView === "address-confirm") {
         if (goods.type === 3) {
@@ -279,6 +281,7 @@ const AppView = BaseView.extend({
       avatar: goods.smallimg,
       limitNum: goods.limit,
       canPay: goods.stat === 0,
+      showCollect: true,      // 显示收藏按钮
       parentDom: "#goods-detail"
     });
     if (goods.specs.length > 0) {
@@ -550,6 +553,58 @@ const AppView = BaseView.extend({
   },
   gotoNewView(options) {
     widget.createNewView(options);
+  },
+
+  /**
+   * @param {event} e 点击事件
+   * @return {void}
+   */
+  collectHandler() {
+    let method = "collectGoods";
+    if(this.cache.goods.collect.isCollect === 2) {
+      method = "cancelCollect";
+    }
+    mallPromise
+      .getAppInfo(true)
+      .then(userData => {
+        const params = _.extend({}, userData.userInfo, {
+          productid: this.cache.goods.productid
+        });
+        return new Promise((resovle, reject) => {
+          sendPost(method, params, (err, data) => {
+            if (err) {
+              reject(err);
+            } else {
+              resovle(data);
+            }
+          });
+        });
+      })
+      .then((result) => {
+        this.cache.goods.collect = result;
+        this.updateCollect(true);
+      })
+      .catch(mallPromise.catchFn);
+  },
+
+
+  /**
+   * @param {int} goods.collect.isCollect - 更新收藏状态  isCollect 1:未收藏 2:已收藏
+   * @param {boolean} showMessage - true 显示提示消息  false 不显示提示消息
+   * @description 更新页面中的收藏按钮状态
+   * @return {void}
+   */
+  updateCollect(showMessage = false) {
+    let message = "取消收藏";
+    if(this.cache.goods.collect.isCollect === 2) {
+      message = "收藏成功";
+      $(".collect-button.js-collect:not(.yes)").addClass("yes");
+    } else {
+      $(".collect-button.js-collect.yes").removeClass("yes");
+    }
+    if(showMessage) {
+      toast(message, 1500);
+    }
   }
 });
 

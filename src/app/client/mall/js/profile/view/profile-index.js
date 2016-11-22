@@ -15,7 +15,7 @@ import MenuView from "app/client/mall/js/common/views/menu/menu.js";
 import profileTpl from "app/client/mall/tpl/profile/profile.tpl";
 import orderStatusTpl from "app/client/mall/tpl/profile/ui/order-status.tpl";
 import crowdOrderStatusTpl from "app/client/mall/tpl/profile/ui/crowd-order-status.tpl";
-
+import collectStatusTpl from "app/client/mall/tpl/profile/ui/collect-status.tpl";
 const AppView = Backbone.View.extend({
   el: "#profile-index",
 
@@ -88,6 +88,7 @@ const AppView = Backbone.View.extend({
       .then((data) => {
         this.$el.find("#order-status").html(orderStatusTpl(data.mallOrder));
         this.$el.find("#crowd-order-status").html(crowdOrderStatusTpl(data.crowdOrder));
+        this.$el.find("#collect-status").html(collectStatusTpl(data.collect));
         this.$el.find('.coupons-num-box').html(data.coupon.validnum || 0);
       })
       .catch((err) => {

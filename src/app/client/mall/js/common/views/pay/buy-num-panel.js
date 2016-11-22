@@ -47,6 +47,7 @@ const BuyNumPanelView = Backbone.View.extend({
         }, { silent: true });
       }
     }
+
     let tplData = this.model.toJSON();
     tplData.unitPriceText = this.model.getPPriceText(1);
     tplData.totalPriceText = this.model.getPPriceText();
@@ -280,7 +281,19 @@ const BuyNumPanelView = Backbone.View.extend({
         hasMask: false
       });
     }
-  }
+  },
 
+  /**
+   * @param {boolean} flag - 是否收藏 true 已收藏 false 未收藏
+   *
+   * @return {void} 无返回
+   */
+  isCollected(flag) {
+    if(flag) {
+      $(".js-collect:not(.yes)", this.$el).addClass("yes");
+    } else {
+      $(".js-collect.yes", this.$el).removeClass("yes");
+    }
+  }
 });
 module.exports = BuyNumPanelView;
