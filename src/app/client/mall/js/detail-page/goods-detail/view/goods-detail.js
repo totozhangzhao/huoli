@@ -230,7 +230,6 @@ const AppView = BaseView.extend({
 
     this.renderGoodsInfo(goods);
     this.renderBuyNumView(goods);
-    this.updateCollect();
     if ( this.urlObj.gotoView ) {
       if (this.urlObj.gotoView === "address-confirm") {
         if (goods.type === 3) {
@@ -268,6 +267,7 @@ const AppView = BaseView.extend({
     // init buy panel model
     this.buyNumModel = new BuyNumModel({
       type: 0,
+      isCollect: goods.collect.isCollect,
       discount: discount,
       payType: goods.paytype,
       hasMask: false,
@@ -582,7 +582,9 @@ const AppView = BaseView.extend({
       })
       .then((result) => {
         this.cache.goods.collect = result;
-        this.updateCollect(true);
+        let message = this.cache.goods.collect.isCollect === 2 ? "收藏成功" : "取消收藏";
+        this.buyNumModel.set("isCollect", this.cache.goods.collect.isCollect);
+        toast(message, 1500);
       })
       .catch(mallPromise.catchFn);
   },
@@ -595,16 +597,16 @@ const AppView = BaseView.extend({
    * @return {void}
    */
   updateCollect(showMessage = false) {
-    let message = "取消收藏";
-    if(this.cache.goods.collect.isCollect === 2) {
-      message = "收藏成功";
-      $(".collect-button.js-collect:not(.yes)").addClass("yes");
-    } else {
-      $(".collect-button.js-collect.yes").removeClass("yes");
-    }
-    if(showMessage) {
-      toast(message, 1500);
-    }
+    // let message = "取消收藏";
+    // if(this.cache.goods.collect.isCollect === 2) {
+    //   message = "收藏成功";
+    //   $(".collect-button.js-collect:not(.yes)").addClass("yes");
+    // } else {
+    //   $(".collect-button.js-collect.yes").removeClass("yes");
+    // }
+    // if(showMessage) {
+    //   toast(message, 1500);
+    // }
   }
 });
 
