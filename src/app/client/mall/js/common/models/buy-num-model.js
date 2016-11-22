@@ -29,6 +29,7 @@ const BuyNumModel = Backbone.Model.extend({
     avatar: "",                // 当前商品头像
     canPay: true,              // 购买按钮是否可用
     showCollect: true,          // 是否有收藏按钮 商品详情页底部展示
+    isCollect: 1,               // 1 未收藏  2 已收藏
     closeAll: false            // 点击关闭按钮时，是否关闭完整视图
   },
 
