@@ -37,7 +37,7 @@
     </a>
   </div>
   <div class="my-mall-bar-item js-touch-state touch-bg">
-    <a class="my-order-area none-line js-new-page" href="/fe/app/client/mall/html/list-page/order/list.html#crowd/all">
+    <a class="my-order-area js-new-page" href="/fe/app/client/mall/html/list-page/order/list.html#crowd/all">
       <b class="my-show-icon my-crowd-icon"></b>
       <p>一元夺宝订单</p>
       <span id="crowd-order-status"></span>
@@ -45,7 +45,7 @@
     </a>
   </div>
   <div class="my-mall-bar-item js-touch-state touch-bg">
-    <a class="my-order-area none-line" href="/fe/app/client/mall/html/list-page/collect/product.html">
+    <a class="my-order-area js-new-page none-line" href="/fe/app/client/mall/html/list-page/collect/product.html">
       <b class="my-show-icon my-collect-icon"></b>
       <p>我的收藏</p>
       <span id="collect-status"></span>
