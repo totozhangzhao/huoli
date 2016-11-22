@@ -2,9 +2,9 @@ import $ from "jquery";
 import Backbone from "backbone";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
-import defaultBuyPanelTpl from "app/client/mall/tpl/common/buy-num-panel.tpl";
+import template from "app/client/mall/tpl/detail-page/goods/payment/payment.tpl";
 
-const BuyNumPanelView = Backbone.View.extend({
+const PaymentView = Backbone.View.extend({
 
   tagName: "div",
 
@@ -23,7 +23,7 @@ const BuyNumPanelView = Backbone.View.extend({
   },
 
   initialize(options) {
-    this.template = options.template || defaultBuyPanelTpl;
+    this.template = template;
     this.exchange = options.exchange || (() => {});
     this.buy = options.buy || (() => {});
     this.pay = options.pay || (() => {});
@@ -296,4 +296,4 @@ const BuyNumPanelView = Backbone.View.extend({
     }
   }
 });
-module.exports = BuyNumPanelView;
+module.exports = PaymentView;
