@@ -6,7 +6,6 @@ import UrlUtil from "com/mobile/lib/url/url.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as addressUtil from "app/client/mall/js/lib/address-util.js";
-import cookie from "com/mobile/lib/cookie/cookie.js";
 import shareUtil from "com/mobile/widget/wechat/util.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import Popover from "com/mobile/widget/popover/popover.js";
@@ -343,35 +342,12 @@ const AppView = BaseView.extend({
       });
     }
 
-    function _do() {
-      mallPromise
-        .checkLogin()
-        .then(() => {
-          _buy();
-        })
-        .catch(mallPromise.catchFn);
-    }
-
-    if ( mallUtil.isAppFunc() || mallUtil.isTest ) {
-      _do();
-    } else {
-      new Promise((resovle, reject) => {
-        let params = {
-          token: cookie.get("token")
-        };
-        sendPost("checkWhiteList", params, (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resovle(data);
-          }
-        });
+    mallPromise
+      .checkLogin()
+      .then(() => {
+        _buy();
       })
-        .then(() => {
-          _do();
-        })
-        .catch(mallPromise.catchShowError);
-    }
+      .catch(mallPromise.catchFn);
   },
 
   // 选数量后，去支付流程
