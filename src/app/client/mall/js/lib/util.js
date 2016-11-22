@@ -26,6 +26,7 @@ import cookie from "com/mobile/lib/cookie/cookie.js";
 })());
 
 export let isTest = /test.mall|test.hbmall|123.56.101.36/.test(window.location.hostname);
+export let isDev = /dev.mall|dev.hbmall|60.205.151.223/.test(window.location.hostname);
 
 export let getAppName = (() => {
   let name = "gtgj";
