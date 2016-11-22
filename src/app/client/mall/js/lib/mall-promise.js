@@ -144,12 +144,12 @@ export function initPay(orderInfo) {
   // test:
   // http://wtest.133.cn/hangban/webpay
   function webPay() {
-    let isTest = mallUtil.isTest;
+    let isTestEnv = mallUtil.isTest || mallUtil.isDev;
     if (orderInfo.server === "test") {
-      isTest = true;
+      isTestEnv = true;
     }
     let baseUrl = "https://h5.133.cn/hangban/webpay";
-    if (isTest) {
+    if (isTestEnv) {
       baseUrl = "http://wtest.133.cn/hangban/webpay";
     }
     let params = {

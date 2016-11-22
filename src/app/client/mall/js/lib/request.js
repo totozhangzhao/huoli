@@ -5,12 +5,13 @@ import UrlUtil from "com/mobile/lib/url/url.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import {config} from "app/client/mall/js/common/config.js";
 
-let idGenerator = (() => {
+let tokenCache = null;
+const idGenerator = (() => {
   let count = 0;
   return () => count += 1;
 })();
 
-let callbackWraper = callback => (err, data) => {
+const callbackWraper = callback => (err, data) => {
   if (err) {
     return callback(err);
   }
@@ -23,12 +24,10 @@ let callbackWraper = callback => (err, data) => {
 
   switch (data.type) {
     case "success": {
-      let result = data.payload.result;
-      let token = data.payload.token;
-      if (!token && result) {
-        token = result.token;
-      }
-      if (token) {
+      const result = data.payload.result;
+      const token = result.token;
+      if (token && token !== tokenCache) {
+        tokenCache = token;
         cookie.set("token", token, config.mall.cookieOptions);
       }
       callback(null, result);
@@ -44,19 +43,19 @@ let callbackWraper = callback => (err, data) => {
 };
 
 export function createSendPost(options) {
-  let basicRequest = new BasicRequest({
+  const basicRequest = new BasicRequest({
     url: options.url
   });
 
   return (method, params, callback) => {
-    let urlObj = UrlUtil.parseUrlSearch();
+    const urlObj = UrlUtil.parseUrlSearch();
     if (urlObj.hlfrom !== undefined) {
       params = params || {};
       params.hlfrom = urlObj.hlfrom;
     }
-    let data    = jsonrpc.request(idGenerator(), method, params);
-    let dataStr = JSON.stringify(data);
-    let cb      = callbackWraper(callback);
+    const data    = jsonrpc.request(idGenerator(), method, params);
+    const dataStr = JSON.stringify(data);
+    const cb      = callbackWraper(callback);
     basicRequest.request("POST", null, null, dataStr, cb);
   };
 }
