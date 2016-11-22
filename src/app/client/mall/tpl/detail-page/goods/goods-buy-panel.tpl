@@ -62,7 +62,7 @@
           <!-- "已收藏"状态加 .yes | 默认状态无 .yes -->
           <button class="collect-button js-collect <%= isCollect === 2 ? "yes" : ""%>">
             <b class="icon"></b>
-            <span class="text">收藏</span>
+            <span class="text"><%= isCollect === 2 ? "已收藏" : "收藏"%></span>
           </button>
           <% } %>
           <a class="js-goods-gift-pay give">微信送礼</a>
@@ -74,7 +74,7 @@
           <!-- "已收藏"状态加 .yes | 默认状态无 .yes -->
           <button class="collect-button js-collect <%= isCollect === 2 ? "yes" : ""%>">
             <b class="icon"></b>
-            <span class="text">收藏</span>
+            <span class="text"><%= isCollect === 2 ? "已收藏" : "收藏"%></span>
           </button>
           <% } %>
           <a class="js-goods-pay js-goods-normal-pay <%= canPay ? '' : 'unable'%>">立即购买</a>
