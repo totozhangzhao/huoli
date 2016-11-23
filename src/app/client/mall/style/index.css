@@ -1324,6 +1324,9 @@ img.touch-img {
   text-align: center;
   font-family: PingFangSC-Semibold, sans-serif;
 }
+.home-page-box .home-title > a {
+  color: #1e1e1e;
+}
 .home-page-box .home-title .icon {
   position: relative;
   left: 0;
