@@ -2,7 +2,7 @@ import $ from "jquery";
 import Backbone from "backbone";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
-import template from "app/client/mall/tpl/detail-page/goods/payment/payment.tpl";
+import template from "app/client/mall/tpl/detail-page/goods-detail/payment/payment.tpl";
 
 const PaymentView = Backbone.View.extend({
 

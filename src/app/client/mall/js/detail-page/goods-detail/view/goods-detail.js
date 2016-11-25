@@ -271,7 +271,7 @@ const AppView = BaseView.extend({
       title: goods.title,
       giftType: goods.gifttype,
       payText: goods.button,
-      payNumText: goods.button, //goods.money > 0 ? "去支付" : "立即兑换",
+      payNumText: goods.confirm, //goods.money > 0 ? "去支付" : "立即兑换",
       points: goods.points,
       price: goods.money,
       avatar: goods.smallimg,
