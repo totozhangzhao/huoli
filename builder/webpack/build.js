@@ -31,6 +31,7 @@ module.exports = function(webpackConfig, options, cb) {
     gutil.log("[webpack]", stats.toString({
       colors: true,
       hash: true,
+      timings: true,
       errors: true,
       errorDetails: true,
       reasons: false,
@@ -41,7 +42,6 @@ module.exports = function(webpackConfig, options, cb) {
       assets: false,
       version: false,
       modules: false,
-      timings: false,
       chunks: false,
       chunkModules: false
     }));
