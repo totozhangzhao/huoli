@@ -1146,6 +1146,13 @@ img.express-empty {
 .forbidden-scroll {
   overflow: hidden;
 }
+.no-more-tip {
+  text-align: center;
+  height: 1.33333rem;
+  line-height: 1.33333rem;
+  color: #9c9c9c;
+  font-size: 0.32rem;
+}
 .topic-bar {
   width: 100%;
 }

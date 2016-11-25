@@ -1,3 +1,4 @@
+import $ from "jquery";
 import _ from "lodash";
 import * as mallPromise    from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost}     from "app/client/mall/js/lib/mall-request.js";
@@ -67,6 +68,7 @@ const AppView = BaseView.extend({
     this.activeId = UrlUtil.parseUrlSearch().groupId;
     if(String(UrlUtil.parseUrlSearch().showMenu) === "true" ) {
       this.showMenu();
+      this.$el.append($('<div class="no-more-tip">到底啦！没有更多了~</div>'));
     }
     this.fetchData();
     logger.track(`${mallUtil.getAppName()}PV`, "View PV", document.title);

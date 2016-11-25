@@ -65,8 +65,8 @@
             <span class="text"><%= isCollect === 2 ? "已收藏" : "收藏"%></span>
           </button>
           <% } %>
-          <a class="js-goods-gift-pay give">微信送礼</a>
-          <a class="js-goods-pay js-goods-normal-pay buy">立即购买</a>
+          <a class="js-goods-gift-pay give">赠送他人</a>
+          <a class="js-goods-pay js-goods-normal-pay buy">买给自己</a>
         </div>
       <% } else {%>
         <div class="goods-buynow-bar flex-row">
