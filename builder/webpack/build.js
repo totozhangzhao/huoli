@@ -29,9 +29,21 @@ module.exports = function(webpackConfig, options, cb) {
     }
 
     gutil.log("[webpack]", stats.toString({
-      reason: false,
-      chunks: true,
-      version: false
+      colors: true,
+      hash: true,
+      errors: true,
+      errorDetails: true,
+      reasons: false,
+      children: false,
+      source: false,
+      warnings: false,
+      publicPath: false,
+      assets: false,
+      version: false,
+      modules: false,
+      timings: false,
+      chunks: false,
+      chunkModules: false
     }));
 
     if (!hasCallback) {
