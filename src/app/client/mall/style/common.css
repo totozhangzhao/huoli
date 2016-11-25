@@ -959,7 +959,9 @@ img.express-empty {
 .common-banner-pic {
   width: 10rem;
   height: 5.62667rem;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .common-banner-pic a {
   width: 100%;
@@ -972,17 +974,26 @@ img.express-empty {
 }
 .common-banner-bar {
   overflow: hidden;
-  height: 5.62667rem;
   width: 10rem;
+  height: 5.62667rem;
   position: relative;
   left: 0;
   top: 0;
 }
-.common-banner-bar .common-banner-area {
+.common-banner-bar .common-banner-wrapper {
+  width: 10rem;
   height: 5.62667rem;
   position: absolute;
-  left: 0;
   top: 0;
+  left: 0;
+  overflow: hidden;
+}
+.common-banner-bar .common-banner-wrapper .common-banner-area {
+  width: 10rem;
+  height: 5.62667rem;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 .common-banner-bar .common-banner-indexs {
   font-size: 0;
@@ -1145,6 +1156,13 @@ img.express-empty {
 }
 .forbidden-scroll {
   overflow: hidden;
+}
+.no-more-tip {
+  text-align: center;
+  height: 1.33333rem;
+  line-height: 1.33333rem;
+  color: #9c9c9c;
+  font-size: 0.32rem;
 }
 .topic-bar {
   width: 100%;

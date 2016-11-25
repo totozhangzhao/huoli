@@ -1,7 +1,7 @@
 <div class="common-position">
   <div class="posi"></div>
 </div>
-<div id="banner-box">
+<div id="banner-box" class="common-banner-wrapper">
   <ul class="common-banner-area clearfix">
     <% _.each(dataList, function(item, index) { %>
     <li class="common-banner-pic fl">

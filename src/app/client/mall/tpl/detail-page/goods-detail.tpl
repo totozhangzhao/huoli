@@ -2,7 +2,7 @@
   <div class="common-position">
     <div class="posi"></div>
   </div>
-  <div class="js-banner-box">
+  <div class="js-banner-box common-banner-wrapper">
     <ul class="common-banner-area clearfix">
       <% _.each(img, function(url, index) { %>
       <li class="common-banner-pic fl">

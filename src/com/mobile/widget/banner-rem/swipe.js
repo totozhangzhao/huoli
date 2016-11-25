@@ -147,10 +147,9 @@ function Swipe(container, options) {
     // determine width of each slide
     width = toRem(container.getBoundingClientRect().width || container.offsetWidth, reset);
 
-    element.style.width = (slides.length * width) + "rem";
-
     // stack elements
     var pos = slides.length;
+
     while (pos--) {
 
       var slide = slides[pos];
@@ -158,7 +157,6 @@ function Swipe(container, options) {
       slide.style.width = width + "rem";
       slide.setAttribute("data-index", pos);
 
-      slide.style.left = (pos * -width) + "rem";
       move(pos, index > pos ? -width : (index < pos ? width : 0), 0);
     }
 
@@ -476,7 +474,6 @@ function Swipe(container, options) {
 
       // reset element
       element.style.width = "";
-      element.style.left = "";
 
       // reset slides
       var pos = slides.length;
@@ -484,7 +481,6 @@ function Swipe(container, options) {
 
         var slide = slides[pos];
         slide.style.width = "";
-        slide.style.left = "";
 
         translate(pos, 0, 0);
       }
