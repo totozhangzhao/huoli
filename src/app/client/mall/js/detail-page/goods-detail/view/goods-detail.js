@@ -18,7 +18,7 @@ import BuyPanelView from "app/client/mall/js/detail-page/goods-detail/view/payme
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import AddressList from "app/client/mall/js/detail-page/goods-detail/collection/address-list.js";
 import Tab from "com/mobile/widget/button/tab.js";
-import Swipe from "com/mobile/lib/swipe/swipe.js";
+import Swipe from "com/mobile/widget/banner-rem/swipe.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 

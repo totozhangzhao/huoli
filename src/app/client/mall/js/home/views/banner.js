@@ -7,7 +7,7 @@ import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
-import Swipe from "com/mobile/lib/swipe/swipe.js";
+import Swipe from "com/mobile/widget/banner-rem/swipe.js";
 
 const BannerView = Backbone.View.extend({
 
