@@ -13,7 +13,7 @@ var autoprefixer   = require("autoprefixer");
 var cssnano        = require("cssnano");
 var del            = require("del");
 var runSequence    = require("run-sequence");
-var webpackBuilder = require("./builder/webpack/index.js");
+var webpackBuilder = require("./builder/webpack/build.js");
 var versionRef     = require("./builder/version/version-ref.js");
 var shell          = require("gulp-shell");
 var rev            = require("gulp-rev");
@@ -65,11 +65,16 @@ gulp.task("images", function() {
     .pipe(gulp.dest(config.dest));
 });
 
-gulp.task("js:bundle", function() {
-  return gulp.src("")
-    .pipe(webpackBuilder(require("./webpack.config"), {
-      build: true
-    }));
+gulp.task("js:watch", function(cb) {
+  return webpackBuilder(require("./webpack.config"), {
+    watch: true
+  }, cb);
+});
+
+gulp.task("js:bundle", function(cb) {
+  return webpackBuilder(require("./webpack.config"), {
+    build: true
+  }, cb);
 });
 
 gulp.task("rev", function (cb) {
@@ -114,8 +119,8 @@ gulp.task("build", ["clean"], function() {
   runSequence(["html", "styles", "images", "js:bundle"], "rev:replace", "compress", "html");
 });
 
-// Watch
-gulp.task("watch", function() {
+// Watch Static
+gulp.task("ws", function() {
 
   // HTML
   gulp.watch(config.src + "**/*.html", ["html"]);
@@ -126,3 +131,6 @@ gulp.task("watch", function() {
   // Images
   gulp.watch(config.src + "**/*.+(jpg|jpeg|png|gif)", ["images"]);
 });
+
+// Watch
+gulp.task("watch", ["ws", "js:watch"]);
