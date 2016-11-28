@@ -276,6 +276,7 @@ const AppView = BaseView.extend({
       price: goods.money,
       avatar: goods.smallimg,
       limitNum: goods.limit,
+      limitMessage: goods.limitmsg,
       canPay: goods.stat === 0,
       showCollect: true,      // 显示收藏按钮
       parentDom: "#goods-detail"

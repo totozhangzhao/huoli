@@ -177,7 +177,7 @@ const PaymentView = Backbone.View.extend({
   },
 
   inputKeyDown(e) {
-    if ( e.which !== 8 && (e.which < 48 || e.which > 57 ) ) {
+    if ( e.shiftKey || e.which !== 8 && (e.which < 48 || e.which > 57 ) ) {
       e.preventDefault();
       return;
     }
