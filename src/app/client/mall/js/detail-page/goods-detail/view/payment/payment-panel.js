@@ -10,7 +10,6 @@ const PaymentView = Backbone.View.extend({
 
   events: {
     "touchstart [data-operator]" : "beginTouch",
-    "touchend [data-operator]"   : "endTouch",
     "keyup .js-goods-num-input"  : "inputKeyUp",
     "keydown .js-goods-num-input": "inputKeyDown",
     "blur .js-goods-num-input"   : "inputBlur",
@@ -29,7 +28,6 @@ const PaymentView = Backbone.View.extend({
     this.pay = options.pay || (() => {});
     this.listenTo(this.model, "change", this.render);
     this.listenTo(this.model, "destroy", this.remove);
-    this.comboId = null;
   },
 
   // 渲染视图
@@ -96,6 +94,7 @@ const PaymentView = Backbone.View.extend({
     if (model.number < model.limitNum) {
       this.$add.removeClass("off");
     } else {
+      toast(this.model.get("limitMessage"), 1500);
       this.$add.addClass("off");
     }
 
@@ -114,7 +113,6 @@ const PaymentView = Backbone.View.extend({
     const minNum = this.model.get("minNum");
     if(number > limitNum){
       number = limitNum;
-      toast("已到单笔订单数量上限", 1500);
     }else if(number < minNum){
       number = minNum;
     }
@@ -131,38 +129,21 @@ const PaymentView = Backbone.View.extend({
     this.refresh();
   },
 
-  combo(delay) {
-    if( this.comboMode ) {
-      let number = this.model.get("number");
-      if(this.computeMode === "add"){
-        number++;
-      }else{
-        number--;
-      }
-      if(this.validateNum(number)){
-        this.setNumber(number);
-        this.comboId = setTimeout(() => {
-          this.combo(100);
-        },delay);
-      }
-    }
-  },
-
   beginTouch(e) {
     const $cur = $(e.currentTarget);
     if ($cur.hasClass("off")) {
       return;
     }
-    // 开始连续增减模式
     this.computeMode = $cur.data("operator");
-    this.comboMode = true;
-    window.clearTimeout(this.comboId);
-    this.combo(500);
-  },
-
-  endTouch() {
-    // 结束连续增减模式
-    this.comboMode = false;
+    let number = this.model.get("number");
+    if(this.computeMode === "add"){
+      number++;
+    }else{
+      number--;
+    }
+    if(this.validateNum(number)){
+      this.setNumber(number);
+    }
   },
 
   inputKeyUp(e) {
@@ -177,7 +158,7 @@ const PaymentView = Backbone.View.extend({
   },
 
   inputKeyDown(e) {
-    if ( e.which !== 8 && (e.which < 48 || e.which > 57 ) ) {
+    if ( e.shiftKey || e.which !== 8 && (e.which < 48 || e.which > 57 ) ) {
       e.preventDefault();
       return;
     }
@@ -239,7 +220,8 @@ const PaymentView = Backbone.View.extend({
 
     if (spec.limit) {
       this.model.set({
-        limitNum: spec.limit
+        limitNum: spec.limit,
+        limitMessage: spec.limitmsg
       }, { silent: true });
       let num = this.model.get("number");
       num =  (num <= spec.limit) ? num : spec.limit;
