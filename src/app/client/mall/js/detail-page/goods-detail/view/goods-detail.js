@@ -262,12 +262,12 @@ const AppView = BaseView.extend({
     let discount = (_.isObject(goods.userprivilresp) && goods.userprivilresp.privilid) ? 1 : 0;
     // init buy panel model
     this.buyNumModel = new BuyNumModel({
+      visible: true,
       type: 0,
+      hasMask: false,
       isCollect: goods.collect.isCollect,
       discount: discount,
       payType: goods.paytype,
-      hasMask: false,
-      visible: true,
       title: goods.title,
       giftType: goods.gifttype,
       payText: goods.button,
@@ -294,10 +294,8 @@ const AppView = BaseView.extend({
 
     if (goods.relevance) {
       this.relevanceModel = new BuyNumModel({
-        type: 0,
-        payType: goods.relevance.paytype,
-        hasMask: false,
         visible: false,
+        payType: goods.relevance.paytype,
         points: goods.relevance.points,
         price: goods.relevance.money
       });
@@ -361,6 +359,7 @@ const AppView = BaseView.extend({
 
   // 支付处理分发
   payDespatcher(goods) {
+
     // type：兑换类型
     // 1--直接调用创建订单接口
     // 2--转入输入手机号页面（预留，金融类）
@@ -561,7 +560,6 @@ const AppView = BaseView.extend({
       })
       .catch(mallPromise.catchFn);
   },
-
 
   /**
    * @param {int} goods.collect.isCollect - 更新收藏状态  isCollect 1:未收藏 2:已收藏

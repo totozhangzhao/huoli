@@ -3,16 +3,17 @@ import Backbone from "backbone";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import template from "app/client/mall/tpl/detail-page/goods-detail/payment/payment.tpl";
+import BaseNumView from "app/client/mall/js/common/views/num-operator/base.js";
 
 const PaymentView = Backbone.View.extend({
 
   tagName: "div",
 
   events: {
-    "touchstart [data-operator]": "beginTouch",
-    "keyup .js-goods-num-input": "inputKeyUp",
-    "keydown .js-goods-num-input": "inputKeyDown",
-    "blur .js-goods-num-input": "inputBlur",
+    // "touchstart [data-operator]": "beginTouch",
+    // "keyup .js-goods-num-input": "inputKeyUp",
+    // "keydown .js-goods-num-input": "inputKeyDown",
+    // "blur .js-goods-num-input": "inputBlur",
     "click .js-spec": "changeSpec",
     "click .js-close-panel": "close",
     "click .common-shadow": "close",
@@ -26,12 +27,44 @@ const PaymentView = Backbone.View.extend({
     this.exchange = options.exchange || (() => {});
     this.buy = options.buy || (() => {});
     this.pay = options.pay || (() => {});
+
     this.listenTo(this.model, "change", this.render);
     this.listenTo(this.model, "destroy", this.remove);
+
+    this.numView = new BaseNumView({
+      el: this.el,
+      model: this.model
+    });
   },
 
   // 渲染视图
-  render() {
+  render(model) {
+    function notHas(obj, keys) {
+      function isKey(k) {
+        return obj.hasOwnProperty(k);
+      }
+
+      return 0 === keys.reduce((prev, key) => {
+        return prev + isKey(key) ? 1 : 0;
+      }, 0);
+    }
+
+    const shouldRender = [
+      "visible",
+      "type",
+      "hasMask",
+      "_t"
+    ];
+
+    if (notHas(model.changed, shouldRender)) {
+      this.refresh();
+    } else {
+      this.renderPanel();
+    }
+  },
+
+  renderPanel() {
+    // window.console.log("renderPanel");
     if (this.model.get("specIndex") >= 0) {
       let specData = this.model.get("specList")[this.model.get("specIndex")];
       if (specData) {
@@ -59,9 +92,9 @@ const PaymentView = Backbone.View.extend({
     this.$totalPriceView = $(".js-total-price");
     this.$totalPriceWithOutDiscountView = $(".js-total-without-discount");
     this.$chargeBtn = this.$el.find(".js-goods-pay");
-    this.$numberInput = this.$el.find(".js-goods-num-input");
-    this.$add = this.$el.find("[data-operator='add']");
-    this.$sub = this.$el.find("[data-operator='subtract']");
+    this.$numberInput = $(".js-goods-num-input");
+    this.$add = $("[data-operator='add']");
+    this.$sub = $("[data-operator='subtract']");
 
     this.updateMoneyView();
     this.$chargeBtn
@@ -81,27 +114,26 @@ const PaymentView = Backbone.View.extend({
     }
   },
 
-  refresh(options = {}) {
-    const model = this.model.toJSON();
+  refresh() {
+    // window.console.log("refresh");
+    const model = this.model;
 
-    this.$numberInput.val(model.number);
+    this.$numberInput.val(model.get("number"));
     this.updateMoneyView();
 
-    if (model.number === 1) {
+    if (model.get("number") === 1) {
       this.$sub.addClass("off");
     } else {
       this.$sub.removeClass("off");
     }
 
-    if (model.number < model.limitNum) {
+    if (model.get("number") < model.get("limitNum")) {
       this.$add.removeClass("off");
     } else {
-      if (!this.$add.hasClass("off")) {
-        if (options.silent !== true) {
-          toast(this.model.get("limitMessage"), 1500);
-        }
-        this.$add.addClass("off");
+      if (model.previous("number") < model.get("limitNum")) {
+        toast(this.model.get("limitMessage"), 1500);
       }
+      this.$add.addClass("off");
     }
 
     if (this.model.has("refresh")) {
@@ -111,80 +143,6 @@ const PaymentView = Backbone.View.extend({
         window.console.log(e);
       }
     }
-  },
-
-  fixNum(number = 1) {
-    number = Number(number);
-    const limitNum = this.model.get("limitNum");
-    const minNum = this.model.get("minNum");
-    if (number > limitNum) {
-      number = limitNum;
-    } else if (number < minNum) {
-      number = minNum;
-    }
-    return number;
-  },
-
-  validateNum(number) {
-    return number === this.fixNum(number);
-  },
-
-  setNumber(number) {
-    number = this.fixNum(number);
-    this.model.set({
-      number
-    }, {
-      silent: true
-    });
-  },
-
-  setNumAndRefresh(number, options) {
-    this.setNumber(number);
-    this.refresh(options);
-  },
-
-  beginTouch(e) {
-    const $cur = $(e.currentTarget);
-    if ($cur.hasClass("off")) {
-      return;
-    }
-    this.computeMode = $cur.data("operator");
-    let number = this.model.get("number");
-    if (this.computeMode === "add") {
-      number++;
-    } else {
-      number--;
-    }
-    if (this.validateNum(number)) {
-      this.setNumAndRefresh(number);
-    }
-  },
-
-  inputKeyUp(e) {
-    // const val = this.$numberInput.val();
-    const val = $(e.currentTarget).val();
-    if (!val || isNaN(val)) {
-      return;
-    }
-    if (val !== "") {
-      return this.setNumAndRefresh(val);
-    }
-  },
-
-  inputKeyDown(e) {
-    if (e.shiftKey || e.which !== 8 && (e.which < 48 || e.which > 57)) {
-      e.preventDefault();
-      return;
-    }
-  },
-
-  inputBlur(e) {
-    // const val = this.$numberInput.val();
-    const val = $(e.currentTarget).val();
-    if (!val || isNaN(val)) {
-      return this.setNumAndRefresh(1);
-    }
-    return this.setNumAndRefresh(val);
   },
 
   changeSpec(e) {
@@ -229,28 +187,16 @@ const PaymentView = Backbone.View.extend({
       price: spec.price,
       specValueName: spec.spec,
       specValueId: spec.goodspecid,
-      avatar: spec.img
+      avatar: spec.img,
+      limitNum: spec.limit,
+      limitMessage: spec.limitmsg
     }, {
       silent: true
     });
 
-    if (spec.limit) {
-      this.model.set({
-        limitNum: spec.limit,
-        limitMessage: spec.limitmsg
-      }, {
-        silent: true
-      });
-      let num = this.model.get("number");
-      num = (num <= spec.limit) ? num : spec.limit;
-      this.setNumAndRefresh(num, {
-        silent: true
-      });
-    } else {
-      this.refresh({
-        silent: true
-      });
-    }
+    let num = this.model.get("number");
+    num = (num <= spec.limit) ? num : spec.limit;
+    this.numView.setNumber(num);
   },
 
   purchase() {
@@ -308,4 +254,5 @@ const PaymentView = Backbone.View.extend({
     }
   }
 });
+
 module.exports = PaymentView;

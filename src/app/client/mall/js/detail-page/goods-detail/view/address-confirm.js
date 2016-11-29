@@ -5,6 +5,7 @@ import * as widget from "app/client/mall/js/lib/common.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import mainViewTpl from "app/client/mall/tpl/detail-page/address-confirm.tpl";
+import BaseNumView from "app/client/mall/js/common/views/num-operator/base.js";
 
 import GiftMessageView from "app/client/mall/js/detail-page/goods-detail/view/gift/gift-message-view.js";
 const AppView = Backbone.View.extend({
@@ -13,17 +14,12 @@ const AppView = Backbone.View.extend({
 
   events: {
     "click #confirm-order"        : "confirmOrder",
-    "click #address-entry"        : "selectAddress",
-    "touchstart [data-operator]"  : "beginTouch",
-    "touchend [data-operator]"    : "endTouch",
-    "keyup .address-num-input"    : "inputKeyUp",
-    "keydown .address-num-input"  : "inputKeyDown",
-    "blur .address-num-input"     : "inputBlur",
-    "focus .address-num-input"    : "inputFocus"
+    "click #address-entry"        : "selectAddress"
   },
 
   initialize(commonData) {
     _.extend(this, commonData);
+    this.hasNumView = false;
     this.curAddress = null;
     this.giftMessageView = null;
   },
@@ -46,7 +42,6 @@ const AppView = Backbone.View.extend({
     const curAddressId = this.cache.curAddressId;
     const addressList = this.collection.addressList || [];
     this.curAddress = null;
-
 
     if (addressList.length > 0) {
       if (curAddressId) {
@@ -78,19 +73,35 @@ const AppView = Backbone.View.extend({
       buttonText: this.cache.goods.confirm,
       buyNumModel: model
     };
+
     _.extend(data, model.toJSON());
     this.$el.html(mainViewTpl(data));
-    if(this.model.buyNumModel.get("isGift")) {
+
+    if(model.get("isGift")) {
       this.giftMessageView = new GiftMessageView({parentDom: "#gift-message-container"});
       this.giftMessageView.render();
     }
+
+    if (!this.hasNumView) {
+      this.initNumView();
+    }
+
+    model.set({
+      _t: Date.now()
+    });
+
+    model.set({
+      _t_refresh: Date.now()
+    });
   },
 
-  // 更新number 价格 积分
-  refreshNumber() {
+  initNumView() {
     const model  = this.model.buyNumModel;
-    this.$el.find(".address-num-input").val(model.get("number"));
-    this.$el.find(".address-num-input").val(model.get("number"));
+    this.hasNumView = true;
+    this.numView = new BaseNumView({
+      el: this.el,
+      model: model
+    });
   },
 
   selectAddress() {
@@ -154,50 +165,7 @@ const AppView = Backbone.View.extend({
     } else {
       return success();
     }
-  },
-
-  beginTouch(e) {
-    this.canRefresh(true);
-    this.cache.payView.beginTouch(e);
-  },
-
-  endTouch(e) {
-    this.cache.payView.endTouch(e);
-    this.canRefresh(false);
-  },
-
-  inputFocus() {
-    this.canRefresh(true);
-  },
-
-  inputKeyUp(e) {
-    this.cache.payView.inputKeyUp(e);
-  },
-
-  inputKeyDown(e) {
-    this.cache.payView.inputKeyDown(e);
-  },
-
-  inputBlur(e) {
-    this.cache.payView.inputBlur(e);
-    this.canRefresh(false);
-  },
-
-  canRefresh(flag) {
-    const self = this;
-    if(flag){
-      this.model.buyNumModel.set({
-        "refresh": function () {
-          self.refreshNumber();
-        }
-      });
-    }else{
-      this.model.buyNumModel.set({
-        "refresh": false
-      });
-    }
   }
-
 });
 
 export default AppView;

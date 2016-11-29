@@ -6,10 +6,10 @@ const BuyNumModel = Backbone.Model.extend({
     discount: 0,                 // 优惠金额  (当前用在一元夺宝夺宝币)
     visible: false,              // 是否显示
     type: 1,                     // 0 不可选择数量， 1 可以选择数量
+    hasMask: true,               // 是否有遮罩
     giftType: -1,                // 3 微信送礼
     payType: 2,                  // int 支付类型：1积分 2现金 3 积分+钱
     showBuyTip: false,           // 是否显示一元夺宝的提示文案 （多买一份，中奖概率就增大一倍）暂时不支持文案内容配置
-    hasMask: true,               // 是否有遮罩
     step: 1,                     // 按住加减每次改变的个数
     title: "购买数量",            // 标题
     payText: "立即购买",          // 购买按钮文案

@@ -34,7 +34,7 @@
       <div class="giving-choice-num flex-row">
         <div class="num-items flex-row">
           <!-- 数量为1时，减号不可点击，同时加class .off -->
-          <span class="reduce" data-operator="subtract"><b class="reduce-icon"></b></span><span class="num-insert"><input class="address-num-input" type="text" value="<%= number %>"></span><span class="add" data-operator="add"><b class="add-icon"></b></span>
+          <span class="reduce" data-operator="subtract"><b class="reduce-icon"></b></span><span class="num-insert"><input class="js-goods-num-input address-num-input" type="text" value="<%= number %>"></span><span class="add" data-operator="add"><b class="add-icon"></b></span>
         </div>
       </div>
       <!---->
