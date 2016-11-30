@@ -559,26 +559,6 @@ const AppView = BaseView.extend({
         toast(message, 1500);
       })
       .catch(mallPromise.catchFn);
-  },
-
-  /**
-   * @param {int} goods.collect.isCollect - 更新收藏状态  isCollect 1:未收藏 2:已收藏
-   * @param {boolean} showMessage - true 显示提示消息  false 不显示提示消息
-   * @description 更新页面中的收藏按钮状态
-   * @return {void}
-   */
-  updateCollect(showMessage = false) {
-    return showMessage;
-    // let message = "取消收藏";
-    // if(this.cache.goods.collect.isCollect === 2) {
-    //   message = "收藏成功";
-    //   $(".collect-button.js-collect:not(.yes)").addClass("yes");
-    // } else {
-    //   $(".collect-button.js-collect.yes").removeClass("yes");
-    // }
-    // if(showMessage) {
-    //   toast(message, 1500);
-    // }
   }
 });
 

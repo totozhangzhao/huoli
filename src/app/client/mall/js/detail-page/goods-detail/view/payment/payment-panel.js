@@ -12,8 +12,8 @@ const PaymentView = Backbone.View.extend({
 
   events: {
     "click .js-spec": "changeSpec",
-    "click .js-close-panel": "close",
     "click .common-shadow": "close",
+    "click .js-close-panel": "close",
     "click .js-goods-normal-pay": "purchase",
     "click .js-goods-gift-pay": "gift",
     "click .goods-confirm-btn": "purchaseHanlder"
@@ -54,7 +54,7 @@ const PaymentView = Backbone.View.extend({
     ];
 
     if (notHas(model.changed, shouldRender)) {
-      this.refresh();
+      this.refresh(model);
     } else {
       this.renderPanel();
     }
@@ -80,12 +80,18 @@ const PaymentView = Backbone.View.extend({
 
   setRefresh() {
     this.$avatarList = this.$el.find(".js-avatar-img");
+    this.$collect = this.$el.find(".js-collect");
     this.moneyView.setRefresh();
     this.numView.setRefresh();
   },
 
-  refresh() {
+  refresh(model) {
     // window.console.log("refresh");
+    if (model.get("isCollect") === 2) {
+      this.$collect.addClass("yes");
+    } else {
+      this.$collect.removeClass("yes");
+    }
     this.moneyView.refresh();
     this.numView.refresh();
   },
@@ -183,19 +189,6 @@ const PaymentView = Backbone.View.extend({
         type: 0,
         hasMask: false
       });
-    }
-  },
-
-  /**
-   * @param {boolean} flag - 是否收藏 true 已收藏 false 未收藏
-   *
-   * @return {void} 无返回
-   */
-  isCollected(flag) {
-    if (flag) {
-      $(".js-collect:not(.yes)", this.$el).addClass("yes");
-    } else {
-      $(".js-collect.yes", this.$el).removeClass("yes");
     }
   }
 });
