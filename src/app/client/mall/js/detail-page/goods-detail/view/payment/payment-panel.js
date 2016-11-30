@@ -84,18 +84,20 @@ const PaymentView = Backbone.View.extend({
     this.$el.appendTo(this.model.get("parentDom"));
 
     this.$avatarList = this.$el.find(".js-avatar-img");
-    this.$unitPriceView = $(".js-unit-price");
-    this.$totalPriceView = $(".js-total-price");
-    this.$totalPriceWithOutDiscountView = $(".js-total-without-discount");
-    this.$chargeBtn = this.$el.find(".js-goods-pay");
+
     this.$numberInput = $(".js-goods-num-input");
     this.$add = $("[data-operator='add']");
     this.$sub = $("[data-operator='subtract']");
 
+    this.$unitPriceView = $(".js-unit-price");
+    this.$totalPriceView = $(".js-total-price");
+    this.$totalPriceWithOutDiscountView = $(".js-total-without-discount");
     this.updateMoneyView();
-    this.$chargeBtn
+
+    this.$el.find(".js-goods-pay")
       .text(this.model.getPayBtnText())
       .data("payBtnType", this.model.getPayBtnText());
+
     return this;
   },
 

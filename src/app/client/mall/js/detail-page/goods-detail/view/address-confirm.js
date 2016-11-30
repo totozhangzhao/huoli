@@ -89,10 +89,6 @@ const AppView = Backbone.View.extend({
     model.set({
       _t: Date.now()
     });
-
-    model.set({
-      _t_refresh: Date.now()
-    });
   },
 
   initNumView() {
