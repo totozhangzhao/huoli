@@ -10,10 +10,6 @@ const PaymentView = Backbone.View.extend({
   tagName: "div",
 
   events: {
-    // "touchstart [data-operator]": "beginTouch",
-    // "keyup .js-goods-num-input": "inputKeyUp",
-    // "keydown .js-goods-num-input": "inputKeyDown",
-    // "blur .js-goods-num-input": "inputBlur",
     "click .js-spec": "changeSpec",
     "click .js-close-panel": "close",
     "click .common-shadow": "close",
