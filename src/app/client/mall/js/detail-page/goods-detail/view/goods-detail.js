@@ -97,15 +97,7 @@ const AppView = BaseView.extend({
             };
           }
           index = index !== -1 ? index : 0;
-          const spec = goods.specs[index];
-          _.extend(goods, {
-            specIndex: index,
-            limit: spec.limit,
-            // paytype: spec.paytype,
-            points: spec.points,
-            money: spec.price,
-            smallimg: spec.img
-          });
+          goods.firstAvailableSpecIndex = index;
         } else {
           goods.specs = [];
           if (goods.limit === 0) {
@@ -114,6 +106,7 @@ const AppView = BaseView.extend({
             };
           }
         }
+        goods.limitMessage = goods.limitmsg;
         this.render(goods);
         this.$initial.hide();
       })
@@ -281,12 +274,19 @@ const AppView = BaseView.extend({
       showCollect: true,      // 显示收藏按钮
       parentDom: "#goods-detail"
     });
+
     if (goods.specs.length > 0) {
-      const spec = goods.specs[goods.specIndex];
+      const spec = goods.specs[goods.firstAvailableSpecIndex];
       this.buyNumModel.set({
-        specIndex: goods.specIndex,
-        specName: goods.specname,
         specList: goods.specs,
+        specIndex: goods.firstAvailableSpecIndex,
+        specName: goods.specname,
+        payType: spec.paytype,
+        points: spec.points,
+        price: spec.price,
+        avatar: spec.img,
+        limitNum: spec.limit,
+        limitMessage: spec.limitmsg,
         specValueName: spec.spec,
         specValueId: spec.goodspecid
       });
