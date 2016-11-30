@@ -86,7 +86,6 @@ const AppView = BaseView.extend({
       })
       .then(goods => {
         const specList = goods.specs;
-
         if ( Array.isArray(specList) && specList.length > 0 ) {
           let index = _.findIndex(specList, item => {
             return item.limit > 0;
@@ -253,6 +252,7 @@ const AppView = BaseView.extend({
   },
   initModel(goods) {
     let discount = (_.isObject(goods.userprivilresp) && goods.userprivilresp.privilid) ? 1 : 0;
+
     // init buy panel model
     this.buyNumModel = new BuyNumModel({
       visible: true,

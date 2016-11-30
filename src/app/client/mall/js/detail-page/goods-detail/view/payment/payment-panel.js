@@ -4,6 +4,7 @@ import * as mallUtil from "app/client/mall/js/lib/util.js";
 import {toast} from "com/mobile/widget/hint/hint.js";
 import template from "app/client/mall/tpl/detail-page/goods-detail/payment/payment.tpl";
 import BaseNumView from "app/client/mall/js/common/views/num-operator/base.js";
+import BaseMoneyView from "app/client/mall/js/common/views/money/base.js";
 
 const PaymentView = Backbone.View.extend({
 
@@ -27,6 +28,10 @@ const PaymentView = Backbone.View.extend({
     this.listenTo(this.model, "change", this.render);
     this.listenTo(this.model, "destroy", this.remove);
 
+    this.moneyView = new BaseMoneyView({
+      el: this.el,
+      model: this.model
+    });
     this.numView = new BaseNumView({
       el: this.el,
       model: this.model
@@ -36,12 +41,8 @@ const PaymentView = Backbone.View.extend({
   // 渲染视图
   render(model) {
     function notHas(obj, keys) {
-      function isKey(k) {
-        return obj.hasOwnProperty(k);
-      }
-
       return 0 === keys.reduce((prev, key) => {
-        return prev + isKey(key) ? 1 : 0;
+        return prev + obj.hasOwnProperty(key) ? 1 : 0;
       }, 0);
     }
 
@@ -61,86 +62,32 @@ const PaymentView = Backbone.View.extend({
 
   renderPanel() {
     // window.console.log("renderPanel");
-    if (this.model.get("specIndex") >= 0) {
-      let specData = this.model.get("specList")[this.model.get("specIndex")];
-      if (specData) {
-        this.model.set({
-          payType: specData.paytype,
-          points: specData.points,
-          price: specData.price,
-          specValueName: specData.spec,
-          specValueId: specData.goodspecid,
-          avatar: specData.img
-        }, {
-          silent: true
-        });
-      }
-    }
-
     let tplData = this.model.toJSON();
     tplData.unitPriceText = this.model.getPPriceText(1);
     tplData.totalPriceText = this.model.getPPriceText();
     this.$el.html(this.template(tplData));
     this.$el.appendTo(this.model.get("parentDom"));
 
-    this.$avatarList = this.$el.find(".js-avatar-img");
-
-    this.$numberInput = $(".js-goods-num-input");
-    this.$add = $("[data-operator='add']");
-    this.$sub = $("[data-operator='subtract']");
-
-    this.$unitPriceView = $(".js-unit-price");
-    this.$totalPriceView = $(".js-total-price");
-    this.$totalPriceWithOutDiscountView = $(".js-total-without-discount");
-    this.updateMoneyView();
-
     this.$el.find(".js-goods-pay")
       .text(this.model.getPayBtnText())
       .data("payBtnType", this.model.getPayBtnText());
 
+    this.setRefresh();
+    this.moneyView.refresh();
+
     return this;
   },
 
-  updateMoneyView() {
-    if (this.$unitPriceView.length > 0) {
-      this.$unitPriceView.text(this.model.getPPriceText(1));
-    }
-
-    if (this.$totalPriceView.length > 0) {
-      this.$totalPriceView.text(this.model.getPPriceText(false, true));
-      this.$totalPriceWithOutDiscountView.text(this.model.getPPriceText());
-    }
+  setRefresh() {
+    this.$avatarList = this.$el.find(".js-avatar-img");
+    this.moneyView.setRefresh();
+    this.numView.setRefresh();
   },
 
   refresh() {
     // window.console.log("refresh");
-    const model = this.model;
-
-    this.$numberInput.val(model.get("number"));
-    this.updateMoneyView();
-
-    if (model.get("number") === 1) {
-      this.$sub.addClass("off");
-    } else {
-      this.$sub.removeClass("off");
-    }
-
-    if (model.get("number") < model.get("limitNum")) {
-      this.$add.removeClass("off");
-    } else {
-      if (model.previous("number") < model.get("limitNum")) {
-        toast(this.model.get("limitMessage"), 1500);
-      }
-      this.$add.addClass("off");
-    }
-
-    if (this.model.has("refresh")) {
-      try {
-        this.model.get("refresh")();
-      } catch (e) {
-        window.console.log(e);
-      }
-    }
+    this.moneyView.refresh();
+    this.numView.refresh();
   },
 
   changeSpec(e) {

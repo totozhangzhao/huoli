@@ -1,5 +1,6 @@
 import $ from "jquery";
 import Backbone from "backbone";
+import {toast} from "com/mobile/widget/hint/hint.js";
 
 const BaseNumView = Backbone.View.extend({
 
@@ -11,6 +12,41 @@ const BaseNumView = Backbone.View.extend({
   },
 
   initialize() {
+  },
+
+  setRefresh() {
+    this.$numberInput = this.$el.find(".js-goods-num-input");
+    this.$add = this.$el.find("[data-operator='add']");
+    this.$sub = this.$el.find("[data-operator='subtract']");
+  },
+
+  refresh() {
+    const model = this.model;
+
+    this.$numberInput.val(model.get("number"));
+
+    if (model.get("number") === 1) {
+      this.$sub.addClass("off");
+    } else {
+      this.$sub.removeClass("off");
+    }
+
+    if (model.get("number") < model.get("limitNum")) {
+      this.$add.removeClass("off");
+    } else {
+      if (model.previous("number") < model.get("limitNum")) {
+        toast(model.get("limitMessage"), 1500);
+      }
+      this.$add.addClass("off");
+    }
+
+    if (model.has("refresh")) {
+      try {
+        model.get("refresh")();
+      } catch (e) {
+        window.console.log(e);
+      }
+    }
   },
 
   fixNum(number = 1) {

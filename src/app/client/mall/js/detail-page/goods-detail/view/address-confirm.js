@@ -5,21 +5,22 @@ import * as widget from "app/client/mall/js/lib/common.js";
 import pageAction from "app/client/mall/js/lib/page-action.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import mainViewTpl from "app/client/mall/tpl/detail-page/address-confirm.tpl";
-import BaseNumView from "app/client/mall/js/common/views/num-operator/base.js";
-
 import GiftMessageView from "app/client/mall/js/detail-page/goods-detail/view/gift/gift-message-view.js";
+import BaseNumView from "app/client/mall/js/common/views/num-operator/base.js";
+import BaseMoneyView from "app/client/mall/js/common/views/money/base.js";
+
 const AppView = Backbone.View.extend({
 
   el: "#address-confirm",
 
   events: {
-    "click #confirm-order"        : "confirmOrder",
-    "click #address-entry"        : "selectAddress"
+    "click #confirm-order": "confirmOrder",
+    "click #address-entry": "selectAddress"
   },
 
   initialize(commonData) {
     _.extend(this, commonData);
-    this.hasNumView = false;
+    this.hasSubView = false;
     this.curAddress = null;
     this.giftMessageView = null;
   },
@@ -55,7 +56,7 @@ const AppView = Backbone.View.extend({
       }
     } else {
       // 是微信送礼的情况 不跳转到添加地址页面
-      if(this.model.buyNumModel.get("isGift")) {
+      if (this.model.buyNumModel.get("isGift")) {
         //
       } else {
         this.router.replaceTo("address-add");
@@ -67,7 +68,7 @@ const AppView = Backbone.View.extend({
   },
 
   initView(addressInfo) {
-    const model  = this.model.buyNumModel;
+    const model = this.model.buyNumModel;
     const data = {
       addressInfo,
       buttonText: this.cache.goods.confirm,
@@ -77,23 +78,39 @@ const AppView = Backbone.View.extend({
     _.extend(data, model.toJSON());
     this.$el.html(mainViewTpl(data));
 
-    if(model.get("isGift")) {
-      this.giftMessageView = new GiftMessageView({parentDom: "#gift-message-container"});
+    if (model.get("isGift")) {
+      this.giftMessageView = new GiftMessageView({
+        parentDom: "#gift-message-container"
+      });
       this.giftMessageView.render();
     }
 
-    if (!this.hasNumView) {
-      this.initNumView();
+    if (!this.hasSubView) {
+      this.initSubView();
+      this.listenTo(model, "change", this.render);
     }
 
-    model.set({
-      _t: Date.now()
-    });
+    this.setRefresh();
   },
 
-  initNumView() {
-    const model  = this.model.buyNumModel;
-    this.hasNumView = true;
+  setRefresh() {
+    this.moneyView.setRefresh();
+    this.numView.setRefresh();
+  },
+
+  // 渲染视图
+  render() {
+    this.moneyView.refresh();
+    this.numView.refresh();
+  },
+
+  initSubView() {
+    const model = this.model.buyNumModel;
+    this.hasSubView = true;
+    this.moneyView = new BaseMoneyView({
+      el: this.el,
+      model: model
+    });
     this.numView = new BaseNumView({
       el: this.el,
       model: model
@@ -117,9 +134,12 @@ const AppView = Backbone.View.extend({
       productid: this.cache.urlObj.productid,
       address: this.curAddress
     };
-    if( this.model.buyNumModel.get("isGift") ) {
-      let remark = this.giftMessageView.getGiftMessage().replace(/~~+/ig,'~');
-      _.extend(params, {gifttype: 3, remark: encodeURIComponent(remark)});
+    if (this.model.buyNumModel.get("isGift")) {
+      let remark = this.giftMessageView.getGiftMessage().replace(/~~+/ig, '~');
+      _.extend(params, {
+        gifttype: 3,
+        remark: encodeURIComponent(remark)
+      });
     }
 
     // 一元夺宝特权券
