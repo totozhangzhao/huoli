@@ -86,7 +86,6 @@ const AppView = BaseView.extend({
       })
       .then(goods => {
         const specList = goods.specs;
-
         if ( Array.isArray(specList) && specList.length > 0 ) {
           let index = _.findIndex(specList, item => {
             return item.limit > 0;
@@ -97,15 +96,7 @@ const AppView = BaseView.extend({
             };
           }
           index = index !== -1 ? index : 0;
-          const spec = goods.specs[index];
-          _.extend(goods, {
-            specIndex: index,
-            limit: spec.limit,
-            // paytype: spec.paytype,
-            points: spec.points,
-            money: spec.price,
-            smallimg: spec.img
-          });
+          goods.firstAvailableSpecIndex = index;
         } else {
           goods.specs = [];
           if (goods.limit === 0) {
@@ -114,6 +105,7 @@ const AppView = BaseView.extend({
             };
           }
         }
+        goods.limitMessage = goods.limitmsg;
         this.render(goods);
         this.$initial.hide();
       })
@@ -260,14 +252,15 @@ const AppView = BaseView.extend({
   },
   initModel(goods) {
     let discount = (_.isObject(goods.userprivilresp) && goods.userprivilresp.privilid) ? 1 : 0;
+
     // init buy panel model
     this.buyNumModel = new BuyNumModel({
+      visible: true,
       type: 0,
+      hasMask: false,
       isCollect: goods.collect.isCollect,
       discount: discount,
       payType: goods.paytype,
-      hasMask: false,
-      visible: true,
       title: goods.title,
       giftType: goods.gifttype,
       payText: goods.button,
@@ -276,16 +269,24 @@ const AppView = BaseView.extend({
       price: goods.money,
       avatar: goods.smallimg,
       limitNum: goods.limit,
+      limitMessage: goods.limitmsg,
       canPay: goods.stat === 0,
       showCollect: true,      // 显示收藏按钮
       parentDom: "#goods-detail"
     });
+
     if (goods.specs.length > 0) {
-      const spec = goods.specs[goods.specIndex];
+      const spec = goods.specs[goods.firstAvailableSpecIndex];
       this.buyNumModel.set({
-        specIndex: goods.specIndex,
-        specName: goods.specname,
         specList: goods.specs,
+        specIndex: goods.firstAvailableSpecIndex,
+        specName: goods.specname,
+        payType: spec.paytype,
+        points: spec.points,
+        price: spec.price,
+        avatar: spec.img,
+        limitNum: spec.limit,
+        limitMessage: spec.limitmsg,
         specValueName: spec.spec,
         specValueId: spec.goodspecid
       });
@@ -293,10 +294,8 @@ const AppView = BaseView.extend({
 
     if (goods.relevance) {
       this.relevanceModel = new BuyNumModel({
-        type: 0,
-        payType: goods.relevance.paytype,
-        hasMask: false,
         visible: false,
+        payType: goods.relevance.paytype,
         points: goods.relevance.points,
         price: goods.relevance.money
       });
@@ -360,6 +359,7 @@ const AppView = BaseView.extend({
 
   // 支付处理分发
   payDespatcher(goods) {
+
     // type：兑换类型
     // 1--直接调用创建订单接口
     // 2--转入输入手机号页面（预留，金融类）
@@ -559,27 +559,6 @@ const AppView = BaseView.extend({
         toast(message, 1500);
       })
       .catch(mallPromise.catchFn);
-  },
-
-
-  /**
-   * @param {int} goods.collect.isCollect - 更新收藏状态  isCollect 1:未收藏 2:已收藏
-   * @param {boolean} showMessage - true 显示提示消息  false 不显示提示消息
-   * @description 更新页面中的收藏按钮状态
-   * @return {void}
-   */
-  updateCollect(showMessage = false) {
-    return showMessage;
-    // let message = "取消收藏";
-    // if(this.cache.goods.collect.isCollect === 2) {
-    //   message = "收藏成功";
-    //   $(".collect-button.js-collect:not(.yes)").addClass("yes");
-    // } else {
-    //   $(".collect-button.js-collect.yes").removeClass("yes");
-    // }
-    // if(showMessage) {
-    //   toast(message, 1500);
-    // }
   }
 });
 

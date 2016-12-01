@@ -177,7 +177,7 @@ const PaymentView = Backbone.View.extend({
   },
 
   inputKeyDown(e) {
-    if ( e.which !== 8 && (e.which < 48 || e.which > 57 ) ) {
+    if ( e.shiftKey || e.which !== 8 && (e.which < 48 || e.which > 57 ) ) {
       e.preventDefault();
       return;
     }
@@ -280,19 +280,6 @@ const PaymentView = Backbone.View.extend({
         type: 0,
         hasMask: false
       });
-    }
-  },
-
-  /**
-   * @param {boolean} flag - 是否收藏 true 已收藏 false 未收藏
-   *
-   * @return {void} 无返回
-   */
-  isCollected(flag) {
-    if(flag) {
-      $(".js-collect:not(.yes)", this.$el).addClass("yes");
-    } else {
-      $(".js-collect.yes", this.$el).removeClass("yes");
     }
   }
 });
