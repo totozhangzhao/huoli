@@ -9,6 +9,7 @@
   data-title="<%= item.title %>"
   class="<%= tplUtil.getJsClass(item) %>"
   href="<%= tplUtil.getBlockUrl(item) %>"
+  style="background-color: <%= group.frontcolor %>"
   >
   <% if(item.img) { %>
     <img src="<%= item.img %>">

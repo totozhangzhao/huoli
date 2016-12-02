@@ -17,6 +17,7 @@
           data-info="index-goods-<%= index %>"
           class="<%= tplUtil.getJsClass(item) %>"
           href="<%= tplUtil.getBlockUrl(item) %>"
+          style="background-color: <%= group.frontcolor %>"
         >
           <img src="<%= item.img %>" alt="">
           <div class="home-info-show">
@@ -45,6 +46,7 @@
           data-info="index-goods-<%= index %>"
           class="<%= tplUtil.getJsClass(item) %>"
           href="<%= tplUtil.getBlockUrl(item) %>"
+          style="background-color: <%= group.frontcolor %>"
         >
           <div class="mall-active-contain-son fl">
             <img src="<%= item.img %>" alt="">

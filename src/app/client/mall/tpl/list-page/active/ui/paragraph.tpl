@@ -8,6 +8,7 @@
   data-title="<%= item.title %>"
   class="<%= tplUtil.getJsClass(item) %>"
   href="<%= tplUtil.getBlockUrl(item) %>"
+  style="background-color: <%= group.frontcolor %>"
   >
   <p class="text-desc-area"><%= group.content.desc %></p>
 </a>

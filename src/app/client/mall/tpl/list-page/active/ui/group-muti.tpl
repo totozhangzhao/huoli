@@ -17,6 +17,7 @@
       data-title="<%= item.title %>"
       class="<%= tplUtil.getJsClass(item) %> theme-list-area"
       href="<%= tplUtil.getBlockUrl(item) %>"
+      style="background-color: <%= group.frontcolor %>"
       >
         <img src="<%= item.img %>" alt="" class="touch-img">
         <div class="desc">

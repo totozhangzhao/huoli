@@ -8,6 +8,7 @@
   data-title="<%= item.title %>"
   class="<%= tplUtil.getJsClass(item) %>"
   href="<%= tplUtil.getBlockUrl(item) %>"
+  style="background-color: <%= group.frontcolor %>"
   >
   <p class="text-title-area">
     <% if(group.content.number >= 0) {%>
