@@ -47,7 +47,7 @@
   <div class="my-mall-bar-item js-touch-state touch-bg">
     <a class="my-order-area js-new-page none-line" href="/fe/app/client/mall/html/list-page/collect/product.html">
       <b class="my-show-icon my-collect-icon"></b>
-      <p>我的收藏</p>
+      <p>我的收藏<b class="new-icon"></b></p>
       <span id="collect-status"></span>
       <b class="my-enter-icon"></b>
     </a>
@@ -68,4 +68,5 @@
       <b class="my-enter-icon"></b>
     </a>
   </div>
+
 </div>

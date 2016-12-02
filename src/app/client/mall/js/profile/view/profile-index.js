@@ -16,13 +16,14 @@ import profileTpl from "app/client/mall/tpl/profile/profile.tpl";
 import orderStatusTpl from "app/client/mall/tpl/profile/ui/order-status.tpl";
 import crowdOrderStatusTpl from "app/client/mall/tpl/profile/ui/crowd-order-status.tpl";
 import collectStatusTpl from "app/client/mall/tpl/profile/ui/collect-status.tpl";
+
 const AppView = Backbone.View.extend({
+
   el: "#profile-index",
 
   events: {
     "click .js-new-page": "createNewPage"
   },
-
 
   initialize(commonData) {
     _.extend(this, commonData);
@@ -49,7 +50,6 @@ const AppView = Backbone.View.extend({
         return new Promise((resolve, reject) => {
           sendPost("getUserInfo", params, (err, data) => {
             if (err) {
-              this.$initial.hide();
               reject(err);
             } else {
               resolve({
@@ -66,6 +66,7 @@ const AppView = Backbone.View.extend({
         this.render(data);
         this.getStatusData();
         this.$el.append(this.menuView.el);
+        this.$initial.hide();
       })
       .catch(mallPromise.catchFn);
   },
@@ -81,7 +82,6 @@ const AppView = Backbone.View.extend({
             }else{
               resolve(data);
             }
-            this.$initial.hide();
           });
         });
       })
