@@ -8,6 +8,7 @@
   data-title="<%= item.title %>"
   class="<%= tplUtil.getJsClass(item) %>"
   href="<%= tplUtil.getBlockUrl(item) %>"
+  style="background-color: <%= group.frontcolor %>"
 >
   <div class="topic-area">
     <img src="<%= item.img %>" class="topic-show-pic" alt="">
