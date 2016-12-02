@@ -33,7 +33,8 @@ const AppView = BaseView.extend({
   initialize() {
     this.$initial       = ui.initial().show();
     new BackTop({isHome: true});
-    const title = mallUtil.isHangbanFunc() ? "伙力·航班商城" : "伙力·高铁商城";
+    // const title = mallUtil.isHangbanFunc() ? "伙力·航班商城" : "伙力·高铁商城";
+    const title = "伙力商城";
     widget.updateViewTitle(title);
     const nav = new Navigator();
     nav.render();
