@@ -106,7 +106,7 @@ const BuyNumModel = Backbone.Model.extend({
   getPointsText(num) {
     let result = "";
     let number = num || this.get("number");
-    result = number * this.get("points") + this.get("pointsUnit");
+    result = this.getPointsStr(number * this.get("points")) + this.get("pointsUnit");
     return result;
   },
 
@@ -114,7 +114,8 @@ const BuyNumModel = Backbone.Model.extend({
   getPointsTpl(num) {
     let result = "";
     let number = num || this.get("number");
-    result = `<span>${number * this.get("points")}</span><span>${this.get("pointsUnit")}</span>`;
+    let pointsStr = this.getPointsStr(number * this.get("points"));
+    result = `<span>${ pointsStr }</span><span>${ this.get("pointsUnit") }</span>`;
     return result;
   },
 
@@ -141,6 +142,16 @@ const BuyNumModel = Backbone.Model.extend({
   getPayBtnText() {
     // return this.get("type") === 1 ? "去支付" : this.get("price") > 0 ? "立即购买" : "立即兑换";
     return this.get("type") === 1 ? this.get("payNumText") : this.get("payText");
+  },
+
+  getPointsStr(points) {
+    let pointsStr = "";
+    if(points >= 100000) {
+      pointsStr = `${points / 10000}万`;
+    } else {
+      pointsStr = points;
+    }
+    return pointsStr;
   }
 });
 
