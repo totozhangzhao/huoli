@@ -4,6 +4,25 @@ var isType = function(type) {
   };
 };
 
+// different from underscore
+// 
+// 
+// underscore:
+// 
+// _.isObject({});
+// => true
+// 
+// _.isObject([1, 2, 3]);
+// => true
+// 
+// 
+// exports:
+// 
+// exports.isObject({});
+// => true
+// 
+// exports.isObject([1, 2, 3]);
+// => false
 exports.isObject = isType("Object");
 exports.isString = isType("String");
 exports.isArray = Array.isArray || isType("Array");

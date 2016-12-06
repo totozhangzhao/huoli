@@ -1,7 +1,5 @@
 import $ from "jquery";
 import Backbone from "backbone";
-// import Util from "com/mobile/lib/util/util.js";
-// import * as mallUtil from "app/client/mall/js/lib/util.js";
 import template from "app/client/mall/tpl/common/ui/wechat-share-tip.tpl";
 const ShareTipView = Backbone.View.extend({
 
