@@ -50,6 +50,7 @@
     <span><%= total %></span>
   </div>
 
+  <% if (!isCustomerServiceView) { %>
     <div class="control-contain clearfix">
       <% if( orderData.operateType === 1 ) { %>
         <button class="control-order fl js-cancel-order">取消订单</button>
@@ -65,4 +66,5 @@
         <button class="control-buy fr js-to-goods-detail">再次购买</button>
       <% } %>
     </div>
+  <% } %>
 </div>

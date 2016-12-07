@@ -8,6 +8,7 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
+import UrlUtil from "com/mobile/lib/url/url.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import OrderData from "app/client/mall/js/list-page/order/utils/order-data.js";
 // views
@@ -15,6 +16,7 @@ import Popover from "com/mobile/widget/popover/popover.js";
 
 // templates
 import orderListItemTpl from "app/client/mall/tpl/list-page/order/order-list-item.tpl";
+
 const OrderListView = Backbone.View.extend({
   tagName: "li",
 
@@ -26,11 +28,13 @@ const OrderListView = Backbone.View.extend({
     "click .js-delete-order": "deleteOrder",
     "click .js-purchase-order": "toPurchase",
     "click .js-to-goods-detail": "toGoodsDetail",
-    "click .js-to-order-detail": "toOrderDetail"
+    "click .js-to-order-detail": "toOrderDetail",
+    "click": "toCustomerServiceView"
   },
 
   initialize() {
-    window.a = this;
+    this.urlObj = UrlUtil.parseUrlSearch();
+    this.isCustomerServiceView = Boolean(this.urlObj.webview === "service") && mallUtil.isAppFunc();
     this.listenTo(this.model, "destroy", this.remove);
     this.listenTo(this.model, "change", this.render);
   },
@@ -42,6 +46,7 @@ const OrderListView = Backbone.View.extend({
     });
     this.$el.html(orderListItemTpl({
       orderData:this.model.toJSON(),
+      isCustomerServiceView: this.isCustomerServiceView,
       tplUtil
     }));
     if(this.model.get("show")) {
@@ -153,7 +158,6 @@ const OrderListView = Backbone.View.extend({
     .then(() => {
       window.location.reload();
     });
-
   },
 
   // 查看物流
@@ -173,12 +177,20 @@ const OrderListView = Backbone.View.extend({
     if( !mallUtil.isAppFunc() ) {
       widget.redirectPage(url);
     } else {
+      if (this.isCustomerServiceView) {
+        url = this.urlObj.detailurl + this.model.get("orderid");
+      }
       widget.createNewView({
         url: url,
         title: "订单详情"
       });
     }
+  },
 
+  toCustomerServiceView() {
+    if (this.isCustomerServiceView) {
+      this.toOrderDetail();
+    }
   }
 });
 
