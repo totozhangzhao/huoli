@@ -4,7 +4,7 @@ import _ from "lodash";
 import async from "async";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import {toast} from "com/mobile/widget/hint/hint.js";
+import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import appInfo from "app/client/mall/js/lib/app-info.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
@@ -28,6 +28,7 @@ const AppView = Backbone.View.extend({
   events: {
     "click .js-get-coupon": "getMallCoupon",
     "click .btn-get-coupon": "getCoupon",
+    "click .js-create-order": "createOrderDispatch",
     "click .js-common-share": "handleShareButton",
     "click a": "createNewPage"
   },
@@ -55,7 +56,7 @@ const AppView = Backbone.View.extend({
       next => {
         appInfo.getUserData((err, userData) => {
           if (err) {
-            toast(err.message, 1500);
+            hint.toast(err.message, 1500);
             return;
           }
 
@@ -90,7 +91,7 @@ const AppView = Backbone.View.extend({
           loginUtil.login();
           return;
         }
-        return toast(err.message, 1500);
+        return hint.toast(err.message, 1500);
       }
       switch(result.code) {
         case -602:
@@ -143,41 +144,10 @@ const AppView = Backbone.View.extend({
         });
       })
       .then((result) => {
-        toast(result.message, 1500);
+        hint.toast(result.message, 1500);
         self.checkCouponButton();
       })
       .catch(mallPromise.catchFn);
-    // async.waterfall([
-    //   next => {
-    //     appInfo.getUserData((err, userData) => {
-    //       if (err) {
-    //         toast(err.message, 1500);
-    //         return;
-    //       }
-
-    //       next(null, userData);
-    //     });
-    //   },
-    //   (userData, next) => {
-    //     const params = _.extend({}, userData.userInfo, {
-    //       p: userData.deviceInfo.p,
-    //       productid: couponId
-    //     });
-
-    //     sendPost("getCoupon", params, (err, data) => {
-    //       next(err, data);
-    //     });
-    //   }
-    // ], (err, result) => {
-    //     // self.curCouponBtn.text("已领取优惠券");
-    //     // self.curCouponBtn.addClass('active');
-    //   if (err) {
-    //     toast(err.message, 1500);
-    //     return;
-    //   }
-    //   toast(result.message, 1500);
-    //   self.checkCouponButton();
-    // });
   },
 
   handleShareButton(e) {
@@ -208,7 +178,7 @@ const AppView = Backbone.View.extend({
       next => {
         appInfo.getUserData((err, userData) => {
           if (err) {
-            toast(err.message, 1500);
+            hint.toast(err.message, 1500);
             return;
           }
 
@@ -227,7 +197,7 @@ const AppView = Backbone.View.extend({
       }
     ], (err, result) => {
       if (err) {
-        toast(err.message, 1500);
+        hint.toast(err.message, 1500);
         return;
       }
 
@@ -262,6 +232,69 @@ const AppView = Backbone.View.extend({
       });
     });
   },
+
+  // 创建订单调度器
+  createOrderDispatch(e) {
+    let data = $(e.currentTarget).data();
+    let params = {
+      num: 1,
+      productid: data.productId
+    };
+    this.createOrderHanlder(params, data.productType);
+  },
+
+  // 创建订单处理函数
+  createOrderHanlder(params, type) {
+    hint.showLoading();
+    mallPromise
+      .order(params)
+      .then(orderInfo => {
+        if (orderInfo === void 0) {
+          return;
+        }
+        return this.afterCreateOrderDispatch(orderInfo, type);
+      })
+      .catch(err => {
+        hint.hideLoading();
+        mallPromise.catchFn(err);
+      });
+  },
+
+  // 创建订单后序操作调度器
+  afterCreateOrderDispatch(orderInfo, type) {
+    switch(type) {
+      case 1:   // 领红包
+        hint.hideLoading();
+        break;
+      case 2:   // 支付
+        this.payOrder(orderInfo);
+        break;
+      default:
+        break;
+    }
+  },
+
+  // 支付已创建的订单
+  payOrder(orderInfo) {
+    let orderDetailUrl = `${window.location.origin}/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${orderInfo.orderid}`;
+
+    function success() {
+      hint.hideLoading();
+      widget.createNewView({
+        url: orderDetailUrl
+      });
+    }
+
+    if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
+      orderInfo.returnUrl = orderDetailUrl;
+      return mallPromise
+        .initPay(orderInfo)
+        .then(success);
+    } else {
+      return success();
+    }
+  },
+
   initActive() {
     const id = this.urlObj.productid;
 
