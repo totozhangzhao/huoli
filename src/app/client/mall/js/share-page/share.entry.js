@@ -2,9 +2,10 @@ import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
 import async from "async";
+import {redpacketMessage} from "app/client/mall/js/common/message.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
-import {toast} from "com/mobile/widget/hint/hint.js";
+import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
 import appInfo from "app/client/mall/js/lib/app-info.js";
 import loadScript from "com/mobile/lib/load-script/load-script.js";
@@ -16,7 +17,7 @@ import logger from "com/mobile/lib/log/log.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import ShareInput from "app/client/mall/js/share-page/share-input.js";
 import ui from "app/client/mall/js/lib/ui.js";
-import BackTop from "com/mobile/widget/button/to-top.js";
+import Popover from "com/mobile/widget/popover/popover.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import * as widget from "app/client/mall/js/lib/common.js";
@@ -28,15 +29,21 @@ const AppView = Backbone.View.extend({
   events: {
     "click .js-get-coupon": "getMallCoupon",
     "click .btn-get-coupon": "getCoupon",
+    "click .js-create-order": "createOrderDispatch",
     "click .js-common-share": "handleShareButton",
     "click a": "createNewPage"
   },
   initialize() {
     const nav = new Navigator();
     nav.render();
-    new BackTop();
     this.urlObj = UrlUtil.parseUrlSearch();
     this.$initial = ui.initial().show();
+    this.alert = new Popover({
+      type: "alert",
+      title: "",
+      message: "",
+      agreeText: "确定"
+    });
     this.mallInterlayer();
     logger.track(`${mallUtil.getAppName()}PV`, "View PV", document.title);
   },
@@ -55,7 +62,7 @@ const AppView = Backbone.View.extend({
       next => {
         appInfo.getUserData((err, userData) => {
           if (err) {
-            toast(err.message, 1500);
+            hint.toast(err.message, 1500);
             return;
           }
 
@@ -90,7 +97,7 @@ const AppView = Backbone.View.extend({
           loginUtil.login();
           return;
         }
-        return toast(err.message, 1500);
+        return hint.toast(err.message, 1500);
       }
       switch(result.code) {
         case -602:
@@ -143,41 +150,10 @@ const AppView = Backbone.View.extend({
         });
       })
       .then((result) => {
-        toast(result.message, 1500);
+        hint.toast(result.message, 1500);
         self.checkCouponButton();
       })
       .catch(mallPromise.catchFn);
-    // async.waterfall([
-    //   next => {
-    //     appInfo.getUserData((err, userData) => {
-    //       if (err) {
-    //         toast(err.message, 1500);
-    //         return;
-    //       }
-
-    //       next(null, userData);
-    //     });
-    //   },
-    //   (userData, next) => {
-    //     const params = _.extend({}, userData.userInfo, {
-    //       p: userData.deviceInfo.p,
-    //       productid: couponId
-    //     });
-
-    //     sendPost("getCoupon", params, (err, data) => {
-    //       next(err, data);
-    //     });
-    //   }
-    // ], (err, result) => {
-    //     // self.curCouponBtn.text("已领取优惠券");
-    //     // self.curCouponBtn.addClass('active');
-    //   if (err) {
-    //     toast(err.message, 1500);
-    //     return;
-    //   }
-    //   toast(result.message, 1500);
-    //   self.checkCouponButton();
-    // });
   },
 
   handleShareButton(e) {
@@ -208,7 +184,7 @@ const AppView = Backbone.View.extend({
       next => {
         appInfo.getUserData((err, userData) => {
           if (err) {
-            toast(err.message, 1500);
+            hint.toast(err.message, 1500);
             return;
           }
 
@@ -227,7 +203,7 @@ const AppView = Backbone.View.extend({
       }
     ], (err, result) => {
       if (err) {
-        toast(err.message, 1500);
+        hint.toast(err.message, 1500);
         return;
       }
 
@@ -262,6 +238,88 @@ const AppView = Backbone.View.extend({
       });
     });
   },
+
+  /**
+   * @param  {event} e 处理事件
+   */
+  createOrderDispatch(e) {
+    let data = $(e.currentTarget).data();
+    let params = {
+      num: 1,
+      productid: data.productId
+    };
+    return this.createOrderHanlder(params, data);
+  },
+
+  // 创建订单处理函数
+  /**
+   * @param {object} params 创建订单的部分请求参数
+   * @param {object} data 业务处理数据
+   */
+  createOrderHanlder(params, data) {
+    hint.showLoading();
+    mallPromise
+      .order(params)
+      .then(orderInfo => {
+        if (orderInfo === void 0) {
+          return;
+        }
+        return this.afterCreateOrderDispatch(orderInfo, data);
+      })
+      .catch(err => {
+        hint.hideLoading();
+        if(redpacketMessage[err.code]) {
+          return hint.toast(redpacketMessage[err.code], 3000);
+        }
+        mallPromise.catchFn(err);
+      });
+  },
+
+  /**
+   * @param {object} orderInfo 订单信息
+   * @param {object} data 业务处理数据
+   * @return {[type]}
+   */
+  afterCreateOrderDispatch(orderInfo, data) {
+    switch(data.type) {
+      case 1:   // 领红包
+        this.alert.model.set({
+          title: "提示信息",
+          message: data.messageSuccess
+        });
+        this.alert.show();
+        hint.hideLoading();
+        break;
+      case 2:   // 支付
+        this.payOrder(orderInfo);
+        break;
+      default:
+        hint.hideLoading();
+        break;
+    }
+  },
+
+  // 支付已创建的订单
+  payOrder(orderInfo) {
+    let orderDetailUrl = `${window.location.origin}/fe/app/client/mall/html/detail-page/order-detail.html?orderid=${orderInfo.orderid}`;
+
+    function success() {
+      hint.hideLoading();
+      widget.createNewView({
+        url: orderDetailUrl
+      });
+    }
+
+    if (String(orderInfo.paystatus) === "0" && orderInfo.payorderid) {
+      orderInfo.returnUrl = orderDetailUrl;
+      return mallPromise
+        .initPay(orderInfo)
+        .then(success);
+    } else {
+      return success();
+    }
+  },
+
   initActive() {
     const id = this.urlObj.productid;
 
