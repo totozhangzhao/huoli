@@ -32,9 +32,9 @@ const OrderListView = Backbone.View.extend({
     "click .js-to-customer-service": "toCustomerServiceView"
   },
 
-  initialize() {
+  initialize(options = {}) {
     this.urlObj = UrlUtil.parseUrlSearch();
-    this.isCustomerServiceView = Boolean(this.urlObj.webview === "service") && mallUtil.isAppFunc();
+    this.isCustomerServiceView = options.isCustomerServiceView;
     this.listenTo(this.model, "destroy", this.remove);
     this.listenTo(this.model, "change", this.render);
   },

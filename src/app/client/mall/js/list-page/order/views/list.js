@@ -12,11 +12,12 @@ import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
-const orderListLog = widget.initTracker("orderList");
 
 import orderUtil from "app/client/mall/js/list-page/order/utils/order-utils.js";
+
 // collections
 import Orders from "app/client/mall/js/list-page/order/collections/orders.js";
+
 // views
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import OrderNavView from "app/client/mall/js/list-page/order/views/order-nav.js";
@@ -26,10 +27,13 @@ import SearchView from "app/client/mall/js/list-page/order/views/search-view.js"
 // 订单列表数据初始化
 import OrderData from "app/client/mall/js/list-page/order/utils/order-data.js";
 
-if(cookie.get('orderstatus') === 'update') {
+const orderListLog = widget.initTracker("orderList");
+
+if (cookie.get('orderstatus') === 'update') {
   cookie.set("orderstatus", "release", config.mall.cookieOptions);
   window.location.reload();
 }
+
 const OrderListView = Backbone.View.extend({
   el: "#order-list",
 
@@ -37,8 +41,9 @@ const OrderListView = Backbone.View.extend({
   },
 
   initialize() {
-    window.aaa = this;
     this.loading = false;
+    this.urlObj = UrlUtil.parseUrlSearch();
+    this.isCustomerServiceView = Boolean(this.urlObj.webview === "service") && mallUtil.isAppFunc();
     this.nav = new Navigator();
     this.nav.render();
     this.$initial = ui.initial().show();
@@ -56,7 +61,7 @@ const OrderListView = Backbone.View.extend({
     logger.track(mallUtil.getAppName() + "PV", "View PV", document.title);
     orderListLog({
       title: document.title,
-      hlfrom: UrlUtil.parseUrlSearch().hlfrom || "--"
+      hlfrom: this.urlObj.hlfrom || "--"
     });
   },
 
@@ -80,7 +85,10 @@ const OrderListView = Backbone.View.extend({
     this.hideNoOrderView();
     this.useSearch = options.search || false;
     let title = "订单列表";
-    if(this.useSearch) {
+
+    if (this.isCustomerServiceView) {
+      title = "选择要咨询的订单";
+    } else if (this.useSearch) {
       this.mapKey = "search";
       this.showSearchView();
       title = "搜索订单";
@@ -91,6 +99,7 @@ const OrderListView = Backbone.View.extend({
     }
 
     widget.updateViewTitle(title);
+
     if( !OrderData[this.mapKey] ) {
       OrderData[this.mapKey] = {
         orders: new Orders(),
@@ -98,6 +107,7 @@ const OrderListView = Backbone.View.extend({
       };
       this.listenTo(OrderData[this.mapKey].orders, "reset", this.resetOrdersHandler);
     }
+
     _.each(OrderData, (item, key) => {
       if(item.active && (key != this.mapKey)) {
         item.orders.hide();
@@ -193,7 +203,10 @@ const OrderListView = Backbone.View.extend({
     .where({rendered: false})
     .forEach((item) => {
       if(!item.get("rendered")) {
-        let itemView = new OrderListItemView({model: item});
+        let itemView = new OrderListItemView({
+          model: item,
+          isCustomerServiceView: this.isCustomerServiceView
+        });
         this.orderListContainer.append(itemView.render().el);
       }
     });
