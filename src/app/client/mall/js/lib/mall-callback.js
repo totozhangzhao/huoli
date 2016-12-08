@@ -6,7 +6,7 @@ mallEvent.on("mall-advance", function(url) {
 });
 
 exports.dispatch = function(result) {
-  if (result.preload) {
+  if (result && result.preload) {
     mallEvent.emit("mall-advance", result.preload);
   }
 };
