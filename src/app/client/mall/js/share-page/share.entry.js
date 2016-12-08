@@ -2,6 +2,7 @@ import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
 import async from "async";
+import {redpacketMessage} from "app/client/mall/js/common/message.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import hint from "com/mobile/widget/hint/hint.js";
@@ -21,6 +22,7 @@ import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 
+// class="js-create-order" data-product-id="1001419" data-message-success="成功啦" data-type="1"
 const sharePageLog = widget.initTracker("ad");
 
 const AppView = Backbone.View.extend({
@@ -267,6 +269,9 @@ const AppView = Backbone.View.extend({
       })
       .catch(err => {
         hint.hideLoading();
+        if(redpacketMessage[err.code]) {
+          return hint.toast(redpacketMessage[err.code], 3000);
+        }
         mallPromise.catchFn(err);
       });
   },
@@ -290,6 +295,7 @@ const AppView = Backbone.View.extend({
         this.payOrder(orderInfo);
         break;
       default:
+        hint.hideLoading();
         break;
     }
   },
