@@ -30,5 +30,5 @@ var viewDic = {
 
 module.exports = createRouter({
   viewDic: viewDic,
-  defaultView: "step-1"
+  defaultView: "step-01"
 });

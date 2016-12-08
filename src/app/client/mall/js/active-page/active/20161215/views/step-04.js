@@ -2,8 +2,8 @@
 // var _         = require("lodash");
 var Backbone  = require("backbone");
 
-const Step4 = Backbone.View.extend({
-  el: "#step-4",
+const Step = Backbone.View.extend({
+  el: "#step-04",
   initialize: function(commonData) {
     window.console.log(commonData);
 
@@ -14,4 +14,4 @@ const Step4 = Backbone.View.extend({
   }
 });
 
-export default Step4;
+export default Step;
