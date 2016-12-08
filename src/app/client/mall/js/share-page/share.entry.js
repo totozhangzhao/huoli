@@ -16,7 +16,7 @@ import logger from "com/mobile/lib/log/log.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import ShareInput from "app/client/mall/js/share-page/share-input.js";
 import ui from "app/client/mall/js/lib/ui.js";
-import BackTop from "com/mobile/widget/button/to-top.js";
+import Popover from "com/mobile/widget/popover/popover.js";
 import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import * as widget from "app/client/mall/js/lib/common.js";
@@ -35,9 +35,14 @@ const AppView = Backbone.View.extend({
   initialize() {
     const nav = new Navigator();
     nav.render();
-    new BackTop();
     this.urlObj = UrlUtil.parseUrlSearch();
     this.$initial = ui.initial().show();
+    this.alert = new Popover({
+      type: "alert",
+      title: "",
+      message: "",
+      agreeText: "确定"
+    });
     this.mallInterlayer();
     logger.track(`${mallUtil.getAppName()}PV`, "View PV", document.title);
   },
@@ -233,18 +238,24 @@ const AppView = Backbone.View.extend({
     });
   },
 
-  // 创建订单调度器
+  /**
+   * @param  {event} e 处理事件
+   */
   createOrderDispatch(e) {
     let data = $(e.currentTarget).data();
     let params = {
       num: 1,
       productid: data.productId
     };
-    this.createOrderHanlder(params, data.productType);
+    return this.createOrderHanlder(params, data);
   },
 
   // 创建订单处理函数
-  createOrderHanlder(params, type) {
+  /**
+   * @param {object} params 创建订单的部分请求参数
+   * @param {object} data 业务处理数据
+   */
+  createOrderHanlder(params, data) {
     hint.showLoading();
     mallPromise
       .order(params)
@@ -252,7 +263,7 @@ const AppView = Backbone.View.extend({
         if (orderInfo === void 0) {
           return;
         }
-        return this.afterCreateOrderDispatch(orderInfo, type);
+        return this.afterCreateOrderDispatch(orderInfo, data);
       })
       .catch(err => {
         hint.hideLoading();
@@ -260,10 +271,19 @@ const AppView = Backbone.View.extend({
       });
   },
 
-  // 创建订单后序操作调度器
-  afterCreateOrderDispatch(orderInfo, type) {
-    switch(type) {
+  /**
+   * @param {object} orderInfo 订单信息
+   * @param {object} data 业务处理数据
+   * @return {[type]}
+   */
+  afterCreateOrderDispatch(orderInfo, data) {
+    switch(data.type) {
       case 1:   // 领红包
+        this.alert.model.set({
+          title: "提示信息",
+          message: data.messageSuccess
+        });
+        this.alert.show();
         hint.hideLoading();
         break;
       case 2:   // 支付
