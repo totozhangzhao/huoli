@@ -1,4 +1,4 @@
-<a href="javascript:;" class="block clearfix js-to-order-detail">
+<a href="javascript:;" class="block clearfix <%= isCustomerServiceView ? 'js-to-customer-service' : 'js-to-order-detail' %>">
   <div class="num-font order-status-time"><%= orderData.createtime %></div>
   <div class="record-info-show flex-row">
     <div class="record-pic-bar">
@@ -37,7 +37,7 @@
     <% } %>
   <div class="order-goods-num num-font">x<%= orderData.amount %></div>
 </a>
-<div class="order-control-contain">
+<div class="order-control-contain <%= isCustomerServiceView ? 'js-to-customer-service' : '' %>">
   <div class="total-price num-font">
     <span>合计：</span>
     <% var total = tplUtil.getMoneyTpl({

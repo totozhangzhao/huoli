@@ -29,7 +29,7 @@ const OrderListView = Backbone.View.extend({
     "click .js-purchase-order": "toPurchase",
     "click .js-to-goods-detail": "toGoodsDetail",
     "click .js-to-order-detail": "toOrderDetail",
-    "click": "toCustomerServiceView"
+    "click .js-to-customer-service": "toCustomerServiceView"
   },
 
   initialize() {
@@ -49,6 +49,9 @@ const OrderListView = Backbone.View.extend({
       isCustomerServiceView: this.isCustomerServiceView,
       tplUtil
     }));
+    if (this.isCustomerServiceView) {
+      this.$el.addClass("js-to-customer-service");
+    }
     if(this.model.get("show")) {
       this.$el.show();
     }
@@ -177,9 +180,6 @@ const OrderListView = Backbone.View.extend({
     if( !mallUtil.isAppFunc() ) {
       widget.redirectPage(url);
     } else {
-      if (this.isCustomerServiceView) {
-        url = this.urlObj.detailurl + this.model.get("orderid");
-      }
       widget.createNewView({
         url: url,
         title: "订单详情"
@@ -188,9 +188,11 @@ const OrderListView = Backbone.View.extend({
   },
 
   toCustomerServiceView() {
-    if (this.isCustomerServiceView) {
-      this.toOrderDetail();
-    }
+    const url = this.urlObj.detailurl + this.model.get("orderid");
+    widget.createNewView({
+      url: url,
+      title: "订单详情"
+    });
   }
 });
 
