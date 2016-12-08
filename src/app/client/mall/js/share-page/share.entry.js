@@ -22,7 +22,6 @@ import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import * as widget from "app/client/mall/js/lib/common.js";
 
-// class="js-create-order" data-product-id="1001419" data-message-success="成功啦" data-type="1"
 const sharePageLog = widget.initTracker("ad");
 
 const AppView = Backbone.View.extend({
