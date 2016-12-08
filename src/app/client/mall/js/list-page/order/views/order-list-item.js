@@ -49,9 +49,6 @@ const OrderListView = Backbone.View.extend({
       isCustomerServiceView: this.isCustomerServiceView,
       tplUtil
     }));
-    if (this.isCustomerServiceView) {
-      this.$el.addClass("js-to-customer-service");
-    }
     if(this.model.get("show")) {
       this.$el.show();
     }
