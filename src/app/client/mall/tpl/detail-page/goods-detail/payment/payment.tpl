@@ -4,6 +4,7 @@
   </div>
   <% } %>
   <div class="goods-confirm-content">
+    <!-- 展开状态的底部 Panel （规格、数量选择，购买按钮） -->
     <% if(type === 1) { %>
       <div class="goods-confirm-contain">
         <div class="goods-confirm-pic">
@@ -54,32 +55,31 @@
       <div class="goods-buynow-bar">
         <a class="js-goods-pay goods-confirm-btn <%= confirmClass %>">立即购买</a>
       </div>
+    <!-- 初始状态的底部 Panel （收藏，送礼按钮，购买按钮） -->
     <% } else { %>
-      <% if(giftType === 3 && canPay) { %>
-      <!-- 微信送礼  -->
-        <div class="goods-buygiving-bar flex-row">
-          <% if(showCollect) {%>
-          <!-- "已收藏"状态加 .yes | 默认状态无 .yes -->
-          <button class="collect-button js-collect <%= isCollect === 2 ? "yes" : ""%>">
-            <b class="icon"></b>
-            <span class="text"><%= isCollect === 2 ? "已收藏" : "收藏"%></span>
-          </button>
-          <% } %>
-          <a class="js-goods-gift-pay give">赠送他人</a>
-          <a class="js-goods-pay js-goods-normal-pay buy">买给自己</a>
-        </div>
-      <% } else {%>
-        <div class="goods-buynow-bar flex-row">
-          <% if(showCollect) {%>
-          <!-- "已收藏"状态加 .yes | 默认状态无 .yes -->
-          <button class="collect-button js-collect <%= isCollect === 2 ? "yes" : ""%>">
-            <b class="icon"></b>
-            <span class="text"><%= isCollect === 2 ? "已收藏" : "收藏"%></span>
-          </button>
-          <% } %>
-          <a class="js-goods-pay js-goods-normal-pay <%= canPay ? '' : 'unable'%>">立即购买</a>
-        </div>
-      <% } %>
+      <%
+        var buyContainerClass = "goods-buynow-bar";
+        if ( (giftType === 3 || giftType === 4) && canPay ) {
+          buyContainerClass = "goods-buygiving-bar";
+        }
+      %>
+      <div class="<%= buyContainerClass %> flex-row">
+        <% if(showCollect) {%>
+        <!-- "已收藏"状态加 .yes | 默认状态无 .yes -->
+        <button class="collect-button js-collect <%= isCollect === 2 ? "yes" : ""%>">
+          <b class="icon"></b>
+          <span class="text"><%= isCollect === 2 ? "已收藏" : "收藏"%></span>
+        </button>
+        <% } %>
+        <% if (giftType === 3 && canPay) { %>
+        <a class="js-goods-gift-pay give">赠送他人</a>
+        <a class="js-goods-pay js-goods-normal-pay buy">买给自己</a>
+        <% } else if (giftType === 4 && canPay) { %>
+        <a class="js-goods-gift-pay give">赠送他人</a>
+        <% } else { %>
+        <a class="js-goods-pay js-goods-normal-pay <%= canPay ? '' : 'unable'%>">立即购买</a>
+        <% } %>
+      </div>
     <% } %>
   </div>
 <% } %>
