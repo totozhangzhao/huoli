@@ -1174,7 +1174,7 @@ img.express-empty {
   width: 100%;
   background-color: #fff;
   margin-bottom: 0.26667rem;
-  padding-bottom: 0.56rem;
+  padding-bottom: 0.37333rem;
 }
 .topic-bar .topic-area .topic-show-pic {
   width: 100%;
@@ -1205,6 +1205,13 @@ img.express-empty {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+}
+.topic-bar .topic-area .topic-area-desc .goods-prices {
+  height: 0.96rem;
+  line-height: 0.96rem;
+  font-size: 0.37333rem;
+  color: #f62f5e;
+  font-family: 'Arial';
 }
 .common-padding {
   padding-bottom: 1.30667rem;

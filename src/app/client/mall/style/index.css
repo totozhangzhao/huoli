@@ -1174,7 +1174,7 @@ img.express-empty {
   width: 100%;
   background-color: #fff;
   margin-bottom: 0.26667rem;
-  padding-bottom: 0.56rem;
+  padding-bottom: 0.37333rem;
 }
 .topic-bar .topic-area .topic-show-pic {
   width: 100%;
@@ -1205,6 +1205,13 @@ img.express-empty {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+}
+.topic-bar .topic-area .topic-area-desc .goods-prices {
+  height: 0.96rem;
+  line-height: 0.96rem;
+  font-size: 0.37333rem;
+  color: #f62f5e;
+  font-family: 'Arial';
 }
 .common-padding {
   padding-bottom: 1.30667rem;
@@ -1437,6 +1444,27 @@ img.touch-img {
   padding-top: 0.26667rem;
   height: 1.73333rem;
   background-color: #fff;
+}
+.home-page-box .home-select-bar .home-select-area .home-select-area-pic .select-text-contain .select-desc {
+  width: 5.86667rem;
+  padding-left: 0.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-align: left;
+}
+.home-page-box .home-select-bar .home-select-area .home-select-area-pic .select-text-contain .select-price {
+  height: 0.66667rem;
+  line-height: 0.66667rem;
+  font-size: 0.34667rem;
+  color: #f62f5e;
+  flex: 1;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  text-align: right;
+  font-family: 'Arial';
 }
 .home-page-box .home-select-bar .home-select-area .home-select-area-pic .select-text-contain .main {
   height: 0.66667rem;
@@ -2130,6 +2158,12 @@ img.touch-img {
   color: #f62f5e;
   font-family: 'Arial';
   height: 0.58667rem;
+}
+.goods-detail-box .goods-confirm-content .goods-confirm-desc .goods-confirm-desc-price .origin-price {
+  color: #b4b4b4;
+  font-size: 0.29333rem;
+  margin-left: 0.4rem;
+  text-decoration: line-through;
 }
 .goods-detail-box .goods-confirm-content .goods-confirm-choice {
   font-size: 0.4rem;

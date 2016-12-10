@@ -92,7 +92,7 @@ const AppView = BaseView.extend({
           });
           if (index === -1) {
             goods.payError = {
-              message: "无可选规格"
+              message: "ES: 无可选规格"
             };
           }
           index = index !== -1 ? index : 0;
@@ -101,7 +101,7 @@ const AppView = BaseView.extend({
           goods.specs = [];
           if (goods.limit === 0) {
             goods.payError = {
-              message: "商品数量不足"
+              message: "ES: 商品数量不足"
             };
           }
         }
@@ -353,6 +353,14 @@ const AppView = BaseView.extend({
       mallPromise.catchShowError(goods.payError);
       return;
     }
+
+    if (this.buyNumModel.get("limitNum") <= 0) {
+      mallPromise.catchShowError({
+        message: "ES: 当前规格商品数量不足"
+      });
+      return;
+    }
+
     // 调用支付分发器
     this.payDespatcher(goods);
   },
