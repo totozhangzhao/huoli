@@ -1,29 +1,42 @@
 /**
  * 抽奖页面
  */
-// import $ from "jquery";
+import $ from "jquery";
 import _ from "lodash";
 import Backbone from "backbone";
+
+import NativeAPI from "app/client/common/lib/native/native-api.js";
+import * as mallUtil from "app/client/mall/js/lib/util.js";
+import * as mallWechat from "app/client/mall/js/lib/wechat.js";
+import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
+import {toast} from "com/mobile/widget/hint/hint.js";
 
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 
+import ShareTipView from "app/client/mall/js/common/ui/wechat-share-tip.js";
+
 import template from "app/client/mall/tpl/active-page/active/20161215/luck-draw.tpl";
+import resultTemplate from "app/client/mall/tpl/active-page/active/20161215/result.tpl";
 const LuckDrawView = Backbone.View.extend({
 
   el: "#luck-draw",
 
   events: {
-    "click .luck-draw": "luckDraw"
+    "click .luck-draw": "luckDraw",
+    "click .js-share": "appShare",
+    "click .js-explain" : "showExplain",
+    "click .close": "hideExplain"
   },
 
   initialize: function(commonData) {
     this.util = commonData;
+    this.initShare();
   },
 
   render() {
     this.$el.html(template());
-
+    return this;
   },
 
   resume() {
@@ -33,7 +46,7 @@ const LuckDrawView = Backbone.View.extend({
   // 抽奖
   luckDraw() {
     mallPromise
-      .checkLogin()
+      .checkLogin({loginPage: "/fe/app/client/mall/html/active-page/active/login.html"})
       .then(userData => {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
@@ -81,7 +94,53 @@ const LuckDrawView = Backbone.View.extend({
         // 已经领取过
         window.console.log("已经领取过");
         break;
+      default:
+        break;
     }
+    this.$el.html(resultTemplate({data: data}));
+  },
+
+  initShare() {
+    if( !mallUtil.isAppFunc() ) {
+      mallWechat.initShare({
+        // wechatshare: this.shareInfo,
+        // title: this.shareInfo.title
+      });
+    }
+  },
+
+  appShare() {
+
+    if(mallUtil.isAppFunc()) {
+      NativeAPI.invoke("sharePage", {
+        title: this.shareInfo.title,
+        desc: this.shareInfo.desc,
+        link: this.shareInfo.link,
+        imgUrl: this.shareInfo.img
+      }, (err) => {
+        if (err) {
+          window.console.log(err.message);
+        }
+      });
+    } else if(wechatUtil.isWechatFunc()) {
+      if(!this.shareTipView) {
+        this.shareTipView = new ShareTipView({parentDom: 'body'});
+        this.shareTipView.render();
+      }
+      this.shareTipView.show();
+    } else {
+      // 不是app也不是微信的情况
+      toast("请在微信中打开", 3000);
+    }
+  },
+
+  // 显示说明
+  showExplain() {
+    $(".shade", this.$el).show();
+  },
+
+  hideExplain() {
+    $(".shade", this.$el).hide();
   }
 });
 

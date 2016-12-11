@@ -76,9 +76,9 @@ export function loginRequset(options = {}) {
     });
 }
 
-export function login() {
+export function login(options = {loginPage: "/fe/app/client/mall/html/login/login.html"}) {
   function webLogin() {
-    let url = `/fe/app/client/mall/html/login/login.html?ru=${encodeURIComponent(window.location.href)}`;
+    let url = `${options.loginPage}?ru=${encodeURIComponent(window.location.href)}`;
     return widget.redirectPage(url);
   }
 

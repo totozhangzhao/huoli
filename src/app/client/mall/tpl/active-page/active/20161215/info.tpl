@@ -1,1 +1,1 @@
-<div style="height: 100%; background-color: #ddd;">介绍</div>
+<div class="touch-dom" style="height: 100%; background-color: #ddd;">介绍</div>
