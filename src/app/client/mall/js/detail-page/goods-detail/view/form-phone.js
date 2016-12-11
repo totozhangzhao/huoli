@@ -181,6 +181,7 @@ const AppView = Backbone.View.extend({
         // message: 显示信息
         // useurl: 第三方url
         let params = _.extend({}, userData.userInfo, {
+          goodspecid: this.model.buyNumModel.get("specValueId"),
           p: userData.deviceInfo.p,
           productid: parseUrl().productid,
           cphone  : this.$el.$phoneInput.val(),
@@ -231,7 +232,7 @@ const AppView = Backbone.View.extend({
     let goods = this.cache.goods;
 
     let $img = $("<img>", {
-      src: goods.img,
+      src: goods.img[0],
       alt: ""
     });
 
