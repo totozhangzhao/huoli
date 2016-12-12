@@ -1,4 +1,4 @@
-// var $         = require("jquery");
+var $         = require("jquery");
 // var _         = require("lodash");
 var Backbone  = require("backbone");
 import * as mallUtil from "app/client/mall/js/lib/util.js";
@@ -12,7 +12,7 @@ const InfoView = Backbone.View.extend({
   },
 
   initialize: function(commonData) {
-    window.console.log(commonData);
+    this.util = commonData;
   },
 
   render() {
@@ -34,10 +34,18 @@ const InfoView = Backbone.View.extend({
   },
 
   next() {
-    window.console.log(this.endY - this.startY);
-    if( (this.endY - this.startY) < -100 ) {
+    // window.console.log(this.endY - this.startY);
+    if( (this.startY - this.endY) < $(window).height() * .25 ) {
       window.console.log('next');
+      this.toLuckDrawPage();
     }
+  },
+
+  toLuckDrawPage() {
+    Backbone.history.navigate("luck-draw", {
+      trigger: true,
+      replace: true
+    });
   }
 });
 
