@@ -11,12 +11,16 @@ const InfoView = Backbone.View.extend({
   el: "#info",
 
   events: {
-    'touchstart .touch-dom': "touchStart",
-    "touchend .touch-dom": "touchEnd"
+    'touchstart .panel-bar': "touchStart",
+    "touchend .panel-bar": "touchEnd",
+    "click .js-show-rule-info": "showRuleInfo",
+    "click .js-hide-rule-info": "hideRuleInfo"
   },
 
   initialize: function(commonData) {
     this.util = commonData;
+    this.pageIndex = 2;
+    window.aaa= this;
   },
 
   render() {
@@ -25,8 +29,10 @@ const InfoView = Backbone.View.extend({
   },
 
   resume() {
+    this.pageIndex = 2;
     this.render();
     this.initShare();
+    this.next();
   },
 
   initShare() {
@@ -53,8 +59,13 @@ const InfoView = Backbone.View.extend({
   },
 
   next() {
-    window.console.log('next');
-    this.toLuckDrawPage();
+    if(this.pageIndex > 8) {
+      return this.toLuckDrawPage();
+    }
+
+    $(`[data-panel-index!="${this.pageIndex}"]`, this.$el).removeClass("active");
+    $(`[data-panel-index="${this.pageIndex}"]`, this.$el).addClass("active");
+    this.pageIndex ++;
   },
 
   toLuckDrawPage() {
@@ -62,6 +73,14 @@ const InfoView = Backbone.View.extend({
       trigger: true,
       replace: true
     });
+  },
+
+  showRuleInfo() {
+    $("#rule-info-container", this.$el).show();
+  },
+
+  hideRuleInfo() {
+    $("#rule-info-container", this.$el).hide();
   }
 });
 

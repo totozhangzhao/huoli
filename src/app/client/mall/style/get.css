@@ -32,6 +32,12 @@ img {
 .get-box img {
   width: 100%;
 }
+.confirm-bar {
+  width: 100%;
+  height: 100%;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/get-bg.jpg) no-repeat;
+  background-size: 100% 100%;
+}
 .confirm-con {
   width: 100%;
   position: absolute;
@@ -142,6 +148,63 @@ img {
   top: 0;
   overflow: hidden;
 }
+.login-feedback .joined,
+.login-feedback .not-found {
+  width: 100%;
+  height: 100%;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/get-code-1.png) no-repeat;
+  background-size: 100% 100%;
+}
+.login-feedback .close-bar {
+  width: 100%;
+  height: 100%;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/get-code-3.png) no-repeat;
+  background-size: 100% 100%;
+}
+.close-area {
+  width: 6.85333rem;
+  height: 7.6rem;
+  text-align: center;
+  border-radius: 0.4rem;
+  background: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  left: 50%;
+  top: 4.66667rem;
+  transform: translate(-50%, 0);
+  color: #e0aa7a;
+}
+.close-area .title {
+  font-size: 0.58667rem;
+  margin-top: 0.4rem;
+  height: 1.81333rem;
+  line-height: 1.81333rem;
+}
+.close-area .text {
+  font-size: 0.4rem;
+  line-height: 0.69333rem;
+}
+.close-yes {
+  width: 3.17333rem;
+  height: 0.8rem;
+  border: 1px solid #e0aa7a;
+  border-radius: 0.21333rem;
+  margin-top: 1.06667rem;
+  color: #e0aa7a;
+}
+.close-bar .close-img-1 {
+  width: 3.2rem;
+  height: 0.53333rem;
+  position: absolute;
+  left: 0.93333rem;
+  top: 1.41333rem;
+}
+.close-bar .close-img-2 {
+  width: 5.01333rem;
+  height: 1.6rem;
+  position: absolute;
+  left: 0.8rem;
+  top: 2.05333rem;
+}
 .login-fail-bar {
   width: 100%;
   height: 100%;
@@ -212,6 +275,14 @@ img {
   font-size: 0.61333rem;
   height: 1.33333rem;
   line-height: 1.33333rem;
+}
+.close-btn {
+  margin-top: 0.4rem;
+  width: 3.17333rem;
+  height: 0.8rem;
+  color: #e0aa7a;
+  border: 1px solid #e0aa7a;
+  border-radius: 0.21333rem;
 }
 .prize-desc-btn {
   margin-top: 0.50667rem;
@@ -286,6 +357,7 @@ img {
   max-height: 7.54667rem;
   overflow: hidden;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .rule-info::-webkit-scrollbar {
   width: 0.10667rem;
@@ -312,4 +384,60 @@ img {
   left: 50%;
   bottom: -1.57333rem;
   margin-left: -0.58667rem;
+}
+.receive-bar {
+  width: 100%;
+  height: 100%;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-9-1.png) no-repeat;
+  background-size: 100% 100%;
+}
+.receive-bar .get-btn {
+  width: 1.73333rem;
+  height: 1.73333rem;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-9-2.png) no-repeat;
+  background-size: 1.73333rem 1.73333rem;
+  position: absolute;
+  right: 3.41333rem;
+  top: 12.21333rem;
+}
+.receive-bar .get-btn.on {
+  animation: 2s sca linear infinite;
+}
+.receive-bar .receive-bar-1 {
+  width: 3.2rem;
+  height: 0.53333rem;
+  position: absolute;
+  left: 0.93333rem;
+  top: 1.41333rem;
+}
+.receive-bar .receive-bar-2 {
+  width: 5.01333rem;
+  height: 1.6rem;
+  position: absolute;
+  left: 0.8rem;
+  top: 2.05333rem;
+}
+.receive-bar .receive-bar-3 {
+  width: 3.70667rem;
+  height: 0.48rem;
+  position: absolute;
+  left: 0.96rem;
+  top: 4.37333rem;
+}
+@keyframes sca {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.1);
+  }
+  20% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(0.9);
+  }
+  40% {
+    transform: scale(1);
+  }
 }

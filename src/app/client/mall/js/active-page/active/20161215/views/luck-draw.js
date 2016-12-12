@@ -133,8 +133,9 @@ const LuckDrawView = Backbone.View.extend({
   },
 
   // 显示说明
-  showExplain() {
-    $(".shade", this.$el).show();
+  showExplain(e) {
+    let data = $(e.currentTarget).data();
+    $(`.shade.${data.className}`, this.$el).show();
   },
 
   hideExplain() {
