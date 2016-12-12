@@ -1,3 +1,26 @@
+<% if(data.bonus === 0) { %>
+<section class="login-feedback">
+  <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/get-code-1.png" alt="">
+  <div class="login-fail-bar">
+    <div class="feedback-info">
+      <p>未查询到亲管家账户中有符合活动要求的购票信息</p>
+    </div>
+    
+    <% if(mallUtil.isAppFunc()) { %>
+      <button class="js-close-page">去购票</button>
+    <% } else { %>
+      <div class="code-img">
+        <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/get-code-2.png" alt="">
+        <p>长按识别图中二维码</p>
+      </div>
+    <% } %>
+    <div class="sweet-tip">
+      <p>“航班管家、高铁管家”</p>
+      <p>千万用户的春节回家选择</p>
+    </div>
+  </div>
+</section>
+<% } else { %>
 <section class="login-feedback">
   <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/get-code-1.png" alt="">
   <div class="login-fail-bar">
@@ -36,3 +59,4 @@
     <button type="button" class="share-btn js-share">分享给好友</button>
   </div>
 </section>
+<% } %>

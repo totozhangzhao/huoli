@@ -26,7 +26,8 @@ const LuckDrawView = Backbone.View.extend({
     "click .luck-draw": "luckDraw",
     "click .js-share": "appShare",
     "click .js-explain" : "showExplain",
-    "click .close": "hideExplain"
+    "click .close": "hideExplain",
+    "click .js-close-page": "closePage"
   },
 
   initialize: function(commonData) {
@@ -78,29 +79,28 @@ const LuckDrawView = Backbone.View.extend({
   // 4: 转入商品详情输入页（金融类）
   dispacther(data) {
     switch( data.bonus) {
-      case 101:
-        // 北京免费
-        window.console.log("北京免费");
-        break;
-      case 102:
-        // 广州免费
-        window.console.log("广州免费");
-        break;
-      case 103:
-        // 专车优惠券
-        window.console.log("专车优惠券");
-        break;
-      case 104:
-        // 已经领取过
-        window.console.log("已经领取过");
+      case 0: // 没有资格
+      case 101: // 北京免费
+      case 102: // 广州免费
+      case 103: // 专车优惠券
+      case 104: // 已经领取过
+        this.$el.html(resultTemplate({
+          data,
+          mallUtil
+        }));
         break;
       default:
         break;
     }
-    this.$el.html(resultTemplate({data: data}));
   },
 
   initShare() {
+    this.shareInfo = {
+      title: "",
+      desc: "",
+      link: `${window.location.origin}/fe/app/client/mall/html/active-page/active/20161215.html`,
+      img: ""
+    };
     if( !mallUtil.isAppFunc() ) {
       mallWechat.initShare({
         // wechatshare: this.shareInfo,
@@ -110,7 +110,6 @@ const LuckDrawView = Backbone.View.extend({
   },
 
   appShare() {
-
     if(mallUtil.isAppFunc()) {
       NativeAPI.invoke("sharePage", {
         title: this.shareInfo.title,
@@ -141,6 +140,10 @@ const LuckDrawView = Backbone.View.extend({
 
   hideExplain() {
     $(".shade", this.$el).hide();
+  },
+
+  closePage() {
+    NativeAPI.invoke("closeAll");
   }
 });
 
