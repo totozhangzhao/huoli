@@ -26,6 +26,7 @@ const InfoView = Backbone.View.extend({
   render() {
     this.$el.html(template());
     mallUtil.forbiddenScroll();
+    this.canTouch = true;
   },
 
   resume() {
@@ -59,13 +60,15 @@ const InfoView = Backbone.View.extend({
   },
 
   next() {
-    if(this.pageIndex > 8) {
-      return this.toLuckDrawPage();
-    }
+    if(this.canTouch) {
+      if(this.pageIndex > 8) {
+        return this.toLuckDrawPage();
+      }
 
-    $(`[data-panel-index!="${this.pageIndex}"]`, this.$el).removeClass("active");
-    $(`[data-panel-index="${this.pageIndex}"]`, this.$el).addClass("active");
-    this.pageIndex ++;
+      $(`[data-panel-index!="${this.pageIndex}"]`, this.$el).removeClass("active");
+      $(`[data-panel-index="${this.pageIndex}"]`, this.$el).addClass("active");
+      this.pageIndex ++;
+    }
   },
 
   toLuckDrawPage() {
@@ -76,10 +79,14 @@ const InfoView = Backbone.View.extend({
   },
 
   showRuleInfo() {
+    this.canTouch = false;
+    mallUtil.allowScroll();
     $("#rule-info-container", this.$el).show();
   },
 
   hideRuleInfo() {
+    this.canTouch = true;
+    mallUtil.forbiddenScroll();
     $("#rule-info-container", this.$el).hide();
   }
 });
