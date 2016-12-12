@@ -14,6 +14,7 @@ const ShareTipView = Backbone.View.extend({
   initialize(options) {
     this.parentDom = $(options.parentDom);
     this.$el.html(template());
+    this.$el.css("background", "rgba(0,0,0,.8)");
   },
 
   render() {
