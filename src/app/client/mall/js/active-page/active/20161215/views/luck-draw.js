@@ -14,10 +14,12 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 
+import {shareInfo} from "app/client/mall/js/active-page/active/20161215/utils/config.js";
 import ShareTipView from "app/client/mall/js/common/ui/wechat-share-tip.js";
 
 import template from "app/client/mall/tpl/active-page/active/20161215/luck-draw.tpl";
 import resultTemplate from "app/client/mall/tpl/active-page/active/20161215/result.tpl";
+
 const LuckDrawView = Backbone.View.extend({
 
   el: "#luck-draw",
@@ -32,7 +34,6 @@ const LuckDrawView = Backbone.View.extend({
 
   initialize: function(commonData) {
     this.util = commonData;
-    this.initShare();
   },
 
   render() {
@@ -42,6 +43,7 @@ const LuckDrawView = Backbone.View.extend({
 
   resume() {
     this.render();
+    this.initShare();
   },
 
   // 抽奖
@@ -51,7 +53,7 @@ const LuckDrawView = Backbone.View.extend({
       .then(userData => {
         var params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: 421
+          productid: 1001676
         });
         return new Promise((resolve, reject) => {
           sendPost("createOrder", params, function(err, data) {
@@ -78,6 +80,7 @@ const LuckDrawView = Backbone.View.extend({
   // 3: 转入商品详情
   // 4: 转入商品详情输入页（金融类）
   dispacther(data) {
+    data.bonus = 103;
     switch( data.bonus) {
       case 0: // 没有资格
       case 101: // 北京免费
@@ -95,16 +98,10 @@ const LuckDrawView = Backbone.View.extend({
   },
 
   initShare() {
-    this.shareInfo = {
-      title: "雷凌双擎与你一起回家",
-      desc: "管家APP购买春运回家票，雷凌双擎带你迈出回家第一步",
-      link: `${window.location.origin}/fe/app/client/mall/html/active-page/active/20161215.html`,
-      img: "http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/leiling-share.png"
-    };
     if( !mallUtil.isAppFunc() ) {
       mallWechat.initShare({
-        wechatshare: this.shareInfo,
-        title: this.shareInfo.title
+        wechatshare: shareInfo,
+        title: shareInfo.title
       });
     }
   },
@@ -112,10 +109,10 @@ const LuckDrawView = Backbone.View.extend({
   appShare() {
     if(mallUtil.isAppFunc()) {
       NativeAPI.invoke("sharePage", {
-        title: this.shareInfo.title,
-        desc: this.shareInfo.desc,
-        link: this.shareInfo.link,
-        imgUrl: this.shareInfo.img
+        title: shareInfo.title,
+        desc: shareInfo.desc,
+        link: shareInfo.link,
+        imgUrl: shareInfo.img
       }, (err) => {
         if (err) {
           window.console.log(err.message);
