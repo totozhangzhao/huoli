@@ -13,6 +13,7 @@ const InfoView = Backbone.View.extend({
   events: {
     'touchstart .panel-bar': "touchStart",
     "touchend .panel-bar": "touchEnd",
+    "touchmove .panel-bar": "touchMove",
     "click .js-show-rule-info": "showRuleInfo",
     "click .js-hide-rule-info": "hideRuleInfo"
   },
@@ -45,18 +46,25 @@ const InfoView = Backbone.View.extend({
     }
   },
 
-  touchStart(e) {
-    this.startY = e.pageY;
-    // window.console.log(this.startY);
+  touchStart() {
+    this.startY = 0;
   },
 
-  touchEnd(e) {
-    this.endY = e.pageY;
+  touchMove(e) {
+    if(this.startY === 0) {
+      this.startY = e.touches[0].pageY;
+    }
+    this.endY = e.touches[0].pageY;
+  },
+
+  touchEnd() {
+    // window.console.log(this.startY);
     // window.console.log(this.endY);
-    // window.console.log(this.startY - this.endY);
     if( (this.startY - this.endY) > $(window).height() * .25 ) {
       this.next();
     }
+    this.startY = 0;
+    this.endY = 0;
   },
 
   next() {
