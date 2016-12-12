@@ -157,6 +157,7 @@ const AppView = Backbone.View.extend({
         // useurl: 第三方url
         const params = _.extend({}, userData.userInfo, {
           goodspecid: this.model.buyNumModel.get("specValueId"),
+          num: this.model.buyNumModel.get("number"),
           p: userData.deviceInfo.p,
           productid: parseUrl().productid,
           input: inputList
