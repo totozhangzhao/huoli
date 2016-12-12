@@ -65,8 +65,8 @@ const InfoView = Backbone.View.extend({
         return this.toLuckDrawPage();
       }
 
-      $(`[data-panel-index!="${this.pageIndex}"]`, this.$el).removeClass("active");
-      $(`[data-panel-index="${this.pageIndex}"]`, this.$el).addClass("active");
+      $(`.panel-bar[data-panel-index!="${this.pageIndex}"]`, this.$el).removeClass("active");
+      $(`.panel-bar[data-panel-index="${this.pageIndex}"]`, this.$el).addClass("active");
       this.pageIndex ++;
     }
   },
