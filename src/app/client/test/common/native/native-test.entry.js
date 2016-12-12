@@ -12,6 +12,7 @@ var sendPost    = require("app/client/mall/js/lib/mall-request.js").sendPost;
 var mallPromise = require("app/client/mall/js/lib/mall-promise.js");
 var base64      = require("com/mobile/lib/base64/base64.js").Base64;
 var config      = require("app/client/mall/js/common/config.js").config;
+import * as widget from "app/client/mall/js/lib/common.js";
 
 // nInvoke("myFunc", {a: 1}, function(err, data) { console.log(err); console.log(data); });
 window.nInvoke = _.bind(NativeAPI.invoke, NativeAPI);
@@ -74,7 +75,9 @@ var AppView = Backbone.View.extend({
     "click .js-get-coupon"     : "getCoupon",
     "click .js-show-token"     : "showCookie",
     "click .js-rm-token"       : "removeToken",
-    "click .js-test-url"       : "mallTestUrl"
+    "click .js-test-url"       : "mallTestUrl",
+    "click .openMore"          : "openMore",
+    "click .closeAll"          : "closeAllPage"
   },
   initialize: function() {
     this.jsBackFlag = false;
@@ -678,6 +681,14 @@ var AppView = Backbone.View.extend({
 
       echo(JSON.stringify(data));
     });
+  },
+
+  openMore() {
+    widget.createNewView({ url: window.location.href });
+  },
+
+  closeAllPage() {
+    NativeAPI.invoke("closeAll");
   }
 });
 
