@@ -9,7 +9,7 @@ import NativeAPI from "app/client/common/lib/native/native-api.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
-import {toast} from "com/mobile/widget/hint/hint.js";
+import hint from "com/mobile/widget/hint/hint.js";
 
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
@@ -48,6 +48,7 @@ const LuckDrawView = Backbone.View.extend({
 
   // 抽奖
   luckDraw() {
+    hint.showLoading();
     mallPromise
       .checkLogin({loginPage: "/fe/app/client/mall/html/active-page/active/login.html"})
       .then(userData => {
@@ -62,6 +63,7 @@ const LuckDrawView = Backbone.View.extend({
             } else {
               resolve(data);
             }
+            hint.hideLoading();
           });
         });
       })
@@ -126,7 +128,7 @@ const LuckDrawView = Backbone.View.extend({
       this.shareTipView.show();
     } else {
       // 不是app也不是微信的情况
-      toast("请在微信中打开", 3000);
+      hint.toast("请在微信中打开", 3000);
     }
   },
 
