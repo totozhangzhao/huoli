@@ -36,5 +36,8 @@ export const imgList = [
   "active-5-1.jpg",
   "active-6-1.jpg",
   "active-7-1.jpg",
-  "active-8-1.jpg"
+  "active-8-1.jpg",
+
+  "active-8-arrow.png",
+  "active-9-1.jpg"
 ];
