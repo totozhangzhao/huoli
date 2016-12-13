@@ -13,7 +13,6 @@ const InfoView = Backbone.View.extend({
   events: {
     'touchstart .panel-bar': "touchStart",
     "touchend .panel-bar": "touchEnd",
-    "touchmove .panel-bar": "touchMove",
     "click .js-show-rule-info": "showRuleInfo",
     "click .js-hide-rule-info": "hideRuleInfo"
   },
@@ -21,7 +20,6 @@ const InfoView = Backbone.View.extend({
   initialize: function(commonData) {
     this.util = commonData;
     this.pageIndex = 2;
-    window.aaa= this;
   },
 
   render() {
@@ -84,25 +82,19 @@ const InfoView = Backbone.View.extend({
     }
   },
 
-  touchStart() {
-    this.startY = 0;
+  touchStart(e) {
+    let touch = e.targetTouches[0] || e.changedTouches[0];
+    this.startY = touch.pageY;
   },
 
-  touchMove(e) {
-    if(this.startY === 0) {
-      this.startY = e.touches[0].pageY;
-    }
-    this.endY = e.touches[0].pageY;
-  },
-
-  touchEnd() {
+  touchEnd(e) {
+    let touch = e.targetTouches[0] || e.changedTouches[0];
+    this.endY = touch.pageY;
     // window.console.log(this.startY);
     // window.console.log(this.endY);
     if( (this.startY - this.endY) > $(window).height() * .25 ) {
       this.next();
     }
-    this.startY = 0;
-    this.endY = 0;
   },
 
   next() {
@@ -110,7 +102,6 @@ const InfoView = Backbone.View.extend({
       if(this.pageIndex > 8) {
         return this.toLuckDrawPage();
       }
-
       $(`.panel-bar[data-panel-index!="${this.pageIndex}"]`, this.$el).removeClass("active");
       $(`.panel-bar[data-panel-index="${this.pageIndex}"]`, this.$el).addClass("active");
       this.pageIndex ++;

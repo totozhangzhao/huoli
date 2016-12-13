@@ -486,10 +486,13 @@ img {
   top: 6.64rem;
   transform: translate(-50%, 0);
 }
+.active-box .loading-area-img {
+  height: 1.38667rem;
+}
 .active-box .loading-bar .num {
   font-size: 0.26667rem;
-  height: 0.66667rem;
-  line-height: 0.66667rem;
+  height: 0.50667rem;
+  line-height: 0.50667rem;
   text-align: center;
   color: #827f7f;
 }
