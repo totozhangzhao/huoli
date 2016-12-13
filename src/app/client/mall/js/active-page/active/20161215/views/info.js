@@ -1,11 +1,10 @@
-var $         = require("jquery");
-// var _         = require("lodash");
-var Backbone  = require("backbone");
+import $ from "jquery";
+import _ from "lodash";
+import Backbone from "backbone";
 
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
-
-import {shareInfo} from "app/client/mall/js/active-page/active/20161215/utils/config.js";
+import * as config from "app/client/mall/js/active-page/active/20161215/utils/config.js";
 import template from "app/client/mall/tpl/active-page/active/20161215/info.tpl";
 const InfoView = Backbone.View.extend({
   el: "#info",
@@ -30,18 +29,54 @@ const InfoView = Backbone.View.extend({
     this.canTouch = true;
   },
 
+  preLoad() {
+    let preLoadStartTime = new Date();
+
+    // 预加载最多十五秒，超过十五秒直接进入页面
+    let preLoadId = setInterval(() => {
+      if(new Date().getTime() - preLoadStartTime.getTime() > 15000) {
+        this.render();
+        this.next();
+        clearInterval(preLoadId);
+      }
+    }, 1000);
+
+    let imgBase = "http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/";
+
+
+    let count = 0;
+
+    let loaded = () => {
+      count ++;
+      let p = ((count/config.imgList.length) * 100).toFixed(2);
+      this.$el.html(`已经加载${p}%`);
+      if(count === config.imgList.length) {
+        clearInterval(preLoadId);
+        this.render();
+        this.next();
+      }
+    };
+    _.forEach(config.imgList, (item) => {
+      let img = new Image();
+      img.onload = loaded;
+      img.src = `${imgBase}${item}`;
+    });
+
+
+
+  },
+
   resume() {
     this.pageIndex = 2;
-    this.render();
+    this.preLoad();
     this.initShare();
-    this.next();
   },
 
   initShare() {
     if( !mallUtil.isAppFunc() ) {
       mallWechat.initShare({
-        wechatshare: shareInfo,
-        title: shareInfo.title
+        wechatshare: config.shareInfo,
+        title: config.shareInfo.title
       });
     }
   },

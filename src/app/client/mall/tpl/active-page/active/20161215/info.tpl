@@ -16,8 +16,8 @@
   </div>
   <div class="mask"></div>
   <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-2-2.png" class="contain-img-2-14" alt="">
-  <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.png" class="contain-img-2-15" alt="">
-  <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.png" class="contain-img-2-16" alt="">
+  <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.jpg" class="contain-img-2-15" alt="">
+  <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.jpg" class="contain-img-2-16" alt="">
 </section>
 <section class="panel-bar panel-bar-3" data-panel-index="3">
   <div class="son">
@@ -48,8 +48,8 @@
 </section>
 <section class="panel-bar panel-bar-6" data-panel-index="6">
   <div class="son">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.png" class="contain-img-6-1" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.png" class="contain-img-6-2" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.jpg" class="contain-img-6-1" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.jpg" class="contain-img-6-2" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-6-2.png" class="contain-img-6-3" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-6-3.png" class="contain-img-6-4" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-6-4.png" class="contain-img-6-5" alt="">
@@ -58,8 +58,8 @@
 </section>
 <section class="panel-bar panel-bar-7" data-panel-index="7">
   <div class="son">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.png" class="contain-img-7-1" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.png" class="contain-img-7-2" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.jpg" class="contain-img-7-1" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.jpg" class="contain-img-7-2" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-7-5.png" class="contain-img-7-3" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-7-2.png" class="contain-img-7-4" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-7-3.png" class="contain-img-7-5" alt="">
@@ -69,8 +69,8 @@
 <section class="panel-bar panel-bar-8" data-panel-index="8">
   <div class="son">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-2.png" class="contain-img-8-1" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.png" class="contain-img-8-2" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.png" class="contain-img-8-3" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.jpg" class="contain-img-8-2" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.jpg" class="contain-img-8-3" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-5.png" class="contain-img-8-4" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-6.png" class="contain-img-8-5" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-8.png" class="contain-img-8-6" alt="">
