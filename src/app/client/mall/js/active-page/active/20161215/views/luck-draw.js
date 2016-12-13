@@ -88,7 +88,7 @@ const LuckDrawView = Backbone.View.extend({
   // 3: 转入商品详情
   // 4: 转入商品详情输入页（金融类）
   dispacther(data) {
-    switch( data.bonus) {
+    switch( data.bonus ) {
       case 0: // 没有资格
       case 101: // 北京免费
       case 102: // 广州免费

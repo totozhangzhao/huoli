@@ -6,6 +6,7 @@ import * as mallUtil from "app/client/mall/js/lib/util.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import * as config from "app/client/mall/js/active-page/active/20161215/utils/config.js";
 import template from "app/client/mall/tpl/active-page/active/20161215/info.tpl";
+import preLoadTemplate from "app/client/mall/tpl/active-page/active/20161215/preload.tpl";
 const InfoView = Backbone.View.extend({
   el: "#info",
 
@@ -29,9 +30,12 @@ const InfoView = Backbone.View.extend({
     this.canTouch = true;
   },
 
+  /**
+   * 图片预加载
+   */
   preLoad() {
+    this.$el.html(preLoadTemplate());
     let preLoadStartTime = new Date();
-
     // 预加载最多十五秒，超过十五秒直接进入页面
     let preLoadId = setInterval(() => {
       if(new Date().getTime() - preLoadStartTime.getTime() > 15000) {
@@ -49,7 +53,7 @@ const InfoView = Backbone.View.extend({
     let loaded = () => {
       count ++;
       let p = ((count/config.imgList.length) * 100).toFixed(2);
-      this.$el.html(`已经加载${p}%`);
+      $(".progress-text", this.$el).text(`${p}%`);
       if(count === config.imgList.length) {
         clearInterval(preLoadId);
         setTimeout(() => {
@@ -63,9 +67,6 @@ const InfoView = Backbone.View.extend({
       img.onload = loaded;
       img.src = `${imgBase}${item}`;
     });
-
-
-
   },
 
   resume() {
