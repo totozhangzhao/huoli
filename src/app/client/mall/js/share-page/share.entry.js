@@ -281,7 +281,7 @@ const AppView = Backbone.View.extend({
    * @return {[type]}
    */
   afterCreateOrderDispatch(orderInfo, data) {
-    switch(data.type) {
+    switch(data.productType) {
       case 1:   // 领红包
         this.alert.model.set({
           title: "提示信息",
