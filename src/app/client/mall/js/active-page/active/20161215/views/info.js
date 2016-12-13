@@ -52,8 +52,10 @@ const InfoView = Backbone.View.extend({
       this.$el.html(`已经加载${p}%`);
       if(count === config.imgList.length) {
         clearInterval(preLoadId);
-        this.render();
-        this.next();
+        setTimeout(() => {
+          this.render();
+          this.next();
+        },500);
       }
     };
     _.forEach(config.imgList, (item) => {
