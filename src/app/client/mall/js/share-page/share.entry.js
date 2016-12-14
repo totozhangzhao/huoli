@@ -1,27 +1,26 @@
 import $ from "jquery";
 import Backbone from "backbone";
 import _ from "lodash";
-import async from "async";
 import {redpacketMessage} from "app/client/mall/js/common/message.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import {sendPost} from "app/client/mall/js/lib/mall-request.js";
 import hint from "com/mobile/widget/hint/hint.js";
 import UrlUtil from "com/mobile/lib/url/url.js";
-import appInfo from "app/client/mall/js/lib/app-info.js";
-import loadScript from "com/mobile/lib/load-script/load-script.js";
+// import loadScript from "com/mobile/lib/load-script/load-script.js";
 import cookie from "com/mobile/lib/cookie/cookie.js";
 import shareUtil from "com/mobile/widget/wechat/util.js";
-import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
+// import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import logger from "com/mobile/lib/log/log.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
 import ShareInput from "app/client/mall/js/share-page/share-input.js";
 import ui from "app/client/mall/js/lib/ui.js";
 import Popover from "com/mobile/widget/popover/popover.js";
-import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import * as widget from "app/client/mall/js/lib/common.js";
+import {config} from "app/client/mall/js/common/config.js";
 
+cookie.set("token", "d06887eac06ecbf4669e533567239d68e28c0811c961d61d1208479ea12097ad093b563d8ed68816dbef0b92e66f9647", config.mall.cookieOptions);
 const sharePageLog = widget.initTracker("ad");
 
 const AppView = Backbone.View.extend({
@@ -57,30 +56,25 @@ const AppView = Backbone.View.extend({
   },
 
   checkCouponButton(couponId) {
-    const self = this;
-    async.waterfall([
-      next => {
-        appInfo.getUserData((err, userData) => {
-          if (err) {
-            hint.toast(err.message, 1500);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      (userData, next) => {
+    mallPromise
+      .checkLogin()
+      .then((userData) => {
         const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
-          productid: couponId || self.couponId
+          productid: couponId || this.couponId
         });
-
-        sendPost("getUserCouponStat", params, (err, data) => {
-          next(err, data);
+        return new Promise((resolve, reject) => {
+          sendPost("getUserCouponStat", params, (err, data) => {
+            if(err) {
+              reject(err);
+            } else {
+              resolve(data);
+            }
+          });
         });
-      }
-    ], (err, result) => {
-      /*
+      })
+      .then((result) => {
+        /*
         -601：抱歉，优惠券活动失效
         -602: 您已经领过了，机会留给别人吧
         -104：抱歉，活动未开始
@@ -92,32 +86,26 @@ const AppView = Backbone.View.extend({
         -3330：请先登录
         1: 可以领取
        */
-      if (err) {
-        if(err.code === -3330) {
-          loginUtil.login();
-          return;
+        switch(result.code) {
+          case -602:
+            this.$getCouponButton.removeClass("active");
+            break;
+          case 1:
+          case -601:
+          case -104:
+          case -103:
+          case -114:
+          case -113:
+          case -115:
+          case -116:
+          case -3330:
+          default: {
+            this.$getCouponButton.addClass("active");
+            break;
+          }
         }
-        return hint.toast(err.message, 1500);
-      }
-      switch(result.code) {
-        case -602:
-          self.$getCouponButton.removeClass("active");
-          break;
-        case 1:
-        case -601:
-        case -104:
-        case -103:
-        case -114:
-        case -113:
-        case -115:
-        case -116:
-        case -3330:
-        default: {
-          self.$getCouponButton.addClass("active");
-          break;
-        }
-      }
-    });
+      })
+      .catch(mallPromise.catchFn);
 
   },
   // 点击领取优惠券
@@ -178,65 +166,56 @@ const AppView = Backbone.View.extend({
     widget.createAView(e);
   },
   mallInterlayer() {
-    const self = this;
 
-    async.waterfall([
-      next => {
-        appInfo.getUserData((err, userData) => {
-          if (err) {
-            hint.toast(err.message, 1500);
-            return;
-          }
-
-          next(null, userData);
-        });
-      },
-      (userData, next) => {
+    mallPromise
+      .checkLogin()
+      .then(userData => {
         const params = _.extend({}, userData.userInfo, {
           p: userData.deviceInfo.p,
           productid: this.urlObj.productid
         });
 
-        sendPost("tplProduct", params, (err, data) => {
-          next(err, data);
+        return new Promise((resolve, reject) => {
+          sendPost("tplProduct", params, (err, data) => {
+            if(err) {
+              reject(err);
+            } else {
+              resolve(data);
+            }
+          });
         });
-      }
-    ], (err, result) => {
-      if (err) {
-        hint.toast(err.message, 1500);
-        return;
-      }
+      })
+      .then( result => {
+        this.$el.append(result.tpl);
+        this.initActive();
+        this.initCoupon();
 
-      self.$el.append(result.tpl);
-      self.initActive();
-      self.initCoupon();
+        let shareInfo = shareUtil.getShareInfo();
+        mallWechat.initShare({
+          wechatshare:{
+            title: shareInfo.title,
+            desc: shareInfo.desc,
+            link: shareInfo.link,
+            img: shareInfo.imgUrl
+          },
+          useAppShare: true
+        });
 
-      if ( wechatUtil.isWechatFunc() ) {
-        wechatUtil.setTitle(result.title);
-        if ( shareUtil.hasShareHtml() ) {
-          loadScript(`${window.location.origin}/fe/com/mobile/widget/wechat/wechat.bundle.js`);
+        const isApp = mallUtil.isAppFunc();
+
+        if ( !isApp ) {
+          require("app/client/mall/js/lib/download-app.js").init( isApp );
         }
-      } else {
-        widget.updateViewTitle(result.title);
-        if ( shareUtil.hasShareHtml() ) {
-          mallWechat.initNativeShare();
-        }
-      }
 
-      const isApp = mallUtil.isAppFunc();
+        this.$initial.hide();
 
-      if ( !isApp ) {
-        require("app/client/mall/js/lib/download-app.js").init( isApp );
-      }
-
-      self.$initial.hide();
-
-      sharePageLog({
-        title: result.title,
-        productid: this.urlObj.productid,
-        hlfrom: this.urlObj.hlfrom || "--"
-      });
-    });
+        sharePageLog({
+          title: result.title,
+          productid: this.urlObj.productid,
+          hlfrom: this.urlObj.hlfrom || "--"
+        });
+      })
+      .catch(mallPromise.catchFn);
   },
 
   /**
