@@ -18,6 +18,27 @@
   <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-2-2.png" class="contain-img-2-14" alt="">
   <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.jpg" class="contain-img-2-15" alt="">
   <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.jpg" class="contain-img-2-16" alt="">
+  <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-9-3.png" class="contain-img-2-17" alt="">
+      <a href="http://www.gac-toyota.com.cn/vehicles/levin%20hev" class="contain-img-2-18">
+        <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-2-3.png" alt="">
+      </a>
+      <div class="rule-btn js-show-rule-info" data-page="2">
+        <div></div>
+      </div>
+      <div class="shade page-2" style="display: none;">
+        <div class="rule-info-bar">
+          <div class="close js-hide-rule-info" data-page="2"></div>
+          <h5>规则说明</h5>
+          <div class="rule-info">
+            <p>1、广汽丰田雷凌双擎“一起回家”活动为部分中奖用户提供春运初期（2017年1月13日及14日）接送机场/高铁站免费体验服务，及伙力接送服务折扣套券；</p>
+            <p>2、免费体验用户，仅限从高铁管家、航班管家APP中于12月16日/17日，购买了2017年1月14日/15日机票/高铁车票的用户，且出发或到达地为北京或广州；</p>
+            <p>3、用户可获得的奖品为伙力接送接送机场/高铁站的免费体验服务或伙力接送服务折扣券；</p>
+            <p>4、伙力接送折扣券的使用规则应遵守伙力接送服务的各项权限内容；</p>
+            <p>5、每个管家账号能且仅能参与一次抽奖活动；</p>
+            <p>6、本次活动最终解释权归深圳市活力天汇科技股份有限公司所有。</p>
+          </div>
+        </div>
+      </div>
 </section>
 <section class="panel-bar panel-bar-3" data-panel-index="3">
   <div class="son">
@@ -42,25 +63,27 @@
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-5-2.png" class="contain-img-5-1" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-5-3.png" class="contain-img-5-2" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-5-4.png" class="contain-img-5-3" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-5-5.png" class="contain-img-5-4" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-5-6.png" class="contain-img-5-5" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-5-5.png?a=v" class="contain-img-5-4" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-5-6.png?a=v" class="contain-img-5-5" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-5-7.png" class="contain-img-5-6" alt="">
   </div>
 </section>
 <section class="panel-bar panel-bar-6" data-panel-index="6">
   <div class="son">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.jpg" class="contain-img-6-1" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.jpg" class="contain-img-6-2" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-6-2.png" class="contain-img-6-3" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-6-3.png" class="contain-img-6-4" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-6-4.png" class="contain-img-6-5" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-6-5.png" class="contain-img-6-6" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-6-2.png?a=v" class="contain-img-6-3" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-9-3.png" class="contain-img-6-7" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-6-3.png?a=v" class="contain-img-6-4" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-6-4.png?a=v" class="contain-img-6-5" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-6-5.png?a=v" class="contain-img-6-6" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-6-6.png" class="contain-img-6-8" alt="">
   </div>
 </section>
 <section class="panel-bar panel-bar-7" data-panel-index="7">
   <div class="son">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.jpg" class="contain-img-7-1" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.jpg" class="contain-img-7-2" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-7-5.png" class="contain-img-7-3" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-7-6.png" class="contain-img-7-1" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-7-7.png" class="contain-img-7-2" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-7-2.png" class="contain-img-7-4" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-7-3.png" class="contain-img-7-5" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-7-4.png" class="contain-img-7-6" alt="">
@@ -68,28 +91,28 @@
 </section>
 <section class="panel-bar panel-bar-8" data-panel-index="8">
   <div class="son">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-2.png" class="contain-img-8-1" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-2.png?a=v" class="contain-img-8-1" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.jpg" class="contain-img-8-2" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-9-3.png" class="contain-img-8-7" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.jpg" class="contain-img-8-3" alt="">
     <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-5.png" class="contain-img-8-4" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-6.png" class="contain-img-8-5" alt="">
-    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-8.png" class="contain-img-8-6" alt="">
-    <div class="rule-btn js-show-rule-info">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-6.png?a=v" class="contain-img-8-5" alt="">
+    <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-8.png?a=v" class="contain-img-8-6" alt="">
+    <div class="rule-btn js-show-rule-info" data-page="8">
       <div></div>
     </div>
-    <div id="rule-info-container" class="shade" style="display: none;">
+    <div class="shade page-8" style="display: none;">
       <div class="rule-info-bar">
-        <div class="close js-hide-rule-info"></div>
+        <div class="close js-hide-rule-info" data-page="8"></div>
         <h5>规则说明</h5>
         <div class="rule-info">
-          <p>1、广汽丰田雷凌双擎“一起回家”活动为部分中奖用户提供春运初期（2017年1月13日及14日）接送机场/高铁站免费体验服务，及伙力接送服务折扣套券；</p>
-          <p>2、免费体验用户，仅限从高铁管家、航班管家APP中于12月15日/16日，购买了2017年1月13日/14日机票/高铁车票的用户，且出发或到达地为北京或广州；</p>
+          <p>1、广汽丰田雷凌双擎“一起回家”活动为部分中奖用户提供春运初期（2017年1月14日及15日）接送机场/高铁站免费体验服务，及伙力接送服务折扣套券；</p>
+          <p>2、免费体验用户，仅限从高铁管家、航班管家APP中于12月16日/17日，购买了2017年1月14日/15日机票/高铁车票的用户，且出发或到达地为北京或广州；</p>
           <p>3、用户可获得的奖品为伙力接送接送机场/高铁站的免费体验服务或伙力接送服务折扣券；</p>
           <p>4、伙力接送折扣券的使用规则应遵守伙力接送服务的各项权限内容；</p>
           <p>5、每个管家账号能且仅能参与一次抽奖活动；</p>
-          <p>6、本次活动最终解释权归深圳市活力天汇股份有限公司所有。</p>
+          <p>6、本次活动最终解释权归深圳市活力天汇科技股份有限公司所有。</p>
         </div>
-      </div>
     </div>
   </div>
 </section>

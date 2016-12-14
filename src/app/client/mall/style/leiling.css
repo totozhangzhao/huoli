@@ -152,7 +152,7 @@ img {
 .login-feedback .not-found {
   width: 100%;
   height: 100%;
-  background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/get-code-1.png) no-repeat;
+  background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/get-code-1.jpg) no-repeat;
   background-size: 100% 100%;
 }
 .login-feedback .close-bar {
@@ -213,7 +213,7 @@ img {
   top: 0;
 }
 .feedback-info {
-  width: 4.8rem;
+  width: 100%;
   color: #fff;
   line-height: 0.64rem;
   position: absolute;
@@ -581,7 +581,7 @@ img {
     transform: translate(0, 0);
   }
   100% {
-    transform: translate(-7.2rem, 0);
+    transform: translate(-6.4rem, 0);
   }
 }
 @keyframes tra3 {
@@ -638,24 +638,23 @@ img {
 .panel-bar.active .contain-img-8-2,
 .panel-bar.active .contain-img-7-1,
 .panel-bar.active .contain-img-6-2,
-.panel-bar.active .contain-img-5-2,
+.panel-bar.active .contain-img-5-6,
 .panel-bar.active .contain-img-4-2,
 .panel-bar.active .contain-img-3-3 {
   animation: opa 0.5s linear 1s forwards;
 }
 .panel-bar.active .contain-img-8-3,
 .panel-bar.active .contain-img-7-2,
-.panel-bar.active .contain-img-5-3,
+.panel-bar.active .contain-img-5-2,
 .panel-bar.active .contain-img-4-3,
 .panel-bar.active .contain-img-3-4,
-.panel-bar.active .contain-img-6-4 {
+.panel-bar.active .contain-img-6-7 {
   animation: opa 0.5s linear 1.5s forwards;
 }
-.panel-bar.active .contain-img-8-4,
-.panel-bar.active .contain-img-7-3,
-.panel-bar.active .contain-img-5-4,
+.panel-bar.active .contain-img-8-7,
+.panel-bar.active .contain-img-5-3,
 .panel-bar.active .contain-img-4-4,
-.panel-bar.active .contain-img-6-5 {
+.panel-bar.active .contain-img-6-4 {
   animation: opa 0.5s linear 2s forwards;
 }
 .panel-bar.active .contain-img-5-5 {
@@ -665,20 +664,22 @@ img {
   animation: tra4 0.5s linear 2.5s forwards;
 }
 .panel-bar.active .contain-img-4-5,
-.panel-bar.active .contain-img-6-6 {
+.panel-bar.active .contain-img-6-5,
+.panel-bar.active .contain-img-8-4,
+.panel-bar.active .contain-img-5-4,
+.panel-bar.active .contain-img-7-5 {
   animation: opa 0.5s linear 2.5s forwards;
 }
 .panel-bar.active .contain-img-7-4 {
-  animation: tra3 0.5s linear 2.5s forwards;
+  animation: tra3 0.5s linear 2s forwards;
 }
-.panel-bar.active .contain-img-7-5 {
+.panel-bar.active .contain-img-6-6,
+.panel-bar.active .contain-img-7-6,
+.panel-bar.active .contain-img-8-5 {
   animation: opa 0.5s linear 3s forwards;
 }
-.panel-bar.active .contain-img-7-6 {
+.panel-bar.active .contain-img-6-8 {
   animation: opa 0.5s linear 3.5s forwards;
-}
-.panel-bar.active .contain-img-8-5 {
-  animation: opa 0.5s linear 2.5s forwards;
 }
 .panel-bar.active .contain-img-8-6 {
   animation: tra2 0.5s linear 1s forwards;
@@ -755,12 +756,14 @@ img {
   position: absolute;
   right: 0;
   top: 0;
+  z-index: 21;
+  animation: 0.5s linear nofly forwards;
 }
 .rule-btn div {
   width: 1.25333rem;
   height: 0.32rem;
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-7.png) no-repeat;
-  background-size: 1.25333rem 0.32rem;
+  background-size: 96% 96%;
 }
 .panel-bar-3 {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-3-1.jpg) no-repeat;
@@ -786,10 +789,12 @@ img {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-1.jpg) no-repeat;
   background-size: 100% 100%;
 }
-.panel-bar .son {
+.panel-bar .son,
+.panel-bar .mask {
   transform-style: perspective-3d;
 }
-.panel-bar-2 .son {
+.panel-bar-2 .son,
+.panel-bar .mask {
   perspective: 21.33333rem;
 }
 .panel-bar-2 .son img {
@@ -895,20 +900,42 @@ img {
   opacity: 0;
 }
 .contain-img-2-15 {
-  width: 3.2rem;
+  width: 2.13333rem;
   position: absolute;
   left: 0.98667rem;
-  top: 5.25333rem;
+  top: 5.28rem;
   z-index: 20;
   opacity: 0;
 }
 .contain-img-2-16 {
-  width: 2.50667rem;
+  width: 5.01333rem;
   position: absolute;
   left: 0.8rem;
-  top: 5.84rem;
+  top: 5.86667rem;
   z-index: 20;
   opacity: 0;
+}
+.contain-img-2-17 {
+  width: 3.62667rem;
+  height: 0.48rem;
+  position: absolute;
+  left: 0.96rem;
+  top: 7.86667rem;
+  opacity: 0;
+  z-index: 20;
+}
+.contain-img-2-18 {
+  width: 2rem;
+  height: 0.53333rem;
+  position: absolute;
+  left: 0.96rem;
+  top: 9.52rem;
+  opacity: 0;
+  z-index: 20;
+}
+.contain-img-2-18 img {
+  width: 2rem;
+  z-index: 20;
 }
 .contain-img-3-1 {
   width: 10.37333rem;
@@ -990,28 +1017,35 @@ img {
   width: 3.38667rem;
   position: absolute;
   left: 0.93333rem;
-  top: 3.17333rem;
+  top: 3.54667rem;
   opacity: 0;
 }
 .contain-img-5-3 {
   width: 4.02667rem;
   position: absolute;
   left: 0.93333rem;
-  top: 4.77333rem;
+  top: 5.14667rem;
   opacity: 0;
 }
 .contain-img-5-4 {
   width: 3.68rem;
   position: absolute;
   left: 0.93333rem;
-  top: 6.42667rem;
+  top: 6.8rem;
   opacity: 0;
 }
 .contain-img-5-5 {
   width: 13.01333rem;
   position: absolute;
-  top: 10.34667rem;
+  top: 9.73333rem;
   left: 10rem;
+}
+.contain-img-5-6 {
+  width: 5.44rem;
+  position: absolute;
+  top: 2.45333rem;
+  left: 0.93333rem;
+  opacity: 0;
 }
 .contain-img-6-3 {
   width: 9.22667rem;
@@ -1020,38 +1054,53 @@ img {
   top: 8.13333rem;
 }
 .contain-img-6-4 {
-  width: 2.56rem;
+  width: 6.29333rem;
   position: absolute;
   left: 0.93333rem;
-  top: 4.26667rem;
+  top: 5.41333rem;
+  opacity: 0;
+}
+.contain-img-6-7,
+.contain-img-8-7 {
+  width: 3.62667rem;
+  position: absolute;
+  left: 0.93333rem;
+  top: 4.05333rem;
   opacity: 0;
 }
 .contain-img-6-5 {
-  width: 3.01333rem;
+  width: 3.89333rem;
   position: absolute;
   left: 0.93333rem;
-  top: 4.96rem;
+  top: 6.13333rem;
   opacity: 0;
 }
 .contain-img-6-6 {
-  width: 5.86667rem;
+  width: 3.09333rem;
   position: absolute;
   left: 0.93333rem;
-  top: 6.05333rem;
+  top: 6.85333rem;
   opacity: 0;
 }
-.contain-img-6-7 {
-  width: 2.72rem;
+.contain-img-6-8 {
+  width: 3.6rem;
   position: absolute;
   left: 0.93333rem;
-  top: 6.74667rem;
+  top: 7.78667rem;
   opacity: 0;
 }
-.contain-img-7-3 {
-  width: 3.46667rem;
+.contain-img-7-1 {
+  width: 5.33333rem;
   position: absolute;
   left: 0.93333rem;
-  top: 4.32rem;
+  top: 1.41333rem;
+  opacity: 0;
+}
+.contain-img-7-2 {
+  width: 6.26667rem;
+  position: absolute;
+  left: 0.93333rem;
+  top: 2.37333rem;
   opacity: 0;
 }
 .contain-img-7-4 {
@@ -1081,7 +1130,6 @@ img {
   top: 7.52rem;
 }
 .contain-img-8-2,
-.contain-img-7-1,
 .contain-img-6-1 {
   width: 2.13333rem;
   position: absolute;
@@ -1090,7 +1138,6 @@ img {
   opacity: 0;
 }
 .contain-img-8-3,
-.contain-img-7-2,
 .contain-img-6-2 {
   width: 5.01333rem;
   position: absolute;
@@ -1102,14 +1149,14 @@ img {
   width: 2.34667rem;
   position: absolute;
   left: 0.8rem;
-  top: 4.4rem;
+  top: 5.14667rem;
   opacity: 0;
 }
 .contain-img-8-5 {
   width: 5.28rem;
   position: absolute;
   left: 0.8rem;
-  top: 5.09333rem;
+  top: 5.81333rem;
   opacity: 0;
 }
 .contain-img-8-6 {
@@ -1164,10 +1211,19 @@ img {
   animation: 0.5s nofly linear 2.5s forwards;
 }
 .panel-bar.active .contain-img-2-15 {
-  animation: 0.5s nofly linear 3s forwards;
+  animation: 0.5s nofly linear 2.7s forwards;
 }
 .panel-bar.active .contain-img-2-16 {
-  animation: 0.5s nofly linear 3.5s forwards;
+  animation: 0.5s nofly linear 2.9s forwards;
+}
+.panel-bar.active .contain-img-2-17 {
+  animation: 0.5s nofly linear 3.1s forwards;
+}
+.panel-bar.active .contain-img-2-18 {
+  animation: 0.5s nofly linear 3.3s forwards;
+}
+.panel-bar.active .contain-img-2-18 img {
+  animation: 0.5s nofly linear 3.3s forwards;
 }
 .panel-bar.active .mask {
   animation: 0.2s traz linear 2.3s forwards;
@@ -1206,10 +1262,10 @@ img {
 @keyframes traz {
   0% {
     opacity: 0;
-    transform: translateZ(0.26667rem);
+    transform: translateZ(0.24rem);
   }
   100% {
     opacity: 0.34;
-    transform: translateZ(0.26667rem);
+    transform: translateZ(0.24rem);
   }
 }

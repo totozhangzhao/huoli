@@ -24,7 +24,7 @@
       <div class="not-found">
         <div class="login-fail-bar">
           <div class="feedback-info">
-            <p>未查询到亲管家账户中有符合活动要求的购票信息</p>
+            <p>查询到亲管家账户中<br>没有符合活动要求的购票信息</p>
           </div>
           <div class="code-img">
             <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/get-code-2.png" alt="">

@@ -117,16 +117,18 @@ const InfoView = Backbone.View.extend({
     });
   },
 
-  showRuleInfo() {
+  showRuleInfo(e) {
+    let data = $(e.currentTarget).data();
     this.canTouch = false;
     mallUtil.allowScroll();
-    $("#rule-info-container", this.$el).show();
+    $(`.shade.page-${data.page}`, this.$el).show();
   },
 
-  hideRuleInfo() {
+  hideRuleInfo(e) {
+    let data = $(e.currentTarget).data();
     this.canTouch = true;
     mallUtil.forbiddenScroll();
-    $("#rule-info-container", this.$el).hide();
+    $(`.shade.page-${data.page}`, this.$el).hide();
   }
 });
 
