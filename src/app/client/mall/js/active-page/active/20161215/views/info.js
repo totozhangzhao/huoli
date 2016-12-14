@@ -32,8 +32,11 @@ const InfoView = Backbone.View.extend({
    * 图片预加载
    */
   preLoad() {
+
     this.$el.html(preLoadTemplate());
+
     let preLoadStartTime = new Date();
+
     // 预加载最多十五秒，超过十五秒直接进入页面
     let preLoadId = setInterval(() => {
       if(new Date().getTime() - preLoadStartTime.getTime() > 15000) {
@@ -43,7 +46,6 @@ const InfoView = Backbone.View.extend({
       }
     }, 1000);
 
-    let imgBase = "http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/";
 
 
     let count = 0;
@@ -63,7 +65,7 @@ const InfoView = Backbone.View.extend({
     _.forEach(config.imgList, (item) => {
       let img = new Image();
       img.onload = loaded;
-      img.src = `${imgBase}${item}`;
+      img.src = `${item}`;
     });
   },
 
