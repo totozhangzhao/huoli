@@ -59,7 +59,14 @@ let imgNames = [
   `active-8-7.png`,
   `active-9-3.png`,
 
-  `active-8-arrow.png`
+  `active-8-arrow.png`,
+
+  `active-3-1.jpg`,
+  `active-4-1.jpg`,
+  `active-5-1.jpg`,
+  `active-6-1.jpg`,
+  `active-7-1.jpg`,
+  `active-8-1.jpg`
 ];
 let imgs = [];
 _.forEach(imgNames, (name) => {
