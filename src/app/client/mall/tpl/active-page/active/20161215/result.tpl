@@ -1,5 +1,5 @@
 <% if(data.bonus === 0) { %>
-  <% if(!mallUtil.isAppFunc()) { %>
+  <% if(mallUtil.isAppFunc()) { %>
     <section class="login-feedback">
       <div class="close-bar">
         <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.png" class="close-img-1" alt="">

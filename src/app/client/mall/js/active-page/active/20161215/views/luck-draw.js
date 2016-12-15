@@ -7,6 +7,7 @@ import Backbone from "backbone";
 
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
+import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import hint from "com/mobile/widget/hint/hint.js";
@@ -71,7 +72,13 @@ const LuckDrawView = Backbone.View.extend({
       .then(data => {
         this.dispacther(data);
       })
-      .catch(mallPromise.catchFn);
+      .catch(err => {
+        if (err.code === -3330 || err.code === -3331) {
+          loginUtil.login({loginPage});
+        } else {
+          mallPromise.catchFn(err);
+        }
+      });
   },
 
   // bonus:

@@ -66,7 +66,7 @@ const AppView = Backbone.View.extend({
     this.$el.$phoneInput    = $("#login-main .js-phone-num");
     this.$el.$captchaInput  = $("#login-main .js-captcha");
     this.$el.$captchaButton = $("#login-main .js-captcha-button");
-    // this.$initial.hide();
+    this.$initial.hide();
     this.$el.show();
     return this;
   },
