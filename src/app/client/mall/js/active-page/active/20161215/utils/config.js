@@ -3,7 +3,7 @@ export const shareInfo = {
   title: "迈出回家第一步，雷凌双擎伙力接送免单活动",
   desc: "管家APP购买春运回家票，雷凌双擎伙力接送免费乘",
   link: `${window.location.origin}/fe/app/client/mall/html/active-page/active/20161215.html`,
-  img: "http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/leiling-share.png"
+  img: "http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/leiling-share.png?v=1.0"
 };
 let imgBase = "http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/";
 let imgVersion = "1.0";
