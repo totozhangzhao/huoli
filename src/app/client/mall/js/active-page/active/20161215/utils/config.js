@@ -56,9 +56,11 @@ let imgNames = [
   `active-8-5.png`,
   `active-8-6.png`,
   `active-8-8.png`,
-  `active-8-7.png`,
-  `active-9-3.png`,
+  `active-9-3.png`
 
+
+];
+let noVersionImgNames = [
   `active-8-arrow.png`,
 
   `active-3-1.jpg`,
@@ -71,6 +73,9 @@ let imgNames = [
 let imgs = [];
 _.forEach(imgNames, (name) => {
   imgs.push(`${imgBase}${name}?v=${imgVersion}`);
+});
+_.forEach(noVersionImgNames, (name) => {
+  imgs.push(`${imgBase}${name}`);
 });
 // 预加载图片列表
 export const imgList = imgs;
