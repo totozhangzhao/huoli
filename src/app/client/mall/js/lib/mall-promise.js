@@ -70,7 +70,7 @@ export function checkLogin(opts) {
       if (userData.token || userData.userInfo.authcode) {
         return userData;
       } else {
-        loginUtil.login();
+        loginUtil.login({loginPage: opts && opts.loginPage});
         let err = new LoginError("ES: 没有登录");
         err.silent = true;
         throw err;
