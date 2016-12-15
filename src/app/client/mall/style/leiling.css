@@ -394,15 +394,13 @@ img {
   animation: 2s sca linear infinite;
 }
 .receive-bar .receive-bar-1 {
-  width: 3.2rem;
-  height: 0.53333rem;
+  width: 2.13333rem;
   position: absolute;
   left: 0.93333rem;
   top: 1.41333rem;
 }
 .receive-bar .receive-bar-2 {
   width: 5.01333rem;
-  height: 1.6rem;
   position: absolute;
   left: 0.8rem;
   top: 2.05333rem;
