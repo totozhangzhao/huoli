@@ -7,7 +7,6 @@ import Backbone from "backbone";
 
 import NativeAPI from "app/client/common/lib/native/native-api.js";
 import * as mallUtil from "app/client/mall/js/lib/util.js";
-import * as loginUtil from "app/client/mall/js/lib/login-util.js";
 import * as mallWechat from "app/client/mall/js/lib/wechat.js";
 import wechatUtil from "com/mobile/widget/wechat-hack/util.js";
 import hint from "com/mobile/widget/hint/hint.js";
@@ -50,7 +49,6 @@ const LuckDrawView = Backbone.View.extend({
   // 抽奖
   luckDraw() {
     const loginPage = "/fe/app/client/mall/html/active-page/active/login.html";
-    hint.showLoading();
     mallPromise
       .checkLogin({loginPage})
       .then(userData => {
@@ -58,6 +56,7 @@ const LuckDrawView = Backbone.View.extend({
           p: userData.deviceInfo.p,
           productid: 1001676
         });
+        hint.showLoading();
         return new Promise((resolve, reject) => {
           sendPost("createOrder", params, function(err, data) {
             if (err) {
@@ -72,13 +71,7 @@ const LuckDrawView = Backbone.View.extend({
       .then(data => {
         this.dispacther(data);
       })
-      .catch(err => {
-        if (err.code === -3330 || err.code === -3331) {
-          loginUtil.login({loginPage});
-        } else {
-          mallPromise.catchFn(err);
-        }
-      });
+      .catch(mallPromise.catchFn);
   },
 
   // bonus:

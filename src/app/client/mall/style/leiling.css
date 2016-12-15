@@ -543,7 +543,7 @@ img {
   top: 0;
   background: #000;
   opacity: 0;
-  z-index: 18;
+  z-index: 10;
 }
 @keyframes opa {
   0% {
@@ -780,12 +780,10 @@ img {
   background: url(http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-1.jpg) no-repeat;
   background-size: 100% 100%;
 }
-.panel-bar .son,
-.panel-bar .mask {
+.panel-bar .son {
   transform-style: perspective-3d;
 }
-.panel-bar-2 .son,
-.panel-bar .mask {
+.panel-bar-2 .son {
   perspective: 21.33333rem;
 }
 .panel-bar-2 .son img {
@@ -1243,20 +1241,16 @@ img {
 @keyframes nofly {
   0% {
     opacity: 0;
-    transform: translateZ(0.26667rem);
   }
   100% {
     opacity: 1;
-    transform: translateZ(0.26667rem);
   }
 }
 @keyframes traz {
   0% {
     opacity: 0;
-    transform: translateZ(0.24rem);
   }
   100% {
     opacity: 0.34;
-    transform: translateZ(0.24rem);
   }
 }
