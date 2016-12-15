@@ -1,5 +1,5 @@
 <% if(data.bonus === 0) { %>
-  <% if(mallUtil.isAppFunc()) { %>
+  <% if(!mallUtil.isAppFunc()) { %>
     <section class="login-feedback">
       <div class="close-bar">
         <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.png" class="close-img-1" alt="">
@@ -42,9 +42,6 @@
 <section class="login-feedback">
   <div class="joined">
     <div class="login-fail-bar">
-      <div class="feedback-info">
-        <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-9-3.png" alt="">
-      </div>
       <div class="prize-area">
         <% if(data.bonus === 101 || data.bonus === 102) { %>
         <div class="prize-area-son">

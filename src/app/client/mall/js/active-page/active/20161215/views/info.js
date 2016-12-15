@@ -39,7 +39,7 @@ const InfoView = Backbone.View.extend({
 
     // 预加载最多十五秒，超过十五秒直接进入页面
     let preLoadId = setInterval(() => {
-      if(new Date().getTime() - preLoadStartTime.getTime() > 15000) {
+      if(new Date().getTime() - preLoadStartTime.getTime() > 30000) {
         this.render();
         this.next();
         clearInterval(preLoadId);
@@ -94,7 +94,7 @@ const InfoView = Backbone.View.extend({
     this.endY = touch.pageY;
     // window.console.log(this.startY);
     // window.console.log(this.endY);
-    if( (this.startY - this.endY) > $(window).height() * .25 ) {
+    if( (this.startY - this.endY) > $(window).height() * .2 ) {
       this.next();
     }
   },
