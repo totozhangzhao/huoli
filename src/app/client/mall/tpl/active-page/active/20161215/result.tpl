@@ -1,9 +1,9 @@
 <% if(data.bonus === 0) { %>
-  <% if(mallUtil.isAppFunc()) { %>
+  <% if(!mallUtil.isAppFunc()) { %>
     <section class="login-feedback">
       <div class="close-bar">
-        <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.png" class="close-img-1" alt="">
-        <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.png" class="close-img-2" alt="">
+        <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-3.jpg?v=1.0" class="close-img-1" alt="">
+        <img src="http://cdn.rsscc.cn/guanggao/img/mall/active/leiling/active-8-4.jpg?v=1.0" class="close-img-2" alt="">
         <div class="close-area">
           <div class="close-area-son">
             <p class="title">很抱歉</p>

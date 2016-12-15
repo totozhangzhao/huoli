@@ -21,6 +21,9 @@ import ShareTipView from "app/client/mall/js/common/ui/wechat-share-tip.js";
 import template from "app/client/mall/tpl/active-page/active/20161215/luck-draw.tpl";
 import resultTemplate from "app/client/mall/tpl/active-page/active/20161215/result.tpl";
 
+// import cookie from "com/mobile/lib/cookie/cookie.js";
+// import {config} from "app/client/mall/js/common/config.js";
+// cookie.set("token",'d06887eac06ecbf4669e533567239d68e28c0811c961d61d1208479ea12097ad093b563d8ed68816dbef0b92e66f9647', config.mall.cookieOptions);
 const LuckDrawView = Backbone.View.extend({
 
   el: "#luck-draw",
@@ -35,6 +38,7 @@ const LuckDrawView = Backbone.View.extend({
 
   initialize: function(commonData) {
     this.util = commonData;
+
   },
 
   render() {
@@ -88,6 +92,7 @@ const LuckDrawView = Backbone.View.extend({
   // 3: 转入商品详情
   // 4: 转入商品详情输入页（金融类）
   dispacther(data) {
+    data.bonus = 0;
     switch( data.bonus ) {
       case 0: // 没有资格
       case 101: // 北京免费
