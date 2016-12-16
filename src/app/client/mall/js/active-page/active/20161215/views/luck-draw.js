@@ -21,9 +21,6 @@ import ShareTipView from "app/client/mall/js/common/ui/wechat-share-tip.js";
 import template from "app/client/mall/tpl/active-page/active/20161215/luck-draw.tpl";
 import resultTemplate from "app/client/mall/tpl/active-page/active/20161215/result.tpl";
 
-// import cookie from "com/mobile/lib/cookie/cookie.js";
-// import {config} from "app/client/mall/js/common/config.js";
-// cookie.set("token",'d06887eac06ecbf4669e533567239d68e28c0811c961d61d1208479ea12097ad093b563d8ed68816dbef0b92e66f9647', config.mall.cookieOptions);
 const LuckDrawView = Backbone.View.extend({
 
   el: "#luck-draw",
