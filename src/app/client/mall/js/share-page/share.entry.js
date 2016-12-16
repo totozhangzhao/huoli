@@ -18,9 +18,9 @@ import ui from "app/client/mall/js/lib/ui.js";
 import Popover from "com/mobile/widget/popover/popover.js";
 import Navigator from "app/client/mall/js/common/views/header/navigator.js";
 import * as widget from "app/client/mall/js/lib/common.js";
-import {config} from "app/client/mall/js/common/config.js";
+// import {config} from "app/client/mall/js/common/config.js";
 
-cookie.set("token", "d06887eac06ecbf4669e533567239d68e28c0811c961d61d1208479ea12097ad093b563d8ed68816dbef0b92e66f9647", config.mall.cookieOptions);
+// cookie.set("token", "d06887eac06ecbf4669e533567239d68e28c0811c961d61d1208479ea12097ad093b563d8ed68816dbef0b92e66f9647", config.mall.cookieOptions);
 const sharePageLog = widget.initTracker("ad");
 
 const AppView = Backbone.View.extend({
