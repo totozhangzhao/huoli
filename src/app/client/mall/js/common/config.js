@@ -1,3 +1,5 @@
+import * as mallUtil from "app/client/mall/js/lib/util.js";
+
 export const config = {
   eruda: {
     name: "____m____",
@@ -6,6 +8,7 @@ export const config = {
   },
   mall: {
     cookieOptions: {
+      secure: !(mallUtil.isTest || mallUtil.isDev),
       expires: 86400 * 30,
       domain: location.hostname.replace(/^test\./, ""),
       path: "/"
