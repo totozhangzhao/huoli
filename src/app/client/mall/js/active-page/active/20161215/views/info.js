@@ -76,12 +76,13 @@ const InfoView = Backbone.View.extend({
   },
 
   initShare() {
-    if( !mallUtil.isAppFunc() ) {
-      mallWechat.initShare({
-        wechatshare: config.shareInfo,
-        title: config.shareInfo.title
-      });
-    }
+    // if( !mallUtil.isAppFunc() ) {
+    mallWechat.initShare({
+      wechatshare: config.shareInfo,
+      title: config.shareInfo.title,
+      useAppShare: true
+    });
+    // }
   },
 
   touchStart(e) {

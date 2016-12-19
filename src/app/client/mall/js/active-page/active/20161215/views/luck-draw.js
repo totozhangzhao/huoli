@@ -106,12 +106,13 @@ const LuckDrawView = Backbone.View.extend({
   },
 
   initShare() {
-    if( !mallUtil.isAppFunc() ) {
-      mallWechat.initShare({
-        wechatshare: shareInfo,
-        title: shareInfo.title
-      });
-    }
+    // if( !mallUtil.isAppFunc() ) {
+    mallWechat.initShare({
+      wechatshare: shareInfo,
+      title: shareInfo.title,
+      useAppShare: true
+    });
+    // }
   },
 
   appShare() {
