@@ -92,7 +92,7 @@ const AppView = BaseView.extend({
           });
           if (index === -1) {
             goods.payError = {
-              message: "ES: 无可选规格"
+              message: "( >﹏< ) 无可选规格"
             };
           }
           index = index !== -1 ? index : 0;
@@ -101,7 +101,7 @@ const AppView = BaseView.extend({
           goods.specs = [];
           if (goods.limit === 0) {
             goods.payError = {
-              message: "ES: 商品数量不足"
+              message: "( >﹏< ) 商品数量不足"
             };
           }
         }
@@ -356,7 +356,7 @@ const AppView = BaseView.extend({
 
     if (this.buyNumModel.get("limitNum") <= 0) {
       mallPromise.catchShowError({
-        message: "ES: 当前规格商品数量不足"
+        message: "( >﹏< ) 当前规格商品数量不足"
       });
       return;
     }

@@ -34,8 +34,8 @@ BasicRequest.prototype.request = function(type, headers, query, data, callback) 
       defer.resolve(data);
     })
     .fail(function(jqXHR) {
-      defer.reject(new Error("ES: --- 网络异常 ---"));
-      window.console.log(`ES: --- ${jqXHR.status} (${jqXHR.statusText}) ---`);
+      defer.reject(new Error("( >﹏< ) --- 网络异常 ---"));
+      window.console.log(`( >﹏< ) --- ${jqXHR.status} (${jqXHR.statusText}) ---`);
     });
 
   return defer.promise();

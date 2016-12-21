@@ -18,7 +18,7 @@ const handlePayload = callback => (err, data) => {
   }
 
   if (!data) {
-    return callback(new Error("ES: 网络异常请稍后再试"));
+    return callback(new Error("( >﹏< ) 网络异常请稍后再试"));
   }
 
   data = jsonrpc.parse(data);

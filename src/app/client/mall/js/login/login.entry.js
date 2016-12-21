@@ -64,7 +64,7 @@ const AppView = Backbone.View.extend({
           this.render();
         });
     } else {
-      window.console.log("ES: 未获取到 wechatKey");
+      window.console.log("( >﹏< ) 未获取到 wechatKey");
       this.render();
     }
   },

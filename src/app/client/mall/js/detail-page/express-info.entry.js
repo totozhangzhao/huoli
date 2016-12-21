@@ -40,7 +40,7 @@ var AppView = Backbone.View.extend({
         self.$initial.hide();
       })
       .fail(function() {
-        toast("ES: 网络异常", 1500);
+        toast("( >﹏< ) 网络异常", 1500);
       });
   },
 

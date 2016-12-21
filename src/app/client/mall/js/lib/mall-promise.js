@@ -52,7 +52,7 @@ export function getAppInfo(reset) {
 
 export function checkLogin(opts) {
   function LoginError(message) {
-    this.message = message || "ES: LoginError";
+    this.message = message || "( >﹏< ) LoginError";
     this.name = "LoginError";
   }
 
@@ -71,7 +71,7 @@ export function checkLogin(opts) {
         return userData;
       } else {
         loginUtil.login({loginPage: opts && opts.loginPage});
-        let err = new LoginError("ES: 没有登录");
+        let err = new LoginError("( >﹏< ) 没有登录");
         err.silent = true;
         throw err;
       }
