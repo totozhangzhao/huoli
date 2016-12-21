@@ -34,7 +34,7 @@ BasicRequest.prototype.request = function(type, headers, query, data, callback) 
       defer.resolve(data);
     })
     .fail(function(jqXHR) {
-      defer.reject(new Error("( >﹏< ) --- 网络异常 ---"));
+      defer.reject(new Error("( >﹏< ) 找不到服务器啦，请稍后再试"));
       window.console.log(`( >﹏< ) --- ${jqXHR.status} (${jqXHR.statusText}) ---`);
     });
 
