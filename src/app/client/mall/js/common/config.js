@@ -10,7 +10,7 @@ export const config = {
     cookieOptions: {
       secure: !(mallUtil.isTest || mallUtil.isDev),
       expires: 86400 * 30,
-      domain: location.hostname.replace(/^test\./, ""),
+      domain: location.hostname.replace(/^(test|dev)\./, ""),
       path: "/"
     }
   }
