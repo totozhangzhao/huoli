@@ -106,7 +106,7 @@ gulp.task("clean", function(cb) {
 gulp.task("compress", function() {
   return gulp.src("")
     .pipe(shell([
-      "tar -cvzf ~/Downloads/dest-" + Date.now() + ".tgz " + config.dest,
+      "tar -czf ~/Downloads/dest-" + Date.now() + ".tgz " + config.dest,
       "open ~/Downloads/"
     ]));
 });
