@@ -15,12 +15,18 @@ import * as tplUtil from "app/client/mall/js/lib/mall-tpl.js";
 import BaseView from "app/client/mall/js/common/views/BaseView.js";
 import FooterView from "app/client/mall/js/common/views/footer.js";
 import BuyPanelView from "app/client/mall/js/detail-page/goods-detail/view/payment/payment-panel.js";
+import BaseMoneyView from "app/client/mall/js/common/views/money/base.js";
 import BuyNumModel from "app/client/mall/js/common/models/buy-num-model.js";
 import AddressList from "app/client/mall/js/detail-page/goods-detail/collection/address-list.js";
 import Tab from "com/mobile/widget/button/tab.js";
 import Swipe from "com/mobile/widget/banner-rem/swipe.js";
 import * as mallPromise from "app/client/mall/js/lib/mall-promise.js";
 import * as widget from "app/client/mall/js/lib/common.js";
+import Util from "com/mobile/lib/util/util.js";
+import mainTmpl from "app/client/mall/tpl/detail-page/goods-detail.tpl";
+import privilegeTmpl from "app/client/mall/tpl/detail-page/goods-privilege.tpl";
+import couponTmpl from "app/client/mall/tpl/detail-page/goods-coupon.tpl";
+import moneyBlockTpl from "app/client/mall/tpl/detail-page/goods-detail/money-block.tpl";
 
 const detailLog = widget.initTracker("detail");
 
@@ -97,6 +103,13 @@ const AppView = BaseView.extend({
           }
           index = index !== -1 ? index : 0;
           goods.firstAvailableSpecIndex = index;
+
+          if (this.urlObj.specId !== undefined) {
+            const id = _.findIndex(specList, { goodspecid: Number(this.urlObj.specId) });
+            if (id !== -1) {
+              goods.defaultSpecIndex = id;
+            }
+          }
         } else {
           goods.specs = [];
           if (goods.limit === 0) {
@@ -125,16 +138,14 @@ const AppView = BaseView.extend({
   },
   renderPrivilegePanle(data) {
     const self = this;
-    const tmpl = require("app/client/mall/tpl/detail-page/goods-privilege.tpl");
-    this.$privilegePanel = $(tmpl({ item: data })).hide().appendTo(this.$el);
+    this.$privilegePanel = $(privilegeTmpl({ item: data })).hide().appendTo(this.$el);
     this.$privilegePanel.on("click", () => {
       self.$privilegePanel.hide();
     });
   },
   renderCouponPanel(data) {
     const self = this;
-    const tmpl = require("app/client/mall/tpl/detail-page/goods-coupon.tpl");
-    this.$couponPanel = $(tmpl({ couponList: data })).hide().appendTo(this.$el);
+    this.$couponPanel = $(couponTmpl({ couponList: data })).hide().appendTo(this.$el);
     this.$couponPanel.on("click", () => {
       self.$couponPanel.hide();
     });
@@ -160,12 +171,12 @@ const AppView = BaseView.extend({
     });
   },
   renderGoodsInfo(goods) {
-
-    // View: goods info
-    const mainTmpl = require("app/client/mall/tpl/detail-page/goods-detail.tpl");
-
     goods.tplUtil = tplUtil;
-    this.$el.html(mainTmpl(goods));
+    this.$el.html(mainTmpl({
+      getGoodsTitle: this.getGoodsTitle,
+      goods,
+      model: this.buyNumModel
+    }));
 
     // Tab widget
     new Tab( this.$el.find(".js-tab-wrapper"), this.$el.find(".js-tab-content") );
@@ -211,13 +222,18 @@ const AppView = BaseView.extend({
     }
 
     this.initModel(goods);
-    goods.unitPriceText = this.buyNumModel.getPPriceText(1);
+
     if (goods.relevance) {
       goods.relevance.unitPriceText = this.relevanceModel.getPPriceText(1);
     }
 
     this.renderGoodsInfo(goods);
     this.renderBuyNumView(goods);
+    this.renderMoneyView(goods);
+
+    this.listenTo(this.buyNumModel, "change", this.renderModelChange);
+    this.setRefresh();
+
     if ( this.urlObj.gotoView ) {
       if (this.urlObj.gotoView === "address-confirm") {
         if (goods.type === 3) {
@@ -267,6 +283,7 @@ const AppView = BaseView.extend({
       payNumText: goods.confirm, //goods.money > 0 ? "去支付" : "立即兑换",
       points: goods.points,
       price: goods.money,
+      originalPrice: goods.oriprice,
       avatar: goods.smallimg,
       limitNum: goods.limit,
       limitMessage: goods.limitmsg,
@@ -276,14 +293,16 @@ const AppView = BaseView.extend({
     });
 
     if (goods.specs.length > 0) {
-      const spec = goods.specs[goods.firstAvailableSpecIndex];
+      const spec = goods.specs[goods.defaultSpecIndex || goods.firstAvailableSpecIndex];
+
       this.buyNumModel.set({
         specList: goods.specs,
-        specIndex: goods.firstAvailableSpecIndex,
+        specIndex: goods.defaultSpecIndex || goods.firstAvailableSpecIndex,
         specName: goods.specname,
         payType: spec.paytype,
         points: spec.points,
         price: spec.price,
+        originalPrice: spec.oriprice,
         avatar: spec.img,
         limitNum: spec.limit,
         limitMessage: spec.limitmsg,
@@ -300,6 +319,36 @@ const AppView = BaseView.extend({
         price: goods.relevance.money
       });
     }
+  },
+  renderModelChange(model) {
+    this.renderGoodsTitle(model);
+    if (Util.notHas(model.changed, ["originalPrice"])) {
+      this.moneyView.refresh();
+    } else {
+      this.$el.find(".js-money-block-container").html(moneyBlockTpl({ model }));
+      this.moneyView.setRefresh();
+    }
+  },
+  renderGoodsTitle(model) {
+    const title = this.getGoodsTitle(this.cache.goods, model);
+    this.$goodsTitle.text(title);
+  },
+  getGoodsTitle(goods, model) {
+    if (goods.defaultSpecIndex === void 0) {
+      return goods.title;
+    } else {
+      return `${goods.title}-${model.get("specValueName")}`;
+    }
+  },
+  setRefresh() {
+    this.$goodsTitle = this.$el.find(".js-goods-title");
+    this.moneyView.setRefresh();
+  },
+  renderMoneyView() {
+    this.moneyView = new BaseMoneyView({
+      el: this.el,
+      model: this.buyNumModel,
+    });
   },
   renderBuyNumView() {
     this.payView = new BuyPanelView({

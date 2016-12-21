@@ -5,12 +5,17 @@ const BaseMoneyView = Backbone.View.extend({
   },
 
   setRefresh() {
+    this.$originalPriceView = this.$el.find(".js-original-price");
     this.$unitPriceView = this.$el.find(".js-unit-price");
     this.$totalPriceView = this.$el.find(".js-total-price");
     this.$totalPriceWithOutDiscountView = this.$el.find(".js-total-without-discount");
   },
 
   refresh() {
+    if (this.$originalPriceView.length > 0) {
+      this.$originalPriceView.text(this.model.getOriginalPriceText());
+    }
+
     if (this.$unitPriceView.length > 0) {
       this.$unitPriceView.text(this.model.getPPriceText(1));
     }

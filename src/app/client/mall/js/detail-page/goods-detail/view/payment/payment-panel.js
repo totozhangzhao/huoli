@@ -5,6 +5,7 @@ import {toast} from "com/mobile/widget/hint/hint.js";
 import template from "app/client/mall/tpl/detail-page/goods-detail/payment/payment.tpl";
 import BaseNumView from "app/client/mall/js/common/views/num-operator/base.js";
 import BaseMoneyView from "app/client/mall/js/common/views/money/base.js";
+import Util from "com/mobile/lib/util/util.js";
 
 const PaymentView = Backbone.View.extend({
 
@@ -40,12 +41,6 @@ const PaymentView = Backbone.View.extend({
 
   // 渲染视图
   render(model) {
-    function notHas(obj, keys) {
-      return 0 === keys.reduce((prev, key) => {
-        return prev + obj.hasOwnProperty(key) ? 1 : 0;
-      }, 0);
-    }
-
     const shouldRender = [
       "visible",
       "type",
@@ -53,19 +48,16 @@ const PaymentView = Backbone.View.extend({
       "_t"
     ];
 
-    if (notHas(model.changed, shouldRender)) {
+    if (Util.notHas(model.changed, shouldRender)) {
       this.refresh(model);
     } else {
-      this.renderPanel();
+      this.renderPanel(model);
     }
   },
 
-  renderPanel() {
+  renderPanel(model) {
     // window.console.log("renderPanel");
-    let tplData = this.model.toJSON();
-    tplData.unitPriceText = this.model.getPPriceText(1);
-    tplData.totalPriceText = this.model.getPPriceText();
-    this.$el.html(this.template(tplData));
+    this.$el.html(this.template({ model }));
     this.$el.appendTo(this.model.get("parentDom"));
 
     this.$el.find(".js-goods-pay")
@@ -136,13 +128,12 @@ const PaymentView = Backbone.View.extend({
       payType: spec.paytype,
       points: spec.points,
       price: spec.price,
-      specValueName: spec.spec,
+      originalPrice: spec.oriprice,
+      specValueName: spec.spec, // change:specValueName
       specValueId: spec.goodspecid,
       avatar: spec.img,
       limitNum: spec.limit,
       limitMessage: spec.limitmsg
-    }, {
-      silent: true
     });
 
     let num = this.model.get("number");

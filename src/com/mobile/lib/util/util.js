@@ -29,6 +29,12 @@ exports.isArray = Array.isArray || isType("Array");
 exports.isFunction = isType("Function");
 exports.isUndefined = isType("Undefined");
 
+exports.notHas = function(obj, keys) {
+  return 0 === keys.reduce(function(prev, key) {
+    return prev + obj.hasOwnProperty(key) ? 1 : 0;
+  }, 0);
+};
+
 exports.getMobileSystem = function() {
   var ua = window.navigator.userAgent ||
             window.navigator.vendor ||

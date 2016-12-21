@@ -19,6 +19,7 @@ const BuyNumModel = Backbone.Model.extend({
     limitNum: 99,                // 可购买数量
     limitMessage: "已达数量上限", // 到达可购买数量上限时的提示
     price: 0,                    // 价格单价
+    originalPrice: undefined,    // 原价（只有价格）
     currency: "￥",              // 价格单位
     points: 0,                   // 积分单价
     pointsUnit: "积分",           // 积分单位
@@ -51,6 +52,16 @@ const BuyNumModel = Backbone.Model.extend({
       default:
         result = "";
         break;
+    }
+    return result;
+  },
+
+  // 获取显示的原价文案
+  getOriginalPriceText() {
+    let result = "";
+    let originalPrice = this.get("originalPrice");
+    if (originalPrice) {
+      result = this.get("currency") + Number(originalPrice).toFixed(2);
     }
     return result;
   },
