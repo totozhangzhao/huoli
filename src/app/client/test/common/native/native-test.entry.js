@@ -17,6 +17,8 @@ import * as widget from "app/client/mall/js/lib/common.js";
 // nInvoke("myFunc", {a: 1}, function(err, data) { console.log(err); console.log(data); });
 window.nInvoke = _.bind(NativeAPI.invoke, NativeAPI);
 
+window.cookie = cookie;
+
 // touch status
 (function() {
   $("body")
@@ -104,6 +106,9 @@ var AppView = Backbone.View.extend({
   },
   removeToken: function() {
     cookie.remove("token", config.mall.cookieOptions);
+    cookie.remove("token", _.extend({}, config.mall.cookieOptions, {
+      domain: location.hostname
+    }));
     echo(document.cookie);
   },
   mallTestUrl: function() {
